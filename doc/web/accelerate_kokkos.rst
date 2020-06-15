@@ -57,7 +57,7 @@ KOKKOS_ARCH options.
 **Compile for CPU-only (MPI only, no threading):**
 
 Use a C++11 compatible compiler and set KOKKOS_ARCH variable in
-/src/MAKE/Makefile.kokkos_mpi_only as described above. The do the
+/src/MAKE/Makefile.kokkos_mpi_only as described above. Then do the
 following:
 
 ::

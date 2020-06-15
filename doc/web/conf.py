@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'SPARTA'
-copyright = '2020, JF'
-author = 'JF'
+copyright = '2020'
+author = ''
 
 # The full version, including alpha/beta/rc tags
 release = '7 May 2020'

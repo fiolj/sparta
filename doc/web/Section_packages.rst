@@ -154,8 +154,8 @@ For NVIDIA GPUs using CUDA:
 ::
 
    KOKKOS_DEVICES = Cuda
-   KOKKOS_ARCH = Pascal60,Power8     # P100 hosted by an IBM Power8, etc
-   KOKKOS_ARCH = Kepler37,Power8     # K80 hosted by an IBM Power8, etc 
+   KOKKOS_ARCH = Pascal60,POWER8     # P100 hosted by an IBM Power8, etc
+   KOKKOS_ARCH = Kepler37,POWER8     # K80 hosted by an IBM Power8, etc 
 
 For GPUs, you also need these 2 lines in your Makefile.machine before
 the CC line is defined, in this case for use with OpenMPI mpicxx. The 2
