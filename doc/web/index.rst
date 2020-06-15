@@ -7,9 +7,8 @@
 SPARTA Documentation
 ####################
 
-*************
-Version info:
-*************
+
+**Version info:**
 
 The SPARTA "version" is the date when it was released, such as 3 Mar
 2014. SPARTA is updated continuously. Whenever we fix a bug or add a

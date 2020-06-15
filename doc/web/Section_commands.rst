@@ -196,8 +196,8 @@ commands need only be used if a non-default value is desired.
    Set parameters that need to be defined before the simulation domain,
    particles, grid cells, and surfaces are defined.
 
-   Relevant commands include `dimension <dimension.html>`__,
-   `units <units.html>`__, and `seed <seed.html>`__.
+   Relevant commands include :ref:`command-dimension`
+   :ref:`command-units`, and :ref:`command-seed`.
 
 2. Problem definition
 
@@ -333,10 +333,10 @@ category.
 Fix styles
 ==========
 
-See the `fix <fix.html>`__ command for one-line descriptions of each
+See the :ref:`command-fix` for one-line descriptions of each
 style or click on the style itself for a full description. Some of the
 styles have accelerated versions, which can be used if SPARTA is built
-with the `appropriate accelerated package <Section_accelerate.html>`__.
+with the :ref:`appropriate accelerated package <accelerating>`.
 This is indicated by additional letters in parenthesis: k = KOKKOS.
 
 .. list-table:: 
@@ -365,12 +365,10 @@ This is indicated by additional letters in parenthesis: k = KOKKOS.
 Compute styles
 ==============
 
-See the `compute <compute.html>`__ command for one-line descriptions of
+See the :ref:`command-compute` for one-line descriptions of
 each style or click on the style itself for a full description. Some of
 the styles have accelerated versions, which can be used if SPARTA is
-built with the `appropriate accelerated
-package <Section_accelerate.html>`__. This is indicated by additional
-letters in parenthesis: k = KOKKOS.
+built with the :ref:`appropriate accelerated package <accelerating>`. This is indicated by additional letters in parenthesis: k = KOKKOS.
 
 .. list-table:: 
    :header-rows: 0
@@ -405,11 +403,9 @@ letters in parenthesis: k = KOKKOS.
 Collide styles
 ==============
 
-See the `collide <collide.html>`__ command for details of each style.
+See the :ref:`command-collide for details of each style.
 Some of the styles have accelerated versions, which can be used if
-SPARTA is built with the `appropriate accelerated
-package <Section_accelerate.html>`__. This is indicated by additional
-letters in parenthesis: k = KOKKOS.
+SPARTA is built with the :ref:`appropriate accelerated package <accelerating>`. This is indicated by additional letters in parenthesis: k = KOKKOS.
 
 .. list-table:: 
    :header-rows: 0
@@ -420,11 +416,10 @@ letters in parenthesis: k = KOKKOS.
 Surface collide styles
 ======================
 
-See the `surf_collide <surf_collide.html>`__ command for details of each
-style. Some of the styles have accelerated versions, which can be used
-if SPARTA is built with the `appropriate accelerated
-package <Section_accelerate.html>`__. This is indicated by additional
-letters in parenthesis: k = KOKKOS.
+See the :ref:`command-surf-collide` for details of each style. Some of the
+styles have accelerated versions, which can be used if SPARTA is built
+with the :ref:`appropriate accelerated package <accelerating>`.  This
+is indicated by additional letters in parenthesis: k = KOKKOS.
 
 
 .. list-table:: 
@@ -444,7 +439,7 @@ letters in parenthesis: k = KOKKOS.
 Surface reaction styles
 =======================
 
-See the `surf_react <surf_react.html>`__ command for details of each
+See the :ref:`command-surf-react` for details of each
 style.
 
 .. list-table:: 
