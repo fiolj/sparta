@@ -1,0 +1,122 @@
+:orphan:
+
+.. _command-compute-react-isurf-grid:
+
+################################
+compute react/isurf/grid command
+################################
+
+**Syntax:**
+
+::
+
+   compute ID react/isurf/grid group-ID reaction-ID value1 value2 ... 
+
+-  ID is documented in `compute <compute.html>`__ command
+-  react/isurf/grid = style name of this compute command
+-  group-ID = group ID for which grid cells to perform calculation on
+-  reaction-ID = surface reaction ID which defines surface reactions
+-  zero or more values can be appended
+-  value = *r:s1/s2/s3 ...* or *p:s1/s2/s3 ...*
+
+   ::
+
+        r: or p: = list of reactant species or product species
+        s1,s2,s3 = one or more species IDs, separated by "/" character 
+
+**Examples:**
+
+::
+
+   surf_react air prob air.surf
+   compute 1 react/isurf/grid all air
+   compute 2 react/isurf/grid all air r:N/O/N2/O2 p:N/O/NO 
+
+These commands will dump time averages for each surface element to a
+dump file every 1000 steps:
+
+::
+
+   compute 2 react/isurf/grid all air r:N/O/N2/O2 p:N/O/NO
+   fix 1 ave/grid all 10 100 1000 c_2[*]
+   dump 1 grid all 1000 tmp.surgrid id f_1[*] 
+
+**Description:**
+
+Define a computation that tallies counts of reactions for each grid cell
+containing implicit surface elements in a grid group, based on the
+particles that collide with those elements. Only grid cells elements in
+the grid group specified by *group-ID* are included in the tallying. See
+the `group grid <group.html>`__ command for info on how grid cells can
+be assigned to grid groups. Likewise only grid cells with surface
+elements assigned to the surface reaction model specified by
+*reaction-ID* are included in the tallying.
+
+Implicit surface elements are triangles for 3d simulations and line
+segments for 2d simulations. Unlike explicit surface elements, each
+triangle or line segment is wholly contained within a single grid cell.
+See the `read_isurf <read_isurf.html>`__ command for details.
+
+This command can only be used for simulations with implicit surface
+elements. See the similar `compute
+react/surf <compute_react_surf.html>`__ command for use with simulations
+with explicit surface elements.
+
+Note that when a particle collides with a surface element, it can bounce
+off (possibly as a different species), be captured by the surface
+(vanish), or a 2nd particle can also be emitted.
+
+The doc page for the `surf_react <surf_react.html>`__ command explains
+the different reactions that can occur for each specified style.
+
+If no values are specified each reaction specified by the
+`surf_react <surf_react.html>`__ style is tallied individually for each
+grid cell.
+
+If M values are specified, then M tallies are made for each grid cell,
+one per value. If the value starts with "r:" then any reaction which
+occurs with one (or more) of the listed species as a reactant is counted
+as part of that tally. If the value starts with "p:" then any reaction
+which occurs with one (or more) of the listed species as a product is
+counted as part of that tally. Note that these rules mean that a single
+reaction may be tallied multiple times depending on which values it
+matches.
+
+The results of this compute can be used by different commands in
+different ways. The values for a single timestep can be output by the
+`dump grid <dump.html>`__ command.
+
+The values over many sampling timesteps can be averaged by the `fix
+ave/grid <fix_ave_grid.html>`__ command.
+
+--------------
+
+**Output info:**
+
+This compute calculates a per-grid array, with the number of columns
+either equal to the number of reactions defined by the
+`surf_react <surf_react>`__ style (if no values are specified) or equal
+to M = the # of values specified.
+
+Grid cells not in the specified *group-ID* or whose implicit surfaces
+are not assigned to the specified *reaction-ID* will output zeroes for
+all their values.
+
+The array can be accessed by any command that uses per-grid values from
+a compute as input. See `Section 6.4 <Section_howto.html#howto_4>`__ for
+an overview of SPARTA output options.
+
+The per-grid array values are counts of the number of reactions that
+occurred on surface elements in that grid cell.
+
+--------------
+
+**Restrictions:** none
+
+**Related commands:**
+
+:ref:`command-fix-ave-grid`
+:ref:`dump grid <command-dump>`,
+:ref:`command-compute-react-surf`
+
+**Default:** none
