@@ -9,14 +9,16 @@
 #                               (usually 1,2,3,4,5)
 #          cfgfile = new CFG file
 
-import sys,os
+import sys
+import os
 path = os.environ["SPARTA_PYTHON_TOOLS"]
 sys.path.append(path)
-from dump import dump
 from cfg import cfg
+from dump import dump
 
 if len(sys.argv) != 8:
-  raise StandardError, "Syntax: dump2cfg.py dumpfile Nid Ntype Nx Ny Nz cfgfile"
+  raise Exception("Syntax: dump2cfg.py dumpfile Nid Ntype Nx Ny Nz cfgfile")
+
 
 dumpfile = sys.argv[1]
 nid = int(sys.argv[2])
@@ -26,7 +28,8 @@ ny = int(sys.argv[5])
 nz = int(sys.argv[6])
 cfgfile = sys.argv[7]
 
+
 d = dump(dumpfile)
-d.map(nid,"id",ntype,"type",nx,"x",ny,"y",nz,"z")
+d.map(nid, "id", ntype, "type", nx, "x", ny, "y", nz, "z")
 c = cfg(d)
 c.one(cfgfile)

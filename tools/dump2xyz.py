@@ -9,14 +9,16 @@
 #                               (usually 1,2,3,4,5)
 #          xyzfile = new XYZ file
 
-import sys,os
+import sys
+import os
 path = os.environ["SPARTA_PYTHON_TOOLS"]
 sys.path.append(path)
-from dump import dump
 from xyz import xyz
+from dump import dump
+
 
 if len(sys.argv) != 8:
-  raise StandardError, "Syntax: dump2xyz.py dumpfile Nid Ntype Nx Ny Nz xyzfile"
+  raise Exception("Syntax: dump2xyz.py dumpfile Nid Ntype Nx Ny Nz xyzfile")
 
 dumpfile = sys.argv[1]
 nid = int(sys.argv[2])
@@ -27,6 +29,6 @@ nz = int(sys.argv[6])
 xyzfile = sys.argv[7]
 
 d = dump(dumpfile)
-d.map(nid,"id",ntype,"type",nx,"x",ny,"y",nz,"z")
+d.map(nid, "id", ntype, "type", nx, "x", ny, "y", nz, "z")
 x = xyz(d)
 x.one(xyzfile)

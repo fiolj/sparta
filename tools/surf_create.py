@@ -40,16 +40,18 @@
 
 # NOTE: cannot mix 2d and 3d objects
 
-import sys,os
+import sys
+import os
 path = os.environ["SPARTA_PYTHON_TOOLS"]
 sys.path.append(path)
 from sdata import sdata
 
-# error message
 
+# error message
 def error():
-  print "Syntax: surf_create.py sfile style argsx style args ..."
+  print("Syntax: surf_create.py sfile style argsx style args ...")
   sys.exit()
+
 
 # ---------------------------------------------------------------------
 # main program
@@ -67,47 +69,47 @@ id = "a"
 iarg = 2
 while iarg < narg:
   if args[iarg] == "sphere":
-    if iarg+6 > narg: error()
-    s.sphere(id,float(args[iarg+1]),float(args[iarg+2]),
-             float(args[iarg+3]),float(args[iarg+4]),int(args[iarg+5]))
+    if iarg + 6 > narg: error()
+    s.sphere(id, float(args[iarg + 1]), float(args[iarg + 2]),
+             float(args[iarg + 3]), float(args[iarg + 4]), int(args[iarg + 5]))
     iarg += 6
   elif args[iarg] == "box":
-    if iarg+10 > narg: error()
-    s.box(id,float(args[iarg+1]),float(args[iarg+2]),
-          float(args[iarg+3]),float(args[iarg+4]),
-          float(args[iarg+5]),float(args[iarg+6]),
-          int(args[iarg+7]),int(args[iarg+8]),int(args[iarg+9]))
+    if iarg + 10 > narg: error()
+    s.box(id, float(args[iarg + 1]), float(args[iarg + 2]),
+          float(args[iarg + 3]), float(args[iarg + 4]),
+          float(args[iarg + 5]), float(args[iarg + 6]),
+          int(args[iarg + 7]), int(args[iarg + 8]), int(args[iarg + 9]))
     iarg += 10
   elif args[iarg] == "spikysphere":
-    if iarg+7 > narg: error()
-    s.spikysphere(id,float(args[iarg+1]),float(args[iarg+2]),
-                  float(args[iarg+3]),float(args[iarg+4]),
-                  float(args[iarg+5]),int(args[iarg+6]))
+    if iarg + 7 > narg: error()
+    s.spikysphere(id, float(args[iarg + 1]), float(args[iarg + 2]),
+                  float(args[iarg + 3]), float(args[iarg + 4]),
+                  float(args[iarg + 5]), int(args[iarg + 6]))
     iarg += 7
   elif args[iarg] == "circle":
-    if iarg+5 > narg: error()
-    s.circle(id,float(args[iarg+1]),float(args[iarg+2]),
-             float(args[iarg+3]),int(args[iarg+4]))
+    if iarg + 5 > narg: error()
+    s.circle(id, float(args[iarg + 1]), float(args[iarg + 2]),
+             float(args[iarg + 3]), int(args[iarg + 4]))
     iarg += 5
   elif args[iarg] == "rect":
-    if iarg+7 > narg: error()
-    s.rect(id,float(args[iarg+1]),float(args[iarg+2]),
-           float(args[iarg+3]),float(args[iarg+4]),
-           int(args[iarg+5]),int(args[iarg+6]))
+    if iarg + 7 > narg: error()
+    s.rect(id, float(args[iarg + 1]), float(args[iarg + 2]),
+           float(args[iarg + 3]), float(args[iarg + 4]),
+           int(args[iarg + 5]), int(args[iarg + 6]))
     iarg += 7
   elif args[iarg] == "tri":
-    if iarg+10 > narg: error()
-    s.tri(id,float(args[iarg+1]),float(args[iarg+2]),
-          float(args[iarg+3]),float(args[iarg+4]),
-          float(args[iarg+5]),float(args[iarg+6]),
-          int(args[iarg+7]),int(args[iarg+8]),int(args[iarg+9]))
+    if iarg + 10 > narg: error()
+    s.tri(id, float(args[iarg + 1]), float(args[iarg + 2]),
+          float(args[iarg + 3]), float(args[iarg + 4]),
+          float(args[iarg + 5]), float(args[iarg + 6]),
+          int(args[iarg + 7]), int(args[iarg + 8]), int(args[iarg + 9]))
     iarg += 10
   elif args[iarg] == "spikycircle":
-    if iarg+6 > narg: error()
-    s.spikycircle(ud,float(args[iarg+1]),float(args[iarg+2]),
-                  float(args[iarg+3]),float(args[iarg+4]),nt(args[iarg+5]))
+    if iarg + 6 > narg: error()
+    s.spikycircle(ud, float(args[iarg + 1]), float(args[iarg + 2]),
+                  float(args[iarg + 3]), float(args[iarg + 4]), nt(args[iarg + 5]))
     iarg += 6
   else: error()
   id += "a"
-  
+
 s.write(sfile)

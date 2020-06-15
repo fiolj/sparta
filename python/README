@@ -56,3 +56,9 @@ parallel.
 
 Each script has more documentation in the file that explains how to
 use it and what it is doing.
+
+
+-------------------------------------------------------------------
+
+Note: Python 3 has been implemented.
+      Running in parallel via Pypar has not been tested

@@ -115,3 +115,7 @@ able to type one of the following without getting an error:
 
 >>> import numpy
 >>> import Numeric
+
+------------------------------
+Note: Initial, untested, support for python3 is being incorporated.
+      No modifications to either paraview nor pizza were made yet.	

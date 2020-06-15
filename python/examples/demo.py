@@ -6,13 +6,14 @@
 # Syntax:  demo.py
 #          uses in.demo as SPARTA input script
 
+from sparta import sparta
 import sys
 
 # parse command line
 
 argv = sys.argv
 if len(argv) != 1:
-  print "Syntax: demo.py"
+  print("Syntax: demo.py")
   sys.exit()
 
 me = 0
@@ -21,7 +22,6 @@ me = 0
 #me = pypar.rank()
 #nprocs = pypar.size()
 
-from sparta import sparta
 
 spa = sparta()
 
@@ -29,24 +29,24 @@ spa = sparta()
 
 spa.file("in.demo")
 
-if me == 0: print "\nPython output:"
+if me == 0: print("\nPython output:")
 
-nparticles = spa.extract_global("nplocal",0)
-dt = spa.extract_global("dt",1)
-fnum = spa.extract_global("fnum",1)
-print "Nparticles, dt, fnum =",nparticles,dt,fnum
+nparticles = spa.extract_global("nplocal", 0)
+dt = spa.extract_global("dt", 1)
+fnum = spa.extract_global("fnum", 1)
+print("Nparticles, dt, fnum =", nparticles, dt, fnum)
 
-temp = spa.extract_compute("temp",0,0)
-print "Temperature from compute =",temp
+temp = spa.extract_compute("temp", 0, 0)
+print("Temperature from compute =", temp)
 
-lx = spa.extract_variable("lx",0)
-print "Box-length lx from equal-style variable =",lx
+lx = spa.extract_variable("lx", 0)
+print("Box-length lx from equal-style variable =", lx)
 
-xc = spa.extract_variable("xc",1)
-vy = spa.extract_variable("vy",1)
-print "X coord from particle-style variable =",xc[0],xc[nparticles-1]
-print "Vy component coord from particle-style variable =",vy[0],vy[nparticles-1]
+xc = spa.extract_variable("xc", 1)
+vy = spa.extract_variable("vy", 1)
+print("X coord from particle-style variable =", xc[0], xc[nparticles - 1])
+print("Vy component coord from particle-style variable =", vy[0], vy[nparticles - 1])
 
 # uncomment if running in parallel via Pypar
-#print "Proc %d out of %d procs has" % (me,nprocs), spa
-#pypar.finalize()
+# print "Proc %d out of %d procs has" % (me,nprocs), spa
+# pypar.finalize()
