@@ -85,7 +85,7 @@ documentation for all SPARTA commands.
 
    Section_history
 
-   commands
+..   commands
 
 .. only:: html
 	  
