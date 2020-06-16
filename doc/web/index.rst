@@ -55,9 +55,9 @@ you find errors or omissions in this manual or have suggestions for
 useful information to add, please send an email to the developers so we
 can improve the SPARTA documentation.
 
-Once you are familiar with SPARTA, you may want to bookmark `this
-page <Section_commands.html#comm>`__ at Section_commands.html#comm since
-it gives quick access to documentation for all SPARTA commands.
+Once you are familiar with SPARTA, you may want to bookmark :ref:`this
+page <individual-commands>` since it gives quick access to
+documentation for all SPARTA commands.
 
 .. toctree::
    :maxdepth: 2
@@ -90,10 +90,14 @@ it gives quick access to documentation for all SPARTA commands.
 
    Section_history
 
-   
-****************
-List of Commands
-****************
+   commands
 
-* :ref:`SPARTA commands <genindex>`
+
+.. only:: html
+	  
+	  *************
+	  Command Index
+	  *************
+
+* :ref:`genindex`
 

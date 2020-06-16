@@ -403,7 +403,7 @@ built with the :ref:`appropriate accelerated package <accelerating>`. This is in
 Collide styles
 ==============
 
-See the :ref:`command-collide for details of each style.
+See the :ref:`command-collide` for details of each style.
 Some of the styles have accelerated versions, which can be used if
 SPARTA is built with the :ref:`appropriate accelerated package <accelerating>`. This is indicated by additional letters in parenthesis: k = KOKKOS.
 

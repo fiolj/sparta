@@ -66,7 +66,7 @@ particles. The particles are added at the beginning of the SPARTA
 timestep.
 
 The molecular flux across a grid cell face per unit time is given by
-equation 4.22 of `(Bird94) <#Bird94>`__. The number of particles *M* to
+equation 4.22 of [Bird94]_. The number of particles *M* to
 add on a particular grid cell face is based on this flux and additional
 global, flow, and cell face properties:
 
@@ -249,13 +249,13 @@ command is that both the *press* and *temp* values can be vary spatially
 across the box face, like the other keyword values.
 
 The subsonic pressure boundary condition is uses the method of Fang and
-Liou `(Fang02) <#Fang02>`__ to determine the number of particles to
+Liou [Fang02]_ to determine the number of particles to
 insert in each grid cell on the emitting face(s). They used the method
 of characteristics to calculate the mean properties of the incoming
 molecular flux, so that the prescribed pressure condition is achieved.
 These properties are then applied to calculate the molecular flux across
 a grid cell face per unit time, as given by equation 4.22 of
-`(Bird94) <#Bird94>`__.
+[Bird94]_.
 
 As explained above the input data file can specify both the pressure and
 temperature at the boundary or just the pressure. If specified, the

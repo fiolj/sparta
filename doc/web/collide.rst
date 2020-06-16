@@ -74,7 +74,7 @@ Consider a cell with N particles and a mixture with M groups. Based on
 its species, each particle is assigned to one of the M groups. Each
 unique pair of groups is considered, including each group paired with
 itself. For each pair of groups a value *Nattempt* (see equation 11.3 in
-[Bird94]_) is calcualted which is the number of collisions
+[Bird94]_) is calculated which is the number of collisions
 to attempt. This is a function of N1 and N2 (the number of particles in
 each group), the grid cell volume, and other parameters of the collision
 style.
