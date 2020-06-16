@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: react_modify
+
 .. _command-react-modify:
 
 ####################

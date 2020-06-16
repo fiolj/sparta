@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: compute react/isurf/grid
+
 .. _command-compute-react-isurf-grid:
 
 ################################

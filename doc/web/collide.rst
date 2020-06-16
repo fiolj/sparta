@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: collide
+
 .. _command-collide:
 
 ###############

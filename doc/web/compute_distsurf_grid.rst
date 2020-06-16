@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: compute distsurf/grid
+
 .. _command-compute-distsurf-grid:
 
 #############################

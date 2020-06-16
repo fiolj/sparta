@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: compute
+
 .. _command-compute:
 
 ###############

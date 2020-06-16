@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: bound_modify
+
 .. _command-bound-modify:
 
 ####################

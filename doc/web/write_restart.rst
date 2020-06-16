@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: write_restart
+
 .. _command-write-restart:
 
 #####################

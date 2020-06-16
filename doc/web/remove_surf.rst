@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: remove_surf
+
 .. _command-remove-surf:
 
 ###################

@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: stats_modify
+
 .. _command-stats-modify:
 
 ####################

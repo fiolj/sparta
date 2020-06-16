@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: compute temp
+.. index:: compute temp/kk
+
 .. _command-compute-temp:
 
 ####################

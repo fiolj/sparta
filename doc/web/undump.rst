@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: undump
+
 .. _command-undump:
 
 ##############

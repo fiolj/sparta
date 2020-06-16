@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: uncompute
+
 .. _command-uncompute:
 
 #################

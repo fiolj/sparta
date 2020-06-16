@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: print
+
 .. _command-print:
 
 #############

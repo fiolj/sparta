@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: quit
+
 .. _command-quit:
 
 ############

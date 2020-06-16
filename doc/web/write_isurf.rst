@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: write_isurf
+
 .. _command-write-isurf:
 
 ###################

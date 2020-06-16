@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: read_isurf
+
 .. _command-read-isurf:
 
 ##################

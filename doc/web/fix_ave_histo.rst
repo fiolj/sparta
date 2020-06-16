@@ -1,5 +1,10 @@
 :orphan:
 
+.. index:: fix ave/histo
+.. index:: fix ave/histo/kk
+.. index:: fix ave/histo/weight
+.. index:: fix ave/histo/weight/kk
+
 .. _command-fix-ave-histo:
 
 #####################

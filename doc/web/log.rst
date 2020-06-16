@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: log
+
+
 .. _command-log:
 
 ###########

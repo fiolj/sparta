@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: echo
+
 .. _command-echo:
 
 ############

@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: compute property/grid
+
 .. _command-compute-property-grid:
 
 #############################

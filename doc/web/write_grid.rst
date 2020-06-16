@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: write_grid
+
 .. _command-write-grid:
 
 ##################

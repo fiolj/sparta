@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: create_grid
+
 .. _command-create-grid:
 
 ###################

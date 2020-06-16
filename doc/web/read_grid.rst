@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: read_grid
+
 .. _command-read-grid:
 
 #################

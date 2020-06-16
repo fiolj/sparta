@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: compute boundary
+
 .. _command-compute-boundary:
 
 ########################

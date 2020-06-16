@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: species
+
 .. _command-species:
 
 ###############

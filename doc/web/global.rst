@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: global
+
 .. _command-global:
 
 ##############

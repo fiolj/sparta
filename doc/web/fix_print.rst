@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: fix print
+
 .. _command-fix-print:
 
 #################

@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: variable
+
 .. _command-variable:
 
 ################

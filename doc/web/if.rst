@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: if
+
 .. _command-if:
 
 ##########

@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: compute tvib/grid
+
 .. _command-compute-tvib-grid:
 
 #########################

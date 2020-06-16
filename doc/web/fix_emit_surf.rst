@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: fix emit/surf
+
 .. _command-fix-emit-surf:
 
 #####################

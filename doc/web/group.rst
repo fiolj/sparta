@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: group
+
 .. _command-group:
 
 #############

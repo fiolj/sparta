@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: compute lambda/grid
+.. index:: compute lambda/grid/kk
+
 .. _command-compute-lambda-grid:
 
 ###########################

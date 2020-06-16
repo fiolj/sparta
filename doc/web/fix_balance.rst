@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: fix balance - fix balance/kk
+
 .. _command-fix-balance:
 
 ############################################

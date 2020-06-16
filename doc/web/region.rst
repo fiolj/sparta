@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: region
+
 .. _command-region:
 
 ##############

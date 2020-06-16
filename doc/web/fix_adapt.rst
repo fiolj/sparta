@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: fix adapt
+.. index:: fix adapt/kk
+
 .. _command-fix-adapt:
 
 #################

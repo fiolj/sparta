@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: fix emit/face
+.. index:: fix emit/face/kk
+
 .. _command-fix-emit-face:
 
 #####################

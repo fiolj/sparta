@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: timestep
+
 .. _command-timestep:
 
 ################

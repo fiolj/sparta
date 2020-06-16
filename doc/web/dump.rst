@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: dump
+
 .. _command-dump:
 
 ############

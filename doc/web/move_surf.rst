@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: move_surf
+
 .. _command-move-surf:
 
 #################

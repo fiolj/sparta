@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: compute reduce
+
 .. _command-compute-reduce:
 
 ######################

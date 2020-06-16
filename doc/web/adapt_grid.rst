@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: adapt_grid
+
 .. _command-adapt-grid:
 
 ##################

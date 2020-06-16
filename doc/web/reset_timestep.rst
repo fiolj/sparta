@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: reset_timestep
+
 .. _command-reset-timestep:
 
 ######################

@@ -91,10 +91,9 @@ it gives quick access to documentation for all SPARTA commands.
    Section_history
 
    
-******************
-Indices and tables
-******************
+****************
+List of Commands
+****************
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+* :ref:`SPARTA commands <genindex>`
+

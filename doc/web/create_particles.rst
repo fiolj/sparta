@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: create_particles
+.. index:: create_particles/kk
+
 .. _command-create-particles:
 
 ########################

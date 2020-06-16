@@ -1,5 +1,8 @@
 :orphan:
 
+.. index::  compute surf
+.. index::  compute surf/kk
+
 .. _command-compute-surf:
 
 ######################

@@ -1,5 +1,7 @@
 :orphan: 
 
+.. index:: compute fft/grid
+
 .. _command-compute-fft-grid:
 
 ########################

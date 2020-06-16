@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: surf_modify
+
 .. _command-surf-modify:
 
 ###################

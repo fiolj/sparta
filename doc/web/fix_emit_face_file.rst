@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: fix emit/face/file
+
 .. _command-fix-emit-face-file:
 
 ##########################

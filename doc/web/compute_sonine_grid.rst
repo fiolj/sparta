@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: compute sonine/grid
+.. index:: compute sonine/grid/kk
+
 .. _command-compute-sonine-grid:
 
 ###########################

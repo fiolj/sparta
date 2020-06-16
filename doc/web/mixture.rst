@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: mixture
+
 .. _command-mixture:
 
 ###############

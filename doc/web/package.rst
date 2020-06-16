@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: package
+
 .. _command-package:
 
 ###############

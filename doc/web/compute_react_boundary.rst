@@ -1,4 +1,6 @@
 :orphan:
+
+.. index:: compute react/boundary
    
 .. _command-compute-react-boundary:
 

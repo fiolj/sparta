@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: fix ave/time
+
 .. _command-fix-ave-time:
 
 ####################

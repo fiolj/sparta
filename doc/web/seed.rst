@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: seed
+
 .. _command-seed:
 
 ############

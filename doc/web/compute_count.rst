@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: compute count
+.. index:: compute count/kk
+
 .. _command-compute-count:
 
 #####################

@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: units
+
 .. _command-units:
 
 #############

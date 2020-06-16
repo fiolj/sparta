@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: suffix
+
 .. _command-suffix:
 
 ##############

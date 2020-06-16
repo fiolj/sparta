@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: clear
+
 .. _command-clear:
 
 #############

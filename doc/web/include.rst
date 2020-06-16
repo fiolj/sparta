@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: include
+
 .. _command-include:
 
 ###############

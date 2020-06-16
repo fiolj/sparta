@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: stats_style
+
 .. _command-stats-style:
 
 ###################

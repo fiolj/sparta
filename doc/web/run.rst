@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: run
+
 .. _command-run:
 
 ###########

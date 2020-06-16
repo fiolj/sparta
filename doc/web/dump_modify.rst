@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: dump_modify
+
 .. _command-dump-modify:
 
 ###################

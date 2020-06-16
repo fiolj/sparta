@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: next
+
 .. _command-next:
 
 ############

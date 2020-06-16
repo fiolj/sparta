@@ -1,10 +1,17 @@
 :orphan:
 
+.. index:: compute grid
+.. index:: compute grid/kk
+
 .. _command-compute-grid:
 
-##############################################
-compute grid command - compute grid/kk command
-##############################################
+####################
+compute grid command
+####################
+
+#######################
+compute grid/kk command
+#######################
 
 **Syntax:**
 

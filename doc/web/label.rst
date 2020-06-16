@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: label
+
 .. _command-label:
 
 #############

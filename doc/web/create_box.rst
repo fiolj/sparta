@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: create_box
+
 .. _command-create-box:
 
 ##################

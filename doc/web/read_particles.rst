@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: read_particles
+
 .. _command-read-particles:
 
 ######################

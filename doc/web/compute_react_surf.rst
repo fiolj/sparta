@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: compute react/surf
+
 .. _command-compute-react-surf:
 
 ##########################

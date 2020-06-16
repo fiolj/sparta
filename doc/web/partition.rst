@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: partition
+
 .. _command-partition:
 
 #################

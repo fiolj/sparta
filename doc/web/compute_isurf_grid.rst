@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: compute isurf/grid
+
 .. _command-compute-isurf-grid:
 
 ##########################

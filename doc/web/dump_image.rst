@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: dump image
+.. index:: dump movie
+
 .. _command-dump-image:
 
 ##################

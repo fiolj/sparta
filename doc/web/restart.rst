@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: restart
+
 .. _command-restart:
 
 ###############

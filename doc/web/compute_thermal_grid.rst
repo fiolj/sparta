@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: compute thermal/grid
+.. index:: compute thermal/grid/kk
+
 .. _command-compute-thermal-grid:
 
 ############################

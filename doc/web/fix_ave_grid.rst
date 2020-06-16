@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: fix ave/grid
+.. index:: fix ave/grid/kk
+
 .. _command-fix-ave-grid:
 
 ####################

@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: dimension
+
 .. _command-dimension:
 
 #################

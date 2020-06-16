@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: fix ave/surf
+
 .. _command-fix-ave-surf:
 
 ####################

@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: compute pflux/grid
+.. index:: compute pflux/grid/kk
+
 .. _command-compute-pflux-grid:
 
 ##########################

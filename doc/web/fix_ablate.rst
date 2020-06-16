@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: fix ablate
+
 .. _command-fix-ablate:
 
 ##################

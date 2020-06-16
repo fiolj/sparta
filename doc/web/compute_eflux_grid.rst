@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: compute eflux/grid
+.. index:: compute eflux/grid/kk
+
 .. _command-compute-eflux-grid:
 
 ##########################

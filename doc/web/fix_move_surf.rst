@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: fix move/surf
+.. index:: fix move/surf/kk
+
 .. _command-fix-move-surf:
 
 #####################

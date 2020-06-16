@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: boundary
+
 .. _command-boundary:
 
 ################

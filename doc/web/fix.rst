@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: fix
+
 .. _command-fix:
 
 ###########

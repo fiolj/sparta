@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: fix vibmode
+
 .. _command-fix-vibmode:
 
 ###################

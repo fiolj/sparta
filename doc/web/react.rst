@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: react
+
 .. _command-react:
 
 #############

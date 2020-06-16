@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: scale_particles
+
 .. _command-scale-particles:
 
 #######################

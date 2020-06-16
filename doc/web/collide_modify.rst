@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: collide_modify
+
 .. _command-collide-modify:
 
 ######################

@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: read_restart
+
 .. _command-read-restart:
 
 ####################

@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: balance_grid
+
 .. _command-balance-grid:
 
 ####################

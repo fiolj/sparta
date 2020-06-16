@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: surf_react
+
 .. _command-surf-react:
 
 ##################

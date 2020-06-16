@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: fix ambipolar
+
 .. _command-fix-ambipolar:
 
 #####################

@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: compute ke/particle
+.. index:: compute ke/particle/kk
+
 .. _command-compute-ke-particle:
 
 ###########################

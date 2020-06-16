@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: jump
+
 .. _command-jump:
 
 ############

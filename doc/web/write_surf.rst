@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: write_surf
+
 .. _command-write-surf:
 
 ##################

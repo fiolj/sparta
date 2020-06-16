@@ -1,5 +1,7 @@
 :orphan:
 
+.. index:: shell
+
 .. _command-shell:
 
 #############

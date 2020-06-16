@@ -1,5 +1,8 @@
 :orphan:
 
+.. index:: fix grid/check
+.. index:: fix grid/check/kk
+
 .. _command-fix-grid-check:
 
 ######################
