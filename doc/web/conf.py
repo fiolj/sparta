@@ -84,21 +84,17 @@ html_static_path = ['_static']
 
 # OPTIONS FOR EPUB
 
-epub_publisher = "Juan Fiol"
+epub_publisher = "J.F."
 epub_use_index = True
-epub_cover = ('_static/Squash_pictogram.png', '')
+
 
 # LATEX OPTIONS
 
 latex_elements = {'preamble': r"""
 \usepackage{enumitem}
-\setenumerate[1]{label=\thesection.\arabic*.}
-\setenumerate[2]{label*=\arabic*.}
 
-\usepackage[toc,title,titletoc,page]{appendix}
-
-\hypersetup{pdfborder={0 0 0}, pdftitle={Rules of Squash 2019},
-  pdfsubject={Squash Rules},
+\hypersetup{pdfborder={0 0 0}, pdftitle={SPARTA Manual},
+  pdfsubject={DSMC},
   pdfpagemode={UseOutlines},
   pdfhighlight  =/P,
 }

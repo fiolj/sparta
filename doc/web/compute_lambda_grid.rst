@@ -78,7 +78,8 @@ grid <dump.html>`__ command.
 The formula used to calculate the mean free path (lambda) is given in
 [Bird94]_ as equation 4.65:
 
-|image0|
+.. math::
+   \lambda =  \{\sqrt{2} \pi D_{\rm ref}^2 n (T_{\rm ref}/T)^{\omega - 1/2} \}^{-1}
 
 This is an approximate mean free path for a multi-species mixture,
 suitable for estimating optimal grid cell sizes as explained above. It
@@ -236,5 +237,4 @@ output.
 
 
 
-.. |image0| image:: Eqs/lambda.jpg
 

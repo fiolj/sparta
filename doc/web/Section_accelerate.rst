@@ -105,7 +105,7 @@ Temperature Compute :ref:`command-compute-temp`, namely
 :ref:`compute temp/kk <command-compute-temp>`
 
 To see what accelerate styles are currently available, see Section
-:ref:`individual-commands` of the manual. The doc pages for
+:ref:`commands-individual` of the manual. The doc pages for
 individual commands (e.g. :ref:`command-compute-temp`) also
 list any accelerated variants available for that style.
 
