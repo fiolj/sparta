@@ -63,7 +63,7 @@ lists restrictions on how the command can be used.
 
 --------------
 
-.. _parsing-rules:
+.. _commands-parsing-rules:
 
 *************
 Parsing rules
@@ -236,13 +236,14 @@ commands need only be used if a non-default value is desired.
 
   A simulation is run using the :ref:`command-run`.
 
+.. _commands-category:
 
 ***************************
 Commands listed by category
 ***************************
 
 This section lists many SPARTA commands, grouped by category. The :ref:`next
-section <individual-commands>` lists all commands alphabetically.
+section <commands-individual>` lists all commands alphabetically.
 
 Initialization:
    :ref:`dimension <command-dimension>`, :ref:`package <command-package>`,
@@ -291,16 +292,13 @@ Miscellaneous:
 
 
 
-.. _individual-commands:
+.. _commands-individual:
 
 *******************
 Individual commands
 *******************
 
-This section lists all SPARTA commands alphabetically, with a separate
-listing below of styles within certain commands. The `previous
-section <#cmd_4>`__ lists many of the same commands, grouped by
-category.
+This section lists all SPARTA commands alphabetically, with a separate listing below of styles within certain commands. The :ref:`previous section <commands-category>` lists many of the same commands, grouped by category.
 
 .. container::
 

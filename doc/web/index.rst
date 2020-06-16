@@ -1,8 +1,3 @@
-.. sparta documentation master file, created by
-   sphinx-quickstart on Sat Jun 13 12:40:12 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 ####################
 SPARTA Documentation
 ####################
@@ -56,7 +51,7 @@ useful information to add, please send an email to the developers so we
 can improve the SPARTA documentation.
 
 Once you are familiar with SPARTA, you may want to bookmark :ref:`this
-page <individual-commands>` since it gives quick access to
+page <commands-individual>` since it gives quick access to
 documentation for all SPARTA commands.
 
 .. toctree::
@@ -92,12 +87,11 @@ documentation for all SPARTA commands.
 
    commands
 
-
 .. only:: html
 	  
 	  *************
 	  Command Index
 	  *************
 
-* :ref:`genindex`
+* :ref:`Command index <genindex>`
 

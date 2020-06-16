@@ -152,18 +152,14 @@ surface temperature. The new velocity will have thermal components in
 the direction of the outward surface normal and the plane tangent to the
 surface given by:
 
-|image0|
+.. math::
 
-The *Tsurf* value can be specified as an :ref:`equal-style
-<command-variable>`.  If the value is a variable, it should be
-specified as ``v_name``, where name is the variable name. In this case,
-the variable will be evaluated each timestep, and its value used to
-determine the current surface temperature.
+  u =  \{-ln(R_f)\}^{1/2}/\beta
 
-Equal-style variables can specify formulas with various mathematical
-functions, and include :ref:`command-stats-style` keywords for the
-simulation box parameters and timestep and elapsed time. Thus it is
-easy to specify a time-dependent temperature.
+
+The *Tsurf* value can be specified as an equal-style :ref:`variable <command-variable>`.  If the value is a variable, it should be specified as ``v_name``, where name is the variable name. In this case, the variable will be evaluated each timestep, and its value used to determine the current surface temperature.
+
+Equal-style variables can specify formulas with various mathematical functions, and include :ref:`command-stats-style` keywords for the simulation box parameters and timestep and elapsed time. Thus it is easy to specify a time-dependent temperature.
 
 --------------
 
@@ -178,7 +174,7 @@ energy accommodation values must be specified even for an atomic
 species; however these values are simply ignored.
 
 The theoretical scattering kernel was proposed by Cercignani and Lampis
-`(Cercignani71) <#Cercignani71>`__. In this original model, two
+[Cercignani71]_. In this original model, two
 accommodation coefficients for the normal and tangential directions are
 employed. Each of these quantities can take a value between 0 and 1.
 Specular reflection is achieved by using the values (0,0), while
@@ -187,15 +183,11 @@ distributions is obtained using (1,1). There is smooth variation of both
 the energy and angular distribution for values in between these limits
 leading to lobular distributions similar to those observed in
 experiments. The implementation details of this model within DSMC was
-given by Lord `(Lord90) <#Lord90>`__, along with extension to rotational
+given by Lord [Lord90]_, along with extension to rotational
 and vibrational modes with both continuous and discrete levels
-`(Lord91) <#Lord91>`__.
+[Lord91]_.
 
-The *Tsurf* value can be specified as an equal-style :ref:`variable
-<command-variable>`. If the value is a variable, it should be
-specified as v_name, where name is the variable name. In this case,
-the variable will be evaluated each timestep, and its value used to
-determine the current surface temperature.
+The *Tsurf* value can be specified as an equal-style :ref:`variable <command-variable>`. If the value is a variable, it should be specified as v_name, where name is the variable name. In this case, the variable will be evaluated each timestep, and its value used to determine the current surface temperature.
 
 Equal-style variables can specify formulas with various mathematical
 functions and include :ref:`command-stats-style`
@@ -215,153 +207,85 @@ distribution conisstent with the surface temperture. The new velocity
 will have thermal components in the direction of the outward surface
 normal and the plane tangent to the surface given by:
 
-|image1|
+.. math::
+  u =  \{-ln(R_f)\}^{1/2}/\beta
+
 
 The *Tsurf* value can be specified as an equal-style
-`variable <variable.html>`__. If the value is a variable, it should be
+:ref:`variable <command-variable>`. If the value is a variable, it should be
 specified as v_name, where name is the variable name. In this case, the
 variable will be evaluated each timestep, and its value used to
 determine the current surface temperature.
 
-Equal-style variables can specify formulas with various mathematical
-functions, and include `stats_style <status_style.html>`__ command
-keywords for the simulation box parameters and timestep and elapsed
-time. Thus it is easy to specify a time-dependent temperature.
+Equal-style variables can specify formulas with various mathematical functions, and include :ref:`command-stats-style` keywords for the simulation box parameters and timestep and elapsed time. Thus it is easy to specify a time-dependent temperature.
 
 --------------
 
-The *impuslive* style computes the surface collision model proposed by
-Swaminathan Gopalan *et al.* [SG18]_. The model has 8
-parameters. Within impulsive scattering, two different models are
-available, namely *softsphere* and *tempvar*. The *softsphere* argument
-uses the soft sphere model and has two parameters: *en_ratio* which
-represents the fraction of energy lost during the collision, and
-*eff_mass* specifying the effective mass of the surface atom. The
-*tempvar* argument directly provides the peak value of the scattered
-particle velocity distribution as a linear function of temperature. It
-has two parameters: the linear term *a1* and constant term *a0*. The
-other five parameters *Tsurf*, *var*, *pol_peak*, *pol_pow*, *azi_pow*
-are set for both the models. *Tsurf* is the surface temperature. *var*
-is the variance of the scattered particle velocity distribution.
-*pol_peak* is the peak of the polar angle distribution. *pol_pow* and
-*azi_pow* are the cosine power representing the polar and azimuthal
-angle distribution respectively.
+The *impulsive* style computes the surface collision model proposed by Swaminathan Gopalan *et al.* [SG18]_. The model has 8 parameters.
+Within impulsive scattering, two different models are available, namely *softsphere* and *tempvar*. The *softsphere* argument uses the soft sphere model and has two parameters: *en_ratio* which represents the fraction of energy lost during the collision, and *eff_mass* specifying the effective mass of the surface atom.
+The *tempvar* argument directly provides the peak value of the scattered particle velocity distribution as a linear function of temperature. It has two parameters: the linear term *a1* and constant term *a0*.
+The other five parameters *Tsurf*, *var*, *pol_peak*, *pol_pow*, *azi_pow* are set for both the models. *Tsurf* is the surface temperature. *var* is the variance of the scattered particle velocity distribution.  *pol_peak* is the peak of the polar angle distribution. *pol_pow* and *azi_pow* are the cosine power representing the polar and azimuthal angle distribution respectively.
 
-The *impulsive* model is used to represent the scattering of particles
-having super or hyperthermal translational energies and very low
-internal energies, like in a beam. This type of scattering falls under
-the structural regime, whose scattering physics and distributions are
-very different from the thermal regime. The velocity distribution of the
-impulsive scattering model can be represented using a Gaussian
-distribution with a mean *u0* and a variance *\\alpha* following Rettner
-[Rettner94a]_
+The *impulsive* model is used to represent the scattering of particles having super or hyperthermal translational energies and very low internal energies, like in a beam. This type of scattering falls under the structural regime, whose scattering physics and distributions are very different from the thermal regime. The velocity distribution of the impulsive scattering model can be represented using a Gaussian distribution with a mean *u0* and a variance *\\alpha* following Rettner [Rettner94a]_
 
-|image2|
 
-The variance parameter is directly specified by the user. The value of
-*u0* can be provided directly using the *tempvar* model in which it is
-represented as a linear function of temperature. The linear term *a1*
-and constant term *a0* are given as inputs.
+.. math::
+   f_\text{impulsive}(u) \propto u^{2} \, \exp\left(-\frac{(u-u_0)^{2}}{2\alpha^2}\right) 
 
-|image3|
 
-The *u0* parameter can also be specified by a more physical model such
-as the soft sphere scattering model [Alexander12]_.
-This model uses the parameters *en_ratio*, the fraction of energy lost
-in the collision and *eff_mass*, the effective mass of the surface atom
-to determine the average final energy and then the average final
-velocity *u0*. Within the soft sphere model, the average final velocity
-will vary as a function of the final polar angle.
+The variance parameter is directly specified by the user. The value of *u0* can be provided directly using the *tempvar* model in which it is represented as a linear function of temperature. The linear term *a1* and constant term *a0* are given as inputs.
 
-|image4|
+.. math::
+   \left\langle E_{f} \right\rangle = E_{i} \left(1 - \frac{2\mu}{\left(\mu+1\right)^{2}}\left[1 + \mu \sin^{2}\chi + \frac{E_\text{int}}{E_{i}}\left(\frac{\mu+1}{2\mu}\right) - \cos{\chi}\sqrt{1 - \mu^{2} \sin^{2}\chi - \frac{E_\text{int}}{E_{i}}\left(\mu+1\right)}\right]\right)
 
-Both the polar and azimuthal angular distribution are lobular in
-nature and sharply peaked. These distributions can be represented
-using the cosine power law distribution [Glatzer97]_. The peak of the
-azimuthal distribution remains at zero, while the peak of the polar
-angle distribution is usually higher than the incident angle (away
-from the normal). Hence the peak location (\theta_peak) and cosine
-power (n) of the polar angle distribution and the cosine power (m) of
-the azimuthal angular distribution are taken as input parameters. A
-factor of 2 is present in the azimuthal distribution to ensure the
-function remians positive within the range of the azimuthal angle:
-(-180, 180)
 
-|image5|
+The *u0* parameter can also be specified by a more physical model such as the soft sphere scattering model [Alexander12]_.  This model uses the parameters *en_ratio*, the fraction of energy lost in the collision and *eff_mass*, the effective mass of the surface atom to determine the average final energy and then the average final velocity *u0*. Within the soft sphere model, the average final velocity will vary as a function of the final polar angle.
 
-|image6|
+.. math::
+   u_{0} =  a_{1} \cdot  T + a_{0}   
 
-The internal (rotational and vibrational) energy of an incident molecule
-remains unchanged within the *impulsive* model unless the optional
-keyword *intenergy* is specified (see below).
 
-The *Tsurf* value can be specified as an equal-style :ref:`variable
-<command-variable>`. If the value is a variable, it should be
-specified as v_name, where name is the variable name. In this case,
-the variable will be evaluated each timestep, and its value used to
-determine the current surface temperature.
+Both the polar and azimuthal angular distribution are lobular in nature and sharply peaked. These distributions can be represented using the cosine power law distribution [Glatzer97]_.
+The peak of the azimuthal distribution remains at zero, while the peak of the polar angle distribution is usually higher than the incident angle (away from the normal). Hence the peak location (\theta_peak) and cosine power (n) of the polar angle distribution and the cosine power (m) of the azimuthal angular distribution are taken as input parameters.
+A factor of 2 is present in the azimuthal distribution to ensure the function remians positive within the range of the azimuthal angle: (-180, 180)
 
-Equal-style variables can specify formulas with various mathematical
-functions and include :ref:`command-stats-style` keywords for the
-simulation box parameters and timestep and elapsed time. Thus, it is
-easy to specify a time-dependent temperature.
+.. math::
+   N(\theta) \propto \cos^{n} \left( \theta-\theta_{\text{peak}} \right)
+
+.. math::
+   N(\phi) \propto \cos^{m} \left(\frac{\phi}{2}\right)
+
+
+The internal (rotational and vibrational) energy of an incident molecule remains unchanged within the *impulsive* model unless the optional keyword *intenergy* is specified (see below).
+
+The *Tsurf* value can be specified as an equal-style :ref:`variable <command-variable>`. If the value is a variable, it should be specified as ``v_name``, where name is the variable name. In this case, the variable will be evaluated each timestep, and its value used to determine the current surface temperature.
+
+Equal-style variables can specify formulas with various mathematical functions and include :ref:`command-stats-style` keywords for the simulation box parameters and timestep and elapsed time. Thus, it is easy to specify a time-dependent temperature.
 
 --------------
 
-The *piston* style models a subsonic pressure boundary condition. It
-can only be assigned to the simulation box boundaries via the
-:ref:`command-bound-modify` or to surface elements which are parallel
-to one of the box boundaries (via the :ref:`command-surf-modify`).
+The *piston* style models a subsonic pressure boundary condition. It can only be assigned to the simulation box boundaries via the :ref:`command-bound-modify` or to surface elements which are parallel to one of the box boundaries (via the :ref:`command-surf-modify`).
 
-It treats collisions of particles with the surface as if the surface
-were moving with specified velocity *Vwall* away from the incident
-particle. Thus the "collision" actually occurs later in the timestep
-and the reflected velocity is less than it would be for reflection
-from a stationary surface. This calculation is performed using
-equations 12.30 and 12.31 in [Bird94]_ to compute the reflected
-velocity and final position of the particle. If the particle does not
-return within the timestep to a position inside the simulation box
-(for a boundary surface) or to the same side of the initial surface
-that it started from (for a surface element collision), the particle
-is deleted.  This effectively induces particles at the boundary to
-have a velocity distribution consistent with a subsonic pressure
-boundary condition, as explained in [Bird94]_.
+It treats collisions of particles with the surface as if the surface were moving with specified velocity *Vwall* away from the incident particle. Thus the "collision" actually occurs later in the timestep and the reflected velocity is less than it would be for reflection from a stationary surface.
+This calculation is performed using equations 12.30 and 12.31 in [Bird94]_ to compute the reflected velocity and final position of the particle. If the particle does not return within the timestep to a position inside the simulation box (for a boundary surface) or to the same side of the initial surface that it started from (for a surface element collision), the particle is deleted.  This effectively induces particles at the boundary to have a velocity distribution consistent with a subsonic pressure boundary condition, as explained in [Bird94]_.
 
-*Vwall* should be chosen to correspond to a desired pressure condition
-for the density of particles in the system.
+*Vwall* should be chosen to correspond to a desired pressure condition for the density of particles in the system.
 
 NOTE: give more details on how to do this?
 
-Note that *Vwall* must always be input as a value >= 0.0, meaning the
-surface is moving away from the incident particle. For example, in the
-z-dimension, if the upper box face is assigned *Vwall*, it is moving
-upward. Similarly if the lower box face is assigned *Vwall*, it is
-moving downward.
+Note that *Vwall* must always be input as a value >= 0.0, meaning the surface is moving away from the incident particle. For example, in the z-dimension, if the upper box face is assigned *Vwall*, it is moving upward. Similarly if the lower box face is assigned *Vwall*, it is moving downward.
 
 --------------
 
-The *transparent* style simply allows particles to pass through the
-surface without altering the particle properties.
+The *transparent* style simply allows particles to pass through the surface without altering the particle properties.
 
-This is useful for tallying flow statistics. The surface elements must
-have been flagged as transparent when they were read in, via the
-:ref:`command-read-surf` and its transparent keyword. The
-:ref:`command-compute-surf` will tally fluxes differently for
-transparent surf elements. The :ref:`howto-transparent-surface` doc
-page provides an overview of transparent surfaces. See those doc pages
-for details.
+This is useful for tallying flow statistics. The surface elements must have been flagged as transparent when they were read in, via the :ref:`command-read-surf` and its transparent keyword. The :ref:`command-compute-surf` will tally fluxes differently for transparent surf elements. The :ref:`howto-transparent-surface` doc page provides an overview of transparent surfaces. See those doc pages for details.
 
 --------------
 
 The *vanish* style simply deletes any particle which hits the surface.
 
-This is useful if a surface is defined to be an inflow boundary on the
-simulation domain, e.g. using the :ref:`fix emit/surf
-<command-fix-emit-surf>` command. Using this surface collision model
-will also treat the surface as an outflow boundary. This is similar to
-using the :ref:`command-fix-emit-face` on a
-simulation box face while also setting the face to be an outflow
-boundary via the :ref:`boundary o <command-boundary>` command.
+This is useful if a surface is defined to be an inflow boundary on the simulation domain, e.g. using the :ref:`command-fix-emit-surf`. Using this surface collision model will also treat the surface as an outflow boundary. This is similar to using the :ref:`command-fix-emit-face` on a simulation box face while also setting the face to be an outflow boundary via the :ref:`boundary o <command-boundary>` command.
 
 Note that the :ref:`surf_react global <command-surf-react>` command
 can also be used to delete particles hitting a surface, by setting the
@@ -417,23 +341,34 @@ presents more peaked and lobular distribution [Lord95]_.
 The keywords *barrier*, *bond*, and *initenergy* can only be applied to the *td* style. Due to the nature of the interaction between the products and the surface, the desorption of the products might have an energy barrier. For a surface desorption process, this desorption barrier exists only in the normal direction. Thus, only the products having enough energy (in the normal direction) to overcome the barrier will be able to desorb from the surface. This alters the velocity distribution of the observed products along the surface normal direction and thus leads to the distortion of the speed distribution [Goodman72]_. The angular distributions, which represent the ratio of the normal to the tangential velocities, are also altered as a result of the desorption barrier.
 The angular distributions are peaked more towards the normal and are often described by a cosine power law distribution.
 
-|image7|
+.. math::
+   T_\text{norm} = T_\text{surf}\left(1 + \frac{E_\text{barrier}}{k_{b}}\right).
 
-|image8|
+.. math::
+   f(v) \propto v^{2} \exp\left(-\frac{mv^{2}}{2k_{b}}\left(\frac{\cos^{2}\theta}{T_\text{norm}} + \frac{\sin^{2}\theta}{T_{\text{surf}}}\right)\right) 
+
 
 In addition to the desorption energy barrier, products formed through thermal mechanisms might have energies exceeding those corresponding to the bulk surface temperature. The energy of the local surface environment where the product formation occurs might be greater than the normal surface temperature due to the formation of local hot-spots [Rettner94b]_.
 
 These hot-spots might stem from the dissociation or bond energy of the intermediates or the products. The optional keyword *bond* can be used to account for this scenario. This requires three arguments: the amount of energy (in temperature units) going into the translational, rotational and vibrational mode.
 
-|image9|
+.. math::
+   E_{prod} = k_{b}T_{s} + k_{b}\sigma_2
 
 The higher energy during desorption might also arise due to the energy deposited by high speed of the incoming gas-phase particles. Since the formation of the products is rapid, the product might form and desorb before this high energy dissipates from the local hot-spots [Beckerle90]_. In this case, although the products are in thermal equilibrium with the surroundings, the energies of the products might not depend only on the equilibrium surface temperature, but also on the incoming velocities of the particles. This can be used within SPARTA using the optional keyword *initenergy*. It requires 3 arguments: fraction of the initial translational energy going into the translational, rotational and vibrational modes.
 
-|image10|
+.. math::
+   E_{prod} = k_{b}T_{s} + \sigma_1 E_{in}
+
 
 The keywords *step*, *double*, and *intenergy* can only be applied to the *impulsive* style. In some cases, it is observed that the polar angular distribution on either side of the peak is different. Goodman [Goodman74]_ provided a physical reasoning for the observed faster decay rate in the polar angular distribution away from the normal with the surface assumed to consist of periodic steps of average height H and average periodicity L. The ratio of the height to periodicity is *epsilon* and the correction to the angular distribution is given by
 
-|image11|
+.. math::
+   f_{corr} = \begin{cases}
+   1 - \epsilon \, \tan(\theta_{0}), & \text{if } \tan(\theta_{0}) < \epsilon^{-1} \\
+   0, & \text{otherwise}
+   \end{cases}
+
 
 This optional argument can be accessed using the keyword *step*, and *epsilon* parameter must be specified. Another optional argument to specify the angular distribution of the products is the *double* keyword. In this option, the angular distribution on either sides of the peak are represented by a different cosine power decay. It requires one argument *pol_pow_2*, which describes the distribution between the peak and the surface. The distribution between the surface normal and the peak is described using the parameter *pol_pow*.
 
@@ -443,7 +378,7 @@ The keyword *intenergy* can be used to modify the internal energy of an incident
 
 **Output info:**
 
-All the surface collide models calculate a global vector of length 2.  The values can be used by the :ref:`command-stats-style` and by :ref:`command-variable` that define formulas. The latter means they can be used by any command that uses a variable as input, e.g. the :ref:`command-fix-ave-time`. See :ref: `Section 6.4 <howto-output>`__ for an overview of SPARTA output options.
+All the surface collide models calculate a global vector of length 2.  The values can be used by the :ref:`command-stats-style` and by :ref:`command-variable` that define formulas. The latter means they can be used by any command that uses a variable as input, e.g. the :ref:`command-fix-ave-time`. See :ref:`howto-output` for an overview of SPARTA output options.
 
 The first element of the vector is the count of particles that hit surface elements assigned to this collision model during the current timestep. The second element is the cummulative count of particles that have hit surface elements since the current run began.
 
@@ -502,16 +437,7 @@ If specified with a *kk* suffix, this command can be used no more than twice in 
 
 .. [Goodman74] F. O. Goodman, Determination of characteristic surface vibration temperatures by molecular beam scattering: Application to specular scattering in the H-LiF (001) system, Surface Science, (1974)
 
-.. |image0| image:: Eqs/diffuse_normal.jpg
-.. |image1| image:: Eqs/diffuse_normal.jpg
-.. |image2| image:: Eqs/impulsive_u0.JPG
-.. |image3| image:: Eqs/impulsive_softsphere.JPG
-.. |image4| image:: Eqs/impulsive_tempvar.JPG
-.. |image5| image:: Eqs/impulsive_theta.JPG
-.. |image6| image:: Eqs/impulsive_phi.JPG
-.. |image7| image:: Eqs/td_barrier_Tnorm.JPG
-.. |image8| image:: Eqs/td_barrier_dist.JPG
-.. |image9| image:: Eqs/td_bond.JPG
-.. |image10| image:: Eqs/td_initenergy.JPG
-.. |image11| image:: Eqs/impulsive_step.JPG
+
+
+
 

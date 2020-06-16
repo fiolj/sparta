@@ -1031,7 +1031,7 @@ input script. Defining an index variable as a command-line argument
 overrides any setting for the same index variable in the input script,
 since index variables cannot be re-defined. See the
 :ref:`command-variable` for more info on defining index and
-other kinds of variables and Section :ref:`parsing-rules` for more info on using variables in input scripts.
+other kinds of variables and Section :ref:`commands-parsing-rules` for more info on using variables in input scripts.
 
 .. important:: Currently, the command-line parser looks for arguments that start with "-" to indicate new switches. Thus you cannot specify multiple variable values if any of they start with a "-", e.g. a negative numeric value. It is OK if the first value1 starts with a "-", since it is automatically skipped.
 

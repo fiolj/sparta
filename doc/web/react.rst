@@ -82,7 +82,8 @@ described in detail in [Bird94]_; see chapter 6. The
 required input parameters for each reaction (discussed below) are values
 that permit its effective Arrhenius rate to be calculated, namely
 
-|image0|
+.. math::
+   K(T)  =  A T^b e^{-E_a/kT }
 
 where K(T) is the forward reaction rate, T is the temperature of the
 participating molecules which is a function of their velocities and
@@ -114,13 +115,16 @@ According to the QK model dissociation reactions take place when the
 maximum obtainable vibrational energy after an inelastic energy exchange
 is higher than the dissociation level [Bird09]_.
 
-|image1|
+.. math::
+   int [E_c/(k \Theta_v)] > \Theta_d / \Theta_v
 
 Exchange reactions take place when the vibrational energy after a trial
 energy exchange is above the activation energy of the exchange reaction
 [Gallis10]_.
 
-|image2|
+.. math::
+   i_v > int[E_a/ (k \Theta_v)]
+
 
 A new version of the QK model for exchange reactions has been proposed
 by [Bird11]_. This will be implemented in future releases
@@ -368,7 +372,6 @@ style = none
 
 .. [Gallis10] M. A. Gallis, R. B. Bond, and J. R.Torczynski, "Assessment of Collision-Energy-Based Models for Atmospheric-Species Reactions in Hypersonic Flows", J Thermophysics and Heat Transfer, (2010).
 
-.. |image0| image:: Eqs/arrhenius.jpg
-.. |image1| image:: Eqs/qk_dissociation.jpg
-.. |image2| image:: Eqs/qk_exchange.jpg
+
+
 
