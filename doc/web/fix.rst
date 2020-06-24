@@ -46,9 +46,7 @@ of the same style so long as they have different IDs. A fix can be
 deleted with the :ref:`unfix<command-unfix>` command, after which its ID can
 be re-used.
 
-IMPORTANT NOTE: The :ref:`unfix<command-unfix>` command is the only way to
-turn off a fix; simply specifying a new fix with the same style and a
-different ID will not turn off the first one.
+.. important:: The :ref:`unfix<command-unfix>` command is the only way to turn off a fix; simply specifying a new fix with the same style and a different ID will not turn off the first one.
 
 If you specify a new fix with the same ID and style as an existing fix,
 the old fix is deleted and the new one is created (presumably with new

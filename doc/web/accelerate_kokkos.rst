@@ -41,9 +41,7 @@ compatible with specific hardware.
 
 **Building SPARTA with the KOKKOS package:**
 
-NOTE: Kokkos support within SPARTA must be built with a C++11 compatible
-compiler. This means GCC version 4.7.2 or later, Intel 14.0.4 or later,
-or Clang 3.5.2 or later is required.
+.. note:: Kokkos support within SPARTA must be built with a C++11 compatible compiler. This means GCC version 4.7.2 or later, Intel 14.0.4 or later, or Clang 3.5.2 or later is required.
 
 To build with the KOKKOS package start with the provided Kokkos
 Makefiles in /src/MAKE/. You may need to modify the KOKKOS_ARCH variable
@@ -71,10 +69,7 @@ following:
 
 **Compile for CPU-only (MPI plus OpenMP threading):**
 
-NOTE: To build with Kokkos support for OpenMP threading, your compiler
-must support the OpenMP interface. You should have one or more
-multi-core CPUs so that multiple threads can be launched by each MPI
-task running on a CPU.
+.. note:: To build with Kokkos support for OpenMP threading, your compiler must support the OpenMP interface. You should have one or more multi-core CPUs so that multiple threads can be launched by each MPI task running on a CPU.
 
 Use a C++11 compatible compiler and set KOKKOS_ARCH variable in
 /src/MAKE/Makefile.kokkos_omp as described above. Then do the following:
@@ -97,8 +92,7 @@ Use a C++11 compatible compiler and do the following:
 
 **Compile for CPUs and GPUs (with OpenMPI or MPICH):**
 
-NOTE: To build with Kokkos support for NVIDIA GPUs, NVIDIA CUDA software
-version 7.5 or later must be installed on your system.
+.. note:: To build with Kokkos support for NVIDIA GPUs, NVIDIA CUDA software version 7.5 or later must be installed on your system.
 
 Use a C++11 compatible compiler and set KOKKOS_ARCH variable in
 /src/MAKE/Makefile.kokkos_cuda_mpi for both GPU and CPU as described
@@ -164,13 +158,7 @@ Makefile.kokkos_mpi_only) will give better performance than the OpenMP
 backend (i.e. Makefile.kokkos_omp) because some of the overhead to make
 the code thread-safe is removed.
 
-NOTE: The default for the :ref:`package kokkos<command-package>` command is
-to use "threaded" communication. However, when running on CPUs, it will
-typically be faster to use "classic" non-threaded communication. Use the
-"-pk kokkos" :ref:`command-line switch<start-command-line-options>` to
-change the default :ref:`package kokkos<command-package>` options. See its
-doc page for details and default settings. Experimenting with its
-options can provide a speed-up for specific calculations. For example:
+.. note:: The default for the :ref:`package kokkos<command-package>` command is to use "threaded" communication. However, when running on CPUs, it will typically be faster to use "classic" non-threaded communication. Use the "-pk kokkos" :ref:`command-line switch<start-command-line-options>` to change the default :ref:`package kokkos<command-package>` options. See its doc page for details and default settings. Experimenting with its options can provide a speed-up for specific calculations. For example:
 
 ::
 
@@ -238,24 +226,15 @@ The -np setting of the mpirun command sets the number of MPI tasks/node.
 The "-k on t Nt" command-line switch sets the number of threads/task as
 Nt. The product of these two values should be N, i.e. 256 or 264.
 
-NOTE: The default for the :ref:`package kokkos<command-package>` command is
-to use "threaded" communication. However, when running on KNL, it will
-typically be faster to use "classic" non-threaded communication. Use the
-"-pk kokkos" :ref:`command-line switch<start-command-line-options>` to
-change the default :ref:`package kokkos<command-package>` options. See its
-doc page for details and default settings. Experimenting with its
-options can provide a speed-up for specific calculations. For example:
+.. note:: The default for the :ref:`package kokkos<command-package>` command is to use "threaded" communication. However, when running on KNL, it will typically be faster to use "classic" non-threaded communication. Use the "-pk kokkos" :ref:`command-line switch<start-command-line-options>` to change the default :ref:`package kokkos<command-package>` options. See its doc page for details and default settings. Experimenting with its options can provide a speed-up for specific calculations. For example:
 
-::
+	  ::
 
-   mpirun -np 64 spa_kokkos_phi -k on t 4 -sf kk -pk kokkos comm classic -in in.collide      # non-threaded comm 
+	     mpirun -np 64 spa_kokkos_phi -k on t 4 -sf kk -pk kokkos comm classic -in in.collide      # non-threaded comm 
 
-NOTE: MPI tasks and threads should be bound to cores as described above
-for CPUs.
+.. note:: MPI tasks and threads should be bound to cores as described above for CPUs.
 
-NOTE: To build with Kokkos support for Intel Xeon Phi coprocessors such
-as Knight's Corner (KNC), your system must be configured to use them in
-"native" mode, not "offload" mode.
+.. note:: To build with Kokkos support for Intel Xeon Phi coprocessors such as Knight's Corner (KNC), your system must be configured to use them in "native" mode, not "offload" mode.
 
 **Running on GPUs:**
 
@@ -282,31 +261,19 @@ one or more nodes, each with two GPUs.
    mpirun -np 2 spa_kokkos_cuda_mpi -k on g 2 -sf kk -in in.collide          # 1 node,   2 MPI tasks/node, 2 GPUs/node
    mpirun -np 32 -ppn 2 spa_kokkos_cuda_mpi -k on g 2 -sf kk -in in.collide  # 16 nodes, 2 MPI tasks/node, 2 GPUs/node (32 GPUs total) 
 
-NOTE: The default for the :ref:`package kokkos<command-package>` command is
-to use "parallel" reduction of statistics along with threaded
-communication. However, using "atomic" reduction is typically faster for
-GPUs. Use the "-pk kokkos" :ref:`command-line switch<start-command-line-options>` to change the default :ref:`package kokkos<command-package>` options. See its doc page for details and
-default settings. Experimenting with its options can provide a speed-up
-for specific calculations. For example:
+.. note:: The default for the :ref:`package kokkos<command-package>` command is to use "parallel" reduction of statistics along with threaded communication. However, using "atomic" reduction is typically faster for GPUs. Use the "-pk kokkos" :ref:`command-line switch<start-command-line-options>` to change the default :ref:`package kokkos<command-package>` options.
+	  See its doc page for details and default settings. Experimenting with its options can provide a speed-up for specific calculations. For example:
 
-::
+	  ::
 
-   mpirun -np 2 spa_kokkos_cuda_mpi -k on g 2 -sf kk -pk kokkos reduction atomic -in in.collide      # set reduction = atomic 
+	     mpirun -np 2 spa_kokkos_cuda_mpi -k on g 2 -sf kk -pk kokkos reduction atomic -in in.collide      # set reduction = atomic 
 
-NOTE: Using OpenMP threading and CUDA together is currently not possible
-with the SPARTA KOKKOS package.
+.. note:: Using OpenMP threading and CUDA together is currently not possible with the SPARTA KOKKOS package.
 
-NOTE: For good performance of the KOKKOS package on GPUs, you must have
-Kepler generation GPUs (or later). The Kokkos library exploits texture
-cache options not supported by Telsa generation GPUs (or older).
+.. note:: For good performance of the KOKKOS package on GPUs, you must have Kepler generation GPUs (or later). The Kokkos library exploits texture cache options not supported by Telsa generation GPUs (or older).
 
-NOTE: When using a GPU, you will achieve the best performance if your
-input script does not use fix or compute styles which are not yet
-Kokkos-enabled. This allows data to stay on the GPU for multiple
-timesteps, without being copied back to the host CPU. Invoking a
-non-Kokkos fix or compute, or performing I/O for :ref:`stat<command-stats>` or
-:ref:`dump<command-dump>` output will cause data to be copied back to the CPU
-incurring a performance penalty.
+.. note:: When using a GPU, you will achieve the best performance if your input script does not use fix or compute styles which are not yet Kokkos-enabled. This allows data to stay on the GPU for multiple timesteps, without being copied back to the host CPU.
+	  Invoking a non-Kokkos fix or compute, or performing I/O for :ref:`stat<command-stats>` or :ref:`dump<command-dump>` output will cause data to be copied back to the CPU incurring a performance penalty.
 
 **Run with the KOKKOS package by editing an input script:**
 

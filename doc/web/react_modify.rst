@@ -60,10 +60,7 @@ boosted by a factor of N, making it N times more likely to occur.
 The smallest value *rboost* can be set to is 1.0, which effectively
 applies no boost factor.
 
-IMPORTANT NOTE: Setting *rboost* too large could meant the probability
-of a recombination reaction becomes > 1.0, when it is does occur. SPARTA
-does not check for this, so you should estimate the largest boost factor
-that is safe to use for your model.
+.. important:: Setting *rboost* too large could meant the probability of a recombination reaction becomes > 1.0, when it is does occur. SPARTA does not check for this, so you should estimate the largest boost factor that is safe to use for your model.
 
 --------------
 

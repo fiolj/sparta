@@ -66,14 +66,7 @@ used, else the *int* or *float* setting (if specified) is used, else the
 setting is used. A setting of *none* clears all previous settings,
 reverting all values to their default format.
 
-NOTE: The stats output values *step* and *atoms* are stored internally
-as 8-byte signed integers, rather than the usual 4-byte signed integers.
-When specifying the *format int* option you can use a "%d"-style format
-identifier in the format string and SPARTA will convert this to the
-corresponding 8-byte form when it is applied to those keywords. However,
-when specifying the *line* option or *format M string* option for *step*
-and *natoms*, you should specify a format string appropriate for an
-8-byte signed integer, e.g. one with "%ld".
+.. note:: The stats output values *step* and *atoms* are stored internally as 8-byte signed integers, rather than the usual 4-byte signed integers.  When specifying the *format int* option you can use a "%d"-style format identifier in the format string and SPARTA will convert this to the corresponding 8-byte form when it is applied to those keywords. However, when specifying the *line* option or *format M string* option for *step* and *natoms*, you should specify a format string appropriate for an 8-byte signed integer, e.g. one with "%ld".
 
 The *every* keyword allows a variable to be specified which will
 determine the timesteps on which statistical output is generated. It

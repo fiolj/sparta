@@ -118,12 +118,7 @@ as in the 2nd example, or it can be a formula as in the 3rd example. The
 Note that the same string can generate different values when it is
 evaluated at different times during a simulation.
 
-IMPORTANT NOTE: When an input script line is encountered that defines a
-variable of style *equal* or *particle* or *grid* that contains a
-formula, the formula is NOT immediately evaluated and the result stored.
-See the discussion below about "Immediate Evaluation of Variables" if
-you want to do this. This is also true of the *format* style variable
-since it evaluates another variable when it is invoked.
+.. important:: When an input script line is encountered that defines a variable of style *equal* or *particle* or *grid* that contains a formula, the formula is NOT immediately evaluated and the result stored.  See the discussion below about "Immediate Evaluation of Variables" if you want to do this. This is also true of the *format* style variable since it evaluates another variable when it is invoked.
 
 Variables of style *equal* and *particle* and *grid* can be used as
 inputs to various other commands which evaluate their formulas as
@@ -136,14 +131,7 @@ equal-style variable as an argument, can also use an internal-style
 variable. This means that when the command evaluates the variable, it
 will use the value set (internally) by another command.
 
-IMPORTANT NOTE: When a variable command is encountered in the input
-script and the variable name has already been specified, the command is
-ignored. This means variables can NOT be re-defined in an input script
-(with 2 exceptions, read further). This is to allow an input script to
-be processed multiple times without resetting the variables; see the
-:ref:`jump<command-jump>` or :ref:`include<command-include>` commands. It also
-means that using the :ref:`command-line switch<start-command-line-options>` -var will override a
-corresponding index variable setting in the input script.
+.. important:: When a variable command is encountered in the input script and the variable name has already been specified, the command is ignored. This means variables can NOT be re-defined in an input script (with 2 exceptions, read further). This is to allow an input script to be processed multiple times without resetting the variables; see the :ref:`jump<command-jump>` or :ref:`include<command-include>` commands. It also means that using the :ref:`command-line switch<start-command-line-options>` -var will override a corresponding index variable setting in the input script.
 
 There are two exceptions to this rule. First, variables of style
 *string*, *getenv*, *internal*, *equal*, and *particle* ARE redefined
@@ -416,11 +404,7 @@ the lowest precedence. Parenthesis can be used to group one or more
 portions of a formula and/or enforce a different order of evaluation
 than what would occur with the default precedence.
 
-IMPORTANT NOTE: Because a unary minus is higher precedence than
-exponentiation, the formula "-2^2" will evaluate to 4, not -4. This
-convention is compatible with some programming languages, but not
-others. As mentioned, this behavior can be easily overridden with
-parenthesis; the formula "-(2^2)" will evaluate to -4.
+.. important:: Because a unary minus is higher precedence than exponentiation, the formula "-2^2" will evaluate to 4, not -4. This convention is compatible with some programming languages, but not others. As mentioned, this behavior can be easily overridden with parenthesis; the formula "-(2^2)" will evaluate to -4.
 
 The 6 relational operators return either a 1.0 or 0.0 depending on
 whether the relationship between x and y is TRUE or FALSE. For example
@@ -473,11 +457,7 @@ effectively generates a different random number for each particle or
 grid cell being looped over in the particle-style or grid-style
 variable.
 
-IMPORTANT NOTE: Internally, there is just one random number generator
-for all equal-style variables and one for all particle-style and
-grid-style variables. If you define multiple variables (of each style)
-which use the random() or normal() math functions, then the internal
-random number generators will only be initialized once.
+.. important:: Internally, there is just one random number generator for all equal-style variables and one for all particle-style and grid-style variables. If you define multiple variables (of each style) which use the random() or normal() math functions, then the internal random number generators will only be initialized once.
 
 The ceil(), floor(), and round() functions are those in the C math
 library. Ceil() is the smallest integer not less than its argument.
@@ -497,9 +477,7 @@ can span multiple runs, using the *start* and *stop* keywords of the
 :ref:`run<command-run>` command. See the :ref:`run<command-run>` command for
 details of how to do this.
 
-IMPORTANT NOTE: Currently, the run command does not currently support
-the start/stop keywords. In the formula above startstep = 0 and stopstep
-= the number of timesteps being performed by the run.
+.. important:: Currently, the run command does not currently support the start/stop keywords. In the formula above startstep = 0 and stopstep = the number of timesteps being performed by the run.
 
 The stagger(x,y) function uses the current timestep to generate a new
 timestep. X,y > 0 and x > y are required. The generated timesteps

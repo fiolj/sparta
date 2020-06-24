@@ -129,14 +129,7 @@ styles and :ref:`add them to SPARTA<modify>`. See the
 discussion above for how I can be specified with a wildcard asterisk to
 effectively specify multiple values.
 
-IMPORTANT NOTE: A compute which generates per-surf quantities cannot be
-used as input. This is because its values have not yet been combined
-across processors to sum the contributions from all processors whose
-particles collide with the same surface element. The combining is
-performed by the :ref:`fix ave/surf<command-fix-ave-surf>` command, at each
-of its *Nfreq* timesteps. Thus to use this compute on per-surf values,
-specify a fix ID for a :ref:`fix ave/surf<command-fix-ave-surf>` and insure
-the fix outputs its values when they are needed.
+.. important:: A compute which generates per-surf quantities cannot be used as input. This is because its values have not yet been combined across processors to sum the contributions from all processors whose particles collide with the same surface element. The combining is performed by the :ref:`fix ave/surf<command-fix-ave-surf>` command, at each of its *Nfreq* timesteps. Thus to use this compute on per-surf values, specify a fix ID for a :ref:`fix ave/surf<command-fix-ave-surf>` and insure the fix outputs its values when they are needed.
 
 If a value begins with ``f_``, a fix ID must follow which has been
 previously defined in the input script. Fixes can generate per-particle

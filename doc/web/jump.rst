@@ -39,29 +39,24 @@ chain from file to file or back to the original file.
 If the word "SELF" is used for the filename, then the current input
 script is re-opened and read again.
 
-IMPORTANT NOTE: The SELF option is not guaranteed to work when the
-current input script is being read through stdin (standard input), e.g.
+.. important:: The SELF option is not guaranteed to work when the current input script is being read through stdin (standard input), e.g.
 
-::
+	       ::
 
-   spa_g++ < in.script 
+		  spa_g++ < in.script 
 
-since the SELF option invokes the C-library rewind() call, which may not
-be supported for stdin on some systems or by some MPI implementations.
-This can be worked around by using the :ref:`-in command-line argument<start-command-line-options>`, e.g.
+	       since the SELF option invokes the C-library rewind() call, which may not be supported for stdin on some systems or by some MPI implementations.
+	       This can be worked around by using the :ref:`-in command-line argument<start-command-line-options>`, e.g.
 
-::
+	       ::
 
-   spa_g++ -in in.script 
+		  spa_g++ -in in.script 
 
-or by using the :ref:`-var command-line argument<start-command-line-options>` to pass the script name as a
-variable to the input script. In the latter case, a
-:ref:`variable<command-variable>` called "fname" could be used in place of
-SELF, e.g.
+	       or by using the :ref:`-var command-line argument<start-command-line-options>` to pass the script name as a variable to the input script. In the latter case, a :ref:`variable<command-variable>` called "fname" could be used in place of SELF, e.g.
 
-::
+	       ::
 
-   spa_g++ -var fname in.script < in.script 
+		  spa_g++ -var fname in.script < in.script 
 
 The 2nd argument to the jump command is optional. If specified, it is
 treated as a label and the new file is scanned (without executing

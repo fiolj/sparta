@@ -81,13 +81,8 @@ the round-robin assignment scheme for grids with multiple levels
 (described below), will produce dispersed assignments of child cells to
 each processor.
 
-IMPORTANT NOTE: See :ref:`Section 6.8<howto-grids>` of the
-manual for an explanation of clumped and dispersed grid cell assignments
-and their relative performance trade-offs. The
-:ref:`balance_grid<command-balance-grid>` command can be used after the grid
-is created, to assign child cells to processors in different ways. The
-"fix balance" command can be used to re-assign them in a load-balanced
-manner periodically during a running simulation.
+.. important:: See :ref:`Section 6.8<howto-grids>` of the manual for an explanation of clumped and dispersed grid cell assignments and their relative performance trade-offs.
+	       The :ref:`balance_grid<command-balance-grid>` command can be used after the grid is created, to assign child cells to processors in different ways. The "fix balance" command can be used to re-assign them in a load-balanced manner periodically during a running simulation.
 
 --------------
 

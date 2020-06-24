@@ -61,10 +61,7 @@ discussed below, and a random number is used to decide which reaction
 all possible reactions is <= 1.0, which should normally be the case if
 reasonable reaction coefficients are defined.
 
-IMPORTANT NOTE: A surface reaction model can not be specified for
-surfaces whose surface collision style does not support reactions.
-Currently this is only the *vanish* collision style. See the
-:ref:`surf_collide<command-surf-collide>` doc page for details.
+.. important:: A surface reaction model can not be specified for surfaces whose surface collision style does not support reactions.  Currently this is only the *vanish* collision style. See the :ref:`surf_collide<command-surf-collide>` doc page for details.
 
 --------------
 

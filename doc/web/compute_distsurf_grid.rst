@@ -83,7 +83,7 @@ box). The first adapt_grid command uses a threshold distance value of
 a threshold distance value of 0.1 to create some of the grid cells
 closer to the surface a second time.
 
-NOTE: include pic
+.. note:: include pic
 
 Here is an example of how to use this compute with two successive
 "adapt_grid" commands. The first refines once for grid cells within a

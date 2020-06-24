@@ -137,11 +137,7 @@ timesteps, and then dividing by the number of sampling steps. However
 for the current values listed below, the two normalization methods are
 the same.
 
-NOTE: If particle weighting is enabled via the :ref:`global weight<command-global>` command, then all of the values below are scaled
-by the weight assigned to the grid cell in which the particle collision
-with the surface element occurs. The only exception is the the *n*
-value, which is NOT scaled by the weight; it is a simple count of
-particle collisions with the surface element.
+.. note:: If particle weighting is enabled via the :ref:`global weight<command-global>` command, then all of the values below are scaled by the weight assigned to the grid cell in which the particle collision with the surface element occurs. The only exception is the the *n* value, which is NOT scaled by the weight; it is a simple count of particle collisions with the surface element.
 
 --------------
 

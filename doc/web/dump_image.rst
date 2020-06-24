@@ -506,7 +506,7 @@ orthographic rendering with no persepctive. A *pfactor* value between
 0.0 and 1.0 will introduce more perspective. A *pfactor* value > 1 will
 create a highly skewed image with a large amount of perspective.
 
-IMPORTANT NOTE: The *persp* keyword is not yet supported as an option.
+.. important:: The *persp* keyword is not yet supported as an option.
 
 --------------
 

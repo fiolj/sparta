@@ -89,12 +89,7 @@ The *union* style creates a region consisting of the volume of all the
 listed regions combined. The *intersect* style creates a region
 consisting of the volume that is common to all the listed regions.
 
-IMPORTANT NOTE: Regions in SPARTA are always 3d geometric objects,
-regardless of whether the :ref:`dimension<command-dimension>` of the
-simulation 2d or 3d. Thus when using regions in a 2d simulation, for
-example, you should be careful to define the region so that its
-intersection with the 2d x-y plane of the simulation has the 2d
-geometric extent you want.
+.. important:: Regions in SPARTA are always 3d geometric objects, regardless of whether the :ref:`dimension<command-dimension>` of the simulation 2d or 3d. Thus when using regions in a 2d simulation, for example, you should be careful to define the region so that its intersection with the 2d x-y plane of the simulation has the 2d geometric extent you want.
 
 The *side* keyword determines whether the region is considered to be
 inside or outside of the specified geometry. Using this keyword in

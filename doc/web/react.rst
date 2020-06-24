@@ -317,8 +317,7 @@ Ambipolar recombination reactions must be in the following order:
 
    A+ + e -> A 
 
-IMPORTANT NOTE: Ambipolar recombination reactions are not yet supported
-in SPARTA.
+.. important:: Ambipolar recombination reactions are not yet supported in SPARTA.
 
 --------------
 

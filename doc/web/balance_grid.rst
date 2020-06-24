@@ -93,9 +93,7 @@ processor's cells will be geometrically compact. The *stride* and
 *random* and *proc* styles will produce dispersed assignments of child
 cells to each processor.
 
-IMPORTANT NOTE: See :ref:`Section 6.8<howto-grids>` of the
-manual for an explanation of clumped and dispersed grid cell assignments
-and their relative performance trade-offs.
+.. important:: See :ref:`Section 6.8<howto-grids>` of the manual for an explanation of clumped and dispersed grid cell assignments and their relative performance trade-offs.
 
 --------------
 
