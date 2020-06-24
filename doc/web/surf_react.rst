@@ -2,11 +2,14 @@
 
 .. index:: surf_react
 
+
+
 .. _command-surf-react:
 
 ##################
 surf_react command
 ##################
+
 
 **Syntax:**
 
@@ -39,11 +42,10 @@ Define a model for surface chemistry reactions to perform when particles
 collide with surface elements or the global boundaries of the simulation
 box. One or more models can be defined and assigned to different
 surfaces or simulation box boundaries via the
-`surf_modify <surf_modify.html>`__ or
-`bound_modify <bound_modify.html>`__ commands. See `Section
-6.9 <Section_howto.html#howto_9>`__ for more details of how SPARTA
+:ref:`surf_modify<command-surf-modify>` or
+:ref:`bound_modify<command-bound-modify>` commands. See :ref:`Section 6.9<howto-surfaces>` for more details of how SPARTA
 defines surfaces as collections of geometric elements, triangles in 3d
-and line segments in 2d. Also see the `react <react.html>`__ command for
+and line segments in 2d. Also see the :ref:`react<command-react>` command for
 specification of a gas-phase chemistry reaction model.
 
 The ID for a surface reaction model is used to identify it in other
@@ -62,7 +64,7 @@ reasonable reaction coefficients are defined.
 IMPORTANT NOTE: A surface reaction model can not be specified for
 surfaces whose surface collision style does not support reactions.
 Currently this is only the *vanish* collision style. See the
-`surf_collide <surf_collide.html>`__ doc page for details.
+:ref:`surf_collide<command-surf-collide>` doc page for details.
 
 --------------
 
@@ -78,14 +80,14 @@ collision occurs. If it does, the particle is deleted. The second is the
 probablity that a "creation" reaction occurs, which clones the particle,
 so that one particle becomes two. The two particles leave the surface
 according to whatever surface collision model is defined by the
-`surf_collide <surf_collide.html>`__ command, and is assigned to that
-surface/boundary by the `surf_modify collide <surf_modify.html>`__
+:ref:`surf_collide<command-surf-collide>` command, and is assigned to that
+surface/boundary by the :ref:`surf_modify collide<command-surf-modify>`
 command.
 
 The sum of *pdelete* and *pcreate* must be <= 1.0.
 
 Note that if you simply wish to delete all particles which hit the
-surface, you can use the `surf_collide vanish <surf_collide.html>`__
+surface, you can use the :ref:`surf_collide vanish<command-surf-collide>`
 command, which is simpler.
 
 --------------
@@ -93,11 +95,11 @@ command, which is simpler.
 For the *prob* style, a file is specified which contains a list of
 surface chemical reactions, with their associated parameters. The
 reactions are read into SPARTA and stored in a list. Each time a
-simulation is run via the `run <run.html>`__ command, the list is
+simulation is run via the :ref:`run<command-run>` command, the list is
 scanned. Only reactions for which all the reactants and all the products
 are currently defined as species-IDs will be active for the simulation.
 Thus the file can contain more reactions than are used in a particular
-simulation. See the `species <species.html>`__ command for how species
+simulation. See the :ref:`species<command-species>` command for how species
 IDs are defined. This style thus defines N reactions, where N is the
 number of reactions listed in the specified file.
 
@@ -117,8 +119,8 @@ separated by whitespace in the following format
 
 The first line is a text-based description of a single reaction. R1 is a
 single reactant for the particle that collides with the
-surface/boundary, listed as a `species <species.html>`__ IDs. P1 and P2
-are one or two products, also listed as `species <species.html>`__ IDs.
+surface/boundary, listed as a :ref:`species<command-species>` IDs. P1 and P2
+are one or two products, also listed as :ref:`species<command-species>` IDs.
 The number of reactants is always 1. The number of allowed products
 depends on the reaction type, as discussed below. Individual reactants
 and products must be separated by whitespace and a "+" sign. The
@@ -161,8 +163,7 @@ For S = Surface style, there is a single coefficient:
 
 --------------
 
-If the ambipolar approximation is being used, via the `fix
-ambipolar <fix_ambipolar.hmtl>`__ command, then reactions which involve
+If the ambipolar approximation is being used, via the :ref:`command-fix-ambipolar`, then reactions which involve
 either ambipolar ions or the ambipolar electron have more restricitve
 rules about the ordering of reactants and products, than those described
 in the preceeding section for the *prob* style.
@@ -185,11 +186,10 @@ products must be specified in this order.
 **Output info:**
 
 All the surface reaction models calculate a global vector of values. The
-values can be used by the `stats_style <stats_style.html>`__ command and
-by `variables <variable.html>`__ that define formulas. The latter means
+values can be used by the :ref:`stats_style<command-stats-style>` command and
+by :ref:`variables<command-variable>` that define formulas. The latter means
 they can be used by any command that uses a variable as input, e.g. "the
-`fix ave/time <fix_ave_time.html>`__ command. See `Section
-4.4 <Section_howto.html#howto_4>`__ for an overview of SPARTA output
+:ref:`fix ave/time<command-fix-ave-time>` command. See :ref:`Section 4.4<howto-output>` for an overview of SPARTA output
 options.
 
 The *global* and *prob* styles each compute a vector of length 2 +

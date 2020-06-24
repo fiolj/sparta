@@ -3,15 +3,28 @@
 .. index:: compute lambda/grid
 .. index:: compute lambda/grid/kk
 
+
+
+
+
 .. _command-compute-lambda-grid:
 
 ###########################
 compute lambda/grid command
 ###########################
 
+
+
+
+
+
+.. _command-compute-lambda-grid-compute-lambdagridkk:
+
 ##############################
 compute lambda/grid/kk command
 ##############################
+
+
 
 **Syntax:**
 
@@ -19,7 +32,7 @@ compute lambda/grid/kk command
 
    compute ID lambda/grid nrho temp species extra 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  lambda/grid = style name of this compute command
 -  nrho = compute or fix column for number density, prefaced by ``c_`` or
    ``f_``
@@ -59,19 +72,17 @@ molecular collisions for each grid cell, based on the particles in that
 cell. Optionally, a Knudsen number for each cell can also be calculated,
 which is the mean free path divided by the cell size. These quantities
 can be useful for estimating the optimal grid cell size when adapting
-the grid, e.g. via the `adapt_grid <adapt_grid.html>`__ or `fix
-adapt/grid <fix_adapt_grid.html>`__ commands.
+the grid, e.g. via the :ref:`adapt_grid<command-adapt-grid>` or :ref:`fix adapt/grid<command-fix-adapt>` commands.
 
 Unlike other computes that calculate per grid cell values, this compute
 does not take a "group-ID" for a grid cell group as an argument, nor a
-particle `mixture <mixture.html>`__ ID as an argument. This is because
+particle :ref:`mixture<command-mixture>` ID as an argument. This is because
 it uses the number density and temperature calculated by other computes
 or fixes as input, and those computes or fixes use grid group IDs or
 mixture IDs as part of their computations.
 
 The results of this compute can be used by different commands in
-different ways. For example, the values can be output by the `dump
-grid <dump.html>`__ command.
+different ways. For example, the values can be output by the :ref:`dump grid<command-dump>` command.
 
 --------------
 
@@ -87,9 +98,9 @@ is a simplied version of formulas 4.76 and 4.77 from the same reference.
 
 Dref and Tref and omega are collision properties for a reference species
 in the flow. The reference species is specified by the *species*
-argument. It must be a species defined by the `species <species.html>`__
+argument. It must be a species defined by the :ref:`species<command-species>`
 command and listed in the file of per-species collision properties read
-in by the `collide <collide.html>`__ command.
+in by the :ref:`collide<command-collide>` command.
 
 Specifically, Dref is the diameter of molecules of the species, Tref is
 the reference temperature, and omega is the viscosity
@@ -117,20 +128,19 @@ case if the reference species defines omega = 1/2. In that case, the
 Note that if the value of *n* is 0.0 for a grid cell, its mean-free-path
 will be set to 1.0e20 (infinite length).
 
-The `compute_grid <compute_grid.html>`__ command can calculate a number
+The :ref:`compute_grid<command-compute-grid>` command can calculate a number
 density, using its *nrho* value. It can also calculate a temperature
 using its *temp* value. Note that this temperature is inferred from the
 translational kinetic energy of the particles, which is only appopriate
 for a mean free path calculation for systems with zero or small
 streaming velocities. For systems with streaming flow, an appropriate
-temperature can be calculated by the `compute
-thermal/grid <compute_thermal_grid.html>`__ command. The formulas on its
+temperature can be calculated by the :ref:`compute thermal/grid<command-compute-thermal-grid>` command. The formulas on its
 doc page show that the the center-of-mass velocity from the particles in
 each grid cell is subtracted from each particle's velocity to yield a
 translational thermal velocity, from which a thermal temperature is
 calculated.
 
-The `fix ave/grid <fix_ave_grid.html>`__ command can calculate the same
+The :ref:`fix ave/grid<command-fix-ave-grid>` command can calculate the same
 values in a time-averaged sense, assuming it uses these same computes as
 input. Using this fix as input to this compute will thus yield less
 noisy values, due to the time averaging.
@@ -138,14 +148,14 @@ noisy values, due to the time averaging.
 Note that the compute or fix (via the compute(s) it uses as input) can
 perform its number density or temperature calculation for a subset of
 the particles based on the "mixture" it uses. See the
-`mixture <mixture.html>`__ command for how a set of species can be
+:ref:`mixture<command-mixture>` command for how a set of species can be
 partitioned into groups.
 
-IMPORTANT NOTE: If the ID of a `fix ave/grid <fix_ave_grid.html>`__
+IMPORTANT NOTE: If the ID of a :ref:`fix ave/grid<command-fix-ave-grid>`
 command is used as the *nrho* or *temp* argument, it only produces
 output on timesteps that are multiples of its *Nfreq* argument. Thus
 this compute can only be invoked on those timesteps. For example, if a
-`dump grid <dump.html>`__ command invokes this compute to write values
+:ref:`dump grid<command-dump>` command invokes this compute to write values
 to a dump file, it must do so on timesteps that are multiples of
 *Nfreq*.
 
@@ -170,7 +180,7 @@ the Knudsen number.
 
 This compute performs calculations for all flavors of child grid cells
 in the simulation, which includes unsplit, cut, split, and sub cells.
-See `Section 6.8 <Section_howto.html#howto_8>`__ of the manual gives
+See :ref:`Section 6.8<howto-grids>` of the manual gives
 details of how SPARTA defines child, unsplit, split, and sub cells. Note
 that cells inside closed surfaces contain no particles. These could be
 unsplit or cut cells (if they have zero flow volume). Both of these
@@ -180,34 +190,30 @@ This is because their sub-cells actually contain the particles that are
 geometrically inside the split cell.
 
 The vector or array can be accessed by any command that uses per-grid
-values from a compute as input. See `Section
-4.4 <Section_howto.html#howto_4>`__ for an overview of SPARTA output
+values from a compute as input. See :ref:`Section 4.4<howto-output>` for an overview of SPARTA output
 options.
 
 The per-grid array values for the vector or first column of the array
-will be in distance `units <units.html>`__. The second column of the
+will be in distance :ref:`units<command-units>`. The second column of the
 array will be dimensionless.
 
 --------------
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
@@ -216,11 +222,11 @@ effectively.
 **Restrictions:**
 
 To use this compute, a collision style must be defined via the
-`collide <collide.html>`__ command, which defines properties for the
+:ref:`collide<command-collide>` command, which defines properties for the
 reference *species*.
 
 As explained above, to use this compute with *nrho* or *temp* defined as
-input from a `fix ave/grid <fix_ave_grid.html>`__ command, this compute
+input from a :ref:`fix ave/grid<command-fix-ave-grid>` command, this compute
 must only be invoked on timesteps that are multiples of the *Nfreq*
 argument used by the fix, since those are the steps when it produces
 output.
@@ -230,7 +236,7 @@ output.
 :ref:`command-compute-grid`,
 :ref:`command-compute-thermal-grid`,
 :ref:`command-fix-ave-grid`,
-:ref:`dump grid <command-dump>`
+:ref:`dump grid<command-dump>`
 
 **Default:** none
 

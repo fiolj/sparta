@@ -2,11 +2,14 @@
 
 .. index:: fix emit/face/file
 
+
+
 .. _command-fix-emit-face-file:
 
 ##########################
 fix emit/face/file command
 ##########################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ fix emit/face/file command
 
    fix ID emit/face/file mix-ID face filename boundary-ID keyword value ... 
 
--  ID is documented in `fix <fix.html>`__ command
+-  ID is documented in :ref:`fix<command-fix>` command
 -  emit/face/file = style name of this fix command
 -  mix-ID = ID of mixture to use when creating particles
 -  face = *xlo* or *xhi* or *ylo* or *yhi* or *zlo* or *zhi*
@@ -71,14 +74,14 @@ add on a particular grid cell face is based on this flux and additional
 global, flow, and cell face properties:
 
 -  global property: *fnum* ratio as specified by the
-   `global <global.html>`__ command
+   :ref:`global<command-global>` command
 -  flow properties: number density, streaming velocity, and thermal
    temperature
 -  cell face properties: area of face and its orientation relative to
    the streaming velocity
 
 The flow properties are defined for the specified mixture via the
-`mixture <mixture.html>`__ command. Any or all them can be overridden by
+:ref:`mixture<command-mixture>` command. Any or all them can be overridden by
 values in the input data file, which affect individual grid cells as
 described below.
 
@@ -86,7 +89,7 @@ If *M* has a fractional value, e.g. 12.5, then 12 particles are added,
 and a 13th depending on the value of a random number. Each particle is
 added at a random location on the grid cell face. The particle species
 is chosen randomly in accord with the *frac* settings of the collection
-of species in the mixture, as set by the `mixture <mixture.html>`__
+of species in the mixture, as set by the :ref:`mixture<command-mixture>`
 command. These can also be overridden by spatially varying number
 fraction values in the input data file, as described below.
 
@@ -94,8 +97,8 @@ The velocity of the particle is set to the sum of the streaming velocity
 and a thermal velocity sampled from the thermal temperature. The
 internal energy modes of the particle are determined by the *trot* and
 *tvib* settings and the *rotate* and *vibrate* options of the
-`collide_modify <collide_modify.html>`__ command. Note that if the
-`collide <collide.html>`__ command has not been specified (free
+:ref:`collide_modify<command-collide-modify>` command. Note that if the
+:ref:`collide<command-collide>` command has not been specified (free
 molecular flow), then no rotational or vibrational energy will be
 assigned to created particles.
 
@@ -116,7 +119,7 @@ the simulation box. For a 2d simulation, a 1d mesh is defined. The mesh
 is topologically regular, but can have uniform or non-uniform spacing in
 each of its two or one dimensions (for 3d or 2d problems). One or more
 values can be defined at every mesh point, which override any of the
-mixture settings defined by the `mixture <mixture.html>`__ command.
+mixture settings defined by the :ref:`mixture<command-mixture>` command.
 These are the flow properties discussed above (number density, streaming
 velocity, and thermal temperature), as well as the number fraction of
 any species in the mixture. Any value not defined in the input data file
@@ -229,22 +232,20 @@ unique I,J (or I for 2d) indices must be listed.
 
 Note that if number fractions are specified for one or more species in
 the mixture, then they override number fraction values for the mixture
-itself, as set by the `mixture <mixture.html>`__ command. However, for
+itself, as set by the :ref:`mixture<command-mixture>` command. However, for
 each grid cell, the rule that the number fraction of all species in the
 mixture must sum to 1.0 is enforced, just as it is for the mixture. This
 means that number fractions of species not specified in the file or in
 the mixture may be reset (for that grid cell) to insure the sum = 1.0,
-as explained on the `mixture <mixture.html>`__ command doc page. If this
+as explained on the :ref:`mixture<command-mixture>` command doc page. If this
 cannot be done, an error will be generated.
 
 If the *press* keyword is used, this means a subsonic pressure boundary
 condition is used for the face, similar to how the *subsonic* keyword is
-used for the `fix emit/face <fix_emit_face.html>`__ command. If just the
+used for the :ref:`fix emit/face<command-fix-emit-face>` command. If just the
 *press* keyword is specified, but not the *temp* keyword, then it is
-similar to the "subsonic press NULL" setting for the `fix
-emit/face <fix_emit_face.html>`__ command. If both keywords are used it
-is similar to the "subsonic press temp" setting for the `fix
-emit/face <fix_emit_face.html>`__ command. The difference with this
+similar to the "subsonic press NULL" setting for the :ref:`fix emit/face<command-fix-emit-face>` command. If both keywords are used it
+is similar to the "subsonic press temp" setting for the :ref:`fix emit/face<command-fix-emit-face>` command. The difference with this
 command is that both the *press* and *temp* values can be vary spatially
 across the box face, like the other keyword values.
 
@@ -274,9 +275,9 @@ and performs well in cases where the cells are adequately populated.
 
 IMPORTANT NOTE: When using a subsonic prsesure boundary condition, you
 should also use an appropriate boundary collision or chemistry model via
-the `boundary <boundary.htmo>`__ or `bound_modify <bound_modify.html>`__
-or `surf_collide <surf_collide.html>`__ or
-`surf_react <surf_react.html>`__ commands, so that particles hitting the
+the :ref:`boundary<command-boundary>` or :ref:`bound_modify<command-bound-modify>`
+or :ref:`surf_collide<command-surf-collide>` or
+:ref:`surf_react<command-surf-react>` commands, so that particles hitting the
 surface disappear as if they were exiting the simulation domain. That is
 necessary to produce the correct subsonic conditions that the particle
 insertions due to this command are trying to achieve.
@@ -331,8 +332,7 @@ properties of added particles.
 
 If *perspecies* is set to *yes*, then a target insertion number *M* in a
 grid cell is calculated for each species, which is a function of the
-relative number fraction of the species, as set by the `mixture
-nfrac <mixture.html>`__ command. If *M* has a fractional value, e.g.
+relative number fraction of the species, as set by the :ref:`mixture nfrac<command-mixture>` command. If *M* has a fractional value, e.g.
 12.5, then 12 particles of that species will always be added, and a 13th
 depending on the value of a random number.
 
@@ -358,7 +358,7 @@ second.
 If the *region* keyword is used, then a particle will only added if its
 position is within the specified *region-ID*. This can be used to only
 allow particle insertion on a subset of the boundary face. Note that the
-*side* option for the `region <region.html>`__ command can be used to
+*side* option for the :ref:`region<command-region>` command can be used to
 define whether the inside or outside of the geometric region is
 considered to be "in" the region.
 
@@ -366,8 +366,7 @@ considered to be "in" the region.
 
 **Restart, output info:**
 
-No information about this fix is written to `binary restart
-files <restart.html>`__.
+No information about this fix is written to :ref:`binary restart files<command-restart>`.
 
 This fix computes a global vector of length 2 which can be accessed by
 various output commands. The first element of the vector is the total
@@ -381,7 +380,7 @@ Particles cannot be added on periodic faces of the simulation box.
 Particles cannot be added on *z* faces of the simluation box for a 2d
 simulation.
 
-Unlike the `fix emit/face <fix_emit/face.html>`__ command, no warning is
+Unlike the :ref:`command-fix-emit-face`, no warning is
 issued if the specified emission face has an inward normal in a
 direction opposing the streaming velocity, as defined by the mixture.
 This is because the streaming velocity as defined by the specified

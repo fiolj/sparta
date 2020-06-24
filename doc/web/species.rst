@@ -2,11 +2,14 @@
 
 .. index:: species
 
+
+
 .. _command-species:
 
 ###############
 species command
 ###############
+
 
 **Syntax:**
 
@@ -99,18 +102,16 @@ SPARTA, they can simply be specified as 0.0. Whether or not the values
 are used for a species depends on the value of rotdof and vibdof.
 Whether the values are used in a simulation also depends on the settings
 specified for the *rotation* and *vibration* keywords of the
-`collide_modify <collide_modify.html>`__ command.
+:ref:`collide_modify<command-collide-modify>` command.
 
 Specifically, if prop3 for rotdof = 0, then prop4 is ignored. If prop5
 for vibdof = 0, then prop6 and prop7 are ignored.
 
 If vibdof = 4,6,8, then information for 2,3,4 vibrational modes can be
 specified for the species in a separate file using the optional
-*vibfile* keyword, as discussed below. If the `collide_modify
-vibration <collide_modify.html>`__ command is used with a setting of
+*vibfile* keyword, as discussed below. If the :ref:`collide_modify vibration<command-collide-modify>` command is used with a setting of
 *discrete*, then this vibrational mode info must be specified for each
-species with a vibdof = 4,6,8. Note that the `fix
-vibmode <fix_vibmode.html>`__ command must also be used to allocate
+species with a vibdof = 4,6,8. Note that the :ref:`fix vibmode<command-fix-vibmode>` command must also be used to allocate
 per-particle storage for these additional modes.
 
 --------------
@@ -119,8 +120,7 @@ The optional *vibfile* keyword can be used to specify additional
 vibrational information in the specified *vfile*. If this option is
 used, then an entry must appear in *vfile* for every species in this
 command with a vibdof value = 4,6,8. Note that even if this vibrational
-info is read, it is ignored by SPARTA unless the `collide_modify
-vibrate <collide_modify.html>`__ setting is specified as *discrete*.
+info is read, it is ignored by SPARTA unless the :ref:`collide_modify vibrate<command-collide-modify>` setting is specified as *discrete*.
 
 The format of a species vibrational file is as follows. See
 data/co2.species.vib for an example. Comments or blank lines are allowed

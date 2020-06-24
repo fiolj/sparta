@@ -2,11 +2,14 @@
 
 .. index:: jump
 
+
+
 .. _command-jump:
 
 ############
 jump command
 ############
+
 
 **Syntax:**
 
@@ -29,7 +32,7 @@ jump command
 
 This command closes the current input script file, opens the file with
 the specified name, and begins reading SPARTA commands from that file.
-Unlike the `include <include.html>`__ command, the original file is not
+Unlike the :ref:`include<command-include>` command, the original file is not
 returned to, although by using multiple jump commands it is possible to
 chain from file to file or back to the original file.
 
@@ -45,17 +48,15 @@ current input script is being read through stdin (standard input), e.g.
 
 since the SELF option invokes the C-library rewind() call, which may not
 be supported for stdin on some systems or by some MPI implementations.
-This can be worked around by using the `-in command-line
-argument <Section_start.html#start_6>`__, e.g.
+This can be worked around by using the :ref:`-in command-line argument<start-command-line-options>`, e.g.
 
 ::
 
    spa_g++ -in in.script 
 
-or by using the `-var command-line
-argument <Section_start.html#start_6>`__ to pass the script name as a
+or by using the :ref:`-var command-line argument<start-command-line-options>` to pass the script name as a
 variable to the input script. In the latter case, a
-`variable <variable.html>`__ called "fname" could be used in place of
+:ref:`variable<command-variable>` called "fname" could be used in place of
 SELF, e.g.
 
 ::
@@ -68,7 +69,7 @@ commands) until the label is found, and commands are executed from that
 point forward. This can be used to loop over a portion of the input
 script, as in this example. These commands perform 10 runs, each of
 10000 steps, and create 10 dump files named file.1, file.2, etc. The
-`next <next.html>`__ command is used to exit the loop after 10
+:ref:`next<command-next>` command is used to exit the loop after 10
 iterations. When the "a" variable has been incremented for the tenth
 time, it will cause the next jump command to be skipped.
 
@@ -97,7 +98,7 @@ will cause each partition to run a different simulation.
    variable f world script.1 script.2 script.3 script.4
    jump $f 
 
-Here is an example of a double loop which uses the `if <if.html>`__ and
+Here is an example of a double loop which uses the :ref:`if<command-if>` and
 jump commands to break out of the inner loop when a condition is met,
 then continues iterating thru the outer loop.
 

@@ -2,11 +2,14 @@
 
 .. index:: compute reduce
 
+
+
 .. _command-compute-reduce:
 
 ######################
 compute reduce command
 ######################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ compute reduce command
 
    compute ID reduce mode input1 input2 ... keyword args ... 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  reduce = style name of this compute command
 -  mode = *sum* or *min* or *max* or *ave* or *sumsq* or *avesq*
 -  one or more inputs can be listed
@@ -64,11 +67,10 @@ Define a calculation that "reduces" one or more vector inputs into
 scalar values, one per listed input. The inputs can be per-particle or
 per-grid or per-surf quantities; they cannot be global quantities.
 Particle attributes are per-particle quantities,
-`computes <compute.html>`__ may generate per-particle or per-grid
-quantities, `fixes <fix.html>`__ may generate any of the three kinds of
-quantities, and `particle-style or grid-style
-variables <variable.html>`__ generate per-particle or per-grid
-quantities. See the `variable <variable>`__ command and its special
+:ref:`computes<command-compute>` may generate per-particle or per-grid
+quantities, :ref:`fixes<command-fix>` may generate any of the three kinds of
+quantities, and :ref:`particle-style or grid-style variables<command-variable>` generate per-particle or per-grid
+quantities. See the :ref:`command-variable` and its special
 functions which can perform the same operations as the compute reduce
 command on global vectors.
 
@@ -86,8 +88,8 @@ ave^2.
 Each listed input is operated on independently.
 
 Each listed input can be a particle attribute or can be the result of a
-`compute <compute.html>`__ or `fix <fix.html>`__ or the evaluation of a
-`variable <variable.html>`__.
+:ref:`compute<command-compute>` or :ref:`fix<command-fix>` or the evaluation of a
+:ref:`variable<command-variable>`.
 
 Note that for values from a compute or fix, the bracketed index I can be
 specified using a wildcard asterisk with the index to effectively
@@ -101,7 +103,7 @@ from m to n (inclusive).
 
 Using a wildcard is the same as if the individual columns of the array
 had been listed one by one. E.g. these 2 compute reduce commands are
-equivalent, since the `compute grid <compute_grid.html>`__ command
+equivalent, since the :ref:`compute grid<command-compute-grid>` command
 creates a per-grid array with 3 columns:
 
 ::
@@ -119,11 +121,11 @@ vibrational energy of particles.
 If a value begins with ``c_``, a compute ID must follow which has been
 previously defined in the input script. Computes can generate
 per-particle or per-grid quantities. See the individual
-`compute <compute.html>`__ doc page for details. If no bracketed integer
+:ref:`compute<command-compute>` doc page for details. If no bracketed integer
 is appended, the vector calculated by the compute is used. If a
 bracketed integer is appended, the Ith column of the array calculated by
 the compute is used. Users can also write code for their own compute
-styles and `add them to SPARTA <Section_modify.html>`__. See the
+styles and :ref:`add them to SPARTA<modify>`. See the
 discussion above for how I can be specified with a wildcard asterisk to
 effectively specify multiple values.
 
@@ -131,27 +133,26 @@ IMPORTANT NOTE: A compute which generates per-surf quantities cannot be
 used as input. This is because its values have not yet been combined
 across processors to sum the contributions from all processors whose
 particles collide with the same surface element. The combining is
-performed by the `fix ave/surf <fix_ave_surf.html>`__ command, at each
+performed by the :ref:`fix ave/surf<command-fix-ave-surf>` command, at each
 of its *Nfreq* timesteps. Thus to use this compute on per-surf values,
-specify a fix ID for a `fix ave/surf <fix_ave_surf.html>`__ and insure
+specify a fix ID for a :ref:`fix ave/surf<command-fix-ave-surf>` and insure
 the fix outputs its values when they are needed.
 
 If a value begins with ``f_``, a fix ID must follow which has been
 previously defined in the input script. Fixes can generate per-particle
 or per-grid or per-surf quantities. See the individual
-`fix <fix.html>`__ doc page for details. Note that some fixes only
+:ref:`fix<command-fix>` doc page for details. Note that some fixes only
 produce their values on certain timesteps, which must be compatible with
 when this compute references the values, else an error results. If no
 bracketed integer is appended, the vector calculated by the fix is used.
 If a bracketed integer is appended, the Ith column of the array
 calculated by the fix is used. Users can also write code for their own
-fix style and `add them to SPARTA <Section_modify.html>`__. See the
+fix style and :ref:`add them to SPARTA<modify>`. See the
 discussion above for how I can be specified with a wildcard asterisk to
 effectively specify multiple values.
 
 If a value begins with ``v_``, a variable name must follow which has been
-previously defined in the input script. It must be a `particle-style or
-grid-style variable <variable.html>`__. Both styles define formulas
+previously defined in the input script. It must be a :ref:`particle-style or grid-style variable<command-variable>`. Both styles define formulas
 which can reference stats keywords or invoke other computes, fixes, or
 variables when they are evaluated. Particle-style variables can also
 reference various per-particle attributes (position, velocity, etc). So
@@ -200,10 +201,10 @@ This compute calculates a global scalar if a single input value is
 specified or a global vector of length N where N is the number of
 inputs, and which can be accessed by indices 1 to N. These values can be
 used by any command that uses global scalar or vector values from a
-compute as input. See `Section 6.4 <Section_howto.html#howto_4>`__ for
+compute as input. See :ref:`Section 6.4<howto-output>` for
 an overview of SPARTA output options.
 
-The scalar or vector values will be in whatever `units <units.html>`__
+The scalar or vector values will be in whatever :ref:`units<command-units>`
 the quantities being reduced are in.
 
 **Restrictions:** none

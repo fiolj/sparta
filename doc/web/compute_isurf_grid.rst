@@ -2,11 +2,14 @@
 
 .. index:: compute isurf/grid
 
+
+
 .. _command-compute-isurf-grid:
 
 ##########################
 compute isurf/grid command
 ##########################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ compute isurf/grid command
 
    compute ID isurf/grid group-ID mix-ID value1 value2 ... 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  isurf/grid = style name of this compute command
 -  group-ID = group ID for which grid cells to perform calculation on
 -  mix-ID = mixture ID for particles to perform calculation on
@@ -70,19 +73,18 @@ Define a computation that calculates one or more values for each grid
 cell in a grid cell group, based on the particles that collide with the
 implicit surfaces in that grid cell. The values are summed for each
 group of species in the specified mixture. See the
-`mixture <mixture.html>`__ command for how a set of species can be
+:ref:`mixture<command-mixture>` command for how a set of species can be
 partitioned into groups. Only grid cells in the grid group specified by
-*group-ID* are included in the calculations. See the `group
-grid <group.html>`__ command for info on how grid cells can be assigned
+*group-ID* are included in the calculations. See the :ref:`group grid<command-group>` command for info on how grid cells can be assigned
 to grid groups.
 
 Implicit surface elements are triangles for 3d simulations and line
 segments for 2d simulations. Unlike explicit surface elements, each
 triangle or line segment is wholly contained within a single grid cell.
-See the `read_isurf <read_isurf.html>`__ command for details.
+See the :ref:`read_isurf<command-read-isurf>` command for details.
 
 This command can only be used for simulations with implicit surface
-elements. See the similar `compute surf <compute_surf.html>`__ command
+elements. See the similar :ref:`compute surf<command-compute-surf>` command
 for use with simulations with explicit surface elements.
 
 Note that when a particle collides with a surface element, it can bounce
@@ -102,10 +104,9 @@ different species groups.
 
 The results of this compute can be used by different commands in
 different ways. The values for a single timestep can be output by the
-`dump grid <dump.html>`__ command.
+:ref:`dump grid<command-dump>` command.
 
-The values over many sampling timesteps can be averaged by the `fix
-ave/grid <fix_ave_grid.html>`__ command. It does its averaging as if the
+The values over many sampling timesteps can be averaged by the :ref:`fix ave/grid<command-fix-ave-grid>` command. It does its averaging as if the
 particles striking the surface elements within the grid cell at each
 sampling timestep were combined together into one large set to compute
 the formulas below. The answer is then divided by the number of sampling
@@ -116,8 +117,7 @@ them over the sampling timesteps, and then dividing by the number of
 sampling steps. However for the current values listed below, the two
 normalization methods are the same.
 
-NOTE: If particle weighting is enabled via the `global
-weight <global.html>`__ command, then all of the values below are scaled
+NOTE: If particle weighting is enabled via the :ref:`global weight<command-global>` command, then all of the values below are scaled
 by the weight assigned to the grid cell in which the particle collision
 with the surface element occurs. The only exception is the the *n*
 value, which is NOT scaled by the weight; it is a simple count of
@@ -126,8 +126,7 @@ particle collisions with surface elements in the grid cell.
 --------------
 
 The meaning of all the value keywords and the formulas for calculating
-these quantities is exactly the same as described by the `compute
-surf <compute_surf.html>`__ command.
+these quantities is exactly the same as described by the :ref:`compute surf<command-compute-surf>` command.
 
 The only difference is that the quantities are calculated on a per grid
 cell basis, summing over all the surface elements in that grid cell.
@@ -147,10 +146,10 @@ Grid cells not in the specified *group-ID* will output zeroes for all
 their values.
 
 The array can be accessed by any command that uses per-grid values from
-a compute as input. See `Section 6.4 <Section_howto.html#howto_4>`__ for
+a compute as input. See :ref:`Section 6.4<howto-output>` for
 an overview of SPARTA output options.
 
-The per-grid array values will be in the `units <units.html>`__
+The per-grid array values will be in the :ref:`units<command-units>`
 appropriate to the individual values as described above. *N* is
 unitless. *Press*, *px*, *py*, *pz*, *shx*, *shy*, *shz* are in in
 pressure units. *Ke*, *erot*, *evib*, and *etot* are in energy/area-time
@@ -164,7 +163,7 @@ simulations.
 **Related commands:**
 
 :ref:`command-fix-ave-grid`
-:ref:`dump grid <command-dump>`,
+:ref:`dump grid<command-dump>`,
 :ref:`command-compute-surf`
 
 **Default:** none

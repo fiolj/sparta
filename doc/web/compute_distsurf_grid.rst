@@ -2,11 +2,14 @@
 
 .. index:: compute distsurf/grid
 
+
+
 .. _command-compute-distsurf-grid:
 
 #############################
 compute distsurf/grid command
 #############################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ compute distsurf/grid command
 
    compute ID distsurf/grid group-ID surf-ID keyword args ... 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  distsurf/grid = style name of this compute command
 -  group-ID = group ID for which grid cells to perform calculation on
 -  surf-ID = group ID for which surface elements to consider
@@ -38,14 +41,14 @@ compute distsurf/grid command
 Define a computation that calculates the minimum distance from each grid
 cell in a grid cell group to any surface element in a surface element
 group. This is useful for grid adaptation; the
-`adapt_grid <adapt_grid.html>`__ command can use the compute as a
+:ref:`adapt_grid<command-adapt-grid>` command can use the compute as a
 criterion for refining or coarsening individual grid cells.
 
 Only grid cells in the grid group specified by *group-ID* are included
-in the calculation. See the `group grid <group.html>`__ command for info
+in the calculation. See the :ref:`group grid<command-group>` command for info
 on how grid cells can be assigned to grid groups. Only surface elements
 in the surface element group specified by *surf-ID* are included in the
-distance calculations. See the `group surf <group.html>`__ command for
+distance calculations. See the :ref:`group surf<command-group>` command for
 info on how surface elements can be assigned to surface element groups.
 
 If the *dir* keyword is specified it can exclude additional surface
@@ -73,7 +76,7 @@ is the minimum distance between the perimeter of the grid cell and the
 line segment (in 2d) or the perimeter of the triangle (in 3d).
 
 Here is an example of using this compute with the
-`adapt_grid <adapt_grid.html>`__ command to adapt the grid around the
+:ref:`adapt_grid<command-adapt-grid>` command to adapt the grid around the
 upwind side of a circular object (flow is from the left boundary of the
 box). The first adapt_grid command uses a threshold distance value of
 0.5 to create refine grid cells once. The second adapt_grid command uses
@@ -108,18 +111,18 @@ of each grid cell from any of the surface elements.
 
 This compute performs calculations for all flavors of child grid cells
 in the simulation, which includes unsplit, cut, split, and sub cells.
-See `Section 6.8 <Section_howto.html#howto_8>`__ of the manual gives
+See :ref:`Section 6.8<howto-grids>` of the manual gives
 details of how SPARTA defines child, unsplit, split, and sub cells.
 
 Grid cells not in the specified *group-ID* will output zeroes for all
 their values.
 
 The vector can be accessed by any command that uses per-grid values from
-a compute as input. See `Section 6.4 <Section_howto.html#howto_4>`__ for
+a compute as input. See :ref:`Section 6.4<howto-output>` for
 an overview of SPARTA output options.
 
 The per-grid array values for the vector will be in distance
-`units <units.html>`__.
+:ref:`units<command-units>`.
 
 **Restrictions:** None
 

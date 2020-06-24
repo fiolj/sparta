@@ -2,11 +2,14 @@
 
 .. index:: fix emit/surf
 
+
+
 .. _command-fix-emit-surf:
 
 #####################
 fix emit/surf command
 #####################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ fix emit/surf command
 
    fix ID emit/surf mix-ID group-ID keyword value ... 
 
--  ID is documented in `fix <fix.html>`__ command
+-  ID is documented in :ref:`fix<command-fix>` command
 -  emit/surf = style name of this fix command
 -  mix-ID = ID of mixture to use when creating particles
 -  group-ID = ID of surface group that emits particles
@@ -54,8 +57,7 @@ well as their streaming velocity, thermal temperature, and internal
 energy modes. The details are explained below.
 
 Which surface elements emit particles is specified by the *group-ID* for
-a surface group, which defines a set of surface elements. The `group
-surf <group.html>`__ is used to define surface groups.
+a surface group, which defines a set of surface elements. The :ref:`group surf<command-group>` is used to define surface groups.
 
 On each insertion timestep, each grid cell that overlaps with one or
 more emitting surface elements performs the following computations to
@@ -69,7 +71,7 @@ grid cell is based on this flux and additional global, flow, and surface
 element properties:
 
 -  global property: *fnum* ratio as specified by the
-   `global <global.html>`__ command
+   :ref:`global<command-global>` command
 -  flow properties: number density, streaming velocity, and thermal
    temperature
 -  surface element properties: portion of surface element area that
@@ -77,25 +79,25 @@ element properties:
    streaming velocity
 
 The flow properties are defined for the specified mixture via the
-`mixture <mixture.html>`__ command.
+:ref:`mixture<command-mixture>` command.
 
 If *M* has a fractional value, e.g. 12.5, then 12 particles are added,
 and a 13th depending on the value of a random number. Each particle is
 added at a random location within the portion of the surface element
 that overlaps with the grid cell. The particle species is chosen
 randomly in accord with the *frac* settings of the collection of species
-in the mixture, as set by the `mixture <mixture.html>`__ command.
+in the mixture, as set by the :ref:`mixture<command-mixture>` command.
 
 IMPORTANT NOTE: The preceeding calculation is actually done using
 surface element areas associated with *weighted* cell volumes. Grid
-cells can be weighted using the `global weight <global.html>`__ command.
+cells can be weighted using the :ref:`global weight<command-global>` command.
 
 The velocity of the particle is set to the sum of the streaming velocity
 and a thermal velocity sampled from the thermal temperature. The
 internal energy modes of the particle are determined by the *trot* and
 *tvib* settings of the mixture and the *rotate* and *vibrate* options of
-the `collide_modify <collide_modify.html>`__ command. Note that if the
-`collide <collide.html>`__ command has not been specified (free
+the :ref:`collide_modify<command-collide-modify>` command. Note that if the
+:ref:`collide<command-collide>` command has not been specified (free
 molecular flow), then no rotational or vibrational energy will be
 assigned to created particles. See the discussion of the *normal*
 keyword below for a way to change the velocity assignment to be oriented
@@ -149,7 +151,7 @@ properties of added particles.
 If *perspecies* is set to *yes*, then a target insertion number *M* for
 a grid cell/surface element pair is calculated for each species, which
 is a function of the relative number fraction of the species, as set by
-the `mixture nfrac <mixture.html>`__ command. If *M* has a fractional
+the :ref:`mixture nfrac<command-mixture>` command. If *M* has a fractional
 value, e.g. 12.5, then 12 particles of that species will always be
 added, and a 13th depending on the value of a random number.
 
@@ -176,7 +178,7 @@ If the *region* keyword is used, then a particle will only added if its
 position is within the specified *region-ID*. This can be used to only
 allow particle insertion on a subset of the collective area of the
 specified group of surface elements. Note that the *side* option for the
-`region <region.html>`__ command can be used to define whether the
+:ref:`region<command-region>` command can be used to define whether the
 inside or outside of the geometric region is considered to be "in" the
 region.
 
@@ -216,7 +218,7 @@ and performs well in cases where the cells are adequately populated.
 
 IMPORTANT NOTE: When using this keyword, you should also use an
 appropriate surface collision or chemistry model via the
-`surf_collide <surf_collide.html>`__ or `surf_react <surf_react.html>`__
+:ref:`surf_collide<command-surf-collide>` or :ref:`surf_react<command-surf-react>`
 commands, so that particles hitting the surface disappear as if they
 were exiting the simulation domain. That is necessary to produce the
 correct subsonic conditions that the particle insertions due to this
@@ -226,8 +228,7 @@ command are trying to achieve.
 
 **Restart, output info:**
 
-No information about this fix is written to `binary restart
-files <restart.html>`__.
+No information about this fix is written to :ref:`binary restart files<command-restart>`.
 
 This fix computes a global vector of length 2 which can be accessed by
 various output commands. The first element of the vector is the total
@@ -240,10 +241,10 @@ run. The 2nd value is initialized to zero each time a run is performed.
 A *n* setting of *Np* > 0 can only be used with a *perspecies* setting
 of *no*.
 
-If *normal* is set to *no*, which is the default, then unlike the `fix
-emit/face <fix_emit/face.html>`__ command, no warning is issued if a
-surface element has an inward normal in a direction opposing the
-streaming velocity, as defined by the mixture.
+If *normal* is set to *no*, which is the default, then unlike the
+:ref:`command-fix-emit-face`, no warning is issued if a surface
+element has an inward normal in a direction opposing the streaming
+velocity, as defined by the mixture.
 
 For that surface element, particles will still be emitted, so long as a
 small fraction have a thermal velocity large enough to overcome the
@@ -253,9 +254,8 @@ the mean thermal velocity.
 
 **Related commands:**
 
-`mixture <mixture.html>`__,
-`create_particles <create_particles.html>`__, `fix
-emit/face <fix_emit_face.html>`__
+:ref:`mixture<command-mixture>`,
+:ref:`create_particles<command-create-particles>`, :ref:`fix emit/face<command-fix-emit-face>`
 
 **Default:**
 

@@ -1,9 +1,15 @@
 
+
+
+
+
 .. _python:
 
 ##########################
 Python interface to SPARTA
 ##########################
+
+
 
 This section describes how to build and use SPARTA via a Python
 interface.
@@ -16,7 +22,7 @@ interface.
 The SPARTA distribution includes the file python/sparta.py which wraps the library interface to SPARTA. This file makes it is possible to run SPARTA, invoke SPARTA commands or give it an input script, extract SPARTA results, and modify internal SPARTA variables, either from a Python script or interactively from a Python prompt. You can do the former in serial or parallel. Running Python interactively in parallel does not generally work, unless you have a package installed that extends your Python to enable multiple instances of Python to read what you type.
 
 `Python <http://www.python.org>`__ is a powerful scripting and programming language which can be used to wrap software like SPARTA and many other packages. It can be used to glue multiple pieces of software together, e.g. to run a coupled or multiscale model.
-See :ref:`howto-other-code` of the manual and the examples/COUPLE directory of the distribution for more ideas about coupling SPARTA to other codes. See :ref:`build-library` about how to build SPARTA as a library, and :ref:`howto-library` for a description of the library interface provided in src/library.cpp and src/library.h and how to extend it for your needs. As described below, that interface is what is exposed to Python. It is designed to be easy to add functions to. This can extend the Python inteface as well. See details below.
+See :ref:`howto-other-code` of the manual and the examples/COUPLE directory of the distribution for more ideas about coupling SPARTA to other codes. See :ref:`build-library<start-build-library>` about how to build SPARTA as a library, and :ref:`howto-library` for a description of the library interface provided in src/library.cpp and src/library.h and how to extend it for your needs. As described below, that interface is what is exposed to Python. It is designed to be easy to add functions to. This can extend the Python inteface as well. See details below.
 
 .. important:: The examples/COUPLE dir has not been added to the distribution yet.
 
@@ -29,11 +35,16 @@ Before using SPARTA from a Python script, you need to do two things. You need to
 The Python wrapper for SPARTA uses the amazing and magical (to me) "ctypes" package in Python, which auto-generates the interface code needed between Python and a set of C interface routines for a library.  Ctypes is part of standard Python for versions 2.5 and later. You can check which version of Python you have installed, by simply typing "python" at a shell prompt.
 
 
+
+.. _python-building-sparta:
+
 ***********************************
 Building SPARTA as a shared library
 ***********************************
 
-Instructions on how to build SPARTA as a shared library are given in :ref:`build-library`. A shared library is one that is dynamically loadable, which is what Python requires. On Linux this is a library file that ends in ".so", not ".a".
+
+
+Instructions on how to build SPARTA as a shared library are given in :ref:`build-library<start-build-library>`. A shared library is one that is dynamically loadable, which is what Python requires. On Linux this is a library file that ends in ".so", not ".a".
 
 From the src directory, type
 
@@ -47,9 +58,14 @@ where foo is the machine target name, such as icc or g++ or serial. This should 
 If this fails, see :ref:`start-optional-packages` for more details, especially if your SPARTA build uses auxiliary libraries like MPI which may not be built as shared libraries on your system.
 
 
+
+.. _python-installing-python:
+
 *****************************************
 Installing the Python wrapper into Python
 *****************************************
+
+
 
 For Python to invoke SPARTA, there are 2 files it needs to know about:
 
@@ -102,12 +118,17 @@ You can also invoke install.py from the make command in the src directory as
 
 In this mode you cannot append optional arguments. Again, you may need to prefix this with "sudo". In this mode you cannot control which Python is invoked by root.
 
-Note that if you want Python to be able to load different versions of the SPARTA shared library (see :ref:`this section <python-using>` below), you will need to manually copy files like libsparta_g++.so into the appropriate system directory. This is not needed if you set the LD_LIBRARY_PATH environment variable as described above.
+Note that if you want Python to be able to load different versions of the SPARTA shared library (see :ref:`this section<python-using>` below), you will need to manually copy files like libsparta_g++.so into the appropriate system directory. This is not needed if you set the LD_LIBRARY_PATH environment variable as described above.
 
+
+
+.. _python-extending-python:
 
 ********************************************
 Extending Python with MPI to run in parallel
 ********************************************
+
+
 
 If you wish to run SPARTA in parallel from Python, you need to extend your Python with an interface to MPI. This also allows you to make MPI calls directly from Python in your script, if you desire.
 
@@ -177,9 +198,14 @@ and see one line of output for each processor you run on.
 	       If you have problems running both Pypar and SPARTA together, this is an issue you may need to address, e.g. by moving other MPI installations so that Pypar finds the right one.
 
 
+
+.. _python-testing-pythonsparta:
+
 ***********************************
 Testing the Python-SPARTA interface
 ***********************************
+
+
 
 To test if SPARTA is callable from Python, launch Python interactively
 and type:
@@ -210,11 +236,20 @@ importing from the sparta.py file:
    >>> from ctypes import CDLL
    >>> CDLL("libsparta.so") 
 
-If an error occurs, carefully go thru the steps in :ref:`build-library` and above about building a shared library and about insuring Python can find the necessary two files it needs.
+If an error occurs, carefully go thru the steps in :ref:`build-library<start-build-library>` and above about building a shared library and about insuring Python can find the necessary two files it needs.
+
+
+
+
+
+
+.. _python-test-python-serial:
 
 
 Test SPARTA and Python in serial:
 =================================
+
+
 
 To run a SPARTA test in serial, type these lines into Python interactively from the bench directory:
 
@@ -252,8 +287,18 @@ is the same as typing
 
 from the command line.
 
+
+
+
+
+
+.. _python-test-python-parallel:
+
+
 Test SPARTA and Python in parallel:
 ===================================
+
+
 
 To run SPARTA in parallel, assuming you have installed the `Pypar <http://datamining.anu.edu.au/~ole/pypar>`__ package as discussed above, create a test.py file containing these lines:
 
@@ -282,8 +327,15 @@ Note that if you leave out the 3 lines from test.py that specify Pypar commands 
 
 Also note that once you import the PyPar module, Pypar initializes MPI for you, and you can use MPI calls directly in your Python script, as described in the Pypar documentation. The last line of your Python script should be pypar.finalize(), to insure MPI is shut down correctly.
 
+
+
+.. _python-running-python:
+
+
 Running Python scripts:
 =======================
+
+
 
 Note that any Python script (not just for SPARTA) can be invoked in one of several ways:
 
@@ -310,11 +362,17 @@ where the path points to where you have Python installed, and requires that you 
 Without the "-i" flag, Python will exit when the script finishes. With the "-i" flag, you will be left in the Python interpreter when the script finishes, so you can type subsequent commands. As mentioned above, you can only run Python interactively when running Python on a single processor, not in parallel.
 
 
+
+
+
+
 .. _python-using:
 
 ************************
 Using SPARTA from Python
 ************************
+
+
 
 The Python interface to SPARTA consists of a Python "sparta" module, the source code for which is in python/sparta.py, which creates a "sparta" object, with a set of methods that can be invoked on that object. The sample Python code below assumes you have first imported the "sparta" module in your Python script, as follows:
 
@@ -389,9 +447,9 @@ For ``extract_global()`` see the src/library.cpp file for the list of valid
 names. New names can easily be added. A double or integer is returned.
 You need to specify the appropriate data type via the type argument.
 
-For ``extract_compute()``, the global, per particle, per grid cell, or per surface element results calulated by the compute can be accessed. What is returned depends on whether the compute calculates a scalar or vector or array. For a scalar, a single double value is returned. If the compute or fix calculates a vector or array, a pointer to the internal SPARTA data is returned, which you can use via normal Python subscripting. See :ref:`howto-output` of the manual for a discussion of global, per particle, per grid, and per surf data, and of scalar, vector, and array data types. See the doc pages for individual :ref:`computes <command-compute>` for a description of what they calculate and store.
+For ``extract_compute()``, the global, per particle, per grid cell, or per surface element results calulated by the compute can be accessed. What is returned depends on whether the compute calculates a scalar or vector or array. For a scalar, a single double value is returned. If the compute or fix calculates a vector or array, a pointer to the internal SPARTA data is returned, which you can use via normal Python subscripting. See :ref:`howto-output` of the manual for a discussion of global, per particle, per grid, and per surf data, and of scalar, vector, and array data types. See the doc pages for individual :ref:`computes<command-compute>` for a description of what they calculate and store.
 
-For ``extract_variable()``, an :ref:`equal-style or particle-style variable <command-variable>` is evaluated and its result returned.
+For ``extract_variable()``, an :ref:`equal-style or particle-style variable<command-variable>` is evaluated and its result returned.
 
 For ``equal-style`` variables a single double value is returned and the group argument is ignored. For ``particle-style`` variables, a vector of doubles is returned, one value per particle, which you can use via normal Python subscripting.
 
@@ -405,9 +463,13 @@ As noted above, these Python class methods correspond one-to-one with the functi
 
 
 
+.. _python-example-python:
+
 **************************************
 Example Python scripts that use SPARTA
 **************************************
+
+
 
 There are demonstration Python scripts included in the python/examples directory of the SPARTA distribution, to illustrate what is possible when Python wraps SPARTA.
 

@@ -2,11 +2,14 @@
 
 .. index:: surf_modify
 
+
+
 .. _command-surf-modify:
 
 ###################
 surf_modify command
 ###################
+
 
 **Syntax:**
 
@@ -37,12 +40,12 @@ group-ID = ID of the surface group to operate on
 
 Set parameters for a group of surface elements in the specified
 group-ID. Surface elements are read in by the
-`read_surf <read_surf.html>`__ command. They can be assigned to groups
-by that command or via the `group <group.html>`__ command.
+:ref:`read_surf<command-read-surf>` command. They can be assigned to groups
+by that command or via the :ref:`group<command-group>` command.
 
 The *collide* keyword is used to assign a surface collision model.
 Surface collision models are defined by the
-`surf_collide <surf_collide.html>`__ command, which assigns each a
+:ref:`surf_collide<command-surf-collide>` command, which assigns each a
 surface collision ID, specified here as *sc-ID*.
 
 The effect of this keyword is that particle collisions with surface
@@ -50,7 +53,7 @@ elements in group-ID will be computed by the surface collision model
 with *sc-ID*.
 
 The *react* keyword is used to assign a surface reaction model. Surface
-reaction models are defined by the `surf_react <surf_react.html>`__
+reaction models are defined by the :ref:`surf_react<command-surf-react>`
 command, which assigns each a surface reaction ID, specified here as
 *sr-ID* or the word "none". The latter means no reaction model.
 

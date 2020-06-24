@@ -2,11 +2,14 @@
 
 .. index:: stats_style
 
+
+
 .. _command-stats-style:
 
 ###################
 stats_style command
 ###################
+
 
 **Syntax:**
 
@@ -85,7 +88,7 @@ calculated on the current timestep. The exception is the keywords
 suffixed by "ave", which print a running total divided by the number of
 timesteps.
 
-Options invoked by the `stats_modify <stats_modify.html>`__ command can
+Options invoked by the :ref:`stats_modify<command-stats-modify>` command can
 be used to set the numeric precision of each printed value, as well as
 other attributes of the statistics.
 
@@ -95,7 +98,7 @@ The *step* and *elapsed* keywords refer to timestep count. *Step* is the
 current timestep. *Elapsed* is the number of timesteps elapsed since the
 beginning of this run. *Elaplong* is the number of timesteps elapsed
 since the beginning of an initial run in a series of runs. See the
-*start* and *stop* keywords for the `run <run.html>`__ command for info
+*start* and *stop* keywords for the :ref:`run<command-run>` command for info
 on how to invoke a series of runs that keep track of an initial starting
 time. If these keywords are not used, then *elapsed* and *elaplong* are
 the same value.
@@ -103,7 +106,7 @@ the same value.
 The *cpu* keyword is elapsed CPU seconds since the beginning of this
 run. The *tpcpu* and *spcpu* keywords are measures of how fast your
 simulation is currently running. The *tpcpu* keyword is simulation time
-per CPU second, where simulation time is in time `units <units.html>`__.
+per CPU second, where simulation time is in time :ref:`units<command-units>`.
 The *spcpu* keyword is the number of timesteps per CPU second. Both
 quantities are on-the-fly metrics, measured relative to the last time
 they were invoked. Thus if you are printing out statistical output every
@@ -167,12 +170,12 @@ that were attempted.
 The *nreact* keyword is the number of chemical reactions that occurred.
 The *nsreact* keyword is the number of chemical reactions on surfaces
 that occurred, including the global boundaries if they are treated as
-reacting surfaces, via the `bound_modify <bound_modify.html>`__ command.
+reacting surfaces, via the :ref:`bound_modify<command-bound-modify>` command.
 
 The *nparent* keyword is the number of parent cells, including the root
 cell. The *nchild* keyword is the number of child cells, which includes
 both unsplit and split cells. The *nsplit* keyword is the number of
-split cells. See `Section howto 4.8 <Section_howto.html#howto_8>`__ for
+split cells. See :ref:`Section howto 4.8<howto-grids>` for
 a description of the hierarchical grid used by SPARTA and a definition
 of these various kinds of grid cells.
 
@@ -202,7 +205,7 @@ indices from 1 to N. A leading asterisk means all indices from 1 to n
 
 Using a wildcard is the same as if the individual elements of the vector
 had been listed one by one. E.g. these 2 stats_style commands are
-equivalent, since the `compute reduce <compute_reduce.html>`__ command
+equivalent, since the :ref:`compute reduce<command-compute-reduce>` command
 creates a global vector with 6 values.
 
 ::
@@ -223,26 +226,26 @@ global scalar, vector, or array, then the keyword formats with 0, 1, or
 
 The *s_ID[I]* and *r_ID[I]* keywords allow global values calculated by a
 surface collision model or surface reaction model to be output. As
-discussed on the `surf_collide <surf_collide.html>`__ and
-`surf_react <surf_react.html>`__ doc pages, these models both calculate
+discussed on the :ref:`surf_collide<command-surf-collide>` and
+:ref:`surf_react<command-surf-react>` doc pages, these models both calculate
 a global vector of quantities.
 
 The *c_ID* and *c_ID[I]* and *c_ID[I][J]* keywords allow global values
 calculated by a compute to be output. As discussed on the
-`compute <compute.html>`__ doc page, computes can calculate global,
+:ref:`compute<command-compute>` doc page, computes can calculate global,
 per-particle, per-grid, or per-surf values. Only global values can be
 referenced by this command. However, per-particle, per-grid, or per-surf
-compute values can be referenced in a `variable <variable.html>`__ and
+compute values can be referenced in a :ref:`variable<command-variable>` and
 the variable referenced, as discussed below. See the discussion above
 for how the I in *c_ID[I]* can be specified with a wildcard asterisk to
 effectively specify multiple values from a global compute vector.
 
 The *f_ID* and *f_ID[I]* and *f_ID[I][J]* keywords allow global values
-calculated by a fix to be output. As discussed on the `fix <fix.html>`__
+calculated by a fix to be output. As discussed on the :ref:`fix<command-fix>`
 doc page, fixes can calculate global, per-particle, per-grid, or
 per-surf values. Only global values can be referenced by this command.
 However, per-particle or per-grid or per-surf fix values can be
-referenced in a `variable <variable.html>`__ and the variable
+referenced in a :ref:`variable<command-variable>` and the variable
 referenced, as discussed below. See the discussion above for how the I
 in *f_ID[I]* can be specified with a wildcard asterisk to effectively
 specify multiple values from a global fix vector.
@@ -250,13 +253,13 @@ specify multiple values from a global fix vector.
 The *v_name* keyword allow the current value of a variable to be output.
 The name in the keyword should be replaced by the variable name that has
 been defined elsewhere in the input script. Only equal-style variables
-can be referenced. See the `variable <variable.html>`__ command for
+can be referenced. See the :ref:`variable<command-variable>` command for
 details. Variables of style *equal* can reference per-particle or
 per-grid or per-surf properties or stats keywords, or they can invoke
 other computes, fixes, or variables when evaluated, so this is a very
 general means of creating statistical output.
 
-See `Section_modify <Section_modify.html>`__ for information on how to
+See :ref:`Section_modify<modify>` for information on how to
 add new compute and fix styles to SPARTA to calculate quantities that
 can then be referenced with these keywords to generate statistical
 output.

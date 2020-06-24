@@ -3,15 +3,28 @@
 .. index:: compute sonine/grid
 .. index:: compute sonine/grid/kk
 
+
+
+
+
 .. _command-compute-sonine-grid:
 
 ###########################
 compute sonine/grid command
 ###########################
 
+
+
+
+
+
+.. _command-compute-sonine-grid-compute-soninegridkk:
+
 ##############################
 compute sonine/grid/kk command
 ##############################
+
+
 
 **Syntax:**
 
@@ -19,7 +32,7 @@ compute sonine/grid/kk command
 
    compute ID sonine/grid group-ID mix-ID keyword values ... 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  sonine/grid = style name of this compute command
 -  group-ID = group ID for which grid cells to perform calculation on
 -  mix-ID = mixture ID to perform calculation on
@@ -61,15 +74,14 @@ specified mixture, as described in the Output section below. See the
 mixture command for how a set of species can be partitioned into groups.
 
 Only grid cells in the grid group specified by *group-ID* are included
-in the calculations. See the `group grid <group.html>`__ command for
+in the calculations. See the :ref:`group grid<command-group>` command for
 info on how grid cells can be assigned to grid groups.
 
 The results of this compute can be used by different commands in
 different ways. The values for a single timestep can be output by the
-`dump grid <dump.html>`__ command.
+:ref:`dump grid<command-dump>` command.
 
-The values over many sampling timesteps can be averaged by the `fix
-ave/grid <fix_ave_grid.html>`__ command. It does its averaging as if the
+The values over many sampling timesteps can be averaged by the :ref:`fix ave/grid<command-fix-ave-grid>` command. It does its averaging as if the
 particles in the cell at each sampling timestep were combined together
 into one large set of particles to compute the A,B formulas below.
 
@@ -156,7 +168,7 @@ thru 8th columns would be the A1, A2, A3 moments of the 2nd group, etc.
 
 This compute performs calculations for all flavors of child grid cells
 in the simulation, which includes unsplit, cut, split, and sub cells.
-See `Section 6.8 <Section_howto.html#howto_8>`__ of the manual gives
+See :ref:`Section 6.8<howto-grids>` of the manual gives
 details of how SPARTA defines child, unsplit, split, and sub cells. Note
 that cells inside closed surfaces contain no particles. These could be
 unsplit or cut cells (if they have zero flow volume). Both of these
@@ -169,10 +181,10 @@ Grid cells not in the specified *group-ID* will have zeroes for all
 their values.
 
 The array can be accessed by any command that uses per-grid values from
-a compute as input. See `Section 6.4 <Section_howto.html#howto_4>`__ for
+a compute as input. See :ref:`Section 6.4<howto-output>` for
 an overview of SPARTA output options.
 
-The per-grid array values will be in the `units <units.html>`__
+The per-grid array values will be in the :ref:`units<command-units>`
 appropriate to the individual values as described above. These are units
 like velocity cubed or velocity to the 6th power.
 
@@ -180,22 +192,19 @@ like velocity cubed or velocity to the 6th power.
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
@@ -206,6 +215,6 @@ effectively.
 **Related commands:**
 
 :ref:`command-fix-ave-grid`,
-:ref:`dump grid <command-dump>`
+:ref:`dump grid<command-dump>`
 
 **Default:** none

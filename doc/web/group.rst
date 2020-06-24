@@ -2,11 +2,14 @@
 
 .. index:: group
 
+
+
 .. _command-group:
 
 #############
 group command
 #############
+
 
 **Syntax:**
 
@@ -66,10 +69,7 @@ In SPARTA, a "grid group" is a collection of one or more grid cells. A
 "surface" group is a collection of one or more surface elements (line
 segements in 2d, triangles in 3d). Other commands take group IDs as
 arguments so that they act on a set of grid cells or surface elements.
-For example, see the `compute grid <compute_grid.html>`__, `compute
-surf <compute_surf.html>`__, `fix ave/grid <fix_ave_grid.html>`__, `fix
-ave/surf <fix_ave_surf.html>`__, `dump grid <dump.html>`__, or `dump
-surf <dump.html>`__ commands.
+For example, see the :ref:`compute grid<command-compute-grid>`, :ref:`compute surf<command-compute-surf>`, :ref:`fix ave/grid<command-fix-ave-grid>`, :ref:`fix ave/surf<command-fix-ave-surf>`, :ref:`dump grid<command-dump>`, or :ref:`dump surf<command-dump>` commands.
 
 An individual grid cell can belong to multiple grid groups. An
 individual surface element can belong to multiple surface groups. Each
@@ -92,8 +92,7 @@ assignments, statistics about the group are printed to the screen, so
 that you can check if the command operated as you expect.
 
 Note that this command assigns all flavors of child grid cells to
-groups, which includes unsplit, cut, split, and sub cells. See `Section
-6.8 <Section_howto.html#howto_8>`__ of the manual gives details of how
+groups, which includes unsplit, cut, split, and sub cells. See :ref:`Section 6.8<howto-grids>` of the manual gives details of how
 SPARTA defines child, unsplit, split, and sub cells.
 
 --------------
@@ -101,9 +100,9 @@ SPARTA defines child, unsplit, split, and sub cells.
 The following styles can be used for grid groups.
 
 The *region* style puts all grid cells in the region volume associated
-with the *region-ID* into the group. See the `region <region.html>`__
+with the *region-ID* into the group. See the :ref:`region<command-region>`
 command for details on what kind of geometric regions can be defined.
-Note that the *side* option for the `region <region.html>`__ command can
+Note that the *side* option for the :ref:`region<command-region>` command can
 be used to define whether the inside or outside of the geometric region
 is considered to be "in" the region.
 
@@ -123,14 +122,14 @@ arguments specified in one of two formats.
 
 For surface elements, the "type" of each element is defined when the
 elements are read from a surface file, via the
-`read_surf <read_surf.html>`__ command. In the file, a positive integer
+:ref:`read_surf<command-read-surf>` command. In the file, a positive integer
 type value can be optionally defined for each element (default = 1). The
 specified type values can also be incremented using the *typeadd*
-keyword of the `read_surf <read_surf.html>`__ commmand.
+keyword of the :ref:`read_surf<command-read-surf>` commmand.
 
 For surface elements, the "ID" of each element is simply its index from
 1 to N, for all N surface elements that have been read in via the
-`read_surf <read_surf.html>`__ command. The ordering of IDs is
+:ref:`read_surf<command-read-surf>` command. The ordering of IDs is
 determined by the order the elements appear in the read-in surface file.
 If multiple files are read (or the same file multiple times), IDs
 increase monotonically each time new surface elements are added.
@@ -154,9 +153,9 @@ group named sphere.
 
 The *region* style puts all surface elements in the region volume
 associated with the *region-ID* into the group. See the
-`region <region.html>`__ command for details on what kind of geometric
+:ref:`region<command-region>` command for details on what kind of geometric
 regions can be defined. Note that the *side* option for the
-`region <region.html>`__ command can be used to define whether the
+:ref:`region<command-region>` command can be used to define whether the
 inside or outside of the geometric region is considered to be "in" the
 region.
 
@@ -199,8 +198,8 @@ defined, including "all".
 
 :ref:`command-dump`,
 :ref:`command-region`,
-:ref:`compute grid <command-compute-grid>`
-:ref:`compute surf <command-compute-surf>`
+:ref:`compute grid<command-compute-grid>`
+:ref:`compute surf<command-compute-surf>`
 
 **Default:**
 

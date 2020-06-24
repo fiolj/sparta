@@ -2,11 +2,14 @@
 
 .. index:: react_modify
 
+
+
 .. _command-react-modify:
 
 ####################
 react_modify command
 ####################
+
 
 **Syntax:**
 
@@ -36,7 +39,7 @@ Set parameters that affect how reactions are performed.
 
 The *recomb* keyword turns on or off recombination reactions. It is only
 relevant if recombination reactions were defined in the reaction file
-read in by the `react <react.html>`__ command. If the setting is *no*
+read in by the :ref:`react<command-react>` command. If the setting is *no*
 then they will be disabled even if they were listed in the reaction
 file. This is useful to turn recombination reactions off, to see if they
 affect simulation results.

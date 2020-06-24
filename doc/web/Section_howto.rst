@@ -1,9 +1,15 @@
 
+
+
+
+
 .. _howto:
 
 ##################
 How-to discussions
 ##################
+
+
 
 The following sections describe how to perform common tasks using
 SPARTA, as well as provide some techinical details about how SPARTA
@@ -14,14 +20,18 @@ works.
    :local:
 
 The example input scripts included in the SPARTA distribution and
-highlighted in :ref:`examples` of the manual also show how to setup
+highlighted in :ref:`example` of the manual also show how to setup
 and run various kinds of simulations.
 
 
 
+.. _howto-2d-simulations:
+
 **************
 2d simulations
 **************
+
+
 
 In SPARTA, as in other DSMC codes, a 2d simulation means that particles
 move only in the xy plane, but still have all 3 xyz components of
@@ -32,10 +42,14 @@ steps to take in an input script to setup a 2d model.
 
 -  Use the :ref:`command-dimension` to specify a 2d simulation.
 -  Make the simulation box periodic in z via the :ref:`command-boundary`. This is the default.
--  Using the :ref:`command-create-box`, set the z boundaries of the box to values that straddle the ``z = 0.0`` plane. I.e. ``zlo < 0.0 and zhi > 0.0``. Typical values are -0.5 and 0.5, but regardless of the actual values, SPARTA computes the "volume" of 2d  grid cells as if their z-dimension length is 1.0, in whatever :ref:`units <command-units>` are defined. This volume is used with the :ref:`global nrho <command-global>` setting to calculate numbers of particles to create or insert. It is also used to compute collision frequencies.
+-  Using the :ref:`command-create-box`, set the z boundaries of the box to values that straddle the ``z = 0.0`` plane. I.e. ``zlo < 0.0 and zhi > 0.0``. Typical values are -0.5 and 0.5, but regardless of the actual values, SPARTA computes the "volume" of 2d  grid cells as if their z-dimension length is 1.0, in whatever :ref:`units<command-units>` are defined. This volume is used with the :ref:`global nrho<command-global>` setting to calculate numbers of particles to create or insert. It is also used to compute collision frequencies.
 -  If surfaces are defined via the :ref:`command-read-surf`, use 2d objects defined by line segements.
 
 Many of the example input scripts included in the SPARTA distribution are for 2d models.
+
+
+
+
 
 
 .. _howto-axisymmetric:
@@ -43,6 +57,8 @@ Many of the example input scripts included in the SPARTA distribution are for 2d
 ************************
 Axisymmetric simulations
 ************************
+
+
 
 In SPARTA, an axi-symmetric model is a 2d model. An example input script is provided in the examples/axisymm directory.
 
@@ -53,7 +69,7 @@ An axi-symmetric problem can be setup using the following commands:
 -  The y-dimension upper boundary can be anything except "a" or "p" for periodic.
 -  Use the :ref:`command-create-box` to define a 2d simulation box with ``ylo = 0.0``.
 
-If desired, grid cell weighting can be enabled via the :ref:`global weight <command-global>` command.
+If desired, grid cell weighting can be enabled via the :ref:`global weight<command-global>` command.
 The *volume* or *radial* setting can be used for axi-symmetric models.
 
 Grid cell weighting affects how many particles per grid cell are created
@@ -69,11 +85,17 @@ y=0 axis of symmetry.
 
 
 
+
+
+
+
 .. _howto-multiple-simulations:
 
 **************************************************
 Running multiple simulations from one input script
 **************************************************
+
+
 
 This can be done in several ways. See the documentation for individual
 commands for more details on how these examples work.
@@ -154,18 +176,24 @@ run on the 3 partitions one after the other until all were finished. Initially, 
 
 
 
+
+
+
+
 .. _howto-output:
 
 *************************************************************
 Output from SPARTA (stats, dumps, computes, fixes, variables)
 *************************************************************
 
+
+
 There are four basic kinds of SPARTA output:
 
-- :ref:`Statistical output <command-stats-style>`, which is a list of quantities printed every few timesteps to the screen and logfile.
-- :ref:`Dump files <command-dump>`, which contain snapshots of particle, grid cell, or surface element quantities and are written at a specified frequency.
-- Certain fixes can output user-specified quantities directly to files: :ref:`fix ave/time <command-fix-ave-time>` for time averaging, and :ref:`fix print <command-fix-print>` for single-line output of :ref:`variables <command-variable>`. Fix print can also output to the screen.
-- :ref:`Restart files <command-restart>`.
+- :ref:`Statistical output<command-stats-style>`, which is a list of quantities printed every few timesteps to the screen and logfile.
+- :ref:`Dump files<command-dump>`, which contain snapshots of particle, grid cell, or surface element quantities and are written at a specified frequency.
+- Certain fixes can output user-specified quantities directly to files: :ref:`fix ave/time<command-fix-ave-time>` for time averaging, and :ref:`fix print<command-fix-print>` for single-line output of :ref:`variables<command-variable>`. Fix print can also output to the screen.
+- :ref:`Restart files<command-restart>`.
 
 A simulation prints one set of statistical output and (optionally)
 restart files. It can generate any number of dump files and fix output
@@ -180,10 +208,17 @@ output and the kind of data they operate on and produce:
    :depth: 1
    :local:
    
+
+
+
+
 .. _howto-global:
+
 
 Global/per-particle/per-grid/per-surf data
 ==========================================
+
+
 
 Various output-related commands work with four different styles of data:
 global, per particle, per grid, or per surf. A global datum is one or
@@ -194,8 +229,15 @@ cell, e.g. the temperature of the particles in the grid cell. A per surf
 datum is one or more values per surface element, e.g. the count of
 particles that collided with the surface element.
 
+
+
+.. _howto-scalarvectorarray:
+
+
 Scalar/vector/array data
 ========================
+
+
 
 Global, per particle, per grid, and per surf datums can each come in
 three kinds: a single scalar value, a vector of values, or a 2d array of
@@ -226,50 +268,86 @@ values as input can typically also process elements of a vector or
 array.
 
 
+
+.. _howto-statistical:
+
+
 Statistical output
 ==================
 
-The frequency and format of statistical output is set by the :ref:`stats <command-stats>`, :ref:`command-stats-style`, and :ref:`command-stats-modify`.  The :ref:`command-stats-style` also specifies what values are calculated and written out. Pre-defined keywords can be specified (e.g. np, ncoll, etc).
+
+
+The frequency and format of statistical output is set by the :ref:`stats<command-stats>`, :ref:`command-stats-style`, and :ref:`command-stats-modify`.  The :ref:`command-stats-style` also specifies what values are calculated and written out. Pre-defined keywords can be specified (e.g. np, ncoll, etc).
 Three additional kinds of keywords can also be specified (c_ID, f_ID, v_name), where a :ref:`command-compute` or :ref:`command-fix` or :ref:`command-variable` provides the value to be output. In each case, the compute, fix, or variable must generate global values to be used as an argument of the :ref:`command-stats-style`.
+
+
+
+.. _howto-dump-file-output:
 
 
 Dump file output
 ================
+
+
 
 Dump file output is specified by the :ref:`command-dump` and :ref:`command-dump-modify`. There are several pre-defined formats: dump particle, dump grid, dump surf, etc.
 
 Each of these allows specification of what values are output with each particle, grid cell, or surface element. Pre-defined attributes can be specified (e.g. id, x, y, z for particles or id, vol for grid cells, etc). Three additional kinds of keywords can also be specified (c_ID, f_ID, v_name), where a :ref:`command-compute` or :ref:`command-fix` or :ref:`command-variable` provides the values to be output. In each case, the compute, fix, or variable must generate per particle, per grid, or per surf values for input to the corresponding :ref:`command-dump`.
 
 
+
+.. _howto-fixes-write-output:
+
+
 Fixes that write output files
 =============================
 
-Two fixes take various quantities as input and can write output files:
-:ref:`fix ave/time <command-fix-ave-time>` and :ref:`fix print <command-fix-print>`.
 
-The :ref:`command-fix-ave-time` command enables direct output to a file and/or time-averaging of global scalars or vectors. The user specifies one or more quantities as input. These can be global :ref:`compute <command-compute>` values, global :ref:`fix <command-fix>` values, or :ref:`variables <command-variable>` of any style except the particle style which does not produce single values. Since a variable can refer to keywords used by the :ref:`command-stats-style` (like particle count), a wide variety of quantities can be time averaged and/or output in this way.
+
+Two fixes take various quantities as input and can write output files:
+:ref:`fix ave/time<command-fix-ave-time>` and :ref:`fix print<command-fix-print>`.
+
+The :ref:`command-fix-ave-time` command enables direct output to a file and/or time-averaging of global scalars or vectors. The user specifies one or more quantities as input. These can be global :ref:`compute<command-compute>` values, global :ref:`fix<command-fix>` values, or :ref:`variables<command-variable>` of any style except the particle style which does not produce single values. Since a variable can refer to keywords used by the :ref:`command-stats-style` (like particle count), a wide variety of quantities can be time averaged and/or output in this way.
 If the inputs are one or more scalar values, then the fix generates a global scalar or vector of output. If the inputs are one or more vector values, then the fix generates a global vector or array of output. The time-averaged
 output of this fix can also be used as input to other output commands.
 
-The :ref:`command-fix-print` can generate a line of output written to the screen and log file or to a separate file, periodically during a running simulation. The line can contain one or more :ref:`variable <command-variable>` values for any style variable except the particle style. As explained above, variables themselves can contain references to global values generated by :ref:`stats keywords <command-stats-style>`, :ref:`computes <command-compute>`, :ref:`fixes <command-fix>`, or other :ref:`variables <command-variable>`. Thus the :ref:`command-fix-print` is a means to output a wide variety of quantities separate from normal statistical or dump file output.
+The :ref:`command-fix-print` can generate a line of output written to the screen and log file or to a separate file, periodically during a running simulation. The line can contain one or more :ref:`variable<command-variable>` values for any style variable except the particle style. As explained above, variables themselves can contain references to global values generated by :ref:`stats keywords<command-stats-style>`, :ref:`computes<command-compute>`, :ref:`fixes<command-fix>`, or other :ref:`variables<command-variable>`. Thus the :ref:`command-fix-print` is a means to output a wide variety of quantities separate from normal statistical or dump file output.
+
+
+
+.. _howto-computes-process:
 
 
 Computes that process output quantities
 =======================================
 
+
+
 The :ref:`command-compute-reduce` takes one or more per particle or per grid or per surf vector quantities as inputs and "reduces" them (sum, min, max, ave) to scalar quantities. These are produced as output values which can be used as input to other output commands.
+
+
+
+.. _howto-computes-generate:
 
 
 Computes that generate values to output
 =======================================
 
-Every :ref:`compute <command-compute>` in SPARTA produces either global or per particle or per grid or per surf values. The values can be scalars or vectors or arrays of data. These values can be output using the other commands described in this section. The doc page for each compute command describes what it produces. Computes that produce per particle or per grid or per surf values have the word "particle" or "grid" or "surf" in their style name. Computes without those words produce global values.
+
+
+Every :ref:`compute<command-compute>` in SPARTA produces either global or per particle or per grid or per surf values. The values can be scalars or vectors or arrays of data. These values can be output using the other commands described in this section. The doc page for each compute command describes what it produces. Computes that produce per particle or per grid or per surf values have the word "particle" or "grid" or "surf" in their style name. Computes without those words produce global values.
+
+
+
+.. _howto-fixes-generate:
 
 
 Fixes that generate values to output
 ====================================
 
-Some :ref:`fixes <command-fix>` in SPARTA produces either global or per particle or per grid or per surf values which can be accessed by other commands. The values can be scalars or vectors or arrays of data. These values can be output using the other commands described in this section.  The doc page for each fix command tells whether it produces any output quantities and describes them.
+
+
+Some :ref:`fixes<command-fix>` in SPARTA produces either global or per particle or per grid or per surf values which can be accessed by other commands. The values can be scalars or vectors or arrays of data. These values can be output using the other commands described in this section.  The doc page for each fix command tells whether it produces any output quantities and describes them.
 
 Two fixes of particular interest for output are the :ref:`command-fix-ave-grid` and :ref:`command-fix-ave-surf`.
 
@@ -278,21 +356,33 @@ The :ref:`command-fix-ave-grid` command enables time-averaging of per grid vecto
 The :ref:`command-fix-ave-surf` enables time-averaging of per surf vectors. The user specifies one or more quantities as input.  These can be per surf vectors or ararys from :ref:`command-compute` or :ref:`command-fix`. If the input is a single vector, then the fix generates a per surf vector. If the input is multiple vectors or array, the fix generates a per surf array. The time-averaged output of this fix can also be used as input to other output commands.
 
 
+
+.. _howto-variables-generate:
+
+
 Variables that generate values to output
 ========================================
 
-:ref:`Variables <command-variable>` defined in an input script generate either
+
+
+:ref:`Variables<command-variable>` defined in an input script generate either
 a global scalar value or a per particle vector (only particle-style
 variables) when it is accessed. The formulas used to define equal- and
 particle-style variables can contain references to the
-:ref:`stats_style <command-stats-style>` keywords and to global and per
+:ref:`stats_style<command-stats-style>` keywords and to global and per
 particle data generated by computes, fixes, and other variables. The
 values generated by variables can be output using the other commands
 described in this section.
 
 
+
+.. _howto-summary-table:
+
+
 Summary table of output options and data flow between commands
 ==============================================================
+
+
 
 This table summarizes the various commands that can be used for generating output from SPARTA. Each command produces output data of some kind and/or writes data to a file. Most of the commands can take data from other commands as input. Thus you can link many of these commands together in pipeline form, where data produced by one command is used as input to another command and eventually written to the screen or to a file. Note that to hook two commands together the output and input data types must match, e.g. global/per atom/local data and scalar/vector/array data.
 
@@ -304,51 +394,55 @@ Also note that, as described above, when a command takes a scalar as input, that
    * - Command
      - Input
      - Output
-   * - :ref:`stats_style <command-stats-style>`
+   * - :ref:`stats_style<command-stats-style>`
      - global scalars
      - screen, log file
-   * - :ref:`dump particle <command-dump>`
+   * - :ref:`dump particle<command-dump>`
      - per particle vectors
      - dump file                                           
-   * - :ref:`dump grid <command-dump>`
+   * - :ref:`dump grid<command-dump>`
      - per grid vectors
      -  dump file                                           
-   * - :ref:`dump surf <command-dump>`
+   * - :ref:`dump surf<command-dump>`
      - per surf vectors
      - dump file                                           
    * - `fix print <command-fix-print>`
      - global scalar from variable
      - screen, file                                        
-   * - :ref:`print <command-print>`
+   * - :ref:`print<command-print>`
      - global scalar from variable
      - screen                                              
-   * - :ref:`computes <command-compute>`
+   * - :ref:`computes<command-compute>`
      - N/A
      - global or per particle/grid/surf scalar/vector/array
-   * - :ref:`fixes <command-fix>`
+   * - :ref:`fixes<command-fix>`
      - N/A
      - global or per particle/grid/surf scalar/vector/array
-   * - :ref:`variables <command-variable>`
+   * - :ref:`variables<command-variable>`
      - global scalars, per particle vectors
      - global scalar, per particle vector                  
-   * - :ref:`compute reduce <command-compute-reduce>`
+   * - :ref:`compute reduce<command-compute-reduce>`
      - per particle/grid/surf vectors
      - global scalar/vector                                
-   * - :ref:`fix ave/time <command-fix-ave-time>`
+   * - :ref:`fix ave/time<command-fix-ave-time>`
      - global scalars/vectors
      - global scalar/vector/array, file                    
-   * - :ref:`fix ave/grid <command-fix-ave-grid>`
+   * - :ref:`fix ave/grid<command-fix-ave-grid>`
      - per grid vectors/arrays
      - per grid vector/array                               
    * - `fix ave/surf <command-fix-ave-surf>`
      - per surf vectors/arrays
-     - per surf vector/array                               
+     - per surf vector/array
 
 
+
+.. _howto-visualizing:
 
 ****************************
 Visualizing SPARTA snapshots
 ****************************
+
+
 
 The :ref:`command-dump-image` can be used to do
 on-the-fly visualization as a simulation proceeds. It works by creating
@@ -367,13 +461,19 @@ See the `Pizza.py WWW site <http://www.sandia.gov/~sjplimp/pizza.html>`__ for de
 Additional Pizza.py tools may be added that allow visualization of surface and grid cell information as output by SPARTA.
 
 
+
+
+
+
 .. _howto-library:
 
 ***************************
 Library interface to SPARTA
 ***************************
 
-As described in :ref:`build-library`, SPARTA can be built as a library, so that it can be called by another code, used in a :ref:`coupled manner <howto-other-code>` with other codes, or driven through a :ref:`Python interface <python>`.
+
+
+As described in :ref:`build-library<start-build-library>`, SPARTA can be built as a library, so that it can be called by another code, used in a :ref:`coupled manner<howto-other-code>` with other codes, or driven through a :ref:`Python interface<python>`.
 
 All of these methodologies use a C-style interface to SPARTA that is provided in the files src/library.cpp and src/library.h. The functions therein have a C-style argument list, but contain C++ code you could write yourself in a C++ application that was invoking SPARTA directly.  The C++ code in the functions illustrates how to invoke internal SPARTA operations. Note that SPARTA classes are defined within a SPARTA namespace (SPARTA_NS) if you use them from another C++ application.
 
@@ -406,9 +506,13 @@ This can extract various global quantities from SPARTA as well as values calcula
 
 Other functions may be added to the library interface as needed to allow reading from or writing to internal SPARTA data structures.
 
-The key idea of the library interface is that you can write any functions you wish to define how your code talks to SPARTA and add them to src/library.cpp and src/library.h, as well as to the :ref:`Python interface <python>`. The routines you add can in principle access or change any SPARTA data you wish. The examples/COUPLE and python directories have example C++ and C and Python codes which show how a driver code can link to SPARTA as a library, run SPARTA on a subset of processors, grab data from SPARTA, change it, and put it back into SPARTA.
+The key idea of the library interface is that you can write any functions you wish to define how your code talks to SPARTA and add them to src/library.cpp and src/library.h, as well as to the :ref:`Python interface<python>`. The routines you add can in principle access or change any SPARTA data you wish. The examples/COUPLE and python directories have example C++ and C and Python codes which show how a driver code can link to SPARTA as a library, run SPARTA on a subset of processors, grab data from SPARTA, change it, and put it back into SPARTA.
 
 .. important:: The examples/COUPLE dir has not been added to the distribution yet.
+
+
+
+
 
 
 .. _howto-other-code:
@@ -416,6 +520,8 @@ The key idea of the library interface is that you can write any functions you wi
 ******************************
 Coupling SPARTA to other codes
 ******************************
+
+
 
 SPARTA is designed to allow it to be coupled to other codes. For example, a continuum finite element (FE) simulation might use SPARTA grid cell quantities as boundary conditions on FE nodal points, compute a FE solution, and return continuum flow conditions as boundary conditions for SPARTA to use.
 
@@ -436,13 +542,17 @@ SPARTA can be coupled to other codes in at least 3 ways. Each has advantages and
     .. important:: The examples/COUPLE dir has not been added to the distribution yet.
 
 
-:ref:`Section 2.3 <start-optional-packages>` of the manual describes how to build SPARTA as a library. Once this is done, you can interface with SPARTA either via C++, C, Fortran, or Python (or any other language that supports a vanilla C-like interface). For example, from C++ you could create one (or more) "instances" of SPARTA, pass it an input script to process, or execute individual commands, all by invoking the correct class methods in SPARTA. From C or Fortran you can make function calls to do the same things. See :ref:`Section_9 <python>` of the manual for a description of the Python wrapper provided with SPARTA that operates through the SPARTA library interface.
+:ref:`Section 2.3<start-optional-packages>` of the manual describes how to build SPARTA as a library. Once this is done, you can interface with SPARTA either via C++, C, Fortran, or Python (or any other language that supports a vanilla C-like interface). For example, from C++ you could create one (or more) "instances" of SPARTA, pass it an input script to process, or execute individual commands, all by invoking the correct class methods in SPARTA. From C or Fortran you can make function calls to do the same things. See :ref:`Section_9<python>` of the manual for a description of the Python wrapper provided with SPARTA that operates through the SPARTA library interface.
 
 The files src/library.cpp and library.h contain the C-style interface to
-SPARTA. See :ref:`Section 6.6 <howto-library>` of the manual for a description
+SPARTA. See :ref:`Section 6.6<howto-library>` of the manual for a description
 of the interface and how to extend it for your needs.
 
 Note that the ``sparta_open()`` function that creates an instance of SPARTA takes an MPI communicator as an argument. This means that instance of SPARTA will run on the set of processors in the communicator. Thus the calling code can run SPARTA on all or a subset of processors. For example, a wrapper script might decide to alternate between SPARTA and another code, allowing them both to run on all the processors. Or it might allocate half the processors to SPARTA and half to the other code and run both codes simultaneously before syncing them up periodically.  Or it might instantiate multiple instances of SPARTA to perform different calculations.
+
+
+
+
 
 
 .. _howto-grids:
@@ -451,10 +561,12 @@ Note that the ``sparta_open()`` function that creates an instance of SPARTA take
 Details of grid geometry in SPARTA
 **********************************
 
+
+
 SPARTA overlays a grid over the simulation domain which is used to track particles and to co-locate particles in the same grid cell for performing collision and chemistry operations. Surface elements are also assigned to grid cells they intersect with, so that particle/surface collisions can be efficiently computed.
 
 SPARTA uses a Cartesian hierarchical grid. Cartesian means that the faces of a grid cell, at any level of the hierarchy, are aligned with the Cartesian xyz axes. I.e. each grid cell is an axis-aligned pallelpiped or rectangular box. The hierarchy of grid cells is defined in the following manner. The entire simulation box is a single "root" grid cell at level 0 of the hierarchy. It is sub-divided into a regular Nx by Ny by Nz grid of cells, all at level 1 of the hierarchy. "Regular" means all the Nx*Ny*Nz sub-divided cells within a parent cell are the same size. Each Nx,Ny,Nz value >= 1 (although if Nx = Ny = Nz = 1 then obviously there is no sub-division). Any of the cells at level 1 can be further sub-divided in the same manner to create cells at level 2, and recursively for levels 3, 4,
-etc. The Nx,Ny,Nz values for sub-dividing an individual parent cell can be uniquely chosen. All level 2 cells do not need to be sub-divided using the same Nx,Ny,Nz values. Grids for 2d and 3d simulations (see the :ref:`dimension <command-dimension>`) follow the same rules, except that ``Nz = 1`` is required at every level of sub-division for 2d grids.
+etc. The Nx,Ny,Nz values for sub-dividing an individual parent cell can be uniquely chosen. All level 2 cells do not need to be sub-divided using the same Nx,Ny,Nz values. Grids for 2d and 3d simulations (see the :ref:`dimension<command-dimension>`) follow the same rules, except that ``Nz = 1`` is required at every level of sub-division for 2d grids.
 
 Note that this manner of defining a hierarchy allows for flexible grid cell refinement in any region of the simulation domain. E.g. around a surface, or in a high-density region of the gas flow. Also note that a 3d oct-tree (quad-tree in 2d) is a special case of the SPARTA hierarchical grid, where Nx = Ny = Nz = 2 is always used to sub-divide a grid cell.
 
@@ -515,13 +627,19 @@ Simulations typically run faster with clumped grid cell assignments.  This is be
 If the spatial distribution of particles is highly irregular and/or dynamically changing, or if the computational work per grid cell is otherwise highly imbalanced, a clumped assignment of grid cells to processors may not lead to optimal balancing. In these scenarios a dispersed assignment of grid cells to processsors may run faster even with the overhead of increased particle communication. This is because randomly assigning grid cells to processors can balance the computational load in a statistical sense.
 
 
+
+
+
+
 .. _howto-surfaces:
 
 *****************************
 Details of surfaces in SPARTA
 *****************************
 
-A SPARTA simulation can define one or more surface objects, each of which are read in via the :ref:`read_surf <command-read-surf>`. For 2d simulations a surface object is a collection of connected line segments.  For 3d simulations it is a collection of connected triangles. The outward normal of lines or triangles, as defined in the surface file, points into the flow region of the simulation box which is typically filled with particles. Depending on the orientation, surface objects can thus be obstacles that particles flow around, or they can represent the outer boundary of an irregular shaped region which particles are inside of.
+
+
+A SPARTA simulation can define one or more surface objects, each of which are read in via the :ref:`read_surf<command-read-surf>`. For 2d simulations a surface object is a collection of connected line segments.  For 3d simulations it is a collection of connected triangles. The outward normal of lines or triangles, as defined in the surface file, points into the flow region of the simulation box which is typically filled with particles. Depending on the orientation, surface objects can thus be obstacles that particles flow around, or they can represent the outer boundary of an irregular shaped region which particles are inside of.
 
 See the :ref:`command-read-surf` doc page for a discussion of these topics:
 
@@ -535,7 +653,11 @@ The :ref:`command-read-surf` assigns an ID to the surface object in a file. This
 
 As described in the previous Section :ref:`howto-grids`, SPARTA overlays a grid over the simulation domain to track particles. Surface elements are also assigned to grid cells they intersect with, so that particle/surface collisions can be efficiently computed. Typically a grid cell size larger than the surface elements that intersect it may not desirable since it means flow around the surface object will not be well resolved. The size of the smallest surface element in the system is printed when the surface file is read. Note that if the surface object is clipped to the simulation box, small lines or triangles can result near the box boundary due to the clipping operation.
 
-The maximum number of surface elements that can intersect a single child grid cell is set by the :ref:`global surfmax <command-global>` command. The default limit is 100. The actual maximum number in any grid cell is also printed when the surface file is read. Values this large or larger may cause particle moves to become expensive, since each time a particle moves within that grid cell, possible collisions with all its overlapping surface elements must be computed.
+The maximum number of surface elements that can intersect a single child grid cell is set by the :ref:`global surfmax<command-global>` command. The default limit is 100. The actual maximum number in any grid cell is also printed when the surface file is read. Values this large or larger may cause particle moves to become expensive, since each time a particle moves within that grid cell, possible collisions with all its overlapping surface elements must be computed.
+
+
+
+
 
 
 .. _howto-restarting:
@@ -544,7 +666,9 @@ The maximum number of surface elements that can intersect a single child grid ce
 Restarting a simulation
 ***********************
 
-There are two ways to continue a long SPARTA simulation. Multiple :ref:`run <command-run>` commands can be used in the same input script. Each run will continue from where the previous run left off. Or binary restart files can be saved to disk using the :ref:`command-restart`. At a later time, these binary files can be read via a :ref:`command-read-restart` in a new script.
+
+
+There are two ways to continue a long SPARTA simulation. Multiple :ref:`run<command-run>` commands can be used in the same input script. Each run will continue from where the previous run left off. Or binary restart files can be saved to disk using the :ref:`command-restart`. At a later time, these binary files can be read via a :ref:`command-read-restart` in a new script.
 
 Here is an example of a script that reads a binary restart file and then issues a new run command to continue where the previous run left off. It illustrates what settings must be made in the new script. Details are discussed in the documentation for the :ref:`command-read-restart` and :ref:`command-write-restart`.
 
@@ -573,9 +697,13 @@ This script could be used to read the first restart file and re-run the last 80 
    run             80 
 
 
-Note that the following commands do not need to be repeated because their settings are included in the restart file: *dimension, global, boundary, create_box, create_grid, species, mixture*. However these commands do need to be used, since their settings are not in the restart file: *seed, collide, compute, fix, stats_style, timestep*. The :ref:`read_restart <command-read-restart>` doc page gives details.
+Note that the following commands do not need to be repeated because their settings are included in the restart file: *dimension, global, boundary, create_box, create_grid, species, mixture*. However these commands do need to be used, since their settings are not in the restart file: *seed, collide, compute, fix, stats_style, timestep*. The :ref:`read_restart<command-read-restart>` doc page gives details.
 
 If you actually use this script to perform a restarted run, you will notice that the statistics output does not match exactly. On step 50, the collision counts are 0 in the restarted run, because the line is printed before the restarted simulation begins. The collision counts in subsequent steps are similar but not identical. This is because new random numbers are used for collisions in the restarted run. This affects all the randomized operations in a simulation, so in general you should only expect a restarted run to be statistically similar to the original run.
+
+
+
+
 
 
 .. _howto-ambipolar:
@@ -583,6 +711,8 @@ If you actually use this script to perform a restarted run, you will notice that
 *********************************
 Using the ambipolar approximation
 *********************************
+
+
 
 The ambipolar approximation is a computationally efficient way to model low-density plasmas which contain positively-charged ions and negatively-charged electrons. In this model, electrons are not free particles which move independently. This would require a simulation with a very small timestep due to electon's small mass and high speed (1000x that of an ion or neutral particle).
 
@@ -602,11 +732,11 @@ species, and one which does not. Example :ref:`command-mixture` for doing this a
 
 Use the :ref:`command-fix-ambipolar` to specify which species is the ambipolar electron and what (multiple) species are ambipolar ions. This is required for all the other options listed here to work. The fix defines two custom per-particles attributes, an integer vector called "ionambi" which stores a 1 for a particle if it is an ambipolar ion, and a 0 otherwise. And a floating-point array called "velambi" which stores a 3-vector with the velocity of the associated electron for each ambipolar ion or zeroes otherwise. Note that no particles should ever exist in the simulation with a species matching ambipolar electrons. Such particles are only generated (and destroyed) internally, as described above.
 
-Use the :ref:`collide_modify ambipolar yes <command-collide-modify>` command if you want to perform gas-phase collisions using the ambipolar model.  This is not required. If you do this, DO use a mixture which includes the ambipolar electron species, so that electrons will participate in the collisions and reactions (if defined). You probably also want to specify a mixture for the collide command which has two or more groups.  One group is for the ambipolar electron species, the other for ambipolar ions. Additional groups could exist for other species (e.g. neutrals), or those species could be part of the ion group. Putting the ambipolar electron species in its own group should improve the efficiency of the code due to the large disparity in electron versus ion/neutral velocities.
+Use the :ref:`collide_modify ambipolar yes<command-collide-modify>` command if you want to perform gas-phase collisions using the ambipolar model.  This is not required. If you do this, DO use a mixture which includes the ambipolar electron species, so that electrons will participate in the collisions and reactions (if defined). You probably also want to specify a mixture for the collide command which has two or more groups.  One group is for the ambipolar electron species, the other for ambipolar ions. Additional groups could exist for other species (e.g. neutrals), or those species could be part of the ion group. Putting the ambipolar electron species in its own group should improve the efficiency of the code due to the large disparity in electron versus ion/neutral velocities.
 
 If you want to perform gas-phase chemistry for reactions involving ambipolar ions and electrons, use the :ref:`command-react` with an input file of reactions that include the ambipolar electron and ion species defined by the fix ambipolar commmand. See the :ref:`command-react` doc page for info the syntax required for ambipolar reactions. Their reactants and products must be listed in specific order.
 
-When creating particles, either by the :ref:`command-create-particles` or :ref:`command-fix-emit-face` variants, do NOT use a mixture that includes the ambipolar electron species. If you do this, you will create "free" electrons which are not coupled to an ambipolar ion. You can include ambipolar ions in the mixture. This will create ambipolar ions along with their associated electron. The electron will be assigned a velocity consistent with its mass and the temperature of the created particles. You can use the :ref:`mixture copy <command-mixture>` and :ref:`mixture delete <command-mixture>` commands to create a mixture that excludes only the ambipolar electron species, e.g.
+When creating particles, either by the :ref:`command-create-particles` or :ref:`command-fix-emit-face` variants, do NOT use a mixture that includes the ambipolar electron species. If you do this, you will create "free" electrons which are not coupled to an ambipolar ion. You can include ambipolar ions in the mixture. This will create ambipolar ions along with their associated electron. The electron will be assigned a velocity consistent with its mass and the temperature of the created particles. You can use the :ref:`mixture copy<command-mixture>` and :ref:`mixture delete<command-mixture>` commands to create a mixture that excludes only the ambipolar electron species, e.g.
 
 ::
 
@@ -628,9 +758,9 @@ For diagnositics and output, you can use the :ref:`command-compute-count` and `c
    compute myCount O+ N+ NO+ e
    stats_style step nsreact nsreactave cpu np c_myCount 
 
-Note that the count for species "e" = ambipolar electrons should alwas be zero, since those particles only exist during gas and surface collisions. The :ref:`stats_style <command-stats-style>` *nsreact* and *nsreactave* keywords print tallies of surface reactions taking place.
+Note that the count for species "e" = ambipolar electrons should alwas be zero, since those particles only exist during gas and surface collisions. The :ref:`stats_style<command-stats-style>` *nsreact* and *nsreactave* keywords print tallies of surface reactions taking place.
 
-The :ref:`dump particle <command-dump>` command can output the custom particle
+The :ref:`dump particle<command-dump>` command can output the custom particle
 attributes defined by the :ref:`command-fix-ambipolar`. E.g. this command
 
 ::
@@ -640,13 +770,17 @@ attributes defined by the :ref:`command-fix-ambipolar`. E.g. this command
 will output the ionambi flag = 1 for ambipolar ions, along with the vy
 of their associated ambipolar electrons.
 
-The :ref:`read_restart <command-read-restart>` doc page explains how to restart ambipolar simulations where a fix like :ref:`fix ambipolar <command-fix-ambipolar>` has been used to store extra per-particle properties.
+The :ref:`read_restart<command-read-restart>` doc page explains how to restart ambipolar simulations where a fix like :ref:`fix ambipolar<command-fix-ambipolar>` has been used to store extra per-particle properties.
 
 
+
+.. _howto-multiple-vibrational:
 
 ****************************************
 Using multiple vibrational energy levels
 ****************************************
+
+
 
 DSMC models for collisions between one or more polyatomic species can
 include the effect of multiple discrete vibrational levels, where a
@@ -657,29 +791,29 @@ particle species.
 This kind of model can be enabled in SPARTA using the following
 commands:
 
--  :ref:`species ... vibfile ... <command-species>`
--  :ref:`collide_modify vibrate discrete <command-collide-modify>`
--  :ref:`fix vibmode <command-fix-vibmode>`
--  :ref:`dump particle p_vibmode <command-dump>`
+-  :ref:`species ... vibfile ...<command-species>`
+-  :ref:`collide_modify vibrate discrete<command-collide-modify>`
+-  :ref:`fix vibmode<command-fix-vibmode>`
+-  :ref:`dump particle p_vibmode<command-dump>`
 
 The :ref:`command-species` with its *vibfile* option allows a separate file with per-species vibrational information to be read. See data/air.species.vib for an example of such a file.
 
 Only species with 4,6,8 vibrational degrees of freedom, as defined in the species file read by the :ref:`command-species`, need to be listed in the *vibfile*. These species have N modes, where N = degrees of freedom / 2. For each mode, a vibrational temperature, relaxation number, and degeneracy is defined in the *vibfile*. These quantities are used in the energy exchange formulas for each collision.
 
-The :ref:`collide_modify vibrate discrete <command-collide-modify>` command is
+The :ref:`collide_modify vibrate discrete<command-collide-modify>` command is
 used to enable the discrete model. Other allowed settings are *none* and
 *smooth*. The former turns off vibrational energy effects altogether.
 The latter uses a single continuous value to represent vibrational
 energy; no per-mode information is used.
 
-The :ref:`fix vibmode <command-fix-vibmode>` command is used to allocate
+The :ref:`fix vibmode<command-fix-vibmode>` command is used to allocate
 per-particle storage for the population of levels appropriate to the
 particle's species. This will be from 1 to 4 values for each species.
 Note that this command must be used before particles are created via the
 :ref:`command-create-particles` to allow the level
 populations for new particles to be set appropriately. The :ref:`command-fix-vibmode` doc page has more details.
 
-The :ref:`dump particle <command-dump>` command can output the custom particle attributes defined by the :ref:`fix vibmode <command-fix-vibmode>` command.  E.g. this command
+The :ref:`dump particle<command-dump>` command can output the custom particle attributes defined by the :ref:`fix vibmode<command-fix-vibmode>` command.  E.g. this command
 
 ::
 
@@ -687,7 +821,11 @@ The :ref:`dump particle <command-dump>` command can output the custom particle a
 
 will output for each particle evib = total vibrational energy (summed across all levels), and the population counts for the first 3 vibrational energy levels. The vibmode count will be 0 for vibrational levels that do not exist for particles of a particular species.
 
-The :ref:`read_restart <command-read-restart>` doc page explains how to restart simulations where a fix like :ref:`fix vibmode <command-fix-vibmode>` has been used to store extra per-particle properties.
+The :ref:`read_restart<command-read-restart>` doc page explains how to restart simulations where a fix like :ref:`fix vibmode<command-fix-vibmode>` has been used to store extra per-particle properties.
+
+
+
+
 
 
 .. _howto-surface-elements:
@@ -695,6 +833,8 @@ The :ref:`read_restart <command-read-restart>` doc page explains how to restart 
 *************************************************
 Surface elements: explicit, implicit, distributed
 *************************************************
+
+
 
 SPARTA can work with two kinds of surface elements: explicit and implicit. Explicit surfaces are lines (2d) or triangles (3d) defined in surface data files read by the :ref:`command-read-surf`.  An individual element can be any size; a single surface element can intersect many grid cells. Implicit surfaces are lines (2d) or triangles (3d) defined by grid corner point data files read by the :ref:`command-read-isurf`. The corner point values define lines or triangles that are wholly contained with single grid cells.
 
@@ -704,54 +844,59 @@ The data and attributes of explicit surface elements can be stored in one of two
 
 Implicit surfaces are always stored in a distributed fashion. Each processor only stores a copy of surface elements assigned to grid cells it owns or has a ghost copy of. Note that 3d implicit surfs are not yet fully implemented. Specifically, the :ref:`command-read-isurf` will not yet read and create them.
 
-The :ref:`global surfs <command-global>` command is used to specify the use of explicit versus implicit, and distributed versus non-distributed surface elements.
+The :ref:`global surfs<command-global>` command is used to specify the use of explicit versus implicit, and distributed versus non-distributed surface elements.
 
 Unless noted, the following surface-related commands work with either explict or implicit surfaces, whether they are distributed or not. For large data sets, the read and write surf and isurf commands have options to use multiple files and/or operate in parallel which can reduce I/O times.
 
--  :ref:`adapt_grid <command-adapt-grid>`
--  :ref:`compute_isurf/grid <command-compute-isurf-grid>` # for implicit surfs
--  :ref:`compute_surf <command-compute-surf>` # for explicit surfs
--  :ref:`dump surf <command-dump>`
--  :ref:`dump image <command-dump-image>`
--  :ref:`fix adapt/grid <command-fix-adapt>`
--  :ref:`fix emit/surf <command-fix-emit-surf>`
--  :ref:`group surf <command-group>`
--  :ref:`read_isurf <command-read-isurf>` # for implicit surfs
--  :ref:`read_surf <command-read-surf>` # for explicit surfs
--  :ref:`surf_modify <command-surf-modify>`
--  :ref:`write_isurf <command-write-surf>` # for implicit surfs
--  :ref:`write_surf <command-write-surf>`
+-  :ref:`adapt_grid<command-adapt-grid>`
+-  :ref:`compute_isurf/grid<command-compute-isurf-grid>` # for implicit surfs
+-  :ref:`compute_surf<command-compute-surf>` # for explicit surfs
+-  :ref:`dump surf<command-dump>`
+-  :ref:`dump image<command-dump-image>`
+-  :ref:`fix adapt/grid<command-fix-adapt>`
+-  :ref:`fix emit/surf<command-fix-emit-surf>`
+-  :ref:`group surf<command-group>`
+-  :ref:`read_isurf<command-read-isurf>` # for implicit surfs
+-  :ref:`read_surf<command-read-surf>` # for explicit surfs
+-  :ref:`surf_modify<command-surf-modify>`
+-  :ref:`write_isurf<command-write-surf>` # for implicit surfs
+-  :ref:`write_surf<command-write-surf>`
 
 These command do not yet support distributed surfaces:
 
--  :ref:`move_surf <command-move-surf>`
--  :ref:`fix move/surf <command-fix-move-surf>`
--  :ref:`remove_surf <command-remove-surf>`
+-  :ref:`move_surf<command-move-surf>`
+-  :ref:`fix move/surf<command-fix-move-surf>`
+-  :ref:`remove_surf<command-remove-surf>`
 
+
+
+.. _howto-implicit-surface:
 
 *************************
 Implicit surface ablation
 *************************
+
+
 
 The implicit surfaces described in the previous section can be used to
 perform ablation simulations, where the set of implicit surface elements
 evolve over time to model a receding surface. These are the relevant
 commands:
 
--  :ref:`global surfs implicit <command-global>`
--  :ref:`read isurf <command-read-isurf>`
--  :ref:`fix ablate <command-fix-ablate>`
--  :ref:`compute isurf/grid <command-compute-isurf-grid>`
--  :ref:`compute react/isurf/grid <command-compute-react-isurf-grid>`
--  :ref:`fix ave/grid <command-fix-ave-grid>`
--  :ref:`write isurf <command-write-isurf>`
--  :ref:`write_surf <command-write-surf>`
+-  :ref:`global surfs implicit<command-global>`
+-  :ref:`read isurf<command-read-isurf>`
+-  :ref:`fix ablate<command-fix-ablate>`
+-  :ref:`compute isurf/grid<command-compute-isurf-grid>`
+-  :ref:`compute react/isurf/grid<command-compute-react-isurf-grid>`
+-  :ref:`fix ave/grid<command-fix-ave-grid>`
+-  :ref:`write isurf<command-write-isurf>`
+-  :ref:`write_surf<command-write-surf>`
 
 The :ref:`command-read-isurf` takes a binary file as an argument which contains a pixelated (2d) or voxelated (3d) representation of the surface (e.g. a porous heat shield material). It reads the file and assigns the pixel/voxel values to corner points of a region of the SPARTA grid.
 
 The :ref:`command-read-isurf` also takes the ID of a :ref:`command-fix-ablate` command as an argument. This fix is invoked to perform a Marching Squares (2d) or Marching Cubes (3d) algorithm to convert the corner point values to a set of line segments (2d) or triangles (3d) each of which is wholly contained in a grid cell. It also stores the per grid cell corner point values.
 
-If the *Nevery* argument of the :ref:`command-fix-ablate` is 0, ablation is never performed, the implicit surfaces are static. If it is non-zero, an ablation operation is performed every *Nevery* steps.  A per-grid cell value is used to decrement the corner point values in each grid cell. The values can be (1) from a compute such as :ref:`compute isurf/grid <command-compute-isurf-grid>` which tallies statistics about gas particle collisions with surfaces within each grid cell. Or :ref:`compute react/isurf/grid <command-compute-react-isurf-grid>` which tallies the number of surface reactions that take place. Or values can be (2) from a fix such as `fix ave/grid <command-fix-ave-grid>` which time averages these statistics over many timesteps. Or they can be (3) generated randomly, which is useful for debugging.
+If the *Nevery* argument of the :ref:`command-fix-ablate` is 0, ablation is never performed, the implicit surfaces are static. If it is non-zero, an ablation operation is performed every *Nevery* steps.  A per-grid cell value is used to decrement the corner point values in each grid cell. The values can be (1) from a compute such as :ref:`compute isurf/grid<command-compute-isurf-grid>` which tallies statistics about gas particle collisions with surfaces within each grid cell. Or :ref:`compute react/isurf/grid<command-compute-react-isurf-grid>` which tallies the number of surface reactions that take place. Or values can be (2) from a fix such as `fix ave/grid <command-fix-ave-grid>` which time averages these statistics over many timesteps. Or they can be (3) generated randomly, which is useful for debugging.
 
 
 The decrement of grid corner point values is done in a manner that models recession of the surface elements within in each grid cell. All the current implicit surface elements are then discarded, and new ones are generated from the new corner point values via the Marching Squares or Marching Cubes algorithm.
@@ -760,7 +905,11 @@ The decrement of grid corner point values is done in a manner that models recess
 	       In the future, we plan to modify the standard Marching Cubes algorithm to prevent this from happening. In our testing, the fraction of trapped particles in an ablation operation is tiny (around 0.005% or 5 in 100000). The number of deleted particles can be monitored as an output option by the :ref:`command-fix-ablate`.
 
 
-The :ref:`command-write-isurf` can be used to periodically write out a pixelated/voxelated file of corner point values, in the same format that the :ref:`command-read-isurf` reads. Note that after ablation, corner point values are typically no longer integers, but floating point values. The :ref:`command-read-isurf` and :ref:`command-write-isurf` have options to work with both kinds of files. The :ref:`command-write-surf` can also output implicit surface elements for visualization by tools such as ParaView which can read SPARTA surface element files after suitable post-processing. See the :ref:`Section tools paraview <tools-paraview>` doc page for more details.
+The :ref:`command-write-isurf` can be used to periodically write out a pixelated/voxelated file of corner point values, in the same format that the :ref:`command-read-isurf` reads. Note that after ablation, corner point values are typically no longer integers, but floating point values. The :ref:`command-read-isurf` and :ref:`command-write-isurf` have options to work with both kinds of files. The :ref:`command-write-surf` can also output implicit surface elements for visualization by tools such as ParaView which can read SPARTA surface element files after suitable post-processing. See the :ref:`Section tools paraview<tools-paraview>` doc page for more details.
+
+
+
+
 
 
 .. _howto-transparent-surface:
@@ -769,9 +918,11 @@ The :ref:`command-write-isurf` can be used to periodically write out a pixelated
 Transparent surface elements
 ****************************
 
+
+
 Transparent surfaces are useful for tallying flow statistics. Particles pass through them unaffected. However the flux of particles through those surface elements can be tallied and output.
 
-Transparent surfaces are treated differently than regular surfaces. They do not need to be watertight. E.g. you can define a set of line segments that form a straight (or curved) line in 2d. Or a set of triangle that form a plane (or curved surface) in 3d. You can define multiple such surfaces, e.g. multiple disjoint planes, and tally flow statistics through each of them. To tally or sum the statistics separately, you may want to assign the triangles in each plane to a different surface group via the :ref:`read_surf group <command-read-surf>` or :ref:`group surf <command-group>` commands.
+Transparent surfaces are treated differently than regular surfaces. They do not need to be watertight. E.g. you can define a set of line segments that form a straight (or curved) line in 2d. Or a set of triangle that form a plane (or curved surface) in 3d. You can define multiple such surfaces, e.g. multiple disjoint planes, and tally flow statistics through each of them. To tally or sum the statistics separately, you may want to assign the triangles in each plane to a different surface group via the :ref:`read_surf group<command-read-surf>` or :ref:`group surf<command-group>` commands.
 
 Note that for purposes of collisions, transparent surface elements are one-sided. A collision is only tallied for particles passing through the outward face of the element. If you want to tally particles passing through in both directions, then define 2 transparent surfaces, with opposite orientation. Again, you may want to put the 2 surfaces in separate groups.
 
@@ -779,9 +930,9 @@ There also should be no restriction on transparent surfaces intersecting each ot
 
 These are the relevant commands. See their doc pages for details:
 
--  :ref:`read_surf transparent <command-read-surf>`
--  :ref:`surf_collide transparent <command-surf-collide>`
--  :ref:`compute surf <command-compute-surf>`
+-  :ref:`read_surf transparent<command-read-surf>`
+-  :ref:`surf_collide transparent<command-surf-collide>`
+-  :ref:`compute surf<command-compute-surf>`
 
 The :ref:`command-read-surf` with its *transparent* keyword is used to flag all the read-in surface elements as transparent.  This means they must be in a file separate from regular non-transparent elements.
 
@@ -790,9 +941,9 @@ The :ref:`command-surf-collide` must be used with its *transparent* model and as
 The :ref:`command-compute-surf` can be used to tally
 the count, mass flux, and energy flux of particles that pass through
 transparent surface elements. These quantities can then be time averaged
-via the :ref:`fix ave/surf <command-fix-ave-surf>` command or output via the
-:ref:`dump surf <command-dump>` command in the usual ways, as described
-in :ref:`Section <howto-output>`.
+via the :ref:`fix ave/surf<command-fix-ave-surf>` command or output via the
+:ref:`dump surf<command-dump>` command in the usual ways, as described
+in :ref:`Section<howto-output>`.
 
 The examples/circle/in.circle.transparent script shows how to use these commands when modeling flow around a 2d circle. Two additional transparent line segments are placed in front of the circle to tally particle count and kinetic energy flux in both directions in front of the object. These are defined in the data.plane1 and data.plane2 files.  The resulting tallies are output with the :ref:`command-stats-style`. They could also be output with a :ref:`command-dump` for more resolution if the 2 lines were each defined as multiple line segments.
 

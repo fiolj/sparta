@@ -3,15 +3,28 @@
 .. index::  compute surf
 .. index::  compute surf/kk
 
+
+
+
+
 .. _command-compute-surf:
 
-######################
+#####################
  compute surf command
-######################
+#####################
 
-#########################
+
+
+
+
+
+.. _command-compute-surf-compute-surfkk:
+
+########################
  compute surf/kk command
-#########################
+########################
+
+
 
 **Syntax:**
 
@@ -19,7 +32,7 @@
 
    compute ID surf group-ID mix-ID value1 value2 ... 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  surf = style name of this compute command
 -  group-ID = group ID for which surface elements to perform calculation
    on
@@ -75,20 +88,18 @@ Define a computation that calculates one or more values for each
 explicit surface element in a surface element group, based on the
 particles that collide with that element. The values are summed for each
 group of species in the specified mixture. See the
-`mixture <mixture.html>`__ command for how a set of species can be
+:ref:`mixture<command-mixture>` command for how a set of species can be
 partitioned into groups. Only surface elements in the surface group
-specified by *group-ID* are included in the calculations. See the `group
-surf <group.html>`__ command for info on how surface elements can be
+specified by *group-ID* are included in the calculations. See the :ref:`group surf<command-group>` command for info on how surface elements can be
 assigned to surface groups.
 
 Explicit surface elements are triangles for 3d simulations and line
 segments for 2d simulations. Unlike implicit surface elements, each
 explicit triangle or line segment may span multiple grid cells. See the
-`read_surf <read_surf.html>`__ command for details.
+:ref:`read_surf<command-read-surf>` command for details.
 
 This command can only be used for simulations with explicit surface
-elements. See the similar `compute
-isurf/grid <compute_isurf_grid.html>`__ command for use with simulations
+elements. See the similar :ref:`compute isurf/grid<command-compute-isurf-grid>` command for use with simulations
 with implicit surface elements.
 
 Note that when a particle collides with a surface element, it can bounce
@@ -113,10 +124,9 @@ different species groups.
 
 The results of this compute can be used by different commands in
 different ways. The values for a single timestep can be output by the
-`dump surf <dump.html>`__ command.
+:ref:`dump surf<command-dump>` command.
 
-The values over many sampling timesteps can be averaged by the `fix
-ave/surf <fix_ave_surf.html>`__ command. It does its averaging as if the
+The values over many sampling timesteps can be averaged by the :ref:`fix ave/surf<command-fix-ave-surf>` command. It does its averaging as if the
 particles striking the surface element at each sampling timestep were
 combined together into one large set to compute the formulas below. The
 answer is then divided by the number of sampling timesteps if it is not
@@ -127,8 +137,7 @@ timesteps, and then dividing by the number of sampling steps. However
 for the current values listed below, the two normalization methods are
 the same.
 
-NOTE: If particle weighting is enabled via the `global
-weight <global.html>`__ command, then all of the values below are scaled
+NOTE: If particle weighting is enabled via the :ref:`global weight<command-global>` command, then all of the values below are scaled
 by the weight assigned to the grid cell in which the particle collision
 with the surface element occurs. The only exception is the the *n*
 value, which is NOT scaled by the weight; it is a simple count of
@@ -143,7 +152,7 @@ The *nwt* value counts the number of particles in the group striking the
 surface element and weights the count by the weight assigned to the grid
 cell in which the particle collision with the surface element occurs.
 The *nwt* quantity will only be different than *n* if particle weighting
-is enabled via the `global weight <global.html>`__ command.
+is enabled via the :ref:`global weight<command-global>` command.
 
 The *mflux* value calculates the mass flux imparted to the surface
 element by particles in the group. This is computed as
@@ -154,7 +163,7 @@ element by particles in the group. This is computed as
 
 where the sum is over all contributing particle masses, normalized by A
 = the area of the surface element, dt = the timestep, and fnum = the
-real/simulated particle ratio set by the `global fnum <global.html>`__
+real/simulated particle ratio set by the :ref:`global fnum<command-global>`
 command.
 
 The *fx*, *fy*, *fz* values calculate the components of force extered on
@@ -235,7 +244,7 @@ changes from V_pre to V_post when colliding with the surface element.
 The energy flux imparted to the surface element is the sum over all
 contributing e_delta, normalized by A = the area of the surface element
 and dt = the timestep and fnum = the real/simulated particle ratio set
-by the `global fnum <global.html>`__ command.
+by the :ref:`global fnum<command-global>` command.
 
 The *erot* value calculates the rotational energy flux *Eflux* imparted
 to the surface element by particles in the group, such that energy lost
@@ -276,8 +285,7 @@ sum of what is computed by the *ke*, *erot*, and *evib* values.
 **Transparent surface elements:**
 
 This compute will tally information on particles that pass through
-transparent surface elements. The `Section
-6.15 <Section_howto.html#howto_15>`__ doc page provides an overview of
+transparent surface elements. The :ref:`Section 6.15<howto-transparent-surface>` doc page provides an overview of
 transparent surfaces and how to create them.
 
 The *n* and *nwt* value are calculated the same for transparent
@@ -289,7 +297,7 @@ transparent surfaces, they are calculated for the incident particle as
 if they had struck the surface. The outgoing particle is ignored. This
 means the tally quantity is the flux of particles onto the outward face
 of the surface. No tallying is done for particles hitting the inward
-face of the surface. See `Section 6.15 <Section_howto.html#howto_15>`__
+face of the surface. See :ref:`Section 6.15<howto-transparent-surface>`
 for how to do tallying in both directions.
 
 All the other values are calculated as described above. This means they
@@ -311,10 +319,10 @@ Surface elements not in the specified *group-ID* will output zeroes for
 all their values.
 
 The array can be accessed by any command that uses per-surf values from
-a compute as input. See `Section 6.4 <Section_howto.html#howto_4>`__ for
+a compute as input. See :ref:`Section 6.4<howto-output>` for
 an overview of SPARTA output options.
 
-The per-surf array values will be in the `units <units.html>`__
+The per-surf array values will be in the :ref:`units<command-units>`
 appropriate to the individual values as described above. *N* is
 unitless. *Press*, *px*, *py*, *pz*, *shx*, *shy*, *shz* are in in
 pressure units. *Ke*, *erot*, *evib*, and *etot* are in energy/area-time
@@ -325,22 +333,19 @@ simulations.
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
@@ -351,7 +356,7 @@ effectively.
 **Related commands:**
 
 :ref:`command-fix-ave-surf`,
-:ref:`dump surf <command-dump>`,
+:ref:`dump surf<command-dump>`,
 :ref:`command-compute-isurf-grid`
 
 **Default:** none

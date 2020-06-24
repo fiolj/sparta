@@ -2,11 +2,14 @@
 
 .. index:: units
 
+
+
 .. _command-units:
 
 #############
 units command
 #############
+
 
 **Syntax:**
 

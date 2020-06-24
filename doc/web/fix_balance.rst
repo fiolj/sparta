@@ -2,11 +2,14 @@
 
 .. index:: fix balance - fix balance/kk
 
+
+
 .. _command-fix-balance:
 
 ############################################
 fix balance command - fix balance/kk command
 ############################################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ fix balance command - fix balance/kk command
 
    fix ID balance Nfreq thresh bstyle args 
 
--  ID is documented in `fix <fix.html>`__ command
+-  ID is documented in :ref:`fix<command-fix>` command
 -  balance = style name of this fix command
 -  Nfreq = perform dynamic load balancing every this many steps
 -  thresh = rebalance if imbalance factor is above this threshhold
@@ -50,7 +53,7 @@ particles to processors as a simulation runs, to attempt to balance the
 computational cost (load) evenly across processors. The load balancing
 is "dynamic" in the sense that rebalancing is performed periodically
 during the simulation. To perform "static" balancing, before or between
-runs, see the `balance_grid <balance_grid.html>`__ command.
+runs, see the :ref:`balance_grid<command-balance-grid>` command.
 
 This command is useful to use during simulations where the spatial
 distribution of particles varies with time, leading to load imbalance.
@@ -70,7 +73,7 @@ each processor. This means each processor's cells will be geometrically
 compact. The *random* and *proc* keywords will produce dispersed
 assignments of child cells to each processor.
 
-IMPORTANT NOTE: See `Section 6.8 <Section_howto.html#howto_8>`__ of the
+IMPORTANT NOTE: See :ref:`Section 6.8<howto-grids>` of the
 manual for an explanation of clumped and dispersed grid cell assignments
 and their relative performance trade-offs.
 
@@ -87,8 +90,8 @@ particles, then the factor is 1.2, meaning there is a 20% imbalance. The
 
 IMPORTANT NOTE: This command attempts to minimize the imbalance factor,
 as defined above. But computational cost is not strictly proportional to
-particle count, depending on the `collision <collide.html>`__ and
-`chemistry <react.html>`__ models being used. Also, changing the
+particle count, depending on the :ref:`collision<command-collide>` and
+:ref:`chemistry<command-react>` models being used. Also, changing the
 assignment of grid cells and particles to processors may lead to
 additional communication overheads, e.g. when migrating particles
 between processors. Thus you should benchmark the run times of your
@@ -180,8 +183,7 @@ rebalancing code.
 
 **Restart, output info:**
 
-No information about this fix is written to `binary restart
-files <restart.html>`__.
+No information about this fix is written to :ref:`binary restart files<command-restart>`.
 
 This fix computes a global scalar which is the imbalance factor after
 the most recent rebalance and a global vector of length 2 with
@@ -201,22 +203,19 @@ for the global scalar value.
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 

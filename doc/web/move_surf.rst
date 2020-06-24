@@ -2,11 +2,14 @@
 
 .. index:: move_surf
 
+
+
 .. _command-move-surf:
 
 #################
 move_surf command
 #################
+
 
 **Syntax:**
 
@@ -44,7 +47,7 @@ move_surf command
 
 **Description:**
 
-This command performs a one-time movement of all the surface elements in the specified group via the specified style. See the :ref:`group surf <command-group>` command for info on how surface elements can be assigned to surface groups.
+This command performs a one-time movement of all the surface elements in the specified group via the specified style. See the :ref:`group surf<command-group>` command for info on how surface elements can be assigned to surface groups.
 
 This command can be invoked as many times as desired, before or between simulation runs. Surface points can also be moved on-the-fly during a simulation by using the :ref:`command-fix-move-surf`.
 

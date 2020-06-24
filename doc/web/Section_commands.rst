@@ -1,9 +1,15 @@
 
+
+
+
+
 .. _commands:
 
 ########
 Commands
 ########
+
+
 
 This section describes how a SPARTA input script is formatted and what
 commands are used to define a SPARTA simulation.
@@ -13,9 +19,15 @@ commands are used to define a SPARTA simulation.
 
 --------------
 
+
+
+.. _commands-sparta-input:
+
 *******************
 SPARTA input script
 *******************
+
+
 
 SPARTA executes by reading commands from a input script (text file), one
 line at a time. When the input script ends, SPARTA exits. Each command
@@ -63,11 +75,17 @@ lists restrictions on how the command can be used.
 
 --------------
 
+
+
+
+
 .. _commands-parsing-rules:
 
 *************
 Parsing rules
 *************
+
+
 
 Each non-blank line in the input script is treated as a command. SPARTA
 commands are case sensitive. Command names are lower-case, as are
@@ -97,7 +115,7 @@ the variable name is the single character immediately following the $.
 Thus ${myTemp} and $x refer to variable names "myTemp" and "x".
 
 How the variable is converted to a text string depends on what style of
-variable it is; see the :ref:`variable <command-variable>` doc page for details. It
+variable it is; see the :ref:`variable<command-variable>` doc page for details. It
 can be a variable that stores multiple text strings, and return one of
 them. The returned text string can be multiple "words" (space separated)
 which will then be interpreted as multiple arguments in the input
@@ -106,7 +124,7 @@ evaluated and its numeric result returned as a string.
 
 As a special case, if the $ is followed by parenthesis, then the text
 inside the parenthesis is treated as an "immediate" variable and
-evaluated as an :ref:`equal-style variable <command-variable>`. This is a way
+evaluated as an :ref:`equal-style variable<command-variable>`. This is a way
 to use numeric formulas in an input script without having to assign them
 to variable names. For example, these 3 input script lines:
 
@@ -164,21 +182,26 @@ character is used, as described above. E.g.
 
 The quotes are removed when the single argument is stored internally.
 
-See the :ref:`dump modify format <command-dump-modify>` or
+See the :ref:`dump modify format<command-dump-modify>` or
 :ref:`command-print`, or :ref:`command-if` for examples. A "#"
 or "$" character that is between quotes will not be treated as a comment
 indicator in (2) or substituted for as a variable in (3).
 
-.. important:: If the argument is itself a command that requires a quoted argument (e.g. using a :ref:`command-print` command as part of an :ref:`command-if` or :ref:`run every <command-run>` command), then the double and single quotes can be nested in the usual manner. See the doc pages for those commands for examples. Only one of level of nesting is allowed, but that should be sufficient for most use cases.
+.. important:: If the argument is itself a command that requires a quoted argument (e.g. using a :ref:`command-print` command as part of an :ref:`command-if` or :ref:`run every<command-run>` command), then the double and single quotes can be nested in the usual manner. See the doc pages for those commands for examples. Only one of level of nesting is allowed, but that should be sufficient for most use cases.
 
+
+
+.. _commands-input-script:
 
 **********************
 Input script structure
 **********************
 
+
+
 This section describes the structure of a typical SPARTA input script.
 The "examples" directory in the SPARTA distribution contains sample
-input scripts; the corresponding problems are discussed in Section :ref:`examples`, and animated on the `SPARTA WWW Site <http://sparta.sandia.gov>`__.
+input scripts; the corresponding problems are discussed in Section :ref:`example`, and animated on the `SPARTA WWW Site <http://sparta.sandia.gov>`__.
 
 A SPARTA input script typically has 4 parts:
 
@@ -204,11 +227,11 @@ commands need only be used if a non-default value is desired.
    These items must be defined before running a SPARTA calculation, and
    typically in this order:
 
-   -  :ref:`create_box <command-create-box>` for the simulation box 
-   -  :ref:`create_grid <command-create-grid>` or :ref:`read_grid <command-read-grid>` for grid cells
-   -  :ref:`read_surf <command-read-surf>` or :ref:`read_isurf <command-read-isurf>` for surfaces
-   -  :ref:`species <command-species>` for particle species properties
-   -  :ref:`create_particles <command-create-particles>` for particles
+   -  :ref:`create_box<command-create-box>` for the simulation box 
+   -  :ref:`create_grid<command-create-grid>` or :ref:`read_grid<command-read-grid>` for grid cells
+   -  :ref:`read_surf<command-read-surf>` or :ref:`read_isurf<command-read-isurf>` for surfaces
+   -  :ref:`species<command-species>` for particle species properties
+   -  :ref:`create_particles<command-create-particles>` for particles
 
    The first two are required. Surfaces are optional. Particles are also
    optional in the setup stage, since they can be added as the simulation
@@ -225,16 +248,20 @@ commands need only be used if a non-default value is desired.
 
    Commands that do this include
 
-   :ref:`global <command-global>`,  :ref:`timestep <command-timestep>`,
-   :ref:`collide <command-collide>` for a collision model, :ref:`react <command-react>` for a chemisty model, :ref:`fix <command-fix>` for boundary conditions,
-   time-averaging, load-balancing, etc. :ref:`compute <command-compute>` for
-   diagnostic computations :ref:`stats_style <command-stats-style>` for screen
-   output :ref:`dump <command-dump>` for snapshots of particle, grid, and surface
-   info :ref:`dump image <command-dump>` for on-the-fly images of the simulation
+   :ref:`global<command-global>`,  :ref:`timestep<command-timestep>`,
+   :ref:`collide<command-collide>` for a collision model, :ref:`react<command-react>` for a chemisty model, :ref:`fix<command-fix>` for boundary conditions,
+   time-averaging, load-balancing, etc. :ref:`compute<command-compute>` for
+   diagnostic computations :ref:`stats_style<command-stats-style>` for screen
+   output :ref:`dump<command-dump>` for snapshots of particle, grid, and surface
+   info :ref:`dump image<command-dump>` for on-the-fly images of the simulation
 
 4. Run a simulation
 
   A simulation is run using the :ref:`command-run`.
+
+
+
+
 
 .. _commands-category:
 
@@ -242,52 +269,57 @@ commands need only be used if a non-default value is desired.
 Commands listed by category
 ***************************
 
-This section lists many SPARTA commands, grouped by category. The :ref:`next
-section <commands-individual>` lists all commands alphabetically.
+
+
+This section lists many SPARTA commands, grouped by category. The :ref:`next section<commands-individual>` lists all commands alphabetically.
 
 Initialization:
-   :ref:`dimension <command-dimension>`, :ref:`package <command-package>`,
-   :ref:`seed <command-seed>`, :ref:`suffix <command-suffix>`, :ref:`units <command-units>`
+   :ref:`dimension<command-dimension>`, :ref:`package<command-package>`,
+   :ref:`seed<command-seed>`, :ref:`suffix<command-suffix>`, :ref:`units<command-units>`
 
 Problem definition:
-   :ref:`boundary <command-boundary>`, :ref:`bound_modify <command-bound-modify>`,
-   :ref:`create_box <command-create-box>`, :ref:`create_grid <command-create-grid>`,
-   :ref:`create_particles <command-create-particles>`,
-   :ref:`mixture <command-mixture>`, :ref:`read_grid <command-read-grid>`,
-   :ref:`read_isurf <command-read-isurf>`,
-   :ref:`read_particles <command-read-particles>`,
-   :ref:`read_surf <command-read-surf>`, :ref:`read_restart <command-read-restart>`,
-   :ref:`species <command-species>`
+   :ref:`boundary<command-boundary>`, :ref:`bound_modify<command-bound-modify>`,
+   :ref:`create_box<command-create-box>`, :ref:`create_grid<command-create-grid>`,
+   :ref:`create_particles<command-create-particles>`,
+   :ref:`mixture<command-mixture>`, :ref:`read_grid<command-read-grid>`,
+   :ref:`read_isurf<command-read-isurf>`,
+   :ref:`read_particles<command-read-particles>`,
+   :ref:`read_surf<command-read-surf>`, :ref:`read_restart<command-read-restart>`,
+   :ref:`species<command-species>`
 
 Settings:
-   :ref:`collide <command-collide>`, :ref:`collide_modify <command-collide-modify>`,
-   :ref:`compute <command-compute>`, :ref:`fix <command-fix>`,
-   :ref:`global <command-global>`, :ref:`react <command-react>`,
-   :ref:`react_modify <command-react-modify>`, :ref:`region <command-region>`,
-   :ref:`surf_collide <command-surf-collide>`,
-   :ref:`surf_modify <command-surf-modify>`, :ref:`surf_react <command-surf-react>`,
-   :ref:`timestep <command-timestep>`, :ref:`uncompute <command-uncompute>`,
-   :ref:`unfix <command-unfix>`
+   :ref:`collide<command-collide>`, :ref:`collide_modify<command-collide-modify>`,
+   :ref:`compute<command-compute>`, :ref:`fix<command-fix>`,
+   :ref:`global<command-global>`, :ref:`react<command-react>`,
+   :ref:`react_modify<command-react-modify>`, :ref:`region<command-region>`,
+   :ref:`surf_collide<command-surf-collide>`,
+   :ref:`surf_modify<command-surf-modify>`, :ref:`surf_react<command-surf-react>`,
+   :ref:`timestep<command-timestep>`, :ref:`uncompute<command-uncompute>`,
+   :ref:`unfix<command-unfix>`
 
 Output:
-   :ref:`dump <command-dump>`, :ref:`dump_image <command-dump-image>`,
-   :ref:`dump_modify <command-dump-modify>`, :ref:`restart <command-restart>`,
-   :ref:`stats <command-stats>`, :ref:`stats_modify <command-stats-modify>`,
-   :ref:`stats_style <command-stats-style>`, :ref:`undump <command-undump>`,
-   :ref:`write_grid <command-write-grid>`, :ref:`write_isurf <command-write-isurf>`,
-   :ref:`write_surf <command-write-surf>`, :ref:`write_restart <command-write-restart>`
+   :ref:`dump<command-dump>`, :ref:`dump_image<command-dump-image>`,
+   :ref:`dump_modify<command-dump-modify>`, :ref:`restart<command-restart>`,
+   :ref:`stats<command-stats>`, :ref:`stats_modify<command-stats-modify>`,
+   :ref:`stats_style<command-stats-style>`, :ref:`undump<command-undump>`,
+   :ref:`write_grid<command-write-grid>`, :ref:`write_isurf<command-write-isurf>`,
+   :ref:`write_surf<command-write-surf>`, :ref:`write_restart<command-write-restart>`
 
 Actions:
-   :ref:`adapt_grid <command-adapt-grid>`, :ref:`balance_grid <command-balance-grid>`,
-   :ref:`run <command-run>`, :ref:`scale_particles <command-scale-particles>`
+   :ref:`adapt_grid<command-adapt-grid>`, :ref:`balance_grid<command-balance-grid>`,
+   :ref:`run<command-run>`, :ref:`scale_particles<command-scale-particles>`
    
 Miscellaneous:
-   :ref:`clear <command-clear>`, :ref:`echo <command-echo>`, :ref:`if <command-if>`,
-   :ref:`include <command-include>`, :ref:`jump <command-jump>`,
-   :ref:`label <command-label>`, :ref:`log <command-log>`, :ref:`next <command-next>`,
-   :ref:`partition <command-partition>`, :ref:`print <command-print>`,
-   :ref:`quit <command-quit>`, :ref:`shell <command-shell>`,
-   :ref:`variable <command-variable>`
+   :ref:`clear<command-clear>`, :ref:`echo<command-echo>`, :ref:`if<command-if>`,
+   :ref:`include<command-include>`, :ref:`jump<command-jump>`,
+   :ref:`label<command-label>`, :ref:`log<command-log>`, :ref:`next<command-next>`,
+   :ref:`partition<command-partition>`, :ref:`print<command-print>`,
+   :ref:`quit<command-quit>`, :ref:`shell<command-shell>`,
+   :ref:`variable<command-variable>`
+
+
+
+
 
 
 
@@ -298,144 +330,218 @@ Miscellaneous:
 Individual commands
 *******************
 
-This section lists all SPARTA commands alphabetically, with a separate listing below of styles within certain commands. The :ref:`previous section <commands-category>` lists many of the same commands, grouped by category.
 
-.. container::
 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`adapt_grid <command-adapt-grid>`         | :ref:`balance_grid <command-balance-grid>` | :ref:`boundary <command-boundary>`               | :ref:`bound_modify <command-bound-modify>`   | :ref:`clear <command-clear>`                       | :ref:`collide <command-collide>`               | 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`collide_modify <command-collide-modify>` | :ref:`compute <command-compute>`           | :ref:`create_box <command-create-box>`           | :ref:`create_grid <command-create-grid>`     | :ref:`create_particles <command-create-particles>` | :ref:`dimension <command-dimension>`           | 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`dump <command-dump>`                     | :ref:`dump image <command-dump-image>`     | :ref:`dump_modify <command-dump-modify>`         | :ref:`dump movie <command-dump-image>`       | :ref:`echo <command-echo>`                         | :ref:`fix <command-fix>`                       | 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`global <command-global>`                 | :ref:`group <command-group>`               | :ref:`if <command-if>`                           | :ref:`include <command-include>`             | :ref:`jump <command-jump>`                         | :ref:`label <command-label>`                   | 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`log <command-log>`                       | :ref:`mixture <command-mixture>`           | :ref:`move_surf <command-move-surf>`             | :ref:`next <command-next>`                   | :ref:`package <command-package>`                   | :ref:`partition <command-partition>`           | 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`print <command-print>`                   | :ref:`quit <command-quit>`                 | :ref:`react <command-react>`                     | :ref:`react_modify <command-react-modify>`   | :ref:`read_grid <command-read-grid>`               | :ref:`read_isurf <command-read-isurf>`         | 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`read_particles <command-read-particles>` | :ref:`read_restart <command-read-restart>` | :ref:`read_surf <command-read-surf>`             | :ref:`region <command-region>`               | :ref:`remove_surf <command-remove-surf>`           | :ref:`reset_timestep <command-reset-timestep>` | 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`restart <command-restart>`               | :ref:`run <command-run>`                   | :ref:`scale_particles <command-scale-particles>` | :ref:`seed <command-seed>`                   | :ref:`shell <command-shell>`                       | :ref:`species <command-species>`               | 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`stats <command-stats>`                   | :ref:`stats_modify <command-stats-modify>` | :ref:`stats_style <command-stats-style>`         | :ref:`suffix <command-suffix>`               | :ref:`surf_collide <command-surf-collide>`         | :ref:`surf_react <command-surf-react>`         | 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`surf_modify <command-surf-modify>`       | :ref:`timestep <command-timestep>`         | :ref:`uncompute <command-uncompute>`             | :ref:`undump <command-undump>`               | :ref:`unfix <command-unfix>`                       | :ref:`units <command-units>`                   | 
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
-   | :ref:`variable <command-variable>`             | :ref:`write_grid <command-write-grid>`     | :ref:`write_isurf <command-write-isurf>`         | :ref:`write_restart <command-write-restart>` | :ref:`write_surf <command-write-surf>`             |                                                |  
-   +------------------------------------------------+--------------------------------------------+--------------------------------------------------+----------------------------------------------+----------------------------------------------------+------------------------------------------------+
+This section lists all SPARTA commands alphabetically, with a separate listing below of styles within certain commands. The :ref:`previous section<commands-category>` lists many of the same commands, grouped by category.
 
-   
+.. list-table::
+   :header-rows: 0
+
+   * -  :ref:`adapt_grid<command-adapt-grid>`         
+     -  :ref:`balance_grid<command-balance-grid>` 
+     -  :ref:`boundary<command-boundary>`               
+     -  :ref:`bound_modify<command-bound-modify>`   
+     -  :ref:`clear<command-clear>`                       
+     -  :ref:`collide<command-collide>`               
+   * -  :ref:`collide_modify<command-collide-modify>` 
+     -  :ref:`compute<command-compute>`           
+     -  :ref:`create_box<command-create-box>`           
+     -  :ref:`create_grid<command-create-grid>`     
+     -  :ref:`create_particles<command-create-particles>` 
+     -  :ref:`dimension<command-dimension>`           
+   * -  :ref:`dump<command-dump>`                     
+     -  :ref:`dump image<command-dump-image>`     
+     -  :ref:`dump_modify<command-dump-modify>`         
+     -  :ref:`dump movie<command-dump-image>`       
+     -  :ref:`echo<command-echo>`                         
+     -  :ref:`fix<command-fix>`                       
+   * -  :ref:`global<command-global>`                 
+     -  :ref:`group<command-group>`               
+     -  :ref:`if<command-if>`                           
+     -  :ref:`include<command-include>`             
+     -  :ref:`jump<command-jump>`                         
+     -  :ref:`label<command-label>`                   
+   * -  :ref:`log<command-log>`                       
+     -  :ref:`mixture<command-mixture>`           
+     -  :ref:`move_surf<command-move-surf>`             
+     -  :ref:`next<command-next>`                   
+     -  :ref:`package<command-package>`                   
+     -  :ref:`partition<command-partition>`           
+   * -  :ref:`print<command-print>`                   
+     -  :ref:`quit<command-quit>`                 
+     -  :ref:`react<command-react>`                     
+     -  :ref:`react_modify<command-react-modify>`   
+     -  :ref:`read_grid<command-read-grid>`               
+     -  :ref:`read_isurf<command-read-isurf>`         
+   * -  :ref:`read_particles<command-read-particles>` 
+     -  :ref:`read_restart<command-read-restart>` 
+     -  :ref:`read_surf<command-read-surf>`             
+     -  :ref:`region<command-region>`               
+     -  :ref:`remove_surf<command-remove-surf>`           
+     -  :ref:`reset_timestep<command-reset-timestep>` 
+   * -  :ref:`restart<command-restart>`               
+     -  :ref:`run<command-run>`                   
+     -  :ref:`scale_particles<command-scale-particles>` 
+     -  :ref:`seed<command-seed>`                   
+     -  :ref:`shell<command-shell>`                       
+     -  :ref:`species<command-species>`               
+   * -  :ref:`stats<command-stats>`                   
+     -  :ref:`stats_modify<command-stats-modify>` 
+     -  :ref:`stats_style<command-stats-style>`         
+     -  :ref:`suffix<command-suffix>`               
+     -  :ref:`surf_collide<command-surf-collide>`         
+     -  :ref:`surf_react<command-surf-react>`         
+   * -  :ref:`surf_modify<command-surf-modify>`       
+     -  :ref:`timestep<command-timestep>`         
+     -  :ref:`uncompute<command-uncompute>`             
+     -  :ref:`undump<command-undump>`               
+     -  :ref:`unfix<command-unfix>`                       
+     -  :ref:`units<command-units>`                   
+   * -  :ref:`variable<command-variable>`             
+     -  :ref:`write_grid<command-write-grid>`     
+     -  :ref:`write_isurf<command-write-isurf>`         
+     -  :ref:`write_restart<command-write-restart>` 
+     -  :ref:`write_surf<command-write-surf>`             
+     -
+
+
+
+.. _commands-fix-styles:
+
 
 Fix styles
 ==========
 
+
+
 See the :ref:`command-fix` for one-line descriptions of each
 style or click on the style itself for a full description. Some of the
 styles have accelerated versions, which can be used if SPARTA is built
-with the :ref:`appropriate accelerated package <accelerating>`.
+with the :ref:`appropriate accelerated package<accelerate>`.
 This is indicated by additional letters in parenthesis: k = KOKKOS.
 
 .. list-table:: 
    :header-rows: 0
 
-   * - :ref:`ablate <command-fix-ablate>`
-     - :ref:`adapt (k) <command-fix-adapt>`
-     - :ref:`ambipolar <command-fix-ambipolar>`
-     - :ref:`ave/grid (k) <command-fix-ave-grid>`
-     - :ref:`ave/histo (k) <command-fix-ave-histo>`
-     - :ref:`ave/histo/weight (k) <command-fix-ave-histo>`
-   * - :ref:`ave/surf <command-fix-ave-surf>`
-     - :ref:`ave/time <command-fix-ave-time>`
-     - :ref:`balance (k) <command-fix-balance>`
-     - :ref:`emit/face (k) <command-fix-emit-face>`
-     - :ref:`emit/face/file <command-fix-emit-face-file>`
-     - :ref:`emit/surf <command-fix-emit-surf>`
-   * - :ref:`grid/check (k) <command-fix-grid-check>`
-     - :ref:`move/surf (k) <command-fix-move-surf>`
-     - :ref:`print <command-print>`
-     - :ref:`vibmode <command-fix-vibmode>`
+   * - :ref:`ablate<command-fix-ablate>`
+     - :ref:`adapt (k)<command-fix-adapt>`
+     - :ref:`ambipolar<command-fix-ambipolar>`
+     - :ref:`ave/grid (k)<command-fix-ave-grid>`
+     - :ref:`ave/histo (k)<command-fix-ave-histo>`
+     - :ref:`ave/histo/weight (k)<command-fix-ave-histo>`
+   * - :ref:`ave/surf<command-fix-ave-surf>`
+     - :ref:`ave/time<command-fix-ave-time>`
+     - :ref:`balance (k)<command-fix-balance>`
+     - :ref:`emit/face (k)<command-fix-emit-face>`
+     - :ref:`emit/face/file<command-fix-emit-face-file>`
+     - :ref:`emit/surf<command-fix-emit-surf>`
+   * - :ref:`grid/check (k)<command-fix-grid-check>`
+     - :ref:`move/surf (k)<command-fix-move-surf>`
+     - :ref:`print<command-print>`
+     - :ref:`vibmode<command-fix-vibmode>`
      -
      -
+
+
+
+.. _commands-compute-styles:
 
 
 Compute styles
 ==============
 
+
+
 See the :ref:`command-compute` for one-line descriptions of
 each style or click on the style itself for a full description. Some of
 the styles have accelerated versions, which can be used if SPARTA is
-built with the :ref:`appropriate accelerated package <accelerating>`. This is indicated by additional letters in parenthesis: k = KOKKOS.
+built with the :ref:`appropriate accelerated package<accelerate>`. This is indicated by additional letters in parenthesis: k = KOKKOS.
 
 .. list-table:: 
    :header-rows: 0
    
-   * - :ref:`boundary (k) <command-compute-boundary>` 
-     - :ref:`count (k) <command-compute-count>` 
-     - :ref:`distsurf/grid <command-compute-distsurf-grid>` 
-     - :ref:`eflux/grid (k) <command-compute-eflux-grid>` 
-     - :ref:`fft/grid <command-compute-fft-grid>` 
-     - :ref:`grid (k) <command-compute-grid>`
-   * - :ref:`isurf/grid <command-compute-isurf-grid>`
-     - :ref:`ke/particle (k) <command-compute-ke-particle>` 
-     - :ref:`lambda/grid (k) <command-compute-lambda-grid>` 
-     - :ref:`pflux/grid (k) <command-compute-pflux-grid>` 
-     - :ref:`property/grid <command-compute-property-grid>` 
-     - :ref:`react/boundary <command-compute-react-boundary>` 
-   * - :ref:`react/surf <command-compute-react-surf>` 
-     - :ref:`react/isurf/grid <command-compute-react-isurf-grid>` 
-     - :ref:`reduce <command-compute-reduce>` 
-     - :ref:`sonine/grid (k) <command-compute-sonine-grid>` 
-     - :ref:`surf (k) <command-compute-surf>` 
-     - :ref:`thermal/grid (k) <command-compute-thermal-grid>` 
-   * - :ref:`temp (k) <command-compute-temp>` 
-     - :ref:`tvib/grid <command-compute-tvib-grid>` 
+   * - :ref:`boundary (k)<command-compute-boundary>` 
+     - :ref:`count (k)<command-compute-count>` 
+     - :ref:`distsurf/grid<command-compute-distsurf-grid>` 
+     - :ref:`eflux/grid (k)<command-compute-eflux-grid>` 
+     - :ref:`fft/grid<command-compute-fft-grid>` 
+     - :ref:`grid (k)<command-compute-grid>`
+   * - :ref:`isurf/grid<command-compute-isurf-grid>`
+     - :ref:`ke/particle (k)<command-compute-ke-particle>` 
+     - :ref:`lambda/grid (k)<command-compute-lambda-grid>` 
+     - :ref:`pflux/grid (k)<command-compute-pflux-grid>` 
+     - :ref:`property/grid<command-compute-property-grid>` 
+     - :ref:`react/boundary<command-compute-react-boundary>` 
+   * - :ref:`react/surf<command-compute-react-surf>` 
+     - :ref:`react/isurf/grid<command-compute-react-isurf-grid>` 
+     - :ref:`reduce<command-compute-reduce>` 
+     - :ref:`sonine/grid (k)<command-compute-sonine-grid>` 
+     - :ref:`surf (k)<command-compute-surf>` 
+     - :ref:`thermal/grid (k)<command-compute-thermal-grid>` 
+   * - :ref:`temp (k)<command-compute-temp>` 
+     - :ref:`tvib/grid<command-compute-tvib-grid>` 
      - 
      - 
      -
      -
 
+
+
+.. _commands-collide-styles:
 
 
 Collide styles
 ==============
 
+
+
 See the :ref:`command-collide` for details of each style.
 Some of the styles have accelerated versions, which can be used if
-SPARTA is built with the :ref:`appropriate accelerated package <accelerating>`. This is indicated by additional letters in parenthesis: k = KOKKOS.
+SPARTA is built with the :ref:`appropriate accelerated package<accelerate>`. This is indicated by additional letters in parenthesis: k = KOKKOS.
 
 .. list-table:: 
    :header-rows: 0
    
-   * - :ref:`vss (k) <command-collide>`
+   * - :ref:`vss (k)<command-collide>`
+
+
+
+.. _commands-surface-collide:
 
 
 Surface collide styles
 ======================
 
+
+
 See the :ref:`command-surf-collide` for details of each style. Some of the
 styles have accelerated versions, which can be used if SPARTA is built
-with the :ref:`appropriate accelerated package <accelerating>`.  This
+with the :ref:`appropriate accelerated package<accelerate>`.  This
 is indicated by additional letters in parenthesis: k = KOKKOS.
 
 
 .. list-table:: 
    :header-rows: 0
    
-   * - :ref:`cll <command-surf-collide>`
-     - :ref:`diffuse (k) <command-surf-collide>`
-     - :ref:`impulsive <command-surf-collide>`
-   * - :ref:`piston (k) <command-surf-collide>`
-     - :ref:`specular (k) <command-surf-collide>`
-     - :ref:`td <command-surf-collide>`
-   * - :ref:`vanish (k) <command-surf-collide>`
+   * - :ref:`cll<command-surf-collide>`
+     - :ref:`diffuse (k)<command-surf-collide>`
+     - :ref:`impulsive<command-surf-collide>`
+   * - :ref:`piston (k)<command-surf-collide>`
+     - :ref:`specular (k)<command-surf-collide>`
+     - :ref:`td<command-surf-collide>`
+   * - :ref:`vanish (k)<command-surf-collide>`
      -
      -
+
+
+
+.. _commands-surface-reaction:
 
 
 Surface reaction styles
 =======================
+
+
 
 See the :ref:`command-surf-react` for details of each
 style.
@@ -443,7 +549,7 @@ style.
 .. list-table:: 
    :header-rows: 0
    
-   * - :ref:`global <command-global>`
-     - :ref:`prob <command-surf-react>`
+   * - :ref:`global<command-global>`
+     - :ref:`prob<command-surf-react>`
 
 

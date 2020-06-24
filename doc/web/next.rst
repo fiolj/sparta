@@ -2,11 +2,14 @@
 
 .. index:: next
 
+
+
 .. _command-next:
 
 ############
 next command
 ############
+
 
 **Syntax:**
 
@@ -26,13 +29,13 @@ next command
 **Description:**
 
 This command is used with variables defined by the
-`variable <variable.html>`__ command. It assigns the next value to the
+:ref:`variable<command-variable>` command. It assigns the next value to the
 variable from the list of values defined for that variable by the
-`variable <variable.html>`__ command. Thus when that variable is
+:ref:`variable<command-variable>` command. Thus when that variable is
 subsequently substituted for in an input script command, the new value
 is used.
 
-See the `variable <variable.html>`__ command for info on how to define
+See the :ref:`variable<command-variable>` command for info on how to define
 and use different kinds of variables in SPARTA input scripts. If a
 variable name is a single lower-case character from "a" to "z", it can
 be used in an input script command as $a or $z. If it is multiple
@@ -51,8 +54,8 @@ command, since they only store a single value.
 
 When any of the variables in the next command has no more values, a flag
 is set that causes the input script to skip the next
-`jump <jump.html>`__ command encountered. This enables a loop containing
-a next command to exit. As explained in the `variable <variable.html>`__
+:ref:`jump<command-jump>` command encountered. This enables a loop containing
+a next command to exit. As explained in the :ref:`variable<command-variable>`
 command, the variable that has exhausted its values is also deleted.
 This allows it to be used and re-defined later in the input script.
 *File*-style variables are exhausted when the end-of-file is reached.
@@ -70,7 +73,7 @@ next value (for each variable) is assigned to whichever processor
 partition executes the command first. All processors in the partition
 are assigned the same value(s). Running SPARTA on multiple partitions of
 processors via the "-partition" command-line switch is described in
-`Section 2.6 <Section_start.html#start_6>`__ of the manual. *Universe*-
+:ref:`Section 2.6<start-command-line-options>` of the manual. *Universe*-
 and *uloop*-style variables are incremented using the files
 "tmp.sparta.variable" and "tmp.sparta.variable.lock" which you will see
 in your directory during and after such a SPARTA run.
@@ -118,8 +121,8 @@ For example, this script will run 15 simulations in a double loop.
    next i
    jump in.script 
 
-Here is an example of a double loop which uses the `if <if.html>`__ and
-`jump <jump.html>`__ commands to break out of the inner loop when a
+Here is an example of a double loop which uses the :ref:`if<command-if>` and
+:ref:`jump<command-jump>` commands to break out of the inner loop when a
 condition is met, then continues iterating thru the outer loop.
 
 ::

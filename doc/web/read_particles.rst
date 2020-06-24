@@ -2,11 +2,14 @@
 
 .. index:: read_particles
 
+
+
 .. _command-read-particles:
 
 ######################
 read_particles command
 ######################
+
 
 **Syntax:**
 
@@ -28,13 +31,11 @@ read_particles command
 Read a snapshot of particles from a previously created dump file and add
 them to the simulation domain. This is a means of reading in particles
 from a previous SPARTA simulation or created as output by another code.
-The `create_particles <create_particles.html>`__, `fix
-emit/face <fix_emit_face.html>`__, and
-`read_restart <read_restart.html>`__ commands are alternate ways to
+The :ref:`create_particles<command-create-particles>`, :ref:`fix emit/face<command-fix-emit-face>`, and
+:ref:`read_restart<command-read-restart>` commands are alternate ways to
 generate particles for a simulation.
 
-The dump file must be in the SPARTA format created by the `dump
-particles <dump.html>`__ command which is described on its doc page.
+The dump file must be in the SPARTA format created by the :ref:`dump particles<command-dump>` command which is described on its doc page.
 
 Currently, each line of particle data in the file must have 8 fields in
 the following order. At some point we may generalize this format.
@@ -46,7 +47,7 @@ the following order. At some point we may generalize this format.
 The *id* is any positive integer, which can simply be set to values from
 1 to Nparticles if desired. The type is the species ID from 1 to
 Nspecies. The value corresponds to the order in which species are
-defined in the current input script via the `species <species.html>`__
+defined in the current input script via the :ref:`species<command-species>`
 command. The x,y,z values are the particle coordinates which must be
 inside (or on the surface of) the simulation box. If a particle is
 outside the box it will be skipped when the file is read. For 2d or

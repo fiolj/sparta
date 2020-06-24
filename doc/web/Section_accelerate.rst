@@ -1,9 +1,12 @@
 
-.. _accelerating:
+
+
+.. _accelerate:
 
 ###############################
 Accelerating SPARTA performance
 ###############################
+
 
 This section describes various methods for improving SPARTA performance
 for different classes of problems running on different kinds of
@@ -14,8 +17,8 @@ provided with SPARTA that contains code optimized for certain kinds of
 hardware, including multi-core CPUs, GPUs, and Intel Xeon Phi
 coprocessors.
 
--  5.1 `Measuring performance <accelerating-measuring>`
--  5.2 `Accelerator packages with optimized styles <accelerating-measuring>`
+-  5.1 `Measuring performance <accelerate-measuring>`
+-  5.2 `Accelerator packages with optimized styles <accelerate-measuring>`
 -  5.2.1 `KOKKOS package <accelerate-kokkos>`
 
 The `Benchmark page <http://sparta.sandia.gov/bench.html>`__ of the
@@ -24,11 +27,14 @@ packages discussed in Section 5.2, for several of the standard SPARTA
 benchmark problems, as a function of problem size and number of compute
 nodes, on different hardware platforms.
 
-.. _accelerating-measuring:
+
+
+.. _accelerate-measuring:
 
 *********************
 Measuring performance
 *********************
+
 
 Before trying to make your simulation run faster, you should understand
 how it currently performs and where the bottlenecks are.
@@ -42,7 +48,7 @@ need to run for 1000s of timesteps to get accurate timings; you can
 simply extrapolate from short runs.
 
 For the set of runs, look at the timing data printed to the screen and log file at the end of each SPARTA run.
-:ref:`This section <start-screen>` of the manual has an overview.
+:ref:`This section<start-screen>` of the manual has an overview.
 
 Running on one (or a few processors) should give a good estimate of the
 serial performance and what portions of the timestep are taking the most
@@ -70,14 +76,17 @@ MPI_Barrier() lines in src/timer.cpp, and recompile SPARTA, to obtain
 synchronized timings.
 
 
-.. _accelerating-optimized:
+
+
+.. _accelerate-optimized:
 
 ******************************
 Packages with optimized styles
 ******************************
 
-Accelerated versions of various :ref:`collide_style <command-collide>`,
-:ref:`fixes <command-fix>`, :ref:`computes <command-compute>`, and other commands
+
+Accelerated versions of various :ref:`collide_style<command-collide>`,
+:ref:`fixes<command-fix>`, :ref:`computes<command-compute>`, and other commands
 have been added to SPARTA via the KOKKOS package, which may run faster
 than the standard non-accelerated versions.
 
@@ -102,7 +111,7 @@ numbers.
 
 For example, the KOKKOS package provides an accelerated variant of the
 Temperature Compute :ref:`command-compute-temp`, namely
-:ref:`compute temp/kk <command-compute-temp>`
+:ref:`compute temp/kk<command-compute-temp>`
 
 To see what accelerate styles are currently available, see Section
 :ref:`commands-individual` of the manual. The doc pages for

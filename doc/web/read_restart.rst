@@ -2,11 +2,14 @@
 
 .. index:: read_restart
 
+
+
 .. _command-read-restart:
 
 ####################
 read_restart command
 ####################
+
 
 **Syntax:**
 
@@ -61,19 +64,17 @@ processors will be the same as in the original simulation. If the
 processor count changes, then the assignment will necessarily be
 different. In particular, even if the original assignment was "clumped",
 meaning each processor's cells were geometrically compact, the new
-assignment will not be clumped; it will be "dispersed". See `Section
-6.8 <Section_howto.html#howto_8>`__ of the manual for an explanation of
+assignment will not be clumped; it will be "dispersed". See :ref:`Section 6.8<howto-grids>` of the manual for an explanation of
 clumped and dispersed grid cell assignments and their relative
 performance trade-offs.
 
-Note that the restart file contains the setting for the `global
-gridcut <global.html>`__ command. If it is >= 0.0 and the assignment of
+Note that the restart file contains the setting for the :ref:`global gridcut<command-global>` command. If it is >= 0.0 and the assignment of
 grid cells to processors is "dispersed" (as described in the preceeding
 paragraph), and there are surface elements defined in the restart file,
 an error will be triggered. This is because the read_restart command
 needs to mark all the grid cells as inside vs outside the defined
 surface and cannot do this without ghost cell information. As explained
-on the doc page for the `global gridcut <global.html>`__ command, ghost
+on the doc page for the :ref:`global gridcut<command-global>` command, ghost
 cells cannot be setup with gridcut >= 0.0 and "dispersed" grid cells.
 
 The solution is to use one of the two keywords listed above, either
@@ -85,26 +86,26 @@ problems if it requires too much memory. The other solution is to use
 the *balance* keyword to trigger a re-balance of the grid cells to
 processors as soon as the read_restart command reads them in. The
 arguments for the *balance* keyword are identical to those for the
-`balance_grid <balance_grid.html>`__ command. If you choose a balancing
+:ref:`balance_grid<command-balance-grid>` command. If you choose a balancing
 style that results in a "clumped" assignment, then ghost cells will be
 setup successfully.
 
 --------------
 
 Similar to how restart files are written (see the
-`write_restart <write_restart.html>`__ and `restart <restart.html>`__
+:ref:`write_restart<command-write-restart>` and :ref:`restart<command-restart>`
 commands), the restart filename can contain two wild-card characters. If
 a "*" appears in the filename, the directory is searched for all
 filenames that match the pattern where "*" is replaced with a timestep
 value. The file with the largest timestep value is read in. Thus, this
 effectively means, read the latest restart file. It's useful if you want
 your script to continue a run from where it left off. See the
-`run <run.html>`__ command and its "upto" option for how to specify the
+:ref:`run<command-run>` command and its "upto" option for how to specify the
 run command so it doesn't need to be changed either.
 
 If a "%" character appears in the restart filename, SPARTA expects a set
-of multiple files to exist. The `restart <restart.html>`__ and
-`write_restart <write_restart.html>`__ commands explain how such sets
+of multiple files to exist. The :ref:`restart<command-restart>` and
+:ref:`write_restart<command-write-restart>` commands explain how such sets
 are created. Read_restart will first read a filename where "%" is
 replaced by "base". This file tells SPARTA how many processors created
 the set and how many files are in it. Read_restart then reads the
@@ -116,7 +117,7 @@ created the restart file.
 Note that P could be the total number of processors in the previous
 simulation, or some subset of those processors, if the *fileper* or
 *nfile* options were used when the restart file was written; see the
-`restart <restart.html>`__ and `write_restart <write_restart.html>`__
+:ref:`restart<command-restart>` and :ref:`write_restart<command-write-restart>`
 commands for details. The processors in the current SPARTA simulation
 share the work of reading these files; each reads a roughly equal subset
 of the files. The number of processors which created the set can be
@@ -129,20 +130,18 @@ support parallel I/O.
 A restart file stores only the following information about a simulation,
 as specified by the associated commands:
 
--  `units <units.html>`__
--  `dimension <dimension.html>`__
--  `simulation box size <create_box.html>`__ and `boundary
-   conditions <boundary.html>`__
--  `global settings <global.html>`__
+-  :ref:`units<command-units>`
+-  :ref:`dimension<command-dimension>`
+-  :ref:`simulation box size<command-create-box>` and :ref:`boundary    conditions<command-boundary>`
+-  :ref:`global settings<command-global>`
 -  particles with their individual attributes and custom attributes
    defined by fixes
--  `particle species info <species.html>`__
--  `mixtures <mixture.html>`__
+-  :ref:`particle species info<command-species>`
+-  :ref:`mixtures<command-mixture>`
 -  geometry of the hierarchical grid that overlays the simulation domain
-   as `created <create_grid.html>`__ or `read from a
-   file <read_grid.html>`__
--  geometry of all defined `surface elements <read_surf.html>`__
--  `group definitions <group.html>`__ for grid cells and surface
+   as :ref:`created<command-create-grid>` or :ref:`read from a    file<command-read-grid>`
+-  geometry of all defined :ref:`surface elements<command-read-surf>`
+-  :ref:`group definitions<command-group>` for grid cells and surface
    elements
 -  current timestep number
 
@@ -150,19 +149,19 @@ No other information is stored in the restart file. Specifically,
 information about these simulation entities and their associated
 commands is NOT stored:
 
--  `random number seed <seed,html>`__
--  `computes <compute.html>`__
--  `fixes <fix.html>`__
--  `collision model <collide.html>`__
--  `chemistry (reaction) model <react.html>`__
--  `surface collision models <surf_collide.html>`__
--  `surface reaction models <surf_react.html>`__
+-  :ref:`random number seed<command-seed>`
+-  :ref:`computes<command-compute>`
+-  :ref:`fixes<command-fix>`
+-  :ref:`collision model<command-collide>`
+-  :ref:`chemistry (reaction) model<command-react>`
+-  :ref:`surface collision models<command-surf-collide>`
+-  :ref:`surface reaction models<command-surf-react>`
 -  assignment of surfaces/boundaries to surface models
--  `variables <variable.html>`__
--  `regions <region.html>`__
--  output options for `stats <stats_style.html>`__,
-   `dump <dump.html>`__, `restart <restart.html>`__ files
--  `timestep size <timestep.html>`__
+-  :ref:`variables<command-variable>`
+-  :ref:`regions<command-region>`
+-  output options for :ref:`stats<command-stats-style>`,
+   :ref:`dump<command-dump>`, :ref:`restart<command-restart>` files
+-  :ref:`timestep size<command-timestep>`
 
 This means any information specified in the original input script by
 these commands needs to be re-specified in the restart input script,
@@ -170,27 +169,25 @@ assuming the continued simulation needs the information.
 
 Also note that many commands can be used after a restart file is read,
 to override a setting that was stored in the restart file. For example,
-the `global <global.html>`__ command can be used to reset the values of
+the :ref:`global<command-global>` command can be used to reset the values of
 its specified keywords.
 
 In particular, take note of the following issues:
 
-The status of time-averaging fixes, such as `fix
-ave/time <fix_ave_time.html>`__, `fix ave/grid <fix_ave_grid.html>`__,
-`fix ave/surf <fix_ave_surf.html>`__, does not carry over into the
+The status of time-averaging fixes, such as :ref:`fix ave/time<command-fix-ave-time>`, :ref:`fix ave/grid<command-fix-ave-grid>`,
+:ref:`fix ave/surf<command-fix-ave-surf>`, does not carry over into the
 restarted run. E.g. if the *ave running* option is used with those
 commands in the original script and again specified in the restart
 script, the running averaged quantities do not persist into the new run.
 
-The `surf_modify <surf_modify.html>`__ command must be used in the
+The :ref:`surf_modify<command-surf-modify>` command must be used in the
 restart script to assign surface collision models, specified by the
-`surf_collide <surf_collide.html>`__ command, to all `global
-boundaries <boundary.html>`__ of type "s", and to any surfaces contained
-in the restart file, as read in by the `read_surf <read_surf.html>`__
+:ref:`surf_collide<command-surf-collide>` command, to all :ref:`global boundaries<command-boundary>` of type "s", and to any surfaces contained
+in the restart file, as read in by the :ref:`read_surf<command-read-surf>`
 command.
 
 If a collision model is specified in the restart script, and the
-`collide_modify vremax or remain <collide_modify.html>`__ command is
+:ref:`collide_modify vremax or remain<command-collide-modify>` command is
 used to enable Vremax and fractional collision count to persist for many
 timesteps, no information about these quantities persists from the
 original simulation to the restarted simulation. The initial run in the
@@ -198,10 +195,10 @@ restart script will re-initialize these data structures.
 
 If a fix is used which defines custom attributes of particles, the
 vectors or arrays for these attributes are stored in the restart file.
-See the `fix ambipolar <fix_ambipolar>`__ command as an example; it
+See the :ref:`command-fix-ambipolar` as an example; it
 creates a custom vector called "ionambi" and a custom array called
 "velambi". However, the restart script must specify the same fix before
-the first `run <run.html>`__ command it uses, so that the same custom
+the first :ref:`run<command-run>` command it uses, so that the same custom
 attributes are re-created, otherwise the custom attribute info from the
 restart file will be deleted.
 

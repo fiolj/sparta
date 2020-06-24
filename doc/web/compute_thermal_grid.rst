@@ -3,15 +3,28 @@
 .. index:: compute thermal/grid
 .. index:: compute thermal/grid/kk
 
+
+
+
+
 .. _command-compute-thermal-grid:
 
 ############################
 compute thermal/grid command
 ############################
 
+
+
+
+
+
+.. _command-compute-thermal-grid-compute-thermalgridkk:
+
 ###############################
 compute thermal/grid/kk command
 ###############################
+
+
 
 **Syntax:**
 
@@ -19,7 +32,7 @@ compute thermal/grid/kk command
 
    compute ID thermal/grid group-ID mix-ID value1 value2 ... 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  thermal/grid = style name of this compute command
 -  group-ID = group ID for which grid cells to perform calculation on
 -  mix-ID = mixture ID to perform calculation on
@@ -57,25 +70,23 @@ Output section below. See the mixture command for how a set of species
 can be partitioned into groups.
 
 Only grid cells in the grid group specified by *group-ID* are included
-in the calculation. See the `group grid <group.html>`__ command for info
+in the calculation. See the :ref:`group grid<command-group>` command for info
 on how grid cells can be assigned to grid groups.
 
 The values listed above rely on first computing a thermal temperature
 which subtracts the center-of-mass (COM) velocity for all particles in
 the group and grid cell from each particle to yield a thermal velocity.
 This thermal velocity is used to compute the temperature, as described
-below. This is in contrast to some of the values tallied by the `compute
-grid temp <compute_grid.html>`__ command which simply uses the full
+below. This is in contrast to some of the values tallied by the :ref:`compute grid temp<command-compute-grid>` command which simply uses the full
 velocity of each particle to compute a temperature. For non-streaming
 simulations, the two results should be similar, but for streaming flows,
 they will be different.
 
 The results of this compute can be used by different commands in
 different ways. The values for a single timestep can be output by the
-`dump grid <dump.html>`__ command.
+:ref:`dump grid<command-dump>` command.
 
-The values over many sampling timesteps can be averaged by the `fix
-ave/grid <fix_ave_grid.html>`__ command. It does its averaging as if the
+The values over many sampling timesteps can be averaged by the :ref:`fix ave/grid<command-fix-ave-grid>` command. It does its averaging as if the
 particles in the cell at each sampling timestep were combined together
 into one large set of particles to compute the formulas below.
 
@@ -89,7 +100,7 @@ each particle to yield a squared thermal velocity Csq for each particle,
 as described below, is also computed over one large set of particles
 (across all timesteps). This is in contrast to using a COM velocity
 computed only for particles in the current timestep, which is what the
-`compute sonine/grid <compute_sonine_grid.html>`__ command does.
+:ref:`compute sonine/grid<command-compute-sonine-grid>` command does.
 
 --------------
 
@@ -135,7 +146,7 @@ Note that if multiple groups are defined in the mixture, one group's
 value is effectively a partial pressure due to particles in the group.
 When accumulated over multiple sampling steps, this value is normalized
 by the number of sampling steps. Note that if particle weighting is
-enabled via the `global weight <global.html>`__ command, then the volume
+enabled via the :ref:`global weight<command-global>` command, then the volume
 used in the formula is divided by the weight assigned to the grid cell.
 
 --------------
@@ -151,7 +162,7 @@ would be *temp* and *press* for the second group, etc.
 
 This compute performs calculations for all flavors of child grid cells
 in the simulation, which includes unsplit, cut, split, and sub cells.
-See `Section 6.8 <Section_howto.html#howto_8>`__ of the manual gives
+See :ref:`Section 6.8<howto-grids>` of the manual gives
 details of how SPARTA defines child, unsplit, split, and sub cells. Note
 that cells inside closed surfaces contain no particles. These could be
 unsplit or cut cells (if they have zero flow volume). Both of these
@@ -164,10 +175,10 @@ Grid cells not in the specified *group-ID* will output zeroes for all
 their values.
 
 The array can be accessed by any command that uses per-grid values from
-a compute as input. See `Section 6.4 <Section_howto.html#howto_4>`__ for
+a compute as input. See :ref:`Section 6.4<howto-output>` for
 an overview of SPARTA output options.
 
-The per-grid array values will be in the `units <units.html>`__
+The per-grid array values will be in the :ref:`units<command-units>`
 appropriate to the individual values as described above. *Temp* is in
 temperature units. *Press* is in prsesure units.
 
@@ -175,22 +186,19 @@ temperature units. *Press* is in prsesure units.
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
@@ -202,6 +210,6 @@ effectively.
 
 :ref:`command-compute-grid`
 :ref:`command-fix-ave-grid`
-:ref:`dump grid <command-dump>`
+:ref:`dump grid<command-dump>`
 
 **Default:** none

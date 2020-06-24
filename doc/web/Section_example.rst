@@ -1,9 +1,12 @@
 
-.. _examples:
+
+
+.. _example:
 
 ################
 Example problems
 ################
+
 
 The SPARTA distribution includes an examples sub-directory with
 several sample problems. Each problem is in a sub-directory of its
@@ -22,8 +25,7 @@ of machine "foo", using the dated SPARTA version.
 
 If the "dump image" lines in each script are uncommented, a series of
 image snapshots will be produced. Animations of several of the
-examples can be viewed on the Movies section of the `SPARTA WWW Site
-<http://sparta.sandia.gov>`__.
+examples can be viewed on the Movies section of the `SPARTA WWW Site <http://sparta.sandia.gov>`__.
 
 These are the sample problems in the examples sub-directories. See the
 examples/README file for more details.

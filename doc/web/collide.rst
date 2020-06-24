@@ -2,11 +2,14 @@
 
 .. index:: collide
 
+
+
 .. _command-collide:
 
 ###############
 collide command
 ###############
+
 
 **Syntax:**
 
@@ -50,22 +53,22 @@ into grid cells every timestep and the appropriate collision model is
 invoked on a per-grid-cell basis. Collisions alter the velocity of
 participating particles as well as their rotational and vibrational
 energies. The rotational and vibrational properties of each species are
-set in the file read by the `species <species.html>`__ command.
+set in the file read by the :ref:`species<command-species>` command.
 
 The collision style determines how many pairs of particles are
 considered for collisions, the criteria for which collisions actually
 occurs, and the outcome of individual collision, which alters the
 velocities of the two particles. If chemistry is enabled, via the
-`react <react.html>`__ command, particles involved in collisions may
+:ref:`react<command-react>` command, particles involved in collisions may
 also change species, or a particle may be deleted, or a new particle
-created. The `collide_modify <collide_modify.html>`__ command can also
+created. The :ref:`collide_modify<command-collide-modify>` command can also
 be used to alter aspects of how collisions are performed. For example,
 it can be used to turn on/off the tracking of vibrational energy and its
 exchange in collisions.
 
 A *mix-ID* argument is specified for each collision style. It must
 contain all the species defined for use by the simulation, via the
-`species <species.html>`__ command. The group definitions in the mixture
+:ref:`species<command-species>` command. The group definitions in the mixture
 assign one or more particle species to each group. These groupings are
 used to determine how pairs of particles are chosen to collide with each
 other, in the following manner.
@@ -133,7 +136,7 @@ then each line has 4 parameters following the species ID:
    species-ID diam omega tref alpha 
 
 The species-ID is a string that will be matched to one of the species
-defined by the simulation, via the `species <species.html>`__ command.
+defined by the simulation, via the :ref:`species<command-species>` command.
 The meaning of additional properties is as follows:
 
 -  diam = VHS or VSS diameter of particle (distance units)
@@ -151,7 +154,7 @@ theory. Infinite-order parameters are described in
 In the *constant* case rotational and vibrational relaxation during a
 collision is treated in the same constant manner for every collision,
 using the rotational and vibrational relaxation numbers from the species
-data file, as read by the `species <species.html>`__ command.
+data file, as read by the :ref:`species<command-species>` command.
 
 If the *relax* keyword is specified as *variable*, then each line has 8
 parameters following the species ID:
@@ -182,22 +185,19 @@ Note that a collision data file with the 4 extra relaxation parameters
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 

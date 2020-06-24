@@ -2,11 +2,14 @@
 
 .. index:: if
 
+
+
 .. _command-if:
 
 ##########
 if command
 ##########
+
 
 **Syntax:**
 
@@ -46,7 +49,7 @@ if command
 This command provides an in-then-else capability within an input script.
 A Boolean expression is evaluted and the result is TRUE or FALSE. Note
 that as in the examples above, the expression can contain variables, as
-defined by the `variable <variable.html>`__ command, which will be
+defined by the :ref:`variable<command-variable>` command, which will be
 evaluated as part of the expression. Thus a user-defined formula that
 reflects the current state of the simulation can be used to issue one or
 more new commands.
@@ -64,15 +67,15 @@ FALSE, then no commands are executed.
 The syntax for Boolean expressions is described below.
 
 Each command (t1, f1, e1, etc) can be any valid SPARTA input script
-command, except an `include <include.html>`__ command, which is not
+command, except an :ref:`include<command-include>` command, which is not
 allowed. If the command is more than one word, it must enclosed in
 quotes, so it will be treated as a single argument, as in the examples
 above.
 
 IMPORTANT NOTE: If a command itself requires a quoted argument (e.g. a
-`print <print.html>`__ command), then double and single quotes can be
+:ref:`print<command-print>` command), then double and single quotes can be
 used and nested in the usual manner, as in the examples above and below.
-See `Section commands 2 <Section_commands.html#cmd_2>`__ of the manual
+See :ref:`Section commands 2<commands-parsing-rules>` of the manual
 for more details on using quotes in arguments. Only one of level of
 nesting is allowed, but that should be sufficient for most use cases.
 
@@ -88,18 +91,17 @@ can be spread across many lines, though it is still a single command:
      'print "Minimum value = $b"' &
      "run 50000" 
 
-Note that if one of the commands to execute is `quit <quit.html>`__, as
+Note that if one of the commands to execute is :ref:`quit<command-quit>`, as
 in the first example above, then executing the command will cause SPARTA
 to halt.
 
 Note that by jumping to a label in the same input script, the if command
-can be used to break out of a loop. See the `variable
-delete <variable.html>`__ command for info on how to delete the
+can be used to break out of a loop. See the :ref:`variable delete<command-variable>` command for info on how to delete the
 associated loop variable, so that it can be re-used later in the input
 script.
 
 Here is an example of a double loop which uses the if and
-`jump <jump.html>`__ commands to break out of the inner loop when a
+:ref:`jump<command-jump>` commands to break out of the inner loop when a
 condition is met, then continues iterating thru the outer loop.
 
 ::
@@ -147,8 +149,8 @@ Each A and B is a number or string or a variable reference like $a or
 ${abc}, or A or B can be another Boolean expression.
 
 If a variable is used it can produce a number when evaluated, like an
-`equal-style variable <variable.html>`__. Or it can produce a string,
-like an `index-style variable <variable.html>`__. For an individual
+:ref:`equal-style variable<command-variable>`. Or it can produce a string,
+like an :ref:`index-style variable<command-variable>`. For an individual
 Boolean operator, A and B must both be numbers or must both be strings.
 You cannot compare a number to a string.
 

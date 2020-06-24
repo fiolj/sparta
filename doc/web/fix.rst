@@ -2,11 +2,14 @@
 
 .. index:: fix
 
+
+
 .. _command-fix:
 
 ###########
 fix command
 ###########
+
 
 **Syntax:**
 
@@ -30,8 +33,7 @@ fix command
 Set a fix that will be applied to the system. In SPARTA, a "fix" is an
 operation that is applied to the system during timestepping. Examples
 include adding particles via inlet boundary conditions or computing
-diagnostics. Code for new fixes can be added to SPARTA; see `Section
-10 <Section_modify.html>`__ of the manual for details.
+diagnostics. Code for new fixes can be added to SPARTA; see :ref:`Section 10<modify>` of the manual for details.
 
 Fixes perform their operations at different stages of the timestep. If 2
 or more fixes operate at the same stage of the timestep, they are
@@ -41,10 +43,10 @@ The ID for a fix is used to identify the fix in other commands. Each fix
 ID must be unique; see an exception below. The ID can only contain
 alphanumeric characters and underscores. You can specify multiple fixes
 of the same style so long as they have different IDs. A fix can be
-deleted with the `unfix <unfix.html>`__ command, after which its ID can
+deleted with the :ref:`unfix<command-unfix>` command, after which its ID can
 be re-used.
 
-IMPORTANT NOTE: The `unfix <unfix.html>`__ command is the only way to
+IMPORTANT NOTE: The :ref:`unfix<command-unfix>` command is the only way to
 turn off a fix; simply specifying a new fix with the same style and a
 different ID will not turn off the first one.
 
@@ -55,10 +57,10 @@ performed on the old fix, except that the new fix is kept in the same
 order relative to the existing fixes as the old one originally was.
 
 Some fixes store an internal "state" which is written to binary restart
-files via the `restart <restart.html>`__ or
-`write_restart <write_restart.html>`__ commands. This allows the fix to
+files via the :ref:`restart<command-restart>` or
+:ref:`write_restart<command-write-restart>` commands. This allows the fix to
 continue on with its calculations in a restarted simulation. See the
-`read_restart <read_restart.html>`__ command for info on how to
+:ref:`read_restart<command-read-restart>` command for info on how to
 re-specify a fix in an input script that reads a restart file. See the
 doc pages for individual fixes for info on which ones can be restarted.
 
@@ -68,41 +70,41 @@ Each fix style has its own doc page which describes its arguments and
 what it does, as listed below. Here is an alphabetic list of fix styles
 available in SPARTA:
 
--  `adapt <fix_adapt.html>`__ - on-the-fly grid adaptation
--  `adapt/kk <fix_adapt.html>`__ - Kokkos version of fix adapt
--  `ambipolar <fix_ambipolar.html>`__ - ambipolar approximation for
+-  :ref:`adapt<command-fix-adapt>` - on-the-fly grid adaptation
+-  :ref:`adapt/kk<command-fix-adapt>` - Kokkos version of fix adapt
+-  :ref:`ambipolar<command-fix-ambipolar>` - ambipolar approximation for
    ionized plasmas
--  `ave/grid <fix_ave_grid.html>`__ - compute per grid cell
+-  :ref:`ave/grid<command-fix-ave-grid>` - compute per grid cell
    time-averaged quantities
--  `ave/grid/kk <fix_ave_grid.html>`__ - Kokkos version of fix ave/grid
--  `ave/histo <fix_ave_histo.html>`__ - compute/output time averaged
+-  :ref:`ave/grid/kk<command-fix-ave-grid>` - Kokkos version of fix ave/grid
+-  :ref:`ave/histo<command-fix-ave-histo>` - compute/output time averaged
    histograms
--  `ave/histo/weight <fix_ave_histo.html>`__ - compute/output weighted
+-  :ref:`ave/histo/weight<command-fix-ave-histo>` - compute/output weighted
    histograms
--  `ave/surf <fix_ave_surf.html>`__ - compute per surface element
+-  :ref:`ave/surf<command-fix-ave-surf>` - compute per surface element
    time-averaged quantities
--  `ave/time <fix_ave_time.html>`__ - compute/output global
+-  :ref:`ave/time<command-fix-ave-time>` - compute/output global
    time-averaged quantities
--  `balance <fix_balance.html>`__ - perform dynamic load-balancing
--  `balance/kk <fix_balance.html>`__ - Kokkos version of fix balance
--  `emit/face <fix_emit_face.html>`__ - emit particles at global
+-  :ref:`balance<command-fix-balance>` - perform dynamic load-balancing
+-  :ref:`balance/kk<command-fix-balance>` - Kokkos version of fix balance
+-  :ref:`emit/face<command-fix-emit-face>` - emit particles at global
    boundaries
--  `emit/face/kk <fix_emit_face.html>`__ - Kokkos version of fix
+-  :ref:`emit/face/kk<command-fix-emit-face>` - Kokkos version of fix
    emit/face
--  `emit/face/file <fix_emit_face_file.html>`__ - emit particles at
+-  :ref:`emit/face/file<command-fix-emit-face-file>` - emit particles at
    global boundaries using a distribution defined in a file
--  `emit/surf <fix_emit_surf.html>`__ - emit particles at surfaces
--  `grid/check <fix_grid_check.html>`__ - check if particles are in the
+-  :ref:`emit/surf<command-fix-emit-surf>` - emit particles at surfaces
+-  :ref:`grid/check<command-fix-grid-check>` - check if particles are in the
    correct grid cell
--  `grid/check/kk <fix_grid_check.html>`__ - Kokkos version of fix
+-  :ref:`grid/check/kk<command-fix-grid-check>` - Kokkos version of fix
    grid/check
--  `move/surf <fix_move_surf.html>`__ - move surfaces dynamically during
+-  :ref:`move/surf<command-fix-move-surf>` - move surfaces dynamically during
    a simulation
--  `move/surf/kk <fix_move_surf.html>`__ - Kokkos version of fix
+-  :ref:`move/surf/kk<command-fix-move-surf>` - Kokkos version of fix
    move/surf
--  `print <fix_print.html>`__ - print text and variables during a
+-  :ref:`print<command-fix-print>` - print text and variables during a
    simulation
--  `vibmode <fix_vibmode.html>`__ - discrete vibrational energy modes
+-  :ref:`vibmode<command-fix-vibmode>` - discrete vibrational energy modes
 
 There are also additional accelerated compute styles included in the
 SPARTA distribution for faster performance on specific hardware. The
@@ -144,7 +146,7 @@ once (vector -> scalar, array -> vector). Using two brackets reduces the
 dimension twice (array -> scalar). Thus a command that uses scalar fix
 values as input can also process elements of a vector or array.
 
-Note that commands and `variables <variable.html>`__ which use fix
+Note that commands and :ref:`variables<command-variable>` which use fix
 quantities typically do not allow for all kinds, e.g. a command may
 require a vector of values, not a scalar. This means there is no
 ambiguity about referring to a fix quantity as f_ID even if it produces,
@@ -156,15 +158,12 @@ commands explain the details.
 Any values generated by a fix can be used in several ways:
 
 -  Global values can be output via the
-   `stats_style <stats_style.html>`__ command. Or the values can be
-   referenced in a `variable equal <variable.html>`__ or `variable
-   atom <variable.html>`__ command.
--  Per-particle values can be output via the `dump
-   particle <dump.html>`__ command. Or the per-particle values can be
-   referenced in an `particle-style variable <variable.html>`__.
--  Per-grid values can be output via the `dump grid <dump.html>`__
-   command. Or the per-grid values can be referenced in a `grid-style
-   variable <variable.html>`__.
+   :ref:`stats_style<command-stats-style>` command. Or the values can be
+   referenced in a :ref:`variable equal<command-variable>` or :ref:`variable    atom<command-variable>` command.
+-  Per-particle values can be output via the :ref:`dump    particle<command-dump>` command. Or the per-particle values can be
+   referenced in an :ref:`particle-style variable<command-variable>`.
+-  Per-grid values can be output via the :ref:`dump grid<command-dump>`
+   command. Or the per-grid values can be referenced in a :ref:`grid-style    variable<command-variable>`.
 
 --------------
 

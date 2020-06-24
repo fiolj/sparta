@@ -2,11 +2,14 @@
 
 .. index:: echo
 
+
+
 .. _command-echo:
 
 ############
 echo command
 ############
+
 
 **Syntax:**
 
@@ -30,7 +33,7 @@ to the screen and/or log file as it is read and processed. If an input
 script has errors, it can be useful to look at echoed output to see the
 last command processed.
 
-The `command-line switch <Section_start.html#start_6>`__ -echo can be
+The :ref:`command-line switch<start-command-line-options>` -echo can be
 used in place of this command.
 
 **Restrictions:** none

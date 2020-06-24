@@ -2,11 +2,14 @@
 
 .. index:: global
 
+
+
 .. _command-global:
 
 ##############
 global command
 ##############
+
 
 **Syntax:**
 
@@ -99,8 +102,7 @@ simulations the units are #/volume. For 2d, the units are effectively
 Assuming your simulation is populated by particles from the background
 gas, the *fnum* and *nrho* settings can determine how many particles
 will be present in your simulation, when using the
-`create_particles <create_particles.html>`__ or `fix
-emit <fix_emit_face.html>`__ command variants.
+:ref:`create_particles<command-create-particles>` or :ref:`fix emit<command-fix-emit-face>` command variants.
 
 The *vstream* keyword sets the streaming velocity of the background gas.
 
@@ -118,8 +120,7 @@ acceleration term is included, which is the default.
 
 The *surfs* keyword determines what kind of surface elements SPARTA uses
 and how they are distributed across processors. Possible values are
-*explicit*, *explicit/distributed*, and *implicit*. See the `Howto
-6.13 <Section_howto.html#howto_13>`__ section of the manual for an
+*explicit*, *explicit/distributed*, and *implicit*. See the :ref:`Howto 6.13<howto-implicit-surface>` section of the manual for an
 explantion of explicit versus implicit surfaces. The distributed option
 can be important for models with huge numbers of surface elements. Each
 processor stores copies of only the surfaces that overlap grid cells it
@@ -184,7 +185,7 @@ which owns the element as one of its N/P elements.
 
 The *surfpush* keyword is only useful to use when SPARTA is having
 problems embedding a surface in the simulation grid, which occurs when
-when surface elements are defined via the `read_surf <read_surf.html>`__
+when surface elements are defined via the :ref:`read_surf<command-read-surf>`
 command. Or for debugging purposes.
 
 In rare cases, if a surface element point is just slightly inside or
@@ -260,18 +261,17 @@ processor's grid cells are "dispersed", then ghost cells cannot be
 created with a *gridcut* cutoff >= 0.0. Whenever ghost cells are
 generated, a warning to this effect will be triggered. At a later point
 when surfaces are read in or a simulation is performed, an error will
-result. The solution is to use the `balance_grid <balance_grid.html>`__
-command to change to a clumped grid cell assignment. See `Section
-6.8 <Section_howto.html#howto_8>`__ of the manual for an explanation of
+result. The solution is to use the :ref:`balance_grid<command-balance-grid>`
+command to change to a clumped grid cell assignment. See :ref:`Section 6.8<howto-grids>` of the manual for an explanation of
 clumped and dispersed grid cell assignments and their relative
 performance trade-offs.
 
 IMPORTANT NOTE: If grid cells have already been defined via the
-`create_grid <create_grid.html>`__, `read_grid <read_grid.html>`__, or
-`read_restart <read_restart.html>`__ commands, when the *gridcut* cutoff
+:ref:`create_grid<command-create-grid>`, :ref:`read_grid<command-read-grid>`, or
+:ref:`read_restart<command-read-restart>` commands, when the *gridcut* cutoff
 is specified, then any ghost cell information that is currently stored
 will be erased. As discussed in the preceeding paragraph, a
-`balance_grid <balance_grid.html>`__ command must then be invoked to
+:ref:`balance_grid<command-balance-grid>` command must then be invoked to
 regenerate ghost cell information. If this is not done before surfaces
 are read in or a simulation is performed, an error will result.
 
@@ -298,8 +298,8 @@ needed to upwind processors, so the *all* method can generate smaller
 counts of neighboring processors.
 
 Note that the *neigh* style only has an effect (at run time) when the
-grid is decomposed by the RCB option of the `balance <balance.html>`__
-or `fix balance <fix_balance.html>`__ commands. If that is not the case,
+grid is decomposed by the RCB option of the :ref:`balance<command-balance-grid>`
+or :ref:`fix balance<command-fix-balance>` commands. If that is not the case,
 SPARTA performs the particle communication as if the *all* setting were
 in place.
 
@@ -310,8 +310,7 @@ contain roughly the same number of particles (even if cells are of
 varying size), so as to minimize the total number of particles used in a
 simulation while preserving accurate time and spatial averages of flow
 quantities. The cell weights also affect how many particles per cell are
-created by the `create_particles <create_particles.html>`__ and `fix
-emit <fix_emit_face.html>`__ command variants.
+created by the :ref:`create_particles<command-create-particles>` and :ref:`fix emit<command-fix-emit-face>` command variants.
 
 If the mode is set to *none*, per-cell weighting is turned off if it was
 previously enabled. For mode = *volume* or *radius*, per-cell weighting
@@ -324,8 +323,7 @@ model. For an axi-symmetric model, the weight is the 3d volume of the 2d
 axi-symmetric cell, i.e. the volume the area sweeps out when rotated
 around the y=0 axis of symmetry. The *radius* setting is only allowed
 for axisymmetric systems. The weight in this case is the distance the
-cell's midpoint is from the y=0 axis of symmetry. See `Section
-6.2 <Section_howto.html#howto_2>`__ for more details on axi-symmetric
+cell's midpoint is from the y=0 axis of symmetry. See :ref:`Section 6.2<howto-axisymmetric>` for more details on axi-symmetric
 models.
 
 Second, when a particle moves from an initial cell to a final cell, the
@@ -396,7 +394,7 @@ required.
 **Restrictions:**
 
 The global surfmax command must be used before surface elements are
-defined, e.g. via the `read_surf <read_surf.html>`__ command.
+defined, e.g. via the :ref:`read_surf<command-read-surf>` command.
 
 **Related commands:**
 

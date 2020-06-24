@@ -2,11 +2,14 @@
 
 .. index:: create_grid
 
+
+
 .. _command-create-grid:
 
 ###################
 create_grid command
 ###################
+
 
 **Syntax:**
 
@@ -52,11 +55,10 @@ create_grid command
 **Description:**
 
 Overlay a grid over the simulation domain defined by the
-`create_box <create_box.html>`__ command. The grid can also be defined
-by the `read_grid <read_grid.html>`__ command.
+:ref:`create_box<command-create-box>` command. The grid can also be defined
+by the :ref:`read_grid<command-read-grid>` command.
 
-The grid in SPARTA is hierarchical, as described in `Section howto
-4.8 <Section_howto.html#howto_8>`__. The entire simulation box is a
+The grid in SPARTA is hierarchical, as described in :ref:`Section howto 4.8<howto-grids>`. The entire simulation box is a
 single parent grid cell at level 0. It is subdivided into Nx by Ny by Nz
 cells at level 1. Each of those cells can be a child cell (no further
 sub-division) or can be a parent cell which is further subdivided into
@@ -79,10 +81,10 @@ the round-robin assignment scheme for grids with multiple levels
 (described below), will produce dispersed assignments of child cells to
 each processor.
 
-IMPORTANT NOTE: See `Section 6.8 <Section_howto.html#howto_8>`__ of the
+IMPORTANT NOTE: See :ref:`Section 6.8<howto-grids>` of the
 manual for an explanation of clumped and dispersed grid cell assignments
 and their relative performance trade-offs. The
-`balance_grid <balance_grid.html>`__ command can be used after the grid
+:ref:`balance_grid<command-balance-grid>` command can be used after the grid
 is created, to assign child cells to processors in different ways. The
 "fix balance" command can be used to re-assign them in a load-balanced
 manner periodically during a running simulation.
@@ -137,7 +139,7 @@ sub-block of cells.
 The product of Px, Py, Pz must equal P, the total # of processors SPARTA
 is running on. For a 2d simulation, Pz must equal 1. If multiple
 partitions are being used then P is the number of processors in this
-partition; see `Section 2.6 <Section_start.html#start_6>`__ for an
+partition; see :ref:`Section 2.6<start-command-line-options>` for an
 explanation of the -partition command-line switch.
 
 Note that if you run on a large, prime number of processors P, then a
@@ -224,7 +226,7 @@ For the *region* keyword, the subset of cells in the previous level
 which are flagged as parents and sub-divided is determined by which of
 them are in the geometric region specified by *reg-ID*.
 
-The `region <region.html>`__ command can define volumes for simple
+The :ref:`region<command-region>` command can define volumes for simple
 geometric objects such as a sphere or rectangular block. It can also
 define unions or intersections of simple objects or other union or
 intersection objects. by defining an appropriate region, a complex
@@ -236,7 +238,7 @@ the region. The *inside* keyword determines how this is done. If
 the region if any of its corner points (4 in 2d, 8 in 3d) is in the
 region. If *inside* is set to *all*, then all 4 or 8 corner points must
 be in the region for the grid cell itself to be in the region. Note that
-the *side* option for the `region <region.html>`__ command can be used
+the *side* option for the :ref:`region<command-region>` command can be used
 to define whether the inside or outside of the geometric region is
 considered to be "in" the region.
 
@@ -249,12 +251,11 @@ Examples for the use of the *region* keyword are given above.
 **Restrictions:**
 
 This command can only be used after the simulation box is defined by the
-`create_box <create_box.html>`__ command.
+:ref:`create_box<command-create-box>` command.
 
 The hierarchical grid used by SPARTA is encoded in a 32-bit or 64-bit
 integer ID. The precision is set by the -DSPARTA_BIG or -DSPARTA_SMALL
-or -DSPARTA_BIGBIG compiler switch, as described in `Section
-2.2 <Section_start.html#start_2>`__. The number of grid levels that can
+or -DSPARTA_BIGBIG compiler switch, as described in :ref:`Section 2.2<start-steps-build>`. The number of grid levels that can
 be used depends on the resolution of the grid at each level. For a
 minimal refinement of 2x2x2, a level uses 4 bits of the integer ID. Thus
 for this style of refinement a maximum of 7 levels can be used for

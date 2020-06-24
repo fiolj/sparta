@@ -2,11 +2,14 @@
 
 .. index:: boundary
 
+
+
 .. _command-boundary:
 
 ################
 boundary command
 ################
+
 
 **Syntax:**
 
@@ -39,7 +42,7 @@ x, y, z dimensions. A single letter assigns the same style to both the
 lower and upper face of the box in that dimension. Two letters assigns
 the first style to the lower face and the second style to the upper
 face. The size of the simulation box is set by the
-`create_box <create_box.html>`__ command.
+:ref:`create_box<command-create-box>` command.
 
 The boundary style determines how particles exiting the box are handled.
 
@@ -58,26 +61,26 @@ timestep following the collision.
 Style *a* means an axi-symmetric boundary, which can only be used for
 the lower y-dimension boundary in a 2d simulation. The simulation box
 must also have a value of 0.0 for *ylo*; see the
-`create_box <create_box.html>`__ command. This effectively means that
+:ref:`create_box<command-create-box>` command. This effectively means that
 the x-axis is the axis of symmetry. The upper y-dimension boundary
 cannot be periodic.
 
 Style *s* means the boundary is treated as a surface which allows the
 particle-surface interaction to be treated in a variety of ways via the
-options provided by the `surf_collide <surf_collide.html>`__ command.
+options provided by the :ref:`surf_collide<command-surf-collide>` command.
 This is effectively the same as when a particle collides with a
 triangulated surface read in and setup by the
-`read_surf <read_surf.html>`__ command.
+:ref:`read_surf<command-read-surf>` command.
 
 For style *s*, the boundary face must also be assigned to a surface
-collision model defined by the `surf_collide <surf_collide.html>`__
+collision model defined by the :ref:`surf_collide<command-surf-collide>`
 command. The assignment of the boundary to the model is done via the
-`bound_modify <bound_modify.html>`__ command.
+:ref:`bound_modify<command-bound-modify>` command.
 
 **Restrictions:**
 
 This command must be used before the grid is defined, e.g. by a
-`create_grid <create_grid.html>`__ command.
+:ref:`create_grid<command-create-grid>` command.
 
 For 2d simulations, the z dimension must be periodic.
 

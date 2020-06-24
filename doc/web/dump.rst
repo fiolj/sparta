@@ -2,6 +2,8 @@
 
 .. index:: dump
 
+
+
 .. _command-dump:
 
 ############
@@ -10,7 +12,8 @@ dump command
 
 
 
-**`dump image <dump_image.html>`__ command**
+
+**:ref:`dump image<command-dump-image>` command**
 
 
 **Syntax:**
@@ -113,29 +116,29 @@ dump command
 Dump a snapshot of simulation quantities to one or more files every N
 timesteps in one of several styles. The *image* style is the exception;
 it creates a JPG or PPM image file of the simulation configuration every
-N timesteps, as discussed on the `dump image <dump_image.html>`__ doc
+N timesteps, as discussed on the :ref:`dump image<command-dump-image>` doc
 page.
 
 The ID for a dump is used to identify the dump in other commands. Each
 dump ID must be unique. The ID can only contain alphanumeric characters
 and underscores. You can specify multiple dumpes of the same style so
 long as they have different IDs. A dump can be deleted with the
-`undump <undump.html>`__ command, after which its ID can be re-used.
+:ref:`undump<command-undump>` command, after which its ID can be re-used.
 
 The *style* setting determines what quantities are written to the file
 and in what format. The *particle*, *grid*, *surf* options are for
 particles, grid cells, or surface elements. Settings made via the
-`dump_modify <dump_modify.html>`__ command can also alter what info is
+:ref:`dump_modify<command-dump-modify>` command can also alter what info is
 included in the file and the format of individual values.
 
 The *select-ID* setting determines which particles, grid cells, or
 surface elements are output. For *style* = *particle*, the *select-ID*
-is a mixture ID as defined by the `mixture <mixture.html>`__ command.
+is a mixture ID as defined by the :ref:`mixture<command-mixture>` command.
 Only particles whose species are part of the mixture are output. For
 *style* = *grid*, the *select-ID* is for a grid group, as defined by the
-`group grid <group.html>`__ command. Only grid cells in the group are
+:ref:`group grid<command-group>` command. Only grid cells in the group are
 output. For *style* = *surf*, the *select-ID* is for a surface eleemnt
-group, as defined by the `group surf <group.html>`__ command. Only
+group, as defined by the :ref:`group surf<command-group>` command. Only
 surface elements in the group are output.
 
 As described below, the filename determines the kind of output (text or
@@ -143,14 +146,14 @@ binary or gzipped, one big file or one per timestep, one big file or one
 per processor).
 
 The precision of values output to text-based dump files can be
-controlled by the `dump_modify format <dump_modify.html>`__ command and
+controlled by the :ref:`dump_modify format<command-dump-modify>` command and
 its options.
 
 --------------
 
 The *particle* and *grid* and *surf* styles create files in a simple
 text format that is self-explanatory when viewing a dump file. Many of
-the SPARTA `post-processing tools <Section_tools.html>`__, including
+the SPARTA :ref:`post-processing tools<tools>`, including
 `Pizza.py <http://pizza.sandia.gov>`__, work with this format.
 
 For post-processing purposes the text files are self-describing in the
@@ -171,7 +174,7 @@ x-dimension, and similarly for y and z. The "xx yy zz" represent 6
 characters that encode the style of boundary for each of the 6
 simulation box boundaries (xlo,xhi and ylo,yhi and zlo,zhi). Each of the
 6 characters is either o = outflow, p = periodic, or s = specular. See
-the `boundary <doc/boundary.html>`__ command for details.
+the :ref:`boundary<command-boundary>` command for details.
 
 The "ITEM: NUMBER OF ATOMS" or "ITEM: NUMBER OF CELLS" or "ITEM: NUMBER
 OF SURFS" entry in each snapshot gives the number of particles, grid
@@ -190,20 +193,20 @@ Dumps are performed on timesteps that are a multiple of N (including
 timestep 0). Note that this means a dump will not be performed on the
 initial timestep after the dump command is invoked, if the current
 timestep is not a multiple of N. This behavior can be changed via the
-`dump_modify first <dump_modify.html>`__ command. N can be changed
-between runs by using the `dump_modify every <dump_modify.html>`__
+:ref:`dump_modify first<command-dump-modify>` command. N can be changed
+between runs by using the :ref:`dump_modify every<command-dump-modify>`
 command.
 
 The specified filename determines how the dump file(s) is written. The
 default is to write one large text file, which is opened when the dump
-command is invoked and closed when an `undump <undump.html>`__ command
+command is invoked and closed when an :ref:`undump<command-undump>` command
 is used or when SPARTA exits.
 
 Dump filenames can contain two wildcard characters. If a "*" character
 appears in the filename, then one file per snapshot is written and the
 "*" character is replaced with the timestep value. For example,
 tmp.dump.\* becomes tmp.dump.0, tmp.dump.10000, tmp.dump.20000, etc.
-Note that the `dump_modify pad <dump_modify.html>`__ command can be used
+Note that the :ref:`dump_modify pad<command-dump-modify>` command can be used
 to insure all timestep numbers are the same length (e.g. 00010), which
 can make it easier to read a series of dump files in order by some
 post-processing tools.
@@ -221,8 +224,7 @@ If the filename ends with ".bin", the dump file (or files, if "*" or "%"
 is also used) is written in binary format. A binary dump file will be
 about the same size as a text version, but will typically write out much
 faster. Of course, when post-processing, you will need to convert it
-back to text format (see the `binary2txt
-tool <Section_tools.html#binary>`__) or write your own code to read the
+back to text format (see the :ref:`binary2txt tool<tools-binary>`) or write your own code to read the
 binary file. The format of the binary file can be understood by looking
 at the tools/binary2txt.cpp file.
 
@@ -247,7 +249,7 @@ indices from 1 to N. A leading asterisk means all indices from 1 to n
 
 Using a wildcard is the same as if the individual columns of the array
 had been listed one by one. E.g. these 2 dump commands are equivalent,
-since the `compute grid <compute_grid.html>`__ command creates a
+since the :ref:`compute grid<command-compute-grid>` command creates a
 per-grid array with 3 columns:
 
 ::
@@ -264,11 +266,11 @@ part of the *particle* style.
 *Id* is the particle ID. *Type* is an integer index representing the
 particle species. It is a value from 1 to Nspecies, The value
 corresponds to the order in which species were defined via the
-`species <species.html>`__ command. *Proc* is the ID of the processor
+:ref:`species<command-species>` command. *Proc* is the ID of the processor
 which currently owns the particle.
 
 The *x*, *y*, *z* attributes write particle coordinates "unscaled", in
-the appropriate distance `units <units.html>`__. Use *xs*, *ys*, *zs* to
+the appropriate distance :ref:`units<command-units>`. Use *xs*, *ys*, *zs* to
 "scale" the coordinates to the box size, so that each value is 0.0 to
 1.0.
 
@@ -277,13 +279,13 @@ and *evib* attributes are the kinetic, rotational, and vibrational
 energies of the particle. A particle's kinetic energy is given by 1/2 m
 (vx^2 + vy^2 + vz^2). The way that rotational and vibrational energy is
 treated in collisions and stored by particles is affected by the
-`collide_modify <collid_modify.html>`__ command.
+:ref:`collide_modify<command-collide-modify>` command.
 
 The *p_ID* and *p_ID[N]* attributes allow custom per-particle vectors or
-arrays defined by a `fix <fix.html>`__ command to be output. The ID in
+arrays defined by a :ref:`fix<command-fix>` command to be output. The ID in
 the attribute should be replaced by the actual ID of the custom particle
 attribute that the fix defines. See individal fix commands for details,
-e.g. the `fix ambipolar <fix_ambipolar.html>`__ command which defines
+e.g. the :ref:`fix ambipolar<command-fix-ambipolar>` command which defines
 the custom vector "ionambi" and the custom array "velambi".
 
 If *p_ID* is used as a attribute, the custom attribute must be a vector,
@@ -292,10 +294,10 @@ array, and N must be in the range from 1-M, which will output the Nth
 column of the M-column array.
 
 The *c_ID* and *c_ID[I]* attributes allow per-particle vectors or arrays
-calculated by a `compute <compute.html>`__ to be output. The ID in the
+calculated by a :ref:`compute<command-compute>` to be output. The ID in the
 attribute should be replaced by the actual ID of the compute that has
 been defined previously in the input script. See the
-`compute <compute.html>`__ command for details.
+:ref:`compute<command-compute>` command for details.
 
 If *c_ID* is used as a attribute, the compute must calculate a
 per-particle vector, and it is output. If *c_ID[I]* is used, the compute
@@ -305,7 +307,7 @@ discussion above for how I can be specified with a wildcard asterisk to
 effectively specify multiple values.
 
 The *f_ID* and *f_ID[I]* attributes allow vector or array per-particle
-quantities calculated by a `fix <fix.html>`__ to be output. The ID in
+quantities calculated by a :ref:`fix<command-fix>` to be output. The ID in
 the attribute should be replaced by the actual ID of the fix that has
 been defined previously in the input script.
 
@@ -317,7 +319,7 @@ for how I can be specified with a wildcard asterisk to effectively
 specify multiple values.
 
 The *v_name* attribute allows per-particle vectors calculated by a
-`variable <variable.html>`__ to be output. The name in the attribute
+:ref:`variable<command-variable>` to be output. The name in the attribute
 should be replaced by the actual name of the variable that has been
 defined previously in the input script. Only a particle-style variable
 can be referenced, since it is the only style that generates
@@ -326,7 +328,7 @@ per-particle attributes, stats keywords, or invoke other computes,
 fixes, or variables when they are evaluated, so this is a very general
 means of creating quantities to output to a dump file.
 
-See `Section 10 <Section_modify.html>`__ of the manual for information
+See :ref:`Section 10<modify>` of the manual for information
 on how to add new compute and fix styles to SPARTA to calculate
 per-particle quantities which could then be output into dump files.
 
@@ -337,9 +339,9 @@ part of the *grid* style.
 
 Note that dump grid will output one line (per snapshot) for 3 kinds of
 child cells: unsplit cells, cut cells, and sub cells of split cells.
-`Section 6.8 <Section_howto.html#howto_8>`__ of the manual gives details
+:ref:`Section 6.8<howto-grids>` of the manual gives details
 of how SPARTA defines child, unsplit, cut, split, and sub cells. This is
-different than `compute <compute.html>`__ or `fix <fix.html>`__ commands
+different than :ref:`compute<command-compute>` or :ref:`fix<command-fix>` commands
 that produce per grid information, which also include split cells in
 their output. The dump grid command discards that output since the sub
 cells of a split cell provide the needed information for further
@@ -362,15 +364,14 @@ string.
 
 The *xlo*, *ylo*, *zlo* attributes write the coordinates of the
 lower-left corner of the grid cell in the appropriate distance
-`units <units.html>`__. The *xhi*, *yhi*, *zhi* attributes write the
+:ref:`units<command-units>`. The *xhi*, *yhi*, *zhi* attributes write the
 coordinates of the upper-right corner of the grid cell. The *xc*, *yc*,
 *zc* attributes write the coordinates of the center point of the grid
 cell. The *zlo*, *zhi*, *zc* attributes cannot be used for a 2d
 simulation.
 
 The *vol* attribute is the flow volume of the grid cell (or area in 2d)
-for unsplit or cut or sub cells. `Section
-4.8 <Section_howto.html#howto_8>`__ of the manual gives details of how
+for unsplit or cut or sub cells. :ref:`Section 4.8<howto-grids>` of the manual gives details of how
 SPARTA defines unsplit and sub cells. Flow volume is the portion of the
 grid cell that is accessible to particles, i.e. outside any closed
 surface that may intersect the cell. Note that unsplit cells which are
@@ -380,10 +381,10 @@ element(s) which only touch a face, edge, or corner point of the grid
 cell, will have a flow volume of 0.0.
 
 The *c_ID* and *c_ID[I]* attributes allow per-grid vectors or arrays
-calculated by a `compute <compute.html>`__ to be output. The ID in the
+calculated by a :ref:`compute<command-compute>` to be output. The ID in the
 attribute should be replaced by the actual ID of the compute that has
 been defined previously in the input script. See the
-`compute <compute.html>`__ command for details.
+:ref:`compute<command-compute>` command for details.
 
 If *c_ID* is used as a attribute, and the compute calculates a per-grid
 vector, then the per-grid vector is output. If *c_ID[I]* is used, then I
@@ -393,7 +394,7 @@ above for how I can be specified with a wildcard asterisk to effectively
 specify multiple values.
 
 The *f_ID* and *f_ID[I]* attributes allow per-grid vectors or arrays
-calculated by a `fix <fix.html>`__ to be output. The ID in the attribute
+calculated by a :ref:`fix<command-fix>` to be output. The ID in the attribute
 should be replaced by the actual ID of the fix that has been defined
 previously in the input script.
 
@@ -405,7 +406,7 @@ for how I can be specified with a wildcard asterisk to effectively
 specify multiple values.
 
 The *v_name* attribute allows per-grid vectors calculated by a
-`variable <variable.html>`__ to be output. The name in the attribute
+:ref:`variable<command-variable>` to be output. The name in the attribute
 should be replaced by the actual name of the variable that has been
 defined previously in the input script. Only a grid-style variable can
 be referenced, since it is the only style that generates per-grid
@@ -414,7 +415,7 @@ stats keywords, or invoke other computes, fixes, or variables when they
 are evaluated, so this is a very general means of creating quantities to
 output to a dump file.
 
-See `Section 10 <Section_modify.html>`__ of the manual for information
+See :ref:`Section 10<modify>` of the manual for information
 on how to add new compute and fix styles to SPARTA to calculate per-grid
 quantities which could then be output into dump files.
 
@@ -436,10 +437,10 @@ points of the surface element. The *v1z*, *v2z*, *v3x*, *v3y*, and *v3z*
 attributes cannot be used for a 2d simulation.
 
 The *c_ID* and *c_ID[I]* attributes allow per-surf vectors or arrays
-calculated by a `compute <compute.html>`__ to be output. The ID in the
+calculated by a :ref:`compute<command-compute>` to be output. The ID in the
 attribute should be replaced by the actual ID of the compute that has
 been defined previously in the input script. See the
-`compute <compute.html>`__ command for details.
+:ref:`compute<command-compute>` command for details.
 
 If *c_ID* is used as a attribute, and the compute calculates a per-srf
 vector, then the per-surf vector is output. If *c_ID[I]* is used, then I
@@ -449,7 +450,7 @@ above for how I can be specified with a wildcard asterisk to effectively
 specify multiple values.
 
 The *f_ID* and *f_ID[I]* attributes allow per-surf vectors or arrays
-calculated by a `fix <fix.html>`__ to be output. The ID in the attribute
+calculated by a :ref:`fix<command-fix>` to be output. The ID in the attribute
 should be replaced by the actual ID of the fix that has been defined
 previously in the input script.
 
@@ -461,7 +462,7 @@ for how I can be specified with a wildcard asterisk to effectively
 specify multiple values.
 
 The *v_name* attribute allows per-surf vectors calculated by a
-`variable <variable.html>`__ to be output. The name in the attribute
+:ref:`variable<command-variable>` to be output. The name in the attribute
 should be replaced by the actual name of the variable that has been
 defined previously in the input script. Only a surf-style variable can
 be referenced, since it is the only style that generates per-surf
@@ -473,7 +474,7 @@ output to a dump file.
 IMPORTANT NOTE: Surf-style variables have not yet been implemented in
 SPARTA.
 
-See `Section 10 <Section_modify.html>`__ of the manual for information
+See :ref:`Section 10<modify>` of the manual for information
 on how to add new compute and fix styles to SPARTA to calculate per-surf
 quantities which could then be output into dump files.
 
@@ -482,8 +483,7 @@ quantities which could then be output into dump files.
 **Restrictions:**
 
 To write gzipped dump files, you must compile SPARTA with the
--DSPARTA_GZIP option - see the `Making
-SPARTA <Section_start.html#start_2>`__ section of the documentation.
+-DSPARTA_GZIP option - see the :ref:`Making SPARTA<start-steps-build>` section of the documentation.
 
 **Related commands:**
 
@@ -493,5 +493,4 @@ SPARTA <Section_start.html#start_2>`__ section of the documentation.
 
 **Default:**
 
-The defaults for the image style are listed on the `dump
-image <dump_image.html>`__ doc page.
+The defaults for the image style are listed on the :ref:`dump image<command-dump-image>` doc page.

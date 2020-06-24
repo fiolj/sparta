@@ -2,11 +2,14 @@
 
 .. index:: compute react/surf
 
+
+
 .. _command-compute-react-surf:
 
 ##########################
 compute react/surf command
 ##########################
+
 
 **Syntax:**
 
@@ -46,21 +49,21 @@ dump file every 1000 steps:
 
 **Description:**
 
-Define a computation that tallies counts of reactions for each explicit surface element in a surface element group, based on the particles that collide with that element. Only surface elements in the surface group specified by *group-ID* are included in the tallying. See the :ref:`group surf <command-group>` for info on how surface elements can be assigned to surface groups. Likewise only surface elements assigned to the surface reaction model specified by *reaction-ID* are included in the tallying.
+Define a computation that tallies counts of reactions for each explicit surface element in a surface element group, based on the particles that collide with that element. Only surface elements in the surface group specified by *group-ID* are included in the tallying. See the :ref:`group surf<command-group>` for info on how surface elements can be assigned to surface groups. Likewise only surface elements assigned to the surface reaction model specified by *reaction-ID* are included in the tallying.
 
 Explicit surface elements are triangles for 3d simulations and line segments for 2d simulations. Unlike implicit surface elements, each explicit triangle or line segment may span multiple grid cells. See the :ref:`command-read-surf` for details.
 
-This command can only be used for simulations with explicit surface elements. See the similar :ref:`compute react/isurf/grid <command-compute-react-isurf-grid>` for use with simulations with implicit surface elements.
+This command can only be used for simulations with explicit surface elements. See the similar :ref:`compute react/isurf/grid<command-compute-react-isurf-grid>` for use with simulations with implicit surface elements.
 
 Note that when a particle collides with a surface element, it can bounce off (possibly as a different species), be captured by the surface (vanish), or a 2nd particle can also be emitted.
 
 The doc page for the :ref:`command-surf-react` explains the different reactions that can occur for each specified style.
 
-If no values are specified each reaction specified by the :ref:`surf_react <command-surf-react>` style is tallied individually for each surface element.
+If no values are specified each reaction specified by the :ref:`surf_react<command-surf-react>` style is tallied individually for each surface element.
 
 If M values are specified, then M tallies are made for each surface element, one per value. If the value starts with "r:" then any reaction which occurs with one (or more) of the listed species as a reactant is counted as part of that tally. If the value starts with "p:" then any reaction which occurs with one (or more) of the listed species as a product is counted as part of that tally. Note that these rules mean that a single reaction may be tallied multiple times depending on which values it matches.
 
-The results of this compute can be used by different commands in different ways. The values for a single timestep can be output by the :ref:`dump surf <command-dump>` command.
+The results of this compute can be used by different commands in different ways. The values for a single timestep can be output by the :ref:`dump surf<command-dump>` command.
 
 The values over many sampling timesteps can be averaged by the :ref:`command-fix-ave-surf`.
 
@@ -68,7 +71,7 @@ The values over many sampling timesteps can be averaged by the :ref:`command-fix
 
 **Output info:**
 
-This compute calculates a per-surf array, with the number of columns either equal to the number of reactions defined by the :ref:`surf_react <command-surf-react>` style (if no values are specified) or equal to M = the # of values specified.
+This compute calculates a per-surf array, with the number of columns either equal to the number of reactions defined by the :ref:`surf_react<command-surf-react>` style (if no values are specified) or equal to M = the # of values specified.
 
 Surface elements not in the specified *group-ID* or not assigned to the specified *reaction-ID* will output zeroes for all their values.
 
@@ -84,7 +87,7 @@ occurred.
 **Related commands:**
 
 :ref:`command-fix-ave-surf`, 
-:ref:`dump surf <command-dump>`,
-:ref:`compute react/isurf/grid <command-compute-react-isurf-grid>`
+:ref:`dump surf<command-dump>`,
+:ref:`compute react/isurf/grid<command-compute-react-isurf-grid>`
 
 **Default:** none

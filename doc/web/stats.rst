@@ -2,11 +2,14 @@
 
 .. index:: stats
 
+
+
 .. _command-stats:
 
 #############
 stats command
 #############
+
 
 **Syntax:**
 
@@ -30,12 +33,11 @@ simulation run. A value of 0 will only print statistics at the beginning
 and end.
 
 The content and format of what is printed is controlled by the
-`stats_style <stats_style.html>`__ and
-`stats_modify <stats_modify.html>`__ commands.
+:ref:`stats_style<command-stats-style>` and
+:ref:`stats_modify<command-stats-modify>` commands.
 
 The timesteps on which statistical output is written can also be
-controlled by a `variable <variable.html>`__. See the `stats_modify
-every <stats_modify.html>`__ command.
+controlled by a :ref:`variable<command-variable>`. See the :ref:`stats_modify every<command-stats-modify>` command.
 
 **Restrictions:** none
 

@@ -2,11 +2,14 @@
 
 .. index:: write_restart
 
+
+
 .. _command-write-restart:
 
 #####################
 write_restart command
 #####################
+
 
 **Syntax:**
 
@@ -37,12 +40,12 @@ write_restart command
 
 Write a binary restart file with the current state of the simulation.
 
-During a long simulation, the `restart <restart.html>`__ command can be
+During a long simulation, the :ref:`restart<command-restart>` command can be
 used to output restart files periodically. The write_restart command is
 useful at the end of a run or between two runs, whenever you wish to
 write out a single current restart file.
 
-Similar to `dump <dump.html>`__ files, the restart filename can contain
+Similar to :ref:`dump<command-dump>` files, the restart filename can contain
 two wild-card characters. If a "*" appears in the filename, it is
 replaced with the current timestep value. If a "%" character appears in
 the filename, then one file is written by each processor and the "%"
@@ -55,7 +58,7 @@ subsequent input on parallel machines that support parallel I/O. The
 optional *fileper* and *nfile* keywords discussed below can alter the
 number of files written.
 
-Restart files can be read by a `read_restart <read_restart.html>`__
+Restart files can be read by a :ref:`read_restart<command-read-restart>`
 command to restart a simulation from a particular state. Because the
 file is binary, it may not be readable on another machine.
 
@@ -64,7 +67,7 @@ restarting a simulation from where it left off, not all information
 about a simulation is stored in the file. For example, the list of fixes
 that were specified during the initial run is not stored, which means
 the new input script must specify any fixes you want to use. See the
-`read_restart <read_restart.html>`__ command for details about what is
+:ref:`read_restart<command-read-restart>` command for details about what is
 stored in a restart file.
 
 --------------
