@@ -48,16 +48,17 @@ The manual may be found at https://sparta.sandia.gov/doc/Manual.html
 The SPARTA distribution includes the following files and directories:
 
 
-README:     			   this file
-LICENSE:	    		   the GNU General Public License (GPL)
-bench:                     benchmark problems
-data:                      files with species/reaction params, surface files
-doc:                       documentation
-examples:                  simple test problems
-lib:                       additional library files
-python:                    Python wrapper on SPARTA as a library
-src:                       source files
-tools:                     pre- and post-processing tools
+- **README:**     			   this file
+- **LICENSE:**	    		   the GNU General Public License (GPL)
+- **bench:**                     benchmark problems
+- **data:**                      files with species/reaction params, surface files
+- **doc:**                       documentation
+- **examples:**                  simple test problems
+- **lib:**                       additional library files
+- **python:**                    Python wrapper on SPARTA as a library
+- **src:**                       source files
+- **tools:**                     pre- and post-processing tools
+
 
 Point your browser at any of these files to get started:
 
