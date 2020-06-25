@@ -32,6 +32,9 @@ top of the first page of the manual (this page).
    available.
 
 .. note::
+   - The source for this version of the manual is in the `docs branch of this fork <https://github.com/fiolj/sparta/tree/docs>`__.
+- The `PDF <https://fiolj.github.io/data/sparta-manual.pdf> and `EPUB <https://fiolj.github.io/data/sparta-manual.epub>``__ files for this reformatted version are also available.
+
 
 SPARTA stands for Stochastic PArallel Rarefied-gas Time-accurate
 Analyzer.
