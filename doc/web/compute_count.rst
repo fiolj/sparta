@@ -3,15 +3,28 @@
 .. index:: compute count
 .. index:: compute count/kk
 
+
+
+
+
 .. _command-compute-count:
 
 #####################
 compute count command
 #####################
 
+
+
+
+
+
+.. _command-compute-count-compute-countkk:
+
 ########################
 compute count/kk command
 ########################
+
+
 
 **Syntax:**
 
@@ -19,7 +32,7 @@ compute count/kk command
 
    compute ID count id1 id2 ... 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  count = style name of this compute command
 -  id1,id2,... = species ID or mixture ID or mixture/group
 
@@ -73,7 +86,7 @@ If there is a single count accumulated, this compute calculates a global
 scalar. If there are multiple counts accumulated, it calculates a global
 vector with a length = number of counts. These results can be used by
 any command that uses global scalar or vector values from a compute as
-input. See `Section 4.4 <Section_howto.html#howto_4>`__ for an overview
+input. See :ref:`Section 4.4<howto-output>` for an overview
 of SPARTA output options.
 
 The values will all be unitless counts.
@@ -82,22 +95,19 @@ The values will all be unitless counts.
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 

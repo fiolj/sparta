@@ -2,11 +2,14 @@
 
 .. index:: partition
 
+
+
 .. _command-partition:
 
 #################
 partition command
 #################
+
 
 **Syntax:**
 
@@ -31,15 +34,15 @@ partition command
 
 This command invokes the specified command on a subset of the partitions
 of processors you have defined via the -partition command-line switch.
-See `Section 2.6 <Section_start.html#start_6>`__ of the manual for an
+See :ref:`Section 2.6<start-command-line-options>` of the manual for an
 explanation of the switch.
 
 Normally, every input script command in your script is invoked by every
 partition. This behavior can be modified by defining world- or
-universe-style `variables <variable.html>`__ that have different values
+universe-style :ref:`variables<command-variable>` that have different values
 for each partition. This mechanism can be used to cause your script to
 jump to different input script files on different partitions, if such a
-variable is used in a `jump <jump.html>`__ command.
+variable is used in a :ref:`jump<command-jump>` command.
 
 The "partition" command is another mechanism for having an input script
 operate differently on different partitions. It is basically a prefix on
@@ -51,8 +54,7 @@ which matches the *N* argument. If the *style* is *no* the command will
 be invoked on all the partitions which do not match the Np argument.
 
 Partitions are numbered from 1 to Np, where Np is the number of
-partitions specified by the `-partition command-line
-switch <Section_start.html#start_6>`__.
+partitions specified by the :ref:`-partition command-line switch<start-command-line-options>`.
 
 *N* can be specified in one of two ways. An explicit numeric value can
 be used, as in the 1st example above. Or a wild-card asterisk can be

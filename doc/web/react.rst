@@ -2,11 +2,14 @@
 
 .. index:: react
 
+
+
 .. _command-react:
 
 #############
 react command
 #############
+
 
 **Syntax:**
 
@@ -41,7 +44,7 @@ react command
 
 Define chemical reactions to perform in the gas phase when
 particle-particle collisions occur. See the
-`surf_react <surf_react.html>`__ command for specification of surface
+:ref:`surf_react<command-surf-react>` command for specification of surface
 chemistry reactions.
 
 The *none* style means that no chemistry will be performed, which is the
@@ -50,11 +53,11 @@ default.
 For other styles, a file is specified which contains a list of chemical
 reactions, with their associated parameters. The reactions are read into
 SPARTA and stored in a list. Each time a simulation is run via the
-`run <run.html>`__ command, the list is scanned. Only reactions for
+:ref:`run<command-run>` command, the list is scanned. Only reactions for
 which all the reactants and all the products are currently defined as
 species-IDs will be active for the simulation. Thus the file can contain
 more reactions than are used in a particular simulation. See the
-`species <species.html>`__ command for how species IDs are defined.
+:ref:`species<command-species>` command for how species IDs are defined.
 
 The reaction models for the various styles are described below. When a
 pair of particles collide, the list of all reactions with those two
@@ -158,9 +161,9 @@ whitespace in the following format
    type style C1 C2 ... 
 
 The first line is a text-based description of a single reaction. R1, R2,
-etc are one or more reactants, listed as `species <species.html>`__ IDs.
+etc are one or more reactants, listed as :ref:`species<command-species>` IDs.
 P1, P2, etc are one or more products, also listed as
-`species <species.html>`__ IDs. The number of allowed reactants and
+:ref:`species<command-species>` IDs. The number of allowed reactants and
 products depends on the reaction type, as discussed below. In most cases
 there is no restriction on the order or listed reactants or products on
 what species are listed. Exceptions are detailed below. Note that
@@ -218,8 +221,7 @@ In the first case, no info for a 3rd particle is listed. This means any
 species of 3rd particle can be used. In the second case, a non-species
 keyword is used, either "atom" or "mol". This means the 3rd particle
 must be either an atomic species, or a molecular species. This is based
-on the vibrational degrees of freedom listed in the `species
-file <species.html>`__. A non-zero DOF is molecular; zero DOF is atomic.
+on the vibrational degrees of freedom listed in the :ref:`species file<command-species>`. A non-zero DOF is molecular; zero DOF is atomic.
 In the third case, a specific species P2 is listed. This means the 3rd
 particle must be that species.
 
@@ -244,12 +246,7 @@ rules means that for the same R1 and R2, you can list two reactions, one
 with P2 = "atom", and one with P2 = "mol". And/or you can list multiple
 reactions of the third kind, each with a unique P2.
 
-IMPORTANT NOTE: If the ambipolar approximation is being used, via the
-`fix ambipolar <fix_ambipolar.hmtl>`__ and `collide_modify ambipolar
-yes <collide_modify.html>`__ commands, then reactions which involve
-either ambipolar ions or the ambipolar electron have more restricitve
-rules about the ordering of reactants and products. See the next section
-for a discussion of these requirements.
+.. important:: If the ambipolar approximation is being used, via the :ref:`fix ambipolar<command-fix-ambipolar>` and :ref:`collide_modify ambipolar yes<command-collide-modify>` commands, then reactions which involve either ambipolar ions or the ambipolar electron have more restricitve rules about the ordering of reactants and products. See the next section for a discussion of these requirements.
 
 The *style* of each reaction is a single character (upper or lower case)
 with the following meaning:
@@ -275,15 +272,13 @@ explained above.
 
 --------------
 
-If the ambipolar approximation is being used, via the `fix
-ambipolar <fix_ambipolar.html>`__ command, then reactions which involve
+If the ambipolar approximation is being used, via the :ref:`fix ambipolar<command-fix-ambipolar>` command, then reactions which involve
 either ambipolar ions or the ambipolar electron have more restricitve
 rules about the ordering of reactants and products, than those described
 in the preceeding section.
 
-Note that ambipolar collisions are turned on via the `collide_modify
-ambipolar yes <collide_modify.html>`__ commands, which in turn requries
-that the `fix ambipolar <fix_ambipolar.hmtl>`__ is defined in your input
+Note that ambipolar collisions are turned on via the :ref:`collide_modify ambipolar yes<command-collide-modify>` commands, which in turn requries
+that the :ref:`fix ambipolar<command-fix-ambipolar>` is defined in your input
 script. This fix defines a particular species as an ambipolar electron,
 written as "e" in the reactions that follow. It also defines a list of
 ambipolar ions, which are written as species with a trailing "+" sign in
@@ -322,29 +317,25 @@ Ambipolar recombination reactions must be in the following order:
 
    A+ + e -> A 
 
-IMPORTANT NOTE: Ambipolar recombination reactions are not yet supported
-in SPARTA.
+.. important:: Ambipolar recombination reactions are not yet supported in SPARTA.
 
 --------------
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 

@@ -2,11 +2,14 @@
 
 .. index:: print
 
+
+
 .. _command-print:
 
 #############
 print command
 #############
+
 
 **Syntax:**
 
@@ -54,19 +57,19 @@ turned on or off as desired.
 
 If you want the print command to be executed multiple times (e.g. with
 changing variable values), there are 3 options. First, consider using
-the `fix print <fix_print.html>`__ command, which will print a string
+the :ref:`fix print<command-fix-print>` command, which will print a string
 periodically during a simulation. Second, the print command can be used
-as an argument to the *every* option of the `run <run.html>`__ command.
+as an argument to the *every* option of the :ref:`run<command-run>` command.
 Third, the print command could appear in a section of the input script
-that is looped over (see the `jump <jump.html>`__ and
-`next <next.html>`__ commands).
+that is looped over (see the :ref:`jump<command-jump>` and
+:ref:`next<command-next>` commands).
 
-See the `variable <variable.html>`__ command for a description of
+See the :ref:`variable<command-variable>` command for a description of
 *equal* style variables which are typically the most useful ones to use
 with the print command. Equal-style variables can calculate formulas
 involving mathematical operations, global values calculated by a
-`compute <compute.html>`__ or `fix <fix.html>`__, or references to other
-`variables <variable.html>`__.
+:ref:`compute<command-compute>` or :ref:`fix<command-fix>`, or references to other
+:ref:`variables<command-variable>`.
 
 **Restrictions:** none
 

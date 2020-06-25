@@ -2,11 +2,14 @@
 
 .. index:: write_grid
 
+
+
 .. _command-write-grid:
 
 ##################
 write_grid command
 ##################
+
 
 **Syntax:**
 
@@ -27,21 +30,21 @@ write_grid command
 **Description:**
 
 Write a grid file in text format describing the currently defined
-hierarchical grid. See the `read_grid <read_grid.html>`__ and
-`create_grid <create_grid.html>`__ commands for a definition of
+hierarchical grid. See the :ref:`read_grid<command-read-grid>` and
+:ref:`create_grid<command-create-grid>` commands for a definition of
 hierarchical grids and parent/child cells as used by SPARTA.
 
 The file is written in text format in one of two modes.
 
 If *mode* is *parent* then a list of parent cells is written in the same
-format as the input file used by the `read_grid <read_grid.html>`__
+format as the input file used by the :ref:`read_grid<command-read-grid>`
 command. Thus the file can be used to start a subsequent simulation
 using the same grid topology.
 
 If *mode* is *geom* then the geometric description of all the child
 cells is written in the following format. This file can be used in
 conjunction with snapshot files of per-grid properties, written by the
-`dump grid <dump.html>`__ command, to visualize various properties on
+:ref:`dump grid<command-dump>` command, to visualize various properties on
 the grid.
 
 ::

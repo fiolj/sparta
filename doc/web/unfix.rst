@@ -2,11 +2,14 @@
 
 .. index:: unfix
 
+
+
 .. _command-unfix:
 
 #############
 unfix command
 #############
+
 
 **Syntax:**
 
@@ -25,7 +28,7 @@ unfix command
 
 **Description:**
 
-Delete a fix that was previously defined with a `fix <fix.html>`__
+Delete a fix that was previously defined with a :ref:`fix<command-fix>`
 command.
 
 **Restrictions:** none

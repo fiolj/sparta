@@ -2,11 +2,14 @@
 
 .. index:: adapt_grid
 
+
+
 .. _command-adapt-grid:
 
 ##################
 adapt_grid command
 ##################
+
 
 **Syntax:**
 
@@ -85,13 +88,13 @@ This command perform a one-time adaptation of grid cells within a grid
 cell group, either by refinement or coarsening or both. This command can
 be invoked as many times as desired, before or between simulation runs.
 Grid adaptation can also be performed on-the-fly during a simulation by
-using the `fix adapt <fix_adapt.html>`__ command.
+using the :ref:`fix adapt<command-fix-adapt>` command.
 
 Refinement means splitting one child cell into multiple new child cells;
 the original child cell becomes a parent cell. Coarsening means
 combining all the child cells of a parent cell, so that the child cells
 are deleted and the parent cell becomes a single new child cell. See
-`Section howto 4.8 <Section_howto.html#howto_8>`__ for a description of
+:ref:`Section howto 4.8<howto-grids>` for a description of
 the hierarchical grid used by SPARTA and a defintion of child and parent
 cells.
 
@@ -103,12 +106,11 @@ simulation's computational cost.
 
 Only grid cells in the grid group specified by *group-ID* are eligible
 for refinement. A parent grid cell is only eligible for coarsening if
-all its child cells are in the specified grid group. See the `group
-grid <group.html>`__ command for info on how grid cells can be assigned
+all its child cells are in the specified grid group. See the :ref:`group grid<command-group>` command for info on how grid cells can be assigned
 to grid groups. Note that the grid group assignment is transferred to
 new refined or coarsened cells, so that new cells remain eligible for
 adaptation if the adapt_grid command is invoked again or successive
-adaptations are performed via the `fix adapt <fix_adapt.html>`__
+adaptations are performed via the :ref:`fix adapt<command-fix-adapt>`
 command.
 
 The *action1* and *action2* parameters determine whether refinement or
@@ -122,8 +124,7 @@ used to loop over the two actions multiple times. Cells can be
 successivly refined on each iteration, but will never be coarsened.
 Likewise cells can be successivly coarsensed, but will never be refined.
 Of course any cell may be refined or coarsened later if the adapt_grid
-command is used again, including on later timesteps via the `fix
-adapt <fix_adapt.html>`__ command.
+command is used again, including on later timesteps via the :ref:`fix adapt<command-fix-adapt>` command.
 
 Examples of 2d and 3d refined grids are shown here. The 3d simulation
 shows 2d planar cuts through the 3d grid. Click on either image for a
@@ -164,9 +165,8 @@ than *rcount*, the cell is refined. For coarsening, if the sum of the
 current number of particles in all child cells of the parent cell is
 less than *ccount*, the parent cell is coarsened. Note that if you wish
 to use time-averaged counts of particles in each cell you should use the
-*value* style with the ID of a `fix ave/grid <fix_ave_grid.html>`__
-command that time-averages particle counts from the `compute
-grid <compute_grid.html>`__ command.
+*value* style with the ID of a :ref:`fix ave/grid<command-fix-ave-grid>`
+command that time-averages particle counts from the :ref:`compute grid<command-compute-grid>` command.
 
 The *surf* style adapts only if a grid cell contains one or more surface
 elements in the specified *surfID* group. The *dir* keyword can be used
@@ -176,10 +176,9 @@ dimensions smaller than the specified *ssize*. For coarsening, the
 parent cell is coarsened only if any of the child cell dimensions is
 smaller than the specified *ssize*.
 
-The *value* style uses values calculated by a `compute <compute.html>`__
-or `fix <fix.html>`__ to decide whether to adapt each cell. The fix or
-compute must calculate per-grid values as described in `Section howto
-4.4 <Section_howto.html#howto_4>`__. If the compute or fix calculates a
+The *value* style uses values calculated by a :ref:`compute<command-compute>`
+or :ref:`fix<command-fix>` to decide whether to adapt each cell. The fix or
+compute must calculate per-grid values as described in :ref:`Section howto 4.4<howto-output>`. If the compute or fix calculates a
 vector of such values, it is specified as c_ID or f_ID. If it calculates
 an array of such values, it is specified as c_ID[N] or f_ID[N] when N is
 the column of values to use, from 1 to Ncolumns.
@@ -192,8 +191,7 @@ used to change the refinment or coarsening criteria to "less" versus
 "more". Likewise the *combine* keyword can be used to change the "sum"
 of child cell values to be a "min" or "max" operation.
 
-Here is an example using particle count as calculated by the `compute
-grid <compute_grid.html>`__ command as an adaptation criterion. A cell
+Here is an example using particle count as calculated by the :ref:`compute grid<command-compute-grid>` command as an adaptation criterion. A cell
 will be refined if its count > 25, and a parent cell coarsened if the
 sum of its children cell counts < 10.
 
@@ -219,7 +217,7 @@ criterion in the same manner:
    adapt_grid refine coarsen value f_11 25 10 
 
 Here is an example using mean-free path (MFP) as calculated by the
-`compute lambda/grid <compute_lambda_grid.html>`__ command as an
+:ref:`compute lambda/grid<command-compute-lambda-grid>` command as an
 adaptation criterion. Note the use of "thresh less more" to refine when
 MFP is less than the specified threshold (0.05).
 
@@ -250,13 +248,13 @@ at each iteration to accurately reflect per grid values for the current
 grid.
 
 The *maxlevel* keyword limits how far a grid cell can be refined. See
-`Section howto 4.8 <Section_howto.html#howto_8>`__ for a definition of
+:ref:`Section howto 4.8<howto-grids>` for a definition of
 the level assigned to each parent and child cell. Child cells with a
 level >= *Nmax* are not eligible for refinement. The default setting of
 *Nmax* = 0 means there is no limit on refinement.
 
 The *minlevel* keyword limits how far a grid cell can be coarsened. See
-`Section howto 4.8 <Section_howto.html#howto_8>`__ for a definition of
+:ref:`Section howto 4.8<howto-grids>` for a definition of
 the level assigned to each parent and child cell. Parent cells with a
 level < *Nmin* are not eligible for coarsening. The default setting of
 *Nmin* = 1 means the only limit on coarsening is that the first level
@@ -286,9 +284,9 @@ and Nz.
 The *region* keyword can be used to limit which grid cells are eligible
 for adapation. It applies to both child cells for refinment and parent
 cells for coarsening. The ID of the geometric region is speficied as
-*regID*. See the `region <region.html>`__ command for details on what
+*regID*. See the :ref:`region<command-region>` command for details on what
 kind of geometric regions can be defined. Note that the *side* option
-for the `region <region.html>`__ command can be used to define whether
+for the :ref:`region<command-region>` command can be used to define whether
 the inside or outside of the geometric region is considered to be "in"
 the region.
 
@@ -311,14 +309,13 @@ accomplished by setting Sx,Sy,Sz to the flow direction. If Sy,Sy,Sz =
 
 The *file* keyword triggers output of the adapted grid to the specified
 *filename*. The format of the file is the same as that created by the
-`write_grid <write_grid.html>`__ command, which is a list of parent
+:ref:`write_grid<command-write-grid>` command, which is a list of parent
 cells. The file can be read in by a subsequent simulation to define a
 grid, or used by visualization or other post-procesing tools. Note that
 no file is written if no grid cells are refined or coarsened.
 
 If the filename contains a "*" wildcard character, then the "*" is
-replaced by the current timestep. This is useful for the `fix
-adapt <fix_adapt.html>`__ command, if you wish to write out multiple
+replaced by the current timestep. This is useful for the :ref:`fix adapt<command-fix-adapt>` command, if you wish to write out multiple
 grid files, each time the grid iadapts.
 
 --------------
@@ -327,16 +324,16 @@ If the grid is partitioned across processors in a "clumped" manner
 before this command is invoked, it will still be clumped by processor
 after the adaptation. Likewise if it is not clumped before, it will
 remain un-clumped after adaptation. You can use the
-`balance_grid <balance_grid.html>`__ command after this command to
+:ref:`balance_grid<command-balance-grid>` command after this command to
 re-balance the new adapted grid cells and their particles across
-processors. See `Section howto 4.8 <Section_howto.html#howto_8>`__ for a
+processors. See :ref:`Section howto 4.8<howto-grids>` for a
 description clumped and unclumped grids.
 
 **Restrictions:**
 
 This command can only be used after the grid has been created by the
-`create_grid <create_grid.html>`__, `read_grid <read_grid>`__, or
-`read_restart <read_restart.html>`__ commands.
+:ref:`create_grid<command-create-grid>`, :ref:`read_grid<command-read-grid>`, or
+:ref:`read_restart<command-read-restart>` commands.
 
 Currently a fix cannot be used with style *value* for *iterate* > 1.
 This is because the per-grid cell values accumulated by the fix are not

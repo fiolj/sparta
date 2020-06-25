@@ -2,11 +2,14 @@
 
 .. index:: mixture
 
+
+
 .. _command-mixture:
 
 ###############
 mixture command
 ###############
+
 
 **Syntax:**
 
@@ -58,12 +61,11 @@ mixture command
 
 Define a gas mixture and its properties. A mixture can be referenced by
 its ID in several other SPARTA commands such as
-`create_particles <create_particles.html>`__ or `per-grid
-computes <compute.html>`__. Any number of mixtures can be defined and
+:ref:`create_particles<command-create-particles>` or :ref:`per-grid computes<command-compute>`. Any number of mixtures can be defined and
 used in a simulation.
 
 A mixture is a collection of one or more particle species as defined by
-the `species <species.html>`__ command. Each species belongs to a named
+the :ref:`species<command-species>` command. Each species belongs to a named
 group within the mixture so that particles of all species in the group
 can be acted on together by other commands. The mixture has both global
 attributes and per-species attributes. All attributes have default
@@ -159,10 +161,10 @@ Each species in a mixture is assigned to exactly one group. The *group*
 keyword can be used to set or change these assignments. Every mixture
 has one or more named groups.
 
-As described by the `collide <collide.html>`__ command, mixture groups
+As described by the :ref:`collide<command-collide>` command, mixture groups
 are used when performing collisions so that collisions attempts,
 partners, and parameters can be treated on a per-group basis for
-accuracy and efficiency. `Per-grid computes <compute.html>`__ also use
+accuracy and efficiency. :ref:`Per-grid computes<command-compute>` also use
 mixture groups to calculate per-grid quantities on a per-grid-cell,
 per-group basis, i.e. on subsets of particles within each grid cell.
 
@@ -239,7 +241,7 @@ The restrictions on use of the *delete* keyword are described above.
 **Default:**
 
 The *nrho*, *vstream*, and *temp* defaults are those defined for the
-background gas density, as set by the `global <global.html>`__ command.
+background gas density, as set by the :ref:`global<command-global>` command.
 The *trot* and *tvib* defaults are to use the thermal temperature
 *temp*, either its default or the value specified by this command. The
 *frac* default is described above. The *group* keyword has no default;

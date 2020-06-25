@@ -2,11 +2,14 @@
 
 .. index:: read_surf
 
+
+
 .. _command-read-surf:
 
 #################
 read_surf command
 #################
+
 
 **Syntax:**
 
@@ -68,9 +71,8 @@ Read the geometry of a surface from the specified file. In SPARTA, a
 surface(s) of one or more physical objects which will be embedded in the
 global simulation box. Surfaces can be explicit or implicit. This
 command reads explicit surfaces from a file containing a list of
-explicit surfaces. See the `read_isurf <read_isurf.html>`__ command to
-read implicit surfaces from a different kind of file. See the `Howto
-6.13 <Section_howto.html#howto_13>`__ section of the manual for an
+explicit surfaces. See the :ref:`read_isurf<command-read-isurf>` command to
+read implicit surfaces from a different kind of file. See the :ref:`Howto 6.13<howto-implicit-surface>` section of the manual for an
 explantion of explicit versus implicit surfaces as well as distributed
 versus non-distributed storage. You cannot mix explicit and implicit
 surfaces in the same simulation.
@@ -82,18 +84,14 @@ discussion of watertight objects below.
 
 Particles collide with surface elements as they advect. Each surface
 element is assigned to a collision model, specified by the
-`surf_collide <surf_collide.html>`__ command which affects how a
+:ref:`surf_collide<command-surf-collide>` command which affects how a
 particle bounces off the surface. Each surface element can optionally be
 assigned to a reaction model, specified by the
-`surf_react <surf_react.html>`__ command which determines if any surface
+:ref:`surf_react<command-surf-react>` command which determines if any surface
 chemistry occurs during a collision. Statistics for each surface element
-due to their interactions with particles can be tallied via the `compute
-surf <compute_surf.html>`__ command, time-averaged via the `fix
-ave/surf <fix_ave_surf.html>`__ command, and ouput via the `dump
-surface <dump.html>`__ command.
+due to their interactions with particles can be tallied via the :ref:`compute surf<command-compute-surf>` command, time-averaged via the :ref:`fix ave/surf<command-fix-ave-surf>` command, and ouput via the :ref:`dump surface<command-dump>` command.
 
-Surface elememts can be assigned to surface groups via the `group
-surf <group.html>`__ command. Surface group IDs are used by other
+Surface elememts can be assigned to surface groups via the :ref:`group surf<command-group>` command. Surface group IDs are used by other
 commands to operate on selected sets of elements. This command has
 *group* and *typeadd* keywords which can be used to help assign
 different elements or different objects to different groups.
@@ -101,7 +99,7 @@ different elements or different objects to different groups.
 Explicit surface elements can be stored in a distributed fashion (each
 processor only stores elements which overlap grid cells it owns or has a
 ghost cell copy of). Or each processor can store a copy of all surface
-elements (the default). See the `global surfs <global.html>`__ command
+elements (the default). See the :ref:`global surfs<command-global>` command
 to change this setting.
 
 Note that the read_surf command can be used multiple times to read
@@ -124,7 +122,7 @@ specified file can be a text file or a gzipped text file (detected by a
 .gz suffix).
 
 If a "%" character appears in the surface filename, SPARTA expects a set
-of multiple files to exist. The `write_surf <write_surf.html>`__ command
+of multiple files to exist. The :ref:`write_surf<command-write-surf>` command
 explains how such sets are created. Read_surf will first read a filename
 where "%" is replaced by "base". This file tells SPARTA how many total
 surfaces and files are in the set (i.e. just the header information
@@ -137,7 +135,7 @@ file.
 Note that P could be the total number of processors in the previous
 simulation, or some subset of those processors, if the *fileper* or
 *nfile* options were used when the surface file was written; see the
-`write_surf <write_surf.html>`__ command for details. The processors in
+:ref:`write_surf<command-write-surf>` command for details. The processors in
 the current SPARTA simulation share the work of reading these files;
 each reads a roughly equal subset of the files. The number of processors
 which created the set can be different than the number of processors in
@@ -210,19 +208,10 @@ ordered from 1 to N, regardless of the actual value of the index in the
 file. *X,y,z* are the coordinates of the point in distance units. Note
 that for 2d simulations, *z* should be omitted.
 
-IMPORTANT NOTE: Unless points are on the surface of the simulation box,
-they will be part of multiple lines or triangles. However, there is no
-requirement that each point appear exactly once in the *Points* list.
-For example, a point that is the common corner point of M triangles,
-could appear 1 or 2 or up to M times. However, if the same point appears
-multiple times in the *Points* list, the coordinates of all copies must
-be numerically identical, in order for SPARTA to verify the surface is a
-watertight object, as discussed below.
+.. important:: Unless points are on the surface of the simulation box, they will be part of multiple lines or triangles. However, there is no requirement that each point appear exactly once in the *Points* list.
+	       For example, a point that is the common corner point of M triangles, could appear 1 or 2 or up to M times. However, if the same point appears multiple times in the *Points* list, the coordinates of all copies must be numerically identical, in order for SPARTA to verify the surface is a watertight object, as discussed below.
 
-IMPORTANT NOTE: The *points* keyword and *Points* section are not
-required. You must either use both or neither. As explained next, an
-optional format for the *Lines* or *Triangles* sections includes point
-coordinates directly with each line or triangle.
+.. important:: The *points* keyword and *Points* section are not required. You must either use both or neither. As explained next, an optional format for the *Lines* or *Triangles* sections includes point coordinates directly with each line or triangle.
 
 The *Lines* section is only allowed for 2d simulations and consists of N
 entries, where N = # of lines. All entries must be in the same format,
@@ -244,15 +233,13 @@ not check line-IDs for uniqueness. Note that lines in an individual file
 (single or multiple) do not need to be listed by ID order; they can be
 in any order.
 
-IMPORTANT NOTE: If the read_surf command is used when lines already
-exist, i.e. to add new lines, then each line-ID is incremented by
-Nprevious = the # of lines that already exist.
+.. important:: If the read_surf command is used when lines already exist, i.e. to add new lines, then each line-ID is incremented by Nprevious = the # of lines that already exist.
 
 *Type* is an optional integer value which must be specified for all or
 none of the lines in the file. If used, it must be a positive integer
 value for each line. If not specified, the type of each line is set to
 1. Line IDs and types can be used to assign lines to surface groups via
-the `group surf <group.html>`__ command.
+the :ref:`group surf<command-group>` command.
 
 For format A, *p1* and *p2* are the indices of the 2 end points of the
 line segment, as found in the Points section. Each is a value from 1 to
@@ -286,15 +273,13 @@ does not check tri-IDs for uniqueness. Note that triangles in an
 individual file (single or multiple) do not need to be listed by ID
 order; they can be in any order.
 
-IMPORTANT NOTE: If the read_surf command is used when triangles already
-exist, i.e. to add new triangles, then each tri-ID is incremented by
-Nprevious = the # of triangles that already exist.
+.. important:: If the read_surf command is used when triangles already exist, i.e. to add new triangles, then each tri-ID is incremented by Nprevious = the # of triangles that already exist.
 
 *Type* is an optional integer value which must be specified for all or
 none of the triangles in the file. If used, it must be a positive
 integer value for each triangle. If not specified, the type of each
 triangle is set to 1. Triangle IDs and types can be used to assign
-triangles to surface groups via the `group surf <group.html>`__ command.
+triangles to surface groups via the :ref:`group surf<command-group>` command.
 
 For format A, *p1*, *p2*, and *p3* are the indices of the 3 corner
 points of the triangle, as found in the Points section. Each is a value
@@ -354,12 +339,9 @@ choice of origin, *theta* and (Rx,Ry,Rz).
 
 The *transparent* keyword flags all the read in surface elements as
 transparent, meaning particles pass through them. This is useful for
-tallying flow statistics. The `surf_collide
-transparent <surf_collide.html>`__ command must also be used to assign a
-transparent collision model to those the surface elements. The `compute
-surf <compute_surf.html>`__ command will tally fluxes differently for
-transparent surf elements. The `Section
-6.15 <Section_howto.html#howto_15>`__ doc page provides an overview of
+tallying flow statistics. The :ref:`surf_collide transparent<command-surf-collide>` command must also be used to assign a
+transparent collision model to those the surface elements. The :ref:`compute surf<command-compute-surf>` command will tally fluxes differently for
+transparent surf elements. The :ref:`Section 6.15<howto-transparent-surface>` doc page provides an overview of
 transparent surfaces. See those doc pages for details.
 
 The *invert* keyword does not change the origin or any vertex
@@ -386,17 +368,8 @@ box, though some of its triangles may include points on the faces of the
 simulation box. A similar operation is performed in 2d with the 4 clip
 edges represented by the edges of the global simulation box.
 
-IMPORTANT NOTE: If a surface you clip crosses a periodic boundary, as
-specified by the `boundary <boundary.html>`__ command, then the clipping
-that takes place must be consistent on both the low and high end of the
-box (in the periodic dimension). This means any point on the boundary
-that is generated by the clip operation should be generated twice, once
-on the low side of the box and once on the high side. And those two
-points must be periodic images of each other, as implied by periodicity.
-If the surface you are reading does not clip in this manner, then SPARTA
-will likely generate an error about mis-matched or inconsistent cells
-when it attempts to mark all the grid cells and their corner points as
-inside vs outside the surface.
+.. important:: If a surface you clip crosses a periodic boundary, as specified by the :ref:`boundary<command-boundary>` command, then the clipping that takes place must be consistent on both the low and high end of the box (in the periodic dimension). This means any point on the boundary that is generated by the clip operation should be generated twice, once on the low side of the box and once on the high side. And those two points must be periodic images of each other, as implied by periodicity.
+	       If the surface you are reading does not clip in this manner, then SPARTA will likely generate an error about mis-matched or inconsistent cells when it attempts to mark all the grid cells and their corner points as inside vs outside the surface.
 
 If you use the *clip* keyword, you should check the resulting statistics
 of the clipped surface printed out by this command, including the
@@ -419,13 +392,10 @@ Note that the *clip* operation may delete some surface elements and
 create new ones. Likewise for the points that define the end points or
 corner points of surface element lines (2d) or triangles (3d). The
 resulting altered set of surface elements can be written out to a file
-by the `write_surf <write_surf.html>`__ command, which can then be used
+by the :ref:`write_surf<command-write-surf>` command, which can then be used
 an input to a new simulation or for post-processing and visualization.
 
-IMPORTANT NOTE: When the *clip* operation deletes or adds surface
-elements, the line-IDs or tri-IDs will be renumbered to produce IDs that
-are consective values from 1 to the # of surface elements. The ID of a
-surface element that is unclipped may change due to this reordering.
+.. important:: When the *clip* operation deletes or adds surface elements, the line-IDs or tri-IDs will be renumbered to produce IDs that are consective values from 1 to the # of surface elements. The ID of a surface element that is unclipped may change due to this reordering.
 
 --------------
 
@@ -437,14 +407,13 @@ Surface groups are collections of surface elements. Each surface element
 belongs to one or more surface groups; all elements belong to the "all"
 group, which is created by default. Surface group IDs are used by other
 commands to identify a group of suface elements to operate on. See the
-`group surf <group.html>`__ command for more details.
+:ref:`group surf<command-group>` command for more details.
 
 Every surface element also stores a *type* which is a positive integer.
 *Type* values are useful for flagging subsets of elements or different
 objects in the surface file. For example, a patch of triangles on a
 sphere. Or one sphere out of several that the file contains. Surface
-element types can be used to define surface groups. See the `group
-surf <group.html>`__ command for details.
+element types can be used to define surface groups. See the :ref:`group surf<command-group>` command for details.
 
 The *group* keyword specifies an extra surface *group-ID* to assign all
 the read-in surface elements to. All the read-in elements are assigned
@@ -473,7 +442,7 @@ inside a surface object, which will typically generate errors when
 particles move. If the setting is *keep* then no particles are deleted.
 It is up to you to insure that no particles are inside surface
 object(s), else an error may occur later. This setting can be useful if
-a `remove_surf <remove_surf.html>`__ was used to remove a surface
+a :ref:`remove_surf<command-remove-surf>` was used to remove a surface
 object, and a new object is being read in, and you know the new object
 is smaller than the one it replaced. E.g. for a model of a shrinking or
 ablating object.
@@ -481,16 +450,14 @@ ablating object.
 If the *file* keyword is used, the surfaces will be written out to the
 specified *filename* immediately after they are read in. The arguments
 for this keyword are identical to those used for the
-`write_surf <write_surf.html>`__ command. This includes a file name with
+:ref:`write_surf<command-write-surf>` command. This includes a file name with
 optional "*" and "%" wildcard characters, as well as its optional
 keywords.
 
-IMPORTANT NOTE: The *file* keyword must be the last keyword specified
-with the read_isurf command. This is because all the remaining arguments
-are passed to the `write_surf <write_surf.html>`__ command.
+.. important:: The *file* keyword must be the last keyword specified with the read_isurf command. This is because all the remaining arguments are passed to the :ref:`write_surf<command-write-surf>` command.
 
 The format for the output file is the same as the one written by the
-`write_surf <write_surf.html>`__ command, or read by this command. Note
+:ref:`write_surf<command-write-surf>` command, or read by this command. Note
 that it can be useful to write out a new surface file after reading one
 if clipping was performed; the new file will contain the surface element
 altered by clipping and will not contain any surface elements removed by
@@ -501,18 +468,17 @@ clipping.
 **Restrictions:**
 
 This command can only be used after the simulation box is defined by the
-`create_box <create_box.html>`__ command, and after a grid has been
-created by the `create_grid <create_grid.html>`__ command. If particles
+:ref:`create_box<command-create-box>` command, and after a grid has been
+created by the :ref:`create_grid<command-create-grid>` command. If particles
 already exist in the simulation, you must insure particles do not end up
 inside the added surfaces. See the *particle* keyword for options with
 regard to particles.
 
 To read gzipped surface files, you must compile SPARTA with the
--DSPARTA_GZIP option - see `Section 2.2 <Section_start.html#start_2>`__
+-DSPARTA_GZIP option - see :ref:`Section 2.2<start-steps-build>`
 of the manual for details.
 
-The *clip* keyword cannot be used when the `global surfs
-explicit/distributed <global.html>`__ command has been used. This is
+The *clip* keyword cannot be used when the :ref:`global surfs explicit/distributed<command-global>` command has been used. This is
 because we have not yet figured out how to clip distributed surfaces.
 
 Every vertex in the final surface (after translation, rotation, scaling,

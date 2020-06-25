@@ -1,9 +1,15 @@
 
+
+
+
+
 .. _history:
 
 ##################
 Future and history
 ##################
+
+
 
 This section lists features we are planning to add to SPARTA, features
 of previous versions of SPARTA, and features of other parallel molecular
@@ -14,28 +20,35 @@ dynamics codes I've distributed.
    :local:
 
 
+
+.. _history-coming-attractions:
+
 ******************
 Coming attractions
 ******************
 
-The `developers wish list link
-<http://sparta.sandia.gov/future.html>`__" on the SPARTA web page
+
+
+The `developers wish list link <http://sparta.sandia.gov/future.html>`__" on the SPARTA web page
 gives a list of features we are planning to add to SPARTA in the
 future. Please contact the you are interested in contributing to the
 those developments or would be a future user of that feature.
 
-You can also send `email to the developers
-<http://sparta.sandia.gov/authors.html>`__ if you want to add your
+You can also send `email to the developers <http://sparta.sandia.gov/authors.html>`__ if you want to add your
 wish to the list.
 
+
+
+.. _history-past-versions:
 
 *************
 Past versions
 *************
 
+
+
 Sandia's predecessor to SPARTA is a DSMC code called ICARUS. It was
-developed in the early 1990s by Tim Bartel and `Steve Plimpton
-<http://www.sandia.gov/~sjplimp>`__. It was later modified and
+developed in the early 1990s by Tim Bartel and `Steve Plimpton <http://www.sandia.gov/~sjplimp>`__. It was later modified and
 extended by Michael Gallis.
 
 ICARUS is a 2d code, written in Fortran, which models the flow
@@ -45,8 +58,7 @@ represented with analytic equations, which allows for fast particle
 tracking.
 
 Some details about ICARUS, including simulation snapshots and papers,
-are discussed on `this page
-<http://www.sandia.gov/~sjplimp/dsmc.html>`__
+are discussed on `this page <http://www.sandia.gov/~sjplimp/dsmc.html>`__
 
 Performance-wise ICARUS scaled quite well on several generations of
 parallel machines, and is still used by Sandia researchers

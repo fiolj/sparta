@@ -1,9 +1,15 @@
 
+
+
+
+
 .. _modify:
 
 ############################
 Modifying & extending SPARTA
 ############################
+
+
 
 This section describes how to extend SPARTA by modifying its source
 code.
@@ -38,7 +44,7 @@ then your collide_foo.h file should be structured as follows:
 
 where "foo" is the style keyword in the collid command, and CollideFoo is the class name defined in your collide_foo.cpp and collide_foo.h files.
 
-When you re-build SPARTA, your new collision model becomes part of the executable and can be invoked with a `collide <collide.html>`__ command like the example above. Arguments like a mixture ID, params.foo (a file with collision parameters), and 3.0 can be defined and processed by your new class.
+When you re-build SPARTA, your new collision model becomes part of the executable and can be invoked with a :ref:`collide<command-collide>` command like the example above. Arguments like a mixture ID, params.foo (a file with collision parameters), and 3.0 can be defined and processed by your new class.
 
 As illustrated by this example, many kinds of options are referred to in the SPARTA documentation as the "style" of a particular command.
 
@@ -55,11 +61,15 @@ Here are additional guidelines for modifying SPARTA and adding new functionality
 
 
 
+.. _modify-compute-styles:
+
 **************
 Compute styles
 **************
 
-:ref:`Compute style commands <command-compute>` calculate instantaneous properties of the simulated system. They can be global properties, or per particle or per grid cell or per surface element properties. The result can be single value or multiple values (global or per particle or per grid or per surf).
+
+
+:ref:`Compute style commands<command-compute>` calculate instantaneous properties of the simulated system. They can be global properties, or per particle or per grid cell or per surface element properties. The result can be single value or multiple values (global or per particle or per grid or per surf).
 
 Here is a brief description of methods to define in a new derived class.  See compute.h for details. All of these methods are optional.
 
@@ -95,11 +105,16 @@ Flags may also need to be set by a compute to enable specific
 properties. See the compute.h header file for one-line descriptions.
 
 
+
+.. _modify-fix-styles:
+
 **********
 Fix styles
 **********
 
-:ref:`Fix style commands <command-fix>` perform operations during the timestepping loop of a simulation. They can define methods which are invoked at different points within the timestep. They can be used to insert particles, perform load-balancing, or perform time-averaging of various quantities. They can also define and maintain new per-particle vectors and arrays that define quantities that move with particles when they migrate from processor to processor or when the grid is rebalanced or adapated. They can also produce output of various kinds, similar to :ref:`command-compute`.
+
+
+:ref:`Fix style commands<command-fix>` perform operations during the timestepping loop of a simulation. They can define methods which are invoked at different points within the timestep. They can be used to insert particles, perform load-balancing, or perform time-averaging of various quantities. They can also define and maintain new per-particle vectors and arrays that define quantities that move with particles when they migrate from processor to processor or when the grid is rebalanced or adapated. They can also produce output of various kinds, similar to :ref:`command-compute`.
 
 Here is a brief description of methods to define in a new derived class.  See fix.h for details. All of these methods are optional, except ``setmask()``.
 
@@ -140,14 +155,19 @@ relevant Particle class methods:
    * - remove_custom
      - remove a custom vector or array
 
-See :ref:`fix ambipolar <command-fix-ambipolar>` for an example of how these are used. It defines an integer vector called "ionambi" to flag particles as ambipolar ions, and a floatin-point array called "velambi" to store the velocity vector for the associated electron.
+See :ref:`fix ambipolar<command-fix-ambipolar>` for an example of how these are used. It defines an integer vector called "ionambi" to flag particles as ambipolar ions, and a floatin-point array called "velambi" to store the velocity vector for the associated electron.
 
+
+
+.. _modify-region-styles:
 
 *************
 Region styles
 *************
 
-:ref:`Region style commands <command-region>` define geometric regions within the simulation box. Other commands use regions to limit their computational scope.
+
+
+:ref:`Region style commands<command-region>` define geometric regions within the simulation box. Other commands use regions to limit their computational scope.
 
 Here is a brief description of methods to define in a new derived class.  See region.h for details. The ``inside()`` method is required.
 
@@ -155,11 +175,16 @@ inside:
     determine whether a point is inside/outside the region
 
 
+
+.. _modify-collision-styles:
+
 ****************
 Collision styles
 ****************
 
-:ref:`Collision style commands <command-collide>` define collision models that calculate interactions between particles in the same grid cell.
+
+
+:ref:`Collision style commands<command-collide>` define collision models that calculate interactions between particles in the same grid cell.
 
 Here is a brief description of methods to define in a new derived class.  See collide.h for details. All of these methods are required except ``init()`` and ``modify_params()``.
 
@@ -185,11 +210,16 @@ Here is a brief description of methods to define in a new derived class.  See co
      - calculate the outcome of a 2-particle collision
 
 
+
+.. _modify-surface-collision:
+
 ************************
 Surface collision styles
 ************************
 
-:ref:`Surface collision style commands <command-collide>` define collision models that calculate interactions between a particle and surface element.
+
+
+:ref:`Surface collision style commands<command-collide>` define collision models that calculate interactions between a particle and surface element.
 
 Here is a brief description of methods to define in a new derived class.  See surf_collide.h for details. All of these methods are required except dynamic().
 
@@ -205,12 +235,16 @@ Here is a brief description of methods to define in a new derived class.  See su
      - allow surface property to change during a simulation
 
 
+
+.. _modify-chemistry-styles:
+
 ****************
 Chemistry styles
 ****************
 
-Particle/particle chemistry models in SPARTA are specified by `reaction
-style commands <react.html>`__ which define lists of possible reactions
+
+
+Particle/particle chemistry models in SPARTA are specified by :ref:`reaction style commands<command-react>` which define lists of possible reactions
 and their parameters.
 
 Here is a brief description of methods to define in a new derived class.
@@ -227,11 +261,16 @@ method is required.
      - attempt a chemical reaction between two particles
 
 
+
+.. _modify-dump-styles:
+
 ***********
 Dump styles
 ***********
 
-:ref:`Dump commands <command-dump>` output snapshots of simulation data to a file periodically during a simulation, in a particular file format. Per particle, per grid cell, or per surface element data can be output.
+
+
+:ref:`Dump commands<command-dump>` output snapshots of simulation data to a file periodically during a simulation, in a particular file format. Per particle, per grid cell, or per surface element data can be output.
 
 Here is a brief description of methods to define in a new derived class.  See dump.h for details. The ``init_style()``, ``modify_param()``, and ``memory_usage()`` methods are optional; all the others are required.
 
@@ -256,9 +295,14 @@ Here is a brief description of methods to define in a new derived class.  See du
      - tally memory usage
 
 
+
+.. _modify-input-script:
+
 *********************
 Input script commands
 *********************
+
+
 
 New commands can be added to SPARTA that will be recognized in input scripts. For example, the :ref:`command-create-particles` :ref:`command-read-surf`, and :ref:`command-run` are all implemented in this fashion. When such a command is encountered in an input script, SPARTA simply creates a class with the corresponding name, invokes the "command" method of the class, and passes it the arguments from the input script. The ``command()`` method can perform whatever operations it wishes on SPARTA data structures.
 

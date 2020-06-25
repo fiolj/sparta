@@ -2,11 +2,14 @@
 
 .. index:: fix ave/surf
 
+
+
 .. _command-fix-ave-surf:
 
 ####################
 fix ave/surf command
 ####################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ fix ave/surf command
 
    fix ID ave/surf group-ID Nevery Nrepeat Nfreq value1 value2 ... keyword args ... 
 
--  ID is documented in `fix <fix.html>`__ command
+-  ID is documented in :ref:`fix<command-fix>` command
 -  ave/surf = style name of this fix command
 -  group-ID = group ID for which surface elements to perform calculation
    on
@@ -53,24 +56,21 @@ fix ave/surf command
 Use one or more per-surf vectors as inputs every few timesteps, and
 average them surface element by surface element by over longer
 timescales, applying appropriate normalization factors. The resulting
-per-surf averages can be used by other output commands such as the `dump
-surf <dump.html>`__ command. Only surface elements in the surface group
-specified by *group-ID* are included in the averaging. See the `group
-surf <group.html>`__ command for info on how surface elements can be
+per-surf averages can be used by other output commands such as the :ref:`dump surf<command-dump>` command. Only surface elements in the surface group
+specified by *group-ID* are included in the averaging. See the :ref:`group surf<command-group>` command for info on how surface elements can be
 assigned to surface groups.
 
-Each input value can be the result of a `compute <compute.html>`__ or
-`fix <fix.html>`__. The compute or fix must produce a per-surf vector or
+Each input value can be the result of a :ref:`compute<command-compute>` or
+:ref:`fix<command-fix>`. The compute or fix must produce a per-surf vector or
 array, not a global or per-particle or per-grid quantity. If you wish to
-time-average global quantities from a compute or fix then see the `fix
-ave/time <fix_ave_time.html>`__ command. To time-average per-grid
-quantities, see the `fix ave/grid <fix_ave_grid.html>`__ command.
+time-average global quantities from a compute or fix then see the :ref:`fix ave/time<command-fix-ave-time>` command. To time-average per-grid
+quantities, see the :ref:`fix ave/grid<command-fix-ave-grid>` command.
 
 Each per-surf value of each input vector is averaged independently.
 
-`Computes <compute.html>`__ that produce per-surf vectors or arrays are
+:ref:`Computes<command-compute>` that produce per-surf vectors or arrays are
 those which have the word *surf* in their style name. See the doc pages
-for individual `fixes <fix.html>`__ to determine which ones produce
+for individual :ref:`fixes<command-fix>` to determine which ones produce
 per-surf vectors or arrays.
 
 Note that for values from a compute or fix, the bracketed index I can be
@@ -85,7 +85,7 @@ from m to n (inclusive).
 
 Using a wildcard is the same as if the individual columns of the array
 had been listed one by one. E.g. these 2 fix ave/surf commands are
-equivalent, since the `compute surf <compute_grid.html>`__ command
+equivalent, since the :ref:`compute surf<command-compute-grid>` command
 creates a per-surf array with 4 columns:
 
 ::
@@ -122,8 +122,7 @@ array calculated by the compute. See the discussion above for how I can
 be specified with a wildcard asterisk to effectively specify multiple
 values.
 
-Users can also write code for their own compute styles and `add them to
-SPARTA <Section_modify.html>`__.
+Users can also write code for their own compute styles and :ref:`add them to SPARTA<modify>`.
 
 If a value begins with ``f_``, a fix ID must follow which has been
 previously defined in the input script. If no bracketed term is
@@ -136,8 +135,7 @@ values.
 
 Note that some fixes only produce their values on certain timesteps,
 which must be compatible with *Nevery*, else an error will result. Users
-can also write code for their own fix styles and `add them to
-SPARTA <Section_modify.html>`__.
+can also write code for their own fix styles and :ref:`add them to SPARTA<modify>`.
 
 --------------
 
@@ -145,7 +143,7 @@ For averaging of a value that comes from a compute or fix, normalization
 is performed as follows. If the compute or fix is summing over particles
 to calculate a per-surf quantity (e.g. pressure or energy flux), this
 takes the form of a numerator divided by a denominator. For example, see
-the formulas discussed on the `compute surf <compute_surf.html>`__ doc
+the formulas discussed on the :ref:`compute surf<command-compute-surf>` doc
 page, where the denominator is 1 (for keyword n), area times dt
 (timestep) for the other quantities (press, shx, ke, etc). When this
 command averages over a series of timesteps, the numerator and
@@ -175,8 +173,7 @@ fix, or by re-specifying it.
 
 **Restart, output info:**
 
-No information about this fix is written to `binary restart
-files <restart.html>`__.
+No information about this fix is written to :ref:`binary restart files<command-restart>`.
 
 This fix produces a per-surf vector or array which can be accessed by
 various output commands. A vector is produced if only a single quantity

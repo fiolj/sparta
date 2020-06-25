@@ -2,11 +2,14 @@
 
 .. index:: dump_modify
 
+
+
 .. _command-dump-modify:
 
 ###################
 dump_modify command
 ###################
+
 
 **Syntax:**
 
@@ -45,7 +48,7 @@ dump_modify command
           these 3 args can be replaced by the word "none" to turn off thresholding 
 
 -  these keywords apply only to the (image and *movie*
-   `styles <dump_image.html>`__
+   :ref:`styles<command-dump-image>`
 -  keyword = *bcolor* or *bdiam* or *backcolor* or *bitrate* or
    *boxcolor* or *cmap* or *color* or *framerate* or *gcolor* or
    *glinecolor* or *pcolor* or *pdiam* or *scolor* or *slinecolor*
@@ -130,9 +133,9 @@ gzipped files. If specified as *yes*, then dump snapshots are appended
 to the end of an existing dump file. If specified as *no*, then a new
 dump file will be created which will overwrite an existing file with the
 same name. This keyword can only take effect if the dump_modify command
-is used after the `dump <dump.html>`__ command, but before the first
+is used after the :ref:`dump<command-dump>` command, but before the first
 command that causes dump snapshots to be output, e.g. a
-`run <run.html>`__ command. Once the dump file has been opened, this
+:ref:`run<command-run>` command. Once the dump file has been opened, this
 keyword has no further effect.
 
 --------------
@@ -157,17 +160,15 @@ buffering.
 The *every* keyword changes the dump frequency originally specified by
 the :ref:`command-dump` to a new value. The every keyword can be
 specified in one of two ways. It can be a numeric value in which case
-it must be > 0. Or it can be an :ref:`equal-style variable
-<command-variable>`, which should be specified as v_name, where name
+it must be > 0. Or it can be an :ref:`equal-style variable<command-variable>`, which should be specified as v_name, where name
 is the variable name. In this case, the variable is evaluated at the
 beginning of a run to determine the next timestep at which a dump
 snapshot will be written out. On that timestep, the variable will be
 evaluated again to determine the next timestep, etc. Thus the variable
 should return timestep values. See the stagger() and logfreq() math
-functions for :ref:`equal-style variable <command-variable>`, as
+functions for :ref:`equal-style variable<command-variable>`, as
 examples of useful functions to use in this context. Other similar
-math functions could easily be added as options for :ref:`equal-style
-variable <command-variable>`. When using the variable option with the
+math functions could easily be added as options for :ref:`equal-style variable<command-variable>`. When using the variable option with the
 *every* keyword, you also need to use the *first* option if you want
 an initial snapshot written to the dump file.
 
@@ -242,7 +243,7 @@ signed integer, e.g. one with "%ld", if SPARTA was compiled with the
 The *nfile* or *fileper* keywords apply to all dump styles except
 *image* and *movie*. They can be used in conjunction with the "%"
 wildcard character in the specified dump file name. As explained on the
-`dump <dump.html>`__ command doc page, the "%" character causes the dump
+:ref:`dump<command-dump>` command doc page, the "%" character causes the dump
 file to be written in pieces, one piece for each of P processors. By
 default P = the number of processors the simulation is running on. The
 *nfile* or *fileper* keyword can be used to set P to a smaller value,
@@ -275,21 +276,21 @@ can easily read the files in ascending timestep order.
 The *region* keyword only applies to the dump *particle* and *image*
 styles. If specified, only particles in the region will be written to
 the dump file or included in the image. Only one region can be applied
-as a filter (the last one specified). See the `region <region.html>`__
+as a filter (the last one specified). See the :ref:`region<command-region>`
 command for more details. Note that a region can be defined as the
 "inside" or "outside" of a geometric shape, and it can be the "union" or
 "intersection" of a series of simpler regions.
 
 --------------
 
-The *thresh* keyword only applies to the dump *particle* and *image* styles. Multiple thresholds can be specified. Specifying "none" turns off all threshold criteria. If thresholds are specified, only particles whose attributes meet all the threshold criteria are written to the dump file or included in the image. The possible attributes that can be tested for are the same as those that can be specified in the :ref:`dump particle <command-dump>` command. Note that different attributes can be output by the dump particle command than are used as threshold criteria by the dump_modify command. E.g. you can output the coordinates of particles whose velocity components are above some threshold.
+The *thresh* keyword only applies to the dump *particle* and *image* styles. Multiple thresholds can be specified. Specifying "none" turns off all threshold criteria. If thresholds are specified, only particles whose attributes meet all the threshold criteria are written to the dump file or included in the image. The possible attributes that can be tested for are the same as those that can be specified in the :ref:`dump particle<command-dump>` command. Note that different attributes can be output by the dump particle command than are used as threshold criteria by the dump_modify command. E.g. you can output the coordinates of particles whose velocity components are above some threshold.
 
 --------------
 
 These keywords apply only to the :ref:`command-dump-image` and
-:ref:`command-dump-movie` styles. Any keyword that affects an
+:ref:`command-dump-movie<command-dump-image-command-dump-movie>` styles. Any keyword that affects an
 image, also affects a movie, since the movie is simply a collection of
-images. Some of the keywords only affect the :ref:`command-dump-movie` style. The descriptions give details.
+images. Some of the keywords only affect the :ref:`command-dump-movie<command-dump-image-command-dump-movie>` style. The descriptions give details.
 
 --------------
 
@@ -297,7 +298,7 @@ The *backcolor* keyword can be used with the :ref:`command-dump-image` to set th
 
 --------------
 
-The *bitrate* keyword can be used with the :ref:`command-dump-movie` to define the size of the resulting movie file and its quality via setting how many kbits per second are to be used for the movie file. Higher bitrates require less compression and will result in higher quality movies. The quality is also determined by the compression format and encoder. The default setting is 2000 kbit/s, which will result in average quality with older compression formats.
+The *bitrate* keyword can be used with the :ref:`command-dump-movie<command-dump-image-command-dump-movie>` to define the size of the resulting movie file and its quality via setting how many kbits per second are to be used for the movie file. Higher bitrates require less compression and will result in higher quality movies. The quality is also determined by the compression format and encoder. The default setting is 2000 kbit/s, which will result in average quality with older compression formats.
 
 .. important:: Not all movie file formats supported by dump movie allow the bitrate to be set.
 	       If not, the setting is silently ignored.
@@ -346,7 +347,7 @@ When a color name is converted to RGB values, the user-defined color names are s
 
 --------------
 
-The *framerate* keyword can be used with the :ref:`command-dump-movie` to define the duration of the resulting movie file. Movie files written by the dump *movie* command have a default frame rate of 24 frames per second and the images generated will be converted at that rate. Thus a sequence of 1000 dump images will result in a movie of about 42 seconds. To make a movie run longer you can either generate images more frequently or lower the frame rate. To speed a movie up, you can do the inverse. Using a frame rate higher than 24 is not recommended, as it will result in simply dropping the rendered images. It is more efficient to dump images less frequently.
+The *framerate* keyword can be used with the :ref:`command-dump-movie<command-dump-image-command-dump-movie>` to define the duration of the resulting movie file. Movie files written by the dump *movie* command have a default frame rate of 24 frames per second and the images generated will be converted at that rate. Thus a sequence of 1000 dump images will result in a movie of about 42 seconds. To make a movie run longer you can either generate images more frequently or lower the frame rate. To speed a movie up, you can do the inverse. Using a frame rate higher than 24 is not recommended, as it will result in simply dropping the rendered images. It is more efficient to dump images less frequently.
 
 --------------
 

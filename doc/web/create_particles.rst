@@ -3,15 +3,28 @@
 .. index:: create_particles
 .. index:: create_particles/kk
 
+
+
+
+
 .. _command-create-particles:
 
 ########################
 create_particles command
 ########################
 
+
+
+
+
+
+.. _command-create-particles-createparticleskk:
+
 ###########################
 create_particles/kk command
 ###########################
+
+
 
 **Syntax:**
 
@@ -65,22 +78,22 @@ of individual particles, such as species and velocity, are determined by
 the mixture attributes, as specied by the *mix-ID*. In particular the
 *temp*, *trot*, *tvib*, and *vstream* attributes of the mixture affect
 create particle velocities and internal energy modes. See the
-`mixture <mixture.html>`__ command for more details. Note that this
+:ref:`mixture<command-mixture>` command for more details. Note that this
 command can be used multiple times to add more and more particles.
 
 Particles are only created in grid cells which are entirely external to
 surfaces. Particles are not created in grid cells cut by surfaces.
 
 IMPORTANT NOTE: When a particle is created at a specified temperature
-(as set by the `mixture <mixture.html>`__ command), it's rotational and
+(as set by the :ref:`mixture<command-mixture>` command), it's rotational and
 vibrational energy will also be initialized, consistent with the mixture
 temperatures. The *rotate* and *vibrate* options of the
-`collide_modify <collide_modify.html>`__ command determine how internal
-energy modes are initialized. If the `collide <collide.html>`__ command
+:ref:`collide_modify<command-collide-modify>` command determine how internal
+energy modes are initialized. If the :ref:`collide<command-collide>` command
 has not yet been specified, then no rotational or vibrational energy
 will be assigned to created particles. Thus if you wish to create
-particles with non-zero internal energy, the `collide <collide.html>`__
-and (optionally) `collide_modify <collide_modify.html>`__ commands must
+particles with non-zero internal energy, the :ref:`collide<command-collide>`
+and (optionally) :ref:`collide_modify<command-collide-modify>` commands must
 be used before this command.
 
 If the *n* style is used with *Np* = 0, then the number of created
@@ -88,12 +101,12 @@ particles is calculated by SPARTA as a function of the global *fnum*
 value, the mixture number density, and the flow volume of the simulation
 domain.
 
-The *fnum* value is set by the `global fnum <global.html>`__ command.
-The mixture *nrho* is set by the `mixture <mixture.html>`__ command. The
+The *fnum* value is set by the :ref:`global fnum<command-global>` command.
+The mixture *nrho* is set by the :ref:`mixture<command-mixture>` command. The
 flow volume of the simulation is the total volume of the simulation
-domain as specified by the `create_box <create_box.html>`__ command,
+domain as specified by the :ref:`create_box<command-create-box>` command,
 minus any volume that is interior to surfaces defined by the
-`read_surf <read_surf.html>`__ command. Note that the flow volume
+:ref:`read_surf<command-read-surf>` command. Note that the flow volume
 includes volume contributions from grid cells cut by surfaces. However
 particles are only created in grid cells entirely external to surfaces.
 This means that particles may be created in external cells at a
@@ -113,17 +126,16 @@ over, the remainder fraction is accumulated, so that exactly *Np*
 particles are created across all the processors.
 
 IMPORTANT NOTE: The preceeding calculation is actually done using
-*weighted* cell volumes. Grid cells can be weighted using the `global
-weight <global.html>`__ command.
+*weighted* cell volumes. Grid cells can be weighted using the :ref:`global weight<command-global>` command.
 
 Each particle is inserted at a random location within the grid cell. The
 particle species is chosen randomly in accord with the *frac* settings
 of the collection of species in the mixture, as set by the
-`mixture <mixture.html>`__ command. The velocity of the particle is set
+:ref:`mixture<command-mixture>` command. The velocity of the particle is set
 to the sum of the streaming velocity of the mixture and a thermal
 velocity sampled from the thermal temperature of the mixture. Both the
 streaming velocity and thermal temperature are also set by the
-`mixture <mixture.html>`__ command. The internal rotational and
+:ref:`mixture<command-mixture>` command. The internal rotational and
 vibrational energies of the particle are also set based on the *trot*
 and *tvib* settings for the mixture, as explained above.
 
@@ -160,7 +172,7 @@ the *yes* setting.
 If the *region* keyword is used, then a particle will only added if its
 position is within the specified *region-ID*. This can be used to only
 allow particle insertion within a subset of the simulation domain. Note
-that the *side* option for the `region <region.html>`__ command can be
+that the *side* option for the :ref:`region<command-region>` command can be
 used to define whether the inside or outside of the geometric region is
 considered to be "in" the region.
 
@@ -173,14 +185,14 @@ the particle insertions are rejected due to not being inside the region.
 
 The *species* keyword can be used to create particles with a
 spatially-dependent separation of species. The specified *svar* is the
-name of an `equal-style variable <variable.html>`__ whose formula should
+name of an :ref:`equal-style variable<command-variable>` whose formula should
 evaluate to a species number, i.e. an integer from 1 to Nsp, where Nsp
 is the number of species in the mixture with mix-ID. Since equal-style
 variables evaluate to floating-point values, this value is truncated to
 an integer value. The formula for the species variable can use one or
 two or three variables which will store the x, y, or z coordinates of
 the particle that is being created. If used, these variables must be
-`internal-style variables <variable.html>`__ defined in the input
+:ref:`internal-style variables<command-variable>` defined in the input
 script; their initial numeric values can be anything. They must be
 internal-style variables, because this command resets their values
 directly. Their names are specified as *xvar*, *yvar*, and *zvar*. If
@@ -214,11 +226,11 @@ or greater than Nsp = the number of species in the mixture.
 
 The *density* keyword can be used to create particles with a
 spatially-dependent density variation. The specified *dvar* is the name
-of an `equal-style variable <variable.html>`__ whose formula should
+of an :ref:`equal-style variable<command-variable>` whose formula should
 evaluate to a positive value. The formula for *dvar* can use one or two
 or three variables which will store the x, y, or z coordinates of the
 geometric center point of a grid cell. If used, these other variables
-must be `internal-style variables <variable.html>`__ defined in the
+must be :ref:`internal-style variables<command-variable>` defined in the
 input script; their initial numeric values can by anything. Their names
 are specified as *xvar*, *yvar*, and *zvar*. If any of them is not used
 in the *dvar* formula, it can be specified as NULL.
@@ -251,11 +263,11 @@ than 1.0.
 
 The *temperature* keyword can be used to create particles with a
 spatially-dependent thermal temperature variation. The specified *tvar*
-is the name of an `equal-style variable <variable.html>`__ whose formula
+is the name of an :ref:`equal-style variable<command-variable>` whose formula
 should evaluate to a positive value. The formula for the *tvar* variable
 can use one or two or three variables which will store the x, y, or z
 coordinates of the geometric center point of a grid cell. If used, these
-other variables must be `internal-style variables <variable.html>`__
+other variables must be :ref:`internal-style variables<command-variable>`
 defined in the input script; their initial numeric values can by
 anything. Their names are specified as *xvar*, *yvar*, and *zvar*. If
 any of them is not used in the *tvar* formula, it can be specified as
@@ -284,7 +296,7 @@ side is 3x larger.
 
 The *velocity* keyword can be used to create particles with a
 spatially-dependent streaming velocity. The specified *vxvar*, *vyvar*,
-*vzvar* are the names of `equal-style variables <variable.html>`__ whose
+*vzvar* are the names of :ref:`equal-style variables<command-variable>` whose
 formulas should evaluate to the corresponding component of the streaming
 velocity. If any of them are specified as NULL, then that streaming
 velocity component is set by the corresponding global or mixture
@@ -294,7 +306,7 @@ not used.
 The formulas for the *vxvar*, *vyvar*, *vzvar* variables can use one or
 two or three variables which will store the x, y, or z coordinates of
 the particle that is being created. If used, these other variables must
-be `internal-style variables <variable.html>`__ defined in the input
+be :ref:`internal-style variables<command-variable>` defined in the input
 script; their initial numerica values can by anything. Their names are
 specified as *xvar*, *yvar*, and *zvar*. If any of them is not used in
 the *vxvar*, *vyvar*, *vzvar* formulas, it can be specified as NULL.
@@ -339,22 +351,19 @@ the top of this page.
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 

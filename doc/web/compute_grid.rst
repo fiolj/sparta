@@ -3,15 +3,28 @@
 .. index:: compute grid
 .. index:: compute grid/kk
 
+
+
+
+
 .. _command-compute-grid:
 
 ####################
 compute grid command
 ####################
 
+
+
+
+
+
+.. _command-compute-grid-compute-gridkk:
+
 #######################
 compute grid/kk command
 #######################
+
+
 
 **Syntax:**
 
@@ -19,7 +32,7 @@ compute grid/kk command
 
    compute ID grid group-ID mix-ID value1 value2 ... 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  grid = style name of this compute command
 -  group-ID = group ID for which grid cells to perform calculation on
 -  mix-ID = mixture ID to perform calculation on
@@ -76,18 +89,16 @@ Define a computation that calculates one or more values for each grid
 cell in a grid cell group, based on the particles in the cell. The
 values are tallied separately for each group of species in the specified
 mixture, as described in the Ouput section below. See the
-`mixture <mixture.html>`__ command for how a set of species can be
+:ref:`mixture<command-mixture>` command for how a set of species can be
 partitioned into groups. Only grid cells in the grid group specified by
-*group-ID* are included in the calculations. See the `group
-grid <group.html>`__ command for info on how grid cells can be assigned
+*group-ID* are included in the calculations. See the :ref:`group grid<command-group>` command for info on how grid cells can be assigned
 to grid groups.
 
 The results of this compute can be used by different commands in
 different ways. The values for a single timestep can be output by the
-`dump grid <dump.html>`__ command.
+:ref:`dump grid<command-dump>` command.
 
-The values over many sampling timesteps can be averaged by the `fix
-ave/grid <fix_ave_grid.html>`__ command. It does its averaging as if the
+The values over many sampling timesteps can be averaged by the :ref:`fix ave/grid<command-fix-ave-grid>` command. It does its averaging as if the
 particles in the cell at each sampling timestep were combined together
 into one large set of particles to compute the formulas below.
 
@@ -111,11 +122,11 @@ due to particles in each group:
    Nrho = fnum/volume * N 
 
 N is the number of particles (same as the *n* keyword), fnum is the
-real/simulated particle ratio set by the `global fnum <global.html>`__
+real/simulated particle ratio set by the :ref:`global fnum<command-global>`
 command, and volume is the flow volume of the grid cell. When
 accumulated over multiple sampling steps, this value is normalized by
 the number of sampling steps. Note that if particle weighting is enabled
-via the `global weight <global.html>`__ command, then the volume used in
+via the :ref:`global weight<command-global>` command, then the volume used in
 the formula is divided by the weight assigned to the grid cell.
 
 The *nfrac* value computes the number fraction of particles in each
@@ -145,11 +156,11 @@ due to particles in each group:
    Massrho = fnum/volume * Sum_i (mass_i) 
 
 where Sum_i is a sum over particles in the group, fnum is the
-real/simulated particle ratio set by the `global fnum <global.html>`__
+real/simulated particle ratio set by the :ref:`global fnum<command-global>`
 command, and volume is the flow volume of the grid cell. When
 accumulated over multiple sampling steps, this value is normalized by
 the number of sampling steps. Note that if particle weighting is enabled
-via the `global weight <global.html>`__ command, then the volume used in
+via the :ref:`global weight<command-global>` command, then the volume used in
 the formula is divided by the weight assigned to the grid cell.
 
 The *massfrac* value computes the mass fraction of particles in each
@@ -214,7 +225,7 @@ factor:
 Note that this definition of temperature does not subtract out a net
 streaming velocity for particles in the grid cell, so it is not a
 thermal temperature when the particles have a non-zero streaming
-velocity. See the `compute thermal/grid <compute_thermal_grid.html>`__
+velocity. See the :ref:`compute thermal/grid<command-compute-thermal-grid>`
 command to calculate thermal temperatures after subtracting out
 streaming components of velocity.
 
@@ -275,11 +286,11 @@ density for the grid cell volume due to particles in each group:
    Pzrho = fnum/volume * Sum_i (mass_i * Vz_i) 
 
 where Sum_i is a sum over particles in the group, fnum is the
-real/simulated particle ratio set by the `global fnum <global.html>`__
+real/simulated particle ratio set by the :ref:`global fnum<command-global>`
 command, and volume is the flow volume of the grid cell. When
 accumulated over multiple sampling steps, this value is normalized by
 the number of sampling steps. Note that if particle weighting is enabled
-via the `global weight <global.html>`__ command, then the volume used in
+via the :ref:`global weight<command-global>` command, then the volume used in
 the formula is divided by the weight assigned to the grid cell.
 
 The *kerho* value computes the kinetic energy density for the grid cell
@@ -291,11 +302,11 @@ volume due to particles in each group:
    KErho = fnum/volume * Sum_i (mass_i * Vsq_i) 
 
 where Sum_i is a sum over particles in the group, fnum is the
-real/simulated particle ratio set by the `global fnum <global.html>`__
+real/simulated particle ratio set by the :ref:`global fnum<command-global>`
 command, and volume is the flow volume of the grid cell. When
 accumulated over multiple sampling steps, this value is normalized by
 the number of sampling steps. Note that if particle weighting is enabled
-via the `global weight <global.html>`__ command, then the volume used in
+via the :ref:`global weight<command-global>` command, then the volume used in
 the formula is divided by the weight assigned to the grid cell.
 
 --------------
@@ -312,7 +323,7 @@ and *u* for the second group, etc.
 
 This compute performs calculations for all flavors of child grid cells
 in the simulation, which includes unsplit, cut, split, and sub cells.
-See `Section 6.8 <Section_howto.html#howto_8>`__ of the manual gives
+See :ref:`Section 6.8<howto-grids>` of the manual gives
 details of how SPARTA defines child, unsplit, split, and sub cells. Note
 that cells inside closed surfaces contain no particles. These could be
 unsplit or cut cells (if they have zero flow volume). Both of these
@@ -325,10 +336,10 @@ Grid cells not in the specified *group-ID* will output zeroes for all
 their values.
 
 The array can be accessed by any command that uses per-grid values from
-a compute as input. See `Section 6.4 <Section_howto.html#howto_4>`__ for
+a compute as input. See :ref:`Section 6.4<howto-output>` for
 an overview of SPARTA output options.
 
-The per-grid array values will be in the `units <units.html>`__
+The per-grid array values will be in the :ref:`units<command-units>`
 appropriate to the individual values as described above. *N* is
 unitless. *Nrho* is in 1/distance^3 units for 3d simulations and
 1/distance^2 units for 2d simulations. *Mass* is in mass units.
@@ -346,22 +357,19 @@ energy/distance^2 units for 2d simulations.
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
@@ -372,7 +380,7 @@ effectively.
 **Related commands:**
 
 :ref:`command-fix-ave-grid`,
-:ref:`command-dump grid <command-dump>`,
+:ref:`command-dump grid<command-dump>`,
 :ref:`command-compute-thermal-grid`
 
 **Default:** none

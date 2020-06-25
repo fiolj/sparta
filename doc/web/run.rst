@@ -2,11 +2,14 @@
 
 .. index:: run
 
+
+
 .. _command-run:
 
 ###########
 run command
 ###########
+
 
 **Syntax:**
 
@@ -60,8 +63,8 @@ in the last restart file), you can keep restarting your script with the
 same run command until the simulation finally completes.
 
 The *start* or *stop* keywords can be used if multiple runs are being
-performed and you want a `variable <variable.html>`__ or
-`fix <fix.html>`__ command that changes some value over time (e.g.
+performed and you want a :ref:`variable<command-variable>` or
+:ref:`fix<command-fix>` command that changes some value over time (e.g.
 target temperature) to make the change across the entire set of runs and
 not just a single run.
 
@@ -76,7 +79,7 @@ For example, consider these commands followed by 10 run commands:
    ...
    run      1000 start 0 stop 10000 
 
-The ramp() function in the `variable <variable.html>`__ and its use in
+The ramp() function in the :ref:`variable<command-variable>` and its use in
 the "surf_collide" command will ramp the target temperature from 300 to
 500 during a run. If the run commands did not have the start/stop
 keywords (just "run 1000"), then the temperature would ramp from 300 to
@@ -91,8 +94,8 @@ succession (e.g. SPARTA is being called as a library which is doing
 other computations between successive short SPARTA runs).
 
 By default (pre and post = yes), SPARTA zeroes statistical counts before
-every run and initializes other `fixes <fix.html>`__ and
-`computes <compute.html>`__ as needed. And after every run it gathers
+every run and initializes other :ref:`fixes<command-fix>` and
+:ref:`computes<command-compute>` as needed. And after every run it gathers
 and prints timings statistics. If a run is just a continuation of a
 previous run (i.e. no settings are changed), the initial computation is
 not necessary. So if *pre* is specified as "no" then the initial setup
@@ -101,7 +104,7 @@ set to "no" for the very 1st run SPARTA performs, then it is overridden,
 since the initial setup computations must be done.
 
 IMPORTANT NOTE: If your input script changes settings between 2 runs
-(e.g. adds a `fix <fix.html>`__ or `compute <compute.html>`__), then the
+(e.g. adds a :ref:`fix<command-fix>` or :ref:`compute<command-compute>`), then the
 initial setup must be performed. SPARTA does not check for this, but it
 would be an error to use the *pre no* option in this case.
 
@@ -117,19 +120,18 @@ and each command should be enclosed in quotes, so that the entire
 command will be treated as a single argument. This will also prevent any
 variables in the command from being evaluated until it is executed
 multiple times during the run. Note that if a command itself needs one
-of its arguments quoted (e.g. the `print <print.html>`__ command), then
+of its arguments quoted (e.g. the :ref:`print<command-print>` command), then
 you can use a combination of single and double quotes, as in the example
 above or below.
 
 The *every* keyword is a means to avoid listing a long series of runs
 and interleaving commands in your input script. For example, a
-`print <print.html>`__ command could be invoked or a `fix <fix.html>`__
+:ref:`print<command-print>` command could be invoked or a :ref:`fix<command-fix>`
 could be redefined, e.g. to reset a load balancing parameter. Or this
 could be useful for invoking a command you have added to SPARTA that
 wraps some other code (e.g. as a library) to perform a computation
-periodically during a long SPARTA run. See `Section
-8 <Section_modify.html>`__ of the manual for info about how to add new
-commands to SPARTA. See `Section 6.7 <Section_howto.html#howto_10>`__ of
+periodically during a long SPARTA run. See :ref:`Section 8<modify>` of the manual for info about how to add new
+commands to SPARTA. See :ref:`Section 6.7<howto-restarting>` of
 the manual for ideas about how to couple SPARTA to other codes.
 
 With the *every* option, N total steps are simulated, in shorter runs of
@@ -188,7 +190,7 @@ by jumping out of the loop, e.g.
 Unfortunately this will not currently work. The run command simply
 executes each command one at a time each time it pauses, then continues
 the run. You can replace the jump command with a simple
-`quit <quit.html>`__ command and cause SPARTA to exit during the middle
+:ref:`quit<command-quit>` command and cause SPARTA to exit during the middle
 of a run when the condition is met.
 
 **Restrictions:**

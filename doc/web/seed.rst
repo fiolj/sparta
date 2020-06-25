@@ -2,11 +2,14 @@
 
 .. index:: seed
 
+
+
 .. _command-seed:
 
 ############
 seed command
 ############
+
 
 **Syntax:**
 

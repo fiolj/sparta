@@ -2,11 +2,14 @@
 
 .. index:: balance_grid
 
+
+
 .. _command-balance-grid:
 
 ####################
 balance_grid command
 ####################
+
 
 **Syntax:**
 
@@ -56,7 +59,7 @@ processors, to attempt to balance the computational cost (load) evenly
 across processors. The load balancing is "static" in the sense that this
 command performs the balancing once, before or between simulations. The
 assignments will remain static during the subsequent run. To perform
-"dynamic" balancing, see the `fix balance <fix_balance.html>`__ command,
+"dynamic" balancing, see the :ref:`fix balance<command-fix-balance>` command,
 which can adjust the assignemt of grid cells to processors on-the-fly
 during a run.
 
@@ -67,8 +70,8 @@ for grid cells and particles are re-initialized with the new
 decomposition.
 
 This command can be used immediately after the grid is created, via the
-`create_grid <create_grid.html>`__ or
-`read_restart <read_restart.html>`__ commands. In the former case
+:ref:`create_grid<command-create-grid>` or
+:ref:`read_restart<command-read-restart>` commands. In the former case
 balance_grid can be used to partition the grid in a more desirable
 manner than the default creation options allow for. In the latter case,
 balance grid can be used to change the somewhat random assignment of
@@ -90,17 +93,14 @@ processor's cells will be geometrically compact. The *stride* and
 *random* and *proc* styles will produce dispersed assignments of child
 cells to each processor.
 
-IMPORTANT NOTE: See `Section 6.8 <Section_howto.html#howto_8>`__ of the
-manual for an explanation of clumped and dispersed grid cell assignments
-and their relative performance trade-offs.
+.. important:: See :ref:`Section 6.8<howto-grids>` of the manual for an explanation of clumped and dispersed grid cell assignments and their relative performance trade-offs.
 
 --------------
 
 The *none* style will not change the assignment of grid cells to
 processors. However it will update the internal data structures within
 SPARTA that store ghost cell information on each processor for cells
-owned by other processors. This is useful if the `global
-gridcut <global.html>`__ command was used after grid cells were already
+owned by other processors. This is useful if the :ref:`global gridcut<command-global>` command was used after grid cells were already
 defined. That command erases ghost cell information stored by
 processors, which then needs to be re-generated before a simulation is
 run. Using the balance_grid none command will re-generate the ghost cell
@@ -108,8 +108,8 @@ information.
 
 The *stride*, *clump*, and *block* styles can only be used if the grid
 is "uniform". The grid in SPARTA is hierarchical with one or more
-levels, as defined by the `create_grid <create_grid.html>`__ or
-`read_grid <read_grid.html>`__ commlands. If the parent cell of every
+levels, as defined by the :ref:`create_grid<command-create-grid>` or
+:ref:`read_grid<command-read-grid>` commlands. If the parent cell of every
 grid cell is at the same level of the hierarchy, then for puposed os
 this command the grid is uniform, meaning the collection of grid cells
 effectively form a uniform fine grid overlaying the entire simulation
@@ -117,7 +117,7 @@ domain.
 
 The meaning of the *stride*, *clump*, and *block* styles is exactly the
 same as when they are used as keywords with the
-`create_grid <create_grid.html>`__ command. See its doc page for
+:ref:`create_grid<command-create-grid>` command. See its doc page for
 details.
 
 The *random* style means that each grid cell will be assigned randomly
@@ -193,8 +193,8 @@ rebalancing code.
 **Restrictions:**
 
 This command can only be used after the grid has been created by the
-`create_grid <create_grid.html>`__, `read_grid <read_grid>`__, or
-`read_restart <read_restart.html>`__ commands.
+:ref:`create_grid<command-create-grid>`, :ref:`read_grid<command-read-grid>`, or
+`read_restart <command-read-restart>` commands.
 
 This command also initializes various options in SPARTA before
 performing the balancing. This is so that grid cells are ready to

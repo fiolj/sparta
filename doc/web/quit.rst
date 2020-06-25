@@ -2,11 +2,14 @@
 
 .. index:: quit
 
+
+
 .. _command-quit:
 
 ############
 quit command
 ############
+
 
 **Syntax:**
 
@@ -30,7 +33,7 @@ It can be used as a debug statement in an input script, to terminate the
 script at some intermediate point.
 
 It can also be used as an invoked command inside the "then" or "else"
-portion of an `if <if.html>`__ command.
+portion of an :ref:`if<command-if>` command.
 
 **Restrictions:** none
 

@@ -1,9 +1,15 @@
 
+
+
+
+
 .. _start:
 
 ###############
 Getting Started
 ###############
+
+
 
 This section describes how to build and run SPARTA, for both new and
 experienced users.
@@ -13,9 +19,15 @@ experienced users.
 
 --------------
 
+
+
+.. _start-what's-sparta:
+
 *********************************
 What's in the SPARTA distribution
 *********************************
+
+
 
 When you download SPARTA you will need to unzip and untar the downloaded
 file with the following commands:
@@ -44,9 +56,15 @@ sub-directories:
 
 --------------
 
+
+
+.. _start-making-sparta:
+
 *************
 Making SPARTA
 *************
+
+
 
 This section has the following sub-sections:
 
@@ -57,8 +75,14 @@ This section has the following sub-sections:
 --------------
 
 
+
+.. _start-read-first:
+
+
 Read this first:
 ================
+
+
 
 Building SPARTA can be non-trivial. You may need to edit a makefile,
 there are compiler options to consider, additional libraries can be used
@@ -80,13 +104,28 @@ it in future SPARTA releases.
 
 --------------
 
+
+
+
+
 .. _start-steps-build:
+
 
 Steps to build a SPARTA executable:
 ===================================
 
+
+
+
+
+
+.. _start-step-0:
+
+
 Step 0
 ------
+
+
 
 The src directory contains the C++ source and header files for SPARTA.
 It also contains a top-level Makefile and a MAKE sub-directory with
@@ -107,11 +146,18 @@ If you get no errors and an executable like spa_g++ or spa_mac is
 produced, you're done; it's your lucky day.
 
 Note that by default none of the SPARTA optional packages are installed.
-To build SPARTA with optional packages, see :ref:`this section <start-optional-packages>`
+To build SPARTA with optional packages, see :ref:`this section<start-optional-packages>`
 below.
+
+
+
+.. _start-step-1:
+
 
 Step 1
 ------
+
+
 
 If Step 0 did not work, you will need to create a low-level Makefile for
 your machine, like Makefile.foo. Copy an existing src/MAKE/Makefile.\*
@@ -119,15 +165,29 @@ as a starting point. The only portions of the file you need to edit are
 the first line, the "compiler/linker settings" section, and the
 "SPARTA-specific settings" section.
 
+
+
+.. _start-step-2:
+
+
 Step 2
 ------
+
+
 
 Change the first line of src/MAKE/Makefile.foo to list the word "foo"
 after the "#", and whatever other options it will set. This is the line
 you will see if you just type "make".
 
+
+
+.. _start-step-3:
+
+
 Step 3
 ------
+
+
 
 The "compiler/linker settings" section lists compiler and linker
 settings for your C++ compiler, including optimization flags. You can
@@ -136,8 +196,7 @@ systems. You can also use mpicc which will typically be available if MPI
 is installed on your system, though you should check which actual
 compiler it wraps. Vendor compilers often produce faster code. On boxes
 with Intel CPUs, we suggest using the commercial Intel icc compiler,
-which can be downloaded from `Intel's compiler
-site <http://www.intel.com/software/products/noncom>`__.
+which can be downloaded from `Intel's compiler site <http://www.intel.com/software/products/noncom>`__.
 
 If building a C++ code on your machine requires additional libraries,
 then you should list them as part of the LIB variable.
@@ -151,8 +210,15 @@ time on a new platform, a long list of \*.d files will be printed out
 rapidly. This is not an error; it is the Makefile doing its normal
 creation of dependencies.
 
+
+
+.. _start-step-4:
+
+
 Step 4
 ------
+
+
 
 The "system-specific settings" section has several parts. Note that if
 you change any -D setting in this section, you should do a full
@@ -182,7 +248,7 @@ image files. For JPEG files, you must also link SPARTA with a JPEG
 library, as described below. For PNG files, you must also link SPARTA
 with a PNG library, as described below.
 
-If you use -DSPARTA_FFMPEG, the :ref:`dump movie <command-dump-image>` command
+If you use -DSPARTA_FFMPEG, the :ref:`dump movie<command-dump-image>` command
 will be available to support on-the-fly generation of rendered movies
 the need to store intermediate image files. It requires that your
 machines supports the "popen" function in the standard runtime library
@@ -224,8 +290,15 @@ can make for faster parallel FFTs on some platforms. The -DPACK_ARRAY
 setting is the default. See the :ref:`command-compute-fft-grid` command for info about FFTs. See
 Step 6 below for info about building SPPARKS with an FFT library.
 
+
+
+.. _start-step-5:
+
+
 Step 5
 ------
+
+
 
 The 3 MPI variables are used to specify an MPI library to build SPARTA
 with.
@@ -247,8 +320,7 @@ MPI_PATH), and the name of the library file (via MPI_LIB). See
 Makefile.serial for an example of how this can be done.
 
 If you are installing MPI yourself, we recommend MPICH 1.2 or 2.0 or
-OpenMPI. MPICH can be downloaded from the `Argonne MPI
-site <http://www-unix.mcs.anl.gov/mpi>`__. OpenMPI can be downloaded the
+OpenMPI. MPICH can be downloaded from the `Argonne MPI site <http://www-unix.mcs.anl.gov/mpi>`__. OpenMPI can be downloaded the
 `OpenMPI site <http://www.open-mpi.org>`__. If you are running on a big
 parallel platform, your system admins or the vendor should have already
 installed a version of MPI, which will be faster than MPICH or OpenMPI,
@@ -274,8 +346,15 @@ that the ANSI-standard function clock() function rolls over after an
 hour or so, and is therefore insufficient for timing long SPARTA
 simulations.
 
+
+
+.. _start-step-6:
+
+
 Step 6
 ------
+
+
 
 The 3 FFT variables allow you to specify an FFT library which SPARTA
 uses (for performing 1d FFTs) when built with its FFT package, which
@@ -323,8 +402,15 @@ and thus do not always need to be performed in double precision. Using
 the -DFFT_SINGLE setting trades off a little accuracy for reduced memory
 use and parallel communication costs for transposing 3d FFT data.
 
+
+
+.. _start-step-7:
+
+
 Step 7
 ------
+
+
 
 The 3 JPG variables allow you to specify a JPEG and/or PNG library which
 SPARTA uses when writing out JPEG or PNG files via the :ref:`command-dump-image` command. These can be left blank if you do
@@ -345,15 +431,29 @@ and JPG_LIB variables, so that the compiler and linker can find it.
 As before, if these header and library files are in the usual place on
 your machine, you may not need to set these variables.
 
+
+
+.. _start-step-8:
+
+
 Step 8
 ------
 
+
+
 Note that by default none of the SPARTA optional packages are installed.
-To build SPARTA with optional packages, see :ref:`this section <start-optional-packages>`
+To build SPARTA with optional packages, see :ref:`this section<start-optional-packages>`
 below, before proceeding to Step 9.
+
+
+
+.. _start-step-9:
+
 
 Step 9
 ------
+
+
 
 That's it. Once you have a correct Makefile.foo, and you have pre-built
 any other needed libraries (e.g. MPI), all you need to do from the src
@@ -375,8 +475,14 @@ You should get the executable spa_foo when the build is complete.
 --------------
 
 
+
+.. _start-errors-occur:
+
+
 Errors that can occur when making SPARTA:
 =========================================
+
+
 
 .. important:: If an error occurs when building SPARTA, the compiler or linker will state very explicitly what the problem is. The error message should give you a hint as to which of the steps above has failed, and what you need to do in order to fix it. Building a code with a Makefile is a very logical process. The compiler and linker need to find the appropriate files and those files need to be compatible with SPARTA source files. When a make fails, there is usually a very simple reason, which you or a local expert will need to fix.
 
@@ -405,8 +511,15 @@ using the -DSPARTA_LONGLONG_TO_LONG setting described above in Step 4.
 
 --------------
 
+
+
+.. _start-additional-build:
+
+
 Additional build tips:
 ======================
+
+
 
 (1) Building SPARTA for multiple platforms.
 
@@ -422,15 +535,29 @@ particular machine.
 
 --------------
 
+
+
+.. _start-building-mac:
+
+
 Building for a Mac:
 ===================
+
+
 
 OS X is BSD Unix, so it should just work. See the Makefile.mac file.
 
 --------------
 
+
+
+.. _start-building-windows:
+
+
 Building for Windows:
 =====================
+
+
 
 At some point we may provide a pre-built Windows executable for SPARTA.
 Until then you will need to build an executable from source files.
@@ -445,11 +572,17 @@ Windows build tips, please send them to the
 include them in the distribution.
 
 
+
+
+
+
 .. _start-optional-packages:
 
 ************************************
 Making SPARTA with optional packages
 ************************************
+
+
 
 This section has the following sub-sections:
 
@@ -460,8 +593,14 @@ This section has the following sub-sections:
 --------------
 
 
+
+.. _start-package-basics:
+
+
 Package basics:
 ===============
+
+
 
 The source code for SPARTA is structured as a set of core files which
 are always included, plus optional packages. Packages are groups of
@@ -479,8 +618,15 @@ page specfies if it is part of a package.
 
 --------------
 
+
+
+.. _start-includingexcluding:
+
+
 Including/excluding packages:
 =============================
+
+
 
 To use (or not use) a package you must include it (or exclude it) before
 building SPARTA. From the src directory, this is typically as simple as:
@@ -540,18 +686,31 @@ options.
 
 --------------
 
-.. _build-library:
+
+
+
+
+.. _start-build-library:
 
 ****************************
 Building SPARTA as a library
 ****************************
 
+
+
 SPARTA can be built as either a static or shared library, which can then
 be called from another application or a scripting language. See :ref:`howto-other-code` for more info on coupling SPARTA to
 other codes. See :ref:`python` for more info on wrapping and running SPARTA from Python.
 
+
+
+.. _start-static-library:
+
+
 Static library:
 ===============
+
+
 
 To build SPARTA as a static library ("\*.a" file on Linux), type
 
@@ -567,8 +726,15 @@ create the file libsparta_foo.a which another application can link to.
 It will also create a soft link libsparta.a, which will point to the
 most recently built static library.
 
+
+
+.. _start-shared-library:
+
+
 Shared library:
 ===============
+
+
 
 To build SPARTA as a shared library ("\*.so" file on Linux), which can be
 dynamically loaded, e.g. from Python, type
@@ -604,19 +770,18 @@ lib/colvars library have not been built as shared libraries:
 ::
 
    /usr/bin/ld: /usr/local/lib/libfftw3.a(mapflags.o): relocation
-   R_X86_64_32 against `.rodata' can not be used when making a shared
+   R_X86_64_32 against :ref:`.rodata' can not be used when making a shared
    object; recompile with -fPIC
    /usr/local/lib/libfftw3.a: could not read symbols: Bad value 
 
 ::
 
    /usr/bin/ld: ../../lib/colvars/libcolvars.a(colvarmodule.o):
-   relocation R_X86_64_32 against `__pthread_key_create' can not be used
+   relocation R_X86_64_32 against`pthread_key_create' can not be used
    when making a shared object; recompile with -fPIC
    ../../lib/colvars/libcolvars.a: error adding symbols: Bad value 
 
-As an example, here is how to build and install the `MPICH
-library <http://www-unix.mcs.anl.gov/mpi>`__, a popular open-source
+As an example, here is how to build and install the `MPICH library <http://www-unix.mcs.anl.gov/mpi>`__, a popular open-source
 version of MPI, distributed by Argonne National Labs, as a shared
 library in the default /usr/local/lib location:
 
@@ -630,8 +795,15 @@ You may need to use ``sudo make install`` in place of the last line if you
 do not have write privileges for /usr/local/lib. The end result should
 be the file /usr/local/lib/libmpich.so.
 
+
+
+.. _start-additional-requirement:
+
+
 Additional requirement for using a shared library:
 ==================================================
+
+
 
 The operating system finds shared libraries to load at run-time using
 the environment variable LD_LIBRARY_PATH. So you may wish to copy the
@@ -646,10 +818,17 @@ For the csh or tcsh shells, you would add something like this to your
 
 ::
 
-   setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/home/sjplimp/sparta/src 
+   setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/home/sjplimp/sparta/src
+
+
+
+.. _start-calling-sparta:
+
 
 Calling the SPARTA library:
 ===========================
+
+
 
 Either flavor of library (static or shared) allows one or more SPARTA
 objects to be instantiated from the calling program.
@@ -673,9 +852,15 @@ the interface and how to extend it for your needs.
 
 --------------
 
+
+
+.. _start-running-sparta:
+
 **************
 Running SPARTA
 **************
+
+
 
 By default, SPARTA runs by reading commands from standard input. Thus if
 you run the SPARTA executable by itself, e.g.
@@ -746,11 +931,17 @@ processors or setup a smaller problem.
 
 --------------
 
+
+
+
+
 .. _start-command-line-options:
 
 ********************
 Command-line options
 ********************
+
+
 
 At run time, SPARTA recognizes several optional command-line switches
 which may be used in any order. Either the full word or a one-or-two
@@ -831,7 +1022,7 @@ Either the full word or an abbreviation can be used for the keywords.
 Note that the keywords do not use a leading minus sign. I.e. the keyword
 is "t", not "-t". Also note that each of the keywords has a default
 setting. Example of when to use these options and what settings to use
-on different platforms is given in :ref:`accelerating`.
+on different platforms is given in :ref:`accelerate`.
 
 -  d or device
 -  g or gpus
@@ -934,7 +1125,7 @@ context.
 Invoke the :ref:`command-package` command with style and args. The
 syntax is the same as if the command appeared at the top of the input
 script. For example "-package kokkos on gpus 2" or "-pk kokkos g 2" is
-the same as :ref:`package kokkos g 2 <command-package>` in the input script.
+the same as :ref:`package kokkos g 2<command-package>` in the input script.
 The possible styles and args are documented on the
 :ref:`command-package` doc page. This switch can be used multiple
 times.
@@ -1023,7 +1214,7 @@ made via the command line.
 Specify a variable that will be defined for substitution purposes when
 the input script is read. "Name" is the variable name which can be a
 single character (referenced as $x in the input script) or a full string
-(referenced as ${abc}). An :ref:`index-style variable <command-variable>` will
+(referenced as ${abc}). An :ref:`index-style variable<command-variable>` will
 be created and populated with the subsequent values, e.g. a set of
 filenames. Using this command-line option is equivalent to putting the
 line "variable name index value1 value2 ..." at the beginning of the
@@ -1037,11 +1228,17 @@ other kinds of variables and Section :ref:`commands-parsing-rules` for more info
 
 
 
+
+
+
+
 .. _start-screen:
 
 ********************
 SPARTA screen output
 ********************
+
+
 
 As SPARTA reads an input script, it prints information to both the
 screen and a log file about significant actions it takes to setup a

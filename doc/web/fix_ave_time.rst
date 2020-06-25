@@ -2,11 +2,14 @@
 
 .. index:: fix ave/time
 
+
+
 .. _command-fix-ave-time:
 
 ####################
 fix ave/time command
 ####################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ fix ave/time command
 
    fix ID ave/time Nevery Nrepeat Nfreq value1 value2 ... keyword args ... 
 
--  ID is documented in `fix <fix.html>`__ command
+-  ID is documented in :ref:`fix<command-fix>` command
 -  ave/time = style name of this fix command
 -  Nevery = use input values every this many timesteps
 -  Nrepeat = # of times to use input values for calculating averages
@@ -70,24 +73,23 @@ fix ave/time command
 
 Use one or more global values as inputs every few timesteps, and average
 them over longer timescales. The resulting averages can be used by other
-output commands such as `stats_style custom <stats_style.html>`__, and
+output commands such as :ref:`stats_style custom<command-stats-style>`, and
 can also be written to a file. Note that if no time averaging is done,
 this command can be used as a convenient way to simply output one or
 more global values to a file.
 
-Each listed value can be the result of a `compute <compute.html>`__ or
-`fix <fix.html>`__ or the evaluation of an equal-style
-`variable <variable.html>`__. In each case, the compute, fix, or
+Each listed value can be the result of a :ref:`compute<command-compute>` or
+:ref:`fix<command-fix>` or the evaluation of an equal-style
+:ref:`variable<command-variable>`. In each case, the compute, fix, or
 variable must produce a global quantity, not a per-grid or per-surf
-quantity. If you wish to time-average those quantities, see the `fix
-ave/grid <fix_ave_grid.html>`__ and `fix ave/surf <fix_ave_surf.html>`__
+quantity. If you wish to time-average those quantities, see the :ref:`fix ave/grid<command-fix-ave-grid>` and :ref:`fix ave/surf<command-fix-ave-surf>`
 commands.
 
-`Computes <compute.html>`__ that produce global quantities are those
+:ref:`Computes<command-compute>` that produce global quantities are those
 which do not have the word *particle* or *grid* or *surf* in their style
-name. Only a few `fixes <fix.html>`__ produce global quantities. See the
+name. Only a few :ref:`fixes<command-fix>` produce global quantities. See the
 doc pages for individual fixes for info on which ones produce such
-values. `Variables <variable.html>`__ of style *equal* are the only ones
+values. :ref:`Variables<command-variable>` of style *equal* are the only ones
 that can be used with this fix. Variables of style *particle* cannot be
 used, since they produce per-particle values.
 
@@ -118,8 +120,7 @@ from m to n (inclusive).
 
 Using a wildcard is the same as if the individual elements of the vector
 or columns of the array had been listed one by one. E.g. these 2 fix
-ave/time commands are equivalent, since the `compute
-count <compute_count.html>`__ command creates, in this case, a global
+ave/time commands are equivalent, since the :ref:`compute count<command-compute-count>` command creates, in this case, a global
 vector with 3 values.
 
 ::
@@ -158,11 +159,11 @@ array calculated by the compute is used. See the discussion above for
 how I can be specified with a wildcard asterisk to effectively specify
 multiple values.
 
-Note that there is a `compute reduce <compute_reduce.html>`__ command
+Note that there is a :ref:`compute reduce<command-compute-reduce>` command
 which can sum per-particle or per-grid or per-surf quantities into a
 global scalar or vector which can thus be accessed by fix ave/time. Also
 Note that users can also write code for their own compute styles and
-`add them to SPARTA <Section_modify.html>`__; their output can then be
+:ref:`add them to SPARTA<modify>`; their output can then be
 processed by this fix.
 
 If a value begins with ``f_``, a fix ID must follow which has been
@@ -178,15 +179,14 @@ multiple values.
 
 Note that some fixes only produce their values on certain timesteps,
 which must be compatible with *Nevery*, else an error will result. Users
-can also write code for their own fix styles and `add them to
-SPARTA <Section_modify.html>`__.
+can also write code for their own fix styles and :ref:`add them to SPARTA<modify>`.
 
 If a value begins with ``v_``, a variable name must follow which has been
 previously defined in the input script. Variables can only be used as
 input for *mode* = scalar. Only equal-style variables can be referenced.
-See the `variable <variable.html>`__ command for details. Note that
+See the :ref:`variable<command-variable>` command for details. Note that
 variables of style *equal* define a formula which can reference
-`stats_style <stats_style.html>`__ keywords, or they can invoke other
+:ref:`stats_style<command-stats-style>` keywords, or they can invoke other
 computes, fixes, or variables when they are evaluated, so this is a very
 general means of specifying quantities to time average.
 
@@ -215,7 +215,7 @@ that are multiples of *Nfreq* are summed and averaged in a cummulative
 sense before being output. Each output value is thus the average of the
 value produced on that timestep with all preceding values. This running
 average begins when the fix is defined; it can only be restarted by
-deleting the fix via the `unfix <unfix.html>`__ command, or by
+deleting the fix via the :ref:`unfix<command-unfix>` command, or by
 re-defining the fix by re-specifying it.
 
 If the *ave* setting is *window*, then the values produced on timesteps
@@ -283,8 +283,7 @@ appropriate fields from the fix ave/time command.
 
 **Restart, output info:**
 
-No information about this fix is written to `binary restart
-files <restart.html>`__.
+No information about this fix is written to :ref:`binary restart files<command-restart>`.
 
 This fix produces a global scalar or global vector or global array which
 can be accessed by various output commands. The values can only be

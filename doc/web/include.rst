@@ -2,11 +2,14 @@
 
 .. index:: include
 
+
+
 .. _command-include:
 
 ###############
 include command
 ###############
+
 
 **Syntax:**
 
@@ -31,7 +34,7 @@ file is returned to. Include files can be nested as deeply as desired.
 If input script A includes script B, and B includes A, then SPARTA could
 run for a long time.
 
-If the filename is a variable (see the `variable <variable.html>`__
+If the filename is a variable (see the :ref:`variable<command-variable>`
 command), different processor partitions can run different input
 scripts.
 

@@ -2,11 +2,14 @@
 
 .. index:: clear
 
+
+
 .. _command-clear:
 
 #############
 clear command
 #############
+
 
 **Syntax:**
 
@@ -31,9 +34,9 @@ only the exceptions noted below. This command enables multiple jobs to
 be run sequentially from one input script.
 
 These settings are not affected by a clear command: the working
-directory (`shell <shell.html>`__ command), log file status
-(`log <log.html>`__ command), echo status (`echo <echo.html>`__
-command), and input script variables (`variable <variable.html>`__
+directory (:ref:`shell<command-shell>` command), log file status
+(:ref:`log<command-log>` command), echo status (:ref:`echo<command-echo>`
+command), and input script variables (:ref:`variable<command-variable>`
 command).
 
 **Restrictions:** none

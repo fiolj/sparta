@@ -2,11 +2,14 @@
 
 .. index:: surf_collide
 
+
+
 .. _command-surf-collide:
 
 ####################
 surf_collide command
 ####################
+
 
 **Syntax:**
 
@@ -157,7 +160,7 @@ surface given by:
   u =  \{-ln(R_f)\}^{1/2}/\beta
 
 
-The *Tsurf* value can be specified as an equal-style :ref:`variable <command-variable>`.  If the value is a variable, it should be specified as ``v_name``, where name is the variable name. In this case, the variable will be evaluated each timestep, and its value used to determine the current surface temperature.
+The *Tsurf* value can be specified as an equal-style :ref:`variable<command-variable>`.  If the value is a variable, it should be specified as ``v_name``, where name is the variable name. In this case, the variable will be evaluated each timestep, and its value used to determine the current surface temperature.
 
 Equal-style variables can specify formulas with various mathematical functions, and include :ref:`command-stats-style` keywords for the simulation box parameters and timestep and elapsed time. Thus it is easy to specify a time-dependent temperature.
 
@@ -187,7 +190,7 @@ given by Lord [Lord90]_, along with extension to rotational
 and vibrational modes with both continuous and discrete levels
 [Lord91]_.
 
-The *Tsurf* value can be specified as an equal-style :ref:`variable <command-variable>`. If the value is a variable, it should be specified as v_name, where name is the variable name. In this case, the variable will be evaluated each timestep, and its value used to determine the current surface temperature.
+The *Tsurf* value can be specified as an equal-style :ref:`variable<command-variable>`. If the value is a variable, it should be specified as v_name, where name is the variable name. In this case, the variable will be evaluated each timestep, and its value used to determine the current surface temperature.
 
 Equal-style variables can specify formulas with various mathematical
 functions and include :ref:`command-stats-style`
@@ -212,7 +215,7 @@ normal and the plane tangent to the surface given by:
 
 
 The *Tsurf* value can be specified as an equal-style
-:ref:`variable <command-variable>`. If the value is a variable, it should be
+:ref:`variable<command-variable>`. If the value is a variable, it should be
 specified as v_name, where name is the variable name. In this case, the
 variable will be evaluated each timestep, and its value used to
 determine the current surface temperature.
@@ -258,7 +261,7 @@ A factor of 2 is present in the azimuthal distribution to ensure the function re
 
 The internal (rotational and vibrational) energy of an incident molecule remains unchanged within the *impulsive* model unless the optional keyword *intenergy* is specified (see below).
 
-The *Tsurf* value can be specified as an equal-style :ref:`variable <command-variable>`. If the value is a variable, it should be specified as ``v_name``, where name is the variable name. In this case, the variable will be evaluated each timestep, and its value used to determine the current surface temperature.
+The *Tsurf* value can be specified as an equal-style :ref:`variable<command-variable>`. If the value is a variable, it should be specified as ``v_name``, where name is the variable name. In this case, the variable will be evaluated each timestep, and its value used to determine the current surface temperature.
 
 Equal-style variables can specify formulas with various mathematical functions and include :ref:`command-stats-style` keywords for the simulation box parameters and timestep and elapsed time. Thus, it is easy to specify a time-dependent temperature.
 
@@ -285,9 +288,9 @@ This is useful for tallying flow statistics. The surface elements must have been
 
 The *vanish* style simply deletes any particle which hits the surface.
 
-This is useful if a surface is defined to be an inflow boundary on the simulation domain, e.g. using the :ref:`command-fix-emit-surf`. Using this surface collision model will also treat the surface as an outflow boundary. This is similar to using the :ref:`command-fix-emit-face` on a simulation box face while also setting the face to be an outflow boundary via the :ref:`boundary o <command-boundary>` command.
+This is useful if a surface is defined to be an inflow boundary on the simulation domain, e.g. using the :ref:`command-fix-emit-surf`. Using this surface collision model will also treat the surface as an outflow boundary. This is similar to using the :ref:`command-fix-emit-face` on a simulation box face while also setting the face to be an outflow boundary via the :ref:`boundary o<command-boundary>` command.
 
-Note that the :ref:`surf_react global <command-surf-react>` command
+Note that the :ref:`surf_react global<command-surf-react>` command
 can also be used to delete particles hitting a surface, by setting the
 *pdelete* parameter to 1.0. Using a surf_collide vanish command is
 simpler.
@@ -384,13 +387,13 @@ The first element of the vector is the count of particles that hit surface eleme
 
 --------------
 
-Styles with a *kk* suffix are functionally the same as the corresponding style without the suffix. They have been optimized to run faster, depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA <accelerating>` section of the manual. The accelerated styles take the same arguments and should produce the same results, except for different random number, round-off and precision issues.
+Styles with a *kk* suffix are functionally the same as the corresponding style without the suffix. They have been optimized to run faster, depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The accelerated styles take the same arguments and should produce the same results, except for different random number, round-off and precision issues.
 
-These accelerated styles are part of the KOKKOS package. They are only enabled if SPARTA was built with that package. See the :ref:`Making SPARTA <start-optional-packages>` section for more info.
+These accelerated styles are part of the KOKKOS package. They are only enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-optional-packages>` section for more info.
 
-You can specify the accelerated styles explicitly in your input script by including their suffix, or you can use the :ref:`-suffix command-line switch <start-command-line-options>` when you invoke SPARTA, or you can use the :ref:`command-suffix` in your input script.
+You can specify the accelerated styles explicitly in your input script by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you can use the :ref:`command-suffix` in your input script.
 
-See the :ref:`Accelerating SPARTA <accelerating>` section of the manual for more instructions on how to use the accelerated styles effectively.
+See the :ref:`Accelerating SPARTA<accelerate>` section of the manual for more instructions on how to use the accelerated styles effectively.
 
 --------------
 

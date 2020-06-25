@@ -2,11 +2,14 @@
 
 .. index:: react_modify
 
+
+
 .. _command-react-modify:
 
 ####################
 react_modify command
 ####################
+
 
 **Syntax:**
 
@@ -36,7 +39,7 @@ Set parameters that affect how reactions are performed.
 
 The *recomb* keyword turns on or off recombination reactions. It is only
 relevant if recombination reactions were defined in the reaction file
-read in by the `react <react.html>`__ command. If the setting is *no*
+read in by the :ref:`react<command-react>` command. If the setting is *no*
 then they will be disabled even if they were listed in the reaction
 file. This is useful to turn recombination reactions off, to see if they
 affect simulation results.
@@ -57,10 +60,7 @@ boosted by a factor of N, making it N times more likely to occur.
 The smallest value *rboost* can be set to is 1.0, which effectively
 applies no boost factor.
 
-IMPORTANT NOTE: Setting *rboost* too large could meant the probability
-of a recombination reaction becomes > 1.0, when it is does occur. SPARTA
-does not check for this, so you should estimate the largest boost factor
-that is safe to use for your model.
+.. important:: Setting *rboost* too large could meant the probability of a recombination reaction becomes > 1.0, when it is does occur. SPARTA does not check for this, so you should estimate the largest boost factor that is safe to use for your model.
 
 --------------
 

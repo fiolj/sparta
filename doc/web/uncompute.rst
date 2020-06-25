@@ -2,11 +2,14 @@
 
 .. index:: uncompute
 
+
+
 .. _command-uncompute:
 
 #################
 uncompute command
 #################
+
 
 **Syntax:**
 
@@ -26,7 +29,7 @@ uncompute command
 **Description:**
 
 Delete a compute that was previously defined with a
-`compute <compute.html>`__ command.
+:ref:`compute<command-compute>` command.
 
 **Restrictions:** none
 

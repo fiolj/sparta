@@ -2,11 +2,14 @@
 
 .. index:: fix ablate
 
+
+
 .. _command-fix-ablate:
 
 ##################
 fix ablate command
 ##################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ fix ablate command
 
    fix ID ablate group-ID Nevery scale source maxrandom 
 
--  ID is documented in `fix <fix.html>`__ command
+-  ID is documented in :ref:`fix<command-fix>` command
 -  ablate = style name of this fix command
 -  group-ID = ID of group of grid cells that contain implicit surfaces
 -  Nevery = perform ablation once every Nevery steps
@@ -43,7 +46,7 @@ fix ablate command
 Perform ablation once every Nevery steps on a set of grid cell corner
 points to induce new implicit surface elements in those grid cells. This
 command is also used as an argument to the
-`read_isurf <read_isurf.html>`__ command so that the grid corner point
+:ref:`read_isurf<command-read-isurf>` command so that the grid corner point
 values it reads from a file can be assigned to and stored by each grid
 cell.
 
@@ -54,18 +57,18 @@ and 4th images are snapshots midway through an ablation simulation. In
 the 2d case, the colorings are by processor for sub-domains each owns.
 Particles flow from left to right. The implicit triangles for the 3d
 case were created via Marching Cubes (discussed on the
-`read_isurf <read_isurf.html>`__ command doc page) from a tomographic
+:ref:`read_isurf<command-read-isurf>` command doc page) from a tomographic
 image of a sample of NASA FiberForm (TM) material, used as a heat shield
 material on spacecraft. Particles flow from top to bottom.
 
 |image0|\ |image1|\ |image2|\ |image3|
 
 The specified *group-ID* must be the name of a grid cell group, as
-defined by the `group grid <group.html>`__ command, which contains a set
+defined by the :ref:`group grid<command-group>` command, which contains a set
 of grid cells, all of which are the same size, and which comprise a
 contiguous 3d array. It must be the same as group-ID used with the
-`read_isurf <read_isurf.html>`__ command, which specifies its *Nx* by
-*Ny* by *Nz* extent. See the `read_isurf <read_isurf.html>`__ command
+:ref:`read_isurf<command-read-isurf>` command, which specifies its *Nx* by
+*Ny* by *Nz* extent. See the :ref:`read_isurf<command-read-isurf>` command
 for more details. This command reads the initial values for grid cell
 corner points, which are stored by this fix.
 
@@ -83,11 +86,11 @@ is void (flow volume for particles). Values in between represent
 partially ablated material.
 
 The *source* can be specified as a per grid cell quantity calculated by
-a compute, such as `compute isurf/grid <compute_isurf_grid.html>`__,
+a compute, such as :ref:`compute isurf/grid<command-compute-isurf-grid>`,
 e.g. the number of collisions of particles with the surfaces in each
 grid cell or the amount of energy transferred to the surface by the
 collisions. It can also be specified a per grid cell quantity calculated
-by a fix, such as `fix ave/grid <fix_ave_grid.html>`__. That fix could
+by a fix, such as :ref:`fix ave/grid<command-fix-ave-grid>`. That fix could
 time average per-grid cell quantities from per grid cell computes. In
 that case the *scale* factor should account for applying a time-averaged
 quantity at an interval of *N* steps.
@@ -132,33 +135,31 @@ examples/ablation/in.ablation.3d.reactions input script:
 
 The order of these commands matter, so here is the explanation.
 
-The `surf_modify <surf_modify.html>`__ command must come after the
-`read_isurf <read_isurf.html>`__ command, because surfaces must exist
-before assigning collision and reaction models to them. The `fix
-ablate <fix_ablate.html>`__ command must come before the
-`read_isurf <read_isurf.html>`__ command, since it uses the ID of the
-`fix ablate <fix_ablate>`__ command as an argument to create implicit
-surfaces. The `fix ablate <fix_ablate.html>`__ command takes a compute
-or fix as an argument, in this case the ID of the `compute
-react/isurf/grid <compute_react_isurf_grid.html>`__ command. This is to
+The :ref:`surf_modify<command-surf-modify>` command must come after the
+:ref:`read_isurf<command-read-isurf>` command, because surfaces must exist
+before assigning collision and reaction models to them. The :ref:`fix ablate<command-fix-ablate>` command must come before the
+:ref:`read_isurf<command-read-isurf>` command, since it uses the ID of the
+:ref:`command-fix-ablate` as an argument to create implicit
+surfaces. The :ref:`command-fix-ablate` takes a compute
+or fix as an argument, in this case the ID of the :ref:`compute react/isurf/grid<command-compute-react-isurf-grid>` command. This is to
 specify what calculation drives the ablation. In this case, it is the
-`compute react/isurf/grid <compute_react_isurf_grid.html>`__ command (or
-could be the `fix ave/grid <fix_ave_grid.html>`__ command) which tallies
+:ref:`compute react/isurf/grid<command-compute-react-isurf-grid>` command (or
+could be the :ref:`fix ave/grid<command-fix-ave-grid>` command) which tallies
 counts of surface reactions for implicit triangles in each grid cell.
-The `compute react/isurf/grid <compute>`__ react/isurf/grid command
+The :ref:`compute react/isurf/grid<command-compute>` react/isurf/grid command
 requires the ID of a surface reaction model, so that it knows the list
 of possible reactions to tally. In this case the reaction is set by the
-`surf_react <surf_react.html>`__ command, which must therefore comes
+:ref:`surf_react<command-surf-react>` command, which must therefore comes
 near the beginning of this list of commands.
 
 --------------
 
-As explained on the `read_isurf <read_isurf.html>`__ doc page, the
+As explained on the :ref:`read_isurf<command-read-isurf>` doc page, the
 marching cubes (3d) or marching squares (2d) algorithm is used to
 convert a set of grid corner point values to a set of implicit triangles
 in each grid cell which represent the current surface of porous material
 which is undergoing dynamic ablation. This uses a threshold value,
-defined by the `read_isurf <read_isurf.html>`__ command, to set the
+defined by the :ref:`read_isurf<command-read-isurf>` command, to set the
 boundary between solid material and void.
 
 The ablation operation decrements the corner point values of each grid
@@ -190,7 +191,7 @@ Finally, no corner point value can be nearly equal to the marching
 cubes/squares threshold value, else line segments or triangles of zero
 or epsilon size will result. So corner points with values X where
 thresh-epsilon < X < thresh+epsilon are reset to thresh-epsilon. Thresh
-is defined by the `read_isurf <read_isurf.html>`__ command. Epsilon is
+is defined by the :ref:`read_isurf<command-read-isurf>` command. Epsilon is
 set to 1.0e-4 in src/fix_ablate.cpp. Note that this is on the scale of
 corner point values from 0 to 255.
 
@@ -198,8 +199,7 @@ corner point values from 0 to 255.
 
 **Restart, output info:**
 
-No information about this fix is written to `binary restart
-files <restart.html>`__.
+No information about this fix is written to :ref:`binary restart files<command-restart>`.
 
 This fix computes a global scalar and a global vector of length 2. The
 global scalar is the current sum of unique corner point values across
@@ -215,7 +215,7 @@ value indicates a corner case in the marching cubes or marching squares
 algorithm the developers still need to address.
 
 These values can be accessed by any command that uses global values from
-a fix as input. See `Section 6.4 <Section_howto.html#howto_4>`__ for an
+a fix as input. See :ref:`Section 6.4<howto-output>` for an
 overview of SPARTA output options.
 
 The scalar and vector values are unitless.

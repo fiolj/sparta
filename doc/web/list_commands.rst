@@ -1,8 +1,11 @@
-.. all_commands
+
+
+.. _list-commands:
 
 ################
 List of Commands
 ################
+
 
 .. toctree::
    :maxdepth: 1

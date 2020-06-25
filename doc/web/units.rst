@@ -2,11 +2,14 @@
 
 .. index:: units
 
+
+
 .. _command-units:
 
 #############
 units command
 #############
+
 
 **Syntax:**
 
@@ -31,12 +34,7 @@ quantities output to the screen, log file, dump files, and other output
 files. Typically, this command is used at the very beginning of an input
 script.
 
-IMPORTANT NOTE: Internally, this command simply sets the numeric values
-of conversion factors used by SPARTA, e.g. the Boltzmann constant used
-to convert temperature to energy. It is up to you to insure that all
-input values used in the input script and other input files (surface
-data, species files, reaction files) contain numeric values consistent
-with the chosen units.
+.. important:: Internally, this command simply sets the numeric values of conversion factors used by SPARTA, e.g. the Boltzmann constant used to convert temperature to energy. It is up to you to insure that all input values used in the input script and other input files (surface data, species files, reaction files) contain numeric values consistent with the chosen units.
 
 For style *cgs*, these are the units:
 

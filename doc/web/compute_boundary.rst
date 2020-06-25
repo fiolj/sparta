@@ -2,11 +2,14 @@
 
 .. index:: compute boundary
 
+
+
 .. _command-compute-boundary:
 
 ########################
 compute boundary command
 ########################
+
 
 **Syntax:**
 
@@ -18,7 +21,7 @@ compute boundary command
 
    compute ID boundary/kk mix-ID value1 value2 ... 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  boundary = style name of this compute command
 -  mix-ID = mixture ID to perform calculation on
 -  one or more values can be appended
@@ -65,10 +68,10 @@ boundary to a file every 1000 steps:
 Define a computation that calculates one or more values for each
 boundary (i.e. face) of the simulation box, based on the particles that
 cross or collide with the boundary. The values are summed for each group
-of species in the specified mixture. See the `mixture <mixture.html>`__
+of species in the specified mixture. See the :ref:`mixture<command-mixture>`
 command for how a set of species can be partitioned into groups.
 
-Note that depending on the settings for the `boundary <boundary.html>`__
+Note that depending on the settings for the :ref:`boundary<command-boundary>`
 command, when a particle collides with a boundary, it can exit the
 simulation box (outflow), re-enter from the other side (periodic),
 reflect specularly from the boundary, or interact with it as if it were
@@ -87,10 +90,9 @@ different species groups.
 
 The results of this compute can be used by different commands in
 different ways. The values for a single timestep can be output by the
-`stats_style <stats_style.html>`__ command.
+:ref:`stats_style<command-stats-style>` command.
 
-The values over many sampling timesteps can be averaged by the `fix
-ave/time <fix_ave_time.html>`__ command. It does its averaging as if the
+The values over many sampling timesteps can be averaged by the :ref:`fix ave/time<command-fix-ave-time>` command. It does its averaging as if the
 particles striking the boundary at each sampling timestep were combined
 together into one large set to compute the formulas below. The answer is
 then divided by the number of sampling timesteps if it is not otherwise
@@ -100,12 +102,7 @@ below for a single timestep, summing them over the sampling timesteps,
 and then dividing by the number of sampling steps. However for the
 current values listed below, the two normalization methods are the same.
 
-NOTE: If particle weighting is enabled via the `global
-weight <global.html>`__ command, then all of the values below are scaled
-by the weight assigned to the grid cell in which the particle collision
-with the boundary occurs. The only exception is the the *n* value, which
-is NOT scaled by the weight; it is a simple count of particle crossings
-or collisions with the boundary.
+.. note:: If particle weighting is enabled via the :ref:`global weight<command-global>` command, then all of the values below are scaled by the weight assigned to the grid cell in which the particle collision with the boundary occurs. The only exception is the the *n* value, which is NOT scaled by the weight; it is a simple count of particle crossings or collisions with the boundary.
 
 --------------
 
@@ -116,7 +113,7 @@ The *nwt* value counts the number of particles in the group crossing or
 colliding with the boundary and weights the count by the weight assigned
 to the grid cell in which the particle collision with the boundary
 occurs. The *nwt* quantity will only be different than *n* if particle
-weighting is enabled via the `global weight <global.html>`__ command.
+weighting is enabled via the :ref:`global weight<command-global>` command.
 
 The *mflux* value calculates the mass flux imparted to the boundary by
 particles in the group. This is computed as
@@ -127,7 +124,7 @@ particles in the group. This is computed as
 
 where the sum is over all contributing particle masses, normalized by A
 = the area of the surface element, dt = the timestep, and fnum = the
-real/simulated particle ratio set by the `global fnum <global.html>`__
+real/simulated particle ratio set by the :ref:`global fnum<command-global>`
 command.
 
 The *press* value calculates the pressure *P* exerted on the boundary in
@@ -145,7 +142,7 @@ colliding with the boundary. The pressure exerted on the boundary is the
 sum over all contributing p_delta dotted into the normal N of the
 boundary which is directed into the box, normalized by A = the area of
 the boundary face and dt = the timestep and fnum = the real/simulated
-particle ratio set by the `global fnum <global.html>`__ command.
+particle ratio set by the :ref:`global fnum<command-global>` command.
 
 The *shx*, *shy*, *shz* values calculate the shear pressure components
 Sx, Sy, Sz extered on the boundary in the tangential direction to its
@@ -177,8 +174,7 @@ where e_delta is the kinetic energy change in a particle, whose velocity
 changes from V_pre to V_post when colliding with the boundary. The
 energy flux imparted to the boundary is the sum over all contributing
 e_delta, normalized by A = the area of the boundary face and dt = the
-timestep and fnum = the real/simulated particle ratio set by the `global
-fnum <global.html>`__ command.
+timestep and fnum = the real/simulated particle ratio set by the :ref:`global fnum<command-global>` command.
 
 The *erot* value calculates the rotational energy flux *Eflux* imparted
 to the boundary by particles in the group, such that energy lost by a
@@ -228,11 +224,10 @@ simulation for the 4 faces (xlo, xhi, ylo, yhi), and it is 6 for a 3d
 simulation (xlo, xhi, ylo, yhi, zlo, zhi).
 
 The array can be accessed by any command that uses global array values
-from a compute as input. See `Section
-6.4 <Section_howto.html#howto_4>`__ for an overview of SPARTA output
+from a compute as input. See :ref:`Section 6.4<howto-output>` for an overview of SPARTA output
 options.
 
-The array values will be in the `units <units.html>`__ appropriate to
+The array values will be in the :ref:`units<command-units>` appropriate to
 the individual values as described above. *N* is unitless. *Press*,
 *shx*, *shy*, *shz* are in pressure units. *Ke*, *erot*, *evib*, and
 *etot* are in energy/area-time units for 3d simulations and
@@ -242,22 +237,19 @@ energy/length-time units for 2d simulations.
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 

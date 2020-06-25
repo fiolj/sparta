@@ -5,23 +5,50 @@
 .. index:: fix ave/histo/weight
 .. index:: fix ave/histo/weight/kk
 
+
+
+
+
 .. _command-fix-ave-histo:
 
 #####################
 fix ave/histo command
 #####################
 
+
+
+
+
+
+.. _command-fix-ave-histo-fix-avehistokk:
+
 ########################
 fix ave/histo/kk command
 ########################
+
+
+
+
+
+
+.. _command-fix-ave-histo-fix-avehistoweight:
 
 ############################
 fix ave/histo/weight command
 ############################
 
+
+
+
+
+
+.. _command-fix-ave-histo-fix-avehistoweightkk:
+
 ###############################
 fix ave/histo/weight/kk command
 ###############################
+
+
 
 **Syntax:**
 
@@ -29,7 +56,7 @@ fix ave/histo/weight/kk command
 
    fix ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2 ... keyword args ... 
 
--  ID is documented in `fix <fix.html>`__ command
+-  ID is documented in :ref:`fix<command-fix>` command
 -  style = *ave/histo* or *ave/histo/weight* = style name of this fix
    command
 -  Nevery = use input values every this many timesteps
@@ -95,8 +122,7 @@ fix ave/histo/weight/kk command
 
 Use one or more values as inputs every few timesteps to create a single
 histogram. The histogram can then be averaged over longer timescales.
-The resulting histogram can be used by other `output
-commands <Section_howto.html#howto_15>`__, and can also be written to a
+The resulting histogram can be used by other :ref:`output commands<howto-transparent-surface>`, and can also be written to a
 file. The fix ave/histo/weight command has identical syntax to fix
 ave/histo, except that exactly two values must be specified. See details
 below.
@@ -107,10 +133,10 @@ histogram bin. *Nbins* are defined, with even spacing between *lo* and
 different ways; see the discussion of the *beyond* keyword below.
 
 Each input value can be a particle attribute (position, velocity), or
-can be the result of a `compute <compute.html>`__ or `fix <fix.html>`__
+can be the result of a :ref:`compute<command-compute>` or :ref:`fix<command-fix>`
 that produces global or per-particle or per-grid quantities, or the
 evaluation of an equal-style or particle-style or grid-style
-`variable <variable.html>`__. The set of input values can be either all
+:ref:`variable<command-variable>`. The set of input values can be either all
 global, all per-particle, or all per-grid quantities. Inputs of
 different kinds (e.g. global and per-particle) cannot be mixed. Particle
 attributes are per-particle vector values. See the doc page for
@@ -144,9 +170,8 @@ from m to n (inclusive).
 
 Using a wildcard is the same as if the individual elements of the vector
 or columns of the array had been listed one by one. E.g. these 2 fix
-ave/histo commands are equivalent, since the `compute
-grid <compute_com_chunk.html>`__ command creates a per-grid array with 3
-columns:
+ave/histo commands are equivalent, since the :ref:`command-compute-grid` creates a per-grid array with 3 columns:
+
 
 ::
 
@@ -196,11 +221,10 @@ Ith column of the global or per-particle or per-grid array calculated by
 the compute is used. See the discussion above for how I can be specified
 with a wildcard asterisk to effectively specify multiple values.
 
-Note that there is a `compute reduce <compute_reduce.html>`__ command
+Note that there is a :ref:`compute reduce<command-compute-reduce>` command
 which can sum per-particle or per-grid or per-surf quantities into a
 global scalar or vector which can thus be accessed by fix ave/histo.
-Users can also write code for their own compute styles and `add them to
-SPARTA <Section_modify.html>`__.
+Users can also write code for their own compute styles and :ref:`add them to SPARTA<modify>`.
 
 If a value begins with ``f_``, a fix ID must follow which has been
 previously defined in the input script. If *mode* = scalar, then if no
@@ -215,15 +239,14 @@ wildcard asterisk to effectively specify multiple values.
 
 Note that some fixes only produce their values on certain timesteps,
 which must be compatible with *Nevery*, else an error will result. Users
-can also write code for their own fix styles and `add them to
-SPARTA <Section_modify.html>`__.
+can also write code for their own fix styles and :ref:`add them to SPARTA<modify>`.
 
 If a value begins with ``v_``, a variable name must follow which has been
 previously defined in the input script. If *mode* = scalar, then only
 equal-style variables can be used. If *mode* = vector, then only
 particle-style or grid-style variables can be used, which produce
 per-particle per-grid vectors respectively. See the
-`variable <variable.html>`__ command for details.
+:ref:`variable<command-variable>` command for details.
 
 Note that variables of style *equal*, *particle*, and *grid* define a
 formula which can reference individual particle properties or stats
@@ -259,18 +282,18 @@ cells are included in the histogramming.
 
 The *region* keyword only applies to per-particle histogramming. Only
 particles in the specified *region-ID* are included in the histogram.
-See the `region <region.html>`__ command for details of how geometric
+See the :ref:`region<command-region>` command for details of how geometric
 regions are defined.
 
 The *mix* keyword only applies to per-particle histogramming. Only
 particles whose species are in the specified *mixture-ID* are included
 in the histogram, which allows for only a subset of species to be
-included. See the `mixture <mixture.html>`__ command for details of how
+included. See the :ref:`mixture<command-mixture>` command for details of how
 mixtures are defined.
 
 The *group* keyword only applies to per-grid cell histogramming. Only
 grid cells in the grid group specified by *group-ID* are included in the
-histogram. See the `grid group <group.html>`__ command for details of
+histogram. See the :ref:`grid group<command-group>` command for details of
 how grid groups are defined.
 
 The *ave* keyword determines how the histogram produced every *Nfreq*
@@ -288,7 +311,7 @@ cumulative sense before being output. Each bin value in the histogram is
 thus the average of the bin value produced on that timestep with all
 preceding values for the same bin. This running average begins when the
 fix is defined; it can only be restarted by deleting the fix via the
-`unfix <unfix.html>`__ command, or by re-defining the fix by
+:ref:`unfix<command-unfix>` command, or by re-defining the fix by
 re-specifying it.
 
 If the *ave* setting is *window*, then the histograms produced on
@@ -343,8 +366,7 @@ histogram.
 
 **Restart, output info:**
 
-No information about this fix is written to `binary restart
-files <restart.html>`__.
+No information about this fix is written to :ref:`binary restart files<command-restart>`.
 
 This fix produces a global vector and global array which can be accessed
 by various output commands. The values can only be accessed on timesteps
@@ -366,22 +388,19 @@ total count (not including missing counts), so that the values in the
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 

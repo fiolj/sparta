@@ -2,11 +2,14 @@
 
 .. index:: stats_modify
 
+
+
 .. _command-stats-modify:
 
 ####################
 stats_modify command
 ####################
+
 
 **Syntax:**
 
@@ -45,7 +48,7 @@ written to the log file. This insures the output in that file is current
 completes.
 
 The *format* keyword can be used to change the default numeric format of
-any of quantities the `stats_style <stats_style.html>`__ command
+any of quantities the :ref:`stats_style<command-stats-style>` command
 outputs. All the specified format strings are C-style formats, e.g. as
 used by the C/C++ printf() command. The *line* keyword takes a single
 argument which is the format string for the entire line of stats output,
@@ -63,27 +66,19 @@ used, else the *int* or *float* setting (if specified) is used, else the
 setting is used. A setting of *none* clears all previous settings,
 reverting all values to their default format.
 
-NOTE: The stats output values *step* and *atoms* are stored internally
-as 8-byte signed integers, rather than the usual 4-byte signed integers.
-When specifying the *format int* option you can use a "%d"-style format
-identifier in the format string and SPARTA will convert this to the
-corresponding 8-byte form when it is applied to those keywords. However,
-when specifying the *line* option or *format M string* option for *step*
-and *natoms*, you should specify a format string appropriate for an
-8-byte signed integer, e.g. one with "%ld".
+.. note:: The stats output values *step* and *atoms* are stored internally as 8-byte signed integers, rather than the usual 4-byte signed integers.  When specifying the *format int* option you can use a "%d"-style format identifier in the format string and SPARTA will convert this to the corresponding 8-byte form when it is applied to those keywords. However, when specifying the *line* option or *format M string* option for *step* and *natoms*, you should specify a format string appropriate for an 8-byte signed integer, e.g. one with "%ld".
 
 The *every* keyword allows a variable to be specified which will
 determine the timesteps on which statistical output is generated. It
-must be an `equal-style variable <variable.html>`__, and is specified as
+must be an :ref:`equal-style variable<command-variable>`, and is specified as
 v_name, where name is the variable name. The variable is evaluated at
 the beginning of a run to determine the next timestep at which a dump
 snapshot will be written out. On that timestep, the variable will be
 evaluated again to determine the next timestep, etc. Thus the variable
 should return timestep values. See the stagger() and logfreq() math
-functions for `equal-style variables <variable.html>`__, as examples of
+functions for :ref:`equal-style variables<command-variable>`, as examples of
 useful functions to use in this context. Other similar math functions
-could easily be added as options for `equal-style
-variables <variable.html>`__. In addition, statistical output will
+could easily be added as options for :ref:`equal-style variables<command-variable>`. In addition, statistical output will
 always occur on the first and last timestep of each run.
 
 For example, the following commands will output statistical info at
@@ -95,8 +90,8 @@ timesteps 0,10,20,30,100,200,300,1000,2000,etc:
    stats_modify    1 every v_s 
 
 Note that the *every* keyword overrides the output frequency setting
-made by the `stats <stats.html>`__ command, by setting it to 0. If the
-`stats <stats.html>`__ command is later used to set the output frequency
+made by the :ref:`stats<command-stats>` command, by setting it to 0. If the
+:ref:`stats<command-stats>` command is later used to set the output frequency
 to a non-zero value, then the variable setting of the stats_modify every
 command will be overridden.
 
@@ -111,4 +106,4 @@ command will be overridden.
 
 The option defaults are flush = no, format int = "%8d", format float =
 "%12.8g", and every = non-variable setting provided by the
-`stats <stats.html>`__ command.
+:ref:`stats<command-stats>` command.

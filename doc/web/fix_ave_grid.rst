@@ -3,15 +3,28 @@
 .. index:: fix ave/grid
 .. index:: fix ave/grid/kk
 
+
+
+
+
 .. _command-fix-ave-grid:
 
 ####################
 fix ave/grid command
 ####################
 
+
+
+
+
+
+.. _command-fix-ave-grid-fix-avegridkk:
+
 #######################
 fix ave/grid/kk command
 #######################
+
+
 
 **Syntax:**
 
@@ -19,7 +32,7 @@ fix ave/grid/kk command
 
    fix ID ave/grid group-ID Nevery Nrepeat Nfreq value1 value2 ... keyword args ... 
 
--  ID is documented in `fix <fix.html>`__ command
+-  ID is documented in :ref:`fix<command-fix>` command
 -  ave/grid = style name of this fix command
 -  group-ID = group ID for which grid cells to perform calculation on
 -  Nevery = use input values every this many timesteps
@@ -68,24 +81,23 @@ a file every 1000 steps:
 Use one or more per-grid vectors as inputs every few timesteps, and
 average by grid cell over longer timescales, applying appropriate
 normalization factors. The resulting per grid cell averages can be used
-by other output commands such as the `dump grid <dump.html>`__ command.
+by other output commands such as the :ref:`dump grid<command-dump>` command.
 Only grid cells in the grid group specified by *group-ID* are included
-in the averaging. See the `group grid <group.html>`__ command for info
+in the averaging. See the :ref:`group grid<command-group>` command for info
 on how grid cells can be assigned to grid groups.
 
-Each input value can be the result of a `compute <compute.html>`__ or
-`fix <fix.html>`__ or `grid-style variable <variable.html>`__. The
+Each input value can be the result of a :ref:`compute<command-compute>` or
+:ref:`fix<command-fix>` or :ref:`grid-style variable<command-variable>`. The
 compute or fix must produce a per-grid vector or array, not a global or
 per-particle or per-surf quantity. If you wish to time-average global
-quantities from a compute, fix, or variable, then see the `fix
-ave/time <fix_ave_time.html>`__ command. To time-average per-surf
-quantities, see the `fix ave/surf <fix_ave_surf.html>`__ command.
+quantities from a compute, fix, or variable, then see the :ref:`fix ave/time<command-fix-ave-time>` command. To time-average per-surf
+quantities, see the :ref:`fix ave/surf<command-fix-ave-surf>` command.
 
 Each per-grid value of each input vector is averaged independently.
 
-`Computes <compute.html>`__ that produce per-grid vectors or arrays are
+:ref:`Computes<command-compute>` that produce per-grid vectors or arrays are
 those which have the word *grid* in their style name. See the doc pages
-for individual `fixes <fix.html>`__ to determine which ones produce
+for individual :ref:`fixes<command-fix>` to determine which ones produce
 per-grid vectors or arrays.
 
 Note that for values from a compute or fix, the bracketed index I can be
@@ -100,7 +112,7 @@ from m to n (inclusive).
 
 Using a wildcard is the same as if the individual columns of the array
 had been listed one by one. E.g. these 2 fix ave/grid commands are
-equivalent, since the `compute grid <compute_grid.html>`__ command
+equivalent, since the :ref:`compute grid<command-compute-grid>` command
 creates a per-grid array with 3 columns:
 
 ::
@@ -136,8 +148,7 @@ array calculated by the compute. See the discussion above for how I can
 be specified with a wildcard asterisk to effectively specify multiple
 values.
 
-Users can also write code for their own compute styles and `add them to
-SPARTA <Section_modify.html>`__.
+Users can also write code for their own compute styles and :ref:`add them to SPARTA<modify>`.
 
 If a value begins with ``f_``, a fix ID must follow which has been
 previously defined in the input script. If no bracketed term is
@@ -150,14 +161,13 @@ values.
 
 Note that some fixes only produce their values on certain timesteps,
 which must be compatible with *Nevery*, else an error will result. Users
-can also write code for their own fix styles and `add them to
-SPARTA <Section_modify.html>`__.
+can also write code for their own fix styles and :ref:`add them to SPARTA<modify>`.
 
 If a value begins with ``v_``, a variable name must follow which has been
 previously defined in the input script. Only grid-style variables can be
-referenced. See the `variable <variable.html>`__ command for details.
+referenced. See the :ref:`variable<command-variable>` command for details.
 Note that grid-style variables define a formula which can reference
-`stats_style <stats_style.html>`__ keywords, or they can invoke other
+:ref:`stats_style<command-stats-style>` keywords, or they can invoke other
 computes, fixes, or variables when they are evaluated, so this is a very
 general means of specifying quantities to time average.
 
@@ -170,7 +180,7 @@ value produced by a grid-style variable.
 If the compute or fix is summing over particles in a grid cell to
 calculate a per-grid quantity (e.g. energy or temperature), this takes
 the form of a numerator divided by a denominator. For example, see the
-formulas discussed on the `compute grid <compute_grid.html>`__ doc page,
+formulas discussed on the :ref:`compute grid<command-compute-grid>` doc page,
 where the denominator is 1 (for keyword n), or the number of particles
 (ke, mass, temp), or the sum of particle masses (u, usq, etc). When this
 command averages over a series of timesteps, the numerator and
@@ -179,7 +189,7 @@ division only takes place when this fix produces output, every Nfreq
 timesteps.
 
 For example, say the Nfreq output is over 2 timesteps, and the value
-produced by `compute grid mass <compute_grid.html>`__ is being averaged.
+produced by :ref:`compute grid mass<command-compute-grid>` is being averaged.
 Say a grid cell has 10 particles on the 1st timestep with a numerator
 value of 10.0, and 100 particles on the 2nd timestep with a numerator
 value of 50.0. The output of this fix will be (10+50) / (10+100) = 0.54,
@@ -207,8 +217,7 @@ fix, or by re-specifying it.
 
 **Restart, output info:**
 
-No information about this fix is written to `binary restart
-files <restart.html>`__.
+No information about this fix is written to :ref:`binary restart files<command-restart>`.
 
 This fix produces a per-grid vector or array which can be accessed by
 various output commands. A vector is produced if only a single quantity
@@ -226,22 +235,19 @@ Grid cells not in the specified *group-ID* will output zeroes for all their valu
 
 Styles with a *kk* suffix are functionally the same as the corresponding
 style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the `Accelerating
-SPARTA <Section_accelerate.html>`__ section of the manual. The
+depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
 accelerated styles take the same arguments and should produce the same
 results, except for different random number, round-off and precision
 issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
-enabled if SPARTA was built with that package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the `-suffix command-line
-switch <Section_start.html#start_6>`__ when you invoke SPARTA, or you
-can use the `suffix <suffix.html>`__ command in your input script.
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you
+can use the :ref:`suffix<command-suffix>` command in your input script.
 
-See the `Accelerating SPARTA <Section_accelerate.html>`__ section of the
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
@@ -250,7 +256,7 @@ effectively.
 **Restrictions:**
 
 If performing on-the-fly grid adaptation every N timesteps, using the
-`fix adapt <fix_adapt.html>`__ command, this fix cannot time-average
+:ref:`fix adapt<command-fix-adapt>` command, this fix cannot time-average
 across time windows > N steps, since the grid may change. This means
 *Nfreq* cannot be > N, and keyword *ave* = *running* is not allowed.
 

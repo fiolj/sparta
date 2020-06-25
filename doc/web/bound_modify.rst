@@ -2,11 +2,14 @@
 
 .. index:: bound_modify
 
+
+
 .. _command-bound-modify:
 
 ####################
 bound_modify command
 ####################
+
 
 **Syntax:**
 
@@ -39,22 +42,22 @@ simulation box. Any of the 6 faces can be selected via the list of
 *wall* settings.
 
 The *collide* keyword can only be used when the boundary is of type "s",
-for surface, as set by the `boundary <boundary.html>`__ command. This
+for surface, as set by the :ref:`boundary<command-boundary>` command. This
 keyword assigns a surface collision model to the boundary, as defined by
-the `surf_collide <surf_collide.html>`__ command. The ID of the surface
+the :ref:`surf_collide<command-surf-collide>` command. The ID of the surface
 collision model is specified as *sc-ID*, which is the ID used in the
-`surf_collide <surf_collide.html>`__ command.
+:ref:`surf_collide<command-surf-collide>` command.
 
 The effect of this keyword is that particle collisions with the
 specified boundaries will be computed by the specified surface collision
 model.
 
 The *react* keyword can only be used when the boundary is of type "s",
-for surface, as set by the `boundary <boundary.html>`__ command. This
+for surface, as set by the :ref:`boundary<command-boundary>` command. This
 keyword assigns a surface reaction model to the boundary, as defined by
-the `surf_react <surf_react.html>`__ command. The ID of the surface
+the :ref:`surf_react<command-surf-react>` command. The ID of the surface
 reaction model is specified as *sr-ID*, which is the ID used in the
-`surf_react <surf_react.html>`__ command. If an sr-ID of *none* is used
+:ref:`surf_react<command-surf-react>` command. If an sr-ID of *none* is used
 then surface reactions are turned off.
 
 The effect of this keyword is that particle collisions with the

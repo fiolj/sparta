@@ -1,9 +1,15 @@
 
+
+
+
+
 .. _packages:
 
 ########
 Packages
 ########
+
+
 
 This section gives an overview of the optional packages that extend
 SPARTA functionality with instructions on how to build SPARTA with each
@@ -55,26 +61,41 @@ and use the package:
      - Doc page
      - Example
      - Library
-   * - :ref:`package-fft`
+   * - :ref:`package-fft<packages-package-fft>`
      - fast Fourier transforms
-     - :ref:`compute_style compute/fft/grid <command-compute-fft-grid>` 
+     - :ref:`compute_style compute/fft/grid<command-compute-fft-grid>` 
      - fft
      - int or ext
-   * - :ref:`package-kokkos`
+   * - :ref:`package-kokkos<packages-package-kokkos>`
      - Kokkos-enabled styles
-     - :ref:`Section 5.3.3 <accelerate-kokkos>`
+     - :ref:`Section 5.3.3<accelerate-kokkos>`
      - `Benchmarks <http://sparta.sandia.gov/bench.html>`__
      - -
 
 
-.. _package-fft:
+
+
+
+
+.. _packages-package-fft:
 
 ***********
 FFT package
 ***********
 
+
+
+
+
+
+
+.. _packages-package-fft-contents:
+
+
 Contents:
 =========
+
+
 
 Apply Fast Fourier Transforms (FFTs) to simulation data. The FFT library
 is specified in the Makefile.machine using the FFT_INC, FFT_PATH, and
@@ -84,8 +105,17 @@ in the Makefile, SPARTA will use the internal KISS FFT library that is
 included with SPARTA. See the see discussion in
 doc/Section_start.html#2_2 (step 6).
 
+
+
+
+
+.. _packages-package-fft-install:
+
+
 Install or un-install:
 ======================
+
+
 
 ::
 
@@ -97,23 +127,47 @@ Install or un-install:
    make no-fft
    make machine 
 
+
+
+
+
+.. _packages-package-fft-supporting:
+
+
 Supporting info:
 ================
 
--  :ref:`compute fft/grid <command-compute-fft-grid>`
+
+
+-  :ref:`compute fft/grid<command-compute-fft-grid>`
 -  examples/fft
 
 --------------
 
 
-.. _package-kokkos:
+
+
+
+
+.. _packages-package-kokkos:
 
 **************
 KOKKOS package
 **************
 
+
+
+
+
+
+
+.. _packages-package-kokkos-contents:
+
+
 Contents:
 =========
+
+
 
 Styles adapted to compile using the Kokkos library which can convert
 them to OpenMP or CUDA code so that they run efficiently on multicore
@@ -127,8 +181,17 @@ You must have a C++11 compatible compiler to use this package.
 
 **Authors:** The KOKKOS package was created primarily by Stan Moore (Sandia), with contributions from other folks as well. It uses the open-source `Kokkos library <https://github.com/kokkos>`__ which was developed by Carter Edwards, Christian Trott, and others at Sandia, and which is included in the SPARTA distribution in lib/kokkos.
 
+
+
+
+
+.. _packages-package-kokkos-install:
+
+
 Install or un-install:
 ======================
+
+
 
 For the KOKKOS package, you have 3 choices when building. You can build
 with either CPU or KNL or GPU support. Each choice requires additional
@@ -184,13 +247,22 @@ hardware target, to produce a separate executable.
    make no-kokkos
    make machine 
 
+
+
+
+
+.. _packages-package-kokkos-supporting:
+
+
 Supporting info:
 ================
+
+
 
 -  src/KOKKOS: filenames -> commands
 -  src/KOKKOS/README
 -  lib/kokkos/README
--  the `Accelerating SPARTA <accelerating>` section
+-  the `Accelerating SPARTA <accelerate>` section
 -  `Section 5.3.3 <accelerate-kokkos>`
 -  `Section 2.6 -k on ... <start-command-line-options>`
 -  `Section 2.6 -sf kk <start-command-line-options>`

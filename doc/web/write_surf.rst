@@ -2,11 +2,14 @@
 
 .. index:: write_surf
 
+
+
 .. _command-write-surf:
 
 ##################
 write_surf command
 ##################
+
 
 **Syntax:**
 
@@ -38,29 +41,29 @@ write_surf command
 
 Write a surface file in text format describing the currently defined
 surface elements, whether they be explicit or implicit surfaces. See the
-`read_surf <read_surf.html>`__ and `read_isurf <read_isurf.html>`__
+:ref:`read_surf<command-read-surf>` and :ref:`read_isurf<command-read-isurf>`
 commands for a definition of surface elements and how they are defined
 and used be SPARTA. The surface file can be used for later input to a
 new simulation or for post-processing and visualization.
 
 Note that if surface objects were clipped when read in by the
-`read_surf <read_surf.html>`__ command then some surface elements may
+:ref:`read_surf<command-read-surf>` command then some surface elements may
 have been deleted and new ones created. Likewise for the points that
 define the end points or corner points of surface element lines (2d) or
 triangles (3d). Similarly, if surface elements have been removed by the
-`remove_surf <remove_surf.html>`__ command, then points may have also
+:ref:`remove_surf<command-remove-surf>` command, then points may have also
 been deleted. In either case, surface points and elements are renumbered
 by these operations to create compressed, contiguous lists. These lists
 are what is output by this command.
 
 The file is written as a text file in the same format as the
-`read_surf <read_surf.html>`__ command reads in. Note that a Points
+:ref:`read_surf<command-read-surf>` command reads in. Note that a Points
 section is optional. If the *points* keyword is specified with a value
 of *yes*, then a Points section is included in the file. If the value is
 *no*, then point coordinates are included with individual lines or
 triangles.
 
-Similar to `dump <dump.html>`__ files, the surface filename can contain
+Similar to :ref:`dump<command-dump>` files, the surface filename can contain
 two wild-card characters. If a "*" appears in the filename, it is
 replaced with the current timestep value. If a "%" character appears in
 the filename, then one file is written by each processor and the "%"
@@ -68,7 +71,7 @@ character is replaced with the processor ID from 0 to P-1. An additional
 file with the "%" replaced by "base" is also written, which contains
 global information, i.e. just the header information for the number of
 points and lines or triangles, as described on the
-`read_surf <read_surf.html>`__ doc page.
+:ref:`read_surf<command-read-surf>` doc page.
 
 For example, the files written for filename data.% would be data.base,
 data.0, data.1, ..., data.P-1. This creates smaller files and can be a
@@ -77,11 +80,11 @@ support parallel I/O. The optional *fileper* and *nfile* keywords
 discussed below can alter the number of files written.
 
 Note that implicit surfaces read in by the
-`read_isurf <read_isurf.html>`__ command can be written out by the
+:ref:`read_isurf<command-read-isurf>` command can be written out by the
 write_surf command, e.g. for visualization purposes. But they cannot be
-read back in to SPARTA via the `read_isurf <read_isurf.html>`__ command,
+read back in to SPARTA via the :ref:`read_isurf<command-read-isurf>` command,
 because write_surf creates files in an explicit surface format. See the
-`Howto 6.13 <Section_howto.html#howto_13>`__ section of the manual for a
+:ref:`Howto 6.13<howto-implicit-surface>` section of the manual for a
 discussion of explicit and implicit surfaces for an explantion of
 explicit versus implicit surfaces as well as distributed versus
 non-distributed storage. You cannot mix explicit and implicit surfaces

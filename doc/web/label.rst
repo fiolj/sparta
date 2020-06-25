@@ -2,11 +2,14 @@
 
 .. index:: label
 
+
+
 .. _command-label:
 
 #############
 label command
 #############
+
 
 **Syntax:**
 
@@ -27,11 +30,11 @@ label command
 
 Label this line of the input script with the chosen ID. Unless a jump
 command was used previously, this does nothing. But if a
-`jump <jump.html>`__ command was used with a label argument to begin
+:ref:`jump<command-jump>` command was used with a label argument to begin
 invoking this script file, then all command lines in the script prior to
 this line will be ignored. I.e. execution of the script will begin at
 this line. This is useful for looping over a section of the input script
-as discussed in the `jump <jump.html>`__ command.
+as discussed in the :ref:`jump<command-jump>` command.
 
 **Restrictions:** none
 

@@ -3,11 +3,14 @@
 .. index:: log
 
 
+
+
 .. _command-log:
 
 ###########
 log command
 ###########
+
 
 **Syntax:**
 
@@ -40,7 +43,7 @@ same log file.
 
 The file "log.sparta" is the default log file for a SPARTA run. The name
 of the initial log file can also be set by the command-line switch -log.
-See `Section 2.6 <Section_start.html#start_6>`__ for details.
+See :ref:`Section 2.6<start-command-line-options>` for details.
 
 **Restrictions:** none
 

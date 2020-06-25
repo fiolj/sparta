@@ -2,11 +2,14 @@
 
 .. index:: read_isurf
 
+
+
 .. _command-read-isurf:
 
 ##################
 read_isurf command
 ##################
+
 
 **Syntax:**
 
@@ -52,19 +55,19 @@ Here are simulation snapshots of 2d and 3d implicit surface models through which
 
 |image0|\ |image1|
 
-Particles collide with surface elements as they advect. Each surface element is assigned to a collision model, specified by the :ref:`command-surf-collide` which affects how a particle bounces off the surface. Each surface element can optionally be assigned to a reaction model, specified by the :ref:`command-surf-react` which determines if any surface chemistry occurs during a collision. Statistics for each surface element due to their interactions with particles can be tallied via the :ref:`command-compute-isurf-grid`, time-averaged via the :ref:`command-fix-ave-grid`, and ouput via the :ref:`dump surface <command-dump>` command.
+Particles collide with surface elements as they advect. Each surface element is assigned to a collision model, specified by the :ref:`command-surf-collide` which affects how a particle bounces off the surface. Each surface element can optionally be assigned to a reaction model, specified by the :ref:`command-surf-react` which determines if any surface chemistry occurs during a collision. Statistics for each surface element due to their interactions with particles can be tallied via the :ref:`command-compute-isurf-grid`, time-averaged via the :ref:`command-fix-ave-grid`, and ouput via the :ref:`dump surface<command-dump>` command.
 
-Surface elememts can be assigned to surface groups via the :ref:`group surf <command-group>` command. Surface group IDs are used by other commands to operate on selected sets of elements. This command has a *type* keyword which can be used to help assign different elements to different groups.
+Surface elememts can be assigned to surface groups via the :ref:`group surf<command-group>` command. Surface group IDs are used by other commands to operate on selected sets of elements. This command has a *type* keyword which can be used to help assign different elements to different groups.
 
 Note that at some point, it will be possible to use the read_isurf command multiple times to read surfaces from multiple files and add them to the simulation domain, so long as the grid extent of the different commands does not overlap. However currently, that is not yet possible.
 
 The format of a surface file for implicit surfaces is discussed below.
 
-The tools directory contains a :ref:`implicit_grid.py tool <tools-implicitgrid>` which can create implicit surface files in a randomized manner for different grid extents.
+The tools directory contains a :ref:`implicit_grid.py tool<tools-implicitgrid>` which can create implicit surface files in a randomized manner for different grid extents.
 
 --------------
 
-The specified *group-ID* must be the name of a grid cell group, as defined by the :ref:`group grid <command-group>` command, which contains a set of grid cells, all of which are the same size, and which comprise a contiguous 3d array, with specified extent *Nx* by *Ny* by *Nz*. For 2d simulations, *Nz* must be specified as 1, and the group must comprise a 2d array of cells that is *Nx* by *Ny*. These are the grid cells in which implicit surfaces will be created.
+The specified *group-ID* must be the name of a grid cell group, as defined by the :ref:`group grid<command-group>` command, which contains a set of grid cells, all of which are the same size, and which comprise a contiguous 3d array, with specified extent *Nx* by *Ny* by *Nz*. For 2d simulations, *Nz* must be specified as 1, and the group must comprise a 2d array of cells that is *Nx* by *Ny*. These are the grid cells in which implicit surfaces will be created.
 
 The specified *filename* is for a binary file in the following format:
 
@@ -113,9 +116,9 @@ The specified *ablateID* is the fix ID of a :ref:`command-fix-ablate` which has 
 
 The following optional keywords affect attributes of the read-in surface elements and how they are read.
 
-Surface groups are collections of surface elements. Each surface element belongs to one or more surface groups; all elements belong to the "all" group, which is created by default. Surface group IDs are used by other commands to identify a group of suface elements to operate on. See the :ref:`group surf <command-group>` command for more details.
+Surface groups are collections of surface elements. Each surface element belongs to one or more surface groups; all elements belong to the "all" group, which is created by default. Surface group IDs are used by other commands to identify a group of suface elements to operate on. See the :ref:`group surf<command-group>` command for more details.
 
-Every surface element also stores a *type* which is a positive integer.  *Type* values are useful for flagging subsets of elements. For example, implicit surface elemnts in different regions of the simulation box.  Surface element types can be used to define surface groups. See the :ref:`group surf <command-group>` command for details.
+Every surface element also stores a *type* which is a positive integer.  *Type* values are useful for flagging subsets of elements. For example, implicit surface elemnts in different regions of the simulation box.  Surface element types can be used to define surface groups. See the :ref:`group surf<command-group>` command for details.
 
 The *group* keyword specifies an extra surface *group-ID* to which all the implicit surface elements are assigned when created by the read-in corner points. All the created implicit elements are also assigned to the "all" group and to *group-ID*. If *group-ID* does not exist, a new surface group is created. If it does exist the create implicit surface elements are added to that group.
 

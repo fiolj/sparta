@@ -2,11 +2,14 @@
 
 .. index:: shell
 
+
+
 .. _command-shell:
 
 #############
 shell command
 #############
+
 
 **Syntax:**
 
@@ -83,7 +86,7 @@ directories. A directory must be empty to be successfully removed.
 The *putenv* cmd defines or updates an environment variable directly.
 Since this command does not pass through the shell, no shell variable
 expansion or globbing is performed, only the usual substitution for
-SPARTA variables defined with the `variable <variable.html>`__ command
+SPARTA variables defined with the :ref:`variable<command-variable>` command
 is performed. The resulting string is then used literally.
 
 Any other cmd is passed as-is to the shell along with its arguments as

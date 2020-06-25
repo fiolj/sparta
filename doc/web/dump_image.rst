@@ -3,17 +3,29 @@
 .. index:: dump image
 .. index:: dump movie
 
+
+
+
+
 .. _command-dump-image:
 
 ##################
 dump image command
 ##################
 
-.. _command-dump-movie:
+
+
+
+
+
+
+.. _command-dump-image-command-dump-movie:
 
 ##################
 dump movie command
 ##################
+
+
 
 
 **Syntax:**
@@ -119,29 +131,28 @@ and play it in the Firefox browser:
 Dump a high-quality ray-traced image of the simulation every N timesteps
 and save the images either as a sequence of JPEG or PNG or PPM files, or
 as a single movie file. The options for this command as well as the
-`dump_modify <dump_modify.html>`__ command control what is included in
+:ref:`dump_modify<command-dump-modify>` command control what is included in
 the image and how it appears.
 
 Any or all of these entities can be included in the images:
 
--  particles (all in mixture or limited to a `region <region.html>`__)
--  grid cells (all or limited to a `region <region.html>`__)
+-  particles (all in mixture or limited to a :ref:`region<command-region>`)
+-  grid cells (all or limited to a :ref:`region<command-region>`)
 -  x,y,z planes cutting through the grid
 -  surface elements
 
-Particles can be colored by any attribute allowed by the `dump
-particle <dump.html>`__ command. Grid cells and the x,y,z cutting planes
+Particles can be colored by any attribute allowed by the :ref:`dump particle<command-dump>` command. Grid cells and the x,y,z cutting planes
 can be colored by any per-grid attribute calculated by a
-`compute <compute.html>`__ or `fix <fix.html>`__. Surface elements can
+:ref:`compute<command-compute>` or :ref:`fix<command-fix>`. Surface elements can
 be colored by any per-surf attribute calculated by a
-`compute <compute.html>`__ or `fix <fix.html>`__.
+:ref:`compute<command-compute>` or :ref:`fix<command-fix>`.
 
 A series of images can easily be converted into an animated movie of
 your simulation (see further details below), or the process can be
 automated without writing the intermediate files using the dump movie
 command. Other dump styles store snapshots of numerical data asociated
 with particles, grid cells, and surfaces in various formats, as
-discussed on the `dump <dump.html>`__ doc page.
+discussed on the :ref:`dump<command-dump>` doc page.
 
 Here are two sample images, rendered as JPG files. Click to see the
 full-size images.
@@ -176,12 +187,12 @@ which must be available on your machine, and thus details have to be
 looked up in the FFmpeg documentation. Typical examples are: .avi, .mpg,
 .m4v, .mp4, .mkv, .flv, .mov, .gif Additional settings of the movie
 compression like bitrate and framerate can be set using the
-`dump_modify <dump_modify.html>`__ command.
+:ref:`dump_modify<command-dump-modify>` command.
 
 To write out JPEG and PNG format files, you must build SPARTA with
 support for the corresponding JPEG or PNG library. To convert images
 into movies, SPARTA has to be compiled with the -DSPARTA_FFMPEG flag.
-See `Section 2.2 <Section_start.html#start_2>`__ of the manual for
+See :ref:`Section 2.2<start-steps-build>` of the manual for
 instructions on how to do this.
 
 --------------
@@ -190,15 +201,15 @@ Dumps are performed on timesteps that are a multiple of N, including
 timestep 0. Note that this means a dump will not be performed on the
 initial timestep after the dump command is invoked, if the current
 timestep is not a multiple of N. This behavior can be changed via the
-`dump_modify first <dump_modify.html>`__ command. N can be changed
-between runs by using the `dump_modify every <dump_modify.html>`__
+:ref:`dump_modify first<command-dump-modify>` command. N can be changed
+between runs by using the :ref:`dump_modify every<command-dump-modify>`
 command.
 
 Dump *image* filenames must contain a wildcard character "*", so that
 one image file per snapshot is written. The "*" character is replaced
 with the timestep value. For example, tmp.dump.*.jpg becomes
 tmp.dump.0.jpg, tmp.dump.10000.jpg, tmp.dump.20000.jpg, etc. Note that
-the `dump_modify pad <dump_modify.html>`__ command can be used to insure
+the :ref:`dump_modify pad<command-dump-modify>` command can be used to insure
 all timestep numbers are the same length (e.g. 00010), which can make it
 easier to convert a series of images into a movie in the correct
 ordering.
@@ -213,32 +224,37 @@ Several of the keywords determine what objects are rendered in the
 image, namely particles, grid cells, or surface elements. There are
 additional optional kewords which control how the image is rendered. As
 listed below, all of the keywords have defaults, most of which you will
-likely not need to change. The `dump modify <dump_modify.html>`__ also
+likely not need to change. The :ref:`dump modify<command-dump-modify>` also
 has options specific to the dump image style, particularly for assigning
 colors to particles and other image features.
 
 --------------
 
+
+
+.. _command-dump-image-rendering-particles:
+
 **********************
 Rendering of particles
 **********************
 
+
+
 Particles are drawn by default using the *color* and *diameter*
 settings. The *particle* keyword allow you to turn off the drawing of
 all particles, if the specified value is *no*. Only particles in a
-geometric region can be drawn using the `dump_modify
-region <dump_modify.html>`__ command.
+geometric region can be drawn using the :ref:`dump_modify region<command-dump-modify>` command.
 
 The *color* and *diameter* settings determine the color and size of
 particles rendered in the image. They can be any particle attribute
-defined for the `dump particle <dump.html>`__ command, including *type*.
+defined for the :ref:`dump particle<command-dump>` command, including *type*.
 
 The *diameter* setting can be overridden with a numeric value by the
 optional *pdiam* keyword, in which case you can specify the *diameter*
 setting with any valid particle attribute. The *pdiam* keyword overrides
 the *diameter* setting with a specified numeric value. All particles
 will be drawn with that diameter, e.g. 1.5, which is in whatever
-distance `units <units.html>`__ the input script defines.
+distance :ref:`units<command-units>` the input script defines.
 
 If *type* is specified for the *color* setting, then the color of each
 particle is determined by its type = species index. By default the
@@ -252,7 +268,7 @@ mapping of types to colors is as follows:
 -  type 6 = purple
 
 and repeats itself for types > 6. This mapping can be changed by the
-`dump_modify pcolor <dump_modify.html>`__ command.
+:ref:`dump_modify pcolor<command-dump-modify>` command.
 
 If *proc* is specified for the *color* setting, then the color of each
 particle is determined by the ID of the owning processor. The default
@@ -261,23 +277,21 @@ that proc P corresponds to type P+1.
 
 If *type* is specified for the *diameter* setting then the diameter of
 each particle is determined by its type = species index. By default all
-types have diameter 1.0. This mapping can be changed by the `dump_modify
-adiam <dump_modify.html>`__ command.
+types have diameter 1.0. This mapping can be changed by the :ref:`dump_modify adiam<command-dump-modify>` command.
 
 If *proc* is specified for the *diameter* setting then the diameter of
 each particle will be the proc ID (0 up to Nprocs-1) in whatever
-`units <units.html>`__ you are using, which is undoubtably not what you
+:ref:`units<command-units>` you are using, which is undoubtably not what you
 want.
 
-Any of the particle attributes listed in the `dump custom <dump.html>`__
+Any of the particle attributes listed in the :ref:`dump custom<command-dump>`
 command can also be used for the *color* or *diameter* settings. They
 are interpreted in the following way.
 
 If "vx", for example, is used as the *color* setting, then the color of
 the particle will depend on the x-component of its velocity. The
 association of a per-particle value with a specific color is determined
-by a "color map", which can be specified via the `dump_modify
-cmap <dump_modify.html>`__ command. The basic idea is that the
+by a "color map", which can be specified via the :ref:`dump_modify cmap<command-dump-modify>` command. The basic idea is that the
 particle-attribute will be within a range of values, and every value
 within the range is mapped to a specific color. Depending on how the
 color map is defined, that mapping can take place via interpolation so
@@ -291,9 +305,15 @@ be drawn.
 
 --------------
 
+
+
+.. _command-dump-image-rendering-grid:
+
 ***********************
 Rendering of grid cells
 ***********************
+
+
 
 The *grid* keyword turns on the drawing of grid cells with the specified
 color attribute. For 2d, the grid cell is shaded with an rectangle that
@@ -302,20 +322,19 @@ particles in the grid cell. For 3d, the grid cell is drawn as a solid
 brick, which will obscure the particles inside it.
 
 Only grid cells in a geometric region can be drawn using the
-`dump_modify region <dump_modify.html>`__ command.
+:ref:`dump_modify region<command-dump-modify>` command.
 
 The *gridx* and *gridy* and *gridz* keywords turn on the drawing of of a
 2d plane of grid cells at the specified coordinate. This is a way to
 draw one or more slices through a 3d image.
 
-The `dump_modify region <dump_modify.html>`__ command does not apply to
+The :ref:`dump_modify region<command-dump-modify>` command does not apply to
 the *gridx* and *gridy* and *gridz* plane drawing.
 
 If *proc* is specified for the *color* setting, then the color of each
 grid cell is determined by its owning processor ID. This is useful for
 visualizing the result of a load balancing of the grid cells, e.g. by
-the `balance_grid <balance_grid.html>`__ or `fix
-balance <fix_balance.html>`__ commands. By default the mapping of proc
+the :ref:`balance_grid<command-balance-grid>` or :ref:`fix balance<command-fix-balance>` commands. By default the mapping of proc
 IDs to colors is as follows:
 
 -  proc ID 1 = red
@@ -327,8 +346,7 @@ IDs to colors is as follows:
 
 and repeats itself for IDs > 6. Note that for this command, processor
 IDs range from 1 to Nprocs inclusive, instead of the more customary 0 to
-Nprocs-1. This mapping can be changed by the `dump_modify
-gcolor <dump_modify.html>`__ command.
+Nprocs-1. This mapping can be changed by the :ref:`dump_modify gcolor<command-dump-modify>` command.
 
 The *color* setting can also be a per-grid compute or fix. In this case,
 it is specified as *c_ID* or *c_ID[N]* for a compute and as *f_ID* and
@@ -337,7 +355,7 @@ it is specified as *c_ID* or *c_ID[N]* for a compute and as *f_ID* and
 This allows per grid cell values in a vector or array to be used to
 color the grid cells. The ID in the attribute should be replaced by the
 actual ID of the compute or fix that has been defined previously in the
-input script. See the `compute <compute.html>`__ or `fix <fix.html>`__
+input script. See the :ref:`compute<command-compute>` or :ref:`fix<command-fix>`
 command for details.
 
 If *c_ID* is used as a attribute, then the per-grid vector calculated by
@@ -351,13 +369,19 @@ the fix is used. If *f_ID[N]* is used, then N must be in the range from
 the fix.
 
 The manner in which values in the vector or array are mapped to color is
-determined by the `dump_modify cmap <dump_modify.html>`__ command.
+determined by the :ref:`dump_modify cmap<command-dump-modify>` command.
 
 --------------
+
+
+
+.. _command-dump-image-rendering-surface:
 
 *****************************
 Rendering of surface elements
 *****************************
+
+
 
 The *surf* keyword turns on the drawing of surface elements with the
 specified color attribute. For 2d, the surface element is a line whose
@@ -366,12 +390,11 @@ simulation box length. For 3d it is a triangle and the *diam* setting is
 ignored. The entire surface is rendered, which in 3d will hide any grid
 cells (or fractions of a grid cell) that are inside the surface.
 
-The `dump_modify region <dump_modify.html>`__ command does not apply to
+The :ref:`dump_modify region<command-dump-modify>` command does not apply to
 surface element drawing.
 
 If *one* is specified for the *color* setting, then the color of every
-surface element is drawn with the color specified by the `dump_modify
-scolor <dump_modify.html>`__ keyword, which is gray by default.
+surface element is drawn with the color specified by the :ref:`dump_modify scolor<command-dump-modify>` keyword, which is gray by default.
 
 If *proc* is specified for the *color* setting, then the color of each
 surface element is determined by its owning processor ID. Surface
@@ -387,8 +410,7 @@ default the mapping of proc IDs to colors is as follows:
 
 and repeats itself for IDs > 6. Note that for this command, processor
 IDs range from 1 to Nprocs inclusive, instead of the more customary 0 to
-Nprocs-1. This mapping can be changed by the `dump_modify
-scolor <dump_modify.html>`__ command, which has not yet been added to
+Nprocs-1. This mapping can be changed by the :ref:`dump_modify scolor<command-dump-modify>` command, which has not yet been added to
 SPARTA.
 
 The *color* setting can also be a per-surf compute or fix. In this case,
@@ -398,7 +420,7 @@ it is specified as *c_ID* or *c_ID[N]* for a compute and as *f_ID* and
 This allows per-surf values in a vector or array to be used to color the
 surface elemtns. The ID in the attribute should be replaced by the
 actual ID of the compute or fix that has been defined previously in the
-input script. See the `compute <compute.html>`__ or `fix <fix.html>`__
+input script. See the :ref:`compute<command-compute>` or :ref:`fix<command-fix>`
 command for details.
 
 If *c_ID* is used as a attribute, then the per-surf vector calculated by
@@ -412,7 +434,7 @@ the fix is used. If *f_ID[N]* is used, then N must be in the range from
 the fix.
 
 The manner in which values in the vector or array are mapped to color is
-determined by the `dump_modify cmap <dump_modify.html>`__ command.
+determined by the :ref:`dump_modify cmap<command-dump-modify>` command.
 
 --------------
 
@@ -427,8 +449,7 @@ control how the simulation box appears in the image.
 
 All of the *view*, *center*, *up*, *zoom*, and *persp* values can be
 specified as numeric quantities, whose meaning is explained below. Any
-of them can also be specified as an `equal-style
-variable <variable.html>`__, by using v_name as the value, where "name"
+of them can also be specified as an :ref:`equal-style variable<command-variable>`, by using v_name as the value, where "name"
 is the variable name. In this case the variable will be evaluated on the
 timestep each image is created to create a new value. If the equal-style
 variable is time-dependent, this is a means of changing the way the
@@ -485,7 +506,7 @@ orthographic rendering with no persepctive. A *pfactor* value between
 0.0 and 1.0 will introduce more perspective. A *pfactor* value > 1 will
 create a highly skewed image with a large amount of perspective.
 
-IMPORTANT NOTE: The *persp* keyword is not yet supported as an option.
+.. important:: The *persp* keyword is not yet supported as an option.
 
 --------------
 
@@ -494,24 +515,21 @@ rendered as thin cylinders in the image. If *no* is set, then the box
 boundaries are not drawn and the *diam* setting is ignored. If *yes* is
 set, the 12 edges of the box are drawn, with a diameter that is a
 fraction of the shortest box length in x,y,z (for 3d) or x,y (for 2d).
-The color of the box boundaries can be set with the `dump_modify
-boxcolor <dump_modify.html>`__ command.
+The color of the box boundaries can be set with the :ref:`dump_modify boxcolor<command-dump-modify>` command.
 
 The *gline* keyword determines how the outlines of grid cells are
 rendered as thin cylinders in the image. If the *gridx* or *gridy* or
 *gridz* keywords are specified to draw a plane(s) of grid cells, then
 outlines of all cells in the plane(s) are drawn. If the planar options
 are not used, then the outlines of all grid cells are drawn, whether the
-*grid* keyword is specified or not. In this case, the `dump_modify
-region <dump_modify.html>`__ command can be used to restrict which grid
+*grid* keyword is specified or not. In this case, the :ref:`dump_modify region<command-dump-modify>` command can be used to restrict which grid
 cells the outlines are drawn for.
 
 For the *gline* keywork, if *no* is set, then grid outlines are not
 drawn and the *diam* setting is ignored. If *yes* is set, the 12 edges
 of each grid cell are drawn, with a diameter that is a fraction of the
 shortest box length in x,y,z (for 3d) or x,y (for 2d). The color of the
-grid cell outlines can be set with the `dump_modify
-glinecolor <dump_modify.html>`__ command.
+grid cell outlines can be set with the :ref:`dump_modify glinecolor<command-dump-modify>` command.
 
 The *sline* keyword determines how the outlines of surface elements are
 rendered as thin cylinders in the image. If *no* is set, then the
@@ -519,8 +537,7 @@ surface element outlines are not drawn and the *diam* setting is
 ignored. If *yes* is set, a line is drawn for 2d and a triangle outline
 for 3d surface elements, with a diameter that is a fraction of the
 shortest box length in x,y,z (for 3d) or x,y (for 2d). The color of the
-surface element outlines can be set with the `dump_modify
-slinecolor <dump_modify.html>`__ command.
+surface element outlines can be set with the :ref:`dump_modify slinecolor<command-dump-modify>` command.
 
 The *axes* keyword determines how the coordinate axes are rendered as
 thin cylinders in the image. If *no* is set, then the axes are not drawn
@@ -661,9 +678,9 @@ FFmpeg, and which does not have this limitation (e.g. .avi, .mkv, mp4).
 
 **Related commands:**
 
-:ref:`dump <command-dump>`,
-:ref:`dump_modify <command-dump-modify>`,
-:ref:`undump <command-undump>`
+:ref:`dump<command-dump>`,
+:ref:`dump_modify<command-dump-modify>`,
+:ref:`undump<command-undump>`
 
 **Default:**
 

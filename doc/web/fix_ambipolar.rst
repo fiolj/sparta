@@ -2,11 +2,14 @@
 
 .. index:: fix ambipolar
 
+
+
 .. _command-fix-ambipolar:
 
 #####################
 fix ambipolar command
 #####################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ fix ambipolar command
 
    fix ID ambipolar especies ion1 ion2 ... 
 
--  ID is documented in `fix <fix.html>`__ command
+-  ID is documented in :ref:`fix<command-fix>` command
 -  ambipolar = style name of this fix command
 -  especies = species ID for ambipolar electrons
 -  ion1,ion2,... = species IDs for one or more ambipolar ions
@@ -42,7 +45,7 @@ they were a single particle, which is how they are stored within SPARTA.
 This means a normal timestep can be used.
 
 An overview of how to run simulations with the ambipolar approximation
-is given in the `Section 6.11 <Section_howto.html#howto_11>`__. This
+is given in the :ref:`Section 6.11<howto-ambipolar>`. This
 includes gas-phase collisions and chemistry as well as surface chemistry
 when particles collide with surface elements or the global boundary of
 the simulation box. The section also lists all the commands that can be
@@ -53,7 +56,7 @@ command being defined.
 This command defines *especies* which is the species ID associated with
 the ambipolar electrons. It also specifies one or more species IDs as
 *ion1*, *ion2*, etc for ambipolar ions. SPARTA checks that the especies
-has a negative charge (as read in by the `species <species.html>`__
+has a negative charge (as read in by the :ref:`species<command-species>`
 command), and the ions have positive charges. An error is flagged if
 that is not the case.
 
@@ -68,22 +71,21 @@ ambipolar ion, or zeroes otherwise.
 
 **Restart, output info:**
 
-No information about this fix is written to `binary restart
-files <restart.html>`__.
+No information about this fix is written to :ref:`binary restart files<command-restart>`.
 
 However, the values of the two custom particle attributes defined by
 this fix are written to the restart file. Namely the integer value
 "ionambi" and floating-point velocity values "velambi" for each
-particle. As explained on the `read_restart <read_restart.html>`__ doc
+particle. As explained on the :ref:`read_restart<command-read-restart>` doc
 page these values can be re-assigned to particles when a restart file is
 read, if a new fix ambipolar command is specified in the restart script
-before the first `run <run.html>`__ command is used.
+before the first :ref:`run<command-run>` command is used.
 
 No global or per-particle or per-grid quantities are stored by this fix
 for access by various output commands.
 
 However, the two custom particle attributes defined by this fix can be
-accessed by the `dump particle <dump.html>`__ command, as p_ionambi and
+accessed by the :ref:`dump particle<command-dump>` command, as p_ionambi and
 p_velambi. That means those per-particle values can be written to
 particle dump files.
 
@@ -91,6 +93,6 @@ particle dump files.
 
 **Related commands:**
 
-:ref:`collide_modify ambipolar yes <command-collide-modify>`
+:ref:`collide_modify ambipolar yes<command-collide-modify>`
 
 **Default:** none

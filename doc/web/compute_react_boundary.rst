@@ -2,11 +2,14 @@
 
 .. index:: compute react/boundary
    
+
+
 .. _command-compute-react-boundary:
 
 ##############################
 compute react/boundary command
 ##############################
+
 
 **Syntax:**
 
@@ -14,7 +17,7 @@ compute react/boundary command
 
    compute ID react/boundary reaction-ID value1 value2 ... 
 
--  ID is documented in `compute <compute.html>`__ command
+-  ID is documented in :ref:`compute<command-compute>` command
 -  react/boundary = style name of this compute command
 -  reaction-ID = surface reaction ID which defines surface reactions
 -  zero or more values can be appended
@@ -56,11 +59,11 @@ Note that when a particle collides with a face, it can bounce off
 (possibly as a different species), be captured by the surface (vanish),
 or a 2nd particle can also be emitted.
 
-The doc page for the `surf_react <surf_react.html>`__ command explains
+The doc page for the :ref:`surf_react<command-surf-react>` command explains
 the different reactions that can occur for each specified style.
 
 If no values are specified each reaction specified by the
-`surf_react <surf_react.html>`__ style is tallied individually for each
+:ref:`surf_react<command-surf-react>` style is tallied individually for each
 boundary.
 
 If M values are specified, then M tallies are made for each face, one
@@ -74,9 +77,8 @@ matches.
 
 The results of this compute can be used by different commands in
 different ways. The values for a single timestep can be output by the
-`stats_style <stats_style.html>`__ command. The values over many
-sampling timesteps can be averaged by the `fix
-ave/time <fix_ave_time.html>`__ command.
+:ref:`stats_style<command-stats-style>` command. The values over many
+sampling timesteps can be averaged by the :ref:`fix ave/time<command-fix-ave-time>` command.
 
 --------------
 
@@ -84,14 +86,13 @@ ave/time <fix_ave_time.html>`__ command.
 
 This compute calculates a global array, with the number of columns
 either equal to the number of reactions defined by the
-`surf_react <surf_react>`__ style (if no values are specified) or equal
+:ref:`surf_react<command-surf-react>` style (if no values are specified) or equal
 to M = the # of values specified. The number of rows is 4 for a 2d
 simulation for the 4 faces (xlo, xhi, ylo, yhi), and it is 6 for a 3d
 simulation (xlo, xhi, ylo, yhi, zlo, zhi).
 
 The array can be accessed by any command that uses global array values
-from a compute as input. See `Section
-6.4 <Section_howto.html#howto_4>`__ for an overview of SPARTA output
+from a compute as input. See :ref:`Section 6.4<howto-output>` for an overview of SPARTA output
 options.
 
 The array values are counts of the number of reactions that occurred on

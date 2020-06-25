@@ -2,11 +2,14 @@
 
 .. index:: restart
 
+
+
 .. _command-restart:
 
 ###############
 restart command
 ###############
+
 
 **Syntax:**
 
@@ -57,7 +60,7 @@ to write out archival restart files every 100000 steps using a single
 filenname, and more frequent temporary restart files every 1000 steps,
 using two filenames. Using restart 0 will turn off both modes of output.
 
-Similar to `dump <dump.html>`__ files, the restart filename(s) can
+Similar to :ref:`dump<command-dump>` files, the restart filename(s) can
 contain two wild-card characters.
 
 If a "*" appears in the single filename, it is replaced with the current
@@ -81,22 +84,20 @@ alter the number of files written.
 
 Restart files are written on timesteps that are a multiple of N but not
 on the first timestep of a run or minimization. You can use the
-`write_restart <write_restart.html>`__ command to write a restart file
+:ref:`write_restart<command-write-restart>` command to write a restart file
 before a run begins. A restart file is not written on the last timestep
 of a run unless it is a multiple of N. A restart file is written on the
 last timestep of a minimization if N > 0 and the minimization converges.
 
-Instead of a numeric value, N can be specifed as an `equal-style
-variable <variable.html>`__, which should be specified as v_name, where
+Instead of a numeric value, N can be specifed as an :ref:`equal-style variable<command-variable>`, which should be specified as v_name, where
 name is the variable name. In this case, the variable is evaluated at
 the beginning of a run to determine the next timestep at which a restart
 file will be written out. On that timestep, the variable will be
 evaluated again to determine the next timestep, etc. Thus the variable
 should return timestep values. See the stagger() and logfreq() and
-stride() math functions for `equal-style variables <variable.html>`__,
+stride() math functions for :ref:`equal-style variables<command-variable>`,
 as examples of useful functions to use in this context. Other similar
-math functions could easily be added as options for `equal-style
-variables <variable.html>`__.
+math functions could easily be added as options for :ref:`equal-style variables<command-variable>`.
 
 For example, the following commands will write restart files every step
 from 1100 to 1200, and could be useful for debugging a simulation where
@@ -109,10 +110,10 @@ something goes wrong at step 1163:
 
 --------------
 
-See the `read_restart <read_restart.html>`__ command for information
+See the :ref:`read_restart<command-read-restart>` command for information
 about what is stored in a restart file.
 
-Restart files can be read by a `read_restart <read_restart.html>`__
+Restart files can be read by a :ref:`read_restart<command-read-restart>`
 command to restart a simulation from a particular state. Because the
 file is binary (to enable exact restarts), it may not be readable on
 another machine.

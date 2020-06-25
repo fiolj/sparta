@@ -2,11 +2,14 @@
 
 .. index:: region
 
+
+
 .. _command-region:
 
 ##############
 region command
 ##############
+
 
 **Syntax:**
 
@@ -61,8 +64,7 @@ region command
 **Description:**
 
 This command defines a geometric region of space. Various other commands
-use regions. See the `group grid <group.html>`__, `group
-surf <group.html>`__, and `dump_modify <dump_modify.html>`__ commands
+use regions. See the :ref:`group grid<command-group>`, :ref:`group surf<command-group>`, and :ref:`dump_modify<command-dump-modify>` commands
 for examples.
 
 Commands which use regions typically test whether a point is contained
@@ -87,12 +89,7 @@ The *union* style creates a region consisting of the volume of all the
 listed regions combined. The *intersect* style creates a region
 consisting of the volume that is common to all the listed regions.
 
-IMPORTANT NOTE: Regions in SPARTA are always 3d geometric objects,
-regardless of whether the `dimension <dimension.html>`__ of the
-simulation 2d or 3d. Thus when using regions in a 2d simulation, for
-example, you should be careful to define the region so that its
-intersection with the 2d x-y plane of the simulation has the 2d
-geometric extent you want.
+.. important:: Regions in SPARTA are always 3d geometric objects, regardless of whether the :ref:`dimension<command-dimension>` of the simulation 2d or 3d. Thus when using regions in a 2d simulation, for example, you should be careful to define the region so that its intersection with the 2d x-y plane of the simulation has the 2d geometric extent you want.
 
 The *side* keyword determines whether the region is considered to be
 inside or outside of the specified geometry. Using this keyword in

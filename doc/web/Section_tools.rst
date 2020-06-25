@@ -1,9 +1,12 @@
 
+
+
 .. _tools:
 
 ################
 Additional tools
 ################
+
 
 SPARTA is designed to be a computational kernel for performing DSMC computations. Additional pre- and post-processing steps are often necessary to setup and analyze a simulation. A few additional tools are provided with the SPARTA distribution in the tools directory and are described briefly below.
 
@@ -24,15 +27,17 @@ This is the list of tools included in the tools directory of the SPARTA distribu
 
 - :ref:`tools-dump2cfg` - convert a particle dump file to CFG format
 - :ref:`tools-dump2xyz` - convert a particle dump file to XYZ format
-- :ref:`grid_refine <tools-gridrefine>` - refine a grid around a surface
-- :ref:`implicit_grid <tools-implicitgrid>` - create a random porous region with implicit surfaces
-- :ref:`jagged <tools-jagged>` - create jagged 2d/3d surfaces with explicit surfaces
-- :ref:`log2txt <tools-log2txt>` - extract columns of info from a log file
-- :ref:`logplot <tools-logplot>` - plot columns of info from a log file via GnuPlot
-- :ref:`paraview <tools-paraview>` - converters of SPARTA data to `ParaView <http://www.paraview.org>`__ format
-- :ref:`stl2surf <tools-stl2surf>` - convert an STL text file into a SPARTA surface file
-- :ref:`surf_create <tools-surfcreate>` - create a surface file with simple objects
-- :ref:`surf_transform <tools-surftransform>` - transform surface via tranlate/scale/rotate operations
+- :ref:`grid_refine<tools-gridrefine>` - refine a grid around a surface
+- :ref:`implicit_grid<tools-implicitgrid>` - create a random porous region with implicit surfaces
+- :ref:`jagged<tools-jagged>` - create jagged 2d/3d surfaces with explicit surfaces
+- :ref:`log2txt<tools-log2txt>` - extract columns of info from a log file
+- :ref:`logplot<tools-logplot>` - plot columns of info from a log file via GnuPlot
+- :ref:`paraview<tools-paraview>` - converters of SPARTA data to `ParaView <http://www.paraview.org>`__ format
+- :ref:`stl2surf<tools-stl2surf>` - convert an STL text file into a SPARTA surface file
+- :ref:`surf_create<tools-surfcreate>` - create a surface file with simple objects
+- :ref:`surf_transform<tools-surftransform>` - transform surface via tranlate/scale/rotate operations
+
+
 
 
 
@@ -41,6 +46,7 @@ This is the list of tools included in the tools directory of the SPARTA distribu
 *************
 dump2cfg tool
 *************
+
 
 This is a Python script that converts a SPARTA particle dump file into
 extended CFG format so that it can be visualized by the
@@ -57,11 +63,14 @@ an environment variable so that the Pizza.py tool files can be found by
 Python, as well as instructions on various ways to run a Python script.
 
 
+
+
 .. _tools-dump2xyz:
 
 *************
 dump2xyz tool
 *************
+
 
 This is a Python script that converts a SPARTA particle dump file into
 XYZ format so that it can be visualized by various visualization
@@ -77,19 +86,24 @@ an environment variable so that the Pizza.py tool files can be found by
 Python, as well as instructions on various ways to run a Python script.
 
 
+
+
 .. _tools-gridrefine:
 
 ****************
 grid_refine tool
 ****************
 
+
 This is a Python script that creates a SPARTA grid file adapted around
 the lines or triangles in a SPARTA surface file. The resulting grid file
-can be read by the `read_grid <read_grid.html>`__ command. The surface
-file can be read by the `read_surf <read_surf.html>`__ command.
+can be read by the :ref:`read_grid<command-read-grid>` command. The surface
+file can be read by the :ref:`read_surf<command-read-surf>` command.
 
 See the header of the script for the various adaptivity options that are
 supported, and the syntax used to run it.
+
+
 
 
 .. _tools-implicitgrid:
@@ -98,17 +112,20 @@ supported, and the syntax used to run it.
 implicit_grid tool
 ******************
 
+
 This is a Python script which can be used to generate binary files
 representing porous media samples, as read by the
-`read_isurf <read_isurf.html>`__ command. The output files contain
+:ref:`read_isurf<command-read-isurf>` command. The output files contain
 randomized grid corner point values which induce implicit surfaces which
 can contain huge numbers of surface elements. They are useful for stress
 testing the implicit surface options in SPARTA, as selected by the
-`global surfs <global.html>`__ command.
+:ref:`global surfs<command-global>` command.
 
 See the header of the script for the syntax used to run it.
 
 The examples/implicit directory uses these files as input.
+
+
 
 
 .. _tools-jagged:
@@ -117,17 +134,19 @@ The examples/implicit directory uses these files as input.
 jagged tools
 ************
 
+
 These are 2 Python scripts (jagged2d.py and jagged3d.py) which can be
 used to generate SPARTA surface files in a pattern that can be very
 jagged. The surfaces can contain huge numbers of surface elements and be
-read by the `read_surf <read_surf.html>`__ command. They are useful for
+read by the :ref:`read_surf<command-read-surf>` command. They are useful for
 stress testing the explict surface options in SPARTA, including
-distributed or non-distributed storage, as selected by the `global
-surfs <global.html>`__ command.
+distributed or non-distributed storage, as selected by the :ref:`global surfs<command-global>` command.
 
 See the header of the scripts for the syntax used to run them.
 
 The examples/jagged directory uses these files as input.
+
+
 
 
 .. _tools-log2txt:
@@ -135,6 +154,7 @@ The examples/jagged directory uses these files as input.
 ************
 log2txt tool
 ************
+
 
 This is a Python script that reads a SPARTA log file, extracts selected
 columns of statistical output, and writes them to a text file. It knows
@@ -149,11 +169,14 @@ an environment variable so that the Pizza.py tool files can be found by
 Python, as well as instructions on various ways to run a Python script.
 
 
+
+
 .. _tools-logplot:
 
 ************
 logplot tool
 ************
+
 
 This is a Python script that reads a SPARTA log file, extracts the
 selected columns of statistical output, and plots them via the GnuPlot
@@ -181,11 +204,14 @@ an environment variable so that the Pizza.py tool files can be found by
 Python, as well as instructions on various ways to run a Python script.
 
 
+
+
 .. _tools-paraview:
 
 **************
 paraview tools
 **************
+
 
 The tools/paraview directory has scripts which convert SPARTA grid and
 surface data (input and output) to ParaView format.
@@ -197,17 +223,20 @@ to use the Python scripts. See tools/paraview/README for more details.
 The scripts were developed by Tom Otahal (Sandia).
 
 
+
+
 .. _tools-stl2surf:
 
 *************
 stl2surf tool
 *************
 
+
 This is a Python script that reads a stereolithography (STL) text file
 and converts it to a SPARTA surface file. STL files contain a collection
 of triangles and can be created by various mesh-generation programs. The
 format for SPARTA surface files is described on the
-`read_surf <read_surf.html>`__ command doc page.
+:ref:`read_surf<command-read-surf>` command doc page.
 
 See the header of the script for the syntax used to run it, e.g.
 
@@ -217,8 +246,10 @@ See the header of the script for the syntax used to run it, e.g.
 
 The script also checks the triangulated object to see if it is
 "watertight" and issues a warning if it is not, since SPARTA will
-perform the same check. The `read_surf <read_surf.html>`__ command doc
+perform the same check. The :ref:`read_surf<command-read-surf>` command doc
 page explains what watertight means for 3d objects.
+
+
 
 
 .. _tools-surfcreate:
@@ -227,15 +258,18 @@ page explains what watertight means for 3d objects.
 surf_create tool
 ****************
 
+
 This is a Python script that creates a SPARTA surface file containing
 one or more simple objects whose surface is represented as triangules
 (3d) or line segments (2d). Such files can be read by the
-`read_surf <read_surf.html>`__ command. The 3d objects it supports are a
+:ref:`read_surf<command-read-surf>` command. The 3d objects it supports are a
 sphere, box, and spikysphere (randomized radius at each point). The 2d
 objects it supports are a circle, rectangle, triangle, and spikycircly
 (randomized radius at each point).
 
 See the header of the script for the syntax used to run it.
+
+
 
 
 .. _tools-surftransform:
@@ -244,9 +278,10 @@ See the header of the script for the syntax used to run it.
 surf_transform tool
 *******************
 
+
 This is a Python script that transforms a SPARTA surface file into a new
 surface file using various operations supported by the
-`read_surf <read_surf.html>`__ command. These operations include
+:ref:`read_surf<command-read-surf>` command. These operations include
 translation, scaling, rotation, and inversion (changing which side of
 the surface is inside vs outside).
 

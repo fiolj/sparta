@@ -1,9 +1,12 @@
 
-.. _performance:
+
+
+.. _perf:
 
 #########################
 Performance & scalability
 #########################
+
 
 The SPARTA distribution includes a bench sub-directory with several sample problems. The Benchmarks page of the `SPARTA WWW Site <http://sparta.sandia.gov>`__ gives timing data for these problems run on different machines, for both strong and weak scaling scenarioes:
 

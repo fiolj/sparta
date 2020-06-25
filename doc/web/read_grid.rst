@@ -2,11 +2,14 @@
 
 .. index:: read_grid
 
+
+
 .. _command-read-grid:
 
 #################
 read_grid command
 #################
+
 
 **Syntax:**
 
@@ -25,9 +28,9 @@ read_grid command
 **Description:**
 
 Read in a grid description from a file, which will overlay the
-simulation domain defined by the `create_box <create_box.html>`__
+simulation domain defined by the :ref:`create_box<command-create-box>`
 command. The grid can also be defined by the
-`create_grid <create_grid.html>`__ command.
+:ref:`create_grid<command-create-grid>` command.
 
 The grid in SPARTA is hierarchical. The entire simulation box is a
 single parent grid cell at level 0. It is subdivided into Nx by Ny by Nz
@@ -45,13 +48,9 @@ assigned by this command to processors in a round-robin fashion, as they
 are created at each level when the file is read. This is a "dispersed"
 assignment of child cells to each processor.
 
-IMPORTANT NOTE: See `Section 6.8 <Section_howto.html#howto_8>`__ of the
-manual for an explanation of clumped and dispersed grid cell assignments
-and their relative performance trade-offs. The
-`balance_grid <balance_grid.html>`__ command can be used after the grid
-is created, to assign child cells to processors in different ways. The
-"fix balance" command can be used to re-assign them in a load-balanced
-manner periodically during a running simulation.
+.. important:: See :ref:`Section 6.8<howto-grids>` of the manual for an explanation of clumped and dispersed grid cell assignments and their relative performance trade-offs.
+	       The :ref:`balance_grid<command-balance-grid>` command can be used after the grid is created, to assign child cells to processors in different ways.
+	       The "fix balance" command can be used to re-assign them in a load-balanced manner periodically during a running simulation.
 
 --------------
 
@@ -158,16 +157,15 @@ which means the level 1 grid has 10x10x20 cells.
 **Restrictions:**
 
 This command can only be used after the simulation box is defined by the
-`create_box <create_box.html>`__ command.
+:ref:`create_box<command-create-box>` command.
 
 To read gzipped grid files, you must compile SPARTA with the
--DSPARTA_GZIP option - see `Section 2.2 <Section_start.html#start_2>`__
+-DSPARTA_GZIP option - see :ref:`Section 2.2<start-steps-build>`
 of the manual for details.
 
 The hierarchical grid used by SPARTA is encoded in a 32-bit or 64-bit
 integer ID. The precision is set by the -DSPARTA_BIG or -DSPARTA_SMALL
-or -DSPARTA_BIGBIG compiler switch, as described in `Section
-2.2 <Section_start.html#start2_2>`__. The number of grid levels that can
+or -DSPARTA_BIGBIG compiler switch, as described in `Section 2.2 <Section_start.html#start2_2>`__. The number of grid levels that can
 be used depends on the resolution of the grid at each level. For a
 minimal refinement of 2x2x2, a level uses 4 bits of the integer ID. Thus
 a maximum of 7 levels can be used for 32-bit IDs and 15 levels for

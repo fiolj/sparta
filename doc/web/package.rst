@@ -2,11 +2,14 @@
 
 .. index:: package
 
+
+
 .. _command-package:
 
 ###############
 package command
 ###############
+
 
 **Syntax:**
 
@@ -56,8 +59,7 @@ because it specifies settings that the accelerator package used in its
 initialization, before a simulation is defined.
 
 This command can also be specified from the command-line when launching
-SPARTA, using the "-pk" `command-line
-switch <Section_start.html#start_6>`__. The syntax is exactly the same
+SPARTA, using the "-pk" :ref:`command-line switch<start-command-line-options>`. The syntax is exactly the same
 as when used in an input script.
 
 Note that the KOKKOS accelerator package requires the package command to
@@ -65,19 +67,19 @@ be specified, if the package is to be used in a simulation (SPARTA can
 be built with the accelerator package without using it in a particular
 simulation). However, a default version of the command is typically
 invoked by other accelerator settings. For example, the KOKKOS package
-requires a "-k on" `command-line switch <Section_start.html#start_6>`__
+requires a "-k on" :ref:`command-line switch<start-command-line-options>`
 respectively, which invokes a "package kokkos" command with default
 settings.
 
 NOTE: A package command for a particular style can be invoked multiple
 times when a simulation is setup, e.g. by the "-k on", "-sf", and "-pk"
-`command-line switches <Section_start.html#start_6>`__, and by using
+:ref:`command-line switches<start-command-line-options>`, and by using
 this command in an input script. Each time it is used all of the style
 options are set, either to default values or to specified settings. I.e.
 settings from previous invocations do not persist across multiple
 invocations.
 
-See the the `Accelerating SPARTA <Section_accelerate.html#acc_3>`__
+See the the :ref:`Accelerating SPARTA<accelerate>`
 section of the manual for more details about using the various
 accelerator packages for speeding up SPARTA simulations.
 
@@ -139,11 +141,10 @@ using a value of *off*.
 **Restrictions:**
 
 This command cannot be used after the simulation box is defined by a
-`create_box <create_box.html>`__ command.
+:ref:`create_box<command-create-box>` command.
 
 The kk style of this command can only be invoked if SPARTA was built
-with the KOKKOS package. See the `Making
-SPARTA <Section_start.html#start_3>`__ section for more info.
+with the KOKKOS package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
 **Related commands:**
 
@@ -155,7 +156,6 @@ SPARTA <Section_start.html#start_3>`__ section for more info.
 For the KOKKOS package, the option defaults are comm = threaded,
 reduction = parallel/reduce, collide/extra = 1.1, and collide/retry =
 no, gpu/direct yes. These settings are made automatically by the
-required "-k on" `command-line switch <Section_start.html#start_6>`__.
+required "-k on" :ref:`command-line switch<start-command-line-options>`.
 You can change them by using the package kokkos command in your input
-script or via the "-pk kokkos" `command-line
-switch <Section_start.html#start_6>`__.
+script or via the "-pk kokkos" :ref:`command-line switch<start-command-line-options>`.

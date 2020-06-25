@@ -2,11 +2,14 @@
 
 .. index:: collide_modify
 
+
+
 .. _command-collide-modify:
 
 ######################
 collide_modify command
 ######################
+
 
 **Syntax:**
 
@@ -46,7 +49,7 @@ Set parameters that affect how collisions are performed.
 The *vremax* keyword affects how often the Vremax parameter, for
 collision frequency is re-zeroed during the simulation. This parameter
 is stored for each grid cell and each pair of collision groups (groups
-are described by the `collide <collide.html>`__ command).
+are described by the :ref:`collide<command-collide>` command).
 
 The value of Vremax affects how many events are attempted in each grid
 cell for a pair of groups, and thus the overall time spent performing
@@ -102,14 +105,14 @@ there are large numbers of particles in some or all grid cells.
 
 If the *ambipolar* keyword is set to *yes*, then collisions within a
 grid cell with use the ambipolar approximation. This requires use of the
-`fix ambipolar <fix_ambipolar.html>`__ command to define which species
+:ref:`fix ambipolar<command-fix-ambipolar>` command to define which species
 is an electron and which species are ions. There can be many of the
 latter. When collisions within a single grid cell are performed, each
 ambipolar ion is split into two particles, the ion and an associated
 electron. Collisions between the augmented set of particles are
 calculated. Ion/electron chemistry can also occur if the
-`react <react.html>`__ command has been used to read a file of reactions
-that include such reactions. See the `react <react.html>`__ command doc
+:ref:`react<command-react>` command has been used to read a file of reactions
+that include such reactions. See the :ref:`react<command-react>` command doc
 page. After all collisions in the grid cell have been computed, there is
 still a one-to-one correspondence between ambipolar ions and electron,
 and each pair is recombined into a single ambipolar particle.
@@ -132,13 +135,13 @@ species.
 
 Note that in the *discrete* case, if any species are defined that have
 4,6,8 vibrational degrees of freedom, which correspond to 2,3,4
-vibrational modes, then the `species <species.html>`__ command must be
+vibrational modes, then the :ref:`species<command-species>` command must be
 used with its optional *vibfile* keyword to set the vibrational info
 (temperature, relaxation number, degeneracy) for those species.
 
 Also note that if any such species are defined (with more than one
 vibrational mode, then use of the *discrete* option also requires the
-`fix vibmode <fix_vibmode.html>`__ command be used to allocate storage
+:ref:`fix vibmode<command-fix-vibmode>` command be used to allocate storage
 for the per-particle mode values.
 
 --------------
