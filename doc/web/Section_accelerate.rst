@@ -126,20 +126,32 @@ it provides, follow these general steps:
 
    * - Action
      - Steps
+   * - **Using make**:
+     - 
    * - install the accelerator package
-     - make yes-fft, make yes-kokkos, etc
+     - ``make yes-fft, make yes-kokkos, etc``
    * - add compile/link flags to Makefile.machine in src/MAKE
-     - KOKKOS_ARCH=Pascal60
+     - KOKKOS_ARCH=PASCAL60
    * - re-build SPARTA
-     - make kokkos_cuda
+     - ``make kokkos_cuda``
+   * - **or using CMake** from a build directory:
+     -
+   * - install the accelerator package
+     - ``cmake -DPKG_FFT=ON -DPKG_KOKKOS=ON``, etc
+   * - add compile/link flags
+     - ``cmake -C /path/to/sparta/cmake/presets/kokkos_cuda.cmake -DKokkos_ARCH_PASCAL60=ON``
+   * - re-build SPARTA
+     - ``make``
+   * - **Then do the following:**
+     -
    * - prepare and test a regular SPARTA simulation
-     - lmp_kokkos_cuda -in in.script; mpirun -np 32 lmp_kokkos_cuda -in in.script
+     - ``lmp_kokkos_cuda -in in.script; mpirun -np 32 lmp_kokkos_cuda -in in.script``
    * - enable specific accelerator support via '-k on' :ref:`command-line switch<start-command-line-options>`
      - k on g 1
    * - set any needed options for the package via "-pk" :ref:`command-line switch<start-command-line-options>` or :ref:`command-package`
      - only if defaults need to be changed, -pk kokkos reduction atomic
    * - use accelerated styles in your input via "-sf" :ref:`command-line switch<start-command-line-options>` or :ref:`command-suffix`
-     - lmp_kokkos_cuda -in in.script -sf kk
+     - ``lmp_kokkos_cuda -in in.script -sf kk``
 
    
 Note that the first 3 steps can be done as a single command with
