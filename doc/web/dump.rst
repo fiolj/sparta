@@ -13,7 +13,7 @@ dump command
 
 
 
-**:ref:`dump image<command-dump-image>` command**
+**Ref:** :ref:`command-dump-image`
 
 
 **Syntax:**
@@ -28,9 +28,9 @@ dump command
 
    ::
 
-        for dump style = particle or image, use a mixture ID
-        for style = grid, use a grid group ID
-        for style = surf, use a surface group ID 
+      for dump style = particle or image, use a mixture ID
+      for style = grid, use a grid group ID
+      for style = surf, use a surface group ID 
 
 -  N = dump every this many timesteps
 -  file = name of file to write dump info to
@@ -38,70 +38,73 @@ dump command
 
    ::
 
-        particle args = list of particle attributes
-          possible attributes = id, type, proc, x, y, z, xs, ys, zs, vx, vy, vz,
+      particle args = list of particle attributes
+
+        possible attributes = id, type, proc, x, y, z, xs, ys, zs, vx, vy, vz,
                                 ke, erot, evib, 
-                                p_ID, p_ID[N], c_ID, c_ID[N], f_ID, f_ID[N], v_name 
+                                p_ID, p_ID[N], c_ID, c_ID[N], f_ID, f_ID[N], v_name
+ 
+      id = particle ID
+      type = particle species
+      proc = ID of owning processor
+      x,y,z = unscaled particle coordinates
+      xs,ys,zs = scaled particle coordinates
+      vx,vy,vz = particle velocities
+      ke,erot,evib = translational, rotational, and vibrational energy
+      p_ID = custom per-particle vector with ID
+      p_ID[N] = Nth column of custom per-particle array with ID
+      c_ID = per-particle vector calculated by a compute with ID
+      c_ID[N] = Nth column of per-particle array calculated by a compute
+                with ID, I can include wildcard (see below)
+      f_ID = per-particle vector calculated by a fix with ID
+      f_ID[N] = Nth column of per-particle array calculated by a fix with ID,
+                I can include wildcard (see below)
+      v_name = per-particle vector calculated by a particle-style variable with name 
 
    ::
 
-            id = particle ID
-            type = particle species
-            proc = ID of owning processor
-            x,y,z = unscaled particle coordinates
-            xs,ys,zs = scaled particle coordinates
-            vx,vy,vz = particle velocities
-            ke,erot,evib = translational, rotational, and vibrational energy
-            p_ID = custom per-particle vector with ID
-            p_ID[N] = Nth column of custom per-particle array with ID
-            c_ID = per-particle vector calculated by a compute with ID
-            c_ID[N] = Nth column of per-particle array calculated by a compute with ID, I can include wildcard (see below)
-            f_ID = per-particle vector calculated by a fix with ID
-            f_ID[N] = Nth column of per-particle array calculated by a fix with ID, I can include wildcard (see below)
-            v_name = per-particle vector calculated by a particle-style variable with name 
-
-   ::
-
-        grid args = list of grid attributes
-          possible attributes = id, idstr, proc, xlo, ylo, zlo, xhi, yhi, zhi,
+      grid args = list of grid attributes
+        possible attributes = id, idstr, proc, xlo, ylo, zlo, xhi, yhi, zhi,
                                 c_ID, c_ID[N], f_ID, f_ID[N], v_name 
 
+
+      id = integer form of grid cell ID
+      idstr = string form of grid cell ID
+      proc = processor that owns grid cell
+      xlo,ylo,zlo = coords of lower left corner of grid cell
+      xhi,yhi,zhi = coords of lower left corner of grid cell
+      xc,yc,zc = coords of center of grid cell
+      vol = flow volume of grid cell (area in 2d)
+      c_ID = per-grid vector calculated by a compute with ID
+      c_ID[N] = Nth column of per-grid array calculated by a compute with ID,
+                I can include wildcard (see below)
+      f_ID = per-grid vector calculated by a fix with ID
+      f_ID[N] = Nth column of per-grid array calculated by a fix with ID,
+                I can include wildcard (see below)
+      v_name = per-grid vector calculated by a grid-style variable with name 
+
    ::
 
-            id = integer form of grid cell ID
-            idstr = string form of grid cell ID
-            proc = processor that owns grid cell
-            xlo,ylo,zlo = coords of lower left corner of grid cell
-            xhi,yhi,zhi = coords of lower left corner of grid cell
-            xc,yc,zc = coords of center of grid cell
-            vol = flow volume of grid cell (area in 2d)
-            c_ID = per-grid vector calculated by a compute with ID
-            c_ID[N] = Nth column of per-grid array calculated by a compute with ID, I can include wildcard (see below)
-            f_ID = per-grid vector calculated by a fix with ID
-            f_ID[N] = Nth column of per-grid array calculated by a fix with ID, I can include wildcard (see below)
-            v_name = per-grid vector calculated by a grid-style variable with name 
-
-   ::
-
-        surf args = list of surf attributes
-          possible attributes = id, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z, 
+      surf args = list of surf attributes
+        possible attributes = id, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z, 
                                 c_ID, c_ID[N], f_ID, f_ID[N], v_name 
 
+
+      id = surface element ID
+      v1x,v1y,v1z = coords of 1st vertex in surface element
+      v1x,v1y,v1z = coords of 2nd vertex in surface element
+      v1x,v1y,v1z = coords of 3rd vertex in surface element
+      c_ID = per-surf vector calculated by a compute with ID
+      c_ID[N] = Nth column of per-surf array calculated by a compute with ID,
+                I can include wildcard (see below)
+      f_ID = per-surf vector calculated by a fix with ID
+      f_ID[N] = Nth column of per-surf array calculated by a fix with ID,
+                I can include wildcard (see below)
+      v_name = per-surf vector calculated by a surf-style variable with name 
+
    ::
 
-            id = surface element ID
-            v1x,v1y,v1z = coords of 1st vertex in surface element
-            v1x,v1y,v1z = coords of 2nd vertex in surface element
-            v1x,v1y,v1z = coords of 3rd vertex in surface element
-            c_ID = per-surf vector calculated by a compute with ID
-            c_ID[N] = Nth column of per-surf array calculated by a compute with ID, I can include wildcard (see below)
-            f_ID = per-surf vector calculated by a fix with ID
-            f_ID[N] = Nth column of per-surf array calculated by a fix with ID, I can include wildcard (see below)
-            v_name = per-surf vector calculated by a surf-style variable with name 
-
-   ::
-
-        image args = discussed on dump image doc page 
+      image args = discussed on dump image doc page 
 
 **Examples:**
 

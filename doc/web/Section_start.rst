@@ -521,17 +521,12 @@ Additional build tips:
 
 
 
-(1) Building SPARTA for multiple platforms.
+Building SPARTA for multiple platforms.
+   You can make SPARTA for multiple platforms from the same src directory.
+   Each target creates its own object sub-directory called Obj_name where it stores the system-specific \*.o files.
 
-You can make SPARTA for multiple platforms from the same src directory.
-Each target creates its own object sub-directory called Obj_name where
-it stores the system-specific \*.o files.
-
-(2) Cleaning up.
-
-Typing "make clean-all" or "make clean-foo" will delete \*.o object
-files created when SPARTA is built, for either all builds or for a
-particular machine.
+Cleaning up.
+   Typing "make clean-all" or "make clean-foo" will delete \*.o object files created when SPARTA is built, for either all builds or for a particular machine.
 
 --------------
 
@@ -544,11 +539,9 @@ Building for a Mac:
 ===================
 
 
-
 OS X is BSD Unix, so it should just work. See the Makefile.mac file.
 
 --------------
-
 
 
 .. _start-building-windows:
@@ -556,7 +549,6 @@ OS X is BSD Unix, so it should just work. See the Makefile.mac file.
 
 Building for Windows:
 =====================
-
 
 
 At some point we may provide a pre-built Windows executable for SPARTA.
@@ -1252,9 +1244,15 @@ simulation. It then appends statistics about the CPU time and size of
 information stored for the simulation. An example set of statistics is
 shown here:
 
-::
+- The first line gives the total CPU run time for the simulation, in seconds.
+
+  ::
 
    Loop time of 0.639973 on 4 procs for 1000 steps with 45792 particles
+
+- The next section gives a breakdown of the CPU timing (in seconds) in 7 categories. The first four are timings for particles moves, which includes interaction with surface elements, then particle collisions, then sorting of particles (required to perform collisions), and communication of particles between processors. The Modify section is time for operations invoked by fixes and computes. The Output section is for dump command and statistical output. The Other category is typically for load-imbalance, as some MPI tasks wait for others MPI tasks to complete. In each category the min,ave,max time across processors is shown, as well as a variation, and the percentage of total time.
+
+  ::
 
    MPI task timing breakdown:
    Section |  min time  |  avg time  |  max time  |%varavg| %total
@@ -1267,7 +1265,11 @@ shown here:
    Output  | 0.0002172  | 0.0007354  | 0.0012152  |   0.0 |  0.11
    Other   |            | 0.2471     |            |       | 38.61 
 
-::
+
+
+
+- The next section gives some statistics about the run. These are total counts of particle moves, grid cells touched by particles, the number of particles communicated between processors, collisions of particles with the global boundary and with surface elements (none in this problem), as well as collision and reaction statistics.
+  ::
 
    Particle moves    = 38096354 (38.1M)
    Cells touched     = 43236871 (43.2M)
@@ -1282,7 +1284,8 @@ shown here:
    Gas reactions     = 23 (0.023K)
    Particles stuck   = 0 
 
-::
+- The next section gives additional statistics, normalized by timestep or processor count.
+  ::
 
    Particle-moves/CPUsec/proc: 1.4882e+07
    Particle-moves/step: 38096.4
@@ -1298,7 +1301,9 @@ shown here:
    Collisions/particle/step: 0.553
    Gas-reactions/particle/step: 0.023 
 
-::
+- The next 2 sections are optional. The "Gas reaction tallies" section is only output if the :ref:`command-react` is used. For each reaction with a non-zero tally, the number of those reactions that occurred during the run is printed. The "Surface reaction tallies" section is only output if the :ref:`command-surf-react` was used one or more times, to assign reaction models to individual surface elements or the box boundaries. For each of the commands, and each of its reactions with a non-zero tally, the number of those reactions that occurred during the run is printed. Note that this is effectively a summation over all the surface elements and/or box boundaries the :ref:`command-surf-react` was used to assign a reaction model to.
+
+  ::
 
    Gas reaction tallies: style tce #-of-reactions 45 \
    reaction O2 + N --> O + O + N: 10 \
@@ -1310,7 +1315,11 @@ shown here:
    reaction delete: 53525 \
    reaction create: 70500
 
-::
+
+- The last section is a histogramming across processors of various per-processor statistics: particle count, owned grid cells, processor, ghost grid cells which are copies of cells owned by other processors, and empty cells which are ghost cells without surface information (only used to pass particles to neighboring processors).
+  The ave value is the average across all processors. The max and min values are for any processor. The 10-bin histogram shows the distribution of the value across processors. The total number of histogram counts is equal to the number of processors.
+
+  ::
 
    Particles: 11448 ave 17655 max 5306 min
    Histogram: 2 0 0 0 0 0 0 0 0 2
@@ -1325,16 +1334,4 @@ shown here:
    GhostSurf: 0 ave 0 max 0 min
    Histogram: 4 0 0 0 0 0 0 0 0 0 
 
-The first line gives the total CPU run time for the simulation, in seconds.
 
-The next section gives a breakdown of the CPU timing (in seconds) in 7 categories. The first four are timings for particles moves, which includes interaction with surface elements, then particle collisions, then sorting of particles (required to perform collisions), and communication of particles between processors. The Modify section is time for operations invoked by fixes and computes. The Output section is for dump command and statistical output. The Other category is typically for load-imbalance, as some MPI tasks wait for others MPI tasks to complete. In each category the min,ave,max time across processors is shown, as well as a variation, and the percentage of total time.
-
-The next section gives some statistics about the run. These are total counts of particle moves, grid cells touched by particles, the number of particles communicated between processors, collisions of particles with the global boundary and with surface elements (none in this problem), as well as collision and reaction statistics.
-
-The next section gives additional statistics, normalized by timestep or processor count.
-
-The next 2 sections are optional. The "Gas reaction tallies" section is only output if the :ref:`command-react` is used. For each reaction with a non-zero tally, the number of those reactions that occurred during the run is printed. The "Surface reaction tallies" section is only output if the :ref:`command-surf-react` was used one or more times, to assign reaction models to individual surface elements or the box boundaries. For each of the commands, and each of its reactions with a non-zero tally, the number of those reactions that occurred during the run is printed. Note that this is effectively a summation over all the surface elements and/or box boundaries the :ref:`command-surf-react` was used to assign a reaction model to.
-
-The last section is a histogramming across processors of various per-processor statistics: particle count, owned grid cells, processor, ghost grid cells which are copies of cells owned by other processors, and empty cells which are ghost cells without surface information (only used to pass particles to neighboring processors).
-
-The ave value is the average across all processors. The max and min values are for any processor. The 10-bin histogram shows the distribution of the value across processors. The total number of histogram counts is equal to the number of processors.
