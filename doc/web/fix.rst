@@ -48,11 +48,7 @@ be re-used.
 
 .. important:: The :ref:`unfix<command-unfix>` command is the only way to turn off a fix; simply specifying a new fix with the same style and a different ID will not turn off the first one.
 
-If you specify a new fix with the same ID and style as an existing fix,
-the old fix is deleted and the new one is created (presumably with new
-settings). This is the same as if an "unfix" command were first
-performed on the old fix, except that the new fix is kept in the same
-order relative to the existing fixes as the old one originally was.
+	       If you specify a new fix with the same ID and style as an existing fix, the old fix is deleted and the new one is created (presumably with new settings). This is the same as if an "unfix" command were first performed on the old fix, except that the new fix is kept in the same order relative to the existing fixes as the old one originally was.
 
 Some fixes store an internal "state" which is written to binary restart
 files via the :ref:`restart<command-restart>` or

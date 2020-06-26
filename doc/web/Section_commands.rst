@@ -39,43 +39,32 @@ default.
 In many cases, the ordering of commands in an input script is not
 important. However the following rules apply:
 
-(1) SPARTA does not read your entire input script and then perform a
-simulation with all the settings. Rather, the input script is read one
-line at a time and each command takes effect when it is read. Thus this
-sequence of commands:
+1. SPARTA does not read your entire input script and then perform a simulation with all the settings.
+   Rather, the input script is read one line at a time and each command takes effect when it is read.
+   Thus this sequence of commands:
 
-::
+   ::
 
-   timestep 0.5 
-   run      100 
-   run      100 
+      timestep 0.5 
+      run      100 
+      run      100 
 
-does something different than this sequence:
+   does something different than this sequence:
 
-::
+   ::
 
-   run      100 
-   timestep 0.5 
-   run      100 
+      run      100 
+      timestep 0.5 
+      run      100 
 
-In the first case, the specified timestep (0.5 secs) is used for two
-simulations of 100 timesteps each. In the 2nd case, the default timestep
-(1.0 sec is used for the 1st 100 step simulation and a 0.5 fmsec
-timestep is used for the 2nd one.
+   In the first case, the specified timestep (0.5 secs) is used for two simulations of 100 timesteps each.
+   In the 2nd case, the default timestep (1.0 sec is used for the 1st 100 step simulation and a 0.5 fmsec timestep is used for the 2nd one.
 
-(2) Some commands are only valid when they follow other commands. For
-example you cannot define the grid overlaying the simulation box until
-the box itself has been defined. Likewise you cannot read in
-triangulated surfaces until a grid has been defined to store them.
+2. Some commands are only valid when they follow other commands. For example you cannot define the grid overlaying the simulation box until the box itself has been defined. Likewise you cannot read in triangulated surfaces until a grid has been defined to store them.
 
-Many input script errors are detected by SPARTA and an ERROR or WARNING
-message is printed. Section :ref:`errors` gives more
-information on what errors mean. The documentation for each command
-lists restrictions on how the command can be used.
+   Many input script errors are detected by SPARTA and an ERROR or WARNING message is printed. Section :ref:`errors` gives more information on what errors mean. The documentation for each command lists restrictions on how the command can be used.
 
 --------------
-
-
 
 
 
@@ -94,100 +83,64 @@ names or user-chosen ID strings.
 
 Here is how each line in the input script is parsed by SPARTA:
 
-(1) If the last printable character on the line is a "&" character (with
-no surrounding quotes), the command is assumed to continue on the next
-line. The next line is concatenated to the previous line by removing the
-"&" character and newline. This allows long commands to be continued
-across two or more lines.
+1. If the last printable character on the line is a "&" character (with no surrounding quotes), the command is assumed to continue on the next line.
+   The next line is concatenated to the previous line by removing the "&" character and newline. This allows long commands to be continued across two or more lines.
 
-(2) All characters from the first "#" character onward are treated as
-comment and discarded. See an exception in (6). Note that a comment
-after a trailing "&" character will prevent the command from continuing
-on the next line. Also note that for multi-line commands a single
-leading "#" will comment out the entire command.
+2. All characters from the first "#" character onward are treated as comment and discarded. See an exception in (6). Note that a comment after a trailing "&" character will prevent the command from continuing on the next line. Also note that for multi-line commands a single leading "#" will comment out the entire command.
 
-(3) The line is searched repeatedly for $ characters, which indicate
-variables that are replaced with a text string. See an exception in (6).
+3. The line is searched repeatedly for "$" characters, which indicate variables that are replaced with a text string. See an exception in (6).
 
-If the $ is followed by curly brackets, then the variable name is the
-text inside the curly brackets. If no curly brackets follow the $, then
-the variable name is the single character immediately following the $.
-Thus ${myTemp} and $x refer to variable names "myTemp" and "x".
+   If the ``$`` is followed by curly brackets, then the variable name is the text inside the curly brackets. If no curly brackets follow the ``$``, then the variable name is the single character immediately following the $.  Thus ``${myTemp}`` and ``$x`` refer to variable names "myTemp" and "x".
 
-How the variable is converted to a text string depends on what style of
-variable it is; see the :ref:`variable<command-variable>` doc page for details. It
-can be a variable that stores multiple text strings, and return one of
-them. The returned text string can be multiple "words" (space separated)
-which will then be interpreted as multiple arguments in the input
-command. The variable can also store a numeric formula which will be
-evaluated and its numeric result returned as a string.
+   How the variable is converted to a text string depends on what style of variable it is; see the :ref:`variable-command` doc page for details. It can be a variable that stores multiple text strings, and return one of them. The returned text string can be multiple "words" (space separated) which will then be interpreted as multiple arguments in the input command. The variable can also store a numeric formula which will be evaluated and its numeric result returned as a string.
 
-As a special case, if the $ is followed by parenthesis, then the text
-inside the parenthesis is treated as an "immediate" variable and
-evaluated as an :ref:`equal-style variable<command-variable>`. This is a way
-to use numeric formulas in an input script without having to assign them
-to variable names. For example, these 3 input script lines:
+   As a special case, if the $ is followed by parenthesis, then the text inside the parenthesis is treated as an "immediate" variable and evaluated as an :ref:`equal-style variable<command-variable>`. This is a way to use numeric formulas in an input script without having to assign them to variable names. For example, these 3 input script lines:
 
-::
+   ::
 
-   variable X equal (xlo+xhi)/2+sqrt(v_area)
-   region 1 block $X 2 INF INF EDGE EDGE
-   variable X delete 
+      variable X equal (xlo+xhi)/2+sqrt(v_area)
+      region 1 block $X 2 INF INF EDGE EDGE
+      variable X delete 
 
-can be replaced by
+   can be replaced by
 
-::
+   ::
 
-   region 1 block $((xlo+xhi)/2+sqrt(v_area)) 2 INF INF EDGE EDGE 
+      region 1 block $((xlo+xhi)/2+sqrt(v_area)) 2 INF INF EDGE EDGE 
 
-so that you do not have to define (or discard) a temporary variable X.
+   so that you do not have to define (or discard) a temporary variable X.
 
-Note that neither the curly-bracket or immediate form of variables can
-contain nested $ characters for other variables to substitute for. Thus
-you cannot do this:
+   Note that neither the curly-bracket or immediate form of variables can contain nested $ characters for other variables to substitute for. Thus you cannot do this:
 
-::
+   ::
 
-   variable        a equal 2
-   variable        b2 equal 4
-   print           "B2 = ${b$a}" 
+      variable        a equal 2
+      variable        b2 equal 4
+      print           "B2 = ${b$a}" 
 
-Nor can you specify this $($x-1.0) for an immediate variable, but you
-could use $(v_x-1.0), since the latter is valid syntax for an
-`equal-style variable <command-variable>`.
+   Nor can you specify this ``$($x-1.0)`` for an immediate variable, but you could use ``$(v_x-1.0)``, since the latter is valid syntax for an `equal-style variable <command-variable>`.
 
-See the `command-variable` for more details of how
-strings are assigned to variables and evaluated, and how they can be
-used in input script commands.
+   See the `command-variable` for more details of how strings are assigned to variables and evaluated, and how they can be used in input script commands.
 
-(4) The line is broken into "words" separated by whitespace (tabs,
-spaces). Note that words can thus contain letters, digits, underscores,
-or punctuation characters.
+4. The line is broken into "words" separated by whitespace (tabs, spaces). Note that words can thus contain letters, digits, underscores, or punctuation characters.
 
-(5) The first word is the command name. All successive words in the line
-are arguments.
+5. The first word is the command name. All successive words in the line are arguments.
 
-(6) If you want text with spaces to be treated as a single argument, it
-can be enclosed in either double or single quotes. A long single
-argument enclosed in quotes can even span multiple lines if the "&"
-character is used, as described above. E.g.
+6. If you want text with spaces to be treated as a single argument, it can be enclosed in either double or single quotes. A long single argument enclosed in quotes can even span multiple lines if the "&" character is used, as described above. E.g.
 
-::
+   ::
 
-   print "Volume = $v"
-   print 'Volume = $v'
-   variable a string "red green blue &
-                      purple orange cyan"
-   if "$steps > 1000" then quit 
+      print "Volume = $v"
+      print 'Volume = $v'
+      variable a string "red green blue &
+                         purple orange cyan"
+      if "$steps > 1000" then quit 
 
-The quotes are removed when the single argument is stored internally.
+   The quotes are removed when the single argument is stored internally.
 
-See the :ref:`dump modify format<command-dump-modify>` or
-:ref:`command-print`, or :ref:`command-if` for examples. A "#"
-or "$" character that is between quotes will not be treated as a comment
-indicator in (2) or substituted for as a variable in (3).
+   See the :ref:`dump modify format<command-dump-modify>` or :ref:`command-print`, or :ref:`command-if` for examples. A "#" or "$" character that is between quotes will not be treated as a comment indicator in (2) or substituted for as a variable in (3).
 
-.. important:: If the argument is itself a command that requires a quoted argument (e.g. using a :ref:`command-print` command as part of an :ref:`command-if` or :ref:`run every<command-run>` command), then the double and single quotes can be nested in the usual manner. See the doc pages for those commands for examples. Only one of level of nesting is allowed, but that should be sufficient for most use cases.
+.. important:: If the argument is itself a command that requires a quoted argument (e.g. using a :ref:`command-print` as part of an :ref:`command-if` or :ref:`run every<command-run>` command), then the double and single quotes can be nested in the usual manner. See the doc pages for those commands for examples. Only one  level of nesting is allowed, but that should be sufficient for most use cases.
 
 
 

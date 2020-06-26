@@ -20,15 +20,14 @@ collide command
 -  style = *none* or *vss*
 -  args = arguments for that style
 
-   ::
-
-        none args = none
-        vss args = mix-ID file
-          mix-ID = ID of mixture to use for group definitions
-          file = filename that lists species with their VSS model parameters
-        vss/kk args = mix-ID file
-          mix-ID = ID of mixture to use for group definitions
-          file = filename that lists species with their VSS model parameters 
+   none args = none
+     No argument is passed
+   vss args = mix-ID file
+     - mix-ID = ID of mixture to use for group definitions
+     - file = filename that lists species with their VSS model parameters
+   vss/kk args = mix-ID file
+     - mix-ID = ID of mixture to use for group definitions
+     - file = filename that lists species with their VSS model parameters 
 
 -  zero or more keyword/value pairs may be appended
 -  keyword = *relax*

@@ -4,9 +4,6 @@
 .. index:: fix emit/face/kk
 
 
-
-
-
 .. _command-fix-emit-face:
 
 #####################
@@ -14,16 +11,11 @@ fix emit/face command
 #####################
 
 
-
-
-
-
 .. _command-fix-emit-face-fix-emitfacekk:
 
 ########################
 fix emit/face/kk command
 ########################
-
 
 
 **Syntax:**
@@ -41,16 +33,20 @@ fix emit/face/kk command
 -  keyword = *n* or *nevery* or *perspecies* or *region* or *subsonic*
    or *twopass*
 
-   ::
-
-        n value = Np = number of particles to create
-        nevery value = Nstep = add particles every this many timesteps
-        perspecies value = yes or no
-        region value = region-ID 
-        subsonic values = Psub Tsub
-          Psub = pressure setting at inflow boundary (pressure units)
-          Tsub = temperature setting at inflow boundary, can be NULL (temperature units)
-        twopass values = none 
+  n value = Np
+    Np = number of particles to create
+  nevery value = Nstep
+    Add particles every this many timesteps
+  perspecies value
+    value = yes or no
+  region value = region-ID
+    ID of the region
+  subsonic values = Psub Tsub
+    - Psub = pressure setting at inflow boundary (pressure units)
+    - Tsub = temperature setting at inflow boundary, can be NULL (temperature units)
+  twopass values = none
+    none is the only possible value
+   
 
 **Examples:**
 
