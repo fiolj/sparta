@@ -11,7 +11,9 @@ move_surf command
 #################
 
 
-**Syntax:**
+#######
+Syntax:
+#######
 
 ::
 
@@ -37,7 +39,9 @@ move_surf command
 
         connect arg = yes or no 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -45,7 +49,9 @@ move_surf command
    move_surf partial rotate 360 0 0 1 5 5 0 connect yes
    move_surf object2 rotate 360 0 0 1 5 5 0 
 
-**Description:**
+************
+Description:
+************
 
 This command performs a one-time movement of all the surface elements in the specified group via the specified style. See the :ref:`group surf<command-group>` command for info on how surface elements can be assigned to surface groups.
 
@@ -78,17 +84,25 @@ This is to prevent particles from ending up inside surface objects.
 
 Note that in this context, "overlaps" means that any part of the surface element touches any part of the grid cell, including its surface. Also note that if a surface element object (e.g. a sphere) moved a long distance then grid cells that were inside the object in its old position and thus contained no particles, will still have no particles immediately after the move. This will effectively leave a "void" in the flow until particles re-fill the grid cells that are now outside the object.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 An error will be generated if any surface element vertex is moved
 outside the simulation box.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-surf`,
 :ref:`command-fix-move-surf`
 :ref:`command-remove-surf`
 
-**Default:**
+********
+Default:
+********
+
 
 The option default is connect = no.

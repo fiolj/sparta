@@ -11,7 +11,9 @@ run command
 ###########
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -35,7 +37,9 @@ run command
           c1,c2,...,cN = one or more SPARTA commands, each enclosed in quotes
           c1 = NULL means no command will be invoked 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -46,7 +50,9 @@ run command
    run 100000 start 0 stop 1000000 every 1000 "print 'Temp = $t'"
    run 100000 every 1000 NULL 
 
-**Description:**
+************
+Description:
+************
 
 Run or continue a simulation for a specified number of timesteps.
 
@@ -193,16 +199,24 @@ the run. You can replace the jump command with a simple
 :ref:`quit<command-quit>` command and cause SPARTA to exit during the middle
 of a run when the condition is met.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 The number of specified timesteps N must fit in a signed 32-bit integer,
 so you are limited to slightly more than 2 billion steps (2^31) in a
 single run. However, you can perform successive runs to run a simulation
 for any number of steps (ok, up to 2^63 steps).
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:**
+********
+Default:
+********
+
 
 The option defaults are start = the current timestep, stop = current
 timestep + N, pre = yes, and post = yes.

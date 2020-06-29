@@ -11,7 +11,9 @@ fix print command
 #################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -32,14 +34,18 @@ fix print command
         title value = string
           string =  text to print as 1st line of output file 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    fix extra print 100 "Coords of marker particle = $x $y $z"
    fix extra print 100 "Coords of marker particle = $x $y $z" file coord.txt 
 
-**Description:**
+************
+Description:
+************
 
 Print a text string every N steps during a simulation run. This can be
 used for diagnostic purposes or as a debugging tool to monitor some
@@ -83,14 +89,22 @@ where ID is replaced with the fix-ID.
 No information about this fix is written to :ref:`binary restart files<command-restart>`. No global or per-particle or per-grid
 quantities are stored by this fix for access by various output commands.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-variable`,
 :ref:`command-print`
 
-**Default:**
+********
+Default:
+********
+
 
 The option defaults are no file output, screen = yes, and title string
 as described above.

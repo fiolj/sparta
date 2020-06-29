@@ -11,7 +11,9 @@ unfix command
 #############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,22 +21,34 @@ unfix command
 
 -  fix-ID = ID of a previously defined fix
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    unfix 2
    unfix lower-boundary 
 
-**Description:**
+************
+Description:
+************
 
 Delete a fix that was previously defined with a :ref:`fix<command-fix>`
 command.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix`
 
-**Default:** none
+********
+Default:
+********
+ none

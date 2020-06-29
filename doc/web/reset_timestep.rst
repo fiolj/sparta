@@ -11,7 +11,9 @@ reset_timestep command
 ######################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,14 +21,18 @@ reset_timestep command
 
 -  N = timestep number
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    reset_timestep 0
    reset_timestep 4000000 
 
-**Description:**
+************
+Description:
+************
 
 Set the timestep counter to the specified value. This command normally
 comes after the timestep has been set by reading a restart file via the
@@ -37,7 +43,10 @@ The :ref:`create_box<command-create-box>` command sets the timestep to 0; the
 :ref:`read_restart<command-read-restart>` command sets the timestep to the
 value it had when the restart file was written.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
 This command cannot be used when any fixes are defined that keep track
 of elapsed time to perform certain kinds of time-dependent operations.
@@ -50,6 +59,11 @@ quantity cannot be accessed by a variable in between runs until a new
 run is performed. See the :ref:`variable<command-variable>` command for more
 details.
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:** none
+********
+Default:
+********
+ none

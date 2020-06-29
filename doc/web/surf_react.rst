@@ -11,7 +11,9 @@ surf_react command
 ##################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -29,14 +31,18 @@ surf_react command
         prob args = infile
           infile = file with list of surface chemistry reactions 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    surf_react global 0.2 0.15
    surf_react prob air.surf 
 
-**Description:**
+************
+Description:
+************
 
 Define a model for surface chemistry reactions to perform when particles
 collide with surface elements or the global boundaries of the simulation
@@ -205,12 +211,20 @@ beginning of the current run.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-react`
 :ref:`command-surf-modify`
 :ref:`command-bound-modify`
 
-**Default:** none
+********
+Default:
+********
+ none

@@ -2,16 +2,15 @@
 
 .. index:: package
 
-
-
 .. _command-package:
 
 ###############
 package command
 ###############
 
-
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -20,27 +19,38 @@ package command
 -  style = *kokkos*
 -  args = arguments specific to the style
 
-   ::
+   - kokkos args = keyword value ...
 
-        kokkos args = keyword value ...
-          zero or more keyword/value pairs may be appended
-          keywords = comm or reduction
-            comm value = threaded or classic
-              threaded = perform pack/unpack using KOKKOS (e.g. on GPU or using OpenMP) (default)
-              classic = perform communication pack/unpack in non-KOKKOS mode
-            reduction = parallel/reduce or atomic
-              parallel/reduce = use parallel reduction for statistics (default)
-              atomic = use atomic reduction for statistics
-            collide/extra = factor
-              factor = increase memory used for collisions by this factor (default)
-            collide/retry = yes or no
-              yes = retry collision algorithm until successful
-              no = do not retry collision algorithm (default)
-            gpu/direct = yes or no
-              yes = use GPU-direct, i.e. CUDA-aware MPI (default)
-              no = do not use GPU-direct 
+     zero or more keyword/value pairs may be appended
 
-**Examples:**
+     keywords = comm or reduction
+
+     - comm value = threaded or classic
+
+       - threaded = perform pack/unpack using KOKKOS (e.g. on GPU or using OpenMP) (default)
+
+       - classic = perform communication pack/unpack in non-KOKKOS mode
+
+     - reduction = parallel/reduce or atomic
+
+       - parallel/reduce = use parallel reduction for statistics (default)
+       - atomic = use atomic reduction for statistics
+
+     - collide/extra = factor
+
+       - factor = increase memory used for collisions by this factor (default)
+
+     - collide/retry = yes or no
+
+       - yes = retry collision algorithm until successful
+       -  no = do not retry collision algorithm (default)
+     - gpu/direct = yes or no
+       - yes = use GPU-direct, i.e. CUDA-aware MPI (default)
+       - no = do not use GPU-direct 
+
+*********
+Examples:
+*********
 
 ::
 
@@ -48,7 +58,9 @@ package command
    package kokkos comm threaded reduction atomic
    package kokkos gpu/direct no 
 
-**Description:**
+************
+Description:
+************
 
 This command invokes package-specific settings for the KOKKOS
 accelerator package available in SPARTA.
@@ -71,17 +83,9 @@ requires a "-k on" :ref:`command-line switch<start-command-line-options>`
 respectively, which invokes a "package kokkos" command with default
 settings.
 
-NOTE: A package command for a particular style can be invoked multiple
-times when a simulation is setup, e.g. by the "-k on", "-sf", and "-pk"
-:ref:`command-line switches<start-command-line-options>`, and by using
-this command in an input script. Each time it is used all of the style
-options are set, either to default values or to specified settings. I.e.
-settings from previous invocations do not persist across multiple
-invocations.
+.. note:: A package command for a particular style can be invoked multiple times when a simulation is setup, e.g. by the "-k on", "-sf", and "-pk" :ref:`command-line switches<start-command-line-options>`, and by using this command in an input script. Each time it is used all of the style options are set, either to default values or to specified settings. I.e.  settings from previous invocations do not persist across multiple invocations.
 
-See the the :ref:`Accelerating SPARTA<accelerate>`
-section of the manual for more details about using the various
-accelerator packages for speeding up SPARTA simulations.
+See the the :ref:`Accelerating SPARTA<accelerate>` section of the manual for more details about using the various accelerator packages for speeding up SPARTA simulations.
 
 --------------
 
@@ -138,7 +142,10 @@ using a value of *off*.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command cannot be used after the simulation box is defined by a
 :ref:`create_box<command-create-box>` command.
@@ -146,12 +153,17 @@ This command cannot be used after the simulation box is defined by a
 The kk style of this command can only be invoked if SPARTA was built
 with the KOKKOS package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-suffix`,
 "-pk" `command-line setting <start-command-line-options`
 
-**Default:**
+********
+Default:
+********
+
 
 For the KOKKOS package, the option defaults are comm = threaded,
 reduction = parallel/reduce, collide/extra = 1.1, and collide/retry =

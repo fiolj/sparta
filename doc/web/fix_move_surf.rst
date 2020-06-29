@@ -26,7 +26,9 @@ fix move/surf/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -41,7 +43,9 @@ fix move/surf/kk command
    :ref:`move_surf<command-move-surf>` command starting with its "style"
    argument
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -49,7 +53,9 @@ fix move/surf/kk command
    fix 1 move/surf partial 100 10000 rotate 360 0 0 1 5 5 0 connect yes
    fix 1 move/surf object2 100 50000 rotate 360 0 0 1 5 5 0 
 
-**Description:**
+************
+Description:
+************
 
 This command performs on-the-fly movement of all the surface elements in
 the specfied group via one of several styles. See the :ref:`group surf<command-group>` command for info on how surface elements can be
@@ -116,15 +122,23 @@ effectively.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 An error will be generated if any surface element vertex is moved
 outside the simulation box.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-surf`,
 :ref:`command-move-surf`,
 :ref:`command-remove-surf`
 
-**Default:** none
+********
+Default:
+********
+ none

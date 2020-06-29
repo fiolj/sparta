@@ -11,7 +11,9 @@ fix ave/time command
 ####################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -25,41 +27,43 @@ fix ave/time command
 -  one or more input values can be listed
 -  value = c_ID, c_ID[N], f_ID, f_ID[N], v_name
 
-   ::
-
-        c_ID = global scalar or vector or array calculated by a compute with ID
-        c_ID[I] = Ith component of global vector or Ith column of global array calculated by a compute with ID, I can include wildcard (see below)
-        f_ID = global scalar or vector or array calculated by a fix with ID
-        f_ID[I] = Ith component of global vector or Ith column of global array calculated by a fix with ID, I can include wildcard (see below)
-        v_name = global value calculated by an equal-style variable with name 
+   - c_ID = global scalar or vector or array calculated by a compute with ID
+   - c_ID[I] = Ith component of global vector or Ith column of global array calculated by a compute with ID, I can include wildcard (see below)
+   - f_ID = global scalar or vector or array calculated by a fix with ID
+   - f_ID[I] = Ith component of global vector or Ith column of global array calculated by a fix with ID, I can include wildcard (see below)
+   - v_name = global value calculated by an equal-style variable with name 
 
 -  zero or more keyword/arg pairs may be appended
+
 -  keyword = *mode* or *file* or *ave* or *start* or *off* or *title1*
    or *title2* or *title3*
 
-   ::
+   - mode arg = scalar or vector
+     - scalar = all input values are global scalars
+     - vector = all input values are global vectors or global arrays
+   - ave args = one or running or window M
+     
+     - one = output a new average value every Nfreq steps
+     - running = output cummulative average of all previous Nfreq steps
+     - window M = output average of M most recent Nfreq steps
 
-        mode arg = scalar or vector
-          scalar = all input values are global scalars
-          vector = all input values are global vectors or global arrays
-        ave args = one or running or window M
-          one = output a new average value every Nfreq steps
-          running = output cummulative average of all previous Nfreq steps
-          window M = output average of M most recent Nfreq steps
-        start args = Nstart
-          Nstart = start averaging on this timestep
-        off arg = M = do not average this value
-          M = value # from 1 to Nvalues
-        file arg = filename
-          filename = name of file to output time averages to
-        title1 arg = string
-          string = text to print as 1st line of output file
-        title2 arg = string
-          string = text to print as 2nd line of output file
-        title3 arg = string
-          string = text to print as 3rd line of output file, only for vector mode 
+   - start args = Nstart = start averaging on this timestep
 
-**Examples:**
+   - off arg = M = do not average this value
+
+     M = value: # from 1 to Nvalues
+
+   - file arg = filename = name of file to output time averages to
+
+   - title1 arg = string = text to print as 1st line of output file
+
+   - title2 arg = string  = text to print as 2nd line of output file
+
+   - title3 arg = string = text to print as 3rd line of output file, only for vector mode 
+
+*********
+Examples:
+*********
 
 ::
 
@@ -69,7 +73,9 @@ fix ave/time command
    fix 1 ave/time all 100 5 1000 c_myCount[*] ave window 20
    fix 1 ave/time all 1 100 1000 f_indent f_indent[1] file temp.indent off 1 
 
-**Description:**
+************
+Description:
+************
 
 Use one or more global values as inputs every few timesteps, and average
 them over longer timescales. The resulting averages can be used by other
@@ -299,15 +305,23 @@ input vector. An array is produced if multiple input values are averaged
 and *mode* = vector. The global array has # of rows = length of the
 input vectors and # of columns = number of inputs.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-compute`,
 :ref:`command-fix-ave-surf`,
 :ref:`command-variable`
 
-**Default:** none
+********
+Default:
+********
+ none
 
 The option defaults are mode = scalar, ave = one, start = 0, no file
 output, title 1,2,3 = strings as described above, and no off settings

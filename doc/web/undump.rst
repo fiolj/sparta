@@ -11,7 +11,9 @@ undump command
 ##############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,21 +21,33 @@ undump command
 
 -  dump-ID = ID of previously defined dump
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    undump mine
    undump 2 
 
-**Description:**
+************
+Description:
+************
 
 Delete a dump that was previously defined with a :ref:`command-dump`. This also closes the file associated with the dump.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-dump`
 
-**Default:** none
+********
+Default:
+********
+ none

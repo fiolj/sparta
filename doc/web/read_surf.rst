@@ -11,7 +11,9 @@ read_surf command
 #################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -23,37 +25,39 @@ read_surf command
    *rotate* or *transparent* or *invert* or *clip* or *group* or
    *typeadd* or *particle* or *file*
 
-   ::
+   origin args = Ox Oy Oz
+     Ox,Oy,Oz = set origin of surface to this point (distance units)
+   trans args = Dx Dy Dz
+     Dx,Dy,Dz = translate origin by this displacement (distance units)
+   atrans args = Ax Ay Az
+     Ax,Ax,Az = translate origin to this absolute point (distance units)
+   ftrans args = Fx Fy Fz
+     Fx,Fy,Fz = translate origin to this fractional point in simulation box
+   scale args = Sx Sy Sz
+     Sx,Sy,Sz = scale surface by these factors around origin
+   rotate args = theta Rx Ry Rz
+     - theta = rotate surface by this angle in counter-clockwise direction (degrees)
+     - Rx,Ry,Rz = rotate around vector starting at origin pointing in this direction
+   transparent args
+     = none
+   invert args
+     = none
+   clip args = none or fraction
+     fraction = push points close to the box boundary to the boundary (optional)
+   group arg = group-ID
+     group-ID = new or existing surface group to assign the surface elements to
+   typeadd arg = Noffset
+     Noffset = add Noffset to the type value of each element
+   particle args = none or check or keep
+     - none = allow no particles in simulation when read surfs (default)
+     - check = delete particles inside surfs or in cells intersected by surfs
+     - keep = keep all particles
+   file args = identical to those defined for the write_surf command
+     this keyword must be last 
 
-        origin args = Ox Oy Oz
-          Ox,Oy,Oz = set origin of surface to this point (distance units)
-        trans args = Dx Dy Dz
-          Dx,Dy,Dz = translate origin by this displacement (distance units)
-        atrans args = Ax Ay Az
-          Ax,Ax,Az = translate origin to this absolute point (distance units)
-        ftrans args = Fx Fy Fz
-          Fx,Fy,Fz = translate origin to this fractional point in simulation box
-        scale args = Sx Sy Sz
-          Sx,Sy,Sz = scale surface by these factors around origin
-        rotate args = theta Rx Ry Rz
-          theta = rotate surface by this angle in counter-clockwise direction (degrees)
-          Rx,Ry,Rz = rotate around vector starting at origin pointing in this direction
-        transparent args = none
-        invert args = none
-        clip args = none or fraction
-          fraction = push points close to the box boundary to the boundary (optional)
-        group arg = group-ID
-          group-ID = new or existing surface group to assign the surface elements to
-        typeadd arg = Noffset
-          Noffset = add Noffset to the type value of each element
-        particle args = none or check or keep
-          none = allow no particles in simulation when read surfs (default)
-          check = delete particles inside surfs or in cells intersected by surfs
-          keep = keep all particles
-        file args = identical to those defined for the write_surf command
-          this keyword must be last 
-
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -64,7 +68,9 @@ read_surf command
    read_surf surf.file trans 10 5 0 scale 3 3 3 invert clip file tmp.surfs
    read_surf surf.file trans 10 5 0 scale 3 3 3 invert clip file tmp.surfs.% points no nfile 32 
 
-**Description:**
+************
+Description:
+************
 
 Read the geometry of a surface from the specified file. In SPARTA, a
 "surface" is a collection of surface elements that represent the
@@ -73,7 +79,7 @@ global simulation box. Surfaces can be explicit or implicit. This
 command reads explicit surfaces from a file containing a list of
 explicit surfaces. See the :ref:`read_isurf<command-read-isurf>` command to
 read implicit surfaces from a different kind of file. See the :ref:`Howto 6.13<howto-implicit-surface>` section of the manual for an
-explantion of explicit versus implicit surfaces as well as distributed
+explanation of explicit versus implicit surfaces as well as distributed
 versus non-distributed storage. You cannot mix explicit and implicit
 surfaces in the same simulation.
 
@@ -337,12 +343,14 @@ direction, around the vector starting at the origin and pointing in the
 direction *Rx,Ry,Rz*. Any rotation can be represented by an appropriate
 choice of origin, *theta* and (Rx,Ry,Rz).
 
-The *transparent* keyword flags all the read in surface elements as
-transparent, meaning particles pass through them. This is useful for
-tallying flow statistics. The :ref:`surf_collide transparent<command-surf-collide>` command must also be used to assign a
-transparent collision model to those the surface elements. The :ref:`compute surf<command-compute-surf>` command will tally fluxes differently for
-transparent surf elements. The :ref:`Section 6.15<howto-transparent-surface>` doc page provides an overview of
-transparent surfaces. See those doc pages for details.
+The *transparent* keyword flags all the read in surface elements as transparent,
+meaning particles pass through them. This is useful for tallying flow
+statistics. The :ref:`surf_collide transparent<command-surf-collide>` command
+must also be used to assign a transparent collision model to those surface
+elements. The :ref:`compute surf<command-compute-surf>` will tally fluxes
+differently for transparent surf elements. The :ref:`Section
+6.15<howto-transparent-surface>` doc page provides an overview of transparent
+surfaces. See those doc pages for details.
 
 The *invert* keyword does not change the origin or any vertex
 coordinates. It flips the direction of the outward surface normal of
@@ -395,7 +403,7 @@ resulting altered set of surface elements can be written out to a file
 by the :ref:`write_surf<command-write-surf>` command, which can then be used
 an input to a new simulation or for post-processing and visualization.
 
-.. important:: When the *clip* operation deletes or adds surface elements, the line-IDs or tri-IDs will be renumbered to produce IDs that are consective values from 1 to the # of surface elements. The ID of a surface element that is unclipped may change due to this reordering.
+.. important:: When the *clip* operation deletes or adds surface elements, the line-IDs or tri-IDs will be renumbered to produce IDs that are consecutive values from 1 to the # of surface elements. The ID of a surface element that is unclipped may change due to this reordering.
 
 --------------
 
@@ -465,7 +473,10 @@ clipping.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command can only be used after the simulation box is defined by the
 :ref:`create_box<command-create-box>` command, and after a grid has been
@@ -514,12 +525,17 @@ surface files, you should insure they do not touch or overlap with each
 other. SPARTA does not check for this, but it will typically lead to
 unphysical particle dynamics.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-isurf`,
 :ref:`command-write-surf`
 
-**Default:**
+********
+Default:
+********
+
 
 The default origin for the vertices in the surface file is (0,0,0). The
 defaults for group = all, type = no, toffset = 0, particle = none.

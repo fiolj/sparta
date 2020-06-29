@@ -11,7 +11,9 @@ fix emit/face/file command
 ##########################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -33,14 +35,18 @@ fix emit/face/file command
         perspecies value = yes or no
         region value = region-ID 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    fix in emit/face/file air xlo input.data xlo
    fix in emit/face/file mymix ylo file.txt oneface frac 0.1 nevery 10 
 
-**Description:**
+************
+Description:
+************
 
 Emit particles from a face of the simulation box, continuously during a
 simulation. The particles are added using properties of the specified
@@ -374,7 +380,10 @@ number of particles added on the most recent insertion step. The second
 element is the cummulative total number added since the beginning of the
 run. The 2nd value is initialized to zero each time a run is performed.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 Particles cannot be added on periodic faces of the simulation box.
 Particles cannot be added on *z* faces of the simluation box for a 2d
@@ -392,13 +401,18 @@ overcome the outward streaming velocity, so that their net velocity is
 inward. The threshold for this is the thermal velocity for particles
 3*sigma from the mean thermal velocity.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-mixture`,
 :ref:`command-create-particles`,
 :ref:`command-fix-emit-face`
 
-**Default:**
+********
+Default:
+********
+
 
 The keyword defaults are frac = 1.0, nevery = 1, perspecies = yes,
 region = none.

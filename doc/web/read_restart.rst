@@ -2,8 +2,6 @@
 
 .. index:: read_restart
 
-
-
 .. _command-read-restart:
 
 ####################
@@ -11,7 +9,9 @@ read_restart command
 ####################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -20,14 +20,16 @@ read_restart command
 -  file = name of binary restart file to read in
 -  zero or one keyword/args pair may be listed
 
-::
-
-   keywords = gridcut or balance
-     gridcut arg = cutoff
+   - keywords = gridcut or balance
+     
+     - gridcut arg = cutoff
+       
        cutoff = acquire ghost cells up to this far away (distance units)
-     balance args = same as for balance_grid command 
+     - balance args = same as for balance_grid command 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -37,7 +39,9 @@ read_restart command
    read_restart save.10000 gridcut -1.0
    read_restart save.10000 balance rcb cell 
 
-**Description:**
+************
+Description:
+************
 
 Read in a previously saved simulation from a restart file. This allows
 continuation of a previous run on the same or different number of
@@ -54,9 +58,7 @@ run will not be identical to those used if the run had been continued.
 Hence the new run will not be identical to the continued original run,
 but should be statistically similar.
 
-IMPORTANT NOTE: Because restart files are binary, they may not be
-portable to other machines. SPARTA will print an error message if it
-cannot read a restart file for this reason.
+.. important:: Because restart files are binary, they may not be portable to other machines. SPARTA will print an error message if it cannot read a restart file for this reason.
 
 If a restarted run is performed on the same number of processors as the
 original run, then the assignment of grid cells (and their particles) to
@@ -204,13 +206,21 @@ restart file will be deleted.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-grid`,
 :ref:`command-read-surf`,
 :ref:`command-write-restart`,
 :ref:`command-restart`
 
-**Default:** none
+********
+Default:
+********
+ none

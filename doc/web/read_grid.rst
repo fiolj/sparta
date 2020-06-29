@@ -11,7 +11,9 @@ read_grid command
 #################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,13 +21,17 @@ read_grid command
 
 -  filename = name of grid file
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    read_grid grid.overlay 
 
-**Description:**
+************
+Description:
+************
 
 Read in a grid description from a file, which will overlay the
 simulation domain defined by the :ref:`create_box<command-create-box>`
@@ -154,7 +160,10 @@ simulation domain. Its specification in the grid file defines the level
 
 which means the level 1 grid has 10x10x20 cells.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command can only be used after the simulation box is defined by the
 :ref:`create_box<command-create-box>` command.
@@ -171,9 +180,14 @@ minimal refinement of 2x2x2, a level uses 4 bits of the integer ID. Thus
 a maximum of 7 levels can be used for 32-bit IDs and 15 levels for
 64-bit IDs.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-create-box`,
 :ref:`command-create-grid`
 
-**Default:** none
+********
+Default:
+********
+ none

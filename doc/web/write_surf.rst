@@ -11,7 +11,9 @@ write_surf command
 ##################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -29,7 +31,9 @@ write_surf command
         nfile arg = Nf
           Nf = write this many files, one from each of Nf processors 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -37,7 +41,9 @@ write_surf command
    write_surf data.surf points no
    write_surf data.surf.% nfile 50 
 
-**Description:**
+************
+Description:
+************
 
 Write a surface file in text format describing the currently defined
 surface elements, whether they be explicit or implicit surfaces. See the
@@ -112,13 +118,21 @@ next 3 processors and write it to a surface file.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-surf`
 :ref:`command-read-isurf`
 
-**Default:**
+********
+Default:
+********
+
 
 The default is points = yes.

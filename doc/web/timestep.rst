@@ -11,7 +11,9 @@ timestep command
 ################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,24 +21,36 @@ timestep command
 
 -  dt = timestep size (time units)
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    timestep 2.0 
    timestep 0.003 
 
-**Description:**
+************
+Description:
+************
 
 Set the timestep size for subsequent simulations.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-run`
 
-**Default:**
+********
+Default:
+********
+
 
 ::
 

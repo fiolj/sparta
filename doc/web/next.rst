@@ -11,7 +11,9 @@ next command
 ############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,14 +21,18 @@ next command
 
 -  variables = one or more variable names
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    next x
    next a t x myTemp 
 
-**Description:**
+************
+Description:
+************
 
 This command is used with variables defined by the
 :ref:`variable<command-variable>` command. It assigns the next value to the
@@ -144,13 +150,21 @@ condition is met, then continues iterating thru the outer loop.
    next       a
    jump        in.script loopa 
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-jump`,
 :ref:`command-include`,
 :ref:`command-shell`,
 :ref:`command-variable`
 
-**Default:** none
+********
+Default:
+********
+ none

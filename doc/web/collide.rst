@@ -11,7 +11,9 @@ collide command
 ###############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -20,15 +22,14 @@ collide command
 -  style = *none* or *vss*
 -  args = arguments for that style
 
-   ::
-
-        none args = none
-        vss args = mix-ID file
-          mix-ID = ID of mixture to use for group definitions
-          file = filename that lists species with their VSS model parameters
-        vss/kk args = mix-ID file
-          mix-ID = ID of mixture to use for group definitions
-          file = filename that lists species with their VSS model parameters 
+   none args = none
+     No argument is passed
+   vss args = mix-ID file
+     - mix-ID = ID of mixture to use for group definitions
+     - file = filename that lists species with their VSS model parameters
+   vss/kk args = mix-ID file
+     - mix-ID = ID of mixture to use for group definitions
+     - file = filename that lists species with their VSS model parameters 
 
 -  zero or more keyword/value pairs may be appended
 -  keyword = *relax*
@@ -37,7 +38,9 @@ collide command
 
         relax value = constant or variable 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -45,7 +48,9 @@ collide command
    collide vss all ../data/air.vss
    collide vss species all.vss relax variable 
 
-**Description:**
+************
+Description:
+************
 
 Define what style of particle-particle collisions will be performed by
 SPARTA each timestep. If collisions are performed, particles are sorted
@@ -203,15 +208,23 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-collide-modify`,
 :ref:`command-mixture`,
 :ref:`command-react`
 
-**Default:**
+********
+Default:
+********
+
 
 Style = none is the default (no collisions). If the vss style is specified, then relax = constant is the default.
 

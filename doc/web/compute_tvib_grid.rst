@@ -11,7 +11,9 @@ compute tvib/grid command
 #########################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -28,7 +30,9 @@ compute tvib/grid command
         possible keywords = mode
         mode = output one temperature per vibrational mode 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -36,7 +40,9 @@ compute tvib/grid command
    compute 1 tvib/grid subset all
    compute 1 tvib/grid all species mode 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates the vibrational temperature for
 each grid cell in a grid cell group, based on the particles in the cell.
@@ -182,10 +188,18 @@ an overview of SPARTA output options.
 
 The per-grid array values will be in temperature :ref:`units<command-units>`.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-compute-grid`
 
-**Default:** none
+********
+Default:
+********
+ none

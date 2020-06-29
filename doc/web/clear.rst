@@ -11,13 +11,17 @@ clear command
 #############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
    clear 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -25,7 +29,9 @@ clear command
    clear
    (commands for 2nd simulation) 
 
-**Description:**
+************
+Description:
+************
 
 This command deletes all atoms, restores all settings to their default
 values, and frees all memory allocated by SPARTA. Once a clear command
@@ -39,8 +45,16 @@ directory (:ref:`shell<command-shell>` command), log file status
 command), and input script variables (:ref:`variable<command-variable>`
 command).
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:** none
+********
+Default:
+********
+ none

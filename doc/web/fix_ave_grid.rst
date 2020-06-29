@@ -26,7 +26,9 @@ fix ave/grid/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -58,7 +60,9 @@ fix ave/grid/kk command
           one = output a new average value every Nfreq steps
           running = accumulate average continuously 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -76,7 +80,9 @@ a file every 1000 steps:
    fix 1 ave/grid 10 100 1000 c_1[*]
    dump 1 grid all 1000 tmp.grid id f_1[*] 
 
-**Description:**
+************
+Description:
+************
 
 Use one or more per-grid vectors as inputs every few timesteps, and
 average by grid cell over longer timescales, applying appropriate
@@ -253,18 +259,26 @@ effectively.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 If performing on-the-fly grid adaptation every N timesteps, using the
 :ref:`fix adapt<command-fix-adapt>` command, this fix cannot time-average
 across time windows > N steps, since the grid may change. This means
 *Nfreq* cannot be > N, and keyword *ave* = *running* is not allowed.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-compute`,
 :ref:`command-fix-ave-time`
 
-**Default:**
+********
+Default:
+********
+
 
 The option defaults are ave = one.

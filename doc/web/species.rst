@@ -11,7 +11,9 @@ species command
 ###############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -27,7 +29,9 @@ species command
 
         vibfile value = vfile = filename for extra vibrational info 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -36,7 +40,9 @@ species command
    species air.species air CO2 CO vibfile co2.species.vib
    species myfile H+ Cl- HCl 
 
-**Description:**
+************
+Description:
+************
 
 Define one or more particle species to use in the simulation. This
 command can be used as many times as desired to add species to the list
@@ -152,8 +158,16 @@ the same species in the *vibfile*.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:** none
+********
+Default:
+********
+ none

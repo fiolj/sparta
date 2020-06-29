@@ -11,7 +11,9 @@ stats_style command
 ###################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -35,43 +37,44 @@ stats_style command
                             f_ID, f_ID[I], f_ID[I][J],
                             v_name 
 
-   ::
 
-            step = timestep
-            elapsed = timesteps since start of this run
-            elaplong = timesteps since start of initial run in a series of runs
-            dt = timestep size
-            cpu = elapsed CPU time in seconds within a run
-            tpcpu = time per CPU second
-            spcpu = timesteps per CPU second
-            wall = wallclock time in seconds
-            np,npave = # of particles (this step, per-step)
-            ntouch,ntouchave = # of cell touches by particles (this step, per-step)
-            ncomm,ncommave = # of particles communicated (this step, per-step)
-            nbound,nboundave = # of boundary collisions (this step, per-step)
-            nexit,nexitave = # of boundary exits (this step, per-step)
-            nscoll,nscollave = # of surface collisions (this step, per-step)
-            nscheck,nscheckave = # of surface checks (this step, per-step)
-            ncoll,ncollave = # of particle/particle collisions (this step, per-step)
-            nattempt,nattemptave = # of attempted collisions (this step, per-step)
-            nreact,nreactave = # of chemical reactions (this step, per-step)
-            nsreact,nsreactave = # of chemical reactions on surfs and boundaries (this step, per-step)
-            nparent,nchild,nsplit = # of parent, child, split cells
-            maxlevel = max # of grid refinement levels
-            vol = volume of simulation box
-            lx,ly,lz = simulation box lengths
-            xlo,xhi,ylo,yhi,zlo,zhi = box boundaries,
-            s_ID[I] = Ith component of global vector calculated by a surface collision model with ID
-            r_ID[I] = Ith component of global vector calculated by a surface reaction model with ID
-            c_ID = global scalar value calculated by a compute with ID
-            c_ID[I] = Ith component of global vector calculated by a compute with ID, I can include wildcard (see below)
-            c_ID[I][J] = I,J component of global array calculated by a compute with ID
-            f_ID = global scalar value calculated by a fix with ID
-            f_ID[I] = Ith component of global vector calculated by a fix with ID, I can include wildcard (see below)
-            f_ID[I][J] = I,J component of global array calculated by a fix with ID
-            v_name = scalar value calculated by an equal-style variable with name 
+   - step = timestep
+   - elapsed = timesteps since start of this run
+   - elaplong = timesteps since start of initial run in a series of runs
+   - dt = timestep size
+   - cpu = elapsed CPU time in seconds within a run
+   - tpcpu = time per CPU second
+   - spcpu = timesteps per CPU second
+   - wall = wallclock time in seconds
+   - np,npave = # of particles (this step, per-step)
+   - ntouch,ntouchave = # of cell touches by particles (this step, per-step)
+   - ncomm,ncommave = # of particles communicated (this step, per-step)
+   - nbound,nboundave = # of boundary collisions (this step, per-step)
+   - nexit,nexitave = # of boundary exits (this step, per-step)
+   - nscoll,nscollave = # of surface collisions (this step, per-step)
+   - nscheck,nscheckave = # of surface checks (this step, per-step)
+   - ncoll,ncollave = # of particle/particle collisions (this step, per-step)
+   - nattempt,nattemptave = # of attempted collisions (this step, per-step)
+   - nreact,nreactave = # of chemical reactions (this step, per-step)
+   - nsreact,nsreactave = # of chemical reactions on surfs and boundaries (this step, per-step)
+   - nparent,nchild,nsplit = # of parent, child, split cells
+   - maxlevel = max # of grid refinement levels
+   - vol = volume of simulation box
+   - lx,ly,lz = simulation box lengths
+   - xlo,xhi,ylo,yhi,zlo,zhi = box boundaries,
+   - s_ID[I] = Ith component of global vector calculated by a surface collision model with ID
+   - r_ID[I] = Ith component of global vector calculated by a surface reaction model with ID
+   - c_ID = global scalar value calculated by a compute with ID
+   - c_ID[I] = Ith component of global vector calculated by a compute with ID, I can include wildcard (see below)
+   - c_ID[I][J] = I,J component of global array calculated by a compute with ID
+   - f_ID = global scalar value calculated by a fix with ID
+   - f_ID[I] = Ith component of global vector calculated by a fix with ID, I can include wildcard (see below)
+   - f_ID[I][J] = I,J component of global array calculated by a fix with ID
+   - v_name = scalar value calculated by an equal-style variable with name 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -79,7 +82,9 @@ stats_style command
    stats_style step cpu spcpu np xlo xhi c_myCount[2]
    stats_style step cpu spcpu np xlo xhi c_myCount[*] 
 
-**Description:**
+************
+Description:
+************
 
 Determine what statistical data is printed to the screen and log file.
 
@@ -94,38 +99,24 @@ other attributes of the statistics.
 
 --------------
 
-The *step* and *elapsed* keywords refer to timestep count. *Step* is the
-current timestep. *Elapsed* is the number of timesteps elapsed since the
-beginning of this run. *Elaplong* is the number of timesteps elapsed
-since the beginning of an initial run in a series of runs. See the
-*start* and *stop* keywords for the :ref:`run<command-run>` command for info
-on how to invoke a series of runs that keep track of an initial starting
-time. If these keywords are not used, then *elapsed* and *elaplong* are
-the same value.
+The *step* and *elapsed* keywords
+  refer to timestep count. *Step* is the current timestep. *Elapsed* is the number of timesteps elapsed since the beginning of this run. *Elaplong* is the number of timesteps elapsed since the beginning of an initial run in a series of runs. See the *start* and *stop* keywords for the :ref:`run<command-run>` command for info on how to invoke a series of runs that keep track of an initial starting time. If these keywords are not used, then *elapsed* and *elaplong* are the same value.
 
-The *cpu* keyword is elapsed CPU seconds since the beginning of this
-run. The *tpcpu* and *spcpu* keywords are measures of how fast your
-simulation is currently running. The *tpcpu* keyword is simulation time
-per CPU second, where simulation time is in time :ref:`units<command-units>`.
-The *spcpu* keyword is the number of timesteps per CPU second. Both
-quantities are on-the-fly metrics, measured relative to the last time
-they were invoked. Thus if you are printing out statistical output every
-100 timesteps, the two keywords will continually output the time and
-timestep rate for the last 100 steps.
+The *cpu* keyword
+  is elapsed CPU seconds since the beginning of this run. The *tpcpu* and *spcpu* keywords are measures of how fast your simulation is currently running. The *tpcpu* keyword is simulation time per CPU second, where simulation time is in time :ref:`units<command-units>`.  The *spcpu* keyword is the number of timesteps per CPU second. Both quantities are on-the-fly metrics, measured relative to the last time they were invoked. Thus if you are printing out statistical output every 100 timesteps, the two keywords will continually output the time and timestep rate for the last 100 steps.
 
-The *wall* keyword is elapsed time in seconds since SPARTA was launched.
-This can be used to time portions of the input script in the following
-manner:
+The *wall* keyword
+  is elapsed time in seconds since SPARTA was launched.  This can be used to time portions of the input script in the following manner:
 
-::
-
-   variable            t equal wall
-   variable            t1 equal $t
-   portion of input script
-   variable            t2 equal $t
-   variable            delta equal v_2-v_1
-   print               "Delta time = $delta" 
-
+  ::
+  
+     variable            t equal wall
+     variable            t1 equal $t
+     portion of input script
+     variable            t2 equal $t
+     variable            delta equal v_2-v_1
+     print               "Delta time = $delta" 
+  
 --------------
 
 The *np*, *ntouch*, *ncomm*, *nbound*, *nexit*, *nscoll*, *nscheck*,
@@ -138,61 +129,57 @@ The *npave*, *ntouchave*, *ncommave*, *nboundave*, *nexitave*,
 of the corresponding count divided by *elapsed* = the number of
 timesteps since the start of the current run.
 
-The *np* keyword is the number of particles.
+The *np* keyword
+  is the number of particles.
 
-The *ntouch* keyword is the number of cells touched by the particles
-during the move portion of the timestep. E.g. if a particle moves from
-cell A to adjacent cell B, it touches 2 cells.
+The *ntouch* keyword
+  is the number of cells touched by the particles during the move portion of the timestep. E.g. if a particle moves from cell A to adjacent cell B, it touches 2 cells.
 
-The *ncomm* keyword is the number of particles communicated to other
-processors.
+The *ncomm* keyword
+  is the number of particles communicated to other processors.
 
-The *nbound* keyword is the number of particles that collided with a
-global boundary. Crossing a periodic boundary or exiting an outflow
-boundary is not counted.
+The *nbound* keyword
+  is the number of particles that collided with a global boundary. Crossing a periodic boundary or exiting an outflow boundary is not counted.
 
-The *nexit* keyword is the number of particles that exited the
-simulation box through an outflow boundary.
+The *nexit* keyword
+  is the number of particles that exited the simulation box through an outflow boundary.
 
-The *nscoll* keyword is the number of particle/surface collisions that
-occurred, where a particle collided with a geometric surface.
+The *nscoll* keyword
+  is the number of particle/surface collisions that occurred, where a particle collided with a geometric surface.
 
-The *nscheck* keyword is the number of particle/surface collisions that
-were checked for. If a cell is overlapped by N surface elements, all N
-must be checked for collisions each time a particle in that cell moves.
+The *nscheck* keyword
+  is the number of particle/surface collisions that were checked for. If a cell is overlapped by N surface elements, all N must be checked for collisions each time a particle in that cell moves.
 
-The *ncoll* keyword is the number of particle/particle collisions that
-occurred.
+The *ncoll* keyword
+  is the number of particle/particle collisions that occurred.
 
-The *nattempt* keyword is the number of particle/particle collisions
-that were attempted.
+The *nattempt* keyword
+  is the number of particle/particle collisions that were attempted.
 
-The *nreact* keyword is the number of chemical reactions that occurred.
-The *nsreact* keyword is the number of chemical reactions on surfaces
-that occurred, including the global boundaries if they are treated as
-reacting surfaces, via the :ref:`bound_modify<command-bound-modify>` command.
+The *nreact* keyword
+  is the number of chemical reactions that occurred.
 
-The *nparent* keyword is the number of parent cells, including the root
-cell. The *nchild* keyword is the number of child cells, which includes
-both unsplit and split cells. The *nsplit* keyword is the number of
-split cells. See :ref:`Section howto 4.8<howto-grids>` for
-a description of the hierarchical grid used by SPARTA and a definition
-of these various kinds of grid cells.
+The *nsreact* keyword
+  is the number of chemical reactions on surfaces that occurred, including the global boundaries if they are treated as reacting surfaces, via the :ref:`bound_modify<command-bound-modify>` command.
 
-The *maxlevel* keyword is the maximum number of levels for grid
-refinement currently in the simulation. This may change due to dynamic
-grid adaptation.
+The *nparent* keyword
+  is the number of parent cells, including the root cell. The *nchild* keyword is the number of child cells, which includes both unsplit and split cells. The *nsplit* keyword is the number of split cells. See :ref:`Section howto 4.8<howto-grids>` for a description of the hierarchical grid used by SPARTA and a definition of these various kinds of grid cells.
 
-The *vol* keyword is the volume (or area in 2d) of the simulation box.
+The *maxlevel* keyword
+  is the maximum number of levels for grid refinement currently in the simulation. This may change due to dynamic grid adaptation.
 
-The *lx*, *ly*, *lz* keywords are the dimensions of the simulation box.
+The *vol* keyword
+  is the volume (or area in 2d) of the simulation box.
 
-The *xlo*, *xhi*, *ylo*, *yhi*, *zlo*, *zhi* keywords are the boundaries
-of the simulation box.
+The *lx*, *ly*, *lz* keywords
+  are the dimensions of the simulation box.
+
+The *xlo*, *xhi*, *ylo*, *yhi*, *zlo*, *zhi* keywords
+  are the boundaries of the simulation box.
 
 --------------
 
-For output values from a compute or fix, the bracketed index I used to
+For output values from a compute or fix, the bracketed index *I* used to
 index a vector, as in *c_ID[I]* or *f_ID[I]*, can be specified using a
 wildcard asterisk with the index to effectively specify multiple values.
 This takes the form "*" or "*n" or "n*" or "m*n". If N = the size of the
@@ -224,56 +211,37 @@ input script. See those commands for details. If the entity calculates a
 global scalar, vector, or array, then the keyword formats with 0, 1, or
 2 brackets will reference a scalar value from the entity.
 
-The *s_ID[I]* and *r_ID[I]* keywords allow global values calculated by a
-surface collision model or surface reaction model to be output. As
-discussed on the :ref:`surf_collide<command-surf-collide>` and
-:ref:`surf_react<command-surf-react>` doc pages, these models both calculate
-a global vector of quantities.
+The *s_ID[I]* and *r_ID[I]* keywords
+  allow global values calculated by a surface collision model or surface reaction model to be output. As discussed on the :ref:`surf_collide<command-surf-collide>` and :ref:`surf_react<command-surf-react>` doc pages, these models both calculate a global vector of quantities.
 
-The *c_ID* and *c_ID[I]* and *c_ID[I][J]* keywords allow global values
-calculated by a compute to be output. As discussed on the
-:ref:`compute<command-compute>` doc page, computes can calculate global,
-per-particle, per-grid, or per-surf values. Only global values can be
-referenced by this command. However, per-particle, per-grid, or per-surf
-compute values can be referenced in a :ref:`variable<command-variable>` and
-the variable referenced, as discussed below. See the discussion above
-for how the I in *c_ID[I]* can be specified with a wildcard asterisk to
-effectively specify multiple values from a global compute vector.
+The *c_ID* and *c_ID[I]* and *c_ID[I][J]* keywords
+  allow global values calculated by a compute to be output. As discussed on the :ref:`compute<command-compute>` doc page, computes can calculate global, per-particle, per-grid, or per-surf values. Only global values can be referenced by this command. However, per-particle, per-grid, or per-surf compute values can be referenced in a :ref:`variable<command-variable>` and the variable referenced, as discussed below. See the discussion above for how the I in *c_ID[I]* can be specified with a wildcard asterisk to effectively specify multiple values from a global compute vector.
 
-The *f_ID* and *f_ID[I]* and *f_ID[I][J]* keywords allow global values
-calculated by a fix to be output. As discussed on the :ref:`fix<command-fix>`
-doc page, fixes can calculate global, per-particle, per-grid, or
-per-surf values. Only global values can be referenced by this command.
-However, per-particle or per-grid or per-surf fix values can be
-referenced in a :ref:`variable<command-variable>` and the variable
-referenced, as discussed below. See the discussion above for how the I
-in *f_ID[I]* can be specified with a wildcard asterisk to effectively
-specify multiple values from a global fix vector.
+The *f_ID* and *f_ID[I]* and *f_ID[I][J]* keywords
+  allow global values calculated by a fix to be output. As discussed on the :ref:`fix<command-fix>` doc page, fixes can calculate global, per-particle, per-grid, or per-surf values. Only global values can be referenced by this command.  However, per-particle or per-grid or per-surf fix values can be referenced in a :ref:`variable<command-variable>` and the variable referenced, as discussed below. See the discussion above for how the I in *f_ID[I]* can be specified with a wildcard asterisk to effectively specify multiple values from a global fix vector.
 
-The *v_name* keyword allow the current value of a variable to be output.
-The name in the keyword should be replaced by the variable name that has
-been defined elsewhere in the input script. Only equal-style variables
-can be referenced. See the :ref:`variable<command-variable>` command for
-details. Variables of style *equal* can reference per-particle or
-per-grid or per-surf properties or stats keywords, or they can invoke
-other computes, fixes, or variables when evaluated, so this is a very
-general means of creating statistical output.
+The *v_name* keyword
+  allow the current value of a variable to be output.  The name in the keyword should be replaced by the variable name that has been defined elsewhere in the input script. Only equal-style variables can be referenced. See the :ref:`variable<command-variable>` command for details. Variables of style *equal* can reference per-particle or per-grid or per-surf properties or stats keywords, or they can invoke other computes, fixes, or variables when evaluated, so this is a very general means of creating statistical output.
 
-See :ref:`Section_modify<modify>` for information on how to
-add new compute and fix styles to SPARTA to calculate quantities that
-can then be referenced with these keywords to generate statistical
-output.
+See :ref:`Section_modify<modify>` for information on how to add new compute and fix styles to SPARTA to calculate quantities that can then be referenced with these keywords to generate statistical output.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-stats`
 :ref:`command-stats-modify`
 
-**Default:**
+********
+Default:
+********
 
 ::
 

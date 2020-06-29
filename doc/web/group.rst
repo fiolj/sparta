@@ -11,7 +11,9 @@ group command
 #############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -47,7 +49,9 @@ group command
         intersect args = two or more group IDs
         clear = no args 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -62,7 +66,9 @@ group command
    group boundary surf union lower upper
    group boundary surf intersect upper leftside 
 
-**Description:**
+************
+Description:
+************
 
 Assign grid cells to grid groups or surface elements to surface groups.
 In SPARTA, a "grid group" is a collection of one or more grid cells. A
@@ -189,19 +195,27 @@ adding more grid cells or surface elements to it.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 No more than 32 grid groups and no more than 32 surface groups can be
 defined, including "all".
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-dump`,
 :ref:`command-region`,
 :ref:`compute grid<command-compute-grid>`
 :ref:`compute surf<command-compute-surf>`
 
-**Default:**
+********
+Default:
+********
+
 
 All grid cells belong to the "all" grid group. All surface elements
 belong to the "all" surface group.

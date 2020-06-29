@@ -26,7 +26,9 @@ compute eflux/grid/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -43,7 +45,9 @@ compute eflux/grid/kk command
 
         heatx,heaty,heatz = xyz components of energy flux density tensor 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -59,7 +63,9 @@ species and each grid cell to a dump file every 1000 steps:
    fix 1 ave/grid 10 100 1000 c_1[*]
    dump 1 grid all 1000 tmp.grid id f_1[*] 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates components of the energy flux
 density vector for each grid cell in a grid cell group. This is also
@@ -188,9 +194,14 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`compute grid<command-compute-grid>`
 :ref:`compute thermal/grid<command-compute-thermal-grid>`,
@@ -198,4 +209,7 @@ effectively.
 :ref:`command-fix-ave-grid`,
 :ref:`dump grid<command-dump>`
 
-**Default:** none
+********
+Default:
+********
+ none

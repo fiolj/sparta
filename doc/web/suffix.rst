@@ -11,7 +11,9 @@ suffix command
 ##############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,7 +21,9 @@ suffix command
 
 -  style = *off* or *on* or *kk*
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -27,7 +31,9 @@ suffix command
    suffix on
    suffix kk 
 
-**Description:**
+************
+Description:
+************
 
 This command allows you to use variants of various styles if they exist.
 In that respect it operates the same as the :ref:`-suffix command-line switch<start-command-line-options>`. It also has options to turn off
@@ -57,10 +63,18 @@ is also possible by not using any suffix commands, and explicitly
 appending or not appending the suffix to the relevant commands in your
 input script.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`Command-line switch -suffix<start-command-line-options>`
 
-**Default:** none
+********
+Default:
+********
+ none

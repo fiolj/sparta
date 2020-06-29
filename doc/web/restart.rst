@@ -11,7 +11,9 @@ restart command
 ###############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -34,7 +36,9 @@ restart command
         nfile arg = Nf
           Nf = write this many files, one from each of Nf processors 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -44,7 +48,9 @@ restart command
    restart 10000 flow.%.1 flow.%.2 nfile 10
    restart v_mystep flow.restart 
 
-**Description:**
+************
+Description:
+************
 
 Write out a binary restart file every so many timesteps, in either or
 both of two modes, as a run proceeds. A value of 0 means do not write
@@ -140,14 +146,22 @@ next 3 processors and write it to a restart file.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-write-restart`,
 :ref:`command-read-restart`
 
-**Default:**
+********
+Default:
+********
+
 
 ::
 

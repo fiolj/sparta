@@ -11,7 +11,9 @@ compute boundary command
 ########################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -40,7 +42,9 @@ compute boundary command
         evib = flux of particle vibrational energy on boundary 
         etot = flux of particle total energy on boundary 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -63,7 +67,9 @@ boundary to a file every 1000 steps:
    compute 1 boundary species n press shx shy shz
    fix 1 ave/time 10 100 1000 c_1[*] mode vector file tmp.boundary 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates one or more values for each
 boundary (i.e. face) of the simulation box, based on the particles that
@@ -255,13 +261,21 @@ effectively.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 If specified with a *kk* suffix, this compute can be used no more than
 twice in the same input script (active at the same time).
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-ave-time`
 
-**Default:** none
+********
+Default:
+********
+ none

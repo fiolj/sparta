@@ -26,7 +26,9 @@ fix adapt/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -38,7 +40,9 @@ fix adapt/kk command
 -  args = all remaining args are identical to those defined for the
    :ref:`adapt_grid<command-adapt-grid>` command
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -48,7 +52,9 @@ fix adapt/kk command
    fix 1 adapt 10000 all refine surf 0.15 iterate 1 dir 1 0 0 
    fix 10 adapt 1000 all refine coarsen value c_11 5.0 10.0 iterate 2 
 
-**Description:**
+************
+Description:
+************
 
 This command performs on-the-fly adapatation of grid cells as a
 simulation runs, either by refinement or coarsening or both. Grid
@@ -116,11 +122,19 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-adapt-grid`,
 :ref:`command-balance-grid`
 
-**Default:** none
+********
+Default:
+********
+ none

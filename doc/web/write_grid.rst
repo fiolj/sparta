@@ -11,7 +11,9 @@ write_grid command
 ##################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -20,14 +22,18 @@ write_grid command
 -  mode = *parent* or *geom*
 -  file = name of file to write grid info to
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    write_grid parent data.grid
    write_grid geom viz.out 
 
-**Description:**
+************
+Description:
+************
 
 Write a grid file in text format describing the currently defined
 hierarchical grid. See the :ref:`read_grid<command-read-grid>` and
@@ -90,11 +96,19 @@ indices, and the next 4 are the upper-Z indices.
 	       Instead there will be 4 or 8 for each grid cell, with some (x,y,z) coordinates being duplicated since they are shared by multiple grid cells.
 	       Converting the output file to one with a unique list of points is currently a post-processing task.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-grid`
 :ref:`command-create-grid`
 
-**Default:** none
+********
+Default:
+********
+ none

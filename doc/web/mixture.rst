@@ -11,7 +11,9 @@ mixture command
 ###############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -24,29 +26,30 @@ mixture command
 -  keyword = *nrho* or *vstream* or *temp* or *frac* or *group* or
    *copy* or *delete*
 
-   ::
+  nrho arg = density
+    density = number density of entire mixture (# per length^3 units)
+  vstream args = Vx Vy Vz
+    Vx,Vy,Vz = streaming velocity of entire mixture (velocity units)
+  temp arg = thermal
+    thermal = temperature of entire mixture (temperature units)
+  trot arg = Trot
+    Trot = rotational temperature of entire mixture (temperature units)
+  tvib arg = Tvib
+    Tvib = vibrational temperature of entire mixture (temperature units)
+  frac arg = fraction
+    fraction = number fraction for each listed species (0 to 1)
+  group arg = SELF or group-ID
+    - SELF = put each listed species (or all species if none listed) in its own group
+    - group-ID = put the listed species (or all species if none listed) in a group with this ID 
+  copy arg = new-ID
+    new-ID = ID of new mixture to create, as a copy of this one
+  delete args = sp1 sp2 ...
+    sp1,sp2,... = species to delete from the mixture 
 
-        nrho arg = density
-          density = number density of entire mixture (# per length^3 units)
-        vstream args = Vx Vy Vz
-          Vx,Vy,Vz = streaming velocity of entire mixture (velocity units)
-        temp arg = thermal
-          thermal = temperature of entire mixture (temperature units)
-        trot arg = Trot
-          Trot = rotational temperature of entire mixture (temperature units)
-        tvib arg = Tvib
-          Tvib = vibrational temperature of entire mixture (temperature units)
-        frac arg = fraction
-          fraction = number fraction for each listed species (0 to 1)
-        group arg = SELF or group-ID
-          SELF = put each listed species (or all species if none listed) in its own group
-          group-ID = put the listed species (or all species if none listed) in a group with this ID 
-        copy arg = new-ID
-          new-ID = ID of new mixture to create, as a copy of this one
-        delete args = sp1 sp2 ...
-          sp1,sp2,... = species to delete from the mixture 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -57,11 +60,14 @@ mixture command
    mixture background N O 
    mixture air delete N NO 
 
-**Description:**
+************
+Description:
+************
 
-Define a gas mixture and its properties. A mixture can be referenced by
-its ID in several other SPARTA commands such as
-:ref:`create_particles<command-create-particles>` or :ref:`per-grid computes<command-compute>`. Any number of mixtures can be defined and
+Define a gas mixture and its properties. A mixture can be referenced
+by its ID in several other SPARTA commands such as
+:ref:`create_particles<command-create-particles>` or :ref:`per-grid
+computes<command-compute>`. Any number of mixtures can be defined and
 used in a simulation.
 
 A mixture is a collection of one or more particle species as defined by
@@ -226,19 +232,27 @@ have no species assigned to them are also deleted.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 The streaming velocity and thermal temperature of the mixture cannot
 both be zero. A zero streaming velocity means a zero vector = (0,0,0).
 
 The restrictions on use of the *delete* keyword are described above.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-global`,
 :ref:`command-create-particles`
 
-**Default:**
+********
+Default:
+********
+
 
 The *nrho*, *vstream*, and *temp* defaults are those defined for the
 background gas density, as set by the :ref:`global<command-global>` command.

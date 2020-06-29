@@ -11,7 +11,9 @@ dimension command
 #################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,14 +21,18 @@ dimension command
 
 -  N = 2 or 3
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    dimension 2
    dimension 3 
 
-**Description:**
+************
+Description:
+************
 
 Set the dimensionality of the simulation. By default SPARTA runs 3d
 simulations, but 2d simulations can also be run.
@@ -35,14 +41,22 @@ simulations, but 2d simulations can also be run.
 defining the lower boundary in the y-dimension to axi-symmetric via the
 :ref:`boundary<command-boundary>` command.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command must be used before the simulation box is defined by a
 :ref:`create_box<command-create-box>` command.
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:**
+********
+Default:
+********
+
 
 ::
 

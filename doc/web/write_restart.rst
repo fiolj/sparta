@@ -11,7 +11,9 @@ write_restart command
 #####################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -28,7 +30,9 @@ write_restart command
         nfile arg = Nf
           Nf = write this many files, one from each of Nf processors 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -36,7 +40,9 @@ write_restart command
    write_restart restart.equil.mpiio
    write_restart flow.%.* nfile 10 
 
-**Description:**
+************
+Description:
+************
 
 Write a binary restart file with the current state of the simulation.
 
@@ -92,11 +98,19 @@ next 3 processors and write it to a restart file.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-restart`
 :ref:`command-read-restart`
 
-**Default:** none
+********
+Default:
+********
+ none

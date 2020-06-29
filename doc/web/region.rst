@@ -11,7 +11,9 @@ region command
 ##############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -52,7 +54,9 @@ region command
           in = the region is inside the specified geometry
           out = the region is outside the specified geometry 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -61,7 +65,9 @@ region command
    region void cylinder y 2 3 5 -5.0 INF
    region outside union 4 side1 side2 side3 side4 
 
-**Description:**
+************
+Description:
+************
 
 This command defines a geometric region of space. Various other commands
 use regions. See the :ref:`group grid<command-group>`, :ref:`group surf<command-group>`, and :ref:`dump_modify<command-dump-modify>` commands
@@ -100,12 +106,20 @@ constructed listing the region-IDs of the 2 spheres, the resulting
 region would be all the volume in the simulation box that was outside
 both of the spheres.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-dump-modify`
 
-**Default:**
+********
+Default:
+********
+
 
 The option default is side = in.

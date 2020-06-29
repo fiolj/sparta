@@ -11,7 +11,9 @@ fix ave/surf command
 ####################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -43,7 +45,9 @@ fix ave/surf command
           one = output a new average value every Nfreq steps
           running = accumulate average continuously 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -51,7 +55,9 @@ fix ave/surf command
    fix 1 ave/surf leftcircle 10 20 1000 c_mine[2]
    fix 1 ave/surf leftcircle 10 20 1000 c_mine[*] 
 
-**Description:**
+************
+Description:
+************
 
 Use one or more per-surf vectors as inputs every few timesteps, and
 average them surface element by surface element by over longer
@@ -186,13 +192,21 @@ performed.
 Surface elements not in the specified *group-ID* will output zeroes for
 all their values.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-compute`
 :ref:`command-fix-ave-time`
 
-**Default:**
+********
+Default:
+********
+
 
 The option defaults are ave = one.

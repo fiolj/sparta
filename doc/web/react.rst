@@ -11,7 +11,9 @@ react command
 #############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -32,7 +34,9 @@ react command
         tce/kk args = infile
           infile = file with list of gas-phase chemistry reactions 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -40,7 +44,9 @@ react command
    react tce air.tce
    react qk air.tce 
 
-**Description:**
+************
+Description:
+************
 
 Define chemical reactions to perform in the gas phase when
 particle-particle collisions occur. See the
@@ -341,14 +347,22 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-collide`
 :ref:`command-surf-react`
 
-**Default:**
+********
+Default:
+********
+
 
 style = none
 

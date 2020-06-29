@@ -11,7 +11,9 @@ fix ambipolar command
 #####################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -22,13 +24,17 @@ fix ambipolar command
 -  especies = species ID for ambipolar electrons
 -  ion1,ion2,... = species IDs for one or more ambipolar ions
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    fix 1 ambipolar e N+ O+ NO+ 
 
-**Description:**
+************
+Description:
+************
 
 Enable the ambipolar approximation to be used in a simulation. The
 ambipolar approximation is a computationally efficient way to model
@@ -89,10 +95,18 @@ accessed by the :ref:`dump particle<command-dump>` command, as p_ionambi and
 p_velambi. That means those per-particle values can be written to
 particle dump files.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`collide_modify ambipolar yes<command-collide-modify>`
 
-**Default:** none
+********
+Default:
+********
+ none

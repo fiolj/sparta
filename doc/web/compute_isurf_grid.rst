@@ -11,7 +11,9 @@ compute isurf/grid command
 ##########################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -39,7 +41,9 @@ compute isurf/grid command
         evib = flux of particle vibrational energy on surface elements in a grid cell
         etot = flux of particle total energy on surface elements in a grid cell 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -67,7 +71,9 @@ on the set of implicit surfs:
    stats 1000
    stats_style step cpu np c_2[1] c_2[2] 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates one or more values for each grid
 cell in a grid cell group, based on the particles that collide with the
@@ -158,12 +164,20 @@ simulations.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-ave-grid`
 :ref:`dump grid<command-dump>`,
 :ref:`command-compute-surf`
 
-**Default:** none
+********
+Default:
+********
+ none

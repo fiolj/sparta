@@ -11,7 +11,9 @@ remove_surf command
 ###################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,13 +21,17 @@ remove_surf command
 
 -  surfID = group ID for which surface elements to remove
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    remove_surf topsurf 
 
-**Description:**
+************
+Description:
+************
 
 Remove a group of surface elements that have previously been read-in via
 the :ref:`read_surf<command-read-surf>` command. The :ref:`group surf<command-group>` or :ref:`read_surf<command-read-surf>` can be used to
@@ -43,10 +49,18 @@ points and elements are renumbered to create compressed, contiguous
 lists. The new list of surface elements can be output via the
 :ref:`write_surf<command-write-surf>` command.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-surf`
 
-**Default:** none
+********
+Default:
+********
+ none

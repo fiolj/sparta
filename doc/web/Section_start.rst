@@ -1,8 +1,4 @@
 
-
-
-
-
 .. _start:
 
 ###############
@@ -287,7 +283,7 @@ will use that data type.
 
 Using one of the -DPACK_ARRAY, -DPACK_POINTER, and -DPACK_MEMCPY options
 can make for faster parallel FFTs on some platforms. The -DPACK_ARRAY
-setting is the default. See the :ref:`command-compute-fft-grid` command for info about FFTs. See
+setting is the default. See the :ref:`command-compute-fft-grid` for info about FFTs. See
 Step 6 below for info about building SPPARKS with an FFT library.
 
 
@@ -413,7 +409,7 @@ Step 7
 
 
 The 3 JPG variables allow you to specify a JPEG and/or PNG library which
-SPARTA uses when writing out JPEG or PNG files via the :ref:`command-dump-image` command. These can be left blank if you do
+SPARTA uses when writing out JPEG or PNG files via the :ref:`command-dump-image`. These can be left blank if you do
 not use the -DSPARTA_JPEG or -DSPARTA_PNG switches discussed above in
 Step 4, since in that case JPEG/PNG output will be disabled.
 
@@ -521,17 +517,12 @@ Additional build tips:
 
 
 
-(1) Building SPARTA for multiple platforms.
+Building SPARTA for multiple platforms.
+   You can make SPARTA for multiple platforms from the same src directory.
+   Each target creates its own object sub-directory called Obj_name where it stores the system-specific \*.o files.
 
-You can make SPARTA for multiple platforms from the same src directory.
-Each target creates its own object sub-directory called Obj_name where
-it stores the system-specific \*.o files.
-
-(2) Cleaning up.
-
-Typing "make clean-all" or "make clean-foo" will delete \*.o object
-files created when SPARTA is built, for either all builds or for a
-particular machine.
+Cleaning up.
+   Typing "make clean-all" or "make clean-foo" will delete \*.o object files created when SPARTA is built, for either all builds or for a particular machine.
 
 --------------
 
@@ -544,11 +535,9 @@ Building for a Mac:
 ===================
 
 
-
 OS X is BSD Unix, so it should just work. See the Makefile.mac file.
 
 --------------
-
 
 
 .. _start-building-windows:
@@ -556,7 +545,6 @@ OS X is BSD Unix, so it should just work. See the Makefile.mac file.
 
 Building for Windows:
 =====================
-
 
 
 At some point we may provide a pre-built Windows executable for SPARTA.
@@ -978,7 +966,7 @@ Set the style of command echoing. The style can be *none* or *screen* or
 input script will be echoed to the screen and/or logfile. This can be
 useful to figure out which line of your script is causing an input
 error. The default value is *log*. The echo style can also be set by
-using the :ref:`command-echo` command in the input script itself.
+using the :ref:`command-echo` in the input script itself.
 
 ::
 
@@ -1092,7 +1080,7 @@ a log.sparta.N file where N is the partition ID. If the switch is
 specified in multi-partition mode, the hi-level logfile is named "file"
 and each partition also logs information to a file.N. For both
 one-partition and multi-partition mode, if the specified file is "none",
-then no log files are created. Using a :ref:`command-log` command in the
+then no log files are created. Using a :ref:`command-log` in the
 input script will override this setting. Option -plog will override the
 name of the partition log files file.N.
 
@@ -1122,13 +1110,7 @@ context.
 
    -package style args .... 
 
-Invoke the :ref:`command-package` command with style and args. The
-syntax is the same as if the command appeared at the top of the input
-script. For example "-package kokkos on gpus 2" or "-pk kokkos g 2" is
-the same as :ref:`package kokkos g 2<command-package>` in the input script.
-The possible styles and args are documented on the
-:ref:`command-package` doc page. This switch can be used multiple
-times.
+Invoke the :ref:`command-package` with style and args. The syntax is the same as if the command appeared at the top of the input script. For example "-package kokkos on gpus 2" or "-pk kokkos g 2" is the same as :ref:`package kokkos g 2<command-package>` in the input script.  The possible styles and args are documented on the :ref:`command-package` doc page. This switch can be used multiple times.
 
 Along with the "-suffix" command-line switch, this is a convenient
 mechanism for invoking the KOKKOS accelerator package and its options
@@ -1140,7 +1122,7 @@ without having to edit an input script.
 
 Specify the base name for the partition log files, so partition N writes
 log information to file.N. If file is none, then no partition log files
-are created. This overrides the filename specified in the -log
+are created. This overrides the filename specified in the ``-log``
 command-line option. This option is useful when working with large
 numbers of partitions, allowing the partition log files to be suppressed
 (-plog none) or placed in a sub-directory (-plog
@@ -1155,10 +1137,10 @@ command-line option.
 Specify the base name for the partition screen file, so partition N
 writes screen information to file.N. If file is none, then no partition
 screen files are created. This overrides the filename specified in the
--screen command-line option. This option is useful when working with
+``-screen`` command-line option. This option is useful when working with
 large numbers of partitions, allowing the partition screen files to be
-suppressed (-pscreen none) or placed in a sub-directory (-pscreen
-replica_files/screen) If this option is not used the screen file for
+suppressed (``-pscreen none``) or placed in a sub-directory (``-pscreen
+replica_files/screen``). If this option is not used the screen file for
 partition N is screen.N or whatever is specified by the -screen
 command-line option.
 
@@ -1201,9 +1183,9 @@ The specified suffix (kk) is automatically appended whenever your input script c
 For the KOKKOS package, using this command-line switch also invokes the
 default KOKKOS settings, as if the command "package kokkos" were used at
 the top of your input script. These settings can be changed by using the
-"-package kokkos" command-line switch or the :ref:`command-package` command in your script.
+"-package kokkos" command-line switch or the :ref:`command-package` in your script.
 
-The :ref:`command-suffix` command can also be used within an input
+The :ref:`command-suffix` can also be used within an input
 script to set a suffix, or to turn off or back on any suffix setting
 made via the command line.
 
@@ -1252,9 +1234,15 @@ simulation. It then appends statistics about the CPU time and size of
 information stored for the simulation. An example set of statistics is
 shown here:
 
-::
+- The first line gives the total CPU run time for the simulation, in seconds.
+
+  ::
 
    Loop time of 0.639973 on 4 procs for 1000 steps with 45792 particles
+
+- The next section gives a breakdown of the CPU timing (in seconds) in 7 categories. The first four are timings for particles moves, which includes interaction with surface elements, then particle collisions, then sorting of particles (required to perform collisions), and communication of particles between processors. The Modify section is time for operations invoked by fixes and computes. The Output section is for dump command and statistical output. The Other category is typically for load-imbalance, as some MPI tasks wait for others MPI tasks to complete. In each category the min,ave,max time across processors is shown, as well as a variation, and the percentage of total time.
+
+  ::
 
    MPI task timing breakdown:
    Section |  min time  |  avg time  |  max time  |%varavg| %total
@@ -1267,7 +1255,11 @@ shown here:
    Output  | 0.0002172  | 0.0007354  | 0.0012152  |   0.0 |  0.11
    Other   |            | 0.2471     |            |       | 38.61 
 
-::
+
+
+
+- The next section gives some statistics about the run. These are total counts of particle moves, grid cells touched by particles, the number of particles communicated between processors, collisions of particles with the global boundary and with surface elements (none in this problem), as well as collision and reaction statistics.
+  ::
 
    Particle moves    = 38096354 (38.1M)
    Cells touched     = 43236871 (43.2M)
@@ -1282,7 +1274,8 @@ shown here:
    Gas reactions     = 23 (0.023K)
    Particles stuck   = 0 
 
-::
+- The next section gives additional statistics, normalized by timestep or processor count.
+  ::
 
    Particle-moves/CPUsec/proc: 1.4882e+07
    Particle-moves/step: 38096.4
@@ -1298,7 +1291,9 @@ shown here:
    Collisions/particle/step: 0.553
    Gas-reactions/particle/step: 0.023 
 
-::
+- The next 2 sections are optional. The "Gas reaction tallies" section is only output if the :ref:`command-react` is used. For each reaction with a non-zero tally, the number of those reactions that occurred during the run is printed. The "Surface reaction tallies" section is only output if the :ref:`command-surf-react` was used one or more times, to assign reaction models to individual surface elements or the box boundaries. For each of the commands, and each of its reactions with a non-zero tally, the number of those reactions that occurred during the run is printed. Note that this is effectively a summation over all the surface elements and/or box boundaries the :ref:`command-surf-react` was used to assign a reaction model to.
+
+  ::
 
    Gas reaction tallies: style tce #-of-reactions 45 \
    reaction O2 + N --> O + O + N: 10 \
@@ -1310,7 +1305,11 @@ shown here:
    reaction delete: 53525 \
    reaction create: 70500
 
-::
+
+- The last section is a histogramming across processors of various per-processor statistics: particle count, owned grid cells, processor, ghost grid cells which are copies of cells owned by other processors, and empty cells which are ghost cells without surface information (only used to pass particles to neighboring processors).
+  The ave value is the average across all processors. The max and min values are for any processor. The 10-bin histogram shows the distribution of the value across processors. The total number of histogram counts is equal to the number of processors.
+
+  ::
 
    Particles: 11448 ave 17655 max 5306 min
    Histogram: 2 0 0 0 0 0 0 0 0 2
@@ -1325,16 +1324,4 @@ shown here:
    GhostSurf: 0 ave 0 max 0 min
    Histogram: 4 0 0 0 0 0 0 0 0 0 
 
-The first line gives the total CPU run time for the simulation, in seconds.
 
-The next section gives a breakdown of the CPU timing (in seconds) in 7 categories. The first four are timings for particles moves, which includes interaction with surface elements, then particle collisions, then sorting of particles (required to perform collisions), and communication of particles between processors. The Modify section is time for operations invoked by fixes and computes. The Output section is for dump command and statistical output. The Other category is typically for load-imbalance, as some MPI tasks wait for others MPI tasks to complete. In each category the min,ave,max time across processors is shown, as well as a variation, and the percentage of total time.
-
-The next section gives some statistics about the run. These are total counts of particle moves, grid cells touched by particles, the number of particles communicated between processors, collisions of particles with the global boundary and with surface elements (none in this problem), as well as collision and reaction statistics.
-
-The next section gives additional statistics, normalized by timestep or processor count.
-
-The next 2 sections are optional. The "Gas reaction tallies" section is only output if the :ref:`command-react` is used. For each reaction with a non-zero tally, the number of those reactions that occurred during the run is printed. The "Surface reaction tallies" section is only output if the :ref:`command-surf-react` was used one or more times, to assign reaction models to individual surface elements or the box boundaries. For each of the commands, and each of its reactions with a non-zero tally, the number of those reactions that occurred during the run is printed. Note that this is effectively a summation over all the surface elements and/or box boundaries the :ref:`command-surf-react` was used to assign a reaction model to.
-
-The last section is a histogramming across processors of various per-processor statistics: particle count, owned grid cells, processor, ghost grid cells which are copies of cells owned by other processors, and empty cells which are ghost cells without surface information (only used to pass particles to neighboring processors).
-
-The ave value is the average across all processors. The max and min values are for any processor. The 10-bin histogram shows the distribution of the value across processors. The total number of histogram counts is equal to the number of processors.

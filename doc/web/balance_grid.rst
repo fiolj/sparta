@@ -11,7 +11,9 @@ balance_grid command
 ####################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -41,7 +43,9 @@ balance_grid command
           dims = string with any of "x", "y", or "z" characters in it
         flip value = yes or no 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -52,7 +56,9 @@ balance_grid command
    balance_grid rcb part
    balance_grid rcb part axes xz 
 
-**Description:**
+************
+Description:
+************
 
 This command adjusts the assignment of grid cells and their particles to
 processors, to attempt to balance the computational cost (load) evenly
@@ -190,7 +196,10 @@ rebalancing code.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command can only be used after the grid has been created by the
 :ref:`create_grid<command-create-grid>`, :ref:`read_grid<command-read-grid>`, or
@@ -203,11 +212,16 @@ simulation box boundary condition is not yet assigned, that operation
 needs to be performed in the input script before balancing can be
 performed.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-balance`
 
-**Default:**
+********
+Default:
+********
+
 
 The default settings for the optional keywords are axes = xyz, flip =
 no.

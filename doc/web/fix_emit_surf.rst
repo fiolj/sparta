@@ -11,7 +11,9 @@ fix emit/surf command
 #####################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -36,7 +38,9 @@ fix emit/surf command
           Psub = pressure setting at inflow boundary (pressure units)
           Tsub = temperature setting at inflow boundary, can be NULL (temperature units) 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -45,7 +49,9 @@ fix emit/surf command
    fix in emit/surf air all subsonic 0.1 300
    fix in emit/surf air all subsonic 0.05 NULL 
 
-**Description:**
+************
+Description:
+************
 
 Emit particles from a group of surface elements, continuously during a
 simulation. If invoked every timestep, this fix creates a continuous
@@ -236,7 +242,10 @@ number of particles added on the most recent insertion step. The second
 element is the cummulative total number added since the beginning of the
 run. The 2nd value is initialized to zero each time a run is performed.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 A *n* setting of *Np* > 0 can only be used with a *perspecies* setting
 of *no*.
@@ -252,12 +261,17 @@ outward streaming velocity, so that their net velocity is inward. The
 threshold for this is the thermal velocity for particles 3*sigma from
 the mean thermal velocity.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`mixture<command-mixture>`,
 :ref:`create_particles<command-create-particles>`, :ref:`fix emit/face<command-fix-emit-face>`
 
-**Default:**
+********
+Default:
+********
+
 
 The keyword defaults are n = 0, normal = no, nevery = 1, perspecies =
 yes, region = none, no subsonic settings.

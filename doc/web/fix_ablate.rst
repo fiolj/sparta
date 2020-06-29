@@ -11,7 +11,9 @@ fix ablate command
 ##################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -34,14 +36,18 @@ fix ablate command
 -  maxrandom = maximum per grid cell decrement as an integer (only
    specified if source = random)
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    fix 1 ablate surfcells 0 0.0 random 10
    fix 1 ablate surfcells 1000 10.0 c_tally 
 
-**Description:**
+************
+Description:
+************
 
 Perform ablation once every Nevery steps on a set of grid cell corner
 points to induce new implicit surface elements in those grid cells. This
@@ -220,15 +226,23 @@ overview of SPARTA output options.
 
 The scalar and vector values are unitless.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This fix can only be used in simulations that define implicit surfaces.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-isurf`
 
-**Default:** none
+********
+Default:
+********
+ none
 
 .. |image0| image:: JPG/porous2d_initial_small.png
    :target: JPG/porous2d_initial.png

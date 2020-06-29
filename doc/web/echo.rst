@@ -11,7 +11,9 @@ echo command
 ############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,14 +21,18 @@ echo command
 
 -  style = *none* or *screen* or *log* or *both*
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    echo both
    echo log 
 
-**Description:**
+************
+Description:
+************
 
 This command determines whether SPARTA echoes each input script command
 to the screen and/or log file as it is read and processed. If an input
@@ -36,11 +42,19 @@ last command processed.
 The :ref:`command-line switch<start-command-line-options>` -echo can be
 used in place of this command.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:**
+********
+Default:
+********
+
 
 ::
 
