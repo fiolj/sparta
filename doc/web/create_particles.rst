@@ -4,18 +4,11 @@
 .. index:: create_particles/kk
 
 
-
-
-
 .. _command-create-particles:
 
 ########################
 create_particles command
 ########################
-
-
-
-
 
 
 .. _command-create-particles-createparticleskk:
@@ -25,40 +18,42 @@ create_particles/kk command
 ###########################
 
 
-
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
    create_particles mix-ID style args keyword value ... 
 
--  mix-ID = ID of mixture to use when creating particles
--  style = *n* or *single*
+- mix-ID = ID of mixture to use when creating particles
+- style = *n* or *single*
 
-   ::
+  - n args = Np =
 
-        n args = Np
-          Np = 0 or number of particles to create
-        single args = species-ID x y z vx vy vz
-          species-ID = ID of species of single particle
-          x,y,z = position of particle (distance units)
-          vx,vy,vz = velocity of particle (velocity units) 
+    - Np = 0 or number of particles to create
+
+  - single args = species-ID x y z vx vy vz
+
+    - species-ID = ID of species of single particle
+    - x,y,z = position of particle (distance units)
+    - vx,vy,vz = velocity of particle (velocity units) 
 
 -  zero or more keyword/value pairs may be appended
 -  keyword = *global* or *region* or *species* or *density* or
    *temperature* or *velocity* or *twopass*
 
-   ::
+   - global value = yes or no
+   - region value = region-ID
+   - species values = svar xvar yvar zvar
+   - density values = dvar xvar yvar zvar
+   - temperature values = tvar xvar yvar zvar
+   - velocity values = vxvar vyvar vzvar xvar yvar zvar
+   - twopass values = none 
 
-        global value = yes or no
-        region value = region-ID
-        species values = svar xvar yvar zvar
-        density values = dvar xvar yvar zvar
-        temperature values = tvar xvar yvar zvar
-        velocity values = vxvar vyvar vzvar xvar yvar zvar
-        twopass values = none 
-
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -71,7 +66,9 @@ create_particles/kk command
    create_particles air n 0 temperature myTemp xgrid ygrid zgrid
    create_particles air n 0 velocity myVx NULL myVz xpos ypos NULL twopass 
 
-**Description:**
+************
+Description:
+************
 
 Create particles and add them to the simulation domain. The attributes
 of individual particles, such as species and velocity, are determined by
@@ -84,17 +81,8 @@ command can be used multiple times to add more and more particles.
 Particles are only created in grid cells which are entirely external to
 surfaces. Particles are not created in grid cells cut by surfaces.
 
-IMPORTANT NOTE: When a particle is created at a specified temperature
-(as set by the :ref:`mixture<command-mixture>` command), it's rotational and
-vibrational energy will also be initialized, consistent with the mixture
-temperatures. The *rotate* and *vibrate* options of the
-:ref:`collide_modify<command-collide-modify>` command determine how internal
-energy modes are initialized. If the :ref:`collide<command-collide>` command
-has not yet been specified, then no rotational or vibrational energy
-will be assigned to created particles. Thus if you wish to create
-particles with non-zero internal energy, the :ref:`collide<command-collide>`
-and (optionally) :ref:`collide_modify<command-collide-modify>` commands must
-be used before this command.
+.. important:: When a particle is created at a specified temperature (as set by the :ref:`mixture<command-mixture>` command), it's rotational and vibrational energy will also be initialized, consistent with the mixture temperatures.
+	       The *rotate* and *vibrate* options of the :ref:`collide_modify<command-collide-modify>` command determine how internal energy modes are initialized. If the :ref:`collide<command-collide>` command has not yet been specified, then no rotational or vibrational energy will be assigned to created particles. Thus if you wish to create particles with non-zero internal energy, the :ref:`collide<command-collide>` and (optionally) :ref:`collide_modify<command-collide-modify>` commands must be used before this command.
 
 If the *n* style is used with *Np* = 0, then the number of created
 particles is calculated by SPARTA as a function of the global *fnum*
@@ -125,8 +113,7 @@ the outcome of a random number generation. As grid cells are looped
 over, the remainder fraction is accumulated, so that exactly *Np*
 particles are created across all the processors.
 
-IMPORTANT NOTE: The preceeding calculation is actually done using
-*weighted* cell volumes. Grid cells can be weighted using the :ref:`global weight<command-global>` command.
+.. important:: The preceeding calculation is actually done using *weighted* cell volumes. Grid cells can be weighted using the :ref:`global weight<command-global>` command.
 
 Each particle is inserted at a random location within the grid cell. The
 particle species is chosen randomly in accord with the *frac* settings
@@ -158,7 +145,7 @@ checks what grid cell it is in, and only stores the particle if it owns
 that grid cell. Thus an identical set of particles are created, no
 matter how many processors are running the simulation
 
-IMPORTANT NOTE: The *global* yes option is not yet implemented.
+.. important:: The *global* yes option is not yet implemented.
 
 If the value is *no*, then each of the *P* processors generates a *N/P*
 subset of particles, using its own random number generation. It only
@@ -176,12 +163,9 @@ that the *side* option for the :ref:`region<command-region>` command can be
 used to define whether the inside or outside of the geometric region is
 considered to be "in" the region.
 
-IMPORTANT NOTE: If the *region* and *n* keywords are used together, less
-than N particles may be added. This is because grid cells will be
-candidates for particle insertion, unless they are entirely outside the
-bounding box that encloses the region. Particles those grid cells
-attempt to add are included in the count for N, even if some or all of
-the particle insertions are rejected due to not being inside the region.
+.. important:: If the *region* and *n* keywords are used together, less than N particles may be added.
+	       This is because grid cells will be candidates for particle insertion, unless they are entirely outside the bounding box that encloses the region.
+	       Particles those grid cells attempt to add are included in the count for N, even if some or all of the particle insertions are rejected due to not being inside the region.
 
 The *species* keyword can be used to create particles with a
 spatially-dependent separation of species. The specified *svar* is the
@@ -369,14 +353,22 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-mixture`,
 :ref:`command-fix-emit-face`
 
-**Default:**
+********
+Default:
+********
+
 
 The option default is global = no.
 

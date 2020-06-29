@@ -11,7 +11,9 @@ compute react/boundary command
 ##############################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -28,7 +30,9 @@ compute react/boundary command
         r: or p: = list of reactant species or product species
         s1,s2,s3 = one or more species IDs, separated by "/" character 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -48,7 +52,9 @@ output the results as part of statistical output:
    fix 1 ave/time all 10 100 1000 c_2[*]
    stats_style step np f_1[1][*] f_1[2][*] f_1[3][*] f_1[4][*] 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that tallies counts of reactions for each boundary
 (i.e. face) of the simulation box, based on the particles that collide
@@ -100,11 +106,19 @@ each face.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-ave-time`,
 :ref:`command-compute-react-surf`
 
-**Default:** none
+********
+Default:
+********
+ none

@@ -11,7 +11,9 @@ compute property/grid command
 #############################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -35,13 +37,17 @@ compute property/grid command
         xc,yc,zc = coords of center of grid cell
         vol = flow volume of grid cell (area in 2d) 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    compute 1 property/grid all id xc yc zc 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that simply stores grid attributes for each grid
 cell in a grid cell group. This is useful so that the values can be used
@@ -109,12 +115,20 @@ options.
 The vector or array values will be in whatever :ref:`units<command-units>`
 the corresponding attribute is in, e.g. distance units for xlo or xc.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`dump grid<command-dump>`
 :ref:`command-compute-reduce`
 :ref:`command-fix-ave-grid`
 
-**Default:** none
+********
+Default:
+********
+ none

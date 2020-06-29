@@ -11,7 +11,9 @@ units command
 #############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,13 +21,17 @@ units command
 
 -  style = *cgs* or *si*
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    units cgs 
 
-**Description:**
+************
+Description:
+************
 
 This command sets the style of units used for a simulation. It
 determines the units of all quantities specified in the input script and
@@ -68,13 +74,21 @@ The units command also sets a default timestep size; see the
 -  For style *cgs* this is dt = 1.0 sec.
 -  For style *si* this is dt = 1.0 sec.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command must be used before the simulation box is defined by a :ref:`command-create-box`
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:**
+********
+Default:
+********
+
 
 ::
 

@@ -18,7 +18,9 @@ fix emit/face/kk command
 ########################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -48,7 +50,9 @@ fix emit/face/kk command
     none is the only possible value
    
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -57,7 +61,9 @@ fix emit/face/kk command
    fix in emit/face air xlo subsonic 0.1 300
    fix in emit/face air xhi subsonic 0.05 NULL twopass 
 
-**Description:**
+************
+Description:
+************
 
 Emit particles from one or more faces of the simulation box,
 continuously during a simulation. If invoked every timestep, this fix
@@ -256,7 +262,10 @@ effectively.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 Particles cannot be emitted from periodic faces of the simulation box.  Particles cannot be emitted from *z* faces of the simluation box for a 2d simulation.
 
@@ -264,13 +273,18 @@ A *n* setting of *Np* > 0 can only be used with a *perspecies* setting of *no*.
 
 A warning will be issued if a specified face has an inward normal in a direction opposing the streaming velocity. Particles will still be emitted from that face, so long as a small fraction have a thermal velocity large enough to overcome the outward streaming velocity, so that their net velocity is inward. The threshold for this is that a thermal velocity 3 sigmas from the mean thermal velocity is large enough to overcome the outward streaming velocity and produce a net velocity into the simulation box.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`mixture<command-mixture>`,
 :ref:`create_particles<command-create-particles>`,
 :ref:`fix emit/face/file<command-fix-emit-face-file>`
 
-**Default:**
+********
+Default:
+********
+
 
 The keyword defaults are n = 0, nevery = 1, perspecies = yes, region =
 none, no subsonic settings, no twopass setting.

@@ -11,7 +11,9 @@ print command
 #############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 print string keyword value:pre
 
@@ -25,7 +27,9 @@ print string keyword value:pre
         append value = filename
         screen value = yes or no 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -39,7 +43,9 @@ print string keyword value:pre
    variable t equal c_myTemp
    print "The system temperature is now $t" 
 
-**Description:**
+************
+Description:
+************
 
 Print a text string to the screen and logfile. One line of output is
 generated. The text string must be a single argument, so it should be
@@ -71,13 +77,21 @@ involving mathematical operations, global values calculated by a
 :ref:`compute<command-compute>` or :ref:`fix<command-fix>`, or references to other
 :ref:`variables<command-variable>`.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-print`,
 :ref:`command-variable`
 
-**Default:**
+********
+Default:
+********
+
 
 The option defaults are no file output and screen = yes.

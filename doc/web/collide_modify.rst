@@ -11,30 +11,40 @@ collide_modify command
 ######################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
    collide_modify keyword values ...  
 
--  one or more keyword/value pairs may be listed
+one or more keyword/value pairs may be listed
+
 -  keywords = *vremax* or *remain* or *ambipolar* or *nearcp* or
    *rotate* or *vibrate*
 
-   ::
+   - vremax values = Nevery startflag
 
-        vremax values = Nevery startflag
-          Nevery = zero vremax every this many timesteps
-          startflag = yes or no = zero vremax at start of every run
-        remain value = yes or no = hold remaining fraction of collisions over to next timestep
-        nearcp values = choice Nlimit
-          choice = yes or no to turn on/off near collision partners
-          Nlimit = max # of attempts made to find a collision partner
-        ambipolar value = no or yes
-        rotate value = no or smooth
-        vibrate value = no or smooth or discrete 
+     - Nevery = zero vremax every this many timesteps
+     - startflag = yes or no = zero vremax at start of every run
 
-**Examples:**
+   - remain value = yes or no = hold remaining fraction of collisions over to next timestep
+
+   - nearcp values = choice Nlimit
+
+     - choice = yes or no to turn on/off near collision partners
+     - Nlimit = max # of attempts made to find a collision partner
+
+   - ambipolar value = no or yes
+
+   - rotate value = no or smooth
+
+   - vibrate value = no or smooth or discrete 
+
+*********
+Examples:
+*********
 
 ::
 
@@ -42,7 +52,9 @@ collide_modify command
    collide_modify vremax 0 no remain no
    collide_modify ambipolar yes 
 
-**Description:**
+************
+Description:
+************
 
 Set parameters that affect how collisions are performed.
 
@@ -146,13 +158,21 @@ for the per-particle mode values.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-collide`
 
-**Default:**
+********
+Default:
+********
+
 
 The option defaults are vremax = (0,yes), remain = yes, ambipolar no,
 nearcp no, rotate smooth, and vibrate = no.

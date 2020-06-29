@@ -11,7 +11,9 @@ compute distsurf/grid command
 #############################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -29,14 +31,18 @@ compute distsurf/grid command
         dir args = Sx Sy Sz
           Sx,Sy,Sz = direction vector used to test surf elements 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    compute 1 distsurf/grid all all
    compute 1 distsurf/grid subset sphere2 dir 1 0 0 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates the minimum distance from each grid
 cell in a grid cell group to any surface element in a surface element
@@ -124,13 +130,21 @@ an overview of SPARTA output options.
 The per-grid array values for the vector will be in distance
 :ref:`units<command-units>`.
 
-**Restrictions:** None
+*************
+Restrictions:
+*************
+ None
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-adapt-grid`
 
-**Default:**
+********
+Default:
+********
+
 
 The keyword default is dir = 0,0,0.
 

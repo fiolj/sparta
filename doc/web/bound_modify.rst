@@ -11,7 +11,9 @@ bound_modify command
 ####################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -28,14 +30,18 @@ bound_modify command
         react value = sr-ID
           sr-ID = ID of a surface reaction model or none 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    bound_modify yhi collide 1 react 2
    bound_modify zlo zhi collide hotwall 
 
-**Description:**
+************
+Description:
+************
 
 Set parameters for one or more of the boundaries of the global
 simulation box. Any of the 6 faces can be selected via the list of
@@ -64,7 +70,10 @@ The effect of this keyword is that particle collisions with the
 specified boundaries will induce reactions which are computed by the
 specified surface reaction model.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 For 2d simulations, the *zlo* and *zhi* boundaries cannot be modified by
 this command, since they are always periodic.
@@ -73,11 +82,16 @@ All boundaries of type "s" must be assigned to a surface collision model
 via the *collide* keyword before a simlulation can be performed. Using a
 surface reaction model is optional.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-boundary`
 :ref:`command-surf-modify`
 
-**Default:**
+********
+Default:
+********
+
 
 The default for boundary reactions is none.

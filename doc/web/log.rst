@@ -12,7 +12,9 @@ log command
 ###########
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -22,14 +24,18 @@ log command
 
 -  keyword = *append* if output should be appended to logfile (optional)
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    log log.equil
    log log.equil append 
 
-**Description:**
+************
+Description:
+************
 
 This command closes the current SPARTA log file, opens a new file with
 the specified name, and begins logging information to it. If the
@@ -45,10 +51,18 @@ The file "log.sparta" is the default log file for a SPARTA run. The name
 of the initial log file can also be set by the command-line switch -log.
 See :ref:`Section 2.6<start-command-line-options>` for details.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:**
+********
+Default:
+********
+
 
 The default SPARTA log file is named log.sparta

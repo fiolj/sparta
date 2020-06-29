@@ -11,12 +11,12 @@ dump command
 ############
 
 
-
-
 **Ref:** :ref:`command-dump-image`
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -26,87 +26,80 @@ dump command
 -  style = *particle* or *grid* or *surf* or *image*
 -  select-ID = which particles, grid cells, surface elements to dump
 
-   ::
-
-      for dump style = particle or image, use a mixture ID
-      for style = grid, use a grid group ID
-      for style = surf, use a surface group ID 
+   - for dump style = particle or image, use a mixture ID
+   - for style = grid, use a grid group ID
+   - for style = surf, use a surface group ID 
 
 -  N = dump every this many timesteps
 -  file = name of file to write dump info to
 -  args = list of arguments for a particular style
 
-   ::
 
-      particle args = list of particle attributes
-
-        possible attributes = id, type, proc, x, y, z, xs, ys, zs, vx, vy, vz,
-                                ke, erot, evib, 
-                                p_ID, p_ID[N], c_ID, c_ID[N], f_ID, f_ID[N], v_name
+   - particle args = list of particle attributes
+       possible attributes = id, type, proc, x, y, z, xs, ys, zs, vx, vy, vz,      ke, erot, evib, p_ID, p_ID[N], c_ID, c_ID[N], f_ID, f_ID[N], v_name
  
-      id = particle ID
-      type = particle species
-      proc = ID of owning processor
-      x,y,z = unscaled particle coordinates
-      xs,ys,zs = scaled particle coordinates
-      vx,vy,vz = particle velocities
-      ke,erot,evib = translational, rotational, and vibrational energy
-      p_ID = custom per-particle vector with ID
-      p_ID[N] = Nth column of custom per-particle array with ID
-      c_ID = per-particle vector calculated by a compute with ID
-      c_ID[N] = Nth column of per-particle array calculated by a compute
-                with ID, I can include wildcard (see below)
-      f_ID = per-particle vector calculated by a fix with ID
-      f_ID[N] = Nth column of per-particle array calculated by a fix with ID,
-                I can include wildcard (see below)
-      v_name = per-particle vector calculated by a particle-style variable with name 
+       - id = particle ID
+       - type = particle species
+       - proc = ID of owning processor
+       - x,y,z = unscaled particle coordinates
+       - xs,ys,zs = scaled particle coordinates
+       - vx,vy,vz = particle velocities
+       - ke,erot,evib = translational, rotational, and vibrational energy
+       - p_ID = custom per-particle vector with ID
+       - p_ID[N] = Nth column of custom per-particle array with ID
+       - c_ID = per-particle vector calculated by a compute with ID
+       - c_ID[N] = Nth column of per-particle array calculated by a compute,
+	 with ID, I can include wildcard (see below)
+       - f_ID = per-particle vector calculated by a fix with ID
+       - f_ID[N] = Nth column of per-particle array calculated by a fix. With ID,
+         I can include wildcard (see below)
+       - v_name = per-particle vector calculated by a particle-style variable with name 
 
-   ::
-
-      grid args = list of grid attributes
+   - grid args = list of grid attributes
         possible attributes = id, idstr, proc, xlo, ylo, zlo, xhi, yhi, zhi,
-                                c_ID, c_ID[N], f_ID, f_ID[N], v_name 
+	c_ID, c_ID[N], f_ID, f_ID[N], v_name 
 
 
-      id = integer form of grid cell ID
-      idstr = string form of grid cell ID
-      proc = processor that owns grid cell
-      xlo,ylo,zlo = coords of lower left corner of grid cell
-      xhi,yhi,zhi = coords of lower left corner of grid cell
-      xc,yc,zc = coords of center of grid cell
-      vol = flow volume of grid cell (area in 2d)
-      c_ID = per-grid vector calculated by a compute with ID
-      c_ID[N] = Nth column of per-grid array calculated by a compute with ID,
-                I can include wildcard (see below)
-      f_ID = per-grid vector calculated by a fix with ID
-      f_ID[N] = Nth column of per-grid array calculated by a fix with ID,
-                I can include wildcard (see below)
-      v_name = per-grid vector calculated by a grid-style variable with name 
+        - id = integer form of grid cell ID
+        - idstr = string form of grid cell ID
+        - proc = processor that owns grid cell
+        - xlo,ylo,zlo = coords of lower left corner of grid cell
+        - xhi,yhi,zhi = coords of lower left corner of grid cell
+        - xc,yc,zc = coords of center of grid cell
+        - vol = flow volume of grid cell (area in 2d)
+        - c_ID = per-grid vector calculated by a compute with ID
+        - c_ID[N] = Nth column of per-grid array calculated by a compute with ID, I can include wildcard (see below)
+        - f_ID = per-grid vector calculated by a fix with ID
+        - f_ID[N] = Nth column of per-grid array calculated by a fix with ID,
+        - I can include wildcard (see below)
+        - v_name = per-grid vector calculated by a grid-style variable with name 
 
-   ::
 
-      surf args = list of surf attributes
+   - surf args = list of surf attributes
         possible attributes = id, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z, 
-                                c_ID, c_ID[N], f_ID, f_ID[N], v_name 
+	c_ID, c_ID[N], f_ID, f_ID[N], v_name 
 
 
-      id = surface element ID
-      v1x,v1y,v1z = coords of 1st vertex in surface element
-      v1x,v1y,v1z = coords of 2nd vertex in surface element
-      v1x,v1y,v1z = coords of 3rd vertex in surface element
-      c_ID = per-surf vector calculated by a compute with ID
-      c_ID[N] = Nth column of per-surf array calculated by a compute with ID,
-                I can include wildcard (see below)
-      f_ID = per-surf vector calculated by a fix with ID
-      f_ID[N] = Nth column of per-surf array calculated by a fix with ID,
-                I can include wildcard (see below)
-      v_name = per-surf vector calculated by a surf-style variable with name 
+        - id = surface element ID
+        - v1x,v1y,v1z = coords of 1st vertex in surface element
+        - v1x,v1y,v1z = coords of 2nd vertex in surface element
+        - v1x,v1y,v1z = coords of 3rd vertex in surface element
+        - c_ID = per-surf vector calculated by a compute with ID
+        - c_ID[N] = Nth column of per-surf array calculated by a compute with ID,
+        -           I can include wildcard (see below)
+        - f_ID = per-surf vector calculated by a fix with ID
+        - f_ID[N] = Nth column of per-surf array calculated by a fix with ID,
+        -           I can include wildcard (see below)
+        - v_name = per-surf vector calculated by a surf-style variable with name 
 
-   ::
 
-      image args = discussed on dump image doc page 
+   - image args
+       discussed on dump image doc page 
 
-**Examples:**
+
+*********
+Examples:
+*********
 
 ::
 
@@ -114,7 +107,9 @@ dump command
    dump 2 particle inflow 100 dump.%.myforce id type c_myF[3] v_ke
    dump 3 grid all 1000 tmp.grid id proc xlo ylo zlo xhi yhi zhi 
 
-**Description:**
+************
+Description:
+************
 
 Dump a snapshot of simulation quantities to one or more files every N
 timesteps in one of several styles. The *image* style is the exception;
@@ -261,7 +256,10 @@ per-grid array with 3 columns:
    dump 2 grid all 100 tmp.dump id c_myGrid[*]
    dump 2 grid all 100 tmp.dump id c_myGrid[1] c_myGrid[2] c_myGrid[3] 
 
---------------
+
+
+Particle attributes
+===================
 
 This section explains the particle attributes that can be specified as
 part of the *particle* style.
@@ -335,7 +333,10 @@ See :ref:`Section 10<modify>` of the manual for information
 on how to add new compute and fix styles to SPARTA to calculate
 per-particle quantities which could then be output into dump files.
 
---------------
+
+
+Grid Attributes
+===============
 
 This section explains the grid cell attributes that can be specified as
 part of the *grid* style.
@@ -422,7 +423,10 @@ See :ref:`Section 10<modify>` of the manual for information
 on how to add new compute and fix styles to SPARTA to calculate per-grid
 quantities which could then be output into dump files.
 
---------------
+
+
+Surface attributes
+==================
 
 This section explains the surface element attributes that can be
 specified as part of the *surf* style. For 2d simulations, a surface
@@ -474,8 +478,7 @@ stats keywords, or invoke other computes, fixes, or variables when they
 are evaluated, so this is a very general means of creating quantities to
 output to a dump file.
 
-IMPORTANT NOTE: Surf-style variables have not yet been implemented in
-SPARTA.
+.. important:: Surf-style variables have not yet been implemented in SPARTA.
 
 See :ref:`Section 10<modify>` of the manual for information
 on how to add new compute and fix styles to SPARTA to calculate per-surf
@@ -483,17 +486,25 @@ quantities which could then be output into dump files.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 To write gzipped dump files, you must compile SPARTA with the
 -DSPARTA_GZIP option - see the :ref:`Making SPARTA<start-steps-build>` section of the documentation.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-dump-image`,
 :ref:`command-dump-modify`,
 :ref:`command-undump`
 
-**Default:**
+********
+Default:
+********
+
 
 The defaults for the image style are listed on the :ref:`dump image<command-dump-image>` doc page.

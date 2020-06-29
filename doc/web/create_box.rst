@@ -10,20 +10,21 @@
 create_box command
 ##################
 
-
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
    create_box xlo xhi ylo yhi zlo zhi 
 
-::
-
    xlo,xhi = box bounds in the x dimension (distance units)
    ylo,yhi = box bounds in the y dimension (distance units)
    zlo,zhi = box bounds in the z dimension (distance units) 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -31,7 +32,9 @@ create_box command
    create_box 0 1 0 1 -0.5 0.5
    create_box 0 10.0 0 5.0 -4.0 0.0 
 
-**Description:**
+************
+Description:
+************
 
 Set the size of the simulation box.
 
@@ -46,8 +49,18 @@ For 2d axisymmetric simulations, as set by the
 commands, the ylo setting must be 0.0. See :ref:`Section 6.2<howto-axisymmetric>` of the manual for more information
 about axisymmetric simulations.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:** none
+*****************
+Related commands:
+*****************
 
-**Default:** none
+ none
+
+********
+Default:
+********
+ none

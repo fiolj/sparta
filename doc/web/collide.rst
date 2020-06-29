@@ -11,7 +11,9 @@ collide command
 ###############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -36,7 +38,9 @@ collide command
 
         relax value = constant or variable 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -44,7 +48,9 @@ collide command
    collide vss all ../data/air.vss
    collide vss species all.vss relax variable 
 
-**Description:**
+************
+Description:
+************
 
 Define what style of particle-particle collisions will be performed by
 SPARTA each timestep. If collisions are performed, particles are sorted
@@ -202,15 +208,23 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-collide-modify`,
 :ref:`command-mixture`,
 :ref:`command-react`
 
-**Default:**
+********
+Default:
+********
+
 
 Style = none is the default (no collisions). If the vss style is specified, then relax = constant is the default.
 

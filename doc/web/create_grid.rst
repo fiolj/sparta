@@ -11,7 +11,9 @@ create_grid command
 ###################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -39,7 +41,9 @@ create_grid command
         random args = none
         inside args = any or all 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -52,7 +56,9 @@ create_grid command
    create_grid 20 10 1 level 2 10*15 3*7 1 2 2 1 region 3 b3 2 3 1
    create_grid 8 8 10 level 2 5* * * 4 4 4 level 3 1 2*3 3* 2 2 1 
 
-**Description:**
+************
+Description:
+************
 
 Overlay a grid over the simulation domain defined by the
 :ref:`create_box<command-create-box>` command. The grid can also be defined
@@ -243,7 +249,10 @@ Examples for the use of the *region* keyword are given above.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command can only be used after the simulation box is defined by the
 :ref:`create_box<command-create-box>` command.
@@ -256,11 +265,16 @@ minimal refinement of 2x2x2, a level uses 4 bits of the integer ID. Thus
 for this style of refinement a maximum of 7 levels can be used for
 32-bit IDs and 15 levels for 64-bit IDs.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-create-box`,
 :ref:`command-read-grid`
 
-**Default:**
+********
+Default:
+********
+
 
 The only keyword with a default setting is inside = any.

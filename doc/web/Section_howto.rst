@@ -1,14 +1,8 @@
-
-
-
-
-
 .. _howto:
 
 ##################
 How-to discussions
 ##################
-
 
 
 The following sections describe how to perform common tasks using
@@ -117,7 +111,7 @@ times. For example, this script
 would run 5 successive simulations of the same system for a total of 50,000 timesteps.
 
 If you wish to run totally different simulations, one after the other,
-the :ref:`command-clear` command can be used in between them to re-initialize SPARTA. For example, this script
+the :ref:`command-clear` can be used in between them to re-initialize SPARTA. For example, this script
 
 ::
 
@@ -171,7 +165,7 @@ processors, but assumed you are running SPARTA on a single partition of
 processors. SPARTA can be run on multiple partitions via the
 "-partition" command-line switch as described in :ref:`start-command-line-options` of the manual.
 
-In the last 2 examples, if SPARTA were run on 3 partitions, the same scripts could be used if the "index" and "loop" variables were replaced with *universe*-style variables, as described in the :ref:`command-variable` command. Also, the ``next rho`` and ``next a`` commands would need to be replaced with a single ``next a rho`` command.  With these modifications, the 8 simulations of each script would
+In the last 2 examples, if SPARTA were run on 3 partitions, the same scripts could be used if the "index" and "loop" variables were replaced with *universe*-style variables, as described in the :ref:`command-variable`. Also, the ``next rho`` and ``next a`` commands would need to be replaced with a single ``next a rho`` command.  With these modifications, the 8 simulations of each script would
 run on the 3 partitions one after the other until all were finished. Initially, 3 simulations would be started simultaneously, one on each partition.  When one finished, that partition would then start the 4th simulation, and so forth, until all 8 were completed.
 
 
@@ -247,7 +241,7 @@ e.g. a per grid vector.
 
 When a quantity is accessed, as in many of the output commands discussed
 below, it can be referenced via the following bracket notation, where ID
-in this case is the ID of a compute. The leading `c_` would be replaced
+in this case is the ID of a compute. The leading ``c_`` would be replaced
 by ``f_`` for a fix, or ``v_`` for a variable:
 
 .. list-table::
@@ -307,7 +301,7 @@ Fixes that write output files
 Two fixes take various quantities as input and can write output files:
 :ref:`fix ave/time<command-fix-ave-time>` and :ref:`fix print<command-fix-print>`.
 
-The :ref:`command-fix-ave-time` command enables direct output to a file and/or time-averaging of global scalars or vectors. The user specifies one or more quantities as input. These can be global :ref:`compute<command-compute>` values, global :ref:`fix<command-fix>` values, or :ref:`variables<command-variable>` of any style except the particle style which does not produce single values. Since a variable can refer to keywords used by the :ref:`command-stats-style` (like particle count), a wide variety of quantities can be time averaged and/or output in this way.
+The :ref:`command-fix-ave-time` enables direct output to a file and/or time-averaging of global scalars or vectors. The user specifies one or more quantities as input. These can be global :ref:`compute<command-compute>` values, global :ref:`fix<command-fix>` values, or :ref:`variables<command-variable>` of any style except the particle style which does not produce single values. Since a variable can refer to keywords used by the :ref:`command-stats-style` (like particle count), a wide variety of quantities can be time averaged and/or output in this way.
 If the inputs are one or more scalar values, then the fix generates a global scalar or vector of output. If the inputs are one or more vector values, then the fix generates a global vector or array of output. The time-averaged
 output of this fix can also be used as input to other output commands.
 
@@ -351,7 +345,7 @@ Some :ref:`fixes<command-fix>` in SPARTA produces either global or per particle 
 
 Two fixes of particular interest for output are the :ref:`command-fix-ave-grid` and :ref:`command-fix-ave-surf`.
 
-The :ref:`command-fix-ave-grid` command enables time-averaging of per grid vectors. The user specifies one or more quantities as input.  These can be per grid vectors or arrays from :ref:`command-compute` or :ref:`command-fix`. If the input is a single vector, then the fix generates a per grid vector. If the input is multiple vectors or array, the fix generates a per grid array. The time-averaged output of this fix can also be used as input to other output commands.
+The :ref:`command-fix-ave-grid` enables time-averaging of per grid vectors. The user specifies one or more quantities as input.  These can be per grid vectors or arrays from :ref:`command-compute` or :ref:`command-fix`. If the input is a single vector, then the fix generates a per grid vector. If the input is multiple vectors or array, the fix generates a per grid array. The time-averaged output of this fix can also be used as input to other output commands.
 
 The :ref:`command-fix-ave-surf` enables time-averaging of per surf vectors. The user specifies one or more quantities as input.  These can be per surf vectors or ararys from :ref:`command-compute` or :ref:`command-fix`. If the input is a single vector, then the fix generates a per surf vector. If the input is multiple vectors or array, the fix generates a per surf array. The time-averaged output of this fix can also be used as input to other output commands.
 
@@ -894,7 +888,7 @@ commands:
 
 The :ref:`command-read-isurf` takes a binary file as an argument which contains a pixelated (2d) or voxelated (3d) representation of the surface (e.g. a porous heat shield material). It reads the file and assigns the pixel/voxel values to corner points of a region of the SPARTA grid.
 
-The :ref:`command-read-isurf` also takes the ID of a :ref:`command-fix-ablate` command as an argument. This fix is invoked to perform a Marching Squares (2d) or Marching Cubes (3d) algorithm to convert the corner point values to a set of line segments (2d) or triangles (3d) each of which is wholly contained in a grid cell. It also stores the per grid cell corner point values.
+The :ref:`command-read-isurf` also takes the ID of a :ref:`command-fix-ablate` as an argument. This fix is invoked to perform a Marching Squares (2d) or Marching Cubes (3d) algorithm to convert the corner point values to a set of line segments (2d) or triangles (3d) each of which is wholly contained in a grid cell. It also stores the per grid cell corner point values.
 
 If the *Nevery* argument of the :ref:`command-fix-ablate` is 0, ablation is never performed, the implicit surfaces are static. If it is non-zero, an ablation operation is performed every *Nevery* steps.  A per-grid cell value is used to decrement the corner point values in each grid cell. The values can be (1) from a compute such as :ref:`compute isurf/grid<command-compute-isurf-grid>` which tallies statistics about gas particle collisions with surfaces within each grid cell. Or :ref:`compute react/isurf/grid<command-compute-react-isurf-grid>` which tallies the number of surface reactions that take place. Or values can be (2) from a fix such as `fix ave/grid <command-fix-ave-grid>` which time averages these statistics over many timesteps. Or they can be (3) generated randomly, which is useful for debugging.
 

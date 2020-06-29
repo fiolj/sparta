@@ -11,7 +11,9 @@ seed command
 ############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,13 +21,17 @@ seed command
 
 -  Nvalue = seed for a random number generator (positive integer)
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    seed 5838959 
 
-**Description:**
+************
+Description:
+************
 
 This command sets the random number seed for a master random number
 generator. This generator is used by SPARTA to initialize auxiliary
@@ -39,8 +45,16 @@ means they produce the same random number streams on any machine.
 
 This command is required to perform a SPARTA simulation.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:** none
+********
+Default:
+********
+ none

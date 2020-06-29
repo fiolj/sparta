@@ -11,7 +11,9 @@ read_isurf command
 ##################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -35,7 +37,9 @@ read_isurf command
         precision arg = int or double
         read arg = serial or parallel 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -43,7 +47,9 @@ read_isurf command
    read_isurf subset 150 100 50 isurf.materials.3d 120.5 type isurf.type
    read_isurf subset 150 100 50 isurf.materials.3d 120.5 read parallel 
 
-**Description:**
+************
+Description:
+************
 
 Read the geometry of a surface from the specified file. In SPARTA, a "surface" is a collection of surface elements that represent the surface of one or more physical objects which will be embedded in the global simulation box. Surfaces can be explicit or implicit.
 
@@ -152,17 +158,25 @@ The *read* keyword specifies how the input file of grid corner point values is r
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command can only be used after the simulation box is defined by the :ref:`command-create-box`, and after a grid has been created by the :ref:`command-create-grid`. If particles already exist in the simulation, you must insure particles do not end up inside the set of implicit surfaces.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-surf`
 :ref:`command-write-surf`
 :ref:`command-fix-ablate`
 
-**Default:**
+********
+Default:
+********
+
 
 The optional keyword defaults are group = all, type = no, push = yes, precision int, and read serial.
 

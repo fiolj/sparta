@@ -26,7 +26,9 @@ compute temp/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -35,14 +37,18 @@ compute temp/kk command
 -  ID is documented in :ref:`compute<command-compute>` command
 -  temp = style name of this compute command
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    compute 1 temp
    compute myTemp temp 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates the temperature of all particles.
 
@@ -89,8 +95,16 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:** none
+********
+Default:
+********
+ none

@@ -14,7 +14,9 @@ variable command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -71,7 +73,9 @@ variable command
           surface reaction model references = r_ID[i]
           variable references = v_name 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -90,7 +94,9 @@ variable command
    variable str format x %.6g
    variable x delete 
 
-**Description:**
+************
+Description:
+************
 
 This command assigns one or more strings to a variable name for
 evaluation later in the input script or during a simulation.
@@ -1021,12 +1027,17 @@ a temperature that reflected the new particles:
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 All *universe*- and *uloop*-style variables defined in an input script
 must have the same number of values.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-next`,
 :ref:`command-jump`,
@@ -1034,4 +1045,7 @@ must have the same number of values.
 :ref:`command-fix-print`,
 :ref:`command-print`
 
-**Default:** none
+********
+Default:
+********
+ none

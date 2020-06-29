@@ -11,7 +11,9 @@ compute react/surf command
 ##########################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -30,7 +32,9 @@ compute react/surf command
         r: or p: = list of reactant species or product species
         s1,s2,s3 = one or more species IDs, separated by "/" character 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -47,7 +51,9 @@ dump file every 1000 steps:
    fix 1 ave/surf all 10 100 1000 c_2[*]
    dump 1 surf all 1000 tmp.surf id f_1[*] 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that tallies counts of reactions for each explicit surface element in a surface element group, based on the particles that collide with that element. Only surface elements in the surface group specified by *group-ID* are included in the tallying. See the :ref:`group surf<command-group>` for info on how surface elements can be assigned to surface groups. Likewise only surface elements assigned to the surface reaction model specified by *reaction-ID* are included in the tallying.
 
@@ -82,12 +88,20 @@ occurred.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-ave-surf`, 
 :ref:`dump surf<command-dump>`,
 :ref:`compute react/isurf/grid<command-compute-react-isurf-grid>`
 
-**Default:** none
+********
+Default:
+********
+ none

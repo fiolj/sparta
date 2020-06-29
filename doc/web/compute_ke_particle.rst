@@ -26,7 +26,9 @@ compute ke/particle/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -35,13 +37,17 @@ compute ke/particle/kk command
 -  ID is documented in :ref:`command-compute`
 -  ke/particle = style name of this compute command
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    compute 1 ke/particle 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates the per-atom translational kinetic
 energy for each particle.
@@ -82,10 +88,18 @@ See the :ref:`accelerate` section of the manual for more instructions on how to 
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`dump particle<command-dump>`
 
-**Default:** none
+********
+Default:
+********
+ none

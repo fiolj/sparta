@@ -1,8 +1,4 @@
 
-
-
-
-
 .. _start:
 
 ###############
@@ -287,7 +283,7 @@ will use that data type.
 
 Using one of the -DPACK_ARRAY, -DPACK_POINTER, and -DPACK_MEMCPY options
 can make for faster parallel FFTs on some platforms. The -DPACK_ARRAY
-setting is the default. See the :ref:`command-compute-fft-grid` command for info about FFTs. See
+setting is the default. See the :ref:`command-compute-fft-grid` for info about FFTs. See
 Step 6 below for info about building SPPARKS with an FFT library.
 
 
@@ -413,7 +409,7 @@ Step 7
 
 
 The 3 JPG variables allow you to specify a JPEG and/or PNG library which
-SPARTA uses when writing out JPEG or PNG files via the :ref:`command-dump-image` command. These can be left blank if you do
+SPARTA uses when writing out JPEG or PNG files via the :ref:`command-dump-image`. These can be left blank if you do
 not use the -DSPARTA_JPEG or -DSPARTA_PNG switches discussed above in
 Step 4, since in that case JPEG/PNG output will be disabled.
 
@@ -970,7 +966,7 @@ Set the style of command echoing. The style can be *none* or *screen* or
 input script will be echoed to the screen and/or logfile. This can be
 useful to figure out which line of your script is causing an input
 error. The default value is *log*. The echo style can also be set by
-using the :ref:`command-echo` command in the input script itself.
+using the :ref:`command-echo` in the input script itself.
 
 ::
 
@@ -1084,7 +1080,7 @@ a log.sparta.N file where N is the partition ID. If the switch is
 specified in multi-partition mode, the hi-level logfile is named "file"
 and each partition also logs information to a file.N. For both
 one-partition and multi-partition mode, if the specified file is "none",
-then no log files are created. Using a :ref:`command-log` command in the
+then no log files are created. Using a :ref:`command-log` in the
 input script will override this setting. Option -plog will override the
 name of the partition log files file.N.
 
@@ -1114,13 +1110,7 @@ context.
 
    -package style args .... 
 
-Invoke the :ref:`command-package` command with style and args. The
-syntax is the same as if the command appeared at the top of the input
-script. For example "-package kokkos on gpus 2" or "-pk kokkos g 2" is
-the same as :ref:`package kokkos g 2<command-package>` in the input script.
-The possible styles and args are documented on the
-:ref:`command-package` doc page. This switch can be used multiple
-times.
+Invoke the :ref:`command-package` with style and args. The syntax is the same as if the command appeared at the top of the input script. For example "-package kokkos on gpus 2" or "-pk kokkos g 2" is the same as :ref:`package kokkos g 2<command-package>` in the input script.  The possible styles and args are documented on the :ref:`command-package` doc page. This switch can be used multiple times.
 
 Along with the "-suffix" command-line switch, this is a convenient
 mechanism for invoking the KOKKOS accelerator package and its options
@@ -1132,7 +1122,7 @@ without having to edit an input script.
 
 Specify the base name for the partition log files, so partition N writes
 log information to file.N. If file is none, then no partition log files
-are created. This overrides the filename specified in the -log
+are created. This overrides the filename specified in the ``-log``
 command-line option. This option is useful when working with large
 numbers of partitions, allowing the partition log files to be suppressed
 (-plog none) or placed in a sub-directory (-plog
@@ -1147,10 +1137,10 @@ command-line option.
 Specify the base name for the partition screen file, so partition N
 writes screen information to file.N. If file is none, then no partition
 screen files are created. This overrides the filename specified in the
--screen command-line option. This option is useful when working with
+``-screen`` command-line option. This option is useful when working with
 large numbers of partitions, allowing the partition screen files to be
-suppressed (-pscreen none) or placed in a sub-directory (-pscreen
-replica_files/screen) If this option is not used the screen file for
+suppressed (``-pscreen none``) or placed in a sub-directory (``-pscreen
+replica_files/screen``). If this option is not used the screen file for
 partition N is screen.N or whatever is specified by the -screen
 command-line option.
 
@@ -1193,9 +1183,9 @@ The specified suffix (kk) is automatically appended whenever your input script c
 For the KOKKOS package, using this command-line switch also invokes the
 default KOKKOS settings, as if the command "package kokkos" were used at
 the top of your input script. These settings can be changed by using the
-"-package kokkos" command-line switch or the :ref:`command-package` command in your script.
+"-package kokkos" command-line switch or the :ref:`command-package` in your script.
 
-The :ref:`command-suffix` command can also be used within an input
+The :ref:`command-suffix` can also be used within an input
 script to set a suffix, or to turn off or back on any suffix setting
 made via the command line.
 

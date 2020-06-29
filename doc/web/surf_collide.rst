@@ -12,7 +12,9 @@ surf_collide command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -99,7 +101,9 @@ surf_collide command
      - frac_rot = fraction of lost translational energy going into the rotational mode
      - frac_vib = fraction of lost translational energy going into the vibrational mode 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -115,7 +119,9 @@ surf_collide command
    surf_collide heatwall diffuse v_ramp 0.8
    surf_collide heatwall diffuse v_ramp 0.8 translate 5.0 0.0 0.0 
 
-**Description:**
+************
+Description:
+************
 
 Define a model for particle-surface collisions. One or more models can
 be defined and assigned to different surfaces or simulation box
@@ -404,18 +410,26 @@ See the :ref:`Accelerating SPARTA<accelerate>` section of the manual for more in
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 The *translate* and *rotate* keywords cannot be used together.
 
 If specified with a *kk* suffix, this command can be used no more than twice in the same input script (active at the same time).
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-surf`,
 :ref:`command-bound-modify`
 
-**Default:** none
+********
+Default:
+********
+ none
 
 --------------
 

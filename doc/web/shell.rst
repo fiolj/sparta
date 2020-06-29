@@ -11,7 +11,9 @@ shell command
 #############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -37,7 +39,9 @@ shell command
           var=value = one of more definitions of environment variables
         anything else is passed as a command to the shell for direct execution 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -51,7 +55,9 @@ shell command
    shell my_setup file1 10 file2
    shell my_post_process 100 dump.out 
 
-**Description:**
+************
+Description:
+************
 
 Execute a shell command. A few simple file-based shell commands are
 supported directly, in Unix-style syntax. Any command not listed above
@@ -108,12 +114,20 @@ would be the same as invoking
 from a command-line prompt. The executable program "my_setup" is run
 with 3 arguments: file1 10 file2.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 SPARTA does not detect errors or print warnings when any of these
 commands execute. E.g. if the specified directory does not exist,
 executing the *cd* command will silently do nothing.
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:** none
+********
+Default:
+********
+ none

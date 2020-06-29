@@ -26,7 +26,9 @@
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -55,7 +57,9 @@
         evib = flux of particle vibrational energy on surface element
         etot = flux of particle total energy on surface element 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -82,7 +86,9 @@ sum them across element to compute drag (fx) and lift (fy) on the body:
    stats 1000
    stats_style step cpu np c_2[1] c_2[2] 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates one or more values for each
 explicit surface element in a surface element group, based on the
@@ -347,12 +353,20 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-ave-surf`,
 :ref:`dump surf<command-dump>`,
 :ref:`command-compute-isurf-grid`
 
-**Default:** none
+********
+Default:
+********
+ none

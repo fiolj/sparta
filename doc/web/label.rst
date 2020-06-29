@@ -11,7 +11,9 @@ label command
 #############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,14 +21,18 @@ label command
 
 -  ID = string used as label name
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    label xyz
    label loop 
 
-**Description:**
+************
+Description:
+************
 
 Label this line of the input script with the chosen ID. Unless a jump
 command was used previously, this does nothing. But if a
@@ -36,8 +42,16 @@ this line will be ignored. I.e. execution of the script will begin at
 this line. This is useful for looping over a section of the input script
 as discussed in the :ref:`jump<command-jump>` command.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:** none
+********
+Default:
+********
+ none

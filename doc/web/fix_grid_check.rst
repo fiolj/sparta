@@ -26,7 +26,9 @@ fix grid/check/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -43,13 +45,17 @@ fix grid/check/kk command
 
         outside arg = yes or no 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    fix 1 grid/check 100 error 
 
-**Description:**
+************
+Description:
+************
 
 Check if particles are inside the grid cell they are supposed to be,
 based on their current coordinates. This is useful as a debugging check
@@ -109,10 +115,18 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:**
+********
+Default:
+********
+
 
 The option default is outside = no.

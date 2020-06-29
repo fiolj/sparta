@@ -11,7 +11,9 @@ compute react/isurf/grid command
 ################################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -29,7 +31,9 @@ compute react/isurf/grid command
         r: or p: = list of reactant species or product species
         s1,s2,s3 = one or more species IDs, separated by "/" character 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -46,7 +50,9 @@ dump file every 1000 steps:
    fix 1 ave/grid all 10 100 1000 c_2[*]
    dump 1 grid all 1000 tmp.surgrid id f_1[*] 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that tallies counts of reactions for each grid cell
 containing implicit surface elements in a grid group, based on the
@@ -114,12 +120,20 @@ occurred on surface elements in that grid cell.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-ave-grid`
 :ref:`dump grid<command-dump>`,
 :ref:`command-compute-react-surf`
 
-**Default:** none
+********
+Default:
+********
+ none

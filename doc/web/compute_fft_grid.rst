@@ -11,7 +11,9 @@ compute fft/grid command
 ########################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -43,7 +45,9 @@ compute fft/grid command
         kx = yes or no = calculate z-component of wavelength or not
         kmag = yes or no = calculate wavelength magnitude or not 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -59,7 +63,9 @@ velocity components in each grid cell to a dump file every 1000 steps:
    compute 2 fft/grid f_11 f_12 f_13
    dump 1 grid all 1000 tmp.grid id c_2 f_1 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that performs FFTs on per-grid values. This can be
 useful, for example, in calculating the energy spectrum of a turbulent
@@ -189,16 +195,24 @@ values can be real or imaginary or squared values in K-space resulting
 from FFTs of per-grid quantities in whatever units the specified input
 values represent.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This style is part of the FFT package. It is only enabled if SPARTA
 was built with that package. See the :ref:`Getting Started<start-optional-packages>` section for more info.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-ave-grid`, :ref:`command-dump`,
 :ref:`command-compute-grid`
 
-**Default:**
+********
+Default:
+********
+
 
 The option defaults are sum = no, scale = 1.0, conjugate = no, kmag = no.

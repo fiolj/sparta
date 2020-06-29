@@ -11,7 +11,9 @@ compute reduce command
 ######################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -43,7 +45,9 @@ compute reduce command
           vec1 = reduced value from this input vector will be replaced
           vec2 = replace it with vec1[N] where N is index of max/min value from vec2 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -61,7 +65,9 @@ all grid cells, in the stats output:
    compute 3 reduce ave c_2[1]
    stats_style step c_temp c_3 
 
-**Description:**
+************
+Description:
+************
 
 Define a calculation that "reduces" one or more vector inputs into
 scalar values, one per listed input. The inputs can be per-particle or
@@ -200,12 +206,20 @@ an overview of SPARTA output options.
 The scalar or vector values will be in whatever :ref:`units<command-units>`
 the quantities being reduced are in.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-compute`,
 :ref:`command-fix`,
 :ref:`command-variable`
 
-**Default:** none
+********
+Default:
+********
+ none

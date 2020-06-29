@@ -26,7 +26,9 @@ compute sonine/grid/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -49,7 +51,9 @@ compute sonine/grid/kk command
           dim2 = xx or yy or zz or xy or yz or xz
           order = number from 1 to 5 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -65,7 +69,9 @@ species and each grid cell to a dump file every 1000 steps:
    fix 1 ave/grid 10 100 1000 c_1[*]
    dump 1 grid all 1000 tmp.grid id f_1[*] 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates the sonine moments of the velocity
 distribution of the particles in each grid cell in a grid cell group.
@@ -210,11 +216,19 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-ave-grid`,
 :ref:`dump grid<command-dump>`
 
-**Default:** none
+********
+Default:
+********
+ none

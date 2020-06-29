@@ -11,7 +11,9 @@ stats_modify command
 ####################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -29,7 +31,9 @@ stats_modify command
         every value = v_name
           v_name = an equal-style variable name 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -37,7 +41,9 @@ stats_modify command
    stats_modify format 3 %15.8g
    stas_modify format line "%ld %g %g %15.8g" 
 
-**Description:**
+************
+Description:
+************
 
 Set options for how statistical information is computed and printed by
 SPARTA.
@@ -95,14 +101,22 @@ made by the :ref:`stats<command-stats>` command, by setting it to 0. If the
 to a non-zero value, then the variable setting of the stats_modify every
 command will be overridden.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-stats`,
 :ref:`command-stats-style`
 
-**Default:**
+********
+Default:
+********
+
 
 The option defaults are flush = no, format int = "%8d", format float =
 "%12.8g", and every = non-variable setting provided by the

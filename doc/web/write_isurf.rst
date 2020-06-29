@@ -11,7 +11,9 @@ write_isurf command
 ###################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -29,13 +31,17 @@ write_isurf command
 
         precision arg = int or double 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    write_isurf block 100 100 200 isurf.material.* ablation 
 
-**Description:**
+************
+Description:
+************
 
 Write a grid corner point file in binary format describing the current
 corner point values which define the current set of implicit surface
@@ -67,12 +73,20 @@ stores the grid corner point values for each grid cell.
 The output file is written in the same binary format as the
 :ref:`read_isurf<command-read-isurf>` command reads in.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-isurf`
 
-**Default:**
+********
+Default:
+********
+
 
 The optional keyword default is precision double.

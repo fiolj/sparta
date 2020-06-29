@@ -26,7 +26,9 @@ compute count/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -42,14 +44,18 @@ compute count/kk command
         mixture ID = ID used with the mixture command, expands to all groups in mixture
         mixture/group = ID of mixture followed by name of a group within mixture 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    compute 1 count species
    compute Ncounts count N N2 N+ air/O 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that counts the number of particles currently in
 the simulation for various species or groups within mixtures. Groups are
@@ -113,11 +119,19 @@ effectively.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 It is an error if a listed *id* is both a species ID and a mixture ID,
 since this command cannot distinguish between them.
 
-**Related commands:** none
+*****************
+Related commands:
+***************** none
 
-**Default:** none
+********
+Default:
+********
+ none

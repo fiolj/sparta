@@ -11,7 +11,9 @@ stats command
 #############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -19,13 +21,17 @@ stats command
 
 -  N = output statistics every N timesteps
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    stats 100 
 
-**Description:**
+************
+Description:
+************
 
 Compute and print statistical info (e.g. particle count, temperature) on
 timesteps that are a multiple of N and at the beginning and end of a
@@ -39,14 +45,22 @@ The content and format of what is printed is controlled by the
 The timesteps on which statistical output is written can also be
 controlled by a :ref:`variable<command-variable>`. See the :ref:`stats_modify every<command-stats-modify>` command.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-stats-style`,
 :ref:`command-stats-modify`
 
-**Default:**
+********
+Default:
+********
+
 
 ::
 

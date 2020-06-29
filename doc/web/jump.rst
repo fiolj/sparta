@@ -11,7 +11,9 @@ jump command
 ############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -20,7 +22,9 @@ jump command
 -  file = filename of new input script to switch to
 -  label = optional label within file to jump to
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -28,7 +32,9 @@ jump command
    jump in.run2 runloop
    jump SELF runloop 
 
-**Description:**
+************
+Description:
+************
 
 This command closes the current input script file, opens the file with
 the specified name, and begins reading SPARTA commands from that file.
@@ -116,16 +122,24 @@ then continues iterating thru the outer loop.
    next       a
    jump        in.script loopa 
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 If you jump to a file and it does not contain the specified label,
 SPARTA will come to the end of the file and exit.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-variable`,
 :ref:`command-include`,
 :ref:`command-label`,
 :ref:`command-next`
 
-**Default:** none
+********
+Default:
+********
+ none

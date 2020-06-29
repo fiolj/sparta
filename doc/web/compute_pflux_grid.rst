@@ -26,7 +26,9 @@ compute pflux/grid/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -45,7 +47,9 @@ compute pflux/grid/kk command
         momxx,momyy,momzz = diagonal components of momentum flux density tensor
         momxy,momyz,momxz = off-diagonal components of momentum flux density tensor 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -61,7 +65,9 @@ each species and each grid cell to a dump file every 1000 steps:
    fix 1 ave/grid 10 100 1000 c_1[*]
    dump 1 grid all 1000 tmp.grid id f_1[*] 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates components of the momemtum flux
 density tensor for each grid cell in a grid cell group. This is
@@ -200,9 +206,14 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-compute-grid`,
 :ref:`command-compute-thermal-grid`,
@@ -210,4 +221,7 @@ effectively.
 :ref:`command-fix-ave-grid`,
 :ref:`dump grid<command-dump>`
 
-**Default:** none
+********
+Default:
+********
+ none

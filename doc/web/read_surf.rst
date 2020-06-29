@@ -11,7 +11,9 @@ read_surf command
 #################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -53,7 +55,9 @@ read_surf command
    file args = identical to those defined for the write_surf command
      this keyword must be last 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -64,7 +68,9 @@ read_surf command
    read_surf surf.file trans 10 5 0 scale 3 3 3 invert clip file tmp.surfs
    read_surf surf.file trans 10 5 0 scale 3 3 3 invert clip file tmp.surfs.% points no nfile 32 
 
-**Description:**
+************
+Description:
+************
 
 Read the geometry of a surface from the specified file. In SPARTA, a
 "surface" is a collection of surface elements that represent the
@@ -467,7 +473,10 @@ clipping.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command can only be used after the simulation box is defined by the
 :ref:`create_box<command-create-box>` command, and after a grid has been
@@ -516,12 +525,17 @@ surface files, you should insure they do not touch or overlap with each
 other. SPARTA does not check for this, but it will typically lead to
 unphysical particle dynamics.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-read-isurf`,
 :ref:`command-write-surf`
 
-**Default:**
+********
+Default:
+********
+
 
 The default origin for the vertices in the surface file is (0,0,0). The
 defaults for group = all, type = no, toffset = 0, particle = none.

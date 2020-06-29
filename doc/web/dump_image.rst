@@ -4,20 +4,11 @@
 .. index:: dump movie
 
 
-
-
-
 .. _command-dump-image:
 
 ##################
 dump image command
 ##################
-
-
-
-
-
-
 
 .. _command-dump-image-command-dump-movie:
 
@@ -26,9 +17,9 @@ dump movie command
 ##################
 
 
-
-
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -49,65 +40,67 @@ dump movie command
    or *persp* or *box* or *gline* or *sline* or *axes* or *shiny* or
    *ssao*
 
-   ::
+   particle = yes/no 
+     do or do not draw particles
+   pdiam value = number
+     numeric value for particle diameter (distance units)
+   grid values = color
+     color = proc or per-grid compute or fix
+   gridx values = xcoord color
+     - xcoord = x value to dray yz plane of grid cells at
+     - color = proc or per-grid compute or fix
+   gridy values = ycoord color
+     - ycoord = y value to dray xz plane of grid cells at
+     - color = proc or per-grid compute or fix
+   gridz values = zcoord color
+     - zcoord = z value to dray xy plane of grid cells at
+     - color = proc or per-grid compute or fix
+   surf values = color diam
+     - color = one or proc or per-surf compute or fix
+     - diam = diameter of 2d lines as fraction of shortest box length
+   size values = width height = size of images
+     - width = width of image in # of pixels
+     - height = height of image in # of pixels
+   view values = theta phi = view of simulation box
+     - theta = view angle from +z axis (degrees)
+     - phi = azimuthal view angle (degrees)
+     - theta or phi can be a variable (see below)
+   center values = flag Cx Cy Cz = center point of image
+     - flag = "s" for static, "d" for dynamic
+     - Cx,Cy,Cz = center point of image as fraction of box dimension (0.5 = center of box)
+     - Cx,Cy,Cz can be variables (see below)
+   up values = Ux Uy Uz = direction that is "up" in image
+     - Ux,Uy,Uz = components of up vector
+     - Ux,Uy,Uz can be variables (see below)
+   zoom value = zfactor = size that simulation box appears in image
+     - zfactor = scale image size by factor > 1 to enlarge, factor < 1 to shrink
+     - zfactor can be a variable (see below)
+   persp value = pfactor = amount of "perspective" in image
+     - pfactor = amount of perspective (0 = none, < 1 = some, > 1 = highly skewed)
+     - pfactor can be a variable (see below)
+   box values = yes/no diam = draw outline of simulation box
+     - yes/no = do or do not draw simulation box lines
+     - diam = diameter of box lines as fraction of shortest box length
+   gline values = yes/no diam = draw outline of each grid cell
+     - yes/no = do or do not draw grid cell outlines
+     - diam = diameter of grid outlines as fraction of shortest box length
+   sline values = yes/no diam = draw outline of each surface element
+     - yes/no = do or do not draw surf element outlines
+     - diam = diameter of surf element outlines as fraction of shortest box length
+   axes values = yes/no length diam = draw xyz axes
+     - yes/no = do or do not draw xyz axes lines next to simulation box
+     - length = length of axes lines as fraction of respective box lengths
+     - diam = diameter of axes lines as fraction of shortest box length
+   shiny value = sfactor = shinyness of spheres and cylinders
+     sfactor = shinyness of spheres and cylinders from 0.0 to 1.0
+   ssao value = yes/no seed dfactor = SSAO depth shading
+     - yes/no = turn depth shading on/off
+     - seed = random # seed (positive integer)
+     - dfactor = strength of shading from 0.0 to 1.0 
 
-        particle = yes/no = do or do not draw particles
-        pdiam value = number = numeric value for particle diameter (distance units)
-        grid values = color
-          color = proc or per-grid compute or fix
-        gridx values = xcoord color
-          xcoord = x value to dray yz plane of grid cells at
-          color = proc or per-grid compute or fix
-        gridy values = ycoord color
-          ycoord = y value to dray xz plane of grid cells at
-          color = proc or per-grid compute or fix
-        gridz values = zcoord color
-          zcoord = z value to dray xy plane of grid cells at
-          color = proc or per-grid compute or fix
-        surf values = color diam
-          color = one or proc or per-surf compute or fix
-          diam = diameter of 2d lines as fraction of shortest box length
-        size values = width height = size of images
-          width = width of image in # of pixels
-          height = height of image in # of pixels
-        view values = theta phi = view of simulation box
-          theta = view angle from +z axis (degrees)
-          phi = azimuthal view angle (degrees)
-          theta or phi can be a variable (see below)
-        center values = flag Cx Cy Cz = center point of image
-          flag = "s" for static, "d" for dynamic
-          Cx,Cy,Cz = center point of image as fraction of box dimension (0.5 = center of box)
-          Cx,Cy,Cz can be variables (see below)
-        up values = Ux Uy Uz = direction that is "up" in image
-          Ux,Uy,Uz = components of up vector
-          Ux,Uy,Uz can be variables (see below)
-        zoom value = zfactor = size that simulation box appears in image
-          zfactor = scale image size by factor > 1 to enlarge, factor < 1 to shrink
-          zfactor can be a variable (see below)
-        persp value = pfactor = amount of "perspective" in image
-          pfactor = amount of perspective (0 = none, < 1 = some, > 1 = highly skewed)
-          pfactor can be a variable (see below)
-        box values = yes/no diam = draw outline of simulation box
-          yes/no = do or do not draw simulation box lines
-          diam = diameter of box lines as fraction of shortest box length
-        gline values = yes/no diam = draw outline of each grid cell
-          yes/no = do or do not draw grid cell outlines
-          diam = diameter of grid outlines as fraction of shortest box length
-        sline values = yes/no diam = draw outline of each surface element
-          yes/no = do or do not draw surf element outlines
-          diam = diameter of surf element outlines as fraction of shortest box length
-        axes values = yes/no length diam = draw xyz axes
-          yes/no = do or do not draw xyz axes lines next to simulation box
-          length = length of axes lines as fraction of respective box lengths
-          diam = diameter of axes lines as fraction of shortest box length
-        shiny value = sfactor = shinyness of spheres and cylinders
-          sfactor = shinyness of spheres and cylinders from 0.0 to 1.0
-        ssao value = yes/no seed dfactor = SSAO depth shading
-          yes/no = turn depth shading on/off
-          seed = random # seed (positive integer)
-          dfactor = strength of shading from 0.0 to 1.0 
-
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -126,7 +119,9 @@ and play it in the Firefox browser:
    % convert tmp*jpg tmp.gif
    % firefox tmp.gif 
 
-**Description:**
+************
+Description:
+************
 
 Dump a high-quality ray-traced image of the simulation every N timesteps
 and save the images either as a sequence of JPEG or PNG or PPM files, or
@@ -641,7 +636,10 @@ You can play a movie file as follows:
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 To write JPEG images, you must use the -DSPARTA_JPEG switch when
 building SPARTA and link with a JPEG library. To write PNG images, you
@@ -676,13 +674,18 @@ In this case it is recommended to either reduce the size of the image or
 encode in a different format that is also supported by your copy of
 FFmpeg, and which does not have this limitation (e.g. .avi, .mkv, mp4).
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`dump<command-dump>`,
 :ref:`dump_modify<command-dump-modify>`,
 :ref:`undump<command-undump>`
 
-**Default:**
+********
+Default:
+********
+
 
 The defaults for the keywords are as follows:
 

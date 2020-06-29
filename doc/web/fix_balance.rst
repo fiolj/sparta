@@ -11,7 +11,9 @@ fix balance command - fix balance/kk command
 ############################################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -39,14 +41,18 @@ fix balance command - fix balance/kk command
           dims = string with any of "x", "y", or "z" characters in it
         flip value = yes or no 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    fix 1 balance 1000 1.1 rcb cell
    fix 2 balance 10000 1.0 random 
 
-**Description:**
+************
+Description:
+************
 
 This command dynamically adjusts the assignment of grid cells and their
 particles to processors as a simulation runs, to attempt to balance the
@@ -213,14 +219,22 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-create-grid`,
 :ref:`command-balance-grid`
 
-**Default:** none
+********
+Default:
+********
+ none
 
 .. |image0| image:: JPG/partition_small.jpg
    :target: JPG/partition.jpg

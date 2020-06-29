@@ -11,7 +11,9 @@ adapt_grid command
 ##################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -72,7 +74,9 @@ or *cells* or *region* or *dir*
      file arg = filename
        filename = name of file to write out with new parent grid info 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -82,7 +86,9 @@ or *cells* or *region* or *dir*
    adapt_grid all refine surf all 0.15 iterate 1 dir 1 0 0 
    adapt_grid all refine coarsen value c_11 5.0 10.0 iterate 2 
 
-**Description:**
+************
+Description:
+************
 
 This command perform a one-time adaptation of grid cells within a grid
 cell group, either by refinement or coarsening or both. This command can
@@ -329,7 +335,10 @@ re-balance the new adapted grid cells and their particles across
 processors. See :ref:`Section howto 4.8<howto-grids>` for a
 description clumped and unclumped grids.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command can only be used after the grid has been created by the
 :ref:`create_grid<command-create-grid>`, :ref:`read_grid<command-read-grid>`, or
@@ -340,12 +349,17 @@ This is because the per-grid cell values accumulated by the fix are not
 interpolated to new grid cells so that the fix can be re-evaluated
 multiple times. In the future we may revove this restriction.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-adapt`,
 :ref:`command-balance-grid`
 
-**Default:**
+********
+Default:
+********
+
 
 The keyword defaults are iterate = 1, minlevel = 1, maxlevel = 0, thresh
 = more for rdecide and less for cdecide, combine = sum, cells = 2 2 2

@@ -11,7 +11,9 @@ boundary command
 ################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -27,7 +29,9 @@ boundary command
         a is axi-symmetric
         s is treat boundary as a surface 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -35,7 +39,9 @@ boundary command
    boundary os o o
    boundary r p rs 
 
-**Description:**
+************
+Description:
+************
 
 Set the style of boundaries for the global simulation box in each of the
 x, y, z dimensions. A single letter assigns the same style to both the
@@ -77,19 +83,27 @@ collision model defined by the :ref:`surf_collide<command-surf-collide>`
 command. The assignment of the boundary to the model is done via the
 :ref:`bound_modify<command-bound-modify>` command.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 This command must be used before the grid is defined, e.g. by a
 :ref:`create_grid<command-create-grid>` command.
 
 For 2d simulations, the z dimension must be periodic.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-bound-modify`
 :ref:`command-surf-collide`
 
-**Default:**
+********
+Default:
+********
+
 
 ::
 

@@ -393,7 +393,10 @@ KOKKOS_CUDA_OPTIONS are additional options for CUDA. The SPARTA KOKKOS
 package must be compiled with the *enable_lambda* option when using
 GPUs.
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 Currently, there are no precision options with the KOKKOS package. All
 compilation and computation is performed in double precision.

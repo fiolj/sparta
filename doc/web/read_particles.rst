@@ -11,7 +11,9 @@ read_particles command
 ######################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -20,13 +22,17 @@ read_particles command
 -  file = dump file to read snapshot from
 -  Nstep = timestep to read
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    read_particles dump.sphere 10500 
 
-**Description:**
+************
+Description:
+************
 
 Read a snapshot of particles from a previously created dump file and add
 them to the simulation domain. This is a means of reading in particles
@@ -69,11 +75,19 @@ case, errors may be triggered once particles begin to move.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-create-particles`,
 :ref:`command-fix-emit-face`
 
-**Default:** none
+********
+Default:
+********
+ none

@@ -26,7 +26,9 @@ compute grid/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -67,7 +69,9 @@ compute grid/kk command
         pzrho = z component of momentum density
         kerho = kinetic energy density 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -83,7 +87,9 @@ cell to a dump file every 1000 steps:
    fix 1 ave/grid 10 100 1000 c_1[*]
    dump 1 grid all 1000 tmp.grid id f_1[*] 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates one or more values for each grid
 cell in a grid cell group, based on the particles in the cell. The
@@ -375,12 +381,20 @@ effectively.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-fix-ave-grid`,
 :ref:`command-dump grid<command-dump>`,
 :ref:`command-compute-thermal-grid`
 
-**Default:** none
+********
+Default:
+********
+ none

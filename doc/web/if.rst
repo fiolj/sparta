@@ -11,7 +11,9 @@ if command
 ##########
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -28,7 +30,9 @@ if command
 -  e1,e2,...,eN = one or more SPARTA commands to execute if no condition
    is met, each enclosed in quotes (optional arguments)
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -44,7 +48,9 @@ if command
      "print 'Max step reached'"
    if "${eng} > ${eng_previous}" then "jump file1" else "jump file2" 
 
-**Description:**
+************
+Description:
+************
 
 This command provides an in-then-else capability within an input script.
 A Boolean expression is evaluted and the result is TRUE or FALSE. Note
@@ -183,11 +189,19 @@ non-zero. If the result is zero, the expression result is FALSE.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-variable`
 :ref:`command-print`
 
-**Default:** none
+********
+Default:
+********
+ none

@@ -11,20 +11,26 @@ quit command
 ############
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
    quit 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    quit
    if "$n > 10000" then quit 
 
-**Description:**
+************
+Description:
+************
 
 This command causes SPARTA to exit, after shutting down all output
 cleanly.
@@ -35,10 +41,18 @@ script at some intermediate point.
 It can also be used as an invoked command inside the "then" or "else"
 portion of an :ref:`if<command-if>` command.
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-if`
 
-**Default:** none
+********
+Default:
+********
+ none

@@ -11,7 +11,9 @@ react_modify command
 ####################
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -26,14 +28,18 @@ react_modify command
         rboost value = rfactor
           rfactor = boost probability of recombination reactions by this factor 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
    react_modify recomb no
    react_modify rboost 100.0 
 
-**Description:**
+************
+Description:
+************
 
 Set parameters that affect how reactions are performed.
 
@@ -64,12 +70,20 @@ applies no boost factor.
 
 --------------
 
-**Restrictions:** none
+*************
+Restrictions:
+*************
+ none
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-react`
 
-**Default:**
+********
+Default:
+********
+
 
 The option defaults are recomb = yes and rboost = 1000.0.

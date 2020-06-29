@@ -26,7 +26,9 @@ compute lambda/grid/kk command
 
 
 
-**Syntax:**
+*******
+Syntax:
+*******
 
 ::
 
@@ -48,7 +50,9 @@ compute lambda/grid/kk command
         ky = also calculate Knudsen number based on cell size in y dimension
         kz = also calculate Knudsen number based on cell size in z dimension 
 
-**Examples:**
+*********
+Examples:
+*********
 
 ::
 
@@ -65,7 +69,9 @@ grid cell to a dump file every 1000 steps:
    compute 2 lambda/grid f_1[1] f_1[2] Ar
    dump 1 grid all 1000 tmp.grid id c_2 
 
-**Description:**
+************
+Description:
+************
 
 Define a computation that calculates the mean free path (lambda) between
 molecular collisions for each grid cell, based on the particles in that
@@ -219,7 +225,10 @@ effectively.
 
 --------------
 
-**Restrictions:**
+*************
+Restrictions:
+*************
+
 
 To use this compute, a collision style must be defined via the
 :ref:`collide<command-collide>` command, which defines properties for the
@@ -231,14 +240,19 @@ must only be invoked on timesteps that are multiples of the *Nfreq*
 argument used by the fix, since those are the steps when it produces
 output.
 
-**Related commands:**
+*****************
+Related commands:
+*****************
 
 :ref:`command-compute-grid`,
 :ref:`command-compute-thermal-grid`,
 :ref:`command-fix-ave-grid`,
 :ref:`dump grid<command-dump>`
 
-**Default:** none
+********
+Default:
+********
+ none
 
 
 
