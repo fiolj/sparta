@@ -14,9 +14,9 @@ variable command
 
 
 
-*******
+#######
 Syntax:
-*******
+#######
 
 ::
 
@@ -27,51 +27,53 @@ Syntax:
    *uloop* or *string* or *format* or *getenv* or *file* or *internal*
    or *equal* or *particle* or *grid*
 
-   ::
+   - delete = no args
+   - index args = one or more strings
+   - loop args = N
+     - N = integer size of loop, loop from 1 to N inclusive
+   - loop args = N pad
+     - N = integer size of loop, loop from 1 to N inclusive
+     - pad = all values will be same length, e.g. 001, 002, ..., 100
+   - loop args = N1 N2
+     -   N1,N2 = loop from N1 to N2 inclusive
+   - loop args = N1 N2 pad
+     - N1,N2 = loop from N1 to N2 inclusive
+     - pad = all values will be same length, e.g. 050, 051, ..., 100
+   - world args = one string for each partition of processors
+   - universe args = one or more strings
+   - uloop args = N
+     - N = integer size of loop
+   - uloop args = N pad
+     - N = integer size of loop
+     - pad = all values will be same length, e.g. 001, 002, ..., 100
+   - string arg = one string
+   - format args = vname fstr
+     - vname = name of equal-style variable to evaluate
+     - fstr = C-style format string
+   - getenv arg = one string
+   - file arg = filename
+   - internal arg = numeric value
+   - equal or particle or grid args = one formula containing numbers, stats keywords, math operations, particle vectors, compute/fix/variable references
 
-        delete = no args
-        index args = one or more strings
-        loop args = N
-          N = integer size of loop, loop from 1 to N inclusive
-        loop args = N pad
-          N = integer size of loop, loop from 1 to N inclusive
-          pad = all values will be same length, e.g. 001, 002, ..., 100
-        loop args = N1 N2
-          N1,N2 = loop from N1 to N2 inclusive
-        loop args = N1 N2 pad
-          N1,N2 = loop from N1 to N2 inclusive
-          pad = all values will be same length, e.g. 050, 051, ..., 100
-        world args = one string for each partition of processors
-        universe args = one or more strings
-        uloop args = N
-          N = integer size of loop
-        uloop args = N pad
-          N = integer size of loop
-          pad = all values will be same length, e.g. 001, 002, ..., 100
-        string arg = one string
-        format args = vname fstr
-          vname = name of equal-style variable to evaluate
-          fstr = C-style format string
-        getenv arg = one string
-        file arg = filename
-        internal arg = numeric value
-        equal or particle or grid args = one formula containing numbers, stats keywords, math operations, particle vectors, compute/fix/variable references
-          numbers = 0.0, 100, -5.4, 2.8e-4, etc
-          constants = PI
-          stats keywords = step, np, vol, etc from stats_style
-          math operators = (), -x, x+y, x-y, x*y, x/y, x^y, x%y,
-                           x==y, x!=y, xy, x>=y, x&&y, x||y, !x
-          math functions = sqrt(x), exp(x), ln(x), log(x), abs(x),
-                           sin(x), cos(x), tan(x), asin(x), acos(x), atan(x), atan2(y,x),
-                           random(x,y), normal(x,y), ceil(x), floor(x), round(x)
-                           ramp(x,y), stagger(x,y), logfreq(x,y,z), stride(x,y,z), vdisplace(x,y), swiggle(x,y,z), cwiggle(x,y,z)
-          special functions = sum(x), min(x), max(x), ave(x), trap(x), slope(x), next(x)
-          particle vector = mass, type, x, y, z, vx, vy, vz
-          compute references = c_ID, c_ID[i], c_ID[i][j]
-          fix references = f_ID, f_ID[i], f_ID[i][j]
-          surface collision model references = s_ID[i]
-          surface reaction model references = r_ID[i]
-          variable references = v_name 
+     - numbers = 0.0, 100, -5.4, 2.8e-4, etc
+     - constants = PI
+     - stats keywords = step, np, vol, etc from stats_style
+     - math operators = (), -x, x+y, x-y, x*y, x/y, x^y, x%y,
+     -                  x==y, x!=y, xy, x>=y, x&&y, x||y, !x
+     - math functions =
+
+       + sqrt(x), exp(x), ln(x), log(x), abs(x),
+       + sin(x), cos(x), tan(x), asin(x), acos(x), atan(x), atan2(y,x),
+       + random(x,y), normal(x,y), ceil(x), floor(x), round(x)
+       + ramp(x,y), stagger(x,y), logfreq(x,y,z), stride(x,y,z), vdisplace(x,y), swiggle(x,y,z), cwiggle(x,y,z)
+
+     -   special functions = sum(x), min(x), max(x), ave(x), trap(x), slope(x), next(x)
+     - particle vector = mass, type, x, y, z, vx, vy, vz
+     - compute references = c_ID, c_ID[i], c_ID[i][j]
+     - fix references = f_ID, f_ID[i], f_ID[i][j]
+     - surface collision model references = s_ID[i]
+     - surface reaction model references = r_ID[i]
+     - variable references = v_name 
 
 *********
 Examples:
@@ -94,9 +96,12 @@ Examples:
    variable str format x %.6g
    variable x delete 
 
+
+
 ************
 Description:
 ************
+
 
 This command assigns one or more strings to a variable name for
 evaluation later in the input script or during a simulation.
@@ -157,8 +162,8 @@ same thing.
 
 :ref:`Section 3.2<commands-parsing-rules>` of the manual explains how
 occurrences of a variable name in an input script line are replaced by
-the variable's string. The variable name can be referenced as $x if the
-name "x" is a single character, or as ${LoopVar} if the name "LoopVar"
+the variable's string. The variable name can be referenced as ``$x`` if the
+name "x" is a single character, or as ``${LoopVar}`` if the name "LoopVar"
 is one or more characters.
 
 As described below, for variable styles *index*, *loop*, *universe*, and
@@ -189,6 +194,13 @@ before the variable would become exhausted. For example,
 
 --------------
 
+.. contents::
+   :local:
+
+
+Styles and arguments
+====================
+
 This section describes how various variable styles are defined and what
 they store. Many of the styles store one or more strings. Note that a
 single string can contain spaces (multiple words), if it is enclosed in
@@ -196,166 +208,101 @@ quotes in the variable command. When the variable is substituted for in
 another input script command, its returned string will then be
 interpreted as multiple arguments in the expanded command.
 
-For the *index* style, one or more strings are specified. Initially, the
-1st string is assigned to the variable. Each time a :ref:`next<command-next>`
-command is used with the variable name, the next string is assigned. All
-processors assign the same string to the variable.
+For the *index* style,
+  one or more strings are specified. Initially, the 1st string is assigned to the variable. Each time a :ref:`next<command-next>` command is used with the variable name, the next string is assigned. All processors assign the same string to the variable.
 
-*Index* style variables with a single string value can also be set by
-using the command-line switch -var; see :ref:`Section 2.6<start-command-line-options>` of the manual for details.
+*Index* style variables
+  with a single string value can also be set by using the command-line switch -var; see :ref:`Section 2.6<start-command-line-options>` of the manual for details.
 
-The *loop* style is identical to the *index* style except that the
-strings are the integers from 1 to N inclusive, if only one argument N
-is specified. This allows generation of a long list of runs (e.g. 1000)
-without having to list N strings in the input script. Initially, the
-string "1" is assigned to the variable. Each time a :ref:`next<command-next>`
-command is used with the variable name, the next string ("2", "3", etc)
-is assigned. All processors assign the same string to the variable. The
-*loop* style can also be specified with two arguments N1 and N2. In this
-case the loop runs from N1 to N2 inclusive, and the string N1 is
-initially assigned to the variable. N1 <= N2 and N2 >= 0 is required.
+The *loop* style
+  is identical to the *index* style except that the strings are the integers from 1 to N inclusive, if only one argument N is specified. This allows generation of a long list of runs (e.g. 1000) without having to list N strings in the input script. Initially, the string "1" is assigned to the variable. Each time a :ref:`next<command-next>` command is used with the variable name, the next string ("2", "3", etc) is assigned. All processors assign the same string to the variable. The *loop* style can also be specified with two arguments N1 and N2. In this case the loop runs from N1 to N2 inclusive, and the string N1 is initially assigned to the variable. N1 <= N2 and N2 >= 0 is required.
 
-For the *world* style, one or more strings are specified. There must be
-one string for each processor partition or "world". See :ref:`Section 2.6<start-command-line-options>` of the manual for information on
-running SPARTA with multiple partitions via the "-partition"
-command-line switch. This variable command assigns one string to each
-world. All processors in the world are assigned the same string. The
-next command cannot be used with *equal* style variables, since there is
-only one value per world. This style of variable is useful when you wish
-to run different simulations on different partitions.
+For the *world* style,
+  one or more strings are specified. There must be one string for each processor partition or "world". See :ref:`Section 2.6<start-command-line-options>` of the manual for information on running SPARTA with multiple partitions via the "-partition" command-line switch. This variable command assigns one string to each world. All processors in the world are assigned the same string. The next command cannot be used with *equal* style variables, since there is only one value per world. This style of variable is useful when you wish to run different simulations on different partitions.
 
-For the *universe* style, one or more strings are specified. There must
-be at least as many strings as there are processor partitions or
-"worlds". See :ref:`this page<start-command-line-options>` for information
-on running SPARTA with multiple partitions via the "-partition"
-command-line switch. This variable command initially assigns one string
-to each world. When a :ref:`next<command-next>` command is encountered using
-this variable, the first processor partition to encounter it, is
-assigned the next available string. This continues until all the
-variable strings are consumed. Thus, this command can be used to run 50
-simulations on 8 processor partitions. The simulations will be run one
-after the other on whatever partition becomes available, until they are
-all finished. *Universe* style variables are incremented using the files
-"tmp.sparta.variable" and "tmp.sparta.variable.lock" which you will see
-in your directory during such a SPARTA run.
+For the *universe* style,
+  one or more strings are specified. There must be at least as many strings as there are processor partitions or "worlds". See :ref:`this page<start-command-line-options>` for information on running SPARTA with multiple partitions via the "-partition" command-line switch. This variable command initially assigns one string to each world.
+  When a :ref:`next<command-next>` command is encountered using this variable, the first processor partition to encounter it, is assigned the next available string. This continues until all the variable strings are consumed. Thus, this command can be used to run 50 simulations on 8 processor partitions.
+  The simulations will be run one after the other on whatever partition becomes available, until they are all finished. *Universe* style variables are incremented using the files "tmp.sparta.variable" and "tmp.sparta.variable.lock" which you will see in your directory during such a SPARTA run.
 
-The *uloop* style is identical to the *universe* style except that the
-strings are the integers from 1 to N. This allows generation of long
-list of runs (e.g. 1000) without having to list N strings in the input
-script.
+The *uloop* style
+  is identical to the *universe* style except that the strings are the integers from 1 to N. This allows generation of long list of runs (e.g. 1000) without having to list N strings in the input script.
 
-For the *string* style, a single string is assigned to the variable. The
-only difference between this and using the *index* style with a single
-string is that a variable with *string* style can be redefined. E.g. by
-another command later in the input script, or if the script is read
-again in a loop.
+For the *string* style,
+  a single string is assigned to the variable. The only difference between this and using the *index* style with a single string is that a variable with *string* style can be redefined. E.g. by another command later in the input script, or if the script is read again in a loop.
 
-For the *format* style, an equal-style variable is specified along with
-a C-style format string, e.g. "%f" or "%.10g", which must be appropriate
-for formatting a double-precision floating-point value. This allows an
-equal-style variable to be formatted specifically for output as a
-string, e.g. by the :ref:`print<command-print>` command, if the default
-format "%.15g" has too much precision.
+For the *format* style,
+  an equal-style variable is specified along with a C-style format string, e.g. "%f" or "%.10g", which must be appropriate for formatting a double-precision floating-point value. This allows an equal-style variable to be formatted specifically for output as a string, e.g. by the :ref:`print<command-print>` command, if the default format "%.15g" has too much precision.
 
-For the *getenv* style, a single string is assigned to the variable
-which should be the name of an environment variable. When the variable
-is evaluated, it returns the value of the environment variable, or an
-empty string if it not defined. This style of variable can be used to
-adapt the behavior of SPARTA input scripts via environment variable
-settings, or to retrieve information that has been previously stored
-with the :ref:`shell putenv<command-shell>` command. Note that because
-environment variable settings are stored by the operating systems, they
-persist beyond a :ref:`clear<command-clear>` command.
+For the *getenv* style,
+  a single string is assigned to the variable which should be the name of an environment variable. When the variable is evaluated, it returns the value of the environment variable, or an empty string if it not defined. This style of variable can be used to adapt the behavior of SPARTA input scripts via environment variable settings, or to retrieve information that has been previously stored with the :ref:`shell putenv<command-shell>` command. Note that because environment variable settings are stored by the operating systems, they persist beyond a :ref:`clear<command-clear>` command.
 
-For the *file* style, a filename is provided which contains a list of
-strings to assign to the variable, one per line. The strings can be
-numeric values if desired. See the discussion of the next() function
-below for equal-style variables, which will convert the string of a
-file-style variable into a numeric value in a formula.
+For the *file* style,
+  a filename is provided which contains a list of strings to assign to the variable, one per line. The strings can be numeric values if desired. See the discussion of the next() function below for equal-style variables, which will convert the string of a file-style variable into a numeric value in a formula.
 
-When a file-style variable is defined, the file is opened and the string
-on the first line is read and stored with the variable. This means the
-variable can then be evaluated as many times as desired and will return
-that string. There are two ways to cause the next string from the file
-to be read: use the :ref:`next<command-next>` command or the next() function
-in an equal- or atom-style variable, as discussed below.
+When a file-style variable is defined,
+  the file is opened and the string on the first line is read and stored with the variable. This means the variable can then be evaluated as many times as desired and will return that string. There are two ways to cause the next string from the file to be read: use the :ref:`next<command-next>` command or the next() function in an equal- or atom-style variable, as discussed below.
 
-The rules for formatting the file are as follows. A comment character
-"#" can be used anywhere on a line; text starting with the comment
-character is stripped. Blank lines are skipped. The first "word" of a
-non-blank line, delimited by white space, is the "string" assigned to
-the variable.
+  The rules for formatting the file are as follows. A comment character "#" can be used anywhere on a line; text starting with the comment character is stripped. Blank lines are skipped. The first "word" of a non-blank line, delimited by white space, is the "string" assigned to the variable.
 
-For the *internal* style a numeric value is provided. This value will be
-assigned to the variable until a SPARTA command sets it to a new value.
-There is currently only one command that requirew *internal* variables
-as inputs, because it resets them:
-:ref:`create_particles<command-create-particles>`. As mentioned above, an
-internal-style variable can be used in place of an equal-style variable
-anywhere else in an input script, e.g. as an argument to another command
-that allows for equal-style variables.
+For the *internal* style
+  a numeric value is provided. This value will be assigned to the variable until a SPARTA command sets it to a new value.  There is currently only one command that requirew *internal* variables as inputs, because it resets them: :ref:`create_particles<command-create-particles>`. As mentioned above, an internal-style variable can be used in place of an equal-style variable anywhere else in an input script, e.g. as an argument to another command that allows for equal-style variables.
 
 --------------
 
-For the *equal* and *particle* and *grid* styles, a single string is
-specified which represents a formula that will be evaluated afresh each
-time the variable is used. If you want spaces in the string, enclose it
-in double quotes so the parser will treat it as a single argument. For
-*equal* style variables the formula computes a scalar quantity, which
-becomes the value of the variable whenever it is evaluated. For
-*particle* style variables the formula computes one quantity for each
-particle whenever it is evaluated. For *grid* style variables the
-formula computes one quantity for each grid cell whenever it is
-evaluated. A *grid* style variable computes quantites for all flavors of
-child grid cells in the simulation, which includes unsplit, cut, split,
-and sub cells. See :ref:`Section 4.8<howto-grids>` of the
-manual gives details of how SPARTA defines child, unsplit, split, and
-sub cells.
+For the *equal* and *particle* and *grid* styles,
+  a single string is specified which represents a formula that will be evaluated afresh each time the variable is used. If you want spaces in the string, enclose it in double quotes so the parser will treat it as a single argument. For *equal* style variables the formula computes a scalar quantity, which becomes the value of the variable whenever it is evaluated. For *particle* style variables the formula computes one quantity for each particle whenever it is evaluated. For *grid* style variables the formula computes one quantity for each grid cell whenever it is evaluated. A *grid* style variable computes quantites for all flavors of child grid cells in the simulation, which includes unsplit, cut, split, and sub cells. See :ref:`howto-grids` of the manual gives details of how SPARTA defines child, unsplit, split, and sub cells.
 
-Note that *equal* and *particle* and *grid* variables can produce
-different values at different stages of the input script or at different
-times during a run. For example, if an *equal* variable is used in a
-:ref:`fix print<command-fix-print>` command, different values could be
-printed each timestep it was invoked. If you want a variable to be
-evaluated immediately, so that the result is stored by the variable
-instead of the string, see the section below on "Immediate Evaluation of
-Variables".
+  .. note:: that *equal* and *particle* and *grid* variables can produce different values at different stages of the input script or at different times during a run. For example, if an *equal* variable is used in a :ref:`fix print<command-fix-print>` command, different values could be printed each timestep it was invoked. If you want a variable to be evaluated immediately, so that the result is stored by the variable instead of the string, see the section below on "Immediate Evaluation of Variables".
 
-The next command cannot be used with *equal* or *particle* or *grid*
-style variables, since there is only one string.
+The next command
+  cannot be used with *equal* or *particle* or *grid* style variables, since there is only one string.
 
-The formula for an *equal* or *particle* or *grid* variable can contain
-a variety of quantities. The syntax for each kind of quantity is simple,
-but multiple quantities can be nested and combined in various ways to
-build up formulas of arbitrary complexity. For example, this is a valid
-(though strange) variable formula:
+Formulas
+========
 
-::
+  The formula for an *equal* or *particle* or *grid* variable can contain a variety of quantities. The syntax for each kind of quantity is simple, but multiple quantities can be nested and combined in various ways to build up formulas of arbitrary complexity. For example, this is a valid (though strange) variable formula:
 
-   variable x equal "np + c_MyTemp / vol^(1/3)" 
+  ::
+  
+     variable x equal "np + c_MyTemp / vol^(1/3)" 
+  
+  Specifically, a formula can contain numbers, stats keywords, math
+  operators, math functions, particle vectors, compute references, fix
+  references, and references to other variables.
 
-Specifically, a formula can contain numbers, stats keywords, math
-operators, math functions, particle vectors, compute references, fix
-references, and references to other variables.
+.. list-table:: Components of formulas
+   :header-rows: 0
 
-.. container::
+   * - Number
+     - 0.2, 100, 1.0e20, -15.4, etc
+   * - Constant
+     - PI
+   * - Stats keywords
+     - step, np, vol, etc
+   * - Math operators
+     - (), -x, x+y, x-y, x*y, x/y, x^y, x%y, x==y, x!=y, xy, x>=y, x&&y, x||y, !x
+   * - Math functions
+     - sqrt(x), exp(x), ln(x), log(x), abs(x), sin(x), cos(x), tan(x), asin(x), acos(x), atan(x), atan2(y,x),
+   * -
+     - random(x,y,z), normal(x,y,z), ceil(x), floor(x), round(x), ramp(x,y),
+   * -
+     - stagger(x,y), logfreq(x,y,z), stride(x,y,z), vdisplace(x,y), swiggle(x,y,z), cwiggle(x,y
+   * - Special functions
+     - sum(x), min(x), max(x), ave(x), trap(x), slope(x), next(x)
+   * - Particle vectors
+     - mass, type, x, y, z, vx, vy, vz
+   * - Compute references
+     - c_ID, c_ID[i], c_ID[i][j]
+   * - Fix references
+     - f_ID, f_ID[i], f_ID[i][j]
+   * - Surface collision model referen
+     - es s_ID[i]
+   * - Surface reaction model referenc
+     - s  r_ID[i]
+   * - Other variables
+     - v_name
 
-   ================================== ========================================================================================================================================================================================================================================================================
-   Number                             0.2, 100, 1.0e20, -15.4, etc
-   Constant                           PI
-   Stats keywords                     step, np, vol, etc
-   Math operators                     (), -x, x+y, x-y, x*y, x/y, x^y, x%y, x==y, x!=y, xy, x>=y, x&&y, x||y, !x
-   Math functions                     sqrt(x), exp(x), ln(x), log(x), abs(x), sin(x), cos(x), tan(x), asin(x), acos(x), atan(x), atan2(y,x), random(x,y,z), normal(x,y,z), ceil(x), floor(x), round(x), ramp(x,y), stagger(x,y), logfreq(x,y,z), stride(x,y,z), vdisplace(x,y), swiggle(x,y,z), cwiggle(x,y,z)
-   Special functions                  sum(x), min(x), max(x), ave(x), trap(x), slope(x), next(x)
-   Particle vectors                   mass, type, x, y, z, vx, vy, vz
-   Compute references                 c_ID, c_ID[i], c_ID[i][j]
-   Fix references                     f_ID, f_ID[i], f_ID[i][j]
-   Surface collision model references s_ID[i]
-   Surface reaction model references  r_ID[i]
-   Other variables                    v_name
-   ================================== ========================================================================================================================================================================================================================================================================
-
---------------
 
 Most of the formula elements produce a scalar value. A few produce a
 per-particle vector or per-grid vector of values. These are the particle
@@ -386,9 +333,8 @@ below about "Variable Accuracy".
 
 .. _command-variable-math-operators:
 
-**************
 Math Operators
-**************
+--------------
 
 
 
@@ -434,9 +380,8 @@ it to the :ref:`compute reduce<command-compute-reduce>` command.
 
 .. _command-variable-math-functions:
 
-**************
 Math Functions
-**************
+--------------
 
 
 
@@ -449,28 +394,19 @@ vector. For example, "sqrt(np)" is the sqrt() of a scalar, where
 "sqrt(y*z)" yields a per-particle vector with each element being the
 sqrt() of the product of one particle's y and z coordinates.
 
-Most of the math functions perform obvious operations. The ln() is the
-natural log; log() is the base 10 log.
+Most of the math functions perform obvious operations. The ``ln()`` is the
+natural log; ``log()`` is the base 10 log.
 
-The random(x,y) function takes 2 arguments: x = lo and y = hi. It
-generates a uniform random number between lo and hi. The normal(x,y)
-function also takes 2 arguments: x = mu and y = sigma. It generates a
-Gaussian variate centered on mu with variance sigma^2. For equal-style
-variables, every processor uses the same random number seed so that they
-each generate the same sequence of random numbers. For particle-style or
-grid-style variables, a unique seed is created for each processor. This
-effectively generates a different random number for each particle or
-grid cell being looped over in the particle-style or grid-style
-variable.
+The ``random(x,y)`` function takes 2 arguments: x = lo and y = hi. It generates a uniform random number between lo and hi. The ``normal(x,y)`` function also takes 2 arguments: :math:`x = \mu` and :math:`y = \sigma`. It generates a Gaussian variate centered on mu with variance :math:`\sigma^2`. For equal-style variables, every processor uses the same random number seed so that they each generate the same sequence of random numbers. For particle-style or grid-style variables, a unique seed is created for each processor. This effectively generates a different random number for each particle or grid cell being looped over in the particle-style or grid-style variable.
 
 .. important:: Internally, there is just one random number generator for all equal-style variables and one for all particle-style and grid-style variables. If you define multiple variables (of each style) which use the random() or normal() math functions, then the internal random number generators will only be initialized once.
 
-The ceil(), floor(), and round() functions are those in the C math
+The ``ceil()``, ``floor()``, and ``round()`` functions are those in the C math
 library. Ceil() is the smallest integer not less than its argument.
 Floor() if the largest integer not greater than its argument. Round() is
 the nearest integer to its argument.
 
-The ramp(x,y) function uses the current timestep to generate a value
+The ``ramp(x,y)`` function uses the current timestep to generate a value
 linearly intepolated between the specified x,y values over the course of
 a run, according to this formula:
 
@@ -485,7 +421,7 @@ details of how to do this.
 
 .. important:: Currently, the run command does not currently support the start/stop keywords. In the formula above startstep = 0 and stopstep = the number of timesteps being performed by the run.
 
-The stagger(x,y) function uses the current timestep to generate a new
+The ``stagger(x,y)`` function uses the current timestep to generate a new
 timestep. X,y > 0 and x > y are required. The generated timesteps
 increase in a staggered fashion, as the sequence
 x,x+y,2x,2x+y,3x,3x+y,etc. For any current timestep, the next timestep
@@ -497,36 +433,19 @@ will generate the sequence of output timesteps:
 
    100,1000,1100,2000,2100,3000,etc 
 
-The logfreq(x,y,z) function uses the current timestep to generate a new
-timestep. X,y,z > 0 and y < z are required. The generated timesteps
-increase in a logarithmic fashion, as the sequence
-x,2x,3x,...y*x,z*x,2*z*x,3*z*x,...y*z*x,z*z*x,2*z*x*x,etc. For any
-current timestep, the next timestep in the sequence is returned. Thus if
-logfreq(100,4,10) is used in a variable by the :ref:`dump_modify every<command-dump-modify>` command, it will generate the sequence of
-output timesteps:
+The ``logfreq(x,y,z)`` function uses the current timestep to generate a new timestep. X,y,z > 0 and y < z are required. The generated timesteps increase in a logarithmic fashion, as the sequence x,2x,3x,...y*x,z*x,2*z*x,3*z*x,...y*z*x,z*z*x,2*z*x*x,etc. For any current timestep, the next timestep in the sequence is returned. Thus if ``logfreq(100,4,10)`` is used in a variable by the :ref:`dump_modify every<command-dump-modify>` command, it will generate the sequence of output timesteps:
 
 ::
 
    100,200,300,400,1000,2000,3000,4000,10000,20000,etc 
 
-The stride(x,y,z) function uses the current timestep to generate a new
-timestep. X,y >= 0 and z > 0 and x <= y are required. The generated
-timesteps increase in increments of z, from x to y, I.e. it generates
-the sequece x,x+z,x+2z,...,y. If y-x is not a multiple of z, then
-similar to the way a for loop operates, the last value will be one that
-does not exceed y. For any current timestep, the next timestep in the
-sequence is returned. Thus if stagger(1000,2000,100) is used in a
-variable by the :ref:`dump_modify every<command-dump-modify>` command, it
-will generate the sequence of output timesteps:
+The ``stride(x,y,z)`` function uses the current timestep to generate a new timestep. X,y >= 0 and z > 0 and x <= y are required. The generated timesteps increase in increments of z, from x to y, I.e. it generates the sequece x,x+z,x+2z,...,y. If y-x is not a multiple of z, then similar to the way a for loop operates, the last value will be one that does not exceed y. For any current timestep, the next timestep in the sequence is returned. Thus if ``stagger(1000,2000,100)`` is used in a variable by the :ref:`dump_modify every<command-dump-modify>` command, it will generate the sequence of output timesteps:
 
 ::
 
    1000,1100,1200, ... ,1900,2000 
 
-The vdisplace(x,y) function takes 2 arguments: x = value0 and y =
-velocity, and uses the elapsed time to change the value by a linear
-displacement due to the applied velocity over the course of a run,
-according to this formula:
+The ``vdisplace(x,y)`` function takes 2 arguments: x = value0 and y = velocity, and uses the elapsed time to change the value by a linear displacement due to the applied velocity over the course of a run, according to this formula:
 
 ::
 
@@ -534,16 +453,9 @@ according to this formula:
 
 where dt = the timestep size.
 
-The run begins on startstep. Startstep can span multiple runs, using the
-*start* keyword of the :ref:`run<command-run>` command. See the
-:ref:`run<command-run>` command for details of how to do this. Note that the
-:ref:`stats_style<command-stats-style>` keyword *elaplong* =
-timestep-startstep.
+The run begins on startstep. Startstep can span multiple runs, using the *start* keyword of the :ref:`run<command-run>` command. See the :ref:`run<command-run>` command for details of how to do this. Note that the :ref:`stats_style<command-stats-style>` keyword *elaplong* = timestep-startstep.
 
-The swiggle(x,y,z) and cwiggle(x,y,z) functions each take 3 arguments: x
-= value0, y = amplitude, z = period. They use the elapsed time to
-oscillate the value by a sin() or cos() function over the course of a
-run, according to one of these formulas, where omega = 2 PI / period:
+The ``swiggle(x,y,z)`` and ``cwiggle(x,y,z)`` functions each take 3 arguments: x = value0, y = amplitude, z = period. They use the elapsed time to oscillate the value by a sin() or cos() function over the course of a run, according to one of these formulas, where omega = 2 PI / period:
 
 ::
 
@@ -552,11 +464,7 @@ run, according to one of these formulas, where omega = 2 PI / period:
 
 where dt = the timestep size.
 
-The run begins on startstep. Startstep can span multiple runs, using the
-*start* keyword of the :ref:`run<command-run>` command. See the
-:ref:`run<command-run>` command for details of how to do this. Note that the
-:ref:`stats_style<command-stats-style>` keyword *elaplong* =
-timestep-startstep.
+The run begins on startstep. Startstep can span multiple runs, using the *start* keyword of the :ref:`run<command-run>` command. See the :ref:`run<command-run>` command for details of how to do this. Note that the :ref:`stats_style<command-stats-style>` keyword *elaplong* = timestep-startstep.
 
 --------------
 
@@ -564,45 +472,29 @@ timestep-startstep.
 
 .. _command-variable-special-functions:
 
-*****************
 Special Functions
-*****************
+-----------------
 
 
 
 Special functions take specific kinds of arguments, meaning their
 arguments cannot be formulas themselves.
 
-The sum(x), min(x), max(x), ave(x), trap(x), and slope(x) functions each
-take 1 argument which is of the form "c_ID" or "c_ID[N]" or "f_ID" or
-"f_ID[N]". The first two are computes and the second two are fixes; the
-ID in the reference should be replaced by the ID of a compute or fix
-defined elsewhere in the input script. The compute or fix must produce
-either a global vector or array. If it produces a global vector, then
-the notation without "[N]" should be used. If it produces a global
-array, then the notation with "[N]" should be used, when N is an
-integer, to specify which column of the global array is being
-referenced.
+The ``sum(x)``, ``min(x)``, ``max(x)``, ``ave(x)``, ``trap(x)``, and ``slope(x)`` functions each take 1 argument which is of the form "c_ID" or "c_ID[N]" or "f_ID" or "f_ID[N]". The first two are computes and the second two are fixes; the ID in the reference should be replaced by the ID of a compute or fix defined elsewhere in the input script. The compute or fix must produce either a global vector or array. If it produces a global vector, then the notation without "[N]" should be used. If it produces a global array, then the notation with "[N]" should be used, when N is an integer, to specify which column of the global array is being referenced.
 
-These functions operate on the global vector of inputs and reduce it to
-a single scalar value. This is analagous to the operation of the
-:ref:`compute reduce<command-compute-reduce>` command, which invokes the same
-functions on per-particle or per-grid vectors.
+These functions operate on the global vector of inputs and reduce it to a single scalar value. This is analagous to the operation of the :ref:`compute reduce<command-compute-reduce>` command, which invokes the same functions on per-particle or per-grid vectors.
 
-The sum() function calculates the sum of all the vector elements. The
-min() and max() functions find the minimum and maximum element
-respectively. The ave() function is the same as sum() except that it
-divides the result by the length of the vector.
+The ``sum()`` function calculates the sum of all the vector elements. The ``min()`` and ``max()`` functions find the minimum and maximum element respectively. The ``ave()`` function is the same as ``sum()`` except that it divides the result by the length of the vector.
 
-The trap() function is the same as sum() except the first and last
+The ``trap()`` function is the same as ``sum()`` except the first and last
 elements are multiplied by a weighting factor of 1/2 when performing the
-sum. This effectively implements an integratiion via the trapezoidal
+sum. This effectively implements an integration via the trapezoidal
 rule on the global vector of data. I.e. consider a set of points,
 equally spaced by 1 in their x coordinate: (1,V1), (2,V2), ..., (N,VN),
 where the Vi are the values in the global vector of length N. The
-integral from 1 to N of these points is trap().
+integral from 1 to N of these points is ``trap()``.
 
-The slope() function uses linear regression to fit a line to the set of
+The ``slope()`` function uses linear regression to fit a line to the set of
 points, equally spaced by 1 in their x coordinate: (1,V1), (2,V2), ...,
 (N,VN), where the Vi are the values in the global vector of length N.
 The returned value is the slope of the line. If the line has a single
@@ -610,7 +502,7 @@ point or is vertical, it returns 1.0e20.
 
 The next(x) function takes 1 argument which is a variable ID (not
 "v_foo", just "foo"). It must be for a file-style or atomfile-style
-variable. Each time the next() function is invoked (i.e. each time the
+variable. Each time the ``next()`` function is invoked (i.e. each time the
 equal-style or atom-style variable is evaluated), the following steps
 occur.
 
@@ -623,7 +515,7 @@ want.
 
 Since file-style variables read and store the first line of the file
 when they are defined in the input script, this is the value that will
-be returned the first time the next() function is invoked. If next() is
+be returned the first time the ``next()`` function is invoked. If ``next()`` is
 invoked more times than there are lines in the file, the variable is
 deleted, similar to how the :ref:`next<command-next>` command operates.
 
@@ -633,9 +525,9 @@ deleted, similar to how the :ref:`next<command-next>` command operates.
 
 .. _command-variable-particle-vectors:
 
-****************
+
 Particle Vectors
-****************
+================
 
 
 
@@ -654,33 +546,15 @@ Particle vectors can only be used in *particle* style variables, not in
 
 .. _command-variable-compute-references:
 
-******************
 Compute References
-******************
+==================
 
 
 
-Compute references access quantities calculated by a
-:ref:`compute<command-compute>`. The ID in the reference should be replaced
-by the ID of a compute defined elsewhere in the input script. As
-discussed in the doc page for the :ref:`compute<command-compute>` command,
-computes can produce global, per-particle, per-grid, or per-surf values.
-Only global and per-particle and per-grid values can be used in a
-variable. Computes can also produce a scalar, vector, or array. An
-equal-style variable can only use scalar values, which means a global
-scalar, or an element of a global vector or array. Particle-style
-variables can use the same scalar values. They can also use per-particle
-vector values. A vector value can be a per-particle vector itself, or a
-column of an per-particle array. Grid-style variables can use the same
-scalar values. They can also use per-grid vector values. A vector value
-can be a per-grid vector itself, or a column of an per-grid array. See
-the doc pages for individual computes to see what kind of values they
-produce.
+Compute references access quantities calculated by a :ref:`compute<command-compute>`. The ID in the reference should be replaced by the ID of a compute defined elsewhere in the input script. As discussed in the doc page for the :ref:`compute<command-compute>` command, computes can produce global, per-particle, per-grid, or per-surf values.  Only global and per-particle and per-grid values can be used in a variable. Computes can also produce a scalar, vector, or array. An equal-style variable can only use scalar values, which means a global scalar, or an element of a global vector or array. Particle-style variables can use the same scalar values. They can also use per-particle vector values. A vector value can be a per-particle vector itself, or a column of an per-particle array.
+Grid-style variables can use the same scalar values. They can also use per-grid vector values. A vector value can be a per-grid vector itself, or a column of an per-grid array. See the doc pages for individual computes to see what kind of values they produce.
 
-Examples of different kinds of compute references are as follows. There
-is no ambiguity as to what a reference means, since computes only
-produce global or per-particle or per-grid quantities, never more than
-one kind of quantity.
+Examples of different kinds of compute references are as follows. There is no ambiguity as to what a reference means, since computes only produce global or per-particle or per-grid quantities, never more than one kind of quantity.
 
 .. container::
 
@@ -700,21 +574,14 @@ between the brackets, e.g. x[243+10] or x[v_myIndex+1] are not allowed.
 To do this a single variable can be defined that contains the needed
 formula.
 
-If a variable containing a compute is evaluated directly in an input
-script (not during a run), then the values accessed by the compute must
-be current. See the discussion below about "Variable Accuracy".
+If a variable containing a compute is evaluated directly in an input script (not during a run), then the values accessed by the compute must be current. See the discussion below about "Variable Accuracy".
 
 --------------
 
-
-
 .. _command-variable-fix-references:
 
-**************
 Fix References
-**************
-
-
+==============
 
 Fix references access quantities calculated by a :ref:`fix<command-compute>`.
 The ID in the reference should be replaced by the ID of a fix defined
@@ -746,19 +613,11 @@ more than one kind of quantity.
    f_ID[I][J] I,J element of global array
    ========== ===============================================================================
 
-For I and J, integers can be specified or a variable name, specified as
-v_name, where name is the name of the variable. The rules for this
-syntax are the same as for the "Compute References" discussion above.
+For I and J, integers can be specified or a variable name, specified as v_name, where name is the name of the variable. The rules for this syntax are the same as for the "Compute References" discussion above.
 
-If a variable containing a fix is evaluated directly in an input script
-(not during a run), then the values accessed by the fix should be
-current. See the discussion below about "Variable Accuracy".
+If a variable containing a fix is evaluated directly in an input script (not during a run), then the values accessed by the fix should be current. See the discussion below about "Variable Accuracy".
 
-Note that some fixes only generate quantities on certain timesteps. If a
-variable attempts to access the fix on non-allowed timesteps, an error
-is generated. For example, the :ref:`fix ave/time<command-fix-ave-time>`
-command may only generate averaged quantities every 100 steps. See the
-doc pages for individual fix commands for details.
+Note that some fixes only generate quantities on certain timesteps. If a variable attempts to access the fix on non-allowed timesteps, an error is generated. For example, the :ref:`command-fix-ave-time` may only generate averaged quantities every 100 steps. See the doc pages for individual fix commands for details.
 
 --------------
 
@@ -766,21 +625,12 @@ doc pages for individual fix commands for details.
 
 .. _command-variable-surface-collision:
 
-*******************************************************
 Surface Collision and Surface Reaction Model References
-*******************************************************
+=======================================================
 
 
 
-These references access quantities calculated by a
-:ref:`surf_collide<command-surf-collide>` or :ref:`surf_react<command-surf-react>`
-command. The ID in the reference should be replaced by the ID of a
-surface collision or surface reaction model defined elsewhere in the
-input script. As discussed in the doc pages for the
-:ref:`surf_collide<command-surf-collide>` and
-:ref:`surf_react<command-surf-react>` commands, these commmands produce
-global vectors, the elements of which can be accessed by equal-style or
-particle-style or grid-style variables, e.g.
+These references access quantities calculated by a :ref:`command-surf-collide` or :ref:`command-surf-react`. The ID in the reference should be replaced by the ID of a surface collision or surface reaction model defined elsewhere in the input script. As discussed in the doc pages for the :ref:`command-surf-collide` and :ref:`command-surf-react`, they produce global vectors, the elements of which can be accessed by equal-style or particle-style or grid-style variables, e.g.
 
 .. container::
 
@@ -792,14 +642,10 @@ particle-style or grid-style variables, e.g.
 --------------
 
 
-
 .. _command-variable-variable-references:
 
-*******************
 Variable References
-*******************
-
-
+===================
 
 Variable references access quantities stored or calculated by other
 variables, which will cause those variables to be evaluated. The name in
@@ -835,14 +681,14 @@ than one of these quantities.
 
 **Immediate Evaluation of Variables:**
 
-There is a difference between referencing a variable with a leading $
-sign (e.g. $x or ${abc}) versus with a leading ``v_`` (e.g. v_x or v_abc).
+There is a difference between referencing a variable with a leading ``$``
+sign (e.g. ``$x`` or ``${abc}``) versus with a leading ``v_`` (e.g. ``v_x`` or ``v_abc``).
 The former can be used in any input script command, including a variable
 command. The input script parser evaluates the reference variable
 immediately and substitutes its value into the command. As explained in
 :ref:`Section commands 3.2<commands-parsing-rules>` for "Parsing
 rules", you can also use un-named "immediate" variables for this
-purpose. For example, a string like this $((xlo+xhi)/2+sqrt(v_area)) in
+purpose. For example, a string like this ``$((xlo+xhi)/2+sqrt(v_area))`` in
 an input script command evaluates the string between the parenthesis as
 an equal-style variable formula.
 
@@ -893,9 +739,9 @@ if it contains variables preceeded by $ signs. For example,
 
    variable nratio equal "${nfinal}/${n0}" 
 
-This is because the quotes prevent variable substitution (see :ref:`Section 2.2<commands-parsing-rules>` of the manual on parsing input
-script commands), and thus an error will occur when the formula for
-"nratio" is evaluated later.
+This is because the quotes prevent variable substitution (see :ref:`Section
+2.2<commands-parsing-rules>` of the manual on parsing input script commands),
+and thus an error will occur when the formula for "nratio" is evaluated later.
 
 --------------
 
@@ -928,104 +774,60 @@ this only if it was invoked on the current timestep. Fixes will always
 provide a quantity needed by a variable, but the quantity may or may not
 be current. This leads to one of three kinds of behavior:
 
-(1) The variable may be evaluated accurately. If it contains references
-to a compute or fix, and these values were calculated on the last
-timestep of a preceeding run, then they will be accessed and used by the
-variable and the result will be accurate.
+1. The variable may be evaluated accurately. If it contains references to a compute or fix, and these values were calculated on the last timestep of a preceeding run, then they will be accessed and used by the variable and the result will be accurate.
 
-(2) SPARTA may not be able to evaluate the variable and will generate an
-error message stating so. For example, if the variable requires a
-quantity from a :ref:`compute<command-compute>` that has not been invoked on
-the current timestep, SPARTA will generate an error. This means, for
-example, that such a variable cannot be evaluated before the first run
-has occurred. Likewise, in between runs, a variable containing a compute
-cannot be evaluated unless the compute was invoked on the last timestep
-of the preceding run, e.g. by stats output.
+2. SPARTA may not be able to evaluate the variable and will generate an error message stating so. For example, if the variable requires a quantity from a :ref:`compute<command-compute>` that has not been invoked on the current timestep, SPARTA will generate an error. This means, for example, that such a variable cannot be evaluated before the first run has occurred. Likewise, in between runs, a variable containing a compute cannot be evaluated unless the compute was invoked on the last timestep of the preceding run, e.g. by stats output.
 
-One way to get around this problem is to perform a 0-timestep run before
-using the variable. For example, these commands
+   One way to get around this problem is to perform a 0-timestep run before using the variable. For example, these commands
 
-::
+   ::
+  
+      compute myTemp grid all temp
+      variable t equal c_myTemp1
+      print "Initial temperature = $t"
+      run 1000 
+  
 
-   compute myTemp grid all temp
-   variable t equal c_myTemp1
-   print "Initial temperature = $t"
-   run 1000 
+   will generate an error if the run is the first run specified in the input script, because generating a value for the "t" variable requires a compute for calculating the temperature to be invoked.
 
-will generate an error if the run is the first run specified in the
-input script, because generating a value for the "t" variable requires a
-compute for calculating the temperature to be invoked.
+   However, this sequence of commands would be fine:
 
-However, this sequence of commands would be fine:
+   ::
+   
+      compute myTemp grid all temp
+      variable t equal c_myTemp1
+      run 0
+      print "Initial temperature = $t"
+      run 1000 
+   
+   The 0-timestep run initializes and invokes various computes, including the one for temperature, so that the value it stores is current and can be accessed by the variable "t" after the run has completed. Note that a 0-timestep run does not alter the state of the system, so it does not change the input state for the 1000-timestep run that follows. Also note that the 0-timestep run must actually use and invoke the compute in question (e.g. via :ref:`stats<command-stats-style>` or :ref:`dump<command-dump>` output) in order for it to enable the compute to be used in a variable after the run. Thus if you are trying to print a variable that uses a compute you have defined, you can insure it is invoked on the last timestep of the preceding run by including it in stats output.
 
-::
+   Unlike computes, :ref:`fixes<command-fix>` will never generate an error if their values are accessed by a variable in between runs. They always return some value to the variable. However, the value may not be what you expect if the fix has not yet calculated the quantity of interest or it is not current. For example, the :ref:`fix indent<command-fix>` command stores the force on the indenter. But this is not computed until a run is performed. Thus if a variable attempts to print this value before the first run, zeroes will be output. Again, performing a 0-timestep run before printing the variable has the desired effect.
 
-   compute myTemp grid all temp
-   variable t equal c_myTemp1
-   run 0
-   print "Initial temperature = $t"
-   run 1000 
+3. The variable may be evaluated incorrectly. And SPARTA may have no way to detect this has occurred. Consider the following sequence of commands:
 
-The 0-timestep run initializes and invokes various computes, including
-the one for temperature, so that the value it stores is current and can
-be accessed by the variable "t" after the run has completed. Note that a
-0-timestep run does not alter the state of the system, so it does not
-change the input state for the 1000-timestep run that follows. Also note
-that the 0-timestep run must actually use and invoke the compute in
-question (e.g. via :ref:`stats<command-stats-style>` or :ref:`dump<command-dump>`
-output) in order for it to enable the compute to be used in a variable
-after the run. Thus if you are trying to print a variable that uses a
-compute you have defined, you can insure it is invoked on the last
-timestep of the preceding run by including it in stats output.
+   ::
 
-Unlike computes, :ref:`fixes<command-fix>` will never generate an error if
-their values are accessed by a variable in between runs. They always
-return some value to the variable. However, the value may not be what
-you expect if the fix has not yet calculated the quantity of interest or
-it is not current. For example, the :ref:`fix indent<command-fix>`
-command stores the force on the indenter. But this is not computed until
-a run is performed. Thus if a variable attempts to print this value
-before the first run, zeroes will be output. Again, performing a
-0-timestep run before printing the variable has the desired effect.
+      compute myTemp grid all temp
+      variable t equal c_myTemp1
+      run 1000
+      create_particles all n 10000
+      print "Final temperature = $t" 
 
-(3) The variable may be evaluated incorrectly. And SPARTA may have no
-way to detect this has occurred. Consider the following sequence of
-commands:
+   The first run is performed using the current set of particles. The temperature is evaluated on the final timestep and stored by the :ref:`compute grid<command-compute-grid>` compute (when invoked by the :ref:`stats_style<command-stats-style>` command). Then new particles are added by the :ref:`create_particles<command-create-particles>` command, altering the temperature of the system. When the temperature is printed via the "t" variable, SPARTA will use the temperature value stored by the :ref:`command-compute-grid`, thinking it is current. There are many other commands which could alter the state of the system between runs, causing a variable to evaluate incorrectly.
 
-::
+   The solution to this issue is the same as for case (2) above, namely perform a 0-timestep run before the variable is evaluated to insure the system is up-to-date. For example, this sequence of commands would print a temperature that reflected the new particles:
 
-   compute myTemp grid all temp
-   variable t equal c_myTemp1
-   run 1000
-   create_particles all n 10000
-   print "Final temperature = $t" 
+   ::
+   
+      compute myTemp grid all temp
+      variable t equal c_myTemp1
+      run 1000
+      create_particles all n 10000
+      run 0
+      print "Final temperature = $t" 
+   
 
-The first run is performed using the current set of particles. The
-temperature is evaluated on the final timestep and stored by the
-:ref:`compute grid<command-compute-grid>` compute (when invoked by the
-:ref:`stats_style<command-stats-style>` command). Then new particles are
-added by the :ref:`create_particles<command-create-particles>` command,
-altering the temperature of the system. When the temperature is printed
-via the "t" variable, SPARTA will use the temperature value stored by
-the :ref:`compute grid<command-compute-grid>` compute, thinking it is
-current. There are many other commands which could alter the state of
-the system between runs, causing a variable to evaluate incorrectly.
-
-The solution to this issue is the same as for case (2) above, namely
-perform a 0-timestep run before the variable is evaluated to insure the
-system is up-to-date. For example, this sequence of commands would print
-a temperature that reflected the new particles:
-
-::
-
-   compute myTemp grid all temp
-   variable t equal c_myTemp1
-   run 1000
-   create_particles all n 10000
-   run 0
-   print "Final temperature = $t" 
-
---------------
 
 *************
 Restrictions:

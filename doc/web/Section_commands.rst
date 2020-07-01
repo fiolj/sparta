@@ -118,7 +118,7 @@ Here is how each line in the input script is parsed by SPARTA:
       variable        b2 equal 4
       print           "B2 = ${b$a}" 
 
-   Nor can you specify this ``$($x-1.0)`` for an immediate variable, but you could use ``$(v_x-1.0)``, since the latter is valid syntax for an `equal-style variable <command-variable>`.
+   Nor can you specify this ``$($x-1.0)`` for an immediate variable, but you could use ``$(v_x-1.0)``, since the latter is valid syntax for an :ref:`equal-style variable<command-variable>`.
 
    See the `command-variable` for more details of how strings are assigned to variables and evaluated, and how they can be used in input script commands.
 

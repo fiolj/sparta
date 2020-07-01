@@ -90,14 +90,14 @@ discussion of watertight objects below.
 
 Particles collide with surface elements as they advect. Each surface
 element is assigned to a collision model, specified by the
-:ref:`surf_collide<command-surf-collide>` command which affects how a
+:ref:`command-surf-collide`  which affects how a
 particle bounces off the surface. Each surface element can optionally be
 assigned to a reaction model, specified by the
-:ref:`surf_react<command-surf-react>` command which determines if any surface
+:ref:`command-surf-react` which determines if any surface
 chemistry occurs during a collision. Statistics for each surface element
-due to their interactions with particles can be tallied via the :ref:`compute surf<command-compute-surf>` command, time-averaged via the :ref:`fix ave/surf<command-fix-ave-surf>` command, and ouput via the :ref:`dump surface<command-dump>` command.
+due to their interactions with particles can be tallied via the :ref:`command-compute-surf`, time-averaged via the :ref:`command-fix-ave-surf`, and ouput via the :ref:`dump surface<command-dump>` command.
 
-Surface elememts can be assigned to surface groups via the :ref:`group surf<command-group>` command. Surface group IDs are used by other
+Surface elements can be assigned to surface groups via the :ref:`group surf<command-group>` command. Surface group IDs are used by other
 commands to operate on selected sets of elements. This command has
 *group* and *typeadd* keywords which can be used to help assign
 different elements or different objects to different groups.
@@ -128,7 +128,7 @@ specified file can be a text file or a gzipped text file (detected by a
 .gz suffix).
 
 If a "%" character appears in the surface filename, SPARTA expects a set
-of multiple files to exist. The :ref:`write_surf<command-write-surf>` command
+of multiple files to exist. The :ref:`command-write-surf` 
 explains how such sets are created. Read_surf will first read a filename
 where "%" is replaced by "base". This file tells SPARTA how many total
 surfaces and files are in the set (i.e. just the header information
@@ -141,12 +141,15 @@ file.
 Note that P could be the total number of processors in the previous
 simulation, or some subset of those processors, if the *fileper* or
 *nfile* options were used when the surface file was written; see the
-:ref:`write_surf<command-write-surf>` command for details. The processors in
-the current SPARTA simulation share the work of reading these files;
-each reads a roughly equal subset of the files. The number of processors
-which created the set can be different than the number of processors in
-the current SPARTA simulation. This can be a fast mode of input on
+:ref:`command-write-surf` for details. The processors in the current
+SPARTA simulation share the work of reading these files; each reads a
+roughly equal subset of the files. The number of processors which
+created the set can be different than the number of processors in the
+current SPARTA simulation. This can be a fast mode of input on
 parallel machines that support parallel I/O.
+
+Format of a single surface file
+===============================
 
 The remainder of this section describes the format of a single surface
 file, whether it is the only file or one of multiple files flagged with
@@ -181,126 +184,118 @@ keyword *points* should be in a line like "1000 points".
 -  *lines* = # of line segments in surface (only allowed for 2d)
 -  *triangles* = # of triangles in surface (only allowed for 3d)
 
-The *files* keyword only appears in the "base" file for a set of
-multiple files indicated by the "%" character in the filename. It tells
-SPARTA how many additional files exist in the set. A "base" file has no
-additional sections, i.e. no body.
+The *files* keyword
+  only appears in the "base" file for a set of multiple files indicated by the "%" character in the filename. It tells SPARTA how many additional files exist in the set. A "base" file has no additional sections, i.e. no body.
 
-The *points* keyword is optional (see below). For a set of multiple
-files, it cannot appear in the "base" file, but only in individual files
-in the set.
+  The *points* keyword is optional (see below). For a set of multiple files, it cannot appear in the "base" file, but only in individual files in the set.
 
-The *points*, *lines*, *triangles* keywords refer to the number of
-points, lines, triangles in an individual file. Except in the case of a
-"base" file for a set of multiple files. In that case, the *lines* and
-*triangles* keywords give the number of lines or triangles in the entire
-set.
+The *points*, *lines*, *triangles* keywords
+  refer to the number of points, lines, triangles in an individual file. Except in the case of a "base" file for a set of multiple files. In that case, the *lines* and *triangles* keywords give the number of lines or triangles in the entire set.
 
 These are the recognized section keywords for the body of the file.
 
--  *Points, Lines, Triangles*
+*Points, Lines, Triangles*
+--------------------------
 
-The *Points* section consists of N consecutive entries, where N = # of
-points, each of this form:
-
-::
-
-   index x y z    (for 3d) 
-   index x y      (for 2d) 
-
-The index value is ignored; it is only added to assist in examining the
-file. When lines and triangles reference point indices they are simply
-ordered from 1 to N, regardless of the actual value of the index in the
-file. *X,y,z* are the coordinates of the point in distance units. Note
-that for 2d simulations, *z* should be omitted.
-
-.. important:: Unless points are on the surface of the simulation box, they will be part of multiple lines or triangles. However, there is no requirement that each point appear exactly once in the *Points* list.
-	       For example, a point that is the common corner point of M triangles, could appear 1 or 2 or up to M times. However, if the same point appears multiple times in the *Points* list, the coordinates of all copies must be numerically identical, in order for SPARTA to verify the surface is a watertight object, as discussed below.
-
-.. important:: The *points* keyword and *Points* section are not required. You must either use both or neither. As explained next, an optional format for the *Lines* or *Triangles* sections includes point coordinates directly with each line or triangle.
-
-The *Lines* section is only allowed for 2d simulations and consists of N
-entries, where N = # of lines. All entries must be in the same format,
-either A or B. If a Points section was included, use format A. If it was
-not, use format B.
-
-::
-
-   line-ID (type) p1 p2               # format A
-   line-ID (type) p1x p1y p2x p2y     # format B 
-
-The line-ID is stored internally with the line. If the read_surf
-commmand is reading a single file, the line-IDs should be unique values
-from 1 to N where N is the number of lines specified in the header of
-the file. For a set of multiple files, each line in the collection of
-all files should have a unique ID, and the IDs should range from 1 to N,
-where N is the number of lines specified in the base file. SPARTA does
-not check line-IDs for uniqueness. Note that lines in an individual file
-(single or multiple) do not need to be listed by ID order; they can be
-in any order.
-
-.. important:: If the read_surf command is used when lines already exist, i.e. to add new lines, then each line-ID is incremented by Nprevious = the # of lines that already exist.
-
-*Type* is an optional integer value which must be specified for all or
-none of the lines in the file. If used, it must be a positive integer
-value for each line. If not specified, the type of each line is set to
-1. Line IDs and types can be used to assign lines to surface groups via
-the :ref:`group surf<command-group>` command.
-
-For format A, *p1* and *p2* are the indices of the 2 end points of the
-line segment, as found in the Points section. Each is a value from 1 to
-the # of points, as described above. For format B, (p1x,p1y) and
-(p2x,p2y) are the (x,y) coordinates of the two points (1,2) in the line.
-
-The ordering of *p1*, *p2* is important as it defines the direction of
-the outward normal for the line segment when a particle collides with
-it. Molecules only collide with the "outer" edge of a line segment. This
-is defined by a right-hand rule. The outward normal N = (0,0,1) x
-(p2-p1). In other words, a unit z-direction vector is crossed into the
-vector from *p1* to *p2* to determine the normal.
-
-The *Triangles* section is only allowed for 3d simulations and consists
-of N entries, where N = # of triangles. All entries must be in the same
-format, either A or B. If a Points section was included, use format A.
-If it was not, use format B.
-
-::
-
-   tri-ID (type) p1 p2 p3                                  # format A
-   tri-ID (type) p1x p1y p1z p2x p2y p2z p3x p3y p3z       # format B 
-
-The tri-ID is stored internally with the line. If the read_surf commmand
-is reading a single file, the tri-IDs should be unique values from 1 to
-N where N is the number of triangles specified in the header of the
-file. For a set of multiple files, each triangle in the collection of
-all files should have a unique ID, and the IDs should range from 1 to N,
-where N is the number of triangles specified in the base file. SPARTA
-does not check tri-IDs for uniqueness. Note that triangles in an
-individual file (single or multiple) do not need to be listed by ID
-order; they can be in any order.
-
-.. important:: If the read_surf command is used when triangles already exist, i.e. to add new triangles, then each tri-ID is incremented by Nprevious = the # of triangles that already exist.
-
-*Type* is an optional integer value which must be specified for all or
-none of the triangles in the file. If used, it must be a positive
-integer value for each triangle. If not specified, the type of each
-triangle is set to 1. Triangle IDs and types can be used to assign
-triangles to surface groups via the :ref:`group surf<command-group>` command.
-
-For format A, *p1*, *p2*, and *p3* are the indices of the 3 corner
-points of the triangle, as found in the Points section. Each is a value
-from 1 to the # of points, as described above. For format B,
-(p1x,p1y,p1z), (p2x,p2y,p2z), and (p3x,p3y,p3z) are the (x,y,z)
-coordinates of the three corner points (1,2,3) of the triangle.
-
-The ordering of *p1*, *p2*, *p3* is important as it defines the
-direction of the outward normal for the triangle when a particle
-collides with it. Molecules only collide with the "outer" face of a
-triangle. This is defined by a right-hand rule. The outward normal N =
-(p2-p1) x (p3-p1). In other words, the edge from *p1* to *p2* is crossed
-into the edge from *p1* to *p3* to determine the normal.
+- The *Points* section consists of N consecutive entries, where N = # of
+  points, each of this form:
+  
+  ::
+  
+     index x y z    (for 3d) 
+     index x y      (for 2d) 
+  
+  The index value is ignored; it is only added to assist in examining the
+  file. When lines and triangles reference point indices they are simply
+  ordered from 1 to N, regardless of the actual value of the index in the
+  file. *X,y,z* are the coordinates of the point in distance units. Note
+  that for 2d simulations, *z* should be omitted.
+  
+  .. important:: Unless points are on the surface of the simulation box, they will be part of multiple lines or triangles. However, there is no requirement that each point appear exactly once in the *Points* list.
+  	       For example, a point that is the common corner point of M triangles, could appear 1 or 2 or up to M times. However, if the same point appears multiple times in the *Points* list, the coordinates of all copies must be numerically identical, in order for SPARTA to verify the surface is a watertight object, as discussed below.
+  
+  .. important:: The *points* keyword and *Points* section are not required. You must either use both or neither. As explained next, an optional format for the *Lines* or *Triangles* sections includes point coordinates directly with each line or triangle.
+  
+- The *Lines* section is only allowed for 2d simulations and consists of N
+  entries, where N = # of lines. All entries must be in the same format,
+  either A or B. If a Points section was included, use format A. If it was
+  not, use format B.
+  
+  ::
+  
+     line-ID (type) p1 p2               # format A
+     line-ID (type) p1x p1y p2x p2y     # format B 
+  
+  The line-ID is stored internally with the line. If the read_surf
+  commmand is reading a single file, the line-IDs should be unique values
+  from 1 to N where N is the number of lines specified in the header of
+  the file. For a set of multiple files, each line in the collection of
+  all files should have a unique ID, and the IDs should range from 1 to N,
+  where N is the number of lines specified in the base file. SPARTA does
+  not check line-IDs for uniqueness. Note that lines in an individual file
+  (single or multiple) do not need to be listed by ID order; they can be
+  in any order.
+  
+  .. important:: If the read_surf command is used when lines already exist, i.e. to add new lines, then each line-ID is incremented by Nprevious = the # of lines that already exist.
+  
+  *Type*
+    is an optional integer value which must be specified for all or none of the lines in the file. If used, it must be a positive integer value for each line. If not specified, the type of each line is set to 1. Line IDs and types can be used to assign lines to surface groups via the :ref:`group surf<command-group>` command.
+  
+  For format A, *p1* and *p2* are the indices of the 2 end points of the
+  line segment, as found in the Points section. Each is a value from 1 to
+  the # of points, as described above. For format B, (p1x,p1y) and
+  (p2x,p2y) are the (x,y) coordinates of the two points (1,2) in the line.
+  
+  The ordering of *p1*, *p2* is important as it defines the direction of
+  the outward normal for the line segment when a particle collides with
+  it. Molecules only collide with the "outer" edge of a line segment. This
+  is defined by a right-hand rule. The outward normal N = (0,0,1) x
+  (p2-p1). In other words, a unit z-direction vector is crossed into the
+  vector from *p1* to *p2* to determine the normal.
+  
+  
+- The *Triangles* section is only allowed for 3d simulations and consists
+  of N entries, where N = # of triangles. All entries must be in the same
+  format, either A or B. If a Points section was included, use format A.
+  If it was not, use format B.
+  
+  ::
+  
+     tri-ID (type) p1 p2 p3                                  # format A
+     tri-ID (type) p1x p1y p1z p2x p2y p2z p3x p3y p3z       # format B 
+  
+  The tri-ID is stored internally with the line. If the read_surf commmand
+  is reading a single file, the tri-IDs should be unique values from 1 to
+  N where N is the number of triangles specified in the header of the
+  file. For a set of multiple files, each triangle in the collection of
+  all files should have a unique ID, and the IDs should range from 1 to N,
+  where N is the number of triangles specified in the base file. SPARTA
+  does not check tri-IDs for uniqueness. Note that triangles in an
+  individual file (single or multiple) do not need to be listed by ID
+  order; they can be in any order.
+  
+  .. important:: If the read_surf command is used when triangles already exist, i.e. to add new triangles, then each tri-ID is incremented by Nprevious = the # of triangles that already exist.
+  
+  *Type*
+    is an optional integer value which must be specified for all or none of the triangles in the file. If used, it must be a positive integer value for each triangle. If not specified, the type of each triangle is set to 1. Triangle IDs and types can be used to assign triangles to surface groups via the :ref:`group surf<command-group>` command.
+  
+  For format A, *p1*, *p2*, and *p3* are the indices of the 3 corner
+  points of the triangle, as found in the Points section. Each is a value
+  from 1 to the # of points, as described above. For format B,
+  (p1x,p1y,p1z), (p2x,p2y,p2z), and (p3x,p3y,p3z) are the (x,y,z)
+  coordinates of the three corner points (1,2,3) of the triangle.
+  
+  The ordering of *p1*, *p2*, *p3* is important as it defines the
+  direction of the outward normal for the triangle when a particle
+  collides with it. Molecules only collide with the "outer" face of a
+  triangle. This is defined by a right-hand rule. The outward normal N =
+  (p2-p1) x (p3-p1). In other words, the edge from *p1* to *p2* is crossed
+  into the edge from *p1* to *p3* to determine the normal.
 
 --------------
+
+Optional keywords
+=================
 
 The following optional keywords affect the geometry of the read-in
 surface elements. The geometric transformations they describe are

@@ -19,27 +19,31 @@ Syntax:
 
    create_grid Nx Ny Nz keyword args ... 
 
--  Nx,Ny,Nz = size of 1st-level grid in each dimension
--  zero or more keywords/args pairs may be appended
--  keyword = *level* or *region* or *stride* or *clump* or *block* or
-   *random* or *inside*
+- Nx,Ny,Nz = size of 1st-level grid in each dimension
+- zero or more keywords/args pairs may be appended
+- keyword = *level* or *region* or *stride* or *clump* or *block* or
+  *random* or *inside*
 
-   ::
+  - level args = Nlevel Px Py Pz Cx Cy Cz 
 
-        level args = Nlevel Px Py Pz Cx Cy Cz 
-          Nlevel = level from 2 to M, must be in ascending order
-          Px Py Pz = range of parent cells in each dimension in which to create child cells
-          Cx Cy Cz = size of child grid in each dimension within parent cells
-        region args = Nlevel reg-ID Cx Cy Cz 
-          Nlevel = level from 2 to M, must be in ascending order
-          reg-ID = ID of region which parent cells must be in to create child cells
-          Cx Cy Cz = size of child grid in each dimension within parent cells
-        stride arg = xyz or xzy or yxz or yzx or zxy or zyx
-        clump arg = xyz or xzy or yxz or yzx or zxy or zyx
-        block args = Px Py Pz
-          Px,Py,Pz = # of processors in each dimension
-        random args = none
-        inside args = any or all 
+    - Nlevel = level from 2 to M, must be in ascending order
+    - Px Py Pz = range of parent cells in each dimension in which to create child cells
+    - Cx Cy Cz = size of child grid in each dimension within parent cells
+
+  - region args = Nlevel reg-ID Cx Cy Cz 
+
+    - Nlevel = level from 2 to M, must be in ascending order
+    - reg-ID = ID of region which parent cells must be in to create child cells
+    - Cx Cy Cz = size of child grid in each dimension within parent cells
+
+  - stride arg = xyz or xzy or yxz or yzx or zxy or zyx
+  - clump arg = xyz or xzy or yxz or yzx or zxy or zyx
+  - block args = Px Py Pz
+
+    - Px,Py,Pz = # of processors in each dimension
+
+  - random args = none
+  - inside args = any or all 
 
 *********
 Examples:
@@ -64,15 +68,15 @@ Overlay a grid over the simulation domain defined by the
 :ref:`create_box<command-create-box>` command. The grid can also be defined
 by the :ref:`read_grid<command-read-grid>` command.
 
-The grid in SPARTA is hierarchical, as described in :ref:`Section howto 4.8<howto-grids>`. The entire simulation box is a
-single parent grid cell at level 0. It is subdivided into Nx by Ny by Nz
-cells at level 1. Each of those cells can be a child cell (no further
-sub-division) or can be a parent cell which is further subdivided into
-Nx by Ny by Nz cells at level 2. This can recurse to as many levels as
-desired. Different cells can stop recursing at different levels. Each
-parent cell can define its own unique Nx, Ny, Nz values for subdivision.
-Note that a grid with a single level is simply a uniform grid with Nx by
-Ny by Nz cells in each dimension.
+The grid in SPARTA is hierarchical, as described in :ref:`Section
+howto<howto-grids>`. The entire simulation box is a single parent grid cell at
+level 0. It is subdivided into Nx by Ny by Nz cells at level 1. Each of those
+cells can be a child cell (no further sub-division) or can be a parent cell
+which is further subdivided into Nx by Ny by Nz cells at level 2. This can
+recurse to as many levels as desired. Different cells can stop recursing at
+different levels. Each parent cell can define its own unique Nx, Ny, Nz values
+for subdivision.  Note that a grid with a single level is simply a uniform grid
+with Nx by Ny by Nz cells in each dimension.
 
 In the current SPARTA implementation, all processors own a copy of all
 parent cells. Each child cell is owned by a unique processor. The

@@ -3,10 +3,6 @@
 .. index:: fix ave/grid
 .. index:: fix ave/grid/kk
 
-
-
-
-
 .. _command-fix-ave-grid:
 
 ####################
@@ -14,16 +10,11 @@ fix ave/grid command
 ####################
 
 
-
-
-
-
 .. _command-fix-ave-grid-fix-avegridkk:
 
 #######################
 fix ave/grid/kk command
 #######################
-
 
 
 *******
@@ -43,22 +34,20 @@ Syntax:
    input values can be listed
 -  value = c_ID, c_ID[i], f_ID, f_ID[i], v_name
 
-   ::
+   - c_ID = per-grid vector (or array) calculated by a compute with ID
+   - c_ID[I] = Ith column of per-grid array calculated by a compute with ID, I can include wildcard (see below)
+   - f_ID = per-grid vector (or array) calculated by a fix with ID
+   - f_ID[I] = Ith column of per-grid array calculated by a fix with ID, I can include wildcard (see below)
+   - v_name = per-grid vector calculated by a grid-style variable with name 
 
-        c_ID = per-grid vector (or array) calculated by a compute with ID
-        c_ID[I] = Ith column of per-grid array calculated by a compute with ID, I can include wildcard (see below)
-        f_ID = per-grid vector (or array) calculated by a fix with ID
-        f_ID[I] = Ith column of per-grid array calculated by a fix with ID, I can include wildcard (see below)
-        v_name = per-grid vector calculated by a grid-style variable with name 
+     zero or more keyword/arg pairs may be appended
 
--  zero or more keyword/arg pairs may be appended
+   - keyword = ave
 
-   ::
+     ave args = one or running
 
-      keyword = ave
-        ave args = one or running
-          one = output a new average value every Nfreq steps
-          running = accumulate average continuously 
+     + one = output a new average value every Nfreq steps
+     + running = accumulate average continuously 
 
 *********
 Examples:
