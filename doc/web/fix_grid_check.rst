@@ -122,7 +122,9 @@ Restrictions:
 
 *****************
 Related commands:
-***************** none
+*****************
+
+none
 
 ********
 Default:

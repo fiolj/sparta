@@ -25,24 +25,24 @@ Syntax:
 
    fix ID ave/grid group-ID Nevery Nrepeat Nfreq value1 value2 ... keyword args ... 
 
--  ID is documented in :ref:`fix<command-fix>` command
--  ave/grid = style name of this fix command
--  group-ID = group ID for which grid cells to perform calculation on
--  Nevery = use input values every this many timesteps
--  Nrepeat = # of times to use input values for calculating averages
--  Nfreq = calculate averages every this many timesteps zero or more
+-  ``ID`` is documented in :ref:`fix<command-fix>` command
+-  ``ave/grid`` = style name of this fix command
+-  ``group-ID`` = group ID for which grid cells to perform calculation on
+-  ``Nevery`` = use input values every this many timesteps
+-  ``Nrepeat`` = # of times to use input values for calculating averages
+-  ``Nfreq`` = calculate averages every this many timesteps zero or more
    input values can be listed
--  value = c_ID, c_ID[i], f_ID, f_ID[i], v_name
+-  ``value`` = c_ID, c_ID[i], f_ID, f_ID[i], v_name
 
-   - c_ID = per-grid vector (or array) calculated by a compute with ID
-   - c_ID[I] = Ith column of per-grid array calculated by a compute with ID, I can include wildcard (see below)
-   - f_ID = per-grid vector (or array) calculated by a fix with ID
-   - f_ID[I] = Ith column of per-grid array calculated by a fix with ID, I can include wildcard (see below)
-   - v_name = per-grid vector calculated by a grid-style variable with name 
+   - ``c_ID`` = per-grid vector (or array) calculated by a compute with ID
+   - ``c_ID[I]`` = Ith column of per-grid array calculated by a compute with ID, I can include wildcard (see below)
+   - ``f_ID`` = per-grid vector (or array) calculated by a fix with ID
+   - ``f_ID[I]`` = Ith column of per-grid array calculated by a fix with ID, I can include wildcard (see below)
+   - ``v_name`` = per-grid vector calculated by a grid-style variable with name 
 
      zero or more keyword/arg pairs may be appended
 
-   - keyword = ave
+   - ``keyword = ave``
 
      ave args = one or running
 

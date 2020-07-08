@@ -2,14 +2,11 @@
 
 .. index:: surf_collide
 
-
-
 .. _command-surf-collide:
 
 ####################
 surf_collide command
 ####################
-
 
 
 *******
@@ -20,11 +17,11 @@ Syntax:
 
    surf_collide ID style args keyword values ... 
 
--  ID = user-assigned name for the surface collision model
--  style = *specular* or *diffuse* or *cll* or *impulsive* or *td* or
-   *piston* or *transparent* or *vanish* or *specular/kk* or
-   *diffuse/kk* or *piston/kk* or *vanish/kk*
--  args = arguments for specific style
+-  ``ID`` = user-assigned name for the surface collision model
+-  ``style`` = ``specular`` or ``diffuse`` or ``cll`` or ``impulsive`` or ``td`` or
+   ``piston`` or ``transparent`` or ``vanish`` or ``specular/kk`` or
+   ``diffuse/kk`` or ``piston/kk`` or ``vanish/kk``
+-  ``args`` = arguments for specific style
 
    specular or specular/kk
      args = none
@@ -73,31 +70,50 @@ Syntax:
      args = none 
 
 -  zero or more keyword/arg pairs may be appended
--  keyword = *translate* or *rotate* or *partial*
--  values = values for specific keyword
 
-   translate args = Vx Vy Vz
-     Vx,Vy,Vz = translational velocity of surface (velocity units)
-   rotate args = Pz Py Pz Wx Wy Wz
+   keyword = ``translate`` or ``rotate`` or ``partial``
+
+   values = values for specific keyword
+
+   - ``translate`` args = Vx Vy Vz
+
+     - Vx,Vy,Vz = translational velocity of surface (velocity units)
+
+   - ``rotate`` args = Pz Py Pz Wx Wy Wz
+
      - Px,Py,Pz = point to rotate surface around (distance units)
      - Wx,Wy,Wz = angular velocity of surface around point (radians/time) 
-   partial args = eccen (only for cll style)
-     eccen = eccentricity parameter
-   barrier args = bar_val (only for td style)
-     bar_val = value of the desorption barrier in temperature units 
-   bond args = bond_trans bond_rot bond_vib (only for td style)
-     bond_trans = amount of bond dissociation energy (in temperature units) going into translational mode 
-     bond_rot = amount of bond dissociation energy (in temperature units) going into rotational mode 
-     bond_vib = amount of bond dissociation energy (in temperature units) going into vibrational mode
-   init_energy = IE_trans IE_rot IE_vib (only for td style)
+
+   - ``partial`` args = eccen (only for cll style)
+
+     - eccen = eccentricity parameter
+
+   - ``barrier`` args = bar_val (only for td style)
+
+     - bar_val = value of the desorption barrier in temperature units 
+
+   - ``bond`` args = bond_trans bond_rot bond_vib (only for td style)
+
+     - bond_trans = amount of bond dissociation energy (in temperature units) going into translational mode 
+     - bond_rot = amount of bond dissociation energy (in temperature units) going into rotational mode 
+     - bond_vib = amount of bond dissociation energy (in temperature units) going into vibrational mode
+
+   - ``init_energy`` = IE_trans IE_rot IE_vib (only for td style)
+
      - IE_trans = fraction of initial translational energy going into translational mode 
      - IE_rot = fraction of initial translational energy going into rotational mode
      - IE_vib = fraction of initial translational energy going into vibrational mode
-   step args = epsilon (only for impulsive style)
-     epsilon = ratio of the height to the width of the step
-   double args = polar_pow_2 (only for impulsive style)
-     polar_pow_2 = cosine power for the polar angular distribution between peak and surface
-   intenergy args = frac_rot frac_vib (only for impulsive style)
+
+   - ``step`` args = epsilon (only for impulsive style)
+
+     - epsilon = ratio of the height to the width of the step
+
+   - ``double`` args = polar_pow_2 (only for impulsive style)
+
+     - polar_pow_2 = cosine power for the polar angular distribution between peak and surface
+
+   - ``intenergy`` args = frac_rot frac_vib (only for impulsive style)
+
      - frac_rot = fraction of lost translational energy going into the rotational mode
      - frac_vib = fraction of lost translational energy going into the vibrational mode 
 

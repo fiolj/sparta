@@ -3,27 +3,17 @@
 .. index:: compute pflux/grid
 .. index:: compute pflux/grid/kk
 
-
-
-
-
 .. _command-compute-pflux-grid:
 
 ##########################
 compute pflux/grid command
 ##########################
 
-
-
-
-
-
 .. _command-compute-pflux-grid-compute-pfluxgridkk:
 
 #############################
 compute pflux/grid/kk command
 #############################
-
 
 
 *******
@@ -34,18 +24,17 @@ Syntax:
 
    compute ID pflux/grid group-ID mix-ID value1 value2 ... 
 
--  ID is documented in :ref:`compute<command-compute>` command
--  pflux/grid = style name of this compute command
--  group-ID = group ID for which grid cells to perform calculation on
--  mix-ID = mixture ID to perform calculation on
+-  ``ID`` is documented in :ref:`compute<command-compute>` command
+-  ``pflux/grid`` = style name of this compute command
+-  ``group-ID`` = group ID for which grid cells to perform calculation on
+-  ``mix-ID`` = mixture ID to perform calculation on
 -  one or more values can be appended
--  values = *momxx* or *momyy* or *momzz* or *momxy* or *momyz* or
+
+   ``values`` = *momxx* or *momyy* or *momzz* or *momxy* or *momyz* or
    *momxz*
 
-   ::
-
-        momxx,momyy,momzz = diagonal components of momentum flux density tensor
-        momxy,momyz,momxz = off-diagonal components of momentum flux density tensor 
+   - ``momxx,momyy,momzz`` = diagonal components of momentum flux density tensor
+   - ``momxy,momyz,momxz`` = off-diagonal components of momentum flux density tensor 
 
 *********
 Examples:
@@ -112,7 +101,7 @@ sampling steps.
 
 --------------
 
-Calculation of the momentum flux density is done by first calcuating the
+Calculation of the momentum flux density is done by first calculating the
 center-of-mass (COM) velocity of particles for each group within a grid
 cell. This is done as follows:
 

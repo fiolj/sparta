@@ -125,7 +125,9 @@ executing the *cd* command will silently do nothing.
 
 *****************
 Related commands:
-***************** none
+*****************
+
+none
 
 ********
 Default:

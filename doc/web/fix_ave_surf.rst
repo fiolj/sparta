@@ -19,31 +19,28 @@ Syntax:
 
    fix ID ave/surf group-ID Nevery Nrepeat Nfreq value1 value2 ... keyword args ... 
 
--  ID is documented in :ref:`fix<command-fix>` command
--  ave/surf = style name of this fix command
--  group-ID = group ID for which surface elements to perform calculation
+-  ``ID`` is documented in :ref:`fix<command-fix>` command
+-  ``ave/surf`` = style name of this fix command
+-  ``group-ID`` = group ID for which surface elements to perform calculation
    on
--  Nevery = use input values every this many timesteps
--  Nrepeat = # of times to use input values for calculating averages
--  Nfreq = calculate averages every this many timesteps zero or more
+-  ``Nevery`` = use input values every this many timesteps
+-  ``Nrepeat`` = # of times to use input values for calculating averages
+-  ``Nfreq`` = calculate averages every this many timesteps zero or more
    input values can be listed
--  value = c_ID, c_ID[i], f_ID, f_ID[i], v_name
+-  ``value`` = c_ID, c_ID[i], f_ID, f_ID[i], v_name
 
-   ::
-
-        c_ID = per-surf vector (or array) calculated by a compute with ID
-        c_ID[I] = Ith column of per-surf array calculated by a compute with ID, I can include wildcard (see below)
-        f_ID = per-surf vector (or array) calculated by a fix with ID
-        f_ID[I] = Ith column of per-surf array calculated by a fix with ID, I can include wildcard (see below) 
+   - ``c_ID`` = per-surf vector (or array) calculated by a compute with ID
+   - ``c_ID[I]`` = Ith column of per-surf array calculated by a compute with ID, I can include wildcard (see below)
+   - ``f_ID`` = per-surf vector (or array) calculated by a fix with ID
+   - ``f_ID[I]`` = Ith column of per-surf array calculated by a fix with ID, I can include wildcard (see below) 
 
 -  zero or more keyword/arg pairs may be appended
 
-   ::
+   ``keyword = ave``
 
-      keyword = ave
-        ave args = one or running
-          one = output a new average value every Nfreq steps
-          running = accumulate average continuously 
+   - ave args = one or running
+     - one = output a new average value every Nfreq steps
+     - running = accumulate average continuously 
 
 *********
 Examples:

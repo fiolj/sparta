@@ -83,7 +83,9 @@ This command must be used before the simulation box is defined by a :ref:`comman
 
 *****************
 Related commands:
-***************** none
+*****************
+
+none
 
 ********
 Default:

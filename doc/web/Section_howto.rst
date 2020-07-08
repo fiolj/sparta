@@ -347,7 +347,7 @@ Two fixes of particular interest for output are the :ref:`command-fix-ave-grid` 
 
 The :ref:`command-fix-ave-grid` enables time-averaging of per grid vectors. The user specifies one or more quantities as input.  These can be per grid vectors or arrays from :ref:`command-compute` or :ref:`command-fix`. If the input is a single vector, then the fix generates a per grid vector. If the input is multiple vectors or array, the fix generates a per grid array. The time-averaged output of this fix can also be used as input to other output commands.
 
-The :ref:`command-fix-ave-surf` enables time-averaging of per surf vectors. The user specifies one or more quantities as input.  These can be per surf vectors or ararys from :ref:`command-compute` or :ref:`command-fix`. If the input is a single vector, then the fix generates a per surf vector. If the input is multiple vectors or array, the fix generates a per surf array. The time-averaged output of this fix can also be used as input to other output commands.
+The :ref:`command-fix-ave-surf` enables time-averaging of per surf vectors. The user specifies one or more quantities as input.  These can be per surf vectors or arrays from :ref:`command-compute` or :ref:`command-fix`. If the input is a single vector, then the fix generates a per surf vector. If the input is multiple vectors or array, the fix generates a per surf array. The time-averaged output of this fix can also be used as input to other output commands.
 
 
 
@@ -424,7 +424,7 @@ Also note that, as described above, when a command takes a scalar as input, that
    * - :ref:`fix ave/grid<command-fix-ave-grid>`
      - per grid vectors/arrays
      - per grid vector/array                               
-   * - `fix ave/surf <command-fix-ave-surf>`
+   * - :ref:`fix ave/surf <command-fix-ave-surf>`
      - per surf vectors/arrays
      - per surf vector/array
 

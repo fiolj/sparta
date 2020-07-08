@@ -23,24 +23,23 @@ Syntax:
 
    compute ID boundary/kk mix-ID value1 value2 ... 
 
--  ID is documented in :ref:`compute<command-compute>` command
--  boundary = style name of this compute command
--  mix-ID = mixture ID to perform calculation on
+-  ``ID`` is documented in :ref:`compute<command-compute>` command
+-  ``boundary`` = style name of this compute command
+-  ``mix-ID`` = mixture ID to perform calculation on
+
 -  one or more values can be appended
--  value = *n* or *nwt* or *mflux* or *press* or *shx* or *shy* or *shz*
-   or *ke* or *erot* or *evib* or *etot*
 
-   ::
+   ``value`` = ``n`` or ``nwt`` or ``mflux`` or ``press`` or ``shx`` or ``shy`` or ``shz``  or ``ke`` or ``erot`` or ``evib`` or ``etot``
 
-        n = count of particles hitting boundary
-        nwt = weighted count of particles hitting boundary
-        mflux = flux of mass on boundary
-        press = magnitude of normal pressure on boundary
-        shx,shy,shz = components of shear stress on boundary
-        ke = flux of particle kinetic energy on boundary 
-        erot = flux of particle rotational energy on boundary 
-        evib = flux of particle vibrational energy on boundary 
-        etot = flux of particle total energy on boundary 
+   - ``n`` = count of particles hitting boundary
+   - ``nwt`` = weighted count of particles hitting boundary
+   - ``mflux`` = flux of mass on boundary
+   - ``press`` = magnitude of normal pressure on boundary
+   - ``shx,shy,shz`` = components of shear stress on boundary
+   - ``ke`` = flux of particle kinetic energy on boundary 
+   - ``erot`` = flux of particle rotational energy on boundary 
+   - ``evib`` = flux of particle vibrational energy on boundary 
+   - ``etot`` = flux of particle total energy on boundary 
 
 *********
 Examples:
@@ -52,7 +51,7 @@ Examples:
    compute mine boundary species press shx shy shz 
 
 These commands will print values for the current timestep for the xlo
-and xhi boundaryies, as part of statistical output:
+and xhi boundaries, as part of statistical output:
 
 ::
 
@@ -112,113 +111,81 @@ current values listed below, the two normalization methods are the same.
 
 --------------
 
-The *n* value counts the number of particles in the group crossing or
-colliding with the boundary.
+The *n* value
+  counts the number of particles in the group crossing or colliding with the boundary.
 
-The *nwt* value counts the number of particles in the group crossing or
-colliding with the boundary and weights the count by the weight assigned
-to the grid cell in which the particle collision with the boundary
-occurs. The *nwt* quantity will only be different than *n* if particle
-weighting is enabled via the :ref:`global weight<command-global>` command.
+The *nwt* value
+  counts the number of particles in the group crossing or colliding with the boundary and weights the count by the weight assigned to the grid cell in which the particle collision with the boundary occurs. The *nwt* quantity will only be different than *n* if particle weighting is enabled via the :ref:`global weight<command-global>` command.
 
-The *mflux* value calculates the mass flux imparted to the boundary by
-particles in the group. This is computed as
+The *mflux* value
+  calculates the mass flux imparted to the boundary by particles in the group. This is computed as
 
-::
+  ::
+  
+     Mflux = Sum_i (mass_i) / (A * dt / fnum) 
+  
+  where the sum is over all contributing particle masses, normalized by A = the area of the surface element, dt = the timestep, and fnum = the real/simulated particle ratio set by the :ref:`global fnum<command-global>` command.
 
-   Mflux = Sum_i (mass_i) / (A * dt / fnum) 
+The *press* value
+  calculates the pressure *P* exerted on the boundary in the normal direction by particles in the group, such that outward pressure is positive. This is computed as
 
-where the sum is over all contributing particle masses, normalized by A
-= the area of the surface element, dt = the timestep, and fnum = the
-real/simulated particle ratio set by the :ref:`global fnum<command-global>`
-command.
+  ::
+  
+     p_delta = mass * (V_post - V_pre)
+     P = Sum_i (p_delta_i dot N) / (A * dt / fnum) 
+  
+  where A, dt, fnum are defined as before. P_delta is the change in momentum of a particle, whose velocity changes from V_pre to V_post when colliding with the boundary. The pressure exerted on the boundary is the sum over all contributing p_delta dotted into the normal N of the boundary which is directed into the box, normalized by A = the area of the boundary face and dt = the timestep and fnum = the real/simulated particle ratio set by the :ref:`global fnum<command-global>` command.
 
-The *press* value calculates the pressure *P* exerted on the boundary in
-the normal direction by particles in the group, such that outward
-pressure is positive. This is computed as
+The *shx*, *shy*, *shz* values
+  calculate the shear pressure components Sx, Sy, Sz extered on the boundary in the tangential direction to its normal by particles in the group, with respect to the x, y, z coordinate axes. These are computed as
 
-::
+  ::
+  
+     p_delta = mass * (V_post - V_pre)
+     p_delta_t = p_delta - (p_delta dot N) N
+     Sx = - Sum_i (p_delta_t_x) / (A * dt / fnum)
+     Sy = - Sum_i (p_delta_t_y) / (A * dt / fnum)
+     Sz = - Sum_i (p_delta_t_z) / (A * dt / fnum) 
+  
+  where p_delta, V_pre, V_post, N, A, dt, and fnum are defined as before.  P_delta_t is the tangential component of the change in momentum vector p_delta of a particle. P_delta_t_x (and y,z) are its x, y, z components.
 
-   p_delta = mass * (V_post - V_pre)
-   P = Sum_i (p_delta_i dot N) / (A * dt / fnum) 
+The *ke* value
+  calculates the kinetic energy flux *Eflux* imparted to the boundary by particles in the group, such that energy lost by a particle is a positive flux. This is computed as
 
-where A, dt, fnum are defined as before. P_delta is the change in
-momentum of a particle, whose velocity changes from V_pre to V_post when
-colliding with the boundary. The pressure exerted on the boundary is the
-sum over all contributing p_delta dotted into the normal N of the
-boundary which is directed into the box, normalized by A = the area of
-the boundary face and dt = the timestep and fnum = the real/simulated
-particle ratio set by the :ref:`global fnum<command-global>` command.
+  ::
+  
+     e_delta = 1/2 mass (V_post^2 - V_pre^2)
+     Eflux = - Sum_i (e_delta) / (A * dt / fnum) 
+  
+  where e_delta is the kinetic energy change in a particle, whose velocity changes from V_pre to V_post when colliding with the boundary. The energy flux imparted to the boundary is the sum over all contributing e_delta, normalized by A = the area of the boundary face and dt = the timestep and fnum = the real/simulated particle ratio set by the :ref:`global fnum<command-global>` command.
 
-The *shx*, *shy*, *shz* values calculate the shear pressure components
-Sx, Sy, Sz extered on the boundary in the tangential direction to its
-normal by particles in the group, with respect to the x, y, z coordinate
-axes. These are computed as
+The *erot* value
+  calculates the rotational energy flux *Eflux* imparted to the boundary by particles in the group, such that energy lost by a particle is a positive flux. This is computed as
 
-::
+  ::
+  
+     e_delta = Erot_post - Erot_pre
+     Eflux = - Sum_i (e_delta) / (A * dt / fnum) 
+  
+  where e_delta is the rotational energy change in a particle, whose internal rotational energy changes from Erot_pre to Erot_post when colliding with the boundary. The flux equation is the same as for the *ke* value.
 
-   p_delta = mass * (V_post - V_pre)
-   p_delta_t = p_delta - (p_delta dot N) N
-   Sx = - Sum_i (p_delta_t_x) / (A * dt / fnum)
-   Sy = - Sum_i (p_delta_t_y) / (A * dt / fnum)
-   Sz = - Sum_i (p_delta_t_z) / (A * dt / fnum) 
+The *evib* value
+  calculates the vibrational energy flux *Eflux* imparted to the boundary by particles in the group, such that energy lost by a particle is a positive flux. This is computed as
 
-where p_delta, V_pre, V_post, N, A, dt, and fnum are defined as before.
-P_delta_t is the tangential component of the change in momentum vector
-p_delta of a particle. P_delta_t_x (and y,z) are its x, y, z components.
+  ::
+  
+     e_delta = Evib_post - Evib_pre
+     Eflux = - Sum_i (e_delta) / (A * dt / fnum) 
+  
+  where e_delta is the vibrational energy change in a particle, whose internal vibrational energy changes from Evib_pre to Evib_post when colliding with the boundary. The flux equation is the same as for the *ke* value.
 
-The *ke* value calculates the kinetic energy flux *Eflux* imparted to
-the boundary by particles in the group, such that energy lost by a
-particle is a positive flux. This is computed as
+The *etot* value
+  calculates the total energy flux imparted to the boundary by particles in the group, such that energy lost by a particle is a positive flux. This is simply the sum of kinetic, rotational, and vibrational energies. Thus the total energy flux is the sum of what is computed by the *ke*, *erot*, and *evib* values.
 
-::
 
-   e_delta = 1/2 mass (V_post^2 - V_pre^2)
-   Eflux = - Sum_i (e_delta) / (A * dt / fnum) 
 
-where e_delta is the kinetic energy change in a particle, whose velocity
-changes from V_pre to V_post when colliding with the boundary. The
-energy flux imparted to the boundary is the sum over all contributing
-e_delta, normalized by A = the area of the boundary face and dt = the
-timestep and fnum = the real/simulated particle ratio set by the :ref:`global fnum<command-global>` command.
-
-The *erot* value calculates the rotational energy flux *Eflux* imparted
-to the boundary by particles in the group, such that energy lost by a
-particle is a positive flux. This is computed as
-
-::
-
-   e_delta = Erot_post - Erot_pre
-   Eflux = - Sum_i (e_delta) / (A * dt / fnum) 
-
-where e_delta is the rotational energy change in a particle, whose
-internal rotational energy changes from Erot_pre to Erot_post when
-colliding with the boundary. The flux equation is the same as for the
-*ke* value.
-
-The *evib* value calculates the vibrational energy flux *Eflux* imparted
-to the boundary by particles in the group, such that energy lost by a
-particle is a positive flux. This is computed as
-
-::
-
-   e_delta = Evib_post - Evib_pre
-   Eflux = - Sum_i (e_delta) / (A * dt / fnum) 
-
-where e_delta is the vibrational energy change in a particle, whose
-internal vibrational energy changes from Evib_pre to Evib_post when
-colliding with the boundary. The flux equation is the same as for the
-*ke* value.
-
-The *etot* value calculates the total energy flux imparted to the
-boundary by particles in the group, such that energy lost by a particle
-is a positive flux. This is simply the sum of kinetic, rotational, and
-vibrational energies. Thus the total energy flux is the sum of what is
-computed by the *ke*, *erot*, and *evib* values.
-
---------------
-
-**Output info:**
+Output info:
+============
 
 This compute calculates a global array, with the number of columns equal
 to the number of values times the number of groups. The ordering of
@@ -230,8 +197,7 @@ simulation for the 4 faces (xlo, xhi, ylo, yhi), and it is 6 for a 3d
 simulation (xlo, xhi, ylo, yhi, zlo, zhi).
 
 The array can be accessed by any command that uses global array values
-from a compute as input. See :ref:`Section 6.4<howto-output>` for an overview of SPARTA output
-options.
+from a compute as input. See :ref:`Section 6.4<howto-output>` for an overview of SPARTA output options.
 
 The array values will be in the :ref:`units<command-units>` appropriate to
 the individual values as described above. *N* is unitless. *Press*,
@@ -241,12 +207,7 @@ energy/length-time units for 2d simulations.
 
 --------------
 
-Styles with a *kk* suffix are functionally the same as the corresponding
-style without the suffix. They have been optimized to run faster,
-depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The
-accelerated styles take the same arguments and should produce the same
-results, except for different random number, round-off and precision
-issues.
+Styles with a *kk* suffix are functionally the same as the corresponding style without the suffix. They have been optimized to run faster, depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The accelerated styles take the same arguments and should produce the same results, except for different random number, round-off and precision issues.
 
 These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-making-sparta>` section for more info.

@@ -129,7 +129,9 @@ since this command cannot distinguish between them.
 
 *****************
 Related commands:
-***************** none
+*****************
+
+none
 
 ********
 Default:
