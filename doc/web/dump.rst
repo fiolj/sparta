@@ -211,8 +211,8 @@ post-processing tools.
 
 If a "%" character appears in the filename, then one file is written for
 each processor and the "%" character is replaced with the processor ID
-from 0 to P-1. For example, tmp.dump.% becomes tmp.dump.0, tmp.dump.1,
-... tmp.dump.P-1, etc. This creates smaller files and can be a fast mode
+from 0 to P-1. For example, tmp.dump.% becomes tmp.dump.0, tmp.dump.1, ...,
+tmp.dump.P-1, etc. This creates smaller files and can be a fast mode
 of output on parallel machines that support parallel I/O for output.
 
 Note that the "*" and "%" characters can be used together to produce a
@@ -222,9 +222,11 @@ If the filename ends with ".bin", the dump file (or files, if "*" or "%"
 is also used) is written in binary format. A binary dump file will be
 about the same size as a text version, but will typically write out much
 faster. Of course, when post-processing, you will need to convert it
-back to text format (see the :ref:`binary2txt tool<tools-binary>`) or write your own code to read the
+back to text format or write your own code to read the
 binary file. The format of the binary file can be understood by looking
 at the tools/binary2txt.cpp file.
+
+.. warning:: The file "binary2txt.cpp" is not currently shipped with SPARTA
 
 If the filename ends with ".gz", the dump file (or files, if "*" or "%"
 is also used) is written in gzipped format. A gzipped dump file will be

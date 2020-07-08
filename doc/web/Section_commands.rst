@@ -92,7 +92,7 @@ Here is how each line in the input script is parsed by SPARTA:
 
    If the ``$`` is followed by curly brackets, then the variable name is the text inside the curly brackets. If no curly brackets follow the ``$``, then the variable name is the single character immediately following the $.  Thus ``${myTemp}`` and ``$x`` refer to variable names "myTemp" and "x".
 
-   How the variable is converted to a text string depends on what style of variable it is; see the :ref:`variable-command` doc page for details. It can be a variable that stores multiple text strings, and return one of them. The returned text string can be multiple "words" (space separated) which will then be interpreted as multiple arguments in the input command. The variable can also store a numeric formula which will be evaluated and its numeric result returned as a string.
+   How the variable is converted to a text string depends on what style of variable it is; see the :ref:`command-variable` doc page for details. It can be a variable that stores multiple text strings, and return one of them. The returned text string can be multiple "words" (space separated) which will then be interpreted as multiple arguments in the input command. The variable can also store a numeric formula which will be evaluated and its numeric result returned as a string.
 
    As a special case, if the $ is followed by parenthesis, then the text inside the parenthesis is treated as an "immediate" variable and evaluated as an :ref:`equal-style variable<command-variable>`. This is a way to use numeric formulas in an input script without having to assign them to variable names. For example, these 3 input script lines:
 

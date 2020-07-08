@@ -13,7 +13,8 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-
+from datetime import date
+today = date.today().strftime("%d/%m/%Y")
 
 # -- Project information -----------------------------------------------------
 
@@ -24,7 +25,7 @@ author = ''
 # The full version, including alpha/beta/rc tags
 release = '7 May 2020'
 
-version = release
+version = release + "  (build: {})".format(today)
 
 # -- General configuration ---------------------------------------------------
 
