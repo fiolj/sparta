@@ -2,14 +2,11 @@
 
 .. index:: read_surf
 
-
-
 .. _command-read-surf:
 
 #################
 read_surf command
 #################
-
 
 *******
 Syntax:
@@ -19,40 +16,45 @@ Syntax:
 
    read_surf filename keyword args ... 
 
--  filename = name of surface file
+-  ``filename`` = name of surface file
 -  zero or more keyword/args pairs may be appended
--  keyword = *origin* or *trans* or *atrans* or *ftrans* or *scale* or
-   *rotate* or *transparent* or *invert* or *clip* or *group* or
-   *typeadd* or *particle* or *file*
+
+   keyword = ``origin`` or ``trans`` or ``atrans`` or ``ftrans`` or ``scale`` or
+   ``rotate`` or ``transparent`` or ``invert`` or ``clip`` or ``group`` or
+   ``typeadd`` or ``particle`` or ``file``
 
    origin args = Ox Oy Oz
-     Ox,Oy,Oz = set origin of surface to this point (distance units)
+       Ox,Oy,Oz = :ref:`set origin of surface to this point (distance units) <read-surf-geometry>`
+
    trans args = Dx Dy Dz
-     Dx,Dy,Dz = translate origin by this displacement (distance units)
+     Dx,Dy,Dz = :ref:`translate origin by this displacement (distance units) <read-surf-geometry>`
+
    atrans args = Ax Ay Az
-     Ax,Ax,Az = translate origin to this absolute point (distance units)
+     Ax,Ax,Az = :ref:`translate origin to this absolute point (distance units) <read-surf-geometry>`
    ftrans args = Fx Fy Fz
-     Fx,Fy,Fz = translate origin to this fractional point in simulation box
+     Fx,Fy,Fz = :ref:`translate origin to this fractional point in simulation box <read-surf-geometry>`
    scale args = Sx Sy Sz
-     Sx,Sy,Sz = scale surface by these factors around origin
+     Sx,Sy,Sz = :ref:`scale surface by these factors around origin <read-surf-geometry>`
    rotate args = theta Rx Ry Rz
-     - theta = rotate surface by this angle in counter-clockwise direction (degrees)
-     - Rx,Ry,Rz = rotate around vector starting at origin pointing in this direction
+     - theta = :ref:`rotate surface by this angle in counter-clockwise direction (degrees) <read-surf-geometry>`
+     - Rx,Ry,Rz = :ref:`rotate around vector starting at origin pointing in this direction <read-surf-geometry>`
+
    transparent args
-     = none
+     args = :ref:`none <read-surf-props>`
    invert args
-     = none
+     args = :ref:`none <read-surf-props>`
    clip args = none or fraction
-     fraction = push points close to the box boundary to the boundary (optional)
+     fraction = :ref:`push points close to the box boundary to the boundary (optional) <read-surf-geometry>`
+
    group arg = group-ID
-     group-ID = new or existing surface group to assign the surface elements to
+     group-ID = :ref:`new or existing surface group to assign the surface elements to <read-surf-group>`
    typeadd arg = Noffset
-     Noffset = add Noffset to the type value of each element
+     Noffset = :ref:`add Noffset to the type value of each element <read-surf-group>`
    particle args = none or check or keep
-     - none = allow no particles in simulation when read surfs (default)
-     - check = delete particles inside surfs or in cells intersected by surfs
-     - keep = keep all particles
-   file args = identical to those defined for the write_surf command
+     - none = :ref:`allow no particles in simulation when read surfs (default) <read-surf-group>`
+     - check = :ref:`delete particles inside surfs or in cells intersected by surfs <read-surf-group>`
+     - keep = :ref:`keep all particles <read-surf-group>`
+   file args = :ref:`identical to those defined for the write_surf command <read-surf-file>`
      this keyword must be last 
 
 *********
@@ -310,35 +312,39 @@ vertices in the surface file with respect to an origin point. By default
 the origin is (0.0,0.0,0.0), regardless of the position of individual
 vertices in the file.
 
-The *origin* keyword resets the origin to the specified *Ox,Oy,Oz*. This
+.. _read-surf-geometry:
+
+The ``origin`` keyword resets the origin to the specified *Ox,Oy,Oz*. This
 operation has no effect on the vertices.
 
-The *trans* keyword shifts or displaces the origin by the vector
+The ``trans`` keyword shifts or displaces the origin by the vector
 (Dx,Dy,Dz). It also displaces each vertex by (Dx,Dy,Dz).
 
-The *atrans* keyword resets the origin to an absolute point (Ax,Ay,Az)
+The ``atrans`` keyword resets the origin to an absolute point (Ax,Ay,Az)
 which implies a displacement (Dx,Dy,Dz) from the current origin. It also
 displaces each vertex by (Dx,Dy,Dz).
 
-The *ftrans* keyword resets the origin to a fractional point (Fx,Fy,Fz).
+The ``ftrans`` keyword resets the origin to a fractional point (Fx,Fy,Fz).
 Fractional means that Fx = 0.0 is the lower edge/face in the x-dimension
 and Fx = 1.0 is the upper edge/face in the x-dimension, and similarly
 for Fy and Fz. This change of origin implies a displacement (Dx,Dy,Dz)
 from the current origin. This operation also displaces each vertex by
 (Dx,Dy,Dz).
 
-The *scale* keyword does not change the origin. It computes the
+The ``scale`` keyword does not change the origin. It computes the
 displacement vector of each vertex from the origin (delx,dely,delz) and
 scales that vector by (Sx,Sy,Sz), so that the new vertex coordinate is
 (Ox + Sx*delx,Oy + Sy*dely,Oz + Sz*delz).
 
-The *rotate* keyword does not change the origin. It rotates the
+The ``rotate`` keyword does not change the origin. It rotates the
 coordinates of all vertices by an angle *theta* in a counter-clockwise
 direction, around the vector starting at the origin and pointing in the
 direction *Rx,Ry,Rz*. Any rotation can be represented by an appropriate
 choice of origin, *theta* and (Rx,Ry,Rz).
 
-The *transparent* keyword flags all the read in surface elements as transparent,
+.. _read-surf-props:
+
+The ``transparent`` keyword flags all the read in surface elements as transparent,
 meaning particles pass through them. This is useful for tallying flow
 statistics. The :ref:`surf_collide transparent<command-surf-collide>` command
 must also be used to assign a transparent collision model to those surface
@@ -347,7 +353,7 @@ differently for transparent surf elements. The :ref:`Section
 6.15<howto-transparent-surface>` doc page provides an overview of transparent
 surfaces. See those doc pages for details.
 
-The *invert* keyword does not change the origin or any vertex
+The ``invert`` keyword does not change the origin or any vertex
 coordinates. It flips the direction of the outward surface normal of
 each surface element by changing the ordering of its vertices. Since
 particles only collide with the outer surface of a surface element, this
@@ -355,7 +361,7 @@ is a mechanism for using a surface files containing a single sphere (for
 example) as either a sphere to embed in a flow field, or a spherical
 outer boundary containing the flow.
 
-The *clip* keyword does not change the origin. It truncates or "clips" a
+The ``clip`` keyword does not change the origin. It truncates or "clips" a
 surface that extends outside the simulation box in the following manner.
 In 3d, each of the 6 clip planes represented by faces of the global
 simulation box are considered in turn. Any triangle that straddles the
@@ -374,33 +380,35 @@ edges represented by the edges of the global simulation box.
 .. important:: If a surface you clip crosses a periodic boundary, as specified by the :ref:`boundary<command-boundary>` command, then the clipping that takes place must be consistent on both the low and high end of the box (in the periodic dimension). This means any point on the boundary that is generated by the clip operation should be generated twice, once on the low side of the box and once on the high side. And those two points must be periodic images of each other, as implied by periodicity.
 	       If the surface you are reading does not clip in this manner, then SPARTA will likely generate an error about mis-matched or inconsistent cells when it attempts to mark all the grid cells and their corner points as inside vs outside the surface.
 
-If you use the *clip* keyword, you should check the resulting statistics
+If you use the ``clip`` keyword, you should check the resulting statistics
 of the clipped surface printed out by this command, including the
 minimum size of line and triangle edge lengths. It is possible that very
 short lines or very small triangles will be created near the box surface
 due to the clipping operation, depending on the coordinates of the
 initial unclipped points.
 
-If this is the case, an optional *fraction* argument can be appended to
-the *clip* keyword. *Fraction* is a unitless value which is converted to
-a distance *delta* in each dimension where delta = fraction \* (boxhi -
+If this is the case, an optional ``fraction`` argument can be appended to
+the ``clip`` keyword. ``Fraction`` is a unitless value which is converted to
+a distance ``delta`` in each dimension where delta = fraction \* (boxhi -
 boxlo). If a point is nearer than delta to the lo or hi boundary in a
 dimension, the point is moved to be on the boundary, before the clipping
 operation takes place. This can prevent tiny surface elements from being
-created due to clipping. If *fraction* is not specified, the default
-value is 0.0, which means points are not moved. If specified, *fraction*
+created due to clipping. If ``fraction`` is not specified, the default
+value is 0.0, which means points are not moved. If specified, ``fraction``
 must be a value between 0.0 and 0.5.
 
-Note that the *clip* operation may delete some surface elements and
+Note that the ``clip`` operation may delete some surface elements and
 create new ones. Likewise for the points that define the end points or
 corner points of surface element lines (2d) or triangles (3d). The
 resulting altered set of surface elements can be written out to a file
 by the :ref:`write_surf<command-write-surf>` command, which can then be used
 an input to a new simulation or for post-processing and visualization.
 
-.. important:: When the *clip* operation deletes or adds surface elements, the line-IDs or tri-IDs will be renumbered to produce IDs that are consecutive values from 1 to the # of surface elements. The ID of a surface element that is unclipped may change due to this reordering.
+.. important:: When the ``clip`` operation deletes or adds surface elements, the line-IDs or tri-IDs will be renumbered to produce IDs that are consecutive values from 1 to the # of surface elements. The ID of a surface element that is unclipped may change due to this reordering.
 
 --------------
+
+.. _read-surf-group:
 
 The following optional keywords affect group and type settings for the
 read-in surface elements and output of the elements. Also how particles
@@ -412,31 +420,32 @@ group, which is created by default. Surface group IDs are used by other
 commands to identify a group of suface elements to operate on. See the
 :ref:`group surf<command-group>` command for more details.
 
-Every surface element also stores a *type* which is a positive integer.
-*Type* values are useful for flagging subsets of elements or different
+Every surface element also stores a ``type`` which is a positive integer.
+``Type`` values are useful for flagging subsets of elements or different
 objects in the surface file. For example, a patch of triangles on a
 sphere. Or one sphere out of several that the file contains. Surface
-element types can be used to define surface groups. See the :ref:`group surf<command-group>` command for details.
+element types can be used to define surface groups.
+See the :ref:`group surf<command-group>` command for details.
 
-The *group* keyword specifies an extra surface *group-ID* to assign all
+The ``group`` keyword specifies an extra surface ``group-ID`` to assign all
 the read-in surface elements to. All the read-in elements are assigned
-to the "all" group and to *group-ID*. If *group-ID* does not exist, a
+to the "all" group and to ``group-ID``. If ``group-ID`` does not exist, a
 new surface group is created. If it does exist the read-in surface
 elements are added to that group.
 
-The *typeadd* keyword defines an *Noffset* value which is added to the
+The ``typeadd`` keyword defines an ``Noffset`` value which is added to the
 type of each read-in surface element. The default is Noffset = 0, which
 means the read-in type values are not altered. If type values are not
 included in the file, they default to 1 for every element, but can still
-be altered by the *typeadd* keyword.
+be altered by the ``typeadd`` keyword.
 
-Note that use of the *group* and *typeadd* keywords allow the same
+Note that use of the ``group`` and ``typeadd`` keywords allow the same
 surface file to be read multiple times (e.g. with different origins,
 tranlations, rotations, etc) to define multiple objects, and assign
 their surface elements to different groups or different type values.
 
-The *particle* keyword determines how particles in the simulation are
-affected by the new surface elements. If the setting is *none*, which is
+The ``particle`` keyword determines how particles in the simulation are
+affected by the new surface elements. If the setting is ``none``, which is
 the default, then no particles can exist in the simulation. If the
 setting is *check*, then particles in grid cells that are inside the new
 watertight surface object(s) or in grid cells intersected by the new
@@ -450,14 +459,16 @@ object, and a new object is being read in, and you know the new object
 is smaller than the one it replaced. E.g. for a model of a shrinking or
 ablating object.
 
-If the *file* keyword is used, the surfaces will be written out to the
-specified *filename* immediately after they are read in. The arguments
+.. _read-surf-file:
+
+If the ``file`` keyword is used, the surfaces will be written out to the
+specified ``filename`` immediately after they are read in. The arguments
 for this keyword are identical to those used for the
 :ref:`write_surf<command-write-surf>` command. This includes a file name with
 optional "*" and "%" wildcard characters, as well as its optional
 keywords.
 
-.. important:: The *file* keyword must be the last keyword specified with the read_isurf command. This is because all the remaining arguments are passed to the :ref:`write_surf<command-write-surf>` command.
+.. important:: The ``file`` keyword must be the last keyword specified with the read_isurf command. This is because all the remaining arguments are passed to the :ref:`write_surf<command-write-surf>` command.
 
 The format for the output file is the same as the one written by the
 :ref:`write_surf<command-write-surf>` command, or read by this command. Note

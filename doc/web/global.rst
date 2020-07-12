@@ -21,12 +21,7 @@ Syntax:
 
 one or more keyword/value pairs
 
-:: 
-
-     keyword = *fnum* or *nrho* or *vstream* or *temp* or *gravity* or
-     *surfs* or *surfgrid* or *surfmax* or *cellmax* or *splitmax* or
-     *surftally* or *surfpush* or *gridcut* or *comm/sort* or *comm/style*
-     or *weight* or *particle/reorder* or *mem/limit*
+keyword = ``fnum`` or ``nrho`` or ``vstream`` or ``temp`` or ``gravity`` or ``surfs`` or ``surfgrid`` or ``surfmax`` or ``cellmax`` or ``splitmax`` or ``surftally`` or ``surfpush`` or ``gridcut`` or ``comm/sort`` or ``comm/style`` or ``weight`` or ``particle/reorder`` or ``mem/limit``
 
 
 

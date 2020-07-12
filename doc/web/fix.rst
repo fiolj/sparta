@@ -2,8 +2,6 @@
 
 .. index:: fix
 
-
-
 .. _command-fix:
 
 ###########
@@ -19,9 +17,9 @@ Syntax:
 
    fix ID style args 
 
--  ID = user-assigned name for the fix
--  style = one of a long list of possible style names (see below)
--  args = arguments used by a particular style
+-  ``ID`` = user-assigned name for the fix
+-  ``style`` = one of a long list of possible style names (see below)
+-  ``args`` = arguments used by a particular style
 
 *********
 Examples:

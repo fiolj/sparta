@@ -4,26 +4,17 @@
 .. index:: compute grid/kk
 
 
-
-
-
 .. _command-compute-grid:
 
 ####################
 compute grid command
 ####################
 
-
-
-
-
-
 .. _command-compute-grid-compute-gridkk:
 
 #######################
 compute grid/kk command
 #######################
-
 
 
 *******
@@ -34,40 +25,36 @@ Syntax:
 
    compute ID grid group-ID mix-ID value1 value2 ... 
 
--  ID is documented in :ref:`compute<command-compute>` command
--  grid = style name of this compute command
--  group-ID = group ID for which grid cells to perform calculation on
--  mix-ID = mixture ID to perform calculation on
--  one or more values can be appended
--  value = *n* or *nrho* or *nfrac* or *mass* or *massrho* or *massfrac*
-   or *u* or *v* or *w* or *usq* or *vsq* or *wsq* of *ke* or *temp* or
-   *erot* or *trot* or *evib* or *tvib* or *pxrho* or *pyrho* or *pzrho*
-   or *kerho*
+-  ``ID`` is documented in :ref:`compute<command-compute>` command
+-  ``grid`` = style name of this compute command
+-  ``group-ID`` = group ID for which grid cells to perform calculation on
+-  ``mix-ID`` = mixture ID to perform calculation on
+-  one or more values can be appended:
 
-   ::
+   value = ``n`` or ``nrho`` or ``nfrac`` or ``mass`` or ``massrho`` or ``massfrac`` or ``u`` or ``v`` or ``w`` or ``usq`` or ``vsq`` or ``wsq`` of ``ke`` or ``temp`` or ``erot`` or ``trot`` or ``evib`` or ``tvib`` or ``pxrho`` or ``pyrho`` or ``pzrho`` or ``kerho``
 
-        n = particle count
-        nrho = number density
-        nfrac = number fraction
-        mass = mass
-        massrho = mass density
-        massfrac = mass fraction
-        u = x component of velocity
-        v = y component of velocity
-        w = z component of velocity
-        usq = x component of velocity squared
-        vsq = y component of velocity squared
-        wsq = z component of velocity squared
-        ke = kinetic energy
-        temp = temperature
-        erot = rotational energy
-        trot = rotational temperature
-        evib = vibrational energy 
-        tvib = vibrational temperature (classical definition)
-        pxrho = x component of momentum density
-        pyrho = y component of momentum density
-        pzrho = z component of momentum density
-        kerho = kinetic energy density 
+   - ``n`` = :ref:`particle count <compute-grid-npart>`
+   - ``nrho`` = :ref:`number density <compute-grid-npart>`
+   - ``nfrac`` = :ref:`number fraction <compute-grid-npart>`
+   - ``mass`` = :ref:`mass <compute-grid-mass>`
+   - ``massrho`` = :ref:`mass density <compute-grid-mass>`
+   - ``massfrac`` = :ref:`mass fraction <compute-grid-mass>`
+   - ``u`` = :ref:`x component of velocity <compute-grid-veloc>`
+   - ``v`` = :ref:`y component of velocity <compute-grid-veloc>`
+   - ``w`` = :ref:`z component of velocity <compute-grid-veloc>`
+   - ``usq`` = :ref:`x component of velocity squared <compute-grid-veloc>`
+   - ``vsq`` = :ref:`y component of velocity squared <compute-grid-veloc>`
+   - ``wsq`` = :ref:`z component of velocity squared <compute-grid-veloc>`
+   - ``ke`` = :ref:`kinetic energy <compute-grid-energy>`
+   - ``temp`` = :ref:`temperature <compute-grid-energy>`
+   - ``erot`` = :ref:`rotational energy <compute-grid-energy>`
+   - ``trot`` = :ref:`rotational temperature <compute-grid-energy>`
+   - ``evib`` = :ref:`vibrational energy  <compute-grid-energy>`
+   - ``tvib`` = :ref:`vibrational temperature (classical definition) <compute-grid-energy>`
+   - ``pxrho`` = :ref:`x component of momentum density <compute-grid-momentum>`
+   - ``pyrho`` = :ref:`y component of momentum density <compute-grid-momentum>`
+   - ``pzrho`` = :ref:`z component of momentum density <compute-grid-momentum>`
+   - ``kerho`` = :ref:`kinetic energy density  <compute-grid-momentum>`
 
 *********
 Examples:
@@ -113,14 +100,15 @@ than taking the values produced by the formulas below for a single
 timestep, summing those values over the sampling timesteps, and then
 dividing by the number of sampling steps.
 
---------------
+
+.. _compute-grid-npart:
 
 
-The *n* value counts the number of particles in each group. When
+The ``n`` value counts the number of particles in each group. When
 accumulated over multiple sampling steps, this value is normalized by
 the number of sampling steps.
 
-The *nrho* value computes the number density for the grid cell volume
+The ``nrho`` value computes the number density for the grid cell volume
 due to particles in each group:
 
 ::
@@ -135,7 +123,7 @@ the number of sampling steps. Note that if particle weighting is enabled
 via the :ref:`global weight<command-global>` command, then the volume used in
 the formula is divided by the weight assigned to the grid cell.
 
-The *nfrac* value computes the number fraction of particles in each
+The ``nfrac`` value computes the number fraction of particles in each
 group:
 
 Nfrac = Ngroup / Ntotal
@@ -144,9 +132,10 @@ Ngroup is the count of particles in the group and Ntotal is the total
 number of particles in all groups in the mixture. Note that this total
 is not (necessarily) all particles in the cell.
 
---------------
+.. _compute-grid-mass:
 
-The *mass* value computes the average mass of particles in each group:
+
+The ``mass`` value computes the average mass of particles in each group:
 
 ::
 
@@ -154,7 +143,7 @@ The *mass* value computes the average mass of particles in each group:
 
 where Sum_i is a sum over particles in the group.
 
-The *massrho* value computes the mass density for the grid cell volume
+The ``massrho`` value computes the mass density for the grid cell volume
 due to particles in each group:
 
 ::
@@ -169,7 +158,7 @@ the number of sampling steps. Note that if particle weighting is enabled
 via the :ref:`global weight<command-global>` command, then the volume used in
 the formula is divided by the weight assigned to the grid cell.
 
-The *massfrac* value computes the mass fraction of particles in each
+The ``massfrac`` value computes the mass fraction of particles in each
 group:
 
 ::
@@ -180,9 +169,10 @@ where Sum_i is a sum over particles in the group and Masstotal is the
 total mass of particles in all groups in the mixture. Note that this
 total is not (necessarily) the mass of all particles in the cell.
 
---------------
+.. _compute-grid-veloc:
 
-The *u*, *v*, *w* values compute the components of the mass-weighted
+
+The ``u``, ``v``, ``w`` values compute the components of the mass-weighted
 average velocity of particles in each group:
 
 ::
@@ -194,7 +184,7 @@ average velocity of particles in each group:
 This is the same as the center-of-mass velocity of particles in each
 group.
 
-The *usq*, *vsq*, *wsq* values compute the average mass-weighted squared
+The ``usq``, ``vsq``, ``wsq`` values compute the average mass-weighted squared
 components of the velocity of particles in each group:
 
 ::
@@ -203,9 +193,9 @@ components of the velocity of particles in each group:
    Vsq = Sum_i (mass_i Vy_i Vy_i) / Sum_i (mass_i)
    Wsq = Sum_i (mass_i Vz_i Vz_i) / Sum_i (mass_i) 
 
---------------
+.. _compute-grid-energy:
 
-The *ke* value computes the average kinetic energy of particles in each
+The ``ke`` value computes the average kinetic energy of particles in each
 group:
 
 ::
@@ -217,7 +207,7 @@ Note that this is different than the group's contribution to the average
 kinetic energy of entire grid cells. That can be calculated by
 multiplying the *ke* quantity by the *n* quantity.
 
-The *temp* value first computes the average kinetic energy of particles
+The ``temp`` value first computes the average kinetic energy of particles
 in each group, as for the *ke* value. This is then converted to a
 temperature *T* by the following formula where *kB* is the Boltzmann
 factor:
@@ -235,9 +225,9 @@ velocity. See the :ref:`compute thermal/grid<command-compute-thermal-grid>`
 command to calculate thermal temperatures after subtracting out
 streaming components of velocity.
 
---------------
 
-The *erot* value computes the average rotational energy of particles in
+
+The ``erot`` value computes the average rotational energy of particles in
 each group:
 
 ::
@@ -248,7 +238,7 @@ Note that this is different than the group's contribution to the average
 rotational energy of entire grid cells. That can be calculated by
 multiplying the *erot* quantity by the *n* quantity.
 
-The *trot* value computes a rotational temperature by the following
+The ``trot`` value computes a rotational temperature by the following
 formula where *kB* is the Boltzmann factor:
 
 ::
@@ -257,9 +247,8 @@ formula where *kB* is the Boltzmann factor:
 
 Dof_i is the number of rotational degrees of freedom for particle i.
 
---------------
 
-The *evib* value computes the average vibrational energy of particles in
+The ``evib`` value computes the average vibrational energy of particles in
 each group:
 
 ::
@@ -270,7 +259,7 @@ Note that this is different than the group's contribution to the average
 vibrational energy of entire grid cells. That can be calculated by
 multiplying the *evib* quantity by the *n* quantity.
 
-The *tvib* value computes a classical definition of vibrational
+The ``tvib`` value computes a classical definition of vibrational
 temperature, valid for continous distributions of vibrational energy, by
 the following formula where *kB* is the Boltzmann factor:
 
@@ -280,9 +269,10 @@ the following formula where *kB* is the Boltzmann factor:
 
 Dof_i is the number of vibrational degrees of freedom for particle i.
 
---------------
 
-The *pxrho*, *pyrho*, *pzrho* values compute components of momentum
+.. _compute-grid-momentum:
+
+The ``pxrho``, ``pyrho``, ``pzrho`` values compute components of momentum
 density for the grid cell volume due to particles in each group:
 
 ::
@@ -299,7 +289,7 @@ the number of sampling steps. Note that if particle weighting is enabled
 via the :ref:`global weight<command-global>` command, then the volume used in
 the formula is divided by the weight assigned to the grid cell.
 
-The *kerho* value computes the kinetic energy density for the grid cell
+The ``kerho`` value computes the kinetic energy density for the grid cell
 volume due to particles in each group:
 
 ::
@@ -315,10 +305,10 @@ the number of sampling steps. Note that if particle weighting is enabled
 via the :ref:`global weight<command-global>` command, then the volume used in
 the formula is divided by the weight assigned to the grid cell.
 
---------------
 
 
-**Output info:**
+Output info:
+============
 
 This compute calculates a per-grid array, with the number of columns
 equal to the number of values times the number of groups. The ordering

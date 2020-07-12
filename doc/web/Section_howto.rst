@@ -937,7 +937,7 @@ the count, mass flux, and energy flux of particles that pass through
 transparent surface elements. These quantities can then be time averaged
 via the :ref:`fix ave/surf<command-fix-ave-surf>` command or output via the
 :ref:`dump surf<command-dump>` command in the usual ways, as described
-in :ref:`Section<howto-output>`.
+in :ref:`Section Output from SPARTA<howto-output>`.
 
 The examples/circle/in.circle.transparent script shows how to use these commands when modeling flow around a 2d circle. Two additional transparent line segments are placed in front of the circle to tally particle count and kinetic energy flux in both directions in front of the object. These are defined in the data.plane1 and data.plane2 files.  The resulting tallies are output with the :ref:`command-stats-style`. They could also be output with a :ref:`command-dump` for more resolution if the 2 lines were each defined as multiple line segments.
 

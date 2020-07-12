@@ -3,28 +3,17 @@
 .. index::  compute surf
 .. index::  compute surf/kk
 
-
-
-
-
 .. _command-compute-surf:
 
 ####################
 compute surf command
 ####################
 
-
-
-
-
-
 .. _command-compute-surf-compute-surfkk:
 
 #######################
 compute surf/kk command
 #######################
-
-
 
 *******
 Syntax:
@@ -42,20 +31,20 @@ Syntax:
 
   one or more values can be appended
   
-- ``value`` = *n* or *nwt* or *mflux* or *fx* or *fy* or *fz* or *press* or
-  *px* or *py* or *pz* or *shx* or *shy* or *shz* or *ke*
+- ``value`` = ``n`` or ``nwt`` or ``mflux`` or ``fx`` or ``fy`` or ``fz`` or ``press`` or
+  ``px`` or ``py`` or ``pz`` or ``shx`` or ``shy`` or ``shz`` or ``ke``
 
-  - ``n`` = count of particles hitting surface element
-  - ``nwt`` = weighted count of particles hitting surface element
-  - ``mflux`` = flux of mass on surface element
-  - ``fx,fy,fz`` = components of force on surface element
-  - ``press`` = magnitude of normal pressure on surface element
-  - ``px,py,pz`` = components of normal pressure on surface element
-  - ``shx,shy,shz`` = components of shear stress on surface element
-  - ``ke`` = flux of particle kinetic energy on surface element
-  - ``erot`` = flux of particle rotational energy on surface element
-  - ``evib`` = flux of particle vibrational energy on surface element
-  - ``etot`` = flux of particle total energy on surface element 
+  - ``n`` = :ref:`count of particles hitting surface element <compute-surf-npart>`
+  - ``nwt`` = :ref:`weighted count of particles hitting surface element <compute-surf-npart>`
+  - ``mflux`` = :ref:`flux of mass on surface element <compute-surf-npart>`
+  - ``fx,fy,fz`` = :ref:`components of force on surface element <compute-surf-force>`
+  - ``press`` = :ref:`magnitude of normal pressure on surface element <compute-surf-force>`
+  - ``px,py,pz`` = :ref:`components of normal pressure on surface element <compute-surf-force>`
+  - ``shx,shy,shz`` = :ref:`components of shear stress on surface element <compute-surf-force>`
+  - ``ke`` = :ref:`flux of particle kinetic energy on surface element <compute-surf-energy>`
+  - ``erot`` = :ref:`flux of particle rotational energy on surface element <compute-surf-energy>`
+  - ``evib`` = :ref:`flux of particle vibrational energy on surface element <compute-surf-energy>`
+  - ``etot`` = :ref:`flux of particle total energy on surface element  <compute-surf-energy>`
 
 *********
 Examples:
@@ -143,9 +132,12 @@ timesteps, and then dividing by the number of sampling steps. However
 for the current values listed below, the two normalization methods are
 the same.
 
-.. note:: If particle weighting is enabled via the :ref:`global weight<command-global>` command, then all of the values below are scaled by the weight assigned to the grid cell in which the particle collision with the surface element occurs. The only exception is the the *n* value, which is NOT scaled by the weight; it is a simple count of particle collisions with the surface element.
+.. note:: If particle weighting is enabled via the :ref:`global weight<command-global>` command, then all of the values below are scaled by the weight assigned to the grid cell in which the particle collision with the surface element occurs. The only exception is the the ``n`` value, which is **NOT** scaled by the weight; it is a simple count of particle collisions with the surface element.
 
 --------------
+
+
+.. _compute-surf-npart:
 
 The ``n`` value
   counts the number of particles in the group striking the surface element.
@@ -162,7 +154,9 @@ The ``mflux`` value
 
   where the sum is over all contributing particle masses, normalized by A = the area of the surface element, dt = the timestep, and fnum = the real/simulated particle ratio set by the :ref:`global fnum<command-global>` command.
 
-The *fx*, *fy*, *fz* values
+.. _compute-surf-force:
+
+The ``fx``, ``fy``, ``fz`` values
   calculate the components of force extered on the surface element by particles in the group, with respect to the x, y, z coordinate axes. These are computed as
 
   ::
@@ -174,7 +168,7 @@ The *fx*, *fy*, *fz* values
 
   where p_delta is the change in momentum of a particle, whose velocity changes from V_pre to V_post when colliding with the surface element.  The force exerted on the surface element is the sum over all contributing p_delta, normalized by dt and fnum as defined before.
 
-The *press* value
+The ``press`` value
   calculates the pressure *P* exerted on the surface element in the normal direction by particles in the group, such that outward pressure is positive. This is computed as
 
   ::
@@ -184,7 +178,7 @@ The *press* value
 
   where p_delta, V_pre, V_post, dt, fnum are defined as before. The pressure exerted on the surface element is the sum over all contributing p_delta dotted into the outward normal N of the surface element, also normalized by A = the area of the surface element.
 
-The *px*, *py*, *pz* values
+The ``px``, ``py``, ``pz`` values
   calculate the normal pressure Px, Py, Pz extered on the surface element in the direction of its normal by particles in the group, with respect to the x, y, z coordinate axes.  These are computed as
 
   ::
@@ -198,7 +192,7 @@ The *px*, *py*, *pz* values
   where p_delta, V_pre, V_post, N, A, and dt are defined as before.
   P_delta_n is the normal component of the change in momentum vector p_delta of a particle. P_delta_n_x (and y,z) are its x, y, z components.
   
-The *shx*, *shy*, *shz* values
+The ``shx``, ``shy``, ``shz`` values
   calculate the shear pressure Sx, Sy, Sz extered on the surface element in the tangential direction to its normal by particles in the group, with respect to the x, y, z coordinate axes.  These are computed as
 
   ::
@@ -212,7 +206,9 @@ The *shx*, *shy*, *shz* values
   where p_delta, V_pre, V_post, N, A, and dt are defined as before.
   P_delta_t is the tangential component of the change in momentum vector p_delta of a particle. P_delta_t_x (and y,z) are its x, y, z components.
 
-The *ke* value
+.. _compute-surf-energy:
+
+The ``ke`` value
   calculates the kinetic energy flux *Eflux* imparted to the surface element by particles in the group, such that energy lost by a particle is a positive flux. This is computed as
 
   ::
@@ -222,7 +218,7 @@ The *ke* value
   
   where e_delta is the kinetic energy change in a particle, whose velocity changes from V_pre to V_post when colliding with the surface element.  The energy flux imparted to the surface element is the sum over all contributing e_delta, normalized by A = the area of the surface element and dt = the timestep and fnum = the real/simulated particle ratio set by the :ref:`global fnum<command-global>` command.
 
-The *erot* value
+The ``erot`` value
   calculates the rotational energy flux *Eflux* imparted to the surface element by particles in the group, such that energy lost by a particle is a positive flux. This is computed as
 
   ::
@@ -232,7 +228,7 @@ The *erot* value
   
   where e_delta is the rotational energy change in a particle, whose internal rotational energy changes from Erot_pre to Erot_post when colliding with the surface element. The flux equation is the same as for the *ke* value.
 
-The *evib* value
+The ``evib`` value
   calculates the vibrational energy flux *Eflux* imparted to the surface element by particles in the group, such that energy lost by a particle is a positive flux. This is computed as
 
   ::
@@ -242,7 +238,7 @@ The *evib* value
   
   where e_delta is the vibrational energy change in a particle, whose internal vibrational energy changes from Evib_pre to Evib_post when colliding with the surface element. The flux equation is the same as for the *ke* value.
 
-The *etot* value
+The ``etot`` value
   calculates the total energy flux imparted to the surface element by particles in the group, such that energy lost by a particle is a positive flux. This is simply the sum of kinetic, rotational, and vibrational energies. Thus the total energy flux is the sum of what is computed by the *ke*, *erot*, and *evib* values.
 
 
@@ -250,15 +246,12 @@ The *etot* value
 Transparent surface elements:
 =============================
 
-This compute will tally information on particles that pass through
-transparent surface elements. The :ref:`Section 6.15<howto-transparent-surface>` doc page provides an overview of
-transparent surfaces and how to create them.
+This compute will tally information on particles that pass through transparent surface elements. The section :ref:`howto-transparent-surface` in :ref:`howto` page provides an overview of transparent surfaces and how to create them.
 
-The *n* and *nwt* value
-  are calculated the same for transparent surfaces. I.e. they are the count and weighted count of particles passing through the surface.
+The ``n`` and ``nwt`` value are calculated the same for transparent surfaces. I.e. they are the count and weighted count of particles passing through the surface.
 
-The *mflux*, *ke*, *erot*. *evib*, and *etot* values are fluxes.
-  For transparent surfaces, they are calculated for the incident particle as if they had struck the surface. The outgoing particle is ignored. This means the tally quantity is the flux of particles onto the outward face of the surface. No tallying is done for particles hitting the inward face of the surface. See :ref:`Section 6.15<howto-transparent-surface>` for how to do tallying in both directions.
+The ``mflux``, ``ke``, ``erot``. ``evib``, and ``etot`` values are fluxes.
+For transparent surfaces, they are calculated for the incident particle as if they had struck the surface. The outgoing particle is ignored. This means the tally quantity is the flux of particles onto the outward face of the surface. No tallying is done for particles hitting the inward face of the surface. See :ref:`Section 6.15<howto-transparent-surface>` for how to do tallying in both directions.
 
 All the other values are calculated as described above. This means they will be zero, since the incident particle and outgoing particle have the same mass and velocity.
 

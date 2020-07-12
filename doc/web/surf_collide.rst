@@ -75,44 +75,44 @@ Syntax:
 
    values = values for specific keyword
 
-   - ``translate`` args = Vx Vy Vz
+   - ``translate`` args = :ref:`Vx Vy Vz <surf-collide-veloc>`
 
      - Vx,Vy,Vz = translational velocity of surface (velocity units)
 
-   - ``rotate`` args = Pz Py Pz Wx Wy Wz
+   - ``rotate`` args = :ref:`Pz Py Pz Wx Wy Wz <surf-collide-veloc>`
 
      - Px,Py,Pz = point to rotate surface around (distance units)
      - Wx,Wy,Wz = angular velocity of surface around point (radians/time) 
 
-   - ``partial`` args = eccen (only for cll style)
+   - ``partial`` args = :ref:`eccen (only for cll style) <surf-collide-veloc>`
 
      - eccen = eccentricity parameter
 
-   - ``barrier`` args = bar_val (only for td style)
+   - ``barrier`` args = :ref:`bar_val (only for td style) <surf-collide-energy>`
 
      - bar_val = value of the desorption barrier in temperature units 
 
-   - ``bond`` args = bond_trans bond_rot bond_vib (only for td style)
+   - ``bond`` args = :ref:`bond_trans bond_rot bond_vib (only for td style) <surf-collide-energy>`
 
      - bond_trans = amount of bond dissociation energy (in temperature units) going into translational mode 
      - bond_rot = amount of bond dissociation energy (in temperature units) going into rotational mode 
      - bond_vib = amount of bond dissociation energy (in temperature units) going into vibrational mode
 
-   - ``init_energy`` = IE_trans IE_rot IE_vib (only for td style)
+   - ``init_energy`` = :ref:`IE_trans IE_rot IE_vib (only for td style) <surf-collide-energy>`
 
      - IE_trans = fraction of initial translational energy going into translational mode 
      - IE_rot = fraction of initial translational energy going into rotational mode
      - IE_vib = fraction of initial translational energy going into vibrational mode
 
-   - ``step`` args = epsilon (only for impulsive style)
+   - ``step`` args = :ref:`epsilon (only for impulsive style) <surf-collide-energy>`
 
      - epsilon = ratio of the height to the width of the step
 
-   - ``double`` args = polar_pow_2 (only for impulsive style)
+   - ``double`` args = :ref:`polar_pow_2 (only for impulsive style) <surf-collide-energy>`
 
      - polar_pow_2 = cosine power for the polar angular distribution between peak and surface
 
-   - ``intenergy`` args = frac_rot frac_vib (only for impulsive style)
+   - ``intenergy`` args = :ref:`frac_rot frac_vib (only for impulsive style) <surf-collide-energy>`
 
      - frac_rot = fraction of lost translational energy going into the rotational mode
      - frac_vib = fraction of lost translational energy going into the vibrational mode 
@@ -258,20 +258,20 @@ Within impulsive scattering, two different models are available, namely *softsph
 The *tempvar* argument directly provides the peak value of the scattered particle velocity distribution as a linear function of temperature. It has two parameters: the linear term *a1* and constant term *a0*.
 The other five parameters *Tsurf*, *var*, *pol_peak*, *pol_pow*, *azi_pow* are set for both the models. *Tsurf* is the surface temperature. *var* is the variance of the scattered particle velocity distribution.  *pol_peak* is the peak of the polar angle distribution. *pol_pow* and *azi_pow* are the cosine power representing the polar and azimuthal angle distribution respectively.
 
-The *impulsive* model is used to represent the scattering of particles having super or hyperthermal translational energies and very low internal energies, like in a beam. This type of scattering falls under the structural regime, whose scattering physics and distributions are very different from the thermal regime. The velocity distribution of the impulsive scattering model can be represented using a Gaussian distribution with a mean *u0* and a variance *\\alpha* following Rettner [Rettner94a]_
+The *impulsive* model is used to represent the scattering of particles having super or hyperthermal translational energies and very low internal energies, like in a beam. This type of scattering falls under the structural regime, whose scattering physics and distributions are very different from the thermal regime. The velocity distribution of the impulsive scattering model can be represented using a Gaussian distribution with a mean :math:`u_{0}` and a variance :math:`\alpha` following Rettner [Rettner94a]_
 
 
 .. math::
    f_\text{impulsive}(u) \propto u^{2} \, \exp\left(-\frac{(u-u_0)^{2}}{2\alpha^2}\right) 
 
 
-The variance parameter is directly specified by the user. The value of *u0* can be provided directly using the *tempvar* model in which it is represented as a linear function of temperature. The linear term *a1* and constant term *a0* are given as inputs.
+The variance parameter is directly specified by the user. The value of :math:`u_{0}` can be provided directly using the *tempvar* model in which it is represented as a linear function of temperature. The linear term *a1* and constant term *a0* are given as inputs.
 
 .. math::
    \left\langle E_{f} \right\rangle = E_{i} \left(1 - \frac{2\mu}{\left(\mu+1\right)^{2}}\left[1 + \mu \sin^{2}\chi + \frac{E_\text{int}}{E_{i}}\left(\frac{\mu+1}{2\mu}\right) - \cos{\chi}\sqrt{1 - \mu^{2} \sin^{2}\chi - \frac{E_\text{int}}{E_{i}}\left(\mu+1\right)}\right]\right)
 
 
-The *u0* parameter can also be specified by a more physical model such as the soft sphere scattering model [Alexander12]_.  This model uses the parameters *en_ratio*, the fraction of energy lost in the collision and *eff_mass*, the effective mass of the surface atom to determine the average final energy and then the average final velocity *u0*. Within the soft sphere model, the average final velocity will vary as a function of the final polar angle.
+The :math:`u_{0}` parameter can also be specified by a more physical model such as the soft sphere scattering model [Alexander12]_.  This model uses the parameters *en_ratio*, the fraction of energy lost in the collision and *eff_mass*, the effective mass of the surface atom to determine the average final energy and then the average final velocity *u0*. Within the soft sphere model, the average final velocity will vary as a function of the final polar angle.
 
 .. math::
    u_{0} =  a_{1} \cdot  T + a_{0}   
@@ -326,13 +326,15 @@ simpler.
 
 --------------
 
-The keyword *translate* can only be applied to the *diffuse* and *cll*
+.. _surf-collide-veloc:
+
+The keyword ``translate`` can only be applied to the *diffuse* and *cll*
 style. It models the surface as if it were translating with a constant
 velocity, specified by the vector (Vx,Vy,Vz). This velocity is added
 to the final post-collisional velocity of each particle that collides
 with the surface.
 
-The keyword *rotate* can only be applied to the *diffuse* and *cll*
+The keyword ``rotate`` can only be applied to the *diffuse* and *cll*
 style. It models the surface as if it were rotating with a constant
 angular velocity, specified by the vector W = (Wx,Wy,Wz), around the
 specified point P = (Px,Py,Pz). Note that W and P define the rotation
@@ -345,18 +347,18 @@ collision point has a velocity given by V = (Vx,Vy,Vz) = W cross
 (X-P).  This velocity is added to the final post-collisional velocity
 of the particle.
 
-The *rotate* keyword can be used to treat a simulation box boundary as
+The ``rotate`` keyword can be used to treat a simulation box boundary as
 a rotating wall, e.g. the end cap of an axisymmetric cylinder. Or to
 model a rotating object consisting of surface elements, e.g. a
 sphere. In either case, the wall or surface elements themselves do not
 change position due to rotation. They are simply modeled as having a
 tangential velocity, as if the entire object were rotating.
 
-.. important:: For both the *translate* and *rotate* keywords the added velocity can only be tangential to the surface, with no normal component since the surface is not actually moving in the normal direction.
+.. important:: For both the ``translate`` and ``rotate`` keywords the added velocity can only be tangential to the surface, with no normal component since the surface is not actually moving in the normal direction.
 	       SPARTA does not check that the specified translation or rotation produces a tangential velocity.
 	       However if does enforce the condition by subtracting off any component of the added velocity that is normal to the simulation box boundary or individual surface element.
 
-The keyword *partial* can only be applied to the *cll* style. Within the
+The keyword ``partial`` can only be applied to the *cll* style. Within the
 CLL model, the energy and angular distribution are linked. Lord
 [Lord95]_ proposed a way to decouple the energy
 accommodation from the angular distribution. This case of partially
@@ -365,12 +367,14 @@ in SPARTA using the optional keyword *partial*. It requires an
 additional parameter eccentricity set by the *eccen* argument. For this
 case, the energy accommodation is calculated using the accommodation
 coefficients, but the angular distribution is computed using the
-additional parameter eccentricity. The *eccen* parameter can vary
+additional parameter eccentricity. The ``eccen`` parameter can vary
 between 0 and 1. A value of 0 represents fully diffuse scattering and
 gives a cosine angular distribution. Increasing value of *eccen*
 presents more peaked and lobular distribution [Lord95]_.
 
-The keywords *barrier*, *bond*, and *initenergy* can only be applied to the *td* style. Due to the nature of the interaction between the products and the surface, the desorption of the products might have an energy barrier. For a surface desorption process, this desorption barrier exists only in the normal direction. Thus, only the products having enough energy (in the normal direction) to overcome the barrier will be able to desorb from the surface. This alters the velocity distribution of the observed products along the surface normal direction and thus leads to the distortion of the speed distribution [Goodman72]_. The angular distributions, which represent the ratio of the normal to the tangential velocities, are also altered as a result of the desorption barrier.
+.. _surf-collide-energy:
+
+The keywords ``barrier``, ``bond``, and ``initenergy`` can only be applied to the ``td`` style. Due to the nature of the interaction between the products and the surface, the desorption of the products might have an energy barrier. For a surface desorption process, this desorption barrier exists only in the normal direction. Thus, only the products having enough energy (in the normal direction) to overcome the barrier will be able to desorb from the surface. This alters the velocity distribution of the observed products along the surface normal direction and thus leads to the distortion of the speed distribution [Goodman72]_. The angular distributions, which represent the ratio of the normal to the tangential velocities, are also altered as a result of the desorption barrier.
 The angular distributions are peaked more towards the normal and are often described by a cosine power law distribution.
 
 .. math::
@@ -382,18 +386,18 @@ The angular distributions are peaked more towards the normal and are often descr
 
 In addition to the desorption energy barrier, products formed through thermal mechanisms might have energies exceeding those corresponding to the bulk surface temperature. The energy of the local surface environment where the product formation occurs might be greater than the normal surface temperature due to the formation of local hot-spots [Rettner94b]_.
 
-These hot-spots might stem from the dissociation or bond energy of the intermediates or the products. The optional keyword *bond* can be used to account for this scenario. This requires three arguments: the amount of energy (in temperature units) going into the translational, rotational and vibrational mode.
+These hot-spots might stem from the dissociation or bond energy of the intermediates or the products. The optional keyword ``bond`` can be used to account for this scenario. This requires three arguments: the amount of energy (in temperature units) going into the translational, rotational and vibrational mode.
 
 .. math::
    E_{prod} = k_{b}T_{s} + k_{b}\sigma_2
 
-The higher energy during desorption might also arise due to the energy deposited by high speed of the incoming gas-phase particles. Since the formation of the products is rapid, the product might form and desorb before this high energy dissipates from the local hot-spots [Beckerle90]_. In this case, although the products are in thermal equilibrium with the surroundings, the energies of the products might not depend only on the equilibrium surface temperature, but also on the incoming velocities of the particles. This can be used within SPARTA using the optional keyword *initenergy*. It requires 3 arguments: fraction of the initial translational energy going into the translational, rotational and vibrational modes.
+The higher energy during desorption might also arise due to the energy deposited by high speed of the incoming gas-phase particles. Since the formation of the products is rapid, the product might form and desorb before this high energy dissipates from the local hot-spots [Beckerle90]_. In this case, although the products are in thermal equilibrium with the surroundings, the energies of the products might not depend only on the equilibrium surface temperature, but also on the incoming velocities of the particles. This can be used within SPARTA using the optional keyword ``initenergy``. It requires 3 arguments: fraction of the initial translational energy going into the translational, rotational and vibrational modes.
 
 .. math::
    E_{prod} = k_{b}T_{s} + \sigma_1 E_{in}
 
 
-The keywords *step*, *double*, and *intenergy* can only be applied to the *impulsive* style. In some cases, it is observed that the polar angular distribution on either side of the peak is different. Goodman [Goodman74]_ provided a physical reasoning for the observed faster decay rate in the polar angular distribution away from the normal with the surface assumed to consist of periodic steps of average height H and average periodicity L. The ratio of the height to periodicity is *epsilon* and the correction to the angular distribution is given by
+The keywords ``step``, ``double``, and ``intenergy`` can only be applied to the ``impulsive`` style. In some cases, it is observed that the polar angular distribution on either side of the peak is different. Goodman [Goodman74]_ provided a physical reasoning for the observed faster decay rate in the polar angular distribution away from the normal with the surface assumed to consist of periodic steps of average height H and average periodicity L. The ratio of the height to periodicity is *epsilon* and the correction to the angular distribution is given by
 
 .. math::
    f_{corr} = \begin{cases}
@@ -402,13 +406,14 @@ The keywords *step*, *double*, and *intenergy* can only be applied to the *impul
    \end{cases}
 
 
-This optional argument can be accessed using the keyword *step*, and *epsilon* parameter must be specified. Another optional argument to specify the angular distribution of the products is the *double* keyword. In this option, the angular distribution on either sides of the peak are represented by a different cosine power decay. It requires one argument *pol_pow_2*, which describes the distribution between the peak and the surface. The distribution between the surface normal and the peak is described using the parameter *pol_pow*.
+This optional argument can be accessed using the keyword ``step``, and ``epsilon`` parameter must be specified. Another optional argument to specify the angular distribution of the products is the *double* keyword. In this option, the angular distribution on either sides of the peak are represented by a different cosine power decay. It requires one argument *pol_pow_2*, which describes the distribution between the peak and the surface. The distribution between the surface normal and the peak is described using the parameter *pol_pow*.
 
-The keyword *intenergy* can be used to modify the internal energy of an incident molecule during collision. In the case of hyperthermal collision the energy from the translational mode is transfered to the internal modes. This keyword requires two input parameters *frac_rot* and *frac_vib*. These specify the fraction of the change in translational energy (difference between the final and initial) transferred to the rotational and vibrational mode respectively.
+The keyword ``intenergy`` can be used to modify the internal energy of an incident molecule during collision. In the case of hyperthermal collision the energy from the translational mode is transfered to the internal modes. This keyword requires two input parameters *frac_rot* and *frac_vib*. These specify the fraction of the change in translational energy (difference between the final and initial) transferred to the rotational and vibrational mode respectively.
 
---------------
 
-**Output info:**
+
+Output info:
+============
 
 All the surface collide models calculate a global vector of length 2.  The values can be used by the :ref:`command-stats-style` and by :ref:`command-variable` that define formulas. The latter means they can be used by any command that uses a variable as input, e.g. the :ref:`command-fix-ave-time`. See :ref:`howto-output` for an overview of SPARTA output options.
 
@@ -424,7 +429,7 @@ You can specify the accelerated styles explicitly in your input script by includ
 
 See the :ref:`Accelerating SPARTA<accelerate>` section of the manual for more instructions on how to use the accelerated styles effectively.
 
---------------
+
 
 *************
 Restrictions:
@@ -449,7 +454,9 @@ Default:
 
 --------------
 
-
+***********
+References:
+***********
 
 .. [Bird94] G. A. Bird, Molecular Gas Dynamics and the Direct Simulation of Gas Flows, Clarendon Press, Oxford (1994).
 

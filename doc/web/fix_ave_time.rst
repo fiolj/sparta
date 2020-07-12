@@ -2,14 +2,11 @@
 
 .. index:: fix ave/time
 
-
-
 .. _command-fix-ave-time:
 
 ####################
 fix ave/time command
 ####################
-
 
 *******
 Syntax:
@@ -24,7 +21,9 @@ Syntax:
 -  ``Nevery`` = use input values every this many timesteps
 -  ``Nrepeat`` = # of times to use input values for calculating averages
 -  ``Nfreq`` = calculate averages every this many timesteps
--  one or more input values can be listed
+
+   one or more input values can be listed
+
 -  ``value`` = c_ID, c_ID[N], f_ID, f_ID[N], v_name
 
    - ``c_ID`` = global scalar or vector or array calculated by a compute with ID
@@ -137,7 +136,8 @@ vector with 3 values.
    fix 1 ave/time 100 1 100 c_1 file tmp.count
    fix 1 ave/time 100 1 100 c_1[1] c_1[2] c_1[3] file tmp.count 
 
---------------
+
+.. _command-fix-ave-time-Nevery:
 
 The *Nevery*, *Nrepeat*, and *Nfreq* arguments specify on what timesteps
 the input values will be used in order to contribute to the average. The
