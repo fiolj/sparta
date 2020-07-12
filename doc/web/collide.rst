@@ -93,6 +93,8 @@ function of the relative velocities of the two particles, their
 respectives species, and other parameters of the collision style; see
 equation 11.4 in [Bird94]_.
 
+.. note:: If you are using the ambipolar approximation with charged species, as described in :ref:`howto-ambipolar`, and you have used the :ref:`collide_modify ambipolar yes <command-collide-modify>` command to enable ambipolar collisions (not required), and you are using a mixture ID with multiple groups, then the ambipolar electron species must be in a group by itself.
+
 --------------
 
 The *none* style means that no particle-particle collisions will be

@@ -46,12 +46,19 @@ Building SPARTA as a shared library
 
 Instructions on how to build SPARTA as a shared library are given in :ref:`build-library<start-build-library>`. A shared library is one that is dynamically loadable, which is what Python requires. On Linux this is a library file that ends in ".so", not ".a".
 
-From the src directory, type
+For make, from the src directory, type
 
 ::
 
    make makeshlib
    make -f Makefile.shlib foo 
+
+
+For CMake, from the build directory, tyoe
+
+::
+   cmake -C /path/to/sparta/cmake/presets/foo.cmake -DBUILD_SHARED_LIBS=ON /path/to/sparta/cmake
+   make
 
 where foo is the machine target name, such as icc or g++ or serial. This should create the file libsparta_foo.so in the src directory, as well as a soft link libsparta.so, which is what the Python wrapper will load by default. Note that if you are building multiple machine versions of the shared library, the soft link is always set to the most recently built version.
 

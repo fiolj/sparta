@@ -492,7 +492,7 @@ inside the added surfaces. See the *particle* keyword for options with
 regard to particles.
 
 To read gzipped surface files, you must compile SPARTA with the
--DSPARTA_GZIP option - see :ref:`Section 2.2<start-steps-build>`
+-DSPARTA_GZIP option - see :ref:`Section 2.2<start-steps-build-make>`
 of the manual for details.
 
 The *clip* keyword cannot be used when the :ref:`global surfs explicit/distributed<command-global>` command has been used. This is

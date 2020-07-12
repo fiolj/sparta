@@ -494,7 +494,7 @@ Restrictions:
 
 
 To write gzipped dump files, you must compile SPARTA with the
--DSPARTA_GZIP option - see the :ref:`Making SPARTA<start-steps-build>` section of the documentation.
+-DSPARTA_GZIP option - see the :ref:`Making SPARTA<start-steps-build-make>` section of the documentation.
 
 *****************
 Related commands:

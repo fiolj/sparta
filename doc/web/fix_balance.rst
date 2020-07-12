@@ -138,10 +138,9 @@ timing data has yet been collected at the point in a script where this
 command is issued, a *cell* style weight will be used instead of
 *time*. A small warmup run (for example 100 timesteps) can be used
 before the balance command so that timer data is available. The number
-of timesteps {Nfreq} between balancing steps also needs to be large
+of timesteps *Nfreq* between balancing steps also needs to be large
 enough to give reliable timings. The timers used for balancing tally
-time from the move, sort, collide, and modify portions of each
-timestep.
+time from the move, sort, collide, and modify portions of each timestep.
 
 
 Here is an example of an RCB partitioning for 24 processors, of a 2d

@@ -1,14 +1,19 @@
 :orphan:
 
 .. index:: compute distsurf/grid
-
-
+.. index:: compute distsurf/grid/kk
 
 .. _command-compute-distsurf-grid:
 
 #############################
 compute distsurf/grid command
 #############################
+
+.. _command-compute-distsurf-gridkk:
+
+################################
+compute distsurf/grid/kk command
+################################
 
 
 *******
@@ -39,6 +44,31 @@ Examples:
 
    compute 1 distsurf/grid all all
    compute 1 distsurf/grid subset sphere2 dir 1 0 0 
+
+
+:line
+
+Styles with a {kk} suffix are functionally the same as the
+corresponding style without the suffix.  They have been optimized to
+run faster, depending on your available hardware, as discussed in the
+"Accelerating SPARTA"_Section_accelerate.html section of the manual.
+The accelerated styles take the same arguments and should produce the
+same results, except for different random number, round-off and
+precision issues.
+
+These accelerated styles are part of the KOKKOS package. They are only
+enabled if SPARTA was built with that package.  See the "Making
+SPARTA"_Section_start.html#start_3 section for more info.
+
+You can specify the accelerated styles explicitly in your input script
+by including their suffix, or you can use the "-suffix command-line
+switch"_Section_start.html#start_6 when you invoke SPARTA, or you can
+use the "suffix"_suffix.html command in your input script.
+
+See the "Accelerating SPARTA"_Section_accelerate.html section of the
+manual for more instructions on how to use the accelerated styles
+effectively.
+
 
 ************
 Description:
@@ -129,6 +159,29 @@ an overview of SPARTA output options.
 
 The per-grid array values for the vector will be in distance
 :ref:`units<command-units>`.
+
+
+--------------
+
+Styles with a *kk* suffix are functionally the same as the
+corresponding style without the suffix.  They have been optimized to
+run faster, depending on your available hardware, as discussed in the
+:ref:`Accelerating SPARTA<accelerate>` section of the manual.
+The accelerated styles take the same arguments and should produce the
+same results, except for different random number, round-off and
+precision issues.
+
+These accelerated styles are part of the KOKKOS package. They are only
+enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta>` section for more info.
+
+You can specify the accelerated styles explicitly in your input script
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you can
+use the :ref:`command-suffix` in your input script.
+
+See the :ref:`Accelerating SPARTA<accelerate>` section of the
+manual for more instructions on how to use the accelerated styles
+effectively.
+
 
 *************
 Restrictions:

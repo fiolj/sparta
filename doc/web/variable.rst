@@ -2,16 +2,11 @@
 
 .. index:: variable
 
-
-
-
-
 .. _command-variable:
 
 ################
 variable command
 ################
-
 
 
 #######
@@ -23,9 +18,9 @@ Syntax:
    variable name style args ... 
 
 -  name = name of variable to define
--  style = *delete* or *index* or *loop* or *world* or *universe* or
-   *uloop* or *string* or *format* or *getenv* or *file* or *internal*
-   or *equal* or *particle* or *grid*
+-  style = ``delete`` or ``index`` or ``loop`` or ``world`` or ``universe`` or
+   ``uloop`` or ``string`` or ``format`` or ``getenv`` or ``file`` or ``internal``
+   or ``equal`` or ``particle`` or ``grid``
 
    - delete = no args
    - index args = one or more strings
@@ -241,7 +236,7 @@ For the *file* style,
   a filename is provided which contains a list of strings to assign to the variable, one per line. The strings can be numeric values if desired. See the discussion of the next() function below for equal-style variables, which will convert the string of a file-style variable into a numeric value in a formula.
 
 When a file-style variable is defined,
-  the file is opened and the string on the first line is read and stored with the variable. This means the variable can then be evaluated as many times as desired and will return that string. There are two ways to cause the next string from the file to be read: use the :ref:`next<command-next>` command or the next() function in an equal- or atom-style variable, as discussed below.
+  the file is opened and the string on the first line is read and stored with the variable. This means the variable can then be evaluated as many times as desired and will return that string. There are two ways to cause the next string from the file to be read: use the :ref:`next<command-next>` command or the next() function in an equal- or particle- or grid-style variable, as discussed below.
 
   The rules for formatting the file are as follows. A comment character "#" can be used anywhere on a line; text starting with the comment character is stripped. Blank lines are skipped. The first "word" of a non-blank line, delimited by white space, is the "string" assigned to the variable.
 
@@ -500,11 +495,11 @@ points, equally spaced by 1 in their x coordinate: (1,V1), (2,V2), ...,
 The returned value is the slope of the line. If the line has a single
 point or is vertical, it returns 1.0e20.
 
-The next(x) function takes 1 argument which is a variable ID (not
-"v_foo", just "foo"). It must be for a file-style or atomfile-style
-variable. Each time the ``next()`` function is invoked (i.e. each time the
-equal-style or atom-style variable is evaluated), the following steps
-occur.
+The ``next(x)`` function takes 1 argument which is a variable ID (not
+"v_foo", just "foo"). It must be for a file-style
+variable. Each time the ``next()`` function is invoked (i.e. each time
+the equal-style or particle-style or grid-style variable is evaluated),
+the following steps occur.
 
 For file-style variables, the current string value stored by the
 file-style variable is converted to a numeric value and returned by the

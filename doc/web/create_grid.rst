@@ -263,7 +263,7 @@ This command can only be used after the simulation box is defined by the
 
 The hierarchical grid used by SPARTA is encoded in a 32-bit or 64-bit
 integer ID. The precision is set by the -DSPARTA_BIG or -DSPARTA_SMALL
-or -DSPARTA_BIGBIG compiler switch, as described in :ref:`Section 2.2<start-steps-build>`. The number of grid levels that can
+or -DSPARTA_BIGBIG compiler switch, as described in :ref:`Section 2.2<start-steps-build-make>`. The number of grid levels that can
 be used depends on the resolution of the grid at each level. For a
 minimal refinement of 2x2x2, a level uses 4 bits of the integer ID. Thus
 for this style of refinement a maximum of 7 levels can be used for

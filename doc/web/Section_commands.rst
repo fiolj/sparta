@@ -415,7 +415,7 @@ built with the :ref:`appropriate accelerated package<accelerate>`. This is indic
    
    * - :ref:`boundary (k)<command-compute-boundary>` 
      - :ref:`count (k)<command-compute-count>` 
-     - :ref:`distsurf/grid<command-compute-distsurf-grid>` 
+     - :ref:`distsurf/grid (k)<command-compute-distsurf-grid>` 
      - :ref:`eflux/grid (k)<command-compute-eflux-grid>` 
      - :ref:`fft/grid<command-compute-fft-grid>` 
      - :ref:`grid (k)<command-compute-grid>`
@@ -423,7 +423,7 @@ built with the :ref:`appropriate accelerated package<accelerate>`. This is indic
      - :ref:`ke/particle (k)<command-compute-ke-particle>` 
      - :ref:`lambda/grid (k)<command-compute-lambda-grid>` 
      - :ref:`pflux/grid (k)<command-compute-pflux-grid>` 
-     - :ref:`property/grid<command-compute-property-grid>` 
+     - :ref:`property/grid (k)<command-compute-property-grid>` 
      - :ref:`react/boundary<command-compute-react-boundary>` 
    * - :ref:`react/surf<command-compute-react-surf>` 
      - :ref:`react/isurf/grid<command-compute-react-isurf-grid>` 

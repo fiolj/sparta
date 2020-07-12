@@ -198,14 +198,16 @@ in the reaction.
 
 An ionization reaction with 2 products is typically a collision between
 R1 and R2 that results in a positively charged ion and an election.
-However, SPARTA does not check for this, so there is no restriction on
-the species involved in the reaction.
+See the discussion on ambipolar reactions below.
+However, SPARTA does not check for this, so there is no restriction on the species involved in the reaction.
 
-An ionization reaction with 3 products is typically a collision between
-a neutral R1 and an electon R2 which ejects an electron from the neutral
-species, resulting in P1 and P2. Again, SPARTA does not check for this,
-so there is no restriction on the species involved in the reaction. R2
-is preserved in the collision, so P3 = R2 is required.
+An ionization reaction with 3 products is typically a collision
+between a neutral R1 and an electon R2 which ejects an electron from
+the neutral species, resulting in an ion P1 and a new electron P2.
+See the discussion on ambipolar reactions below.  Again, SPARTA does
+not check for this, so there is no restriction on the species involved
+in the reaction.  R2 is preserved in the collision, so P3 = R2 is
+required.
 
 A recombination reaction is a collision between R1 and R2 that results
 in P1. There is no restriction on the species involved in the reaction.
@@ -288,11 +290,13 @@ that the :ref:`fix ambipolar<command-fix-ambipolar>` is defined in your input
 script. This fix defines a particular species as an ambipolar electron,
 written as "e" in the reactions that follow. It also defines a list of
 ambipolar ions, which are written as species with a trailing "+" sign in
-the rules that follow. Other written species (without "+") can be any
+the rules that follow. Neutral species (without "+") can be any
 non-ambipolar species.
 
-These rules only apply to reactions that involve ambipolar species (ions
-or electrons) as a reactant or product.
+These rules only apply to reactions that involve ambipolar species
+(ions or electrons) as a reactant or product.  Note that every
+ambipolar reaction written here conserves charge.  I.e. the net charge
+of the reactants equals the net charge of the products.
 
 Ambipolar dissociation reactions must list their reactants and products
 in one of the following orders:
@@ -307,13 +311,14 @@ the following orders:
 
 ::
 
-   A + e -> A+ + e + e
    A + B -> AB+ + e 
+   A + e -> A+ + e + e
 
-Ambipolar exchange reactions must be one of the following orders:
+Ambipolar exchange reactions must be in one of the following orders:
 
 ::
 
+   AB+ + e -> A + B
    AB+ + C -> A + BC+
    C + AB+ -> A + BC+ 
 
@@ -321,9 +326,12 @@ Ambipolar recombination reactions must be in the following order:
 
 ::
 
-   A+ + e -> A 
+   A+ + e -> A
+   A + B+ -> AB+
+   A+ + B -> AB+
 
-.. important:: Ambipolar recombination reactions are not yet supported in SPARTA.
+A third particle for recombination reactions can be specified in
+the same way as described above for non-ambipolar recombination.
 
 --------------
 

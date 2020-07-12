@@ -169,7 +169,7 @@ This command can only be used after the simulation box is defined by the
 :ref:`create_box<command-create-box>` command.
 
 To read gzipped grid files, you must compile SPARTA with the
--DSPARTA_GZIP option - see :ref:`Section 2.2<start-steps-build>`
+-DSPARTA_GZIP option - see :ref:`Section 2.2<start-steps-build-make>`
 of the manual for details.
 
 The hierarchical grid used by SPARTA is encoded in a 32-bit or 64-bit
