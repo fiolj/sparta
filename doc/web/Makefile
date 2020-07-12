@@ -19,9 +19,11 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-update_web: clean-src
-	make html
-	rsync --delete -rv _build/html/* ~/trabajo/Proyectos/fiolj-github/sparta/ 
+update_web: clean-src html 
+	# make html
+	rsync --delete -rv _build/html/* ~/trabajo/Proyectos/fiolj-github/sparta/
+	cp _build/latex/sparta.pdf ~/trabajo/Proyectos/fiolj-github/data/sparta-manual.pdf
+	cp _build/epub/SPARTA.epub ~/trabajo/Proyectos/fiolj-github/data/sparta-manual.epub
 
 clean-src:
 	rm -f *.rst~

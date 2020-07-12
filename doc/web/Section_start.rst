@@ -520,11 +520,13 @@ This will generate the default Makefiles and print the SPARTA CMake options. To
 list the generated targets, do:
 
 ::
+
    make help
 
 Now you can try to build the SPARTA binaries with:
 
 ::
+
    make
 
 If everything works, an executable named spa_tutorial and a library named
@@ -559,6 +561,7 @@ If Step 2 did not work, look at cmake -LH for a list of SPARTA CMake options and
 meaning, then modify one or more of those options by doing:
 
 ::
+
    cd build
    rm -rf CMake*
    cmake -C /path/to/sparta/cmake/presets/<NAME>.cmake -D<OPTION_NAME>=<VALUE> /path/to/sparta/cmake
@@ -571,6 +574,7 @@ For a full list of CMake option value pairs, see cmake -LAH. The most relevant
 CMake options (with example values) for our purposes here are:
 
 ::
+
    -DCMAKE_C_COMPILER=gcc
    -DCMAKE_CXX_COMPILER=/usr/local/bin/g++
    -DCMAKE_CXX_FLAGS=-O3
@@ -685,6 +689,7 @@ routine.
 Now just do:
 
 ::
+
    cd build
    rm -rf CMake*
    cmake -C /path/to/sparta/cmake/presets/<NEW>.cmake /path/to/sparta/cmake
@@ -707,6 +712,7 @@ By default, SPARTA configures with MPI enabled and cmake will print which MPI
 was selected. To build serial binaries, use SPARTA's MPI_STUBS package:
 
 ::
+
    cmake -DPKG_MPI_STUBS=ON /path/to/sparta/cmake
 
 You may want a different MPI installation than CMake finds. CMake uses module
@@ -732,6 +738,7 @@ On Mac one may use brew or macports to install MPI.
 Verify that cmake found the correct MPI installation:
 
 ::
+
    cd build
    rm -rf CMake*
    
@@ -761,6 +768,7 @@ cluster or supercomputer, use module before running cmake so that cmake finds
 the FFT installation you'd like to use:
 
 ::
+
    # Show which modules are loaded
    module list
    
@@ -801,11 +809,13 @@ You may select between 2 TPLs, JPEG or PNG, for writing out JPEG or PNG files
 via the "dump image"_dump_image.html command. To select a TPL, use:
 
 ::
+
    cmake -DBUILD_JPEG=ON /path/to/sparta/cmake
 
 or:
 
 ::
+
    cmake -DBUILD_PNG=ON /path/to/sparta/cmake
 
 If you'd like to use a custom jpeg or png installation, please see 
@@ -822,12 +832,15 @@ By default, none of the SPARTA optional packages are installed. To build SPARTA
 with optional packages, use:
 
 ::
+
    cmake -DPKG_XXX=ON /path/to/sparta/cmake
 
 Where XXX is the package to enable. For a full list of optional packages, see:
 
 ::
+
    cmake -LH /path/to/sparta/cmake
+
 
 .. _start-step-c10:
 
@@ -1080,12 +1093,14 @@ To use (or not use) a package you must include it (or exclude it)
 before building SPARTA.  From the build directory, do:
 
 ::
+
    cmake -DPKG_FFT=ON /path/to/sparta/cmake
    make -j
 
 or
 
 ::
+
    cmake -DPKG_FFT=OFF /path/to/sparta/cmake
    make -j :pre
 
@@ -1178,6 +1193,7 @@ dynamically loaded, e.g. from Python, type
 or:
 
 ::
+
    cmake -C /path/to/sparta/cmake/presets/foo.cmake -DBUILD_SHARED_LIBS=ON /path/to/sparta/cmake
    make
 
@@ -1211,6 +1227,7 @@ lib/colvars library have not been built as shared libraries:
    R_X86_64_32 against :ref:`.rodata' can not be used when making a shared
    object; recompile with -fPIC
    /usr/local/lib/libfftw3.a: could not read symbols: Bad value 
+
 
 ::
 
@@ -1569,9 +1586,8 @@ context.
 
 Invoke the :ref:`command-package` with style and args. The syntax is the same as if the command appeared at the top of the input script. For example "-package kokkos on gpus 2" or "-pk kokkos g 2" is the same as :ref:`package kokkos g 2<command-package>` in the input script.  The possible styles and args are documented on the :ref:`command-package` doc page. This switch can be used multiple times.
 
-Along with the "-suffix" command-line switch, this is a convenient
-mechanism for invoking the KOKKOS accelerator package and its options
-without having to edit an input script.
+Along with the :ref:`-suffix command-line switch<start-command-line-options>`,
+this is a convenient mechanism for invoking the KOKKOS accelerator package and its options without having to edit an input script.
 
 ::
 
@@ -1664,10 +1680,6 @@ since index variables cannot be re-defined. See the
 other kinds of variables and Section :ref:`commands-parsing-rules` for more info on using variables in input scripts.
 
 .. important:: Currently, the command-line parser looks for arguments that start with "-" to indicate new switches. Thus you cannot specify multiple variable values if any of they start with a "-", e.g. a negative numeric value. It is OK if the first value1 starts with a "-", since it is automatically skipped.
-
-
-
-
 
 
 
