@@ -86,7 +86,9 @@ and name is the name of a group in that mixture.
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 If there is a single count accumulated, this compute calculates a global
 scalar. If there are multiple counts accumulated, it calculates a global

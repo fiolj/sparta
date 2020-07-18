@@ -65,7 +65,9 @@ The kinetic energy is
 
 where m is the mass and (Vx,Vy,Vz) are the velocity components of the particle.
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a per-particle vector, which can be accessed by any command that uses per-particle values from a compute as input.
 

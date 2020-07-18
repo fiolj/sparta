@@ -157,7 +157,9 @@ used in the formula is divided by the weight assigned to the grid cell.
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a per-grid array, with the number of columns
 equal to the number of values times the number of groups. The ordering

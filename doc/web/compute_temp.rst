@@ -64,7 +64,9 @@ thermal temperatures on a per grid cell basis.
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a global scalar (the temperature). This value
 can be used by any command that uses global scalar values from a compute

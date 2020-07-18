@@ -203,7 +203,9 @@ corner point values from 0 to 255.
 
 --------------
 
-**Restart, output info:**
+*********************
+Restart, output info:
+*********************
 
 No information about this fix is written to :ref:`binary restart files<command-restart>`.
 

@@ -95,7 +95,9 @@ particles, i.e. outside any closed surface that may intersect the cell.
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a per-grid vector or per-grid array depending on
 the number of input values. If a single input is specified, a per-grid

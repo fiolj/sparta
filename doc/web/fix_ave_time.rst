@@ -289,7 +289,9 @@ appropriate fields from the fix ave/time command.
 
 --------------
 
-**Restart, output info:**
+*********************
+Restart, output info:
+*********************
 
 No information about this fix is written to :ref:`binary restart files<command-restart>`.
 

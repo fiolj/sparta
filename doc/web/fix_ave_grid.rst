@@ -210,7 +210,9 @@ fix, or by re-specifying it.
 
 --------------
 
-**Restart, output info:**
+*********************
+Restart, output info:
+*********************
 
 No information about this fix is written to :ref:`binary restart files<command-restart>`.
 

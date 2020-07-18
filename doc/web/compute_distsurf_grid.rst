@@ -140,7 +140,9 @@ image):
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a per-grid vector whose values are the distances
 of each grid cell from any of the surface elements.

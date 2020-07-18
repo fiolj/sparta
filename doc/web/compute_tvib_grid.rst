@@ -156,7 +156,9 @@ single mode M is calculated the same as explained above.
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a per-grid array. If the *mode* keyword is not
 specified, the number of columns is equal to the number of groups in the

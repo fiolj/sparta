@@ -186,7 +186,9 @@ products must be specified in this order.
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 All the surface reaction models calculate a global vector of values. The
 values can be used by the :ref:`stats_style<command-stats-style>` command and

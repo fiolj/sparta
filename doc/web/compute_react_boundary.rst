@@ -88,7 +88,9 @@ sampling timesteps can be averaged by the :ref:`fix ave/time<command-fix-ave-tim
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a global array, with the number of columns
 either equal to the number of reactions defined by the

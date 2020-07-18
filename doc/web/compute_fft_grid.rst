@@ -152,7 +152,9 @@ Kz in the z-dimension with a max index of P/2.
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 The number of per-grid values ouptut by this compute depends on the
 optional keyword settings. The number of FFTs is equal to the number of

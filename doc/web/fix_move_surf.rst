@@ -95,7 +95,9 @@ non-watertight surface grid.
 
 --------------
 
-**Restart, output info:**
+*********************
+Restart, output info:
+*********************
 
 No information about this fix is written to :ref:`binary restart files<command-restart>`. No global or per-particle or per-grid
 quantities are stored by this fix for access by various output commands.

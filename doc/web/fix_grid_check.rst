@@ -83,7 +83,9 @@ value with the :ref:`stats<command-stats>` command.
 
 --------------
 
-**Restart, output info:**
+*********************
+Restart, output info:
+*********************
 
 No information about this fix is written to :ref:`binary restart files<command-restart>`.
 

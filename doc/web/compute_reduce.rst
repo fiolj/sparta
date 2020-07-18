@@ -194,7 +194,9 @@ specified.
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a global scalar if a single input value is
 specified or a global vector of length N where N is the number of

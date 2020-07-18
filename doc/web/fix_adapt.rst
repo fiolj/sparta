@@ -92,7 +92,9 @@ can be performed each time grid adaptation is performed.
 
 --------------
 
-**Restart, output info:**
+*********************
+Restart, output info:
+*********************
 
 No information about this fix is written to :ref:`binary restart files<command-restart>`.
 

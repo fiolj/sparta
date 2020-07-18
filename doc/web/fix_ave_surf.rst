@@ -38,9 +38,11 @@ Syntax:
 
    ``keyword = ave``
 
-   - ave args = one or running
+   - ave args = :ref:`one or running <fix-ave-surf-additional>`
+
      - one = output a new average value every Nfreq steps
      - running = accumulate average continuously 
+
 
 *********
 Examples:
@@ -156,6 +158,8 @@ timesteps.
 
 --------------
 
+.. _fix-ave-surf-additional:
+
 Additional optional keywords also affect the operation of this fix.
 
 The *ave* keyword determines what happens to the accumulation of
@@ -174,7 +178,9 @@ fix, or by re-specifying it.
 
 --------------
 
-**Restart, output info:**
+*********************
+Restart, output info:
+*********************
 
 No information about this fix is written to :ref:`binary restart files<command-restart>`.
 

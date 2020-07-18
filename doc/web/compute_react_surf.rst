@@ -75,7 +75,9 @@ The values over many sampling timesteps can be averaged by the :ref:`command-fix
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a per-surf array, with the number of columns either equal to the number of reactions defined by the :ref:`surf_react<command-surf-react>` style (if no values are specified) or equal to M = the # of values specified.
 

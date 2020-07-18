@@ -176,7 +176,9 @@ dimension.
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a per-grid vector or array. If one of *kall*,
 *kx*, *ky*, or *kz* is not specified, then it is a vector. If one extra

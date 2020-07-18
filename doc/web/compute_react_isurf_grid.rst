@@ -100,7 +100,9 @@ The values over many sampling timesteps can be averaged by the :ref:`fix ave/gri
 
 --------------
 
-**Output info:**
+************
+Output info:
+************
 
 This compute calculates a per-grid array, with the number of columns
 either equal to the number of reactions defined by the
