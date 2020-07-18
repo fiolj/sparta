@@ -1,5 +1,5 @@
-from __future__ import print_function
-from __future__ import division
+
+
 #   SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
 #   http://sparta.sandia.gov
 #   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov,
@@ -168,9 +168,9 @@ def create_3d_amr_grids(grid_desc, level, parent_bit_mask, parent_id, \
       Dy = grid_desc["create_grid"][1]["Cy"]
       Dz = grid_desc["create_grid"][1]["Cz"]
       level_one_bit_mask = int(math.floor(math.log(int(Dx*Dy*Dz),2)) + 1)
-      xc = range(chunk_info["x"][0], chunk_info["x"][1]+1)
-      yc = range(chunk_info["y"][0], chunk_info["y"][1]+1)
-      zc = range(chunk_info["z"][0], chunk_info["z"][1]+1)
+      xc = list(range(chunk_info["x"][0], chunk_info["x"][1]+1))
+      yc = list(range(chunk_info["y"][0], chunk_info["y"][1]+1))
+      zc = list(range(chunk_info["z"][0], chunk_info["z"][1]+1))
     cell_info = {'Cx' : 1, 'Cy' : 1, 'Cz' : 1}
     get_cell_size(level, grid_desc, cell_info)
     Cx = cell_info['Cx']
@@ -432,8 +432,8 @@ def find_2d_intersected_cells(intersecting_planes, parent_bit_mask, parent_id, o
           gids.SetName("GlobalIds")
           if parent_id == 0:
             Dx = grid_desc["create_grid"][1]["Cx"]
-            xc = range(chunk_info["x"][0], chunk_info["x"][1]+1)
-            yc = range(chunk_info["y"][0], chunk_info["y"][1]+1)
+            xc = list(range(chunk_info["x"][0], chunk_info["x"][1]+1))
+            yc = list(range(chunk_info["y"][0], chunk_info["y"][1]+1))
             yindex = (yc[j]-1)*Dx
             gids.InsertNextTuple1(xc[i]+yindex)
           else:
@@ -507,9 +507,9 @@ def find_3d_intersected_cells(intersecting_planes, parent_bit_mask, parent_id, o
             if parent_id == 0:
               Dx = grid_desc["create_grid"][1]["Cx"]
               Dy = grid_desc["create_grid"][1]["Cy"]
-              xc = range(chunk_info["x"][0], chunk_info["x"][1]+1)
-              yc = range(chunk_info["y"][0], chunk_info["y"][1]+1)
-              zc = range(chunk_info["z"][0], chunk_info["z"][1]+1)
+              xc = list(range(chunk_info["x"][0], chunk_info["x"][1]+1))
+              yc = list(range(chunk_info["y"][0], chunk_info["y"][1]+1))
+              zc = list(range(chunk_info["z"][0], chunk_info["z"][1]+1))
               zindex = (zc[k]-1)*Dx*Dy
               yindex = (yc[j]-1)*Dx
               gids.InsertNextTuple1(xc[i]+yindex+zindex)
@@ -587,9 +587,9 @@ def build_3d_grid(parent_bit_mask, parent_id, origin, spacing, ndims, chunk_info
   if parent_id == 0:
     Dx = grid_desc["create_grid"][1]["Cx"]
     Dy = grid_desc["create_grid"][1]["Cy"]
-    xc = range(chunk_info["x"][0], chunk_info["x"][1]+1)
-    yc = range(chunk_info["y"][0], chunk_info["y"][1]+1)
-    zc = range(chunk_info["z"][0], chunk_info["z"][1]+1)
+    xc = list(range(chunk_info["x"][0], chunk_info["x"][1]+1))
+    yc = list(range(chunk_info["y"][0], chunk_info["y"][1]+1))
+    zc = list(range(chunk_info["z"][0], chunk_info["z"][1]+1))
     for k in range(ndims[2]-1):
       zindex = (zc[k]-1)*Dx*Dy
       for j in range(ndims[1]-1):
@@ -636,8 +636,8 @@ def build_2d_grid(parent_bit_mask, parent_id, origin, spacing, ndims, chunk_info
   gids.SetName("GlobalIds")
   if parent_id == 0:
     Dx = grid_desc["create_grid"][1]["Cx"]
-    xc = range(chunk_info["x"][0], chunk_info["x"][1]+1)
-    yc = range(chunk_info["y"][0], chunk_info["y"][1]+1)
+    xc = list(range(chunk_info["x"][0], chunk_info["x"][1]+1))
+    yc = list(range(chunk_info["y"][0], chunk_info["y"][1]+1))
     for j in range(ndims[1]-1):
       yindex = (yc[j]-1)*Dx
       for i in range(ndims[0]-1):
@@ -659,8 +659,8 @@ def create_2d_amr_grids(grid_desc, level, parent_bit_mask, parent_id, \
       Dx = grid_desc["create_grid"][1]["Cx"]
       Dy = grid_desc["create_grid"][1]["Cy"]
       level_one_bit_mask = int(math.floor(math.log(int(Dx*Dy),2)) + 1)
-      xc = range(chunk_info["x"][0], chunk_info["x"][1]+1)
-      yc = range(chunk_info["y"][0], chunk_info["y"][1]+1)
+      xc = list(range(chunk_info["x"][0], chunk_info["x"][1]+1))
+      yc = list(range(chunk_info["y"][0], chunk_info["y"][1]+1))
     cell_info = {'Cx' : 1, 'Cy' : 1}
     get_cell_size(level, grid_desc, cell_info)
     Cx = cell_info['Cx']
@@ -728,18 +728,18 @@ def clean_line(line):
 
 def create_parent_ranges(item, level, index, parent, grid_desc):
   if item == "*":
-    grid_desc["create_grid"][level][index] = range(1, parent + 1)
+    grid_desc["create_grid"][level][index] = list(range(1, parent + 1))
   elif item[0] == "*": 
     rb = int(item.split('*')[1])
-    grid_desc["create_grid"][level][index] = range(1, rb + 1)
+    grid_desc["create_grid"][level][index] = list(range(1, rb + 1))
   elif item[-1:] == "*": 
     lb = int(item.split('*')[0])
-    grid_desc["create_grid"][level][index] = range(lb, parent + 1)
+    grid_desc["create_grid"][level][index] = list(range(lb, parent + 1))
   elif len(item.split('*')) == 1:
     grid_desc["create_grid"][level][index] = [int(item)]
   elif len(item.split('*')) == 2:
     b = item.split('*')
-    grid_desc["create_grid"][level][index] = range(int(b[0]), int(b[1]) + 1)
+    grid_desc["create_grid"][level][index] = list(range(int(b[0]), int(b[1]) + 1))
 
 def read_grid_levels(gl_array, grid_desc, level):
   if len(gl_array) % 8 or \
@@ -845,7 +845,7 @@ def read_time_steps(result_file_list, time_steps_dict):
       s = clean_line(line)
       if s.lower().replace(" ", "") == "item:timestep":
         time = int(fh.readline())
-        if time in time_steps_dict.keys():
+        if time in list(time_steps_dict.keys()):
           time_steps_dict[time].append(f)
         else:
           time_steps_dict[time] = [f]

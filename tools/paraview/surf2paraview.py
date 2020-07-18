@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 #   SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
 #   http://sparta.sandia.gov
 #   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov,
@@ -163,7 +163,7 @@ def read_time_steps(result_file_list, time_steps_dict):
       s = clean_line(line)
       if s.lower().replace(" ", "") == "item:timestep":
         time = int(fh.readline())
-        if time in time_steps_dict.keys():
+        if time in list(time_steps_dict.keys()):
           time_steps_dict[time].append(f)
         else:
           time_steps_dict[time] = [f]

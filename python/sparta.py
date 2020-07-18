@@ -80,29 +80,65 @@ class sparta:
   def command(self, cmd):
     self.lib.sparta_command(self.spa, ensurebytes(cmd))
 
-  def extract_global(self, name, type):
-    if type == 0:
+  def extract_global(self, name, kind):
+    """
+    Extract the value of a global variable
+
+    Parameters
+    ----------
+    name: variable to extract.  By default, possible values are:
+          "dt", "fnum", "nrho", "nplocal"
+    kind: type of variable.
+      - 0 or "int"   = integer
+      - 1 or "float" = real (double)
+    """
+    if kind == 0 or kind == 'int':
       self.lib.sparta_extract_global.restype = POINTER(c_int)
-    elif type == 1:
+    elif kind == 1 or kind == 'float':
       self.lib.sparta_extract_global.restype = POINTER(c_double)
     else: return None
     ptr = self.lib.sparta_extract_global(self.spa, ensurebytes(name))
     return ptr[0]
 
-  def extract_compute(self, id, style, type):
-    Id = ensurebytes(id)
-    if type == 0:
-      if style > 0: return None
-      self.lib.sparta_extract_compute.restype = POINTER(c_double)
-      ptr = self.lib.sparta_extract_compute(self.spa, Id, style, type)
+  def extract_compute(self, ID, style, dim):
+    """
+    Extract the result of a compute command.
+
+    Parameters
+    ----------
+
+    ID: is the Name of the compute
+    style: is one of the possible styles
+        - 0 or "global" for global data
+        - 1 or "particle" per particle data
+        - 2 or "grid" per grid data
+        - 3 or "surf" per surf element data
+    dim: is the dimension of the magnitude
+        - 0 for scalar
+        - 1 for vectors
+        - 2 for arrays
+
+    .. important:: if the compute is not current it will be invoked
+       SPARTA cannot easily check here if it is valid to invoke the compute,
+       so caller must insure that it is OK
+    """
+    styles = {'global': 0, 'particle': 1, 'grid': 2, 'surf': 3}
+    if style in styles: st = styles[style]
+    else: st = style
+
+    Id = ensurebytes(ID)
+    if dim == 0:
+      if st > 0: return None
+      self.lib.sparta_extract_compute.resdim = POINTER(c_double)
+      ptr = self.lib.sparta_extract_compute(self.spa, Id, st, dim)
       return ptr[0]
-    if type == 1:
+    if dim == 1:
       self.lib.sparta_extract_compute.restype = POINTER(c_double)
-      ptr = self.lib.sparta_extract_compute(self.spa, Id, style, type)
+      ptr = self.lib.sparta_extract_compute(self.spa, Id, st, dim)
       return ptr
-    if type == 2:
+    if dim == 2:
       self.lib.sparta_extract_compute.restype = POINTER(POINTER(c_double))
-      ptr = self.lib.sparta_extract_compute(self.spa, Id, style, type)
+      ptr = self.lib.sparta_extract_compute(self.spa, Id, st, dim)
       return ptr
     return None
 
