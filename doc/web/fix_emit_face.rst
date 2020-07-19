@@ -29,11 +29,11 @@ Syntax:
 -  ID is documented in :ref:`fix<command-fix>` command
 -  emit/face = style name of this fix command
 -  mix-ID = ID of mixture to use when creating particles
--  face1,face2,... = one or more of *all* or *xlo* or *xhi* or *ylo* or
-   *yhi* or *zlo* or *zhi*
+-  face1,face2,... = one or more of ``all`` or ``xlo`` or ``xhi`` or ``ylo`` or
+   ``yhi`` or ``zlo`` or ``zhi``
 -  zero or more keyword/value(s) pairs may be appended
--  keyword = *n* or *nevery* or *perspecies* or *region* or *subsonic*
-   or *twopass*
+-  keyword = ``n`` or ``nevery`` or ``perspecies`` or ``region`` or ``subsonic``
+   or ``twopass``
 
   n value = Np
     Np = number of particles to create
@@ -70,17 +70,17 @@ continuously during a simulation. If invoked every timestep, this fix
 creates a continuous influx of particles thru the face(s).
 
 The properties of the added particles are determined by the mixture with
-ID *mix-ID*. This sets the number and species of added particles, as
+ID ``mix-ID``. This sets the number and species of added particles, as
 well as their streaming velocity, thermal temperature, and internal
 energy modes. The details are explained below.
 
 One or more faces of the simulation box can be specified via the
-*face1*, *face2*, etc arguments. The 6 possible faces can be specified
-as *xlo*, *xhi*, *ylo*, *yhi*, *zlo*, or *zhi*. Specifying *all* is the
+``face1``, ``face2``, etc arguments. The 6 possible faces can be specified
+as ``xlo``, ``xhi``, ``ylo``, ``yhi``, ``zlo``, or ``zhi``. Specifying ``all`` is the
 same as specifying all 6 individual faces.
 
 On each insertion timestep, each grid cell with one or more of its faces
-touching a specified boundary *face* performs the following computations
+touching a specified boundary ``face`` performs the following computations
 to add particles. The particles are added at the beginning of the SPARTA
 timestep.
 
@@ -89,7 +89,7 @@ equation 4.22 of [Bird94]_. The number of particles *M* to
 insert on a particular grid cell face is based on this flux and
 additional global, flow, and cell face properties:
 
--  global property: *fnum* ratio as specified by the
+-  global property: ``fnum`` ratio as specified by the
    :ref:`global<command-global>` command
 -  flow properties: number density, streaming velocity, and thermal
    temperature
@@ -110,8 +110,8 @@ command.
 
 The velocity of the particle is set to the sum of the streaming velocity
 and a thermal velocity sampled from the thermal temperature. The
-internal energy modes of the particle are determined by the *trot* and
-*tvib* settings of the mixture and the *rotate* and *vibrate* options of
+internal energy modes of the particle are determined by the ``trot`` and
+``tvib`` settings of the mixture and the ``rotate`` and ``vibrate`` options of
 the :ref:`collide_modify<command-collide-modify>` command. Note that if the
 :ref:`collide<command-collide>` command has not been specified (free
 molecular flow), then no rotational or vibrational energy will be
@@ -128,64 +128,58 @@ particles entering the simulation box.
 
 --------------
 
-The *n* keyword can alter how many particles are added, which can be
-useful for debugging purposes. If *Np* is set to 0, then the number of
-added particles is a function of *fnum*, *nrho*, and other mixture
-settings, as described above. If *Np* is set to a value > 0, then the
-*fnum* and *nrho* settings are ignored, and exactly *Np* particles are
-added on each insertion timestep. This is done by dividing *Np* by the
+The ``n`` keyword can alter how many particles are added, which can be
+useful for debugging purposes. If ``Np`` is set to 0, then the number of
+added particles is a function of ``fnum``, ``nrho``, and other mixture
+settings, as described above. If ``Np`` is set to a value > 0, then the
+``fnum`` and ``nrho`` settings are ignored, and exactly ``Np`` particles are
+added on each insertion timestep. This is done by dividing ``Np`` by the
 total number of grid cells that are adjacent to the specified box faces
 and adding an equal number of particles per grid cell.
 
-The *nevery* keyword determines how often particles are added. If
-*Nstep* > 1, this may give a non-continuous, clumpy distribution in the
+The ``nevery`` keyword determines how often particles are added. If
+``Nstep`` > 1, this may give a non-continuous, clumpy distribution in the
 inlet flow field.
 
-The *perspecies* keyword determines how the species of each added
+The ``perspecies`` keyword determines how the species of each added
 particle is randomly determined. This has an effect on the statistical
 properties of added particles.
 
-If *perspecies* is set to *yes*, then a target insertion number *M* in a
+If ``perspecies`` is set to ``yes``, then a target insertion number ``M`` in a
 grid cell is calculated for each species, which is a function of the
-relative number fraction of the species, as set by the :ref:`mixture nfrac<command-mixture>` command. If *M* has a fractional value, e.g.
+relative number fraction of the species, as set by the :ref:`mixture nfrac<command-mixture>` command. If ``M`` has a fractional value, e.g.
 12.5, then 12 particles of that species will always be added, and a 13th
 depending on the value of a random number.
 
-If *perspecies* is set to *no*, then a single target insertion number
-*M* in a grid cell is calculated for all the species. Each time a
+If ``perspecies`` is set to ``no``, then a single target insertion number
+``M`` in a grid cell is calculated for all the species. Each time a
 particle is added, a random number is used to choose the species of the
 particle, based on the relative number fractions of all the species in
-the mixture. As before, if *M* has a fractional value, e.g. 12.5, then
+the mixture. As before, if ``M`` has a fractional value, e.g. 12.5, then
 12 particles will always be added, and a 13th depending on the value of
 a random number.
 
 Here is a simple example that illustrates the difference between the two
 options. Assume a mixture with 2 species, each with a relative number
 fraction of 0.5. Assume a particular grid cell adds 10 particles from
-that mixture. If *perspecies* is set to *yes*, then exactly 5 particles
+that mixture. If ``perspecies`` is set to ``yes``, then exactly 5 particles
 of each species will be added on every timestep insertions take place.
-If *perspecies* is set to *no*, then exactly 10 particles will be added
+If ``perspecies`` is set to ``no``, then exactly 10 particles will be added
 every time and on average there will be 5 particles of each of the two
 species. But on one timestep it might be 6 of the first and 4 of the
 second. On another timestep it might be 3 of the first and 7 of the
 second.
 
-If the *region* keyword is used, then a particle will only added if its
-position is within the specified *region-ID*. This can be used to only
+If the ``region`` keyword is used, then a particle will only added if its
+position is within the specified ``region-ID``. This can be used to only
 allow particle insertion on a subset of the boundary face. Note that the
-*side* option for the :ref:`region<command-region>` command can be used to
+``side`` option for the :ref:`region<command-region>` command can be used to
 define whether the inside or outside of the geometric region is
 considered to be "in" the region.
 
-IMPORTANT NOTE: If the *region* and *n* keywords are used together, less
-than N particles may be added on an insertion timestep. This is because
-grid cells will be candidates for particle insertion, unless they are
-entirely outside the bounding box that encloses the region. Particles
-those grid cells attempt to add are included in the count for N, even if
-some or all of the particle insertions are rejected due to not being
-inside the region.
+.. important:: If the ``region`` and ``n`` keywords are used together, less than N particles may be added on an insertion timestep. This is because grid cells will be candidates for particle insertion, unless they are entirely outside the bounding box that encloses the region. Particles those grid cells attempt to add are included in the count for N, even if some or all of the particle insertions are rejected due to not being inside the region.
 
-The *subsonic* keyword uses the method of Fang and Liou
+The ``subsonic`` keyword uses the method of Fang and Liou
 [Fang02]_ to determine the number of particles to insert in
 each grid cell on the emitting face(s). They used the method of
 characteristics to calculate the mean properties of the incoming
@@ -202,24 +196,11 @@ of particles in the cells adjacent to the boundary face(s) are computed
 and used to determine the properties of inserted particles on each
 timestep.
 
-IMPORTANT NOTE: Caution must be exercised when using the subsonic
-boundary condition without specifying an inlet temperature. In this case
-the code tries to estimate the temperature of the flow from the
-properties of the particles in the domain. If the domain contains few
-particles per cell it may lead to spurious results. This boundary
-condition is meant more for an outlet than an inlet boundary condition,
-and performs well in cases where the cells are adequately populated.
+.. important:: Caution must be exercised when using the subsonic boundary condition without specifying an inlet temperature. In this case the code tries to estimate the temperature of the flow from the properties of the particles in the domain. If the domain contains few particles per cell it may lead to spurious results. This boundary condition is meant more for an outlet than an inlet boundary condition, and performs well in cases where the cells are adequately populated.
 
-IMPORTANT NOTE: When using this keyword, you should also use an
-appropriate boundary collision or chemistry model via the
-:ref:`boundary<command-boundary>` or :ref:`bound_modify<command-bound-modify>` or
-:ref:`surf_collide<command-surf-collide>` or :ref:`surf_react<command-surf-react>`
-commands, so that particles hitting the surface disappear as if they
-were exiting the simulation domain. That is necessary to produce the
-correct subsonic conditions that the particle insertions due to this
-command are trying to achieve.
+.. important:: When using this keyword, you should also use an appropriate boundary collision or chemistry model via the :ref:`boundary<command-boundary>` or :ref:`bound_modify<command-bound-modify>` or :ref:`surf_collide<command-surf-collide>` or :ref:`surf_react<command-surf-react>` commands, so that particles hitting the surface disappear as if they were exiting the simulation domain. That is necessary to produce the correct subsonic conditions that the particle insertions due to this command are trying to achieve.
 
-The *twopass* keyword does not require a value. If used, the insertion
+The ``twopass`` keyword does not require a value. If used, the insertion
 procedure will loop over the insertion grid cells twice, the same as the
 KOKKOS package version of this fix does, so that it can reallocate
 memory efficiently, e.g. on a GPU. If this keyword is used the
@@ -269,9 +250,9 @@ Restrictions:
 *************
 
 
-Particles cannot be emitted from periodic faces of the simulation box.  Particles cannot be emitted from *z* faces of the simluation box for a 2d simulation.
+Particles cannot be emitted from periodic faces of the simulation box.  Particles cannot be emitted from ``z`` faces of the simluation box for a 2d simulation.
 
-A *n* setting of *Np* > 0 can only be used with a *perspecies* setting of *no*.
+A ``n`` setting of ``Np`` > 0 can only be used with a ``perspecies`` setting of ``no``.
 
 A warning will be issued if a specified face has an inward normal in a direction opposing the streaming velocity. Particles will still be emitted from that face, so long as a small fraction have a thermal velocity large enough to overcome the outward streaming velocity, so that their net velocity is inward. The threshold for this is that a thermal velocity 3 sigmas from the mean thermal velocity is large enough to overcome the outward streaming velocity and produce a net velocity into the simulation box.
 
