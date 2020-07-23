@@ -18,9 +18,9 @@ Syntax:
 
    create_box xlo xhi ylo yhi zlo zhi 
 
-   xlo,xhi = box bounds in the x dimension (distance units)
-   ylo,yhi = box bounds in the y dimension (distance units)
-   zlo,zhi = box bounds in the z dimension (distance units) 
+- xlo,xhi = box bounds in the x dimension (distance units)
+- ylo,yhi = box bounds in the y dimension (distance units)
+- zlo,zhi = box bounds in the z dimension (distance units) 
 
 *********
 Examples:

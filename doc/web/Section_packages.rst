@@ -118,12 +118,12 @@ Install or un-install with make:
 ================================
 
 
-::
+.. code-block:: bash
 
    make yes-fft
    make machine 
 
-::
+.. code-block:: bash
 
    make no-fft
    make machine 
@@ -132,14 +132,14 @@ Install or un-install with make:
 Install or un-install with CMake:
 =================================
 
-::
+.. code-block:: bash
    
    cd build
    cmake -C /path/to/sparta/cmake/presets/machine.cmake -DPKG_FFT=ON /path/to/sparta/cmake
    make
    
 
-::
+.. code-block:: bash
 
    cmake -C /path/to/sparta/cmake/presets/machine.cmake -DPKG_FFT=OFF /path/to/sparta/cmake
    make
@@ -169,11 +169,6 @@ Supporting info:
 **************
 KOKKOS package
 **************
-
-
-
-
-
 
 
 .. _packages-package-kokkos-contents:
@@ -219,14 +214,15 @@ For multicore CPUs using OpenMP:
 
 Using Makefiles:
 
-::
+.. code-block:: make
 
    KOKKOS_DEVICES = OpenMP
    KOKKOS_ARCH = HSW           # HSW = Haswell, SNB = SandyBridge, BDW = Broadwell, etc 
 
 Using CMake:
 
-::
+.. code-block:: make
+
    -DKokkos_ENABLE_OPENMP=ON
    -DKokkos_ARCH_HSW=ON
 
@@ -235,7 +231,7 @@ For Intel KNLs using OpenMP:
 
 Using Makefiles:
 
-::
+.. code-block:: make
 
    KOKKOS_DEVICES = OpenMP
    KOKKOS_ARCH = KNL 
@@ -243,7 +239,7 @@ Using Makefiles:
 For NVIDIA GPUs using CUDA:
 ---------------------------
 
-::
+.. code-block:: make
 
    KOKKOS_DEVICES = Cuda
    KOKKOS_ARCH = PASCAL60,POWER8     # P100 hosted by an IBM Power8, etc
@@ -251,14 +247,15 @@ For NVIDIA GPUs using CUDA:
 
 Using CMake:
 
-::
+.. code-block:: make
+
    -DKokkos_ENABLE_CUDA=ON
    -DKokkos_ARCH_PASCAL60=ON -DKokkos_ARCH_POWER8=ON :pre
 
 For make with GPUs, the following 2 lines define a nvcc wrapper compiler, which will use nvcc for compiling CUDA files or use a C++ compiler for non-Kokkos, non-CUDA
 files.
 
-::
+.. code-block:: make
 
    KOKKOS_ABSOLUTE_PATH = $(shell cd $(KOKKOS_PATH); pwd)
    export OMPI_CXX = $(KOKKOS_ABSOLUTE_PATH)/bin/nvcc_wrapper
@@ -275,12 +272,12 @@ hardware target, to produce a separate executable.
 
 Using make:
 
-::
+.. code-block:: bash
 
    make yes-kokkos
    make machine 
 
-::
+.. code-block:: bash
 
    make no-kokkos
    make machine 
@@ -289,12 +286,13 @@ Using make:
 
 Using CMake:
 
-::
+.. code-block:: bash
+
    cmake -C /path/to/sparta/cmake/presets/machine.cmake /path/to/sparta/cmake
    make
    
 
-::
+.. code-block:: bash
 
    cmake -C /path/to/sparta/cmake/presets/machine.cmake -DPKG_KOKKOS=OFF /path/to/sparta/cmake
    make

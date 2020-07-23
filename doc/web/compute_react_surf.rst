@@ -27,10 +27,8 @@ Syntax:
 -  zero or more values can be appended
 -  value = *r:s1/s2/s3 ...* or *p:s1/s2/s3 ...*
 
-   ::
-
-        r: or p: = list of reactant species or product species
-        s1,s2,s3 = one or more species IDs, separated by "/" character 
+   - r: or p: = list of reactant species or product species
+   - s1,s2,s3 = one or more species IDs, separated by "/" character 
 
 *********
 Examples:

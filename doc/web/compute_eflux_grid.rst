@@ -39,11 +39,9 @@ Syntax:
 -  group-ID = group ID for which grid cells to perform calculation on
 -  mix-ID = mixture ID to perform calculation on
 -  one or more values can be appended
--  values = *heatx* or *heaty* or *heatz*
+-  values = ``heatx`` or ``heaty`` or ``heatz``
 
-   ::
-
-        heatx,heaty,heatz = xyz components of energy flux density tensor 
+   - heatx,heaty,heatz = xyz components of energy flux density tensor 
 
 *********
 Examples:

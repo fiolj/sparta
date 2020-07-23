@@ -29,12 +29,10 @@ Syntax:
 -  group-ID = group ID for which grid cells to perform calculation on
 -  surf-ID = group ID for which surface elements to consider
 -  zero or more keyword/args pairs may be appended
+
 -  keyword = *dir*
 
-   ::
-
-        dir args = Sx Sy Sz
-          Sx,Sy,Sz = direction vector used to test surf elements 
+   - dir args = Sx Sy Sz: direction vector used to test surf elements 
 
 *********
 Examples:

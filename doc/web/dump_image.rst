@@ -114,10 +114,14 @@ and play it in the Firefox browser:
 
 ::
 
-   dump                4 image all 100 tmp.*.jpg type type pdiam 0.2 view 90 -90 
-   dump_modify     4 pad 4
+   dump  4 image all 100 tmp.*.jpg type type pdiam 0.2 view 90 -90 
+   dump_modify 4 pad 4
+
+.. code-block:: bash
+
    % convert tmp*jpg tmp.gif
    % firefox tmp.gif 
+
 
 ************
 Description:
@@ -571,7 +575,7 @@ or other movie file you can:
 
 -  a) Use the ImageMagick convert program.
 
-   ::
+   .. code-block:: bash
 
       % convert *.jpg foo.gif
       % convert -loop 1 *.ppm foo.mpg 
@@ -616,14 +620,14 @@ You can play a movie file as follows:
    Both are available for multiple OSes and support a large variety of
    file formats and decoders.
 
-   ::
+   .. code-block:: bash
 
       % mplayer foo.mpg 
       % ffplay bar.avi 
 
 - c) Use the `Pizza.py <http://www.sandia.gov/~sjplimp/pizza.html>`__ `animate tool <http://www.sandia.gov/~sjplimp/pizza/doc/animate.html>`__, which works directly on a series of image files.
 
-   ::
+   .. code-block:: python3
 
       a = animate("foo*.jpg") 
 

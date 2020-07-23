@@ -2,8 +2,6 @@
 
 .. index:: adapt_grid
 
-
-
 .. _command-adapt-grid:
 
 ##################
@@ -19,60 +17,79 @@ Syntax:
 
    adapt_grid group-ID action1 action2 style args ... keyword args ... 
 
-group-ID = group ID for which grid cell adaptation will be attempted
+- group-ID = group ID for which grid cell adaptation will be attempted
 
-action1 = *refine* or *coarsen*
+- action1 = ``refine`` or ``coarsen``
 
-action2 = *coarsen* or *refine*, optional
+- action2 = ``coarsen`` or ``refine``, optional
 
-style = *particle* or *surf* or *value* or *random*
+- style = ``particle`` or ``surf`` or ``value`` or ``random``
 
-::
+  - particle args = rthresh cthresh
 
-     particle args = rthresh cthresh
-       rcount = threshold in particle count for refinment
-       ccount = threshold in particle count for coarsening
-     surf arg = surfID ssize
-       surfID = group ID for which surface elements to consider
-       ssize = do not refine to create cells smaller than ssize (dist units)
-               coarsen only if child cells are smaller than ssize (dist units)
-     value args = c_ID/c_ID[N]/f_ID/f_ID[N] rthresh cthresh
-       c_ID = ID of a compute that calculates a per grid vector, use values from vector
-       c_ID[N] = ID of a compute that calculates a per grid array, use values from Nth column of array
-       f_ID = ID of a fix that calculates a per grid vector, use vector
-       f_ID[N] = ID of a fix that calculates a per grid array, use Nth column of array
-       rvalue = threshold in value for refinement
-       cvalue = threshold in value for coarsening
-     random args = rfrac cfrac
-       rfrac = fraction of child cells to refine
-       cfrac = fraction of parent cells to coarsen 
+    - rcount = threshold in particle count for refinment
+    - ccount = threshold in particle count for coarsening
 
-zero or more keyword/args pairs may be appended
+  - surf arg = surfID ssize
 
-keyword = *iterate* or *maxlevel* or *minlevel* or *thresh* or *combine*
-or *cells* or *region* or *dir*
+    - surfID = group ID for which surface elements to consider
+    - ssize = do not refine to create cells smaller than ssize (dist units)
+      coarsen only if child cells are smaller than ssize (dist units)
 
-::
+  - value args = c_ID/c_ID[N]/f_ID/f_ID[N] rthresh cthresh
 
-     iterate arg = niterate
-       niterate = number of iterations of action loop
-     maxlevel arg = Nmax
-       Nmax = do not refine to create child cells at a level > Nmax
-     minlevel arg = Nmin
-       Nmin = do not coarsen to create child cells at a level < Nmin
-     thresh args = rdecide cdecide
-       rdecide = less or more = refine when value is less or more than rvalue
-       cdecide = less or more = coarsen when value is less or more than cvalue
-     combine arg = sum or min or max = how to combine child values into parent value
-     cells args = Nx Ny Nz
-       Nx,Ny,Nz = refine a cell into Nx by Ny by Nz child cells
-     region args = regID rflag
-       regID = ID of region that cells must be inside to be eligible for adaptation
-       rflag = all or one or center = what portion of grid cell must be inside
-     dir args = Sx Sy Sz
-       Sx,Sy,Sz = vector components used with style surf to test surf elements
-     file arg = filename
-       filename = name of file to write out with new parent grid info 
+    - c_ID = ID of a compute that calculates a per grid vector, use values from vector
+    - c_ID[N] = ID of a compute that calculates a per grid array, use values from Nth column of array
+    - f_ID = ID of a fix that calculates a per grid vector, use vector
+    - f_ID[N] = ID of a fix that calculates a per grid array, use Nth column of array
+    - rvalue = threshold in value for refinement
+    - cvalue = threshold in value for coarsening
+
+  - random args = rfrac cfrac
+
+    - rfrac = fraction of child cells to refine
+    - cfrac = fraction of parent cells to coarsen 
+
+- zero or more keyword/args pairs may be appended
+
+  keyword = ``iterate`` or ``maxlevel`` or ``minlevel`` or ``thresh`` or ``combine``
+or ``cells`` or ``region`` or ``dir``
+
+  - iterate arg = niterate
+
+    - niterate = number of iterations of action loop
+
+  - maxlevel arg = Nmax
+
+    - Nmax = do not refine to create child cells at a level > Nmax
+
+  - minlevel arg = Nmin
+
+    - Nmin = do not coarsen to create child cells at a level < Nmin
+
+  - thresh args = rdecide cdecide
+
+    - rdecide = less or more = refine when value is less or more than rvalue
+    - cdecide = less or more = coarsen when value is less or more than cvalue
+
+  - combine arg = sum or min or max = how to combine child values into parent value
+
+  - cells args = Nx Ny Nz
+
+    - Nx,Ny,Nz = refine a cell into Nx by Ny by Nz child cells
+
+  - region args = regID rflag
+
+    - regID = ID of region that cells must be inside to be eligible for adaptation
+    - rflag = all or one or center = what portion of grid cell must be inside
+
+  - dir args = Sx Sy Sz
+
+    - Sx,Sy,Sz = vector components used with style surf to test surf elements
+
+  - file arg = filename
+
+    - filename = name of file to write out with new parent grid info 
 
 *********
 Examples:

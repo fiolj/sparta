@@ -38,11 +38,9 @@ Syntax:
 -  count = style name of this compute command
 -  id1,id2,... = species ID or mixture ID or mixture/group
 
-   ::
-
-        species ID = ID used with the species command
-        mixture ID = ID used with the mixture command, expands to all groups in mixture
-        mixture/group = ID of mixture followed by name of a group within mixture 
+   - species ID = ID used with the species command
+   - mixture ID = ID used with the mixture command, expands to all groups in mixture
+   - mixture/group = ID of mixture followed by name of a group within mixture 
 
 *********
 Examples:

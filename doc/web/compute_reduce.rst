@@ -26,24 +26,22 @@ Syntax:
 -  input = x, y, z, vx, vy, vz, ke, erot, evib, c_ID, c_ID[N], f_ID,
    f_ID[N], v_name
 
-   ::
-
-        x,y,z,vx,vy,vz = particle position or velocity component
-        ke,erot,evib = particle energy component
-        c_ID = per-particle or per-grid vector calculated by a compute with ID
-        c_ID[I] = Ith column of per-particle or per-grid array calculated by a compute with ID, I can include wildcard (see below)
-        f_ID = per-particle or per-grid or per-surf vector calculated by a fix with ID
-        f_ID[I] = Ith column of per-particle or per-grid or per-surf array calculated by a fix with ID, I can include wildcard (see below)
-        v_name = per-particle or per-grid vector calculated by a particle-style or grid-style variable with name 
+   - x,y,z,vx,vy,vz = particle position or velocity component
+   - ke,erot,evib = particle energy component
+   - c_ID = per-particle or per-grid vector calculated by a compute with ID
+   - c_ID[I] = Ith column of per-particle or per-grid array calculated by a compute with ID, I can include wildcard (see below)
+   - f_ID = per-particle or per-grid or per-surf vector calculated by a fix with ID
+   - f_ID[I] = Ith column of per-particle or per-grid or per-surf array calculated by a fix with ID, I can include wildcard (see below)
+   - v_name = per-particle or per-grid vector calculated by a particle-style or grid-style variable with name 
 
 -  zero or more keyword/args pairs may be appended
--  keyword = *replace*
 
-   ::
+   keyword = ``replace``
 
-        replace args = vec1 vec2
-          vec1 = reduced value from this input vector will be replaced
-          vec2 = replace it with vec1[N] where N is index of max/min value from vec2 
+   - replace args = vec1 vec2
+
+     - vec1 = reduced value from this input vector will be replaced
+     - vec2 = replace it with vec1[N] where N is index of max/min value from vec2 
 
 *********
 Examples:

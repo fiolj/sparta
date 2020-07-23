@@ -22,7 +22,7 @@ Here is an example of how to run the benchmark problems. See the bench/README fi
 
 - 1-processor runs:
 
-  ::
+.. code-block:: bash
 
      spa_g++ -v x 100 -v y 100 -v z 100 < in.free
      spa_g++ -v x 100 -v y 100 -v z 100 < in.collide
@@ -30,7 +30,7 @@ Here is an example of how to run the benchmark problems. See the bench/README fi
 
 - 32-processor runs:
 
-  ::
+.. code-block:: bash
 
      mpirun -np 32 spa_g++ -v x 100 -v y 100 -v z 100 < in.free
      mpirun -np 32 spa_g++ -v x 100 -v y 100 -v z 100 < in.collide

@@ -13,6 +13,9 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+
+# from .sparta_hg import SpartaLexer
+
 from datetime import date
 today = date.today().strftime("%d/%m/%Y")
 
@@ -50,6 +53,38 @@ language = 'en'
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+# pygments_style = 'sphinx'
+pygments_style = 'emacs'
+# pygments_style = 'autumn'
+# pygments_style = NO: 'monokai', 'fruity', 'vim', 'native', "solarized-dark", 'solarized-light', 'paraiso-dark', 'stata', 'stata-light', 'stata-dark'
+# pygments_style = 'colorful'
+# pygments_style = 'manni'
+# pygments_style = 'paraiso-light'
+# pygments_style = 'rainbow_dash'
+
+
+# def pygments_monkeypatch_lexer(mod_name, lexer):
+#   import sys
+#   import pygments.lexer
+#   # mod = 'Sparta'
+#   lexer_name = "Sparta"
+#   # cls_name = cls.__name__
+#   mod = type(__import__("os"))(mod_name)
+#   print('Mod:', mod)
+#   setattr(mod, lexer_name, SpartaLexer)
+#   setattr(pygments.lexer, mod_name, mod)
+#   sys.modules["pygments.lexer." + mod_name] = mod
+#   # from pygments.lexers._mapping import LEXERS
+#   # s = ('.sparta_hg', lexer.name,
+#   #      tuple(lexer.aliases),
+#   #      tuple(lexer.filenames),
+#   #      tuple(lexer.mimetypes))
+#   # LEXERS['SpartaLexer'] = s
+
+# # pygments_monkeypatch_lexer("Sparta", SpartaLexer)
+
+highlight_language = "xorg.conf"
+# highlight_language = "sparta"
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -60,23 +95,9 @@ html_theme = 'sphinx_rtd_theme'
 # html_theme = 'sphinxdoc'
 html_css_files = [
     'rtd_overrides.css',
+    'pygm_overrides.css'
 ]
 
-#
-# html_theme = 'alabaster'
-# # For alabaster when it is very short
-# html_sidebars = {
-#     '**': [
-#         'navigation.html',
-#         # 'about.html'
-#     ]
-# }
-# html_theme_options = {
-#     # 'fixed_sidebar': True,
-#     'body_text_align': 'justify',
-#     'page_width': "auto"}
-
-# html_theme_options = {'stickysidebar': True}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

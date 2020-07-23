@@ -17,7 +17,7 @@ Syntax:
 
 ::
 
-   clear 
+   clear  
 
 *********
 Examples:
@@ -25,9 +25,10 @@ Examples:
 
 ::
 
-   (commands for 1st simulation)
+   # .. commands for 1st simulation
    clear
-   (commands for 2nd simulation) 
+   # .. commands for 2nd simulation 
+
 
 ************
 Description:

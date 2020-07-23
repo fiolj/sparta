@@ -151,11 +151,13 @@ output in different log and dump files, for example
    log log.$a
    read data.grid
    global nrho ${rho}
-   ...
+
+   # other commands ...
+
    compute myGrid grid all all n temp
    dump 1 grid all 1000 dump.$a id c_myGrid
    run 100000
-   clear
+   clear  # Restore all settings
    next rho
    next a
    jump in.flow 
@@ -473,7 +475,7 @@ All of these methodologies use a C-style interface to SPARTA that is provided in
 
 Library.cpp contains these 4 functions:
 
-.. code-block:: c
+.. code-block:: cpp
 
    void sparta_open(int, char **, MPI_Comm, void **);
    void sparta_close(void *);
@@ -490,7 +492,7 @@ The ``sparta_file()`` and ``sparta_command()`` functions are used to pass a file
 
 Other useful functions are also included in library.cpp. For example:
 
-.. code-block:: c
+.. code-block:: cpp
 
    void *sparta_extract_global(void *, char *);
    void *sparta_extract_compute(void *, char *, int, int);
@@ -696,16 +698,11 @@ Note that the following commands do not need to be repeated because their settin
 If you actually use this script to perform a restarted run, you will notice that the statistics output does not match exactly. On step 50, the collision counts are 0 in the restarted run, because the line is printed before the restarted simulation begins. The collision counts in subsequent steps are similar but not identical. This is because new random numbers are used for collisions in the restarted run. This affects all the randomized operations in a simulation, so in general you should only expect a restarted run to be statistically similar to the original run.
 
 
-
-
-
-
 .. _howto-ambipolar:
 
 *********************************
 Using the ambipolar approximation
 *********************************
-
 
 
 The ambipolar approximation is a computationally efficient way to model low-density plasmas which contain positively-charged ions and negatively-charged electrons. In this model, electrons are not free particles which move independently. This would require a simulation with a very small timestep due to electon's small mass and high speed (1000x that of an ion or neutral particle).
@@ -742,11 +739,11 @@ When creating particles, either by the :ref:`command-create-particles` or :ref:`
 
 If you want ambipolar ions to re-combine with their electrons when they collide with surfaces, use the :ref:`command-surf-react` with an input file of surface reactions that includes recombination reactions like:
 
-::
+.. math::
 
-   N+ + e -> N 
+   N^{+} + e \to N 
 
-See the `surf_react <command-surf-react>` doc page for syntax details. A sample surface reaction data file is provided in data/air.surf. You assign the surface reaction model to surface or the simulation box boundaries via the :ref:`command-surf-modify` and `command-bound_modify`.
+See the :ref:`command-surf-react` doc page for syntax details. A sample surface reaction data file is provided in data/air.surf. You assign the surface reaction model to surface or the simulation box boundaries via the :ref:`command-surf-modify` and :ref:`command-bound-modify`.
 
 For diagnositics and output, you can use the :ref:`command-compute-count` and `command-dump-particle`. The :ref:`command-compute-count` generate counts of individual species, entire mixtures, and groups within mixtures. For example these commands will include counts of ambipolar ions in statistical output:
 

@@ -24,26 +24,23 @@ Syntax:
 - one or more values can be appended
 - value = c_ID, c_ID[N], f_ID, f_ID[N], v_name
 
-   ::
-
-        c_ID = per-grid vector calculated by a compute with ID
-        c_ID[I] = Ith column of per-grid array calculated by a compute with ID
-        f_ID = per-grid vector calculated by a fix with ID
-        f_ID[I] = Ith column of per-grid or array calculated by a fix with ID
-        v_name = per-grid vector calculated by a grid-style variable with name 
+  - c_ID = per-grid vector calculated by a compute with ID
+  - c_ID[I] = Ith column of per-grid array calculated by a compute with ID
+  - f_ID = per-grid vector calculated by a fix with ID
+  - f_ID[I] = Ith column of per-grid or array calculated by a fix with ID
+  - v_name = per-grid vector calculated by a grid-style variable with name 
 
 -  zero or more keyword/arg pairs can be appended
--  keyword = *sum* or *scale* or *conjugate* or *kmag*
 
-   ::
+   keyword = ``sum`` or ``scale`` or ``conjugate`` or ``kmag``
 
-        sum = yes or no to sum all FFTs into a single output
-        scale = sfactor = numeric value to scale results by
-        conjugate = yes or no = perform complex conjugate multiply or not
-        kx = yes or no = calculate x-component of wavelength or not
-        kx = yes or no = calculate y-component of wavelength or not
-        kx = yes or no = calculate z-component of wavelength or not
-        kmag = yes or no = calculate wavelength magnitude or not 
+  - sum = yes or no to sum all FFTs into a single output
+  - scale = sfactor = numeric value to scale results by
+  - conjugate = yes or no = perform complex conjugate multiply or not
+  - kx = yes or no = calculate x-component of wavelength or not
+  - kx = yes or no = calculate y-component of wavelength or not
+  - kx = yes or no = calculate z-component of wavelength or not
+  - kmag = yes or no = calculate wavelength magnitude or not 
 
 *********
 Examples:

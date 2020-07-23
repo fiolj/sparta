@@ -48,7 +48,7 @@ Instructions on how to build SPARTA as a shared library are given in :ref:`build
 
 For make, from the src directory, type
 
-::
+.. code-block:: bash
 
    make makeshlib
    make -f Makefile.shlib foo 
@@ -56,7 +56,8 @@ For make, from the src directory, type
 
 For CMake, from the build directory, tyoe
 
-::
+.. code-block:: bash
+
    cmake -C /path/to/sparta/cmake/presets/foo.cmake -DBUILD_SHARED_LIBS=ON /path/to/sparta/cmake
    make
 
@@ -92,7 +93,7 @@ If you set the paths to these files as environment variables, you only
 have to do it once. For the csh or tcsh shells, add something like this
 to your ~/.cshrc file, one line for each of the two files:
 
-::
+.. code-block:: bash
 
    setenv PYTHONPATH $PYTHONPATH:/home/sjplimp/sparta/python
    setenv LD_LIBRARY_PATH $LD_LIBRARY_PATH:/home/sjplimp/sparta/src 
@@ -103,7 +104,7 @@ python/sparta.py file.
 
 You can invoke install.py from the python directory as
 
-::
+.. code-block:: bash
 
    % python install.py [libdir] [pydir] 
 
@@ -113,13 +114,13 @@ Note that libdir must be a location that is in your default LD_LIBRARY_PATH, lik
 
 If the install.py script does not allow you to copy files into system directories, prefix the python command with "sudo". If you do this, make sure that the Python that root runs is the same as the Python you run.  E.g. you may need to do something like
 
-::
+.. code-block:: bash
 
    % sudo /usr/local/bin/python install.py [libdir] [pydir] 
 
 You can also invoke install.py from the make command in the src directory as
 
-::
+.. code-block:: bash
 
    % make install-python 
 
@@ -155,13 +156,13 @@ In principle any of these Python/MPI packages should work to invoke SPARTA in pa
 
 The one I recommend, since I have successfully used it with SPARTA, is Pypar. Pypar requires the ubiquitous `Numpy package <http://numpy.scipy.org>`__ be installed in your Python. After launching python, type
 
-::
+.. code-block:: python3
 
    import numpy 
 
 to see if it is installed. If not, here is how to install it (version 1.3.0b1 as of April 2009). Unpack the numpy tarball and from its top-level directory, type
 
-::
+.. code-block:: bash
 
    python setup.py build
    sudo python setup.py install 
@@ -172,7 +173,7 @@ Python distribution's site-packages directory.
 To install Pypar (version pypar-2.1.4_94 as of Aug 2012), unpack it and
 from its "source" directory, type
 
-::
+.. code-block:: bash
 
    python setup.py build
    sudo python setup.py install 
@@ -181,19 +182,19 @@ Again, the "sudo" is only needed if required to copy Pypar files into your Pytho
 
 If you have successully installed Pypar, you should be able to run Python and type
 
-::
+.. code-block:: python3
 
    import pypar 
 
 without error. You should also be able to run python in parallel on a simple test script
 
-::
+.. code-block:: bash
 
    % mpirun -np 4 python test.py 
 
 where test.py contains the lines
 
-::
+.. code-block:: python
 
    import pypar
    print "Proc %d out of %d procs" % (pypar.rank(),pypar.size()) 
@@ -217,7 +218,7 @@ Testing the Python-SPARTA interface
 To test if SPARTA is callable from Python, launch Python interactively
 and type:
 
-::
+.. code-block:: python3
 
    >>> from sparta import sparta
    >>> spa = sparta() 
@@ -225,7 +226,7 @@ and type:
 If you get no errors, you're ready to use SPARTA from Python. If the 2nd
 command fails, the most common error to see is
 
-::
+.. code-block:: none
 
    OSError: Could not load SPARTA dynamic library 
 
@@ -238,7 +239,7 @@ should give you an indication of what went wrong.
 You can also test the load directly in Python as follows, without first
 importing from the sparta.py file:
 
-::
+.. code-block:: python3
 
    >>> from ctypes import CDLL
    >>> CDLL("libsparta.so") 
@@ -260,7 +261,7 @@ Test SPARTA and Python in serial:
 
 To run a SPARTA test in serial, type these lines into Python interactively from the bench directory:
 
-::
+.. code-block:: python3
 
    >>> from sparta import sparta
    >>> spa = sparta()
@@ -268,13 +269,13 @@ To run a SPARTA test in serial, type these lines into Python interactively from 
 
 Or put the same lines in the file test.py and run it as
 
-::
+.. code-block:: bash
 
    % python test.py 
 
 Either way, you should see the results of running the ``in.free`` benchmark on a single processor appear on the screen, the same as if you had typed something like:
 
-::
+.. code-block:: bash
 
    spa_g++ < in.free 
 
@@ -282,20 +283,17 @@ You can also pass command-line switches, e.g. to set input script variables, thr
 
 Replacing the "spa = sparta()" line above with
 
-::
+.. code-block:: python3
 
    spa = sparta("","-v","x","100","-v","y","100","-v","z","100") 
 
 is the same as typing
 
-::
+.. code-block:: bash
 
    spa_g++ -v x 100 -v y 100 -v z 100 < in.free 
 
 from the command line.
-
-
-
 
 
 
@@ -309,7 +307,7 @@ Test SPARTA and Python in parallel:
 
 To run SPARTA in parallel, assuming you have installed the `Pypar <http://datamining.anu.edu.au/~ole/pypar>`__ package as discussed above, create a test.py file containing these lines:
 
-::
+.. code-block:: python3
 
    import pypar
    from sparta import sparta
@@ -320,13 +318,13 @@ To run SPARTA in parallel, assuming you have installed the `Pypar <http://datami
 
 You can then run it in parallel as:
 
-::
+.. code-block:: bash
 
    % mpirun -np 4 python test.py 
 
 and you should see the same output as if you had typed
 
-::
+.. code-block:: bash
 
    % mpirun -np 4 spa_g++ < in.lj 
 
@@ -335,18 +333,15 @@ Note that if you leave out the 3 lines from test.py that specify Pypar commands 
 Also note that once you import the PyPar module, Pypar initializes MPI for you, and you can use MPI calls directly in your Python script, as described in the Pypar documentation. The last line of your Python script should be pypar.finalize(), to insure MPI is shut down correctly.
 
 
-
 .. _python-running-python:
 
 
 Running Python scripts:
 =======================
 
-
-
 Note that any Python script (not just for SPARTA) can be invoked in one of several ways:
 
-::
+.. code-block:: bash
 
    % python foo.script
    % python -i foo.script
@@ -355,22 +350,18 @@ Note that any Python script (not just for SPARTA) can be invoked in one of sever
 The last command requires that the first line of the script be something
 like this:
 
-::
+.. code-block:: bash
 
    #!/usr/local/bin/python 
    #!/usr/local/bin/python -i 
 
 where the path points to where you have Python installed, and requires that you have made the script file executable:
 
-::
+.. code-block:: bash
 
    % chmod +x foo.script 
 
 Without the "-i" flag, Python will exit when the script finishes. With the "-i" flag, you will be left in the Python interpreter when the script finishes, so you can type subsequent commands. As mentioned above, you can only run Python interactively when running Python on a single processor, not in parallel.
-
-
-
-
 
 
 .. _python-using:
@@ -379,40 +370,34 @@ Without the "-i" flag, Python will exit when the script finishes. With the "-i" 
 Using SPARTA from Python
 ************************
 
-
-
 The Python interface to SPARTA consists of a Python "sparta" module, the source code for which is in python/sparta.py, which creates a "sparta" object, with a set of methods that can be invoked on that object. The sample Python code below assumes you have first imported the "sparta" module in your Python script, as follows:
 
-::
+.. code-block:: python3
 
    from sparta import sparta 
 
 These are the methods defined by the sparta module. If you look at the file src/library.cpp you will see that they correspond one-to-one with calls you can make to the SPARTA library from a C++ or C or Fortran program.
 
-::
+.. code-block:: python3
 
    spa = sparta()           # create a SPARTA object using the default libsparta.so library
    spa = sparta("g++")      # create a SPARTA object using the libsparta_g++.so library
    spa = sparta("",list)    # ditto, with command-line args, e.g. list = ["-echo","screen"]
    spa = sparta("g++",list) 
 
-::
 
    spa.close()              # destroy a SPARTA object 
 
-::
 
    spa.file(file)           # run an entire input script, file = "in.lj"
    spa.command(cmd)         # invoke a single SPARTA command, cmd = "run 100" 
 
-::
 
    fnum = spa.extract_global(name,type) # extract a global quantity
                                         # name = "dt", "fnum", etc
                         # type = 0 = int
                         #        1 = double 
 
-::
 
    temp = spa.extract_compute(id,style,type) # extract value(s) from a compute
                                              # id = ID of compute
@@ -424,7 +409,6 @@ These are the methods defined by the sparta module. If you look at the file src/
                          #    1 = vector
                          #        2 = array 
 
-::
 
    var = spa.extract_variable(name,flag)  # extract value(s) from a variable
                                       # name = name of variable
@@ -438,7 +422,7 @@ These are the methods defined by the sparta module. If you look at the file src/
 Note that you can create multiple SPARTA objects in your Python script,
 and coordinate and run multiple simulations, e.g.
 
-::
+.. code-block:: python3
 
    from sparta import sparta
    spa1 = sparta()

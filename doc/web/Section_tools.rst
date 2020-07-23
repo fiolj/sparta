@@ -189,7 +189,7 @@ type "gnuplot" from the command line to start GnuPlot, it should work.
 If not (e.g. because you need a path name), then edit these 2 lines as
 needed in pizza/gnu.py:
 
-::
+.. code-block:: python3
 
    except: PIZZA_GNUPLOT = "gnuplot"
    except: PIZZA_GNUTERM = "x11" 
@@ -240,7 +240,7 @@ format for SPARTA surface files is described on the
 
 See the header of the script for the syntax used to run it, e.g.
 
-::
+.. code-block:: python3
 
    % python stl2surf.py stlfile surffile 
 

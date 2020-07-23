@@ -19,29 +19,24 @@ Syntax:
 
    balance_grid style args ... 
 
--  style = *none* or *stride* or *clump* or *block* or *random* or
-   *proc* or *rcb*
+-  style = ``none`` or ``stride`` or ``clump`` or ``block`` or ``random`` or
+   ``proc`` or ``rcb``
 
-   ::
-
-        none args = none
-        stride args = xyz or xzy or yxz or yzx or zxy or zyx
-        clump args = xyz or xzy or yxz or yzx or zxy or zyx
-        block args = Px Py Pz
-          Px,Py,Pz = # of processors in each dimension
-        random args = none 
-        proc args = none
-        rcb args = weight
-          weight = cell or part or time 
+   - none args = none
+   - stride args = xyz or xzy or yxz or yzx or zxy or zyx
+   - clump args = xyz or xzy or yxz or yzx or zxy or zyx
+   - block args = Px Py Pz:  # of processors in each dimension
+   - random args = none 
+   - proc args = none
+   - rcb args = weight: or part or time 
 
 -  zero or more keyword/value(s) pairs may be appended
--  keyword = *axes* or *flip*
 
-   ::
+   keyword = ``axes`` or ``flip``
 
-        axes value = dims
-          dims = string with any of "x", "y", or "z" characters in it
-        flip value = yes or no 
+   - axes value = dims: string with any of "x", "y", or "z" characters in it
+   - flip value = yes or no 
+
 
 *********
 Examples:

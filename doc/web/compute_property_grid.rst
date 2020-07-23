@@ -31,18 +31,14 @@ Syntax:
 -  group-ID = group ID for which grid cells to perform calculation on
 -  input = one or more grid attributes
 
-   ::
+  possible attributes = id, proc, xlo, ylo, zlo, xhi, yhi, zhi, xc, yc, zc 
 
-        possible attributes = id, proc, xlo, ylo, zlo, xhi, yhi, zhi, xc, yc, zc 
-
-   ::
-
-        id = integer form of grid cell ID
-        proc = processor that owns grid cell
-        xlo,ylo,zlo = coords of lower left corner of grid cell
-        xhi,yhi,zhi = coords of lower left corner of grid cell
-        xc,yc,zc = coords of center of grid cell
-        vol = flow volume of grid cell (area in 2d) 
+  - id = integer form of grid cell ID
+  - proc = processor that owns grid cell
+  - xlo,ylo,zlo = coords of lower left corner of grid cell
+  - xhi,yhi,zhi = coords of lower left corner of grid cell
+  - xc,yc,zc = coords of center of grid cell
+  - vol = flow volume of grid cell (area in 2d) 
 
 *********
 Examples:

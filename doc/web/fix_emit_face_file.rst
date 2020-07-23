@@ -26,14 +26,12 @@ Syntax:
 -  filename = input data file with boundary values for the emission
 -  boundary-ID = section of data file to read
 -  zero or more keyword/value pairs may be appended
--  keyword = *frac* or *nevery* or *perspecies* or *region*
+-  keyword = ``frac`` or ``nevery`` or ``perspecies`` or ``region``
 
-   ::
-
-        frac value = fraction = 0.0 to 1.0 fraction of particles to insert
-        nevery value = Nstep = insert every this many timesteps
-        perspecies value = yes or no
-        region value = region-ID 
+   - frac value = fraction = 0.0 to 1.0 fraction of particles to insert
+   - nevery value = Nstep = insert every this many timesteps
+   - perspecies value = yes or no
+   - region value = region-ID 
 
 *********
 Examples:
@@ -146,26 +144,15 @@ For a 3d simulation, interpolation from values on the 2d mesh to any
 grid cell face that is on the corresponding simulation box face is done
 in the following manner. There are 3 cases to consider.
 
-(a) For a grid cell face that is entirely inside the area defined by the
-file mesh, the centroid (center point) of the grid cell face is
-surrounded geometrically by 4 file mesh points. The 4 values defined on
-those 4 file points are averaged in a weighted manner using bilinear
-interpolation (described below) to determine the value for the grid cell
-face. This value is then used for the calculation described above for
-*M* = the number of particles to add on the cell face as well as the
-properties of the added particles.
+a. For a grid cell face that is entirely inside the area defined by the file mesh, the centroid (center point) of the grid cell face is surrounded geometrically by 4 file mesh points.
+   The 4 values defined on those 4 file points are averaged in a weighted manner using bilinear interpolation (described below) to determine the value for the grid cell face.
+   This value is then used for the calculation described above for *M* = the number of particles to add on the cell face as well as the properties of the added particles.
 
-(b) For a grid cell face that is entirely outside the area defined by
-the file mesh, no particles are added in that grid cell.
+b. For a grid cell face that is entirely outside the area defined by the file mesh, no particles are added in that grid cell.
 
-(c) For a grid cell face that partially overlaps the area defined by the
-file mesh, the extent of the overlap is computed. The centroid (center
-point) of the overlap area is surrounded geometrically by 4 file mesh
-points. The values for those 4 points are used as in (a) above to
-determine properties of particles added in that grid cell. Note that the
-area of insertion, used to calculate *M*, is the overlap area, which is
-smaller than the grid cell face area. Also, particles are only added
-within the overlap area of the grid cell face.
+c. For a grid cell face that partially overlaps the area defined by the file mesh, the extent of the overlap is computed.
+   The centroid (center point) of the overlap area is surrounded geometrically by 4 file mesh points. The values for those 4 points are used as in (a) above to determine properties of particles added in that grid cell.
+   Note that the area of insertion, used to calculate *M*, is the overlap area, which is smaller than the grid cell face area. Also, particles are only added within the overlap area of the grid cell face.
 
 For a 2d simulation, the 3 cases are similar, except for (a) and (c) the
 centroid is the midpoint of a line segment, the centroid is surrounded
@@ -186,8 +173,6 @@ lines that follow must be in this order:
 
    # plume ABC info           (one or more comment or blank lines) 
 
-::
-
    PLUME_ABC                  (boundary-ID is first word on line)
    NIJ 4 10                   (mesh size: Ni by Nj)
    NV 3                       (Nv = number of values per mesh point)
@@ -203,11 +188,9 @@ lines that follow must be in this order:
 This format is for a 3d simulation. For a 2d simulation, there are 3
 changes:
 
-::
-
-   "NIJ 4 10" is replaced by "NI 6"
-   JMESH line is not included
-   "I,J,value1,..." is replaced by "I,value1,..." 
+1. "NIJ 4 10" is replaced by "NI 6"
+2. JMESH line is not included
+3. "I,J,value1,..." is replaced by "I,value1,..." 
 
 A section begins with a non-blank line whose first character is not a
 "#". Blank lines or lines starting with "#" can be used as comments
@@ -271,22 +254,12 @@ density, temperature, and stream velocity of particles in the cells
 adjacent to the boundary face(s) are computed and used to determine the
 properties of inserted particles on each timestep.
 
-IMPORTANT NOTE: Caution must be exercised when using the subsonic
-boundary condition without specifying an inlet temperature. In this case
-the code tries to estimate the temperature of the flow from the
-properties of the particles in the domain. If the domain contains few
-particles per cell it may lead to spurious results. This boundary
-condition is meant more for an outlet than an inlet boundary condition,
-and performs well in cases where the cells are adequately populated.
+.. important:: Caution must be exercised when using the subsonic boundary condition without specifying an inlet temperature.
+	       In this case the code tries to estimate the temperature of the flow from the properties of the particles in the domain.
+	       If the domain contains few particles per cell it may lead to spurious results. This boundary condition is meant more for an outlet than an inlet boundary condition, and performs well in cases where the cells are adequately populated.
 
-IMPORTANT NOTE: When using a subsonic prsesure boundary condition, you
-should also use an appropriate boundary collision or chemistry model via
-the :ref:`boundary<command-boundary>` or :ref:`bound_modify<command-bound-modify>`
-or :ref:`surf_collide<command-surf-collide>` or
-:ref:`surf_react<command-surf-react>` commands, so that particles hitting the
-surface disappear as if they were exiting the simulation domain. That is
-necessary to produce the correct subsonic conditions that the particle
-insertions due to this command are trying to achieve.
+.. important:: When using a subsonic pressure boundary condition, you should also use an appropriate boundary collision or chemistry model via the :ref:`boundary<command-boundary>` or :ref:`bound_modify<command-bound-modify>` or :ref:`surf_collide<command-surf-collide>` or :ref:`surf_react<command-surf-react>` commands, so that particles hitting the surface disappear as if they were exiting the simulation domain.
+	       That is necessary to produce the correct subsonic conditions that the particle insertions due to this command are trying to achieve.
 
 --------------
 
@@ -294,10 +267,10 @@ For 3d simulations, bilinear interpolation from the 2d mesh of values
 specified in the file is performed using this equation to calculate the
 value at the centroid point (i,j) in the grid cell face:
 
-::
+.. math::
 
-   f(i,j) = 1/area * (f(i1,j1)*(i2-i)*(j2-j) + f(i2,j1)*(i-i1)*(j2-j) +
-                      f(i2,j2)*(i-i1)*(j-j1) + f(i1,j2)*(i2-i)*(j-j1)) 
+   f(i,j) = (1/area) (f(i1,j1) (i2-i) (j2-j) + f(i2,j1) (i-i1) (j2-j) +\\
+                      f(i2,j2) (i-i1) (j-j1) + f(i1,j2) (i2-i) (j-j1)) 
 
 where the 4 surrounding file mesh points are (i1,j1), (i2,j1), (i2,j2),
 and (i1,j2). The 4 f() values on the right-hand side are the values
@@ -308,10 +281,10 @@ For 2d simulations, linear interpolation from the 1d mesh of values
 specified in the file is performed using this equation to calculate the
 value at the centroid poitn (i) in the grid cell line:
 
-::
+.. math::
 
-   f(i) = 1/length * (f(i1)*(i2-i) + f(i2)*(i-i1)
-        = f(i1) + (i - i1)/(i2 - i1) * (f(i2) - f(i1)) 
+   f(i) = (1/length)  (f(i1) (i2-i) + f(i2) (i-i1) \\
+        = f(i1) + (i - i1)/(i2 - i1)  (f(i2) - f(i1)) 
 
 where the 2 surrounding file mesh points are (i1) and (i2). The 2 f()
 values on the right-hand side are the values defined at the file mesh

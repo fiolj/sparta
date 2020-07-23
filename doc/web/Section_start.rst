@@ -1,3 +1,4 @@
+.. highlight:: bash
 
 .. _start:
 
@@ -573,7 +574,7 @@ cmake -LH. For the SPARTA_DEFAULT_CXX_COMPILE_FLAGS option, see :ref:`start-step
 For a full list of CMake option value pairs, see cmake -LAH. The most relevant
 CMake options (with example values) for our purposes here are:
 
-::
+.. code-block:: make
 
    -DCMAKE_C_COMPILER=gcc
    -DCMAKE_CXX_COMPILER=/usr/local/bin/g++
@@ -1221,7 +1222,7 @@ do this.
 Here is an example of such errors when the system FFTW or provided
 lib/colvars library have not been built as shared libraries:
 
-::
+.. code-block:: bash
 
    /usr/bin/ld: /usr/local/lib/libfftw3.a(mapflags.o): relocation
    R_X86_64_32 against :ref:`.rodata' can not be used when making a shared
@@ -1229,7 +1230,7 @@ lib/colvars library have not been built as shared libraries:
    /usr/local/lib/libfftw3.a: could not read symbols: Bad value 
 
 
-::
+.. code-block:: bash
 
    /usr/bin/ld: ../../lib/colvars/libcolvars.a(colvarmodule.o):
    relocation R_X86_64_32 against`pthread_key_create' can not be used

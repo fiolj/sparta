@@ -2,8 +2,6 @@
 
 .. index:: run
 
-
-
 .. _command-run:
 
 ###########
@@ -21,21 +19,23 @@ Syntax:
 
 -  N = # of timesteps
 -  zero or more keyword/value pairs may be appended
--  keyword = *upto* or *start* or *stop* or *pre* or *post* or *every*
+-  keyword = ``upto`` or ``start`` or ``stop`` or ``pre`` or ``post`` or ``every``
 
-   ::
+   - :ref:`upto value <command-run-upto>` = none
 
-        upto value = none
-        start value = N1
-          N1 = timestep at which 1st run started
-        stop value = N2
-          N2 = timestep at which last run will end
-        pre value = no or yes
-        post value = no or yes 
-        every values = M c1 c2 ...
-          M = break the run into M-timestep segments and invoke one or more commands between each segment
-          c1,c2,...,cN = one or more SPARTA commands, each enclosed in quotes
-          c1 = NULL means no command will be invoked 
+   - :ref:`start value <command-run-start>` = N1: timestep at which 1st run started
+
+   - :ref:`stop value <command-run-stop>` = N2:  timestep at which last run will end
+
+   - pre value = no or yes
+   - post value = no or yes 
+   - every values = M c1 c2 ...
+
+     - M = break the run into M-timestep segments and invoke one or more commands between each segment
+     - c1,c2,...,cN = one or more SPARTA commands, each enclosed in quotes
+
+       c1 = NULL means no command will be invoked 
+
 
 *********
 Examples:
@@ -59,7 +59,9 @@ Run or continue a simulation for a specified number of timesteps.
 A value of N = 0 is acceptable; only the statistics of the system are
 computed and printed without taking a timestep.
 
-The *upto* keyword means to perform a run starting at the current
+.. _command-run-upto:
+
+The ``upto`` keyword means to perform a run starting at the current
 timestep up to the specified timestep. E.g. if the current timestep is
 10,000 and "run 100000 upto" is used, then an additional 90,000
 timesteps will be run. This can be useful for very long runs on a
@@ -68,7 +70,10 @@ is exceeded. If you need to restart your script multiple times (reading
 in the last restart file), you can keep restarting your script with the
 same run command until the simulation finally completes.
 
-The *start* or *stop* keywords can be used if multiple runs are being
+.. _command-run-start:
+.. _command-run-stop:
+
+The ``start`` or ``stop`` keywords can be used if multiple runs are being
 performed and you want a :ref:`variable<command-variable>` or
 :ref:`fix<command-fix>` command that changes some value over time (e.g.
 target temperature) to make the change across the entire set of runs and
@@ -85,7 +90,7 @@ For example, consider these commands followed by 10 run commands:
    ...
    run      1000 start 0 stop 10000 
 
-The ramp() function in the :ref:`variable<command-variable>` and its use in
+The ``ramp()`` function in the :ref:`variable<command-variable>` and its use in
 the "surf_collide" command will ramp the target temperature from 300 to
 500 during a run. If the run commands did not have the start/stop
 keywords (just "run 1000"), then the temperature would ramp from 300 to
@@ -93,7 +98,10 @@ keywords (just "run 1000"), then the temperature would ramp from 300 to
 ramping takes place smoothly over the 10000 steps of all the runs
 together.
 
-The *pre* and *post* keywords can be used to streamline the setup,
+.. _command-run-pre:
+.. _command-run-post:
+
+The ``pre`` and ``post`` keywords can be used to streamline the setup,
 clean-up, and associated output to the screen that happens before and
 after a run. This can be useful if you wish to do many short runs in
 succession (e.g. SPARTA is being called as a library which is doing
@@ -109,18 +117,18 @@ is skipped, except for printing statistical info. Note that if *pre* is
 set to "no" for the very 1st run SPARTA performs, then it is overridden,
 since the initial setup computations must be done.
 
-IMPORTANT NOTE: If your input script changes settings between 2 runs
-(e.g. adds a :ref:`fix<command-fix>` or :ref:`compute<command-compute>`), then the
-initial setup must be performed. SPARTA does not check for this, but it
-would be an error to use the *pre no* option in this case.
+.. important:: If your input script changes settings between 2 runs (e.g. adds a :ref:`fix<command-fix>` or :ref:`compute<command-compute>`), then the initial setup must be performed.
+	       SPARTA does not check for this, but it would be an error to use the *pre no* option in this case.
 
-If *post* is specified as "no", the full timing and statistical output
+If ``post`` is specified as "no", the full timing and statistical output
 is skipped; only a one-line summary timing is printed.
 
-The *every* keyword provides a means of breaking a SPARTA run into a
-series of shorter runs. Optionally, one or more SPARTA commands (c1, c2,
-..., cN) will be executed in between the short runs. If used, the
-*every* keyword must be the last keyword, since it has a variable number
+.. _command-run-every:
+
+The ``every`` keyword provides a means of breaking a SPARTA run into a
+series of shorter runs. Optionally, one or more SPARTA commands (c1, c2,..., cN)
+will be executed in between the short runs. If used, the
+``every`` keyword must be the last keyword, since it has a variable number
 of arguments. Each of the trailing arguments is a single SPARTA command,
 and each command should be enclosed in quotes, so that the entire
 command will be treated as a single argument. This will also prevent any
@@ -130,7 +138,7 @@ of its arguments quoted (e.g. the :ref:`print<command-print>` command), then
 you can use a combination of single and double quotes, as in the example
 above or below.
 
-The *every* keyword is a means to avoid listing a long series of runs
+The ``every`` keyword is a means to avoid listing a long series of runs
 and interleaving commands in your input script. For example, a
 :ref:`print<command-print>` command could be invoked or a :ref:`fix<command-fix>`
 could be redefined, e.g. to reset a load balancing parameter. Or this
@@ -140,7 +148,7 @@ periodically during a long SPARTA run. See :ref:`Section 8<modify>` of the manua
 commands to SPARTA. See :ref:`Section 6.7<howto-restarting>` of
 the manual for ideas about how to couple SPARTA to other codes.
 
-With the *every* option, N total steps are simulated, in shorter runs of
+With the ``every`` option, N total steps are simulated, in shorter runs of
 M steps each. After each M-length run, the specified commands are
 invoked. If only a single command is specified as NULL, then no command
 is invoked. Thus these lines:

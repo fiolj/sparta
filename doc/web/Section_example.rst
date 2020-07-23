@@ -40,7 +40,7 @@ examples/README file for more details.
 
 Here is how you might run and visualize one of the sample problems:
 
-::
+.. code-block:: bash
 
    cd free
    cp ../../src/spa_g++ .           # copy SPARTA executable to this dir
@@ -51,7 +51,7 @@ Running the simulation produces the file log.sparta and optional
 your machine, you can run its "convert" command to create an animated
 GIF, and visualize it from the FireFox browser as follows:
 
-::
+.. code-block:: bash
 
    convert image*ppm movie.gif
    firefox ./movie.gif 

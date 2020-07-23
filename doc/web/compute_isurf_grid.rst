@@ -24,22 +24,20 @@ Syntax:
 -  group-ID = group ID for which grid cells to perform calculation on
 -  mix-ID = mixture ID for particles to perform calculation on
 -  one or more values can be appended
--  value = *n* or *nwt* or *mflux* or *fx* or *fy* or *fz* or *press* or
-   *px* or *py* or *pz* or *shx* or *shy* or *shz* or *ke*
+-  value = ``n`` or ``nwt`` or ``mflux`` or ``fx`` or ``fy`` or ``fz`` or ``press`` or
+   ``px`` or ``py`` or ``pz`` or ``shx`` or ``shy`` or ``shz`` or ``ke``
 
-   ::
-
-        n = count of particles hitting surface elements in a grid cell
-        nwt = weighted count of particles hitting surface elements in a grid cell
-        mflux = flux of mass on surface elements in a grid cell
-        fx,fy,fz = components of force on surface elements in a grid cell
-        press = magnitude of normal pressure on surface elements in a grid cell
-        px,py,pz = components of normal pressure on surface elements in a grid cell
-        shx,shy,shz = components of shear stress on surface elements in a grid cell
-        ke = flux of particle kinetic energy on surface elements in a grid cell
-        erot = flux of particle rotational energy on surface elements in a grid cell
-        evib = flux of particle vibrational energy on surface elements in a grid cell
-        etot = flux of particle total energy on surface elements in a grid cell 
+   - n = count of particles hitting surface elements in a grid cell
+   - nwt = weighted count of particles hitting surface elements in a grid cell
+   - mflux = flux of mass on surface elements in a grid cell
+   - fx,fy,fz = components of force on surface elements in a grid cell
+   - press = magnitude of normal pressure on surface elements in a grid cell
+   - px,py,pz = components of normal pressure on surface elements in a grid cell
+   - shx,shy,shz = components of shear stress on surface elements in a grid cell
+   - ke = flux of particle kinetic energy on surface elements in a grid cell
+   - erot = flux of particle rotational energy on surface elements in a grid cell
+   - evib = flux of particle vibrational energy on surface elements in a grid cell
+   - etot = flux of particle total energy on surface elements in a grid cell 
 
 *********
 Examples:

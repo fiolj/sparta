@@ -53,36 +53,27 @@ conjunction with snapshot files of per-grid properties, written by the
 :ref:`dump grid<command-dump>` command, to visualize various properties on
 the grid.
 
-::
+.. code-block:: none
 
    Description line 
-
-::
 
    N points
    M cells 
 
-::
-
    Points 
-
-::
 
    1 x y z
    2 x y z
    ...
    N x y z 
 
-::
-
    Cells 
-
-::
 
    1 p1 p2 p3 p4 ...
    2 p1 p2 p3 p4 ...
    ...
    M p1 p2 p3 p4 ... 
+
 
 The file will have N points and M grid cells. For each point the x,y,z
 coordinates are output. For each grid cell, the indices of the 4 (in 2d)

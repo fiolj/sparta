@@ -1,8 +1,4 @@
 
-
-
-
-
 .. _modify:
 
 ############################
@@ -28,21 +24,21 @@ The new features described in this section require you to write a new C++ derive
 
 The advantage of C++ and its object-orientation is that all the code and variables needed to define the new feature are in the 2 files you write, and thus shouldn't make the rest of SPARTA more complex or cause side-effect bugs.
 
-Here is a concrete example. Suppose you write 2 files collide_foo.cpp and collide_foo.h that define a new class CollideFoo that computes inter-particle collisions described in the classic 1997 paper by Foo, et al. If you wish to invoke those potentials in a SPARTA input script with a command like
+Here is a concrete example. Suppose you write 2 files *collide_foo.cpp* and *collide_foo.h* that define a new class CollideFoo that computes inter-particle collisions described in the classic 1997 paper by Foo, et al. If you wish to invoke those potentials in a SPARTA input script with a command like
 
 collide foo mix-ID params.foo 3.0
 
-then your collide_foo.h file should be structured as follows:
+then your *collide_foo.h* file should be structured as follows:
 
-  ::
+.. code-block:: cpp
 
-     #ifdef COLLIDE_CLASS
-       CollideStyle(foo,CollideFoo)
-     #else
-       ... (class definition for CollideFoo) ...
-     #endif
+   #ifdef COLLIDE_CLASS
+     CollideStyle(foo,CollideFoo)
+   #else
+     ... (class definition for CollideFoo) ...
+   #endif
 
-where "foo" is the style keyword in the collid command, and CollideFoo is the class name defined in your collide_foo.cpp and collide_foo.h files.
+where "foo" is the style keyword in the collid command, and CollideFoo is the class name defined in your *collide_foo.cpp* and *collide_foo.h* files.
 
 When you re-build SPARTA, your new collision model becomes part of the executable and can be invoked with a :ref:`collide<command-collide>` command like the example above. Arguments like a mixture ID, params.foo (a file with collision parameters), and 3.0 can be defined and processed by your new class.
 

@@ -80,13 +80,17 @@ Compile for CPU-only (MPI only, no threading):
 
 Use a C++11 compatible compiler and set Kokkos architecture variable as described above. Then do the following:
 
-Using Makefiles::
+Using Makefiles:
+
+.. code-block:: make
 
    cd sparta/src
    make yes-kokkos
    make kokkos_mpi_only 
 
-using CMake::
+using CMake:
+
+.. code-block:: make
 
    cd build
    cmake -C /path/to/sparta/cmake/presets/kokkos_mpi_only.cmake
@@ -101,13 +105,18 @@ Compile for CPU-only (MPI plus OpenMP threading):
 
 Use a C++11 compatible compiler and set KOKKOS architecture variable as described above. Then do the following:
 
-using Makefiles::
+using Makefiles:
+
+.. code-block:: make
 
    cd sparta/src
    make yes-kokkos
    make kokkos_omp 
 
-using CMake::
+
+using CMake:
+
+.. code-block:: make
 
    cd build
    cmake -C /path/to/sparta/cmake/presets/kokkos_omp.cmake
@@ -120,13 +129,15 @@ Compile for Intel KNL Xeon Phi (Intel Compiler, OpenMPI):
 
 Use a C++11 compatible compiler and do the following:
 
-using Makefiles::
+using Makefiles:
+.. code-block:: make
 
    cd sparta/src
    make yes-kokkos
    make kokkos_phi 
 
-using CMake::
+using CMake:
+.. code-block:: make
 
    cd build
    cmake -C /path/to/sparta/cmake/presets/kokkos_phi.cmake
@@ -142,13 +153,15 @@ Use a C++11 compatible compiler and set Kokkos architecture variable in
 for both GPU and CPU as described
 above. Then do the following:
 
-using Makefiles::
-
+using Makefiles:
+.. code-block:: make
+		
    cd sparta/src
    make yes-kokkos
    make kokkos_cuda
 
-using CMake::
+using CMake:
+.. code-block:: make
 
    cd build
    cmake -C /path/to/sparta/cmake/presets/kokkos_cuda.cmake
@@ -173,7 +186,7 @@ and -npernode switches. Ditto for MPICH via -np and -ppn.
 Here is a quick overview of how to use the KOKKOS package for CPU
 acceleration, assuming one or more 16-core nodes.
 
-::
+.. code-block:: bash
 
    mpirun -np 16 spa_kokkos_mpi_only -k on -sf kk -in in.collide        # 1 node, 16 MPI tasks/node, no multi-threading
    mpirun -np 2 -ppn 1 spa_kokkos_omp -k on t 16 -sf kk -in in.collide  # 2 nodes, 1 MPI task/node, 16 threads/task
@@ -313,7 +326,7 @@ tasks/node should not exceed N.
 Here are examples of how to use the KOKKOS package for GPUs, assuming
 one or more nodes, each with two GPUs.
 
-::
+.. code-block:: bash
 
    mpirun -np 2 spa_kokkos_cuda_mpi -k on g 2 -sf kk -in in.collide          # 1 node,   2 MPI tasks/node, 2 GPUs/node
    mpirun -np 32 -ppn 2 spa_kokkos_cuda_mpi -k on g 2 -sf kk -in in.collide  # 16 nodes, 2 MPI tasks/node, 2 GPUs/node (32 GPUs total) 

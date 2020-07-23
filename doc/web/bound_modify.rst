@@ -22,13 +22,10 @@ Syntax:
 -  wall1,wall2,... = *xlo* or *xhi* or *ylo* or *yhi* or *zlo* or *zhi*
 -  one or more keyword/value pairs may be listed
 
-   ::
+   keywords = collide or react
 
-      keywords = collide or react
-        collide value = sc-ID
-          sc-ID = ID of a surface collision model
-        react value = sr-ID
-          sr-ID = ID of a surface reaction model or none 
+   - collide value = sc-ID: ID of a surface collision model
+   - react value = sr-ID: ID of a surface reaction model or none 
 
 *********
 Examples:

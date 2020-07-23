@@ -3,7 +3,6 @@
 .. index:: fix ave/surf
 
 
-
 .. _command-fix-ave-surf:
 
 ####################
@@ -98,7 +97,7 @@ creates a per-surf array with 4 columns:
    compute mySurf all all n fx fy fz
    fix 1 ave/surf all 10 20 1000 c_mySurf[*]
    fix 1 ave/surf all 10 20 1000 c_mySurf[1] c_mySurf[2] &
-                                 c_mySurf[3] c_mySurf[4] 
+         c_mySurf[3] c_mySurf[4] 
 
 --------------
 

@@ -1,0 +1,15 @@
+.highlight .hll { background-color: #1F1F1F }
+.highlight  { background: #0F0F0F; color: #DDDDDD }
+.highlight .c { color: #99AA99; font-style: italic } /* Comment */
+.highlight .nb { color: #B8860B; font-weight: bold } /* Name.Builtin */
+.highlight .no { color: #DDDDDD } /* Name.Constant */
+.highlight .gh { color: #0000F0; font-weight: bold } /* Generic.Prompt */
+.highlight .gp { color: #A0A0F0; font-weight: bold } /* Generic.Prompt */
+.highlight .c1 { color: #44CC00; font-style: italic } /* Comment.Single */
+.highlight .m { color: #9999FF } /* Literal.Number */
+.highlight .kn { color: #CC88FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .k { color: #BB88FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .nn { color: #55AAFF; font-weight: bold } /* Name.Namespace */
+.highlight .s { color: #FF6666 } /* Literal.String */
+.highlight .s2 { color: #FF6666 } /* Literal.String.Double */
+.highlight .sh { color: #FF6666 } /* Literal.String.Heredoc */

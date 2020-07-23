@@ -70,47 +70,43 @@ Syntax:
 -  value = x, y, z, vx, vy, vz, fx, fy, fz, c_ID, c_ID[N], f_ID,
    f_ID[N], v_name
 
-   ::
-
-        x,y,z,vx,vy,vz = particle attribute (position, velocity component)
-        c_ID = scalar or vector calculated by a compute with ID
-        c_ID[I] = Ith component of vector or Ith column of array calculated by a compute with ID, I can include wildcard (see below)
-        f_ID = scalar or vector calculated by a fix with ID
-        f_ID[I] = Ith component of vector or Ith column of array calculated by a fix with ID, I can include wildcard (see below)
-        v_name = value(s) calculated by an equal-style or particle-style or grid-style variable with name 
+   - x,y,z,vx,vy,vz = particle attribute (position, velocity component)
+   - c_ID = scalar or vector calculated by a compute with ID
+   - c_ID[I] = Ith component of vector or Ith column of array calculated by a compute with ID, I can include wildcard (see below)
+   - f_ID = scalar or vector calculated by a fix with ID
+   - f_ID[I] = Ith component of vector or Ith column of array calculated by a fix with ID, I can include wildcard (see below)
+   - v_name = value(s) calculated by an equal-style or particle-style or grid-style variable with name 
 
 -  zero or more keyword/arg pairs may be appended
--  keyword = *mode* or *file* or *region* or *mix* or *group* or *ave*
-   or *start* or *beyond* or *overwrite* or *title1* or *title2* or
-   *title3*
 
-   ::
+   keyword = ``mode`` or ``file`` or ``region`` or ``mix`` or ``group`` or ``ave``
+   or ``start`` or ``beyond`` or ``overwrite`` or ``title1`` or ``title2`` or
+   ``title3``
 
-        mode arg = scalar or vector
-          scalar = all input values are scalars
-          vector = all input values are vectors
-        file arg = filename
-          filename = name of file to output histogram(s) to
-        region arg = region-ID for particle inclusion
-        mix arg = mixture-ID for particle inclusion
-        group arg = group-ID for grid cell inclusion
-        ave args = one or running or window
-          one = output a new average value every Nfreq steps
-          running = output cumulative average of all previous Nfreq steps
-          window M = output average of M most recent Nfreq steps
-        start args = Nstart
-          Nstart = start averaging on this timestep
-        beyond arg = ignore or end or extra
-          ignore = ignore values outside histogram lo/hi bounds
-          end = count values outside histogram lo/hi bounds in end bins
-          extra = create 2 extra bins for value outside histogram lo/hi bounds
-        overwrite arg = none = overwrite output file with only latest output
-        title1 arg = string
-          string = text to print as 1st line of output file
-        title2 arg = string
-          string = text to print as 2nd line of output file
-        title3 arg = string
-          string = text to print as 3rd line of output file, only for vector mode 
+   - mode arg = scalar or vector
+
+     - scalar = all input values are scalars
+     - vector = all input values are vectors
+   - file arg = filename: name of file to output histogram(s) to
+
+   - region arg = region-ID for particle inclusion
+   - mix arg = mixture-ID for particle inclusion
+   - group arg = group-ID for grid cell inclusion
+   - ave args = one or running or window
+
+     - one = output a new average value every Nfreq steps
+     - running = output cumulative average of all previous Nfreq steps
+     - window M = output average of M most recent Nfreq steps
+
+   - start args = Nstart:  start averaging on this timestep
+   - beyond arg = ignore or end or extra
+   - ignore = ignore values outside histogram lo/hi bounds
+   - end = count values outside histogram lo/hi bounds in end bins
+   - extra = create 2 extra bins for value outside histogram lo/hi bounds
+   - overwrite arg = none = overwrite output file with only latest output
+   - title1 arg = string: text to print as 1st line of output file
+   - title2 arg = string: text to print as 2nd line of output file
+   - title3 arg = string: text to print as 3rd line of output file, only for vector mode 
 
 *********
 Examples:
