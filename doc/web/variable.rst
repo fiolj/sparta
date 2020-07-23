@@ -424,25 +424,25 @@ in the sequence is returned. Thus if stagger(1000,100) is used in a
 variable by the :ref:`dump_modify every<command-dump-modify>` command, it
 will generate the sequence of output timesteps:
 
-::
+.. code-block:: none
 
    100,1000,1100,2000,2100,3000,etc 
 
 The ``logfreq(x,y,z)`` function uses the current timestep to generate a new timestep. X,y,z > 0 and y < z are required. The generated timesteps increase in a logarithmic fashion, as the sequence x,2x,3x,...y*x,z*x,2*z*x,3*z*x,...y*z*x,z*z*x,2*z*x*x,etc. For any current timestep, the next timestep in the sequence is returned. Thus if ``logfreq(100,4,10)`` is used in a variable by the :ref:`dump_modify every<command-dump-modify>` command, it will generate the sequence of output timesteps:
 
-::
+.. code-block:: none
 
    100,200,300,400,1000,2000,3000,4000,10000,20000,etc 
 
 The ``stride(x,y,z)`` function uses the current timestep to generate a new timestep. X,y >= 0 and z > 0 and x <= y are required. The generated timesteps increase in increments of z, from x to y, I.e. it generates the sequece x,x+z,x+2z,...,y. If y-x is not a multiple of z, then similar to the way a for loop operates, the last value will be one that does not exceed y. For any current timestep, the next timestep in the sequence is returned. Thus if ``stagger(1000,2000,100)`` is used in a variable by the :ref:`dump_modify every<command-dump-modify>` command, it will generate the sequence of output timesteps:
 
-::
+.. code-block:: none
 
    1000,1100,1200, ... ,1900,2000 
 
 The ``vdisplace(x,y)`` function takes 2 arguments: x = value0 and y = velocity, and uses the elapsed time to change the value by a linear displacement due to the applied velocity over the course of a run, according to this formula:
 
-::
+.. code-block:: none
 
    value = value0 + velocity*(timestep-startstep)*dt 
 
@@ -452,7 +452,7 @@ The run begins on startstep. Startstep can span multiple runs, using the *start*
 
 The ``swiggle(x,y,z)`` and ``cwiggle(x,y,z)`` functions each take 3 arguments: x = value0, y = amplitude, z = period. They use the elapsed time to oscillate the value by a sin() or cos() function over the course of a run, according to one of these formulas, where omega = 2 PI / period:
 
-::
+.. code-block:: none
 
    value = value0 + Amplitude * sin(omega*(timestep-startstep)*dt)
    value = value0 + Amplitude * (1 - cos(omega*(timestep-startstep)*dt)) 
@@ -462,8 +462,6 @@ where dt = the timestep size.
 The run begins on startstep. Startstep can span multiple runs, using the *start* keyword of the :ref:`run<command-run>` command. See the :ref:`run<command-run>` command for details of how to do this. Note that the :ref:`stats_style<command-stats-style>` keyword *elaplong* = timestep-startstep.
 
 --------------
-
-
 
 .. _command-variable-special-functions:
 
@@ -740,7 +738,8 @@ and thus an error will occur when the formula for "nratio" is evaluated later.
 
 --------------
 
-**Variable Accuracy:**
+Variable Accuracy:
+==================
 
 Obviously, SPARTA attempts to evaluate variables containing formulas
 (*equal* and *particle* and *grid* style variables) accurately whenever

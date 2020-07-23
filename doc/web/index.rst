@@ -6,11 +6,12 @@
 SPARTA Documentation
 ####################
 
+ 
+**SPARTA** stands for **S**\ tochastic **P**\ Arallel **R**\ arefied-gas **T**\ ime-accurate **A**\ nalyzer.
 
 
-############
-Version info
-############
+**Version info**
+
 
 The SPARTA "version" is the date when it was released, such as 3 Mar
 2014. SPARTA is updated continuously. Whenever we fix a bug or add a
@@ -37,9 +38,6 @@ top of the first page of the manual (this page).
    - The source for this version of the manual is in the `docs branch of this fork <https://github.com/fiolj/sparta/tree/docs>`__.
    - The `PDF <https://fiolj.github.io/data/sparta-manual.pdf>`__ and `EPUB <https://fiolj.github.io/data/sparta-manual.epub>`__ files for this reformatted version are also available.
 
-
-SPARTA stands for Stochastic PArallel Rarefied-gas Time-accurate
-Analyzer.
 
 SPARTA is a Direct Simulation Monte Carlo (DSMC) simulator designed to
 run efficiently on parallel computers. It was developed at Sandia

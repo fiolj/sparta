@@ -668,7 +668,7 @@ certain movie file formats (e.g. MPEG level 1 and 2 format streams) have
 video bandwith limits that can be crossed when rendering too large of
 image sizes. Typical warnings look like this:
 
-::
+.. code-block:: none
 
    [mpeg @ 0x98b5e0] packet too large, ignoring buffer limits to mux it
    [mpeg @ 0x98b5e0] buffer underflow st=0 bufi=281407 size=285018

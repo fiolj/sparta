@@ -156,7 +156,7 @@ following sense.
 The dimensions of the simulation box are included in each snapshot. This
 information is formatted as:
 
-::
+.. code-block:: none
 
    ITEM: BOX BOUNDS xx yy zz
    xlo xhi
