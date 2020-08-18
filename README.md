@@ -8,6 +8,24 @@ Analyzer.
 
 ----------------------------------------------------------------------
 
+
+## Alternatively Formatted documentation
+
+------------------------
+------------------------
+
+**NOTE:**  Alternatively reformatted versions of the Manual in HTML, PDF and EPUb may be found in
+
+  - Readthedocs: https://sparta-docs.readthedocs.io/ o http://sparta-docs.rtfd.io/
+
+  - The source for this version of the manual is in the **docs** [branch of this fork](https://github.com/fiolj/sparta/tree/docs)
+
+
+------------------------
+------------------------
+
+
+
 ## What is SPARTA?
 
 SPARTA is a Direct Simulation Monte Carlo (DSMC) code designed to run
@@ -33,18 +51,6 @@ the code and its uses.
 
 The manual may be found at https://sparta.sandia.gov/doc/Manual.html
 
-
-## Alternatively Formatted documentation
-
-------------------------
-
-**NOTE:**  Alternatively reformatted versions of the Manual in HTML, PDF and EPUb may be found in
-
-  - Readthedocs: https://sparta-docs.readthedocs.io/ o http://sparta-docs.rtfd.io/
-  - The source for this version of the manual is in the **docs** [branch of this fork](https://github.com/fiolj/sparta/tree/docs)
-
-
-------------------------
 
 ## What is in the SPARTA distribution?
 
