@@ -7,7 +7,8 @@ SPARTA Documentation
 ####################
 
  
-**SPARTA** stands for **S**\ tochastic **P**\ Arallel **R**\ arefied-gas **T**\ ime-accurate **A**\ nalyzer.
+**SPARTA** stands for **S**\ tochastic **PA**\ rallel **R**\ arefied-gas **T**\ ime-accurate **A**\ nalyzer.
+
 
 
 **Version info**
@@ -36,7 +37,7 @@ top of the first page of the manual (this page).
 
 .. note::
    - The source for this version of the manual is in the `docs branch of this fork <https://github.com/fiolj/sparta/tree/docs>`__.
-   - The `PDF <https://fiolj.github.io/data/sparta-manual.pdf>`__ and `EPUB <https://fiolj.github.io/data/sparta-manual.epub>`__ files for this reformatted version are also available.
+   - The PDF and EPUB versions for this reformatted manual are also available on readthedocs.
 
 
 SPARTA is a Direct Simulation Monte Carlo (DSMC) simulator designed to

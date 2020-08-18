@@ -33,13 +33,16 @@ the code and its uses.
 
 The manual may be found at https://sparta.sandia.gov/doc/Manual.html
 
+
+## Alternatively Formatted documentation
+
 ------------------------
 
-**NOTE:** An alternatively formatted version of the Manual may be found in
+**NOTE:**  Alternatively reformatted versions of the Manual in HTML, PDF and EPUb may be found in
 
-  - [https://fiolj.github.io/sparta/](https://fiolj.github.io/sparta/)
+  - Readthedocs: https://sparta-docs.readthedocs.io/ o http://sparta-docs.rtfd.io/
   - The source for this version of the manual is in the **docs** [branch of this fork](https://github.com/fiolj/sparta/tree/docs)
-  - [PDF](https://fiolj.github.io/data/sparta-manual.pdf) and [EPUB](https://fiolj.github.io/data/sparta-manual.epub) files for this reformatted version are also available.
+
 
 ------------------------
 
