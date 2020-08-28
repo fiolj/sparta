@@ -52,8 +52,7 @@ Syntax:
 
 - zero or more keyword/args pairs may be appended
 
-  keyword = ``iterate`` or ``maxlevel`` or ``minlevel`` or ``thresh`` or ``combine``
-or ``cells`` or ``region`` or ``dir``
+  keyword = ``iterate`` or ``maxlevel`` or ``minlevel`` or ``thresh`` or ``combine`` or ``cells`` or ``region`` or ``dir``
 
   - iterate arg = niterate
 
