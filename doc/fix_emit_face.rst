@@ -32,8 +32,7 @@ Syntax:
 -  face1,face2,... = one or more of ``all`` or ``xlo`` or ``xhi`` or ``ylo`` or
    ``yhi`` or ``zlo`` or ``zhi``
 -  zero or more keyword/value(s) pairs may be appended
--  keyword = ``n`` or ``nevery`` or ``perspecies`` or ``region`` or ``subsonic``
-   or ``twopass``
+-  :ref:`keyword<command-fix-emit-face-keywords>` = ``n`` or ``nevery`` or ``perspecies`` or ``region`` or ``subsonic`` or ``twopass``
 
   n value = Np
     Np = number of particles to create
@@ -126,7 +125,12 @@ The first timestep that added particles are advected, they move for a
 random fraction of the timestep. This insures a continuous flow field of
 particles entering the simulation box.
 
---------------
+
+.. _command-fix-emit-face-keywords:
+
+Keywords
+========
+
 
 The ``n`` keyword can alter how many particles are added, which can be
 useful for debugging purposes. If ``Np`` is set to 0, then the number of
@@ -145,19 +149,9 @@ The ``perspecies`` keyword determines how the species of each added
 particle is randomly determined. This has an effect on the statistical
 properties of added particles.
 
-If ``perspecies`` is set to ``yes``, then a target insertion number ``M`` in a
-grid cell is calculated for each species, which is a function of the
-relative number fraction of the species, as set by the :ref:`mixture nfrac<command-mixture>` command. If ``M`` has a fractional value, e.g.
-12.5, then 12 particles of that species will always be added, and a 13th
-depending on the value of a random number.
+  - If ``perspecies`` is set to ``yes``, then a target insertion number ``M`` in a grid cell is calculated for each species, which is a function of the relative number fraction of the species, as set by the :ref:`mixture nfrac<command-mixture>` command. If ``M`` has a fractional value, e.g.  12.5, then 12 particles of that species will always be added, and a 13th depending on the value of a random number.
 
-If ``perspecies`` is set to ``no``, then a single target insertion number
-``M`` in a grid cell is calculated for all the species. Each time a
-particle is added, a random number is used to choose the species of the
-particle, based on the relative number fractions of all the species in
-the mixture. As before, if ``M`` has a fractional value, e.g. 12.5, then
-12 particles will always be added, and a 13th depending on the value of
-a random number.
+  - If ``perspecies`` is set to ``no``, then a single target insertion number ``M`` in a grid cell is calculated for all the species. Each time a particle is added, a random number is used to choose the species of the particle, based on the relative number fractions of all the species in the mixture. As before, if ``M`` has a fractional value, e.g. 12.5, then 12 particles will always be added, and a 13th depending on the value of a random number.
 
 Here is a simple example that illustrates the difference between the two
 options. Assume a mixture with 2 species, each with a relative number
@@ -196,7 +190,7 @@ of particles in the cells adjacent to the boundary face(s) are computed
 and used to determine the properties of inserted particles on each
 timestep.
 
-.. important:: Caution must be exercised when using the subsonic boundary condition without specifying an inlet temperature. In this case the code tries to estimate the temperature of the flow from the properties of the particles in the domain. If the domain contains few particles per cell it may lead to spurious results. This boundary condition is meant more for an outlet than an inlet boundary condition, and performs well in cases where the cells are adequately populated.
+.. warning:: Caution must be exercised when using the subsonic boundary condition without specifying an inlet temperature. In this case the code tries to estimate the temperature of the flow from the properties of the particles in the domain. If the domain contains few particles per cell it may lead to spurious results. This boundary condition is meant more for an outlet than an inlet boundary condition, and performs well in cases where the cells are adequately populated.
 
 .. important:: When using this keyword, you should also use an appropriate boundary collision or chemistry model via the :ref:`boundary<command-boundary>` or :ref:`bound_modify<command-bound-modify>` or :ref:`surf_collide<command-surf-collide>` or :ref:`surf_react<command-surf-react>` commands, so that particles hitting the surface disappear as if they were exiting the simulation domain. That is necessary to produce the correct subsonic conditions that the particle insertions due to this command are trying to achieve.
 
