@@ -94,9 +94,8 @@ that overlaps with the grid cell. The particle species is chosen
 randomly in accord with the *frac* settings of the collection of species
 in the mixture, as set by the :ref:`mixture<command-mixture>` command.
 
-IMPORTANT NOTE: The preceeding calculation is actually done using
-surface element areas associated with *weighted* cell volumes. Grid
-cells can be weighted using the :ref:`global weight<command-global>` command.
+.. important:: The preceeding calculation is actually done using surface element areas associated with *weighted* cell volumes.
+	       Grid cells can be weighted using the :ref:`global weight<command-global>` command.
 
 The velocity of the particle is set to the sum of the streaming velocity
 and a thermal velocity sampled from the thermal temperature. The

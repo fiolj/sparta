@@ -22,22 +22,21 @@ Syntax:
 -  group-ID = group ID for which surface elements to move
 -  style = *file* or *trans* or *rotate*
 
-   ::
+   - file args = filename entry
+   - trans args = Dx Dy Dz
+      - Dx,Dy,Dz = displacement applied to all surface points (distance units)
 
-        file args = filename entry
-        trans args = Dx Dy Dz
-          Dx,Dy,Dz = displacement applied to all surface points (distance units)
-        rotate args = theta Rx Ry Rz Ox Oy Oz 
-          theta = rotate surface points by this angle in counter-clockwise direction (degrees)
-          Rx,Ry,Rz = rotate around vector starting at origin pointing in this direction
-          Ox,Oy,Oz = origin to rotate around (distance units) 
+   - rotate args = theta Rx Ry Rz Ox Oy Oz 
+
+      - theta = rotate surface points by this angle in counter-clockwise direction (degrees)
+      - Rx,Ry,Rz = rotate around vector starting at origin pointing in this direction
+      - Ox,Oy,Oz = origin to rotate around (distance units) 
 
 -  zero or more keyword/value pairs may be appended
+
 -  keyword = *connect*
 
-   ::
-
-        connect arg = yes or no 
+   - connect arg = yes or no 
 
 *********
 Examples:
