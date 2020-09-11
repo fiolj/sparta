@@ -330,7 +330,7 @@ If you just want to run SPARTA on a single processor, you can use the
 dummy MPI library provided in src/STUBS, since you don't need a true MPI
 library installed on your system. You will also need to build the STUBS
 library for your platform before making SPARTA itself. From the src
-directory, type "make mpi-stubs", or from within the STUBS dir, type
+directory, type ``make mpi-stubs``, or from within the STUBS dir, type
 "make" and it should create a libmpi.a suitable for linking to SPARTA.
 If this build fails, you will need to edit the STUBS/Makefile for your
 platform.
@@ -1055,10 +1055,10 @@ packages, there is no reason to include it in your build.
 When you download a SPARTA tarball, no packages are pre-installed in the
 src directory.
 
-Packages are included or excluded by typing "make yes-name" or "make
-no-name", where "name" is the name of the package in lower-case, e.g.
-name = fft for the FFT package. You can also type "make yes-all", or
-"make no-all" to include/exclude all packages. Type "make package" to
+Packages are included or excluded by typing ``make yes-name`` or ``make
+no-name``, where ``name`` is the name of the package in lower-case, e.g.
+name = fft for the FFT package. You can also type ``make yes-all``, or
+``make no-all`` to include/exclude all packages. Type ``make package`` to
 see all of the package-related make options.
 
 .. note:: Inclusion/exclusion of a package works by simply moving files back and forth between the main src directory and sub-directories with the package name (e.g. src/FFT or src/KOKKOS), so that the files are seen or not seen when SPARTA is built. After you have included or excluded a package, you must re-build SPARTA.
@@ -1068,21 +1068,23 @@ files that exist in both the src directory and in package
 sub-directories. You do not normally need to use these commands unless
 you are editing SPARTA files.
 
-Typing "make package-update" or "make pu" will overwrite src files with
+Typing ``make package-update`` or ``make pu`` will overwrite src files with
 files from the package sub-directories if the package has been included.
 It should be used after a patch is installed, since patches only update
 the files in the package sub-directory, but not the src files. Typing
-"make package-overwrite" will overwrite files in the package
+``make package-overwrite`` will overwrite files in the package
 sub-directories with src files.
 
-Typing "make package-status" or "make ps" will show which packages are
+Typing ``make package-status`` or ``make ps`` will show which packages are
 currently included. For those that are included, it will list any files
 that are different in the src directory and package sub-directory.
-Typing "make package-diff" lists all differences between these files.
-Again, type "make package" to see all of the package-related make
+Typing ``make package-diff`` lists all differences between these files.
+Again, type ``make package`` to see all of the package-related make
 options.
 
---------------
+Typing ``make package-installed`` or ``make pi`` will show which packages are
+currently installed in the src directory.
+
 
 
 .. _start-includingexcluding-cmake:
@@ -1117,11 +1119,11 @@ particular packages, there is no reason to include it in your build.
 When you download a SPARTA tarball, no packages are pre-installed in
 the build/src directory.
 
-Packages are included or excluded by typing "cmake -DPKG_NAME=ON" or 
-"cmake -DPKG_NAME=OFF", where "NAME" is the name of the package in upper-case, 
-e.g. name = FFT for the FFT package. You can also type "cmake
--DSPARTA_ENABLE_ALL_PKGS=ON", or "cmake -DSPARTA_DISABLE_ALL_PKGS=ON" to 
-include or exclude all packages. Type "cmake -DSPARTA_LIST_PKGS=ON" to
+Packages are included or excluded by typing ``cmake -DPKG_NAME=ON`` or 
+``cmake -DPKG_NAME=OFF``, where ``NAME`` is the name of the package in upper-case, 
+e.g. name = FFT for the FFT package. You can also type ``cmake
+-DSPARTA_ENABLE_ALL_PKGS=ON``, or ``cmake -DSPARTA_DISABLE_ALL_PKGS=ON`` to 
+include or exclude all packages. Type ``cmake -DSPARTA_LIST_PKGS=ON`` to
 see all of the package-related CMake options.
 
 NOTE: Inclusion or exclusion of a package works by setting CMake boolean
