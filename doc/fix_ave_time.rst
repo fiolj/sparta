@@ -68,11 +68,11 @@ Examples:
 
 ::
 
-   fix 1 ave/time all 100 5 1000 c_myTemp c_thermo_temp file temp.profile
-   fix 1 ave/time all 100 5 1000 c_myCount[2] c_myCount[3] ave window 20 &
-                                 title1 "My output values"
-   fix 1 ave/time all 100 5 1000 c_myCount[*] ave window 20
-   fix 1 ave/time all 1 100 1000 f_indent f_indent[1] file temp.indent off 1 
+   fix 1 ave/time 100 5 1000 c_myTemp c_thermo_temp file temp.profile
+   fix 1 ave/time 100 5 1000 c_myCount[2] c_myCount[3] ave window 20 &
+                             title1 "My output values"
+   fix 1 ave/time 100 5 1000 c_myCount[*] ave window 20
+   fix 1 ave/time 1 100 1000 f_indent f_indent[1] file temp.indent off 1 
 
 ************
 Description:
