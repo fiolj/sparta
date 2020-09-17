@@ -23,20 +23,20 @@ Syntax:
    ``diffuse/kk`` or ``piston/kk`` or ``vanish/kk``
 -  ``args`` = arguments for specific style
 
-   specular or specular/kk
+   :ref:`specular or specular/kk<surf-collide-specular>`
      args = none
-   diffuse or diffuse/kk args = Tsurf acc
+   :ref:`diffuse or diffuse/kk<surf-collide-diffuse>` args = Tsurf acc
      - Tsurf = temperature of surface (temperature units).
        Tsurf can be a variable (see below)
      - acc = accommodation coefficient
-   cll args = Tsurf acc_n acc_t acc_rot acc_vib
+   :ref:`td<surf-collide-cll>` args = Tsurf acc_n acc_t acc_rot acc_vib
      - Tsurf = temperature of surface (temperature units).        
        Tsurf can be a variable (see below)
      - acc_n = accommodation coefficient in the surface normal direction
      - acc_t = accommodation coefficient in the surface tangential direction
      - acc_rot = accommodation coefficient for the rotational modes
      - acc_vib = accommodation coefficient for the vibrational modes
-   impulsive args = Tsurf model param1 param2 var theta_peak pol_pow azi_pow
+   :ref:`td<surf-collide-impulsive>` args = Tsurf model param1 param2 var theta_peak pol_pow azi_pow
      - Tsurf = temperature of surface (temperature units).
        Tsurf can be a variable (see below)
 
@@ -59,14 +59,14 @@ Syntax:
      - theta_peak = peak location of the polar angle distribution
      - pol_pow = cosine power represeting the polar angular distribution
      - azi_pow = cosine power represeting the azimuthal angular distribution
-   td arg = Tsurf 
+   :ref:`td<surf-collide-td>` arg = Tsurf 
      Tsurf = temperature of surface (temperature units).
      Tsurf can be a variable (see below) 
-   piston or piston/kk args = Vwall
+   :ref:`piston or piston/kk<surf-collide-piston>` args = Vwall
      Vwall = velocity of boundary wall (velocity units)
-   transparent
+   :ref:`transparent<surf-collide-transparent>`
      args = none 
-   vanish or vanish/kk
+   :ref:`vanish or vanish/kk<surf-collide-vanish>`
      args = none 
 
 -  zero or more keyword/arg pairs may be appended
@@ -155,6 +155,9 @@ only contain alphanumeric characters and underscores.
 
 --------------
 
+
+.. _surf-collide-specular:
+
 The *specular* style computes a simple specular reflection model. It
 requires no arguments. Specular reflection means that a particle
 reflects off a surface element with its incident velocity vector
@@ -162,6 +165,8 @@ reversed with respect to the outward normal of the surface element. The
 particle's speed is unchanged.
 
 --------------
+
+.. _surf-collide-diffuse:
 
 The *diffuse* style computes a simple diffusive reflection model.
 
@@ -194,6 +199,8 @@ The *Tsurf* value can be specified as an equal-style :ref:`variable<command-vari
 Equal-style variables can specify formulas with various mathematical functions, and include :ref:`command-stats-style` keywords for the simulation box parameters and timestep and elapsed time. Thus it is easy to specify a time-dependent temperature.
 
 --------------
+
+.. _surf-collide-cll:
 
 The *cll* style computes the surface collision model proposed by
 Cercignani, Lampis and Lord. The model has 5 parameters set by the
@@ -228,6 +235,8 @@ time. Thus, it is easy to specify a time-dependent temperature.
 
 --------------
 
+.. _surf-collide-td:
+
 The *td* style computes the thermal desorption surface collision model
 proposed by Swaminathan Gopalan *et al.* [SG18]_. The model has 1
 parameter set by *Tsurf* argument, which is the temperature of the
@@ -252,6 +261,8 @@ determine the current surface temperature.
 Equal-style variables can specify formulas with various mathematical functions, and include :ref:`command-stats-style` keywords for the simulation box parameters and timestep and elapsed time. Thus it is easy to specify a time-dependent temperature.
 
 --------------
+
+.. _surf-collide-impulsive:
 
 The *impulsive* style computes the surface collision model proposed by Swaminathan Gopalan *et al.* [SG18]_. The model has 8 parameters.
 Within impulsive scattering, two different models are available, namely *softsphere* and *tempvar*. The *softsphere* argument uses the soft sphere model and has two parameters: *en_ratio* which represents the fraction of energy lost during the collision, and *eff_mass* specifying the effective mass of the surface atom.
@@ -296,6 +307,9 @@ Equal-style variables can specify formulas with various mathematical functions a
 
 --------------
 
+.. _surf-collide-piston:
+
+
 The *piston* style models a subsonic pressure boundary condition. It can only be assigned to the simulation box boundaries via the :ref:`command-bound-modify` or to surface elements which are parallel to one of the box boundaries (via the :ref:`command-surf-modify`).
 
 It treats collisions of particles with the surface as if the surface were moving with specified velocity *Vwall* away from the incident particle. Thus the "collision" actually occurs later in the timestep and the reflected velocity is less than it would be for reflection from a stationary surface.
@@ -305,15 +319,19 @@ This calculation is performed using equations 12.30 and 12.31 in [Bird94]_ to co
 
 NOTE: give more details on how to do this?
 
-Note that *Vwall* must always be input as a value >= 0.0, meaning the surface is moving away from the incident particle. For example, in the z-dimension, if the upper box face is assigned *Vwall*, it is moving upward. Similarly if the lower box face is assigned *Vwall*, it is moving downward.
+.. note:: *Vwall* must always be input as a value >= 0.0, meaning the surface is moving away from the incident particle. For example, in the z-dimension, if the upper box face is assigned *Vwall*, it is moving upward. Similarly if the lower box face is assigned *Vwall*, it is moving downward.
 
 --------------
+
+.. _surf-collide-transparent:
 
 The *transparent* style simply allows particles to pass through the surface without altering the particle properties.
 
 This is useful for tallying flow statistics. The surface elements must have been flagged as transparent when they were read in, via the :ref:`command-read-surf` and its transparent keyword. The :ref:`command-compute-surf` will tally fluxes differently for transparent surf elements. The :ref:`howto-transparent-surface` doc page provides an overview of transparent surfaces. See those doc pages for details.
 
 --------------
+
+.. _surf-collide-vanish:
 
 The *vanish* style simply deletes any particle which hits the surface.
 
@@ -421,6 +439,7 @@ The first element of the vector is the count of particles that hit surface eleme
 
 --------------
 
+
 Styles with a *kk* suffix are functionally the same as the corresponding style without the suffix. They have been optimized to run faster, depending on your available hardware, as discussed in the :ref:`Accelerating SPARTA<accelerate>` section of the manual. The accelerated styles take the same arguments and should produce the same results, except for different random number, round-off and precision issues.
 
 These accelerated styles are part of the KOKKOS package. They are only enabled if SPARTA was built with that package. See the :ref:`Making SPARTA<start-optional-packages>` section for more info.
@@ -452,7 +471,6 @@ Default:
 ********
  none
 
---------------
 
 ***********
 References:

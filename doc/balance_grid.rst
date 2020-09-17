@@ -22,13 +22,13 @@ Syntax:
 -  style = ``none`` or ``stride`` or ``clump`` or ``block`` or ``random`` or
    ``proc`` or ``rcb``
 
-   - none args = none
-   - stride args = xyz or xzy or yxz or yzx or zxy or zyx
-   - clump args = xyz or xzy or yxz or yzx or zxy or zyx
-   - block args = Px Py Pz:  # of processors in each dimension
-   - random args = none 
-   - proc args = none
-   - rcb args = weight: or part or time 
+   - :ref:`none<balance-grid-none>` args = none
+   - :ref:`stride<balance-grid-stride>` args = xyz or xzy or yxz or yzx or zxy or zyx
+   - :ref:`clump<balance-grid-clump>` args = xyz or xzy or yxz or yzx or zxy or zyx
+   - :ref:`block<balance-grid-block>` args = Px Py Pz:  # of processors in each dimension
+   - :ref:`random<balance-grid-random>` args = none 
+   - :ref:`proc<balance-grid-proc>` args = none
+   - :ref:`rcb<balance-grid-rcb>` args = weight or part or time 
 
 -  zero or more keyword/value(s) pairs may be appended
 
@@ -98,73 +98,42 @@ cells to each processor.
 
 --------------
 
-The *none* style will not change the assignment of grid cells to
-processors. However it will update the internal data structures within
-SPARTA that store ghost cell information on each processor for cells
-owned by other processors. This is useful if the :ref:`global gridcut<command-global>` command was used after grid cells were already
-defined. That command erases ghost cell information stored by
-processors, which then needs to be re-generated before a simulation is
-run. Using the balance_grid none command will re-generate the ghost cell
-information.
+.. _balance-grid-none:
 
-The *stride*, *clump*, and *block* styles can only be used if the grid
-is "uniform". The grid in SPARTA is hierarchical with one or more
-levels, as defined by the :ref:`create_grid<command-create-grid>` or
-:ref:`read_grid<command-read-grid>` commlands. If the parent cell of every
-grid cell is at the same level of the hierarchy, then for puposed os
-this command the grid is uniform, meaning the collection of grid cells
-effectively form a uniform fine grid overlaying the entire simulation
-domain.
+The *none* style
+  will not change the assignment of grid cells to processors. However it will update the internal data structures within SPARTA that store ghost cell information on each processor for cells owned by other processors. This is useful if the :ref:`global gridcut<command-global>` command was used after grid cells were already defined. That command erases ghost cell information stored by processors, which then needs to be re-generated before a simulation is run. Using the balance_grid none command will re-generate the ghost cell information.
 
-The meaning of the *stride*, *clump*, and *block* styles is exactly the
-same as when they are used as keywords with the
-:ref:`create_grid<command-create-grid>` command. See its doc page for
-details.
+.. _balance-grid-stride:
+.. _balance-grid-clump:
+.. _balance-grid-block:
 
-The *random* style means that each grid cell will be assigned randomly
-to one of the processors. Note that in this case every processor will
-typically not be assigned the exact same number of cells.
+The *stride*, *clump*, and *block* styles
+  can only be used if the grid is "uniform". The grid in SPARTA is hierarchical with one or more levels, as defined by the :ref:`create_grid<command-create-grid>` or :ref:`read_grid<command-read-grid>` commlands. If the parent cell of every grid cell is at the same level of the hierarchy, then for puposed os this command the grid is uniform, meaning the collection of grid cells effectively form a uniform fine grid overlaying the entire simulation domain.
 
-The *proc* style means that each processor will choose a random
-processor to assign its first grid cell to. It will then loop over its
-grid cells and assign each to consecutive processors, wrapping around
-the enumeration of processors if necessary. Note that in this case every
-processor will typically not be assigned exactly the same number of
-cells.
+  The meaning of the *stride*, *clump*, and *block* styles is exactly the same as when they are used as keywords with the :ref:`create_grid<command-create-grid>` command. See its doc page for details.
 
-The *rcb* style uses a recursive coordinate bisectioning (RCB) algorithm
-to assign spatially-compact clumps of grid cells to processors. Each
-grid cell has a "weight" in this algorithm so that each processor is
-assigned an equal total weight of grid cells, as nearly as possible.
+.. _balance-grid-random:
 
-If the *weight* argument is specified as *cell*, then the weight for
-each grid cell is 1.0, so that each processor will end up with an equal
-number of grid cells.
+The *random* style
+  means that each grid cell will be assigned randomly to one of the processors. Note that in this case every processor will typically not be assigned the exact same number of cells.
 
-If the *weight* argument is specified as *part*, then the weight for
-each grid cell is the number of particles it currently owns, so that
-each processor will end up with an equal number of particles.
+.. _balance-grid-proc:
 
-If the *weight* argument is specified as *time*, then timers are used to
-estimate the cost of each grid cell. The cost from the timers is given
-on a per processor basis, and then assigned to grid cells by weighting
-by the relative number of particles in the grid cells. If no timing data
-has yet been collected at the point in a script where this command is
-issued, a *cell* style weight will be used instead of *time*. A small
-warmup run (for example 100 timesteps) can be used before the balance
-command so that timer data is available. The timers used for balancing
-tally time from the move, sort, collide, and modify portions of each
-timestep.
+The *proc* style
+  means that each processor will choose a random processor to assign its first grid cell to. It will then loop over its grid cells and assign each to consecutive processors, wrapping around the enumeration of processors if necessary. Note that in this case every processor will typically not be assigned exactly the same number of cells.
 
-Here is an example of an RCB partitioning for 24 processors, of a 2d
-hierarchical grid with 5 levels, refined around a tilted ellipsoidal
-surface object (outlined in pink). This is for a *weight cell* setting,
-yielding an equal number of grid cells per processor. Each processor is
-assigned a different color of grid cells. (Note that less colors than
-processors were used, so the disjoint yellow cells actually belong to
-three different processors). This is an example of a clumped
-distribution where each processor's assigned cells can be compactly
-bounded by a rectangle. Click for a larger version of the image.
+.. _balance-grid-rcb:
+
+The *rcb* style
+  uses a recursive coordinate bisectioning (RCB) algorithm to assign spatially-compact clumps of grid cells to processors. Each grid cell has a "weight" in this algorithm so that each processor is assigned an equal total weight of grid cells, as nearly as possible.
+
+  - If the *weight* argument is specified as *cell*, then the weight for each grid cell is 1.0, so that each processor will end up with an equal number of grid cells.
+
+  - If the *weight* argument is specified as *part*, then the weight for each grid cell is the number of particles it currently owns, so that each processor will end up with an equal number of particles.
+
+  - If the *weight* argument is specified as *time*, then timers are used to estimate the cost of each grid cell. The cost from the timers is given on a per processor basis, and then assigned to grid cells by weighting by the relative number of particles in the grid cells. If no timing data has yet been collected at the point in a script where this command is issued, a *cell* style weight will be used instead of *time*. A small warmup run (for example 100 timesteps) can be used before the balance command so that timer data is available. The timers used for balancing tally time from the move, sort, collide, and modify portions of each timestep.
+
+  Here is an example of an RCB partitioning for 24 processors, of a 2d hierarchical grid with 5 levels, refined around a tilted ellipsoidal surface object (outlined in pink). This is for a *weight cell* setting, yielding an equal number of grid cells per processor. Each processor is assigned a different color of grid cells. (Note that less colors than processors were used, so the disjoint yellow cells actually belong to three different processors). This is an example of a clumped distribution where each processor's assigned cells can be compactly bounded by a rectangle. Click for a larger version of the image.
 
 |image0|
 

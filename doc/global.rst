@@ -25,28 +25,28 @@ keyword = ``fnum`` or ``nrho`` or ``vstream`` or ``temp`` or ``gravity`` or ``su
 
 
 
-- fnum value = ratio
+- :ref:`fnum<global-fnum>` value = ratio
 
   ratio = Fnum ratio of physical particles to simulation particles
 
-- nrho value = density
+- :ref:`nrho<global-nrho>` value = density
 
   density = number density of background gas (# per length^3 units)
 
-- vstream values = Vx Vy Vz
+- :ref:`vstream<global-vstream>` values = Vx Vy Vz
 
   Vx,Vy,Vz = streaming velocity of background gas (velocity units)
 
-- temp values = thermal
+- :ref:`temp<global-temp>` values = thermal
 
   thermal = temperature of background gas (temperature units)
 
-- gravity values = mag ex ey ez
+- :ref:`gravity<global-gravity>` values = mag ex ey ez
 
   - mag = magnitude of acceleration due to gravity (acceleration units)
   - ex,ey,ez = direction vector that gravity acts in
 
-- surfs value = explicit or explicit/distributed or implicit
+- :ref:`surfs<global-surfs>` value = explicit or explicit/distributed or implicit
 
   - explicit = surfs defined in read_surf file, each proc owns copy of all surfs
   - explicit/distributed = surfs defined in read_surf file, each proc owns only the surfs for its owned_ghost grid cells
@@ -55,54 +55,56 @@ keyword = ``fnum`` or ``nrho`` or ``vstream`` or ``temp`` or ``gravity`` or ``su
   - persurf = loop over my surfs and cells they overlap
   - auto = choose percell or persurf based on surface element and proc count
 
-- surfmax value = Nsurf
+- :ref:`surfgrid<global-surfgrid>` value = percell or persurf or auto
+
+- :ref:`surfmax<global-surfmax>` value = Nsurf
 
   Nsurf = max # of surface elements allowed in single grid cell
 
-- cellmax value = Ncell
+- :ref:`cellmax<global-cellmax>` value = Ncell
 
   Ncell = max # of grid cells a single surf can overlap
 
-- splitmax value = Nsplit
+- :ref:`splitmax<global-splitmax>` value = Nsplit
 
   Nsplit = max # of sub-cells one grid cell can be split into by surface elements
 
-- surftally value = reduce or rvous or auto
+- :ref:`surftally<global-surftally>` value = reduce or rvous or auto
 
   - reduce = tally surf collision info via MPI_Allreduce operations
   - rvous = tally via a rendezvous algorithm
   - auto = choose reduce or rvous based on surface element and proc count
     
-- surfpush value(s) = no/yes or slo shi svalue
+- :ref:`surfpush<global-surfpush>` value(s) = no/yes or slo shi svalue
 
   - no = do not push surface element points near cell surface
   - yes = push surface element points near cell surface if necessary
   - slo,shi = push points within this range
   - svalue = push points to this value
 
-- gridcut value = cutoff
+- :ref:`gridcut<global-gridcut>` value = cutoff
 
   cutoff = acquire ghost cells up to this far away (distance units)
 
-- comm/sort value = yes or no
+- :ref:`comm/sort<global-comm/sort>` value = yes or no
 
   yes/no = sort incoming messages by proc ID if yes, else no sort
 
-- comm/style value = neigh or all
+- :ref:`comm/style<global-comm/style>` value = neigh or all
 
   - neigh = setup particle comm with subset of near-neighbor processor
   - all = allow particle comm with potentially any processor
 
-- weight value = wstyle mode
+- :ref:`weight<global-weight>` value = wstyle mode
 
   - wstyle = cell
   - mode = none or volume or radius
 
-- particle/reorder value = nsteps
+- :ref:`particle/reorder<global-particle/reorder>` value = nsteps
 
   nsteps = reorder the particles every this many timesteps
 
-- mem/limit value = grid or bytes
+- :ref:`mem/limit<global-mem/limit>` value = grid or bytes
 
   - grid = limit extra memory for load-balancing, particle reordering, and restart file read/write to grid cell memory
   - bytes = limit extra particle memory to this amount (in MBytes) 
@@ -126,24 +128,36 @@ Description:
 
 Define global properties of the system.
 
+.. _global-fnum:
+
 The *fnum* keyword
   sets the ratio of real, physical molecules to simulation particles. E.g. a value of 1.0e20 means that one particle in the simulation represents 1.0e20 molecules of the particle species.
+
+.. _global-nrho:
 
 The *nrho* keyword
   sets the number density of the background gas. For 3d simulations the units are #/volume. For 2d, the units are effectively #/area since the z dimension is treated as having a length of 1.0.
 
   Assuming your simulation is populated by particles from the background gas, the *fnum* and *nrho* settings can determine how many particles will be present in your simulation, when using the :ref:`create_particles<command-create-particles>` or :ref:`fix emit<command-fix-emit-face>` command variants.
 
+.. _global-vstream:
+
 The *vstream* keyword
   sets the streaming velocity of the background gas.
 
+.. _global-temp:
+
 The *temp* keyword
   sets the thermal temperature of the background gas.  This is a Gaussian velocity distribution superposed on top of the streaming velocity.
+
+.. _global-gravity:
 
 The *gravity* keyword
   sets an acceleration term which is included in the motion of particles. The magnitude of gravity is set by the *mag* keyword. Its direction of action is set as (ex,ex,ez). The direction does not have to be a unit vector. If the magnitude is set to 0.0, no acceleration term is included, which is the default.
 
 --------------
+
+.. _global-surfs:
 
 The *surfs* keyword
   determines what kind of surface elements SPARTA uses and how they are distributed across processors. Possible values are *explicit*, *explicit/distributed*, and *implicit*.
@@ -152,25 +166,37 @@ The *surfs* keyword
 
   The *explicit* setting is the default and means each processor stores a copy of all the defined surface elements. Note that a surface element requires about 100 bytes of storage, so storing a million on a single processor requires about 100 MBytes.
 
+.. _global-surfgrid:
+
 The *surfgrid* keyword
   determines what algorithm is used to enumerate the overlaps (intersections) between grid cells and surface elements (lines in 2d, triangles in 3d).
 
   The possible settings are *percell*, *persurf*, and *auto*. The *auto* setting is the default and will choose between a *percell* or *persurf* algorithm based on the number of surface elements and processor count. If there are more processors than surface elements, the *percell* algorithm is used. Otherwise the *persurf* algorithm is used. The *percell* algorithm loops over the subset of grid cells each processor owns. All the surface elements are tested for overlap with each owned grid cell. The *persurf* algorithm loops over a 1/P fraction of surface elements on each processor. The bounding box around each surface is used to find all grid cells it possibly overlaps. For large numbers of surface elements or processors, the *persurf* algorithm is generally faster.
 
+.. _global-surfmax:
+
 The *surfmax* keyword
   determines the maximum number of surface elements (lines in 2d, triangles in 3d) that can overlap a single grid cell. The default is 100, which should be large enough for any simulation, unless you define very coarse grid cells relative to the size of surface elements they contain.
+
+.. _global-cellmax:
 
 The *cellmax* keyword
   determines the maximum number of grid cells that a single surface element (lines in 2d, tringles in 3d) can overlap. This keyword is only used if the *persurf* algorithm defined by the *surfgrid* keyword is invoked. The default is 100, which should be large enough for most simulations, unless you define one or more very large surface elements relative to the size of grid cells they intersect.
 
+.. _global-splitmax:
+
 The *splitmax* keyword
   determines the maximum number of sub-cells a single grid cell can be split into as a result of its intersection with multiple surface elements (lines in 2d, triangles in 3d). The default is 10, which should be large enough for any simulation, unless you embed a complex-shaped surface object into one or a very few grid cells.
+
+.. _global-surftally:
 
 The *surftally* keyword
   determines what algorithm is used to combine tallies of surface collisions across processors that own portions of the same surface element. The possible settings are *reduce*, *rvous*, and *auto*. The *auto* setting is the default and will choose between a *reduce* or *rvous* algorithm based on the number of surface elements and processor count. If there are more processors than surface elements, the *reduce* algorithm is used. Otherwise the *rvous* algorithm is used.
   The *reduce* algorithm is suitable for relatively small surface elememt counts. It creates a copy of a vector or array of length the global number of surface elements. Each processor sums its tally contributions into the vector or array. An MPI_Allreduce() is performed to sum it across all processors. Each processor than extracts values for the N/P surfaces it owns. The *rvous* algorithm is faster for large surface element counts. A rendezvous style of communication is performed where every processor sends its tally contributions directly to the processor which owns the element as one of its N/P elements.
 
 --------------
+
+.. _global-surfpush:
 
 The *surfpush* keyword
   is only useful to use when SPARTA is having problems embedding a surface in the simulation grid, which occurs when when surface elements are defined via the :ref:`read_surf<command-read-surf>` command. Or for debugging purposes.
@@ -189,6 +215,8 @@ The *surfpush* keyword
 
 --------------
 
+.. _global-gridcut:
+
 The *gridcut* keyword
   determines the cutoff distance at which ghost grid cells will be stored by each processor. Assuming the processor owns a compact clump of grid cells (see below), it will also store ghost cell information from nearby grid cells, up to this distance away.
   If the setting is -1.0 (the default) then each processor owns a copy of ghost cells for all grid cells in the simulation. This can require too much memory for large models. If the cutoff is 0.0, processors own a minimal number of ghost cells. This saves memory but may require multiple passes of communication each timestep to move all the particles and migrate them to new owning processors. Typically a cutoff the size of 2-3 grid cell diameters is a good compromise that requires only modest memory to store ghost cells and allows all particle moves to complete in only one pass of communication.
@@ -202,8 +230,12 @@ The *gridcut* keyword
 
   .. important:: If grid cells have already been defined via the :ref:`create_grid<command-create-grid>`, :ref:`read_grid<command-read-grid>`, or :ref:`read_restart<command-read-restart>` commands, when the *gridcut* cutoff is specified, then any ghost cell information that is currently stored will be erased. As discussed in the preceeding paragraph, a :ref:`balance_grid<command-balance-grid>` command must then be invoked to regenerate ghost cell information. If this is not done before surfaces are read in or a simulation is performed, an error will result.
 
+.. _global-comm/sort:
+
 The *comm/sort* keyword
   determines whether the messages a proc receives for migrating particles (every step) and ghost grid cells (at setup and after re-balance) are sorted by processor ID. Doing this requires a bit of overhead, but can make it easier to debug in parallel, because simulations should be reproducible when run on the same number of processors. Without sorting, messages may arrive in a randomized order, which means lists of particles and grid cells end up in a different order leading to statistical differences between runs.
+
+.. _global-comm/style:
 
 The *comm/style* keyword
   determines the style of particle communication that is performed to migrate particles every step. The most efficient method is typically for each processor to exchange messages with only the processors it has ghost cells for, which is the method used by the *neigh* setting. The *all* setting performs a relatively cheap, but global communication operation to determine the exact set of neighbors that need to be communicated with at each step.
@@ -211,6 +243,8 @@ The *comm/style* keyword
   For small processor counts there is typically little difference. On large processor counts the *neigh* setting can be significantly faster. However, if the flow is streaming in one dominant direction, there may be no particle migration needed to upwind processors, so the *all* method can generate smaller counts of neighboring processors.
 
   Note that the *neigh* style only has an effect (at run time) when the grid is decomposed by the RCB option of the :ref:`balance<command-balance-grid>` or :ref:`fix balance<command-fix-balance>` commands. If that is not the case, SPARTA performs the particle communication as if the *all* setting were in place.
+
+.. _global-weight:
 
 The *weight* keyword
   determines whether particle weighting is used.  Currently the only style allowed, as specified by wstyle = *cell*, is per-cell weighting. This is a mechanism for inducing every grid cell to contain roughly the same number of particles (even if cells are of varying size), so as to minimize the total number of particles used in a simulation while preserving accurate time and spatial averages of flow quantities. The cell weights also affect how many particles per cell are created by the :ref:`create_particles<command-create-particles>` and :ref:`fix emit<command-fix-emit-face>` command variants.
@@ -223,8 +257,12 @@ The *weight* keyword
 
   Note that the first calculation of weights is performed whenever the *global weight* command is issued. If particles already exist, they are not cloned or destroyed by the new weights. The second calculation only happens when a simulation is run.
 
+.. _global-particle/reorder:
+
 The *particle/reorder* keyword
   determines how often the list of particles on each processor is reordered to store particles in the same grid cell contiguously in memory. This operation is performed every *nsteps* as specified. A value of 0 means no reordering is ever done.  This option is only available when using the KOKKOS package and can improve performance on certain hardware such as GPUs, but is typically slower on CPUs except when running on thousands of nodes.
+
+.. _global-mem/limit:
 
 The *mem/limit* keyword
   limits the amount of memory allocated for several operations: load balancing, reordering of particles, and restart file read/write. This should only be necessary for very large simulations where the memory footprint for particles and grid cells is a significant fraction of available memory. In this case, these operations can trigger a memory error due to the additional memory they require.  Setting a limit on the memory size will perform these operations more incrementally so that memory errors do not occur.

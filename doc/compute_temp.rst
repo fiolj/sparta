@@ -57,10 +57,11 @@ The temperature is calculated by the formula KE = dim/2 N kB T, where KE
 dimensionality of the simulation, N = number of particles, kB =
 Boltzmann constant, and T = temperature.
 
-Note that this definition of temperature does not subtract out a net
-streaming velocity for particles, so it is not a thermal temperature
-when the particles have a non-zero streaming velocity. See the :ref:`compute thermal/grid<command-compute-thermal-grid>` command for calculation of
-thermal temperatures on a per grid cell basis.
+.. note::
+   This definition of temperature does not subtract out a net
+   streaming velocity for particles, so it is not a thermal temperature
+   when the particles have a non-zero streaming velocity. See the :ref:`compute thermal/grid<command-compute-thermal-grid>` command for calculation of
+   thermal temperatures on a per grid cell basis.
 
 --------------
 
