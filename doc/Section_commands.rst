@@ -169,6 +169,7 @@ parts is now described in more detail. Remember that almost all the
 commands need only be used if a non-default value is desired.
 
 1. Initialization
+
    Set parameters that need to be defined before the simulation domain,
    particles, grid cells, and surfaces are defined.
 
@@ -191,15 +192,12 @@ commands need only be used if a non-default value is desired.
    runs.
 
    The system can also be load-balanced after the grid and/or particles are
-   defined in the setup stage using the :ref:`command-balance-grid`. The grid can also be adapted before or betwee simulations using the :ref:`command-adapt-grid`.
+   defined in the setup stage using the :ref:`command-balance-grid`. The grid can also be adapted before or between simulations using the :ref:`command-adapt-grid`.
 
 3. Settings
 
-   Once the problem geometry, grid cells, surfaces, and particles are
-   defined, a variety of settings can be specified, which include
-   simulation parameters, output options, etc.
-
-   Commands that do this include
+   Once the problem geometry, grid cells, surfaces, and particles are defined, a variety of settings can be specified,
+   which include simulation parameters, output options, etc.  Commands that do this include:
 
    :ref:`global<command-global>`,  :ref:`timestep<command-timestep>`,
    :ref:`collide<command-collide>` for a collision model, :ref:`react<command-react>` for a chemisty model, :ref:`fix<command-fix>` for boundary conditions,
@@ -210,19 +208,13 @@ commands need only be used if a non-default value is desired.
 
 4. Run a simulation
 
-  A simulation is run using the :ref:`command-run`.
-
-
-
-
+   A simulation is run using the :ref:`command-run`.
 
 .. _commands-category:
 
 ***************************
 Commands listed by category
 ***************************
-
-
 
 This section lists many SPARTA commands, grouped by category. The :ref:`next section<commands-individual>` lists all commands alphabetically.
 
@@ -272,18 +264,11 @@ Miscellaneous:
 
 
 
-
-
-
-
-
 .. _commands-individual:
 
 *******************
 Individual commands
 *******************
-
-
 
 This section lists all SPARTA commands alphabetically, with a separate listing below of styles within certain commands. The :ref:`previous section<commands-category>` lists many of the same commands, grouped by category.
 
@@ -395,15 +380,11 @@ This is indicated by additional letters in parenthesis: k = KOKKOS.
      -
      -
 
-
-
 .. _commands-compute-styles:
 
 
 Compute styles
 ==============
-
-
 
 See the :ref:`command-compute` for one-line descriptions of
 each style or click on the style itself for a full description. Some of
@@ -439,13 +420,11 @@ built with the :ref:`appropriate accelerated package<accelerate>`. This is indic
      -
 
 
-
 .. _commands-collide-styles:
 
 
 Collide styles
 ==============
-
 
 
 See the :ref:`command-collide` for details of each style.
@@ -464,8 +443,6 @@ SPARTA is built with the :ref:`appropriate accelerated package<accelerate>`. Thi
 
 Surface collide styles
 ======================
-
-
 
 See the :ref:`command-surf-collide` for details of each style. Some of the
 styles have accelerated versions, which can be used if SPARTA is built
@@ -487,14 +464,11 @@ is indicated by additional letters in parenthesis: k = KOKKOS.
      -
 
 
-
 .. _commands-surface-reaction:
 
 
 Surface reaction styles
 =======================
-
-
 
 See the :ref:`command-surf-react` for details of each
 style.

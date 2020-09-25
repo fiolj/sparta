@@ -60,7 +60,7 @@ species and each grid cell to a dump file every 1000 steps:
 
 ::
 
-   compute 1 thermal/grid species temp
+   compute 1 thermal/grid all species temp
    fix 1 ave/grid 10 100 1000 c_1[*]
    dump 1 grid all 1000 tmp.grid id f_1[*] 
 

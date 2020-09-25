@@ -4,9 +4,6 @@
 .. index:: fix adapt/kk
 
 
-
-
-
 .. _command-fix-adapt:
 
 #################
@@ -14,11 +11,7 @@ fix adapt command
 #################
 
 
-
-
-
-
-.. _command-fix-adapt-fix-adaptkk-command:
+.. _command-fix-adaptkk:
 
 ####################
 fix adapt/kk command

@@ -1,14 +1,20 @@
 :orphan:
 
-.. index:: fix balance - fix balance/kk
-
+.. index:: fix balance
+.. index:: fix balance/kk
 
 
 .. _command-fix-balance:
 
-############################################
-fix balance command - fix balance/kk command
-############################################
+###################
+fix balance command
+###################
+
+.. _command-fix-balancekk:
+
+######################
+fix balance/kk command
+######################
 
 
 *******
@@ -79,11 +85,10 @@ each processor. This means each processor's cells will be geometrically
 compact. The *random* and *proc* keywords will produce dispersed
 assignments of child cells to each processor.
 
-IMPORTANT NOTE: See :ref:`Section 6.8<howto-grids>` of the
-manual for an explanation of clumped and dispersed grid cell assignments
-and their relative performance trade-offs.
+.. important:: See :ref:`Section 6.8<howto-grids>` of the manual for an
+	       explanation of clumped and dispersed grid cell assignments
+	       and their relative performance trade-offs.
 
---------------
 
 Rebalancing is attempted by this command once every *Nfreq* timesteps,
 but only if the current imbalance factor exceeds the specified *thresh*.
@@ -94,64 +99,30 @@ running on 10 processors, if the most heavily loaded processor has 1200
 particles, then the factor is 1.2, meaning there is a 20% imbalance. The
 *thresh* setting must be >= 1.0.
 
-IMPORTANT NOTE: This command attempts to minimize the imbalance factor,
-as defined above. But computational cost is not strictly proportional to
-particle count, depending on the :ref:`collision<command-collide>` and
-:ref:`chemistry<command-react>` models being used. Also, changing the
-assignment of grid cells and particles to processors may lead to
-additional communication overheads, e.g. when migrating particles
-between processors. Thus you should benchmark the run times of your
-simulation to judge how often balancing should be performed, and how
-aggressively to set the *thresh* value.
-
---------------
-
-The *random* keyword means that each grid cell will be assigned randomly
-to one of the processors. In this case every processor will typically
-not be assigned exactly the same number of grid cells.
-
-The *proc* keyword means that each processor will choose a random
-processor to assign its first grid cell to. It will then loop over its
-grid cells and assign each to consecutive processors, wrapping around
-the collection of processors if necessary. In this case every processor
-will typically not be assigned exactly the same number of grid cells.
-
-The *rcb* keyword uses a recurvise coordinate bisectioning (RCB)
-algorithm to assign spatially-compact clumps of grid cells to
-processors. Each grid cell has a "weight" in this algorithm so that each
-processor is assigned an equal total weight of grid cells, as nearly as
-possible.
-
-If the *weight* argument is specified as *cell*, then the weight for
-each grid cell is 1.0, so that each processor will end up with an equal
-number of grid cells.
-
-If the *weight* argument is specified as *part*, than the weight for
-each grid cell is the number of particles it currently owns, so that
-each processor will end up with an equal number of particles.
-
-If the *weight* argument is specified as *time*, then timers are used
-to estimate the cost of each grid cell. The cost from the timers is
-given on a per processor basis, and then assigned to grid cells by
-weighting by the relative number of particles in the grid cells. If no
-timing data has yet been collected at the point in a script where this
-command is issued, a *cell* style weight will be used instead of
-*time*. A small warmup run (for example 100 timesteps) can be used
-before the balance command so that timer data is available. The number
-of timesteps *Nfreq* between balancing steps also needs to be large
-enough to give reliable timings. The timers used for balancing tally
-time from the move, sort, collide, and modify portions of each timestep.
+.. important:: This command attempts to minimize the imbalance factor, as defined above.
+	       But computational cost is not strictly proportional to particle count, depending on the :ref:`collision<command-collide>` and :ref:`chemistry<command-react>` models being used.
+	       Also, changing the assignment of grid cells and particles to processors may lead to additional communication overheads, e.g. when migrating particles between processors.
+	       Thus you should benchmark the run times of your simulation to judge how often balancing should be performed, and how aggressively to set the *thresh* value.
 
 
-Here is an example of an RCB partitioning for 24 processors, of a 2d
-hierarchical grid with 5 levels, refined around a tilted ellipsoidal
-surface object (outlined in pink). This is for a *weight cell* setting,
-yielding an equal number of grid cells per processor. Each processor is
-assigned a different color of grid cells. (Note that less colors than
-processors were used, so the disjoint yellow cells actually belong to
-three different processors). This is an example of a clumped
-distribution where each processor's assigned cells can be compactly
-bounded by a rectangle. Click for a larger version of the image.
+
+The *random* keyword
+  means that each grid cell will be assigned randomly to one of the processors. In this case every processor will typically not be assigned exactly the same number of grid cells.
+
+The *proc* keyword
+  means that each processor will choose a random processor to assign its first grid cell to. It will then loop over its grid cells and assign each to consecutive processors, wrapping around the collection of processors if necessary. In this case every processor will typically not be assigned exactly the same number of grid cells.
+
+The *rcb* keyword
+  uses a recurvise coordinate bisectioning (RCB) algorithm to assign spatially-compact clumps of grid cells to processors. Each grid cell has a "weight" in this algorithm so that each processor is assigned an equal total weight of grid cells, as nearly as possible.
+
+  - If the *weight* argument is specified as *cell*, then the weight for each grid cell is 1.0, so that each processor will end up with an equal number of grid cells.
+
+  - If the *weight* argument is specified as *part*, than the weight for each grid cell is the number of particles it currently owns, so that each processor will end up with an equal number of particles.
+
+  - If the *weight* argument is specified as *time*, then timers are used to estimate the cost of each grid cell. The cost from the timers is given on a per processor basis, and then assigned to grid cells by weighting by the relative number of particles in the grid cells. If no timing data has yet been collected at the point in a script where this command is issued, a *cell* style weight will be used instead of *time*. A small warmup run (for example 100 timesteps) can be used before the balance command so that timer data is available. The number of timesteps *Nfreq* between balancing steps also needs to be large enough to give reliable timings. The timers used for balancing tally time from the move, sort, collide, and modify portions of each timestep.
+
+
+  Here is an example of an RCB partitioning for 24 processors, of a 2d hierarchical grid with 5 levels, refined around a tilted ellipsoidal surface object (outlined in pink). This is for a *weight cell* setting, yielding an equal number of grid cells per processor. Each processor is assigned a different color of grid cells. (Note that less colors than processors were used, so the disjoint yellow cells actually belong to three different processors). This is an example of a clumped distribution where each processor's assigned cells can be compactly bounded by a rectangle. Click for a larger version of the image.
 
 |image0|
 
@@ -176,7 +147,6 @@ least when more than a few processors are used. This will insure all
 particle and grid data moves to new processors, fully exercising the
 rebalancing code.
 
---------------
 
 *********************
 Restart, output info:

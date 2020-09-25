@@ -117,7 +117,7 @@ the original child cell becomes a parent cell. Coarsening means
 combining all the child cells of a parent cell, so that the child cells
 are deleted and the parent cell becomes a single new child cell. See
 :ref:`Section howto 4.8<howto-grids>` for a description of
-the hierarchical grid used by SPARTA and a defintion of child and parent
+the hierarchical grid used by SPARTA and a definition of child and parent
 cells.
 
 Grid adaptation can be useful for adjusting the grid cell sizes to the
@@ -181,29 +181,35 @@ the specified actions do not include refinement or coarsening.
 
 --------------
 
-The *particle* style adapts based on the number of particles in a grid
-cell. For refinement, if the current number (on this timestep) is more
-than *rcount*, the cell is refined. For coarsening, if the sum of the
-current number of particles in all child cells of the parent cell is
-less than *ccount*, the parent cell is coarsened. Note that if you wish
-to use time-averaged counts of particles in each cell you should use the
-*value* style with the ID of a :ref:`fix ave/grid<command-fix-ave-grid>`
-command that time-averages particle counts from the :ref:`compute grid<command-compute-grid>` command.
+The *particle* style
+  adapts based on the number of particles in a grid cell. For
+  refinement, if the current number (on this timestep) is more than
+  *rcount*, the cell is refined. For coarsening, if the sum of the
+  current number of particles in all child cells of the parent cell is
+  less than *ccount*, the parent cell is coarsened. Note that if you
+  wish to use time-averaged counts of particles in each cell you
+  should use the *value* style with the ID of a :ref:`fix
+  ave/grid<command-fix-ave-grid>` command that time-averages particle
+  counts from the :ref:`compute grid<command-compute-grid>` command.
 
-The *surf* style adapts only if a grid cell contains one or more surface
-elements in the specified *surfID* group. The *dir* keyword can be used
-to exclude additional surface elements. For refinement, the cell is
-refined unless the refinement will create child cells with any of their
-dimensions smaller than the specified *ssize*. For coarsening, the
-parent cell is coarsened only if any of the child cell dimensions is
-smaller than the specified *ssize*.
+The *surf* style
+  adapts only if a grid cell contains one or more surface elements in
+  the specified *surfID* group. The *dir* keyword can be used to
+  exclude additional surface elements. For refinement, the cell is
+  refined unless the refinement will create child cells with any of
+  their dimensions smaller than the specified *ssize*. For coarsening,
+  the parent cell is coarsened only if any of the child cell
+  dimensions is smaller than the specified *ssize*.
 
-The *value* style uses values calculated by a :ref:`compute<command-compute>`
-or :ref:`fix<command-fix>` to decide whether to adapt each cell. The fix or
-compute must calculate per-grid values as described in :ref:`Section howto 4.4<howto-output>`. If the compute or fix calculates a
-vector of such values, it is specified as c_ID or f_ID. If it calculates
-an array of such values, it is specified as c_ID[N] or f_ID[N] when N is
-the column of values to use, from 1 to Ncolumns.
+The *value* style
+  uses values calculated by a :ref:`compute<command-compute>` or
+  :ref:`fix<command-fix>` to decide whether to adapt each cell. The fix
+  or compute must calculate per-grid values as described in
+  :ref:`Section howto 4.4<howto-output>`. If the compute or fix
+  calculates a vector of such values, it is specified as c_ID or
+  f_ID. If it calculates an array of such values, it is specified as
+  c_ID[N] or f_ID[N] when N is the column of values to use, from 1 to
+  Ncolumns.
 
 For refinement, if the compute or fix value for the grid cell is "more"
 than *rvalue*, the cell is refined. For coarsening, if the "sum" of the
@@ -249,98 +255,108 @@ MFP is less than the specified threshold (0.05).
    adapt_grid refine coarsen value c_12 0.05 0.1 &
               combine min thresh less more 
 
-The *random* style is provided for test and debugging purposes. For each
-cell eligible for adaptation, a uniform random number RN bewteen 0.0 and
-1.0 is generated. For refinement, the cell is refined if RN < *rfrac*,
-so that approximately an *rfrac* fraction of the child cells are
-refined. Similarly, for coarsening, the parent cell is coarsened if RN <
-*cfrac*, so that approximately a *cfrac* fraction of the parent cells
-are coarsened.
+The *random* style
+  is provided for test and debugging purposes. For each cell eligible
+  for adaptation, a uniform random number RN bewteen 0.0 and 1.0 is
+  generated. For refinement, the cell is refined if RN < *rfrac*, so
+  that approximately an *rfrac* fraction of the child cells are
+  refined. Similarly, for coarsening, the parent cell is coarsened if RN
+  < *cfrac*, so that approximately a *cfrac* fraction of the parent
+  cells are coarsened.
 
 --------------
 
 Various optional keywords can also be specified.
 
-The *iterate* keyword determines how many times the *action1* and
-*action2* operations are looped over. The default is once. If multiple
-iterations are used, cells can be recursively refined or coarsened. If
-no further refinement or coarsening occurs on an iteration, the loop
-ends. Note that the compute used with style *value* will be recalculated
-at each iteration to accurately reflect per grid values for the current
-grid.
+The *iterate* keyword
+  determines how many times the *action1* and *action2* operations are
+  looped over. The default is once. If multiple iterations are used,
+  cells can be recursively refined or coarsened. If no further
+  refinement or coarsening occurs on an iteration, the loop ends. Note
+  that the compute used with style *value* will be recalculated at each
+  iteration to accurately reflect per grid values for the current grid.
 
-The *maxlevel* keyword limits how far a grid cell can be refined. See
-:ref:`Section howto 4.8<howto-grids>` for a definition of
-the level assigned to each parent and child cell. Child cells with a
-level >= *Nmax* are not eligible for refinement. The default setting of
-*Nmax* = 0 means there is no limit on refinement.
+The *maxlevel* keyword
+  limits how far a grid cell can be refined. See :ref:`Section howto
+  4.8<howto-grids>` for a definition of the level assigned to each
+  parent and child cell. Child cells with a level >= *Nmax* are not
+  eligible for refinement. The default setting of *Nmax* = 0 means there
+  is no limit on refinement.
 
-The *minlevel* keyword limits how far a grid cell can be coarsened. See
-:ref:`Section howto 4.8<howto-grids>` for a definition of
-the level assigned to each parent and child cell. Parent cells with a
-level < *Nmin* are not eligible for coarsening. The default setting of
-*Nmin* = 1 means the only limit on coarsening is that the first level
-grid is preserved (never coarsened to a single root cell). The specified
-*Nmin* must be >= 1.
+The *minlevel* keyword
+  limits how far a grid cell can be coarsened. See :ref:`Section howto
+  4.8<howto-grids>` for a definition of the level assigned to each
+  parent and child cell. Parent cells with a level < *Nmin* are not
+  eligible for coarsening. The default setting of *Nmin* = 1 means the
+  only limit on coarsening is that the first level grid is preserved
+  (never coarsened to a single root cell). The specified *Nmin* must be
+  >= 1.
 
-The *thresh* keyword is only used by style *value*. It sets the
-comparison criterion for refinement as *rdecide* = *less* or *more*.
-This means a child cell is refined if its compute or fix value is *less*
-or *more* than *rvalue*. Similarly, it sets the comparison criterion for
-coarsening as *cdecide* = *less* or *more*. This means a parent cell is
-coarsened if the compute or fix value accumulated from the compute or
-fix values of its children is *less* or *more* than *cvalue*.
+The *thresh* keyword
+  is only used by style *value*. It sets the comparison criterion for
+  refinement as *rdecide* = *less* or *more*.  This means a child cell
+  is refined if its compute or fix value is *less* or *more* than
+  *rvalue*. Similarly, it sets the comparison criterion for coarsening
+  as *cdecide* = *less* or *more*. This means a parent cell is coarsened
+  if the compute or fix value accumulated from the compute or fix values
+  of its children is *less* or *more* than *cvalue*.
 
-The *combine* keyword is only used by style *value*. It determines how
-the compute or fix value for a parent cell is accumulated from the
-compute or fix values of all its children. If the setting is *sum*, the
-child values are summed. If it is *min* or *max*, the parent value is
-the minimum or maximum of all the child values.
+The *combine* keyword
+  is only used by style *value*. It determines how the compute or fix
+  value for a parent cell is accumulated from the compute or fix values
+  of all its children. If the setting is *sum*, the child values are
+  summed. If it is *min* or *max*, the parent value is the minimum or
+  maximum of all the child values.
 
-The *cells* keyword determines how many new child cells are created when
-a single grid cell is refined. Nx by Ny by Nz new child cells are
-created. Nz must be 1 for 2d simulations. In the future we plan to allow
-for variable refinement by allowing wild cards to be used for Nx, Ny,
-and Nz.
+The *cells* keyword
+  determines how many new child cells are created when a single grid
+  cell is refined. Nx by Ny by Nz new child cells are created. Nz must
+  be 1 for 2d simulations. In the future we plan to allow for variable
+  refinement by allowing wild cards to be used for Nx, Ny, and Nz.
 
-The *region* keyword can be used to limit which grid cells are eligible
-for adapation. It applies to both child cells for refinment and parent
-cells for coarsening. The ID of the geometric region is speficied as
-*regID*. See the :ref:`region<command-region>` command for details on what
-kind of geometric regions can be defined. Note that the *side* option
-for the :ref:`region<command-region>` command can be used to define whether
-the inside or outside of the geometric region is considered to be "in"
-the region.
+The *region* keyword
+  can be used to limit which grid cells are eligible for adapation. It
+  applies to both child cells for refinment and parent cells for
+  coarsening. The ID of the geometric region is speficied as
+  *regID*. See the :ref:`region<command-region>` command for details on
+  what kind of geometric regions can be defined. Note that the *side*
+  option for the :ref:`region<command-region>` command can be used to
+  define whether the inside or outside of the geometric region is
+  considered to be "in" the region.
 
-The grid cell must be in the region to be eligible for adaptation. The
-*rflag* setting determines how a grid cell is judged to be in the region
-or not. For *rflag* = *one*, it is in the region if any of its corner
-points (4 for 2d, 8 for 3d) is in the region. For *rflag* = *all*, all
-its corner points must be in the region. For *rflag* = *center*, the
-center point of the grid cell must be in the region.
+The grid cell
+  must be in the region to be eligible for adaptation. The *rflag*
+  setting determines how a grid cell is judged to be in the region or
+  not. For *rflag* = *one*, it is in the region if any of its corner
+  points (4 for 2d, 8 for 3d) is in the region. For *rflag* = *all*, all
+  its corner points must be in the region. For *rflag* = *center*, the
+  center point of the grid cell must be in the region.
 
-The *dir* keyword is only used by the style *surf*. The Sx,Sy,Sz
-settings are components of a vector. It's length does not matter, just
-its direction. Only surface elements whose normal is opposed to the
-vector direction (in a dot product sense) are eligible surfaces for the
-adapation procedure described above for the *surf* style. This can be
-useful to exclude refinement around surface elements that are not facing
-"upwind" with respect to the flow direction of the particles. This is
-accomplished by setting Sx,Sy,Sz to the flow direction. If Sy,Sy,Sz =
-(0,0,0), which is the default, then no surface elements are excluded.
+The *dir* keyword
+  is only used by the style *surf*. The Sx,Sy,Sz settings are components
+  of a vector. It's length does not matter, just its direction. Only
+  surface elements whose normal is opposed to the vector direction (in a
+  dot product sense) are eligible surfaces for the adapation procedure
+  described above for the *surf* style. This can be useful to exclude
+  refinement around surface elements that are not facing "upwind" with
+  respect to the flow direction of the particles. This is accomplished
+  by setting Sx,Sy,Sz to the flow direction. If Sy,Sy,Sz = (0,0,0),
+  which is the default, then no surface elements are excluded.
 
-The *file* keyword triggers output of the adapted grid to the specified
-*filename*. The format of the file is the same as that created by the
-:ref:`write_grid<command-write-grid>` command, which is a list of parent
-cells. The file can be read in by a subsequent simulation to define a
-grid, or used by visualization or other post-procesing tools. Note that
-no file is written if no grid cells are refined or coarsened.
+The *file* keyword
+  triggers output of the adapted grid to the specified *filename*. The
+  format of the file is the same as that created by the
+  :ref:`write_grid<command-write-grid>` command, which is a list of
+  parent cells. The file can be read in by a subsequent simulation to
+  define a grid, or used by visualization or other post-procesing
+  tools. Note that no file is written if no grid cells are refined or
+  coarsened.
 
-If the filename contains a "*" wildcard character, then the "*" is
-replaced by the current timestep. This is useful for the :ref:`fix adapt<command-fix-adapt>` command, if you wish to write out multiple
-grid files, each time the grid iadapts.
+  If the filename contains a "*" wildcard character, then the "*" is
+  replaced by the current timestep. This is useful for the :ref:`fix
+  adapt<command-fix-adapt>` command, if you wish to write out multiple
+  grid files, each time the grid iadapts.
 
---------------
 
 If the grid is partitioned across processors in a "clumped" manner
 before this command is invoked, it will still be clumped by processor

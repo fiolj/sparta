@@ -89,8 +89,6 @@ y=0 axis of symmetry.
 Running multiple simulations from one input script
 **************************************************
 
-
-
 This can be done in several ways. See the documentation for individual
 commands for more details on how these examples work.
 
@@ -594,7 +592,7 @@ inside a surface object, then it is a cut cell. This is the usual case. Note tha
 
 The union of (1) unsplit cells that are in the flow region (not entirely interior to a surface object) and (2) flow region portions of cut cells and (3) sub cells is the entire flow region of the simulation domain.  These are the only kinds of child cells that store particles. Split cells and unsplit cells interior to surface objects have no particles.
 
-Every parent and child cell is assigned an ID by SPARTA. These IDs can be output in integer or string form by the :ref:`command-dump`, using its *id* and *idstr* attributes. The integer form can also be output by the `compute property/grid <command-compute-property-grid>`.
+Every parent and child cell is assigned an ID by SPARTA. These IDs can be output in integer or string form by the :ref:`command-dump`, using its *id* and *idstr* attributes. The integer form can also be output by the :ref:`compute property/grid <command-compute-property-grid>`.
 
 Here is how the grid cell ID is computed and stored by SPARTA. Say the 1st level grid is a 10x10x20 sub-division (2000 cells) of the root cell.  The 1st level cells are numbered from 1 to 2000 with the x-dimension varying fastest, then y, and finally the z-dimension slowest. Now say the 374th (out of 2000, 14 in x, 19 in y, 1 in z) 1st-level cell has a 2x2x2 sub-division (8 cells), and consider the 4th 2nd-level cell (2 in x, 2 in y, 1 in z) within the 374th cell. It could be a parent cell if it is further sub-divided, or a child cell if not. In either case its ID is the same. The rightmost 11 bits of the integer ID are encoded with
 374.
@@ -602,11 +600,11 @@ This is because it requires 11 bits to represent 2000 cells (1 to 2000) at level
 
 Note that a child cell has the same ID whether it is unsplit, cut, or split. Currently, sub cells of a split cell also have the same ID, though that may change in the future.
 
- The number of hierarchical levels a SPARTA grid can contain is limited to whether all cell IDs can be encoded in an integer. By default cell IDs are stored in 32-bit integers. 64-bit integers can be used if SPARTA is compiled with the -DSPARTA_BIGBIG option, as explained in :ref:`start-steps-build-make`.
+The number of hierarchical levels a SPARTA grid can contain is limited to whether all cell IDs can be encoded in an integer. By default cell IDs are stored in 32-bit integers. 64-bit integers can be used if SPARTA is compiled with the -DSPARTA_BIGBIG option, as explained in :ref:`start-steps-build-make`.
 
 For 32-bit cell IDs if every level uses a 2x2x2 sub-division which requires 4 bits (to store values from 1 to 8), then a grid can have 7 levels. For 64-bit cell IDs, 15 levels could be defined.
 
-The :ref:`command-create-grid`, and :ref:`command-balance-grid`, and :ref:`command-fix-balance` determine the assignment of child cells to processors. If a child cell is assigned to a processor, that processor owns the cell whether it is an unsplit, cut, or split cell. It also owns any sub cells that are part of a split cell.
+The :ref:`command-create-grid`, :ref:`command-balance-grid`, and :ref:`command-fix-balance` determine the assignment of child cells to processors. If a child cell is assigned to a processor, that processor owns the cell whether it is an unsplit, cut, or split cell. It also owns any sub cells that are part of a split cell.
 
 Depending on how they the commands are used, the child cells assigned to each processor will either be "clumped" or "dispersed".
 
@@ -616,15 +614,11 @@ An example of a clumped assignment is shown in this zoom-in of a 2d hierarchical
 
 |image2|
 
-It is important to understand the difference between the two kinds of assignments and the effects they can have on performance of a simulation. For example the create_grid and read_grid commands may produce dispersed assignments, depending on the options used, which can be converted to a clumped assignment by the balance_grid command.
+It is important to understand the difference between the two kinds of assignments and the effects they can have on performance of a simulation. For example the :ref:`command-create-grid` and :ref:`command-read-grid` may produce dispersed assignments, depending on the options used, which can be converted to a clumped assignment by the :ref:`command-balance-grid`.
 
 Simulations typically run faster with clumped grid cell assignments.  This is because the cost of communicating particles is reduced if particles that move to a neighboring grid cell often stay on-processor.  Similarly, some stages of simulation setup may run faster with a clumped assignment. Examples are the finding of nearby ghost grid cells and the computation of surface element intersections with grid cells. The latter operation is invoked when the :ref:`command-read-surf` is used.
 
 If the spatial distribution of particles is highly irregular and/or dynamically changing, or if the computational work per grid cell is otherwise highly imbalanced, a clumped assignment of grid cells to processors may not lead to optimal balancing. In these scenarios a dispersed assignment of grid cells to processsors may run faster even with the overhead of increased particle communication. This is because randomly assigning grid cells to processors can balance the computational load in a statistical sense.
-
-
-
-
 
 
 .. _howto-surfaces:
@@ -632,8 +626,6 @@ If the spatial distribution of particles is highly irregular and/or dynamically 
 *****************************
 Details of surfaces in SPARTA
 *****************************
-
-
 
 A SPARTA simulation can define one or more surface objects, each of which are read in via the :ref:`read_surf<command-read-surf>`. For 2d simulations a surface object is a collection of connected line segments.  For 3d simulations it is a collection of connected triangles. The outward normal of lines or triangles, as defined in the surface file, points into the flow region of the simulation box which is typically filled with particles. Depending on the orientation, surface objects can thus be obstacles that particles flow around, or they can represent the outer boundary of an irregular shaped region which particles are inside of.
 
