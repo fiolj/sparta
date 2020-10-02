@@ -21,7 +21,7 @@ Syntax:
 
 -  ID is documented in :ref:`compute<command-compute>` command
 -  reduce = style name of this compute command
--  mode = *sum* or *min* or *max* or *ave* or *sumsq* or *avesq*
+-  mode = ``sum`` or ``min`` or ``max`` or ``ave`` or ``sumsq`` or ``avesq``
 -  one or more inputs can be listed
 -  input = x, y, z, vx, vy, vz, ke, erot, evib, c_ID, c_ID[N], f_ID,
    f_ID[N], v_name
@@ -78,13 +78,13 @@ quantities. See the :ref:`command-variable` and its special
 functions which can perform the same operations as the compute reduce
 command on global vectors.
 
-The reduction operation is specified by the *mode* setting. The *sum*
-option adds the values in the vector into a global total. The *min* or
-*max* options find the minimum or maximum value across all vector
-values. The *ave* setting adds the vector values into a global total,
-then divides by the number of values in the vector. The *sumsq* option
+The reduction operation is specified by the *mode* setting. The ``sum``
+option adds the values in the vector into a global total. The ``min`` or
+``max`` options find the minimum or maximum value across all vector
+values. The ``ave`` setting adds the vector values into a global total,
+then divides by the number of values in the vector. The ``sumsq`` option
 sums the square of the values in the vector into a global total. The
-*avesq* setting does the same as *sumsq*, then divdes the sum of squares
+``avesq`` setting does the same as ``sumsq``, then divdes the sum of squares
 by the number of values. The last two options can be useful for
 calculating the variance of some quantity, e.g. variance = sumsq -
 ave^2.

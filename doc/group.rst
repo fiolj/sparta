@@ -20,34 +20,40 @@ Syntax:
    group ID which style args 
 
 -  ID = user-defined name of the grid or surface group
--  which = *grid* or *surf*
--  style options for which = grid: *region* or *subtract* or *union* or
-   *intersect* or *clear*
--  style options for which = surf: *type* or *id* or *region* or
-   *subtract* or *union* or *intersect* or *clear*
+-  which = ``grid`` or ``surf``
 
-   ::
+   -  style options for which = grid: ``region`` or ``subtract`` or ``union`` or ``intersect`` or ``clear``
+   -  style options for which = surf: ``type`` or ``id`` or ``region`` or ``subtract`` or ``union`` or ``intersect`` or ``clear``
 
-        type or id args
-          args = list of one or more surface element types or IDs
-            any entry in list can be a range formatted as A:B
-            A = starting index, B = ending index
-          args = logical value
-            logical = "<" or "<=" or ">" or ">=" or "==" or "!="
-            value = a surface element type or ID
-          args = logical value1 value2
-            logical = "<>"
-            value1,value2 = surface element types or IDs
-        region args = region-ID rflag
-          region-ID = ID of region which grid cell or surface element must be in
-          rflag = one or all or center
-            any = one (or more) corner points of grid cell or surface element in region
-            all = all corner points of grid cell or surface element in region
-            any = center point of grid cell or surface element in region
-        subtract args = two or more group IDs
-        union args = one or more group IDs
-        intersect args = two or more group IDs
-        clear = no args 
+   - type or id args
+     
+     - args = list of one or more surface element types or IDs
+
+     any entry in list can be a range formatted as A:B with A = starting index, B = ending index
+
+     - args = logical value
+
+       - logical = "<" or "<=" or ">" or ">=" or "==" or "!="
+       - value = a surface element type or ID
+
+     - args = logical value1 value2
+
+       - logical = "<>"
+       - value1,value2 = surface element types or IDs
+
+   - region args = region-ID rflag
+
+     - region-ID = ID of region which grid cell or surface element must be in
+     - rflag = one or all or center
+
+       - any = one (or more) corner points of grid cell or surface element in region
+       - all = all corner points of grid cell or surface element in region
+       - any = center point of grid cell or surface element in region
+
+   - subtract args = two or more group IDs
+   - union args = one or more group IDs
+   - intersect args = two or more group IDs
+   - clear = no args 
 
 *********
 Examples:
@@ -101,28 +107,34 @@ Note that this command assigns all flavors of child grid cells to
 groups, which includes unsplit, cut, split, and sub cells. See :ref:`Section 6.8<howto-grids>` of the manual gives details of how
 SPARTA defines child, unsplit, split, and sub cells.
 
---------------
+
+Styles for groups
+=================
 
 The following styles can be used for grid groups.
 
-The *region* style puts all grid cells in the region volume associated
+The ``region`` style
+puts all grid cells in the region volume associated
 with the *region-ID* into the group. See the :ref:`region<command-region>`
 command for details on what kind of geometric regions can be defined.
 Note that the *side* option for the :ref:`region<command-region>` command can
 be used to define whether the inside or outside of the geometric region
 is considered to be "in" the region.
 
-The *rflag* setting determines how a grid cell is judged to be in the
-region or not. For *rflag* = *one*, it is in the region if any of its
+The ``rflag`` setting determines how a grid cell is judged to be in the
+region or not. For ``rflag`` = *one*, it is in the region if any of its
 corner points (4 for 2d, 8 for 3d) is in the region. For *rflag* =
 *all*, all its corner points must be in the region. For *rflag* =
 *center*, the center point of the grid cell must be in the region.
 
---------------
+Styles for surfaces
+===================
+
 
 The following styles can be used for surface groups.
 
-The *type* and *id* styles put all surface elements with the specified
+The ``type`` and ``id`` styles
+put all surface elements with the specified
 types or surface element IDs into the group. These two styles can use
 arguments specified in one of two formats.
 
@@ -157,48 +169,47 @@ logical "<>" means "between" and takes 2 arguments. The fourth example
 above adds all surface elements IDs from 50 to 250 (inclusive) to the
 group named sphere.
 
-The *region* style puts all surface elements in the region volume
+The ``region`` style puts all surface elements in the region volume
 associated with the *region-ID* into the group. See the
 :ref:`region<command-region>` command for details on what kind of geometric
-regions can be defined. Note that the *side* option for the
+regions can be defined. Note that the ``side`` option for the
 :ref:`region<command-region>` command can be used to define whether the
 inside or outside of the geometric region is considered to be "in" the
 region.
 
-The *rflag* setting determines how a surface element is judged to be in
-the region or not. For *rflag* = *one*, it is in the region if any of
+The ``rflag`` setting determines how a surface element is judged to be in
+the region or not. For ``rflag`` = *one*, it is in the region if any of
 its corner points (3 for triangle, 2 for line) is in the region. For
-*rflag* = *all*, all its corner points must be in the region. For
-*rflag* = *center*, the center point of the line segment or centroid
+``rflag`` = *all*, all its corner points must be in the region. For
+``rflag`` = *center*, the center point of the line segment or centroid
 point of the triangle must be in the region.
 
---------------
+
+Styles for either grids or surfaces
+===================================
 
 The following styles can be used for either grid or surface groups.
 
-The *subtract* style takes a list of two or more existing group names as
+The ``subtract`` style takes a list of two or more existing group names as
 arguments. All grid cells or surface elements that belong to the 1st
 group, but not to any of the other groups are added to the specified
 group.
 
-The *union* style takes a list of one or more existing group names as
+The ``union`` style takes a list of one or more existing group names as
 arguments. All grid cells or surface elements that belong to any of the
 listed groups are added to the specified group.
 
-The *intersect* style takes a list of two or more existing group names
+The ``intersect`` style takes a list of two or more existing group names
 as arguments. Grid cells or surface elements that belong to every one of
 the listed groups are added to the specified group.
 
-The *clear* style un-assigns all grid cells or surface elements that
+The ``clear`` style un-assigns all grid cells or surface elements that
 were assigned to that group. This is a way to empty a group before
 adding more grid cells or surface elements to it.
-
---------------
 
 *************
 Restrictions:
 *************
-
 
 No more than 32 grid groups and no more than 32 surface groups can be
 defined, including "all".
@@ -215,7 +226,6 @@ Related commands:
 ********
 Default:
 ********
-
 
 All grid cells belong to the "all" grid group. All surface elements
 belong to the "all" surface group.

@@ -21,42 +21,27 @@ Syntax:
 
 -  arg1,arg2,... = list of keywords
 
-   ::
+   possible keywords:
 
-        possible keywords = step, elapsed, elaplong, dt, cpu, tpcpu, spcpu, wall,
-                            np, npave, ntouch, ntouchave, ncomm, ncommave,
-                            nbound, nboundave, nexit, nexitave,
-                    nscoll, nscollave, nscheck, nscheckave,
-                            ncoll, ncollave, nattempt, nattemptave,
-                            nreact, nreactave, nsreact, nsreactave,
-                            nparent, nchild, nsplit, maxlevel,
-                    vol, lx, ly, lz,
-                    xlo, xhi, ylo, yhi, zlo, zhi,
-                    s_ID[I], r_ID[I],
-                    c_ID, c_ID[I], c_ID[I][J],
-                            f_ID, f_ID[I], f_ID[I][J],
-                            v_name 
-
-
-   - step = timestep
-   - elapsed = timesteps since start of this run
-   - elaplong = timesteps since start of initial run in a series of runs
-   - dt = timestep size
-   - cpu = elapsed CPU time in seconds within a run
-   - tpcpu = time per CPU second
-   - spcpu = timesteps per CPU second
-   - wall = wallclock time in seconds
-   - np,npave = # of particles (this step, per-step)
-   - ntouch,ntouchave = # of cell touches by particles (this step, per-step)
-   - ncomm,ncommave = # of particles communicated (this step, per-step)
-   - nbound,nboundave = # of boundary collisions (this step, per-step)
-   - nexit,nexitave = # of boundary exits (this step, per-step)
-   - nscoll,nscollave = # of surface collisions (this step, per-step)
-   - nscheck,nscheckave = # of surface checks (this step, per-step)
-   - ncoll,ncollave = # of particle/particle collisions (this step, per-step)
-   - nattempt,nattemptave = # of attempted collisions (this step, per-step)
-   - nreact,nreactave = # of chemical reactions (this step, per-step)
-   - nsreact,nsreactave = # of chemical reactions on surfs and boundaries (this step, per-step)
+   - ``step`` = timestep
+   - ``elapsed`` = timesteps since start of this run
+   - ``elaplong`` = timesteps since start of initial run in a series of runs
+   - ``dt`` = timestep size
+   - ``cpu`` = elapsed CPU time in seconds within a run
+   - ``tpcpu`` = time per CPU second
+   - ``spcpu`` = timesteps per CPU second
+   - ``wall`` = wallclock time in seconds
+   - ``np``, ``npave`` = # of particles (this step, per-step)
+   - ``ntouch``, ``ntouchave`` = # of cell touches by particles (this step, per-step)
+   - ``ncomm``, ``ncommave`` = # of particles communicated (this step, per-step)
+   - ``nbound``, ``nboundave`` = # of boundary collisions (this step, per-step)
+   - ``nexit``, ``nexitave`` = # of boundary exits (this step, per-step)
+   - ``nscoll``, ``nscollave`` = # of surface collisions (this step, per-step)
+   - ``nscheck``, ``nscheckave`` = # of surface checks (this step, per-step)
+   - ``ncoll``, ``ncollave`` = # of particle/particle collisions (this step, per-step)
+   - ``nattempt``, ``nattemptave`` = # of attempted collisions (this step, per-step)
+   - ``nreact``, ``nreactave`` = # of chemical reactions (this step, per-step)
+   - ``nsreact``, ``nsreactave`` = # of chemical reactions on surfs and boundaries (this step, per-step)
    - nparent,nchild,nsplit = # of parent, child, split cells
    - maxlevel = max # of grid refinement levels
    - vol = volume of simulation box
@@ -197,12 +182,12 @@ creates a global vector with 6 values.
 
 ::
 
-   compute myCount reduce max x y z vx vy vz
+   compute     myCount reduce max x y z vx vy vz
    stats_style step np c_myCount[*]
    stats_style step np c_myCount[1] c_myCount[2] c_myCount[3] &
                        c_myCount[4] c_myCount[5] c_myCount[6] 
 
---------------
+
 
 For the following keywords, the ID in the keyword should be replaced by
 the actual ID of a surface collision model, surface reaction model,

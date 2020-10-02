@@ -325,8 +325,7 @@ Related commands:
 ********
 Default:
 ********
- none
 
-The option defaults are mode = scalar, ave = one, start = 0, no file
+The option defaults are ``mode = scalar``, ``ave = one``, ``start = 0``, no file
 output, title 1,2,3 = strings as described above, and no off settings
 for any input values.

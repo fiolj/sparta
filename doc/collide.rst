@@ -19,7 +19,7 @@ Syntax:
 
    collide style args keyword value ... 
 
--  style = *none* or *vss*
+-  style = ``none`` or ``vss``
 -  args = arguments for that style
 
    none args = none
@@ -32,11 +32,9 @@ Syntax:
      - file = filename that lists species with their VSS model parameters 
 
 -  zero or more keyword/value pairs may be appended
--  keyword = *relax*
+-  keyword = ``relax``
 
-   ::
-
-        relax value = constant or variable 
+   - relax value = constant or variable 
 
 *********
 Examples:

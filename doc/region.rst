@@ -20,39 +20,36 @@ Syntax:
    region ID style args keyword value ... 
 
 -  ID = user-assigned name for the region
--  style = *block* or *cylinder* or *plane* or *sphere* or *union* or
-   *intersect*
+-  style = ``block`` or ``cylinder`` or ``plane`` or ``sphere`` or ``union`` or
+   ``intersect``
 
-   ::
 
-        block args = xlo xhi ylo yhi zlo zhi
-          xlo,xhi,ylo,yhi,zlo,zhi = bounds of block in all dimensions (distance units)
-        cylinder args = dim c1 c2 radius lo hi
-          dim = x or y or z = axis of cylinder
-          c1,c2 = coords of cylinder axis in other 2 dimensions (distance units)
-          radius = cylinder radius (distance units)
-          lo,hi = bounds of cylinder in dim (distance units)
-        plane args = px py pz nx ny nz
-          px,py,pz = point on the plane (distance units)
-          nx,ny,nz = direction normal to plane (distance units)
-        sphere args = x y z radius
-          x,y,z = center of sphere (distance units)
-          radius = radius of sphere (distance units)
-        union args = N reg-ID1 reg-ID2 ...
-          N = # of regions to follow, must be 2 or greater
-          reg-ID1,reg-ID2, ... = IDs of regions to join together
-        intersect args = N reg-ID1 reg-ID2 ...
-          N = # of regions to follow, must be 2 or greater
-          reg-ID1,reg-ID2, ... = IDs of regions to intersect 
+   block args = xlo xhi ylo yhi zlo zhi
+     - xlo,xhi,ylo,yhi,zlo,zhi = bounds of block in all dimensions (distance units)
+   cylinder args = dim c1 c2 radius lo hi
+     - dim = x or y or z = axis of cylinder
+     - c1,c2 = coords of cylinder axis in other 2 dimensions (distance units)
+     - radius = cylinder radius (distance units)
+     - lo,hi = bounds of cylinder in dim (distance units)
+   plane args = px py pz nx ny nz
+     - px,py,pz = point on the plane (distance units)
+     - nx,ny,nz = direction normal to plane (distance units)
+   sphere args = x y z radius
+     - x,y,z = center of sphere (distance units)
+     - radius = radius of sphere (distance units)
+   union args = N reg-ID1 reg-ID2 ...
+     - N = # of regions to follow, must be 2 or greater
+     - reg-ID1,reg-ID2, ... = IDs of regions to join together
+   intersect args = N reg-ID1 reg-ID2 ...
+     - N = # of regions to follow, must be 2 or greater
+     - reg-ID1,reg-ID2, ... = IDs of regions to intersect 
 
 -  zero or more keyword/value pairs may be appended
--  keyword = *side*
+-  keyword = ``side``
 
-   ::
-
-        side value = in or out
-          in = the region is inside the specified geometry
-          out = the region is outside the specified geometry 
+   side value = in or out
+     - in = the region is inside the specified geometry
+     - out = the region is outside the specified geometry 
 
 *********
 Examples:
@@ -64,6 +61,7 @@ Examples:
    region 2 sphere 0.0 0.0 0.0 5 side out
    region void cylinder y 2 3 5 -5.0 INF
    region outside union 4 side1 side2 side3 side4 
+   region slab plane 0.2 0 0 1 0 0 
 
 ************
 Description:
@@ -77,31 +75,34 @@ Commands which use regions typically test whether a point is contained
 in the region or not. For this purpose, coordinates exactly on the
 region boundary are considered to be interior to the region. This means,
 for example, for a spherical region, a point on the sphere surface would
-be part of the region if the sphere were defined with the *side in*
+be part of the region if the sphere were defined with the ``side`` *in*
 keyword, but would not be part of the region if it were defined using
-the *side out* keyword. See more details on the *side* keyword below.
+the ``side`` *out* keyword. See more details on the ``side`` keyword below.
 
-The lo/hi values for the *block* or *cylinder* styles can be specified
+The lo/hi values for the ``block`` or ``cylinder`` styles can be specified
 as INF which means a large negative or positive number (1.0e20).
 
-For style *cylinder*, the c1,c2 params are coordinates in the 2 other
+For style ``cylinder``, the c1,c2 params are coordinates in the 2 other
 dimensions besides the cylinder axis dimension. For dim = x, c1/c2 =
 y/z; for dim = y, c1/c2 = x/z; for dim = z, c1/c2 = x/y. Thus the third
 example above specifies a cylinder with its axis in the y-direction
 located at x = 2.0 and z = 3.0, with a radius of 5.0, and extending in
 the y-direction from -5.0 to infinity.
 
-The *union* style creates a region consisting of the volume of all the
-listed regions combined. The *intersect* style creates a region
+
+For style ``plane`` one point and the normal vector define the plane limiting the region. All grids to one side of this plane belong to the region. Which side is determined by the normal and the keyword ``side``. Thus, the fourth example above specifies a region consisting of the semispace located to the right of the point x=0.2 (normal pointing in the direction of `+x`).
+
+The ``union`` style creates a region consisting of the volume of all the
+listed regions combined. The ``intersect`` style creates a region
 consisting of the volume that is common to all the listed regions.
 
 .. important:: Regions in SPARTA are always 3d geometric objects, regardless of whether the :ref:`dimension<command-dimension>` of the simulation 2d or 3d. Thus when using regions in a 2d simulation, for example, you should be careful to define the region so that its intersection with the 2d x-y plane of the simulation has the 2d geometric extent you want.
 
-The *side* keyword determines whether the region is considered to be
+The ``side`` keyword determines whether the region is considered to be
 inside or outside of the specified geometry. Using this keyword in
-conjunction with *union* and *intersect* regions, complex geometries can
+conjunction with ``union`` and ``intersect`` regions, complex geometries can
 be built up. For example, if the interior of two spheres were each
-defined as regions, and a *union* style with *side* = out was
+defined as regions, and a ``union`` style with ``side`` = *out* was
 constructed listing the region-IDs of the 2 spheres, the resulting
 region would be all the volume in the simulation box that was outside
 both of the spheres.
@@ -122,4 +123,4 @@ Default:
 ********
 
 
-The option default is side = in.
+The option default is ``side`` = *in*.

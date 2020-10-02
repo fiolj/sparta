@@ -400,7 +400,7 @@ Also note that, as described above, when a command takes a scalar as input, that
    * - :ref:`dump surf<command-dump>`
      - per surf vectors
      - dump file                                           
-   * - `fix print <command-fix-print>`
+   * - :ref:`fix print <command-fix-print>`
      - global scalar from variable
      - screen, file                                        
    * - :ref:`print<command-print>`
