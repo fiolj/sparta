@@ -6,7 +6,7 @@
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
    DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government retains
-   certain rights in this software.  This software is distributed under 
+   certain rights in this software.  This software is distributed under
    the GNU General Public License.
 
    See the README file in the top-level SPARTA directory.
@@ -94,7 +94,7 @@ class CollideVSSKokkos : public CollideVSS {
   KOKKOS_INLINE_FUNCTION
   void setup_collision_kokkos(Particle::OnePart *, Particle::OnePart *, struct State &, struct State &) const;
   KOKKOS_INLINE_FUNCTION
-  int perform_collision_kokkos(Particle::OnePart *&, Particle::OnePart *&, 
+  int perform_collision_kokkos(Particle::OnePart *&, Particle::OnePart *&,
                         Particle::OnePart *&, struct State &, struct State &, rand_type &,
                         Particle::OnePart *&, int &, double &,
                         int &) const;
@@ -187,31 +187,30 @@ class CollideVSSKokkos : public CollideVSS {
   DAT::t_float_2d d_prefactor;
 
   typedef Kokkos::
-    DualView<Params*, Kokkos::LayoutRight, DeviceType> tdual_params_1d;
-  typedef tdual_params_1d::t_dev t_params_1d;
-  tdual_params_1d k_params;
-  t_params_1d d_params;
-
+    DualView<Params**, Kokkos::LayoutRight, DeviceType> tdual_params_2d;
+  typedef tdual_params_2d::t_dev t_params_2d;
+  tdual_params_2d k_params;
+  t_params_2d d_params;
 
   double dt,fnum,boltz;
   int maxcellcount,maxcellcount_kk,react_defined;
 
   KOKKOS_INLINE_FUNCTION
-  void SCATTER_TwoBodyScattering(Particle::OnePart *, 
+  void SCATTER_TwoBodyScattering(Particle::OnePart *,
                                  Particle::OnePart *,
                                  struct State &, struct State &, rand_type &) const;
   KOKKOS_INLINE_FUNCTION
-  void EEXCHANGE_NonReactingEDisposal(Particle::OnePart *, 
+  void EEXCHANGE_NonReactingEDisposal(Particle::OnePart *,
                                       Particle::OnePart *,
                                       struct State &, struct State &, rand_type &) const;
 
   KOKKOS_INLINE_FUNCTION
-  void SCATTER_ThreeBodyScattering(Particle::OnePart *, 
+  void SCATTER_ThreeBodyScattering(Particle::OnePart *,
                                    Particle::OnePart *,
                                    Particle::OnePart *,
                                    struct State &, struct State &, rand_type &) const;
   KOKKOS_INLINE_FUNCTION
-  void EEXCHANGE_ReactingEDisposal(Particle::OnePart *, 
+  void EEXCHANGE_ReactingEDisposal(Particle::OnePart *,
                                    Particle::OnePart *,
                                    Particle::OnePart *,
                                    struct State &, struct State &, rand_type &) const;
