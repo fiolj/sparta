@@ -37,8 +37,8 @@ SPARTA_INC =	-DSPARTA_GZIP -DSPARTA_JPEG
 # PATH = path for MPI library
 # LIB = name of MPI library
 
-MPI_INC =       -I/usr/local/openmpi/include
-MPI_PATH =      -L/usr/local/openmpi/lib
+MPI_INC =       -I/usr/include/openmpi-x86_64/
+MPI_PATH =      -L/usr/lib64/openmpi/lib
 MPI_LIB =	-lmpi -lmpi_cxx
 
 # FFT library, OPTIONAL
