@@ -21,12 +21,12 @@ today = date.today().strftime("%d/%m/%Y")
 
 # -- Project information -----------------------------------------------------
 
-project = 'SPARTA'
-copyright = '2020'
+project = f'SPARTA  ({format(today)})'
+copyright = '2021'
 author = 'Local SPARTA'
 
 # The full version, including alpha/beta/rc tags
-release = '6 Jul 2020'
+release = '26 Feb 2021'
 
 version = release + "  (build: {})".format(today)
 
