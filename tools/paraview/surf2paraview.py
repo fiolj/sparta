@@ -7,7 +7,7 @@
 
 #   Copyright (2014) Sandia Corporation.  Under the terms of Contract
 #   DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government retains
-#   certain rights in this software.  This software is distributed under 
+#   certain rights in this software.  This software is distributed under
 #   the GNU General Public License.
 
 #   See the README file in the top-level SPARTA directory.
@@ -18,9 +18,11 @@ import os
 import vtk
 import glob
 
+
 def clean_line(line):
   line = line.partition('#')[0]
   return line.strip()
+
 
 def read_points(sif, num_points, num_elements, ug, three_d_file):
   num_items_per_line = 4
@@ -31,7 +33,7 @@ def read_points(sif, num_points, num_elements, ug, three_d_file):
     print("Error reading SPARTA surf input file")
     print("Points section of file occurs more than once")
     sys.exit(1)
-  
+
   points = vtk.vtkPoints()
   for line in sif:
     s = clean_line(line)
@@ -162,11 +164,13 @@ def read_time_steps(result_file_list, time_steps_dict):
     for line in fh:
       s = clean_line(line)
       if s.lower().replace(" ", "") == "item:timestep":
-        time = int(fh.readline())
-        if time in list(time_steps_dict.keys()):
-          time_steps_dict[time].append(f)
-        else:
-          time_steps_dict[time] = [f]
+        for line in fh:
+          time = int(line)
+          if time in time_steps_dict.keys():
+            time_steps_dict[time].append(f)
+          else:
+            time_steps_dict[time] = [f]
+          break
         break
 
     fh.close()

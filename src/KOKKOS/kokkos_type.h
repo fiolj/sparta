@@ -23,6 +23,7 @@
 #include "particle.h"
 #include "grid.h"
 #include "surf.h"
+#include "spatype.h"
 
 #define MAX_TYPES_STACKPARAMS 12
 #define NeighClusterSize 8
@@ -145,18 +146,18 @@ struct AtomicView<-1> {
 // Do atomic trait when running with CUDA
 template<int NEED_ATOMICS, class DeviceType>
 struct AtomicDup {
-  enum {value = Kokkos::Experimental::ScatterNonAtomic};
+  using value = Kokkos::Experimental::ScatterNonAtomic;
 };
 
 #ifdef KOKKOS_ENABLE_CUDA
 template<>
 struct AtomicDup<1,Kokkos::Cuda> {
-  enum {value = Kokkos::Experimental::ScatterAtomic};
+  using value = Kokkos::Experimental::ScatterAtomic;
 };
 
 template<>
 struct AtomicDup<-1,Kokkos::Cuda> {
-  enum {value = Kokkos::Experimental::ScatterAtomic};
+  using value = Kokkos::Experimental::ScatterAtomic;
 };
 #endif
 
@@ -165,24 +166,24 @@ struct AtomicDup<-1,Kokkos::Cuda> {
 #ifdef KOKKOS_ENABLE_OPENMP
 template<>
 struct AtomicDup<1,Kokkos::OpenMP> {
-  enum {value = Kokkos::Experimental::ScatterAtomic};
+  using value = Kokkos::Experimental::ScatterAtomic;
 };
 
 template<>
 struct AtomicDup<-1,Kokkos::OpenMP> {
-  enum {value = Kokkos::Experimental::ScatterAtomic};
+  using value = Kokkos::Experimental::ScatterAtomic;
 };
 #endif
 
 #ifdef KOKKOS_ENABLE_THREADS
 template<>
 struct AtomicDup<1,Kokkos::Threads> {
-  enum {value = Kokkos::Experimental::ScatterAtomic};
+  using value = Kokkos::Experimental::ScatterAtomic;
 };
 
 template<>
 struct AtomicDup<-1,Kokkos::Threads> {
-  enum {value = Kokkos::Experimental::ScatterAtomic};
+  using value = Kokkos::Experimental::ScatterAtomic;
 };
 #endif
 
@@ -193,7 +194,7 @@ struct AtomicDup<-1,Kokkos::Threads> {
 // Use duplication when running threaded and not using atomics
 template<int NEED_ATOMICS, class DeviceType>
 struct NeedDup {
-  enum {value = Kokkos::Experimental::ScatterNonDuplicated};
+  using value = Kokkos::Experimental::ScatterNonDuplicated;
 };
 
 #ifndef SPARTA_KOKKOS_USE_ATOMICS
@@ -201,37 +202,37 @@ struct NeedDup {
 #ifdef KOKKOS_ENABLE_OPENMP
 template<>
 struct NeedDup<1,Kokkos::OpenMP> {
-  enum {value = Kokkos::Experimental::ScatterDuplicated};
+  using value = Kokkos::Experimental::ScatterDuplicated;
 };
 
 template<>
 struct NeedDup<-1,Kokkos::OpenMP> {
-  enum {value = Kokkos::Experimental::ScatterDuplicated};
+  using value = Kokkos::Experimental::ScatterDuplicated;
 };
 #endif
 
 #ifdef KOKKOS_ENABLE_THREADS
 template<>
 struct NeedDup<1,Kokkos::Threads> {
-  enum {value = Kokkos::Experimental::ScatterDuplicated};
+  using value = Kokkos::Experimental::ScatterDuplicated;
 };
 
 template<>
 struct NeedDup<-1,Kokkos::Threads> {
-  enum {value = Kokkos::Experimental::ScatterDuplicated};
+  using value = Kokkos::Experimental::ScatterDuplicated;
 };
 #endif
 
 #endif
 
-template<int value, typename T1, typename T2>
+template<typename value, typename T1, typename T2>
 class ScatterViewHelper {};
 
 template<typename T1, typename T2>
 class ScatterViewHelper<Kokkos::Experimental::ScatterDuplicated,T1,T2> {
 public:
   KOKKOS_INLINE_FUNCTION
-  static T1 get(const T1 &dup, const T2 &nondup) {
+  static T1 get(const T1 &dup, const T2 & /*nondup*/) {
     return dup;
   }
 };
@@ -240,7 +241,7 @@ template<typename T1, typename T2>
 class ScatterViewHelper<Kokkos::Experimental::ScatterNonDuplicated,T1,T2> {
 public:
   KOKKOS_INLINE_FUNCTION
-  static T2 get(const T1 &dup, const T2 &nondup) {
+  static T2 get(const T1 & /*dup*/, const T2 &nondup) {
     return nondup;
   }
 };
@@ -385,12 +386,12 @@ namespace SPARTA_NS {
   typedef tdual_species_1d::t_dev t_species_1d;
   typedef tdual_species_1d::t_dev_const t_species_1d_const;
   typedef tdual_species_1d::t_host t_host_species_1d;
-  
+
   typedef Kokkos::
     DualView<Grid::ChildCell*, DeviceType::array_layout, DeviceType> tdual_cell_1d;
   typedef tdual_cell_1d::t_dev t_cell_1d;
   typedef tdual_cell_1d::t_host t_host_cell_1d;
-  
+
   typedef Kokkos::
     DualView<Grid::ChildInfo*, DeviceType::array_layout, DeviceType> tdual_cinfo_1d;
   typedef tdual_cinfo_1d::t_dev t_cinfo_1d;
@@ -405,6 +406,11 @@ namespace SPARTA_NS {
     DualView<Grid::ParentCell*, DeviceType::array_layout, DeviceType> tdual_pcell_1d;
   typedef tdual_pcell_1d::t_dev t_pcell_1d;
   typedef tdual_pcell_1d::t_host t_host_pcell_1d;
+
+  typedef Kokkos::
+    DualView<Grid::ParentLevel*, DeviceType::array_layout, DeviceType> tdual_plevel_1d;
+  typedef tdual_pcell_1d::t_dev t_plevel_1d;
+  typedef tdual_pcell_1d::t_host t_host_plevel_1d;
 
   typedef Kokkos::
     DualView<Surf::Line*, DeviceType::array_layout, DeviceType> tdual_line_1d;
@@ -433,7 +439,7 @@ typedef tdual_int_scalar::t_dev_um t_int_scalar_um;
 typedef tdual_int_scalar::t_dev_const_um t_int_scalar_const_um;
 
 typedef Kokkos::
-  DualView<SPARTA_FLOAT, DeviceType::array_layout, DeviceType> 
+  DualView<SPARTA_FLOAT, DeviceType::array_layout, DeviceType>
   tdual_float_scalar;
 typedef tdual_float_scalar::t_dev t_float_scalar;
 typedef tdual_float_scalar::t_dev_const t_float_scalar_const;
@@ -457,6 +463,14 @@ typedef tdual_int_1d::t_dev_const t_int_1d_const;
 typedef tdual_int_1d::t_dev_um t_int_1d_um;
 typedef tdual_int_1d::t_dev_const_um t_int_1d_const_um;
 typedef tdual_int_1d::t_dev_const_randomread t_int_1d_randomread;
+
+typedef Kokkos::
+  DualView<SPARTA_NS::bigint*, DeviceType::array_layout, DeviceType> tdual_bigint_1d;
+typedef tdual_bigint_1d::t_dev t_bigint_1d;
+typedef tdual_bigint_1d::t_dev_const t_bigint_1d_const;
+typedef tdual_bigint_1d::t_dev_um t_bigint_1d_um;
+typedef tdual_bigint_1d::t_dev_const_um t_bigint_1d_const_um;
+typedef tdual_bigint_1d::t_dev_const_randomread t_bigint_1d_randomread;
 
 typedef Kokkos::
   DualView<int*[3], Kokkos::LayoutRight, DeviceType> tdual_int_1d_3;
@@ -577,7 +591,7 @@ typedef tdual_xfloat_2d::t_dev_um t_xfloat_2d_um;
 typedef tdual_xfloat_2d::t_dev_const_um t_xfloat_2d_const_um;
 typedef tdual_xfloat_2d::t_dev_const_randomread t_xfloat_2d_randomread;
 
-//2d X_FLOAT array n*4 
+//2d X_FLOAT array n*4
 #ifdef SPARTA_KOKKOS_NO_LEGACY
 typedef Kokkos::DualView<X_FLOAT*[3], Kokkos::LayoutLeft, DeviceType> tdual_x_array;
 #else
@@ -672,7 +686,7 @@ typedef tdual_efloat_2d::t_dev_um t_efloat_2d_um;
 typedef tdual_efloat_2d::t_dev_const_um t_efloat_2d_const_um;
 typedef tdual_efloat_2d::t_dev_const_randomread t_efloat_2d_randomread;
 
-//2d E_FLOAT array n*3 
+//2d E_FLOAT array n*3
 
 typedef Kokkos::DualView<E_FLOAT*[3], Kokkos::LayoutRight, DeviceType> tdual_e_array;
 typedef tdual_e_array::t_dev t_e_array;
@@ -728,6 +742,13 @@ typedef tdual_int_1d::t_host_const t_int_1d_const;
 typedef tdual_int_1d::t_host_um t_int_1d_um;
 typedef tdual_int_1d::t_host_const_um t_int_1d_const_um;
 typedef tdual_int_1d::t_host_const_randomread t_int_1d_randomread;
+
+typedef Kokkos::DualView<SPARTA_NS::bigint*, DeviceType::array_layout, DeviceType> tdual_bigint_1d;
+typedef tdual_bigint_1d::t_host t_bigint_1d;
+typedef tdual_bigint_1d::t_host_const t_bigint_1d_const;
+typedef tdual_bigint_1d::t_host_um t_bigint_1d_um;
+typedef tdual_bigint_1d::t_host_const_um t_bigint_1d_const_um;
+typedef tdual_bigint_1d::t_host_const_randomread t_bigint_1d_randomread;
 
 typedef Kokkos::DualView<int*[3], Kokkos::LayoutRight, DeviceType> tdual_int_1d_3;
 typedef tdual_int_1d_3::t_host t_int_1d_3;
