@@ -65,7 +65,7 @@ on how grid cells can be assigned to grid groups.
 The values are stored in a per-grid vector or array as discussed below.
 
 *Id* is the grid cell ID. In SPARTA each grid cell is assigned a unique
-ID which represents its location, in a topological sense, within the
+ID which represents its logical location within the
 hierarchical grid. This ID is stored as an integer such as 5774983, but
 can also be decoded into a string such as 33-4-6, which makes it easier
 to understand the grid hierarchy. In this case it means the grid cell is

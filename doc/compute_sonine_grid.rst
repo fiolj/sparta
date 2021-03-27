@@ -60,7 +60,7 @@ Examples:
    compute 1 sonine/grid all air a x 5 b xy 5
    compute 1 sonine/grid subset air a x 5 
 
-These commands will dump 10 time averaged sonine moments for each
+These commands will dump time averaged sonine moments for each
 species and each grid cell to a dump file every 1000 steps:
 
 ::

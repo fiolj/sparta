@@ -55,7 +55,7 @@ Examples:
    compute 1 thermal/grid all species temp
    compute 1 thermal/grid subset air temp press 
 
-These commands will dump 10 time averaged thermal temperatures for each
+These commands will dump time averaged thermal temperatures for each
 species and each grid cell to a dump file every 1000 steps:
 
 ::

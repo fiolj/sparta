@@ -42,8 +42,9 @@ Syntax:
    - ``nattempt``, ``nattemptave`` = # of attempted collisions (this step, per-step)
    - ``nreact``, ``nreactave`` = # of chemical reactions (this step, per-step)
    - ``nsreact``, ``nsreactave`` = # of chemical reactions on surfs and boundaries (this step, per-step)
-   - nparent,nchild,nsplit = # of parent, child, split cells
-   - maxlevel = max # of grid refinement levels
+   - ngrid = # of grid cells (including split cells)
+   - nsplit = # of split cells
+   - maxlevel = max # of refinement levels in current grid
    - vol = volume of simulation box
    - lx,ly,lz = simulation box lengths
    - xlo,xhi,ylo,yhi,zlo,zhi = box boundaries,
@@ -147,11 +148,11 @@ The *nreact* keyword
 The *nsreact* keyword
   is the number of chemical reactions on surfaces that occurred, including the global boundaries if they are treated as reacting surfaces, via the :ref:`bound_modify<command-bound-modify>` command.
 
-The *nparent* keyword
-  is the number of parent cells, including the root cell. The *nchild* keyword is the number of child cells, which includes both unsplit and split cells. The *nsplit* keyword is the number of split cells. See :ref:`Section howto 4.8<howto-grids>` for a description of the hierarchical grid used by SPARTA and a definition of these various kinds of grid cells.
+The *ngrid* keyword
+  is the number of grid cells which includes both unsplit and split cells.  The *nsplit* keyword is the number of split cells.  See  :ref:`Section howto 4.8<howto-grids>` for a description of the hierarchical grid used by SPARTA and a definition of these kinds of grid cells.
 
 The *maxlevel* keyword
-  is the maximum number of levels for grid refinement currently in the simulation. This may change due to dynamic grid adaptation.
+  is the # of levels of grid refinement currently used in the simulation. This may change due to dynamic grid adaptation.
 
 The *vol* keyword
   is the volume (or area in 2d) of the simulation box.

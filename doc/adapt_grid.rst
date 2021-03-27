@@ -112,12 +112,12 @@ be invoked as many times as desired, before or between simulation runs.
 Grid adaptation can also be performed on-the-fly during a simulation by
 using the :ref:`fix adapt<command-fix-adapt>` command.
 
-Refinement means splitting one child cell into multiple new child cells;
-the original child cell becomes a parent cell. Coarsening means
+Refinement means splitting one child cell into multiple new child cells.
+The original child cell disappears, conceptually it becomes a parent cell. Coarsening means
 combining all the child cells of a parent cell, so that the child cells
 are deleted and the parent cell becomes a single new child cell. See
 :ref:`Section howto 4.8<howto-grids>` for a description of
-the hierarchical grid used by SPARTA and a definition of child and parent
+the hierarchical grid used by SPARTA and definitions of child and parent
 cells.
 
 Grid adaptation can be useful for adjusting the grid cell sizes to the
@@ -169,7 +169,7 @@ eligible for coarsening. The *minlevel* and *region* keywords also
 affect eligibility. They are described below.
 
 The *style* parameter is then used to decide whether to refine or
-coarsen each eligible grid cell. The operation of the differnt styles is
+coarsen each eligible grid cell. The operation of the different styles is
 described in the next section. Note that for refinement, the number of
 new child cells created withing a single cell is set by the *cells*
 keyword which defaults to 2x2x2 for 3d models and 2x2x1 for 2d models.
@@ -309,10 +309,10 @@ The *combine* keyword
   maximum of all the child values.
 
 The *cells* keyword
-  determines how many new child cells are created when a single grid
-  cell is refined. Nx by Ny by Nz new child cells are created. Nz must
-  be 1 for 2d simulations. In the future we plan to allow for variable
-  refinement by allowing wild cards to be used for Nx, Ny, and Nz.
+  determines how many new child cells are created
+  when a single grid cell is refined.  *Nx* by *Ny* by *Nz* new child cells
+  are created.  *Nz* must be one for 2d.  Any of *Nx*, *Ny*, *Nz* may have a
+  value of 1, but they cannot all be 1.
 
 The *region* keyword
   can be used to limit which grid cells are eligible for adapation. It

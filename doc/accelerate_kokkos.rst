@@ -39,7 +39,8 @@ OpenMP (threading for many-core CPUs and Intel Phi), and CUDA (for
 NVIDIA GPUs). You choose the mode at build time to produce an executable
 compatible with specific hardware.
 
-.. note:: Kokkos support within SPARTA must be built with a C++11 compatible compiler. This means GCC version 4.7.2 or later, Intel 14.0.4 or later, or Clang 3.5.2 or later is required.
+.. note:: Kokkos support within SPARTA must be built with a C++14 compatible compiler. For a list of compilers that have been tested with the Kokkos library, see the Kokkos `README <https://github.com/kokkos/kokkos/blob/master/README.md>`__.
+
 
 .. _accelerate-kokkos-building-make:
 
@@ -78,7 +79,7 @@ Kokkos architecture options.
 Compile for CPU-only (MPI only, no threading):
 **********************************************
 
-Use a C++11 compatible compiler and set Kokkos architecture variable as described above. Then do the following:
+Use a C++14 compatible compiler and set Kokkos architecture variable as described above. Then do the following:
 
 Using Makefiles:
 
@@ -103,7 +104,7 @@ Compile for CPU-only (MPI plus OpenMP threading):
 
 .. note:: To build with Kokkos support for OpenMP threading, your compiler must support the OpenMP interface. You should have one or more multi-core CPUs so that multiple threads can be launched by each MPI task running on a CPU.
 
-Use a C++11 compatible compiler and set KOKKOS architecture variable as described above. Then do the following:
+Use a C++14 compatible compiler and set KOKKOS architecture variable as described above. Then do the following:
 
 using Makefiles:
 
@@ -127,7 +128,7 @@ using CMake:
 Compile for Intel KNL Xeon Phi (Intel Compiler, OpenMPI):
 *********************************************************
 
-Use a C++11 compatible compiler and do the following:
+Use a C++14 compatible compiler and do the following:
 
 using Makefiles:
 .. code-block:: make
@@ -149,7 +150,7 @@ Compile for CPUs and GPUs (with OpenMPI or MPICH):
 
 .. note:: To build with Kokkos support for NVIDIA GPUs, NVIDIA CUDA software version 7.5 or later must be installed on your system.
 
-Use a C++11 compatible compiler and set Kokkos architecture variable in
+Use a C++14 compatible compiler and set Kokkos architecture variable in
 for both GPU and CPU as described
 above. Then do the following:
 
@@ -219,10 +220,7 @@ manner no modification to the input script is needed. Alternatively, one
 can run with the KOKKOS package by editing the input script as described
 below.
 
-NOTE: When using a single OpenMP thread, the Kokkos Serial backend (i.e.
-Makefile.kokkos_mpi_only) will give better performance than the OpenMP
-backend (i.e. Makefile.kokkos_omp) because some of the overhead to make
-the code thread-safe is removed.
+.. note:: When using a single OpenMP thread, the Kokkos Serial backend (i.e. Makefile.kokkos_mpi_only) will give better performance than the OpenMP backend (i.e. Makefile.kokkos_omp) because some of the overhead to make the code thread-safe is removed.
 
 .. note:: The default for the :ref:`package kokkos<command-package>` command is to use "threaded" communication. However, when running on CPUs, it will typically be faster to use "classic" non-threaded communication. Use the "-pk kokkos" :ref:`command-line switch<start-command-line-options>` to change the default :ref:`package kokkos<command-package>` options. See its doc page for details and default settings. Experimenting with its options can provide a speed-up for specific calculations. For example:
 
@@ -502,12 +500,18 @@ is listed, which is set in the /lib/kokkos/Makefile.kokkos file.
    * - TURING75
      - GPU
      - NVIDIA Turing generation CC 7.5 GPU
+   * - AMPERE80
+     - GPU
+     - NVIDIA Ampere generation CC 8.0 GPU
    * - VEGA900
      - GPU
      - AMD GPU MI25 GFX900
    * - VEGA906
      - GPU
      - AMD GPU MI50/MI60 GFX906
+   * - INTEL_GEN
+     - GPU
+     - Intel GPUs Gen9+
 
 
 The CMake option Kokkos_ENABLE_CUDA_{OPTION} or the makefile setting KOKKOS_CUDA_OPTIONS=*OPTION* are 

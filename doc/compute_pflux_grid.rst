@@ -45,7 +45,7 @@ Examples:
    compute 1 pflux/grid all species momxx momyy momzz
    compute 1 pflux/grid subset species momxx momxy 
 
-These commands will dump 10 time averaged momentum flux densities for
+These commands will dump time averaged momentum flux densities for
 each species and each grid cell to a dump file every 1000 steps:
 
 ::

@@ -108,7 +108,7 @@ The *none* style
 .. _balance-grid-block:
 
 The *stride*, *clump*, and *block* styles
-  can only be used if the grid is "uniform". The grid in SPARTA is hierarchical with one or more levels, as defined by the :ref:`create_grid<command-create-grid>` or :ref:`read_grid<command-read-grid>` commlands. If the parent cell of every grid cell is at the same level of the hierarchy, then for puposed os this command the grid is uniform, meaning the collection of grid cells effectively form a uniform fine grid overlaying the entire simulation domain.
+  can only be used if the grid is "uniform". The grid in SPARTA is hierarchical with one or more levels, as defined by the :ref:`create_grid<command-create-grid>` or :ref:`read_grid<command-read-grid>` commlands. If the parent cell of every grid cell is at the same level of the hierarchy, then for purposes of this command the grid is uniform, meaning the collection of grid cells effectively form a uniform fine grid overlaying the entire simulation domain.
 
   The meaning of the *stride*, *clump*, and *block* styles is exactly the same as when they are used as keywords with the :ref:`create_grid<command-create-grid>` command. See its doc page for details.
 

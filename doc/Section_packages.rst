@@ -187,7 +187,7 @@ what hardware and software is required on your system, and how to build
 and use this package. Its styles can be invoked at run time via the "-sf
 kk" or "-suffix kk" :ref:`start-command-line-options`.
 
-You must have a C++11 compatible compiler to use this package.
+You must have a C++14 compatible compiler to use this package.
 
 **Authors:** The KOKKOS package was created primarily by Stan Moore (Sandia), with contributions from other folks as well. It uses the open-source `Kokkos library <https://github.com/kokkos>`__ which was developed by Carter Edwards, Christian Trott, and others at Sandia, and which is included in the SPARTA distribution in lib/kokkos.
 

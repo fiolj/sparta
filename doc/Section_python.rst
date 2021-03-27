@@ -19,7 +19,7 @@ interface.
    :local:
 
 
-The SPARTA distribution includes the file python/sparta.py which wraps the library interface to SPARTA. This file makes it is possible to run SPARTA, invoke SPARTA commands or give it an input script, extract SPARTA results, and modify internal SPARTA variables, either from a Python script or interactively from a Python prompt. You can do the former in serial or parallel. Running Python interactively in parallel does not generally work, unless you have a package installed that extends your Python to enable multiple instances of Python to read what you type.
+The SPARTA distribution includes the file python/sparta.py which wraps the library interface to SPARTA. This file makes it possible to run SPARTA, invoke SPARTA commands or give it an input script, extract SPARTA results, and modify internal SPARTA variables, either from a Python script or interactively from a Python prompt. You can do the former in serial or parallel. Running Python interactively in parallel does not generally work, unless you have a package installed that extends your Python to enable multiple instances of Python to read what you type.
 
 `Python <http://www.python.org>`__ is a powerful scripting and programming language which can be used to wrap software like SPARTA and many other packages. It can be used to glue multiple pieces of software together, e.g. to run a coupled or multiscale model.
 See :ref:`howto-other-code` of the manual and the examples/COUPLE directory of the distribution for more ideas about coupling SPARTA to other codes. See :ref:`build-library<start-build-library>` about how to build SPARTA as a library, and :ref:`howto-library` for a description of the library interface provided in src/library.cpp and src/library.h and how to extend it for your needs. As described below, that interface is what is exposed to Python. It is designed to be easy to add functions to. This can extend the Python inteface as well. See details below.
@@ -50,7 +50,7 @@ For make, from the src directory, type
 
 .. code-block:: bash
 
-   make makeshlib
+   make mode=shlib foo
    make -f Makefile.shlib foo 
 
 

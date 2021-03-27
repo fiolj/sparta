@@ -17,10 +17,9 @@ Syntax:
 
 ::
 
-   write_grid mode file 
+   write_grid filename
 
--  mode = *parent* or *geom*
--  file = name of file to write grid info to
+-  filename = name of file to write grid info to
 
 *********
 Examples:
@@ -28,64 +27,55 @@ Examples:
 
 ::
 
-   write_grid parent data.grid
-   write_grid geom viz.out 
+   write_grid data.grid
+
 
 ************
 Description:
 ************
 
-Write a grid file in text format describing the currently defined
-hierarchical grid. See the :ref:`read_grid<command-read-grid>` and
-:ref:`create_grid<command-create-grid>` commands for a definition of
-hierarchical grids and parent/child cells as used by SPARTA.
+Write a grid file in text format listing the grid cell IDs in the
+current hierarchical grid.  See the :ref:`read_grid<command-read-grid>` and
+:ref:`create_grid<command-create-grid>` commands, as well as :ref:`Section 6.8<howto-grids>` of the manual for a definition of
+hierarchical grids and grid cell IDs as used by SPARTA.
 
-The file is written in text format in one of two modes.
-
-If *mode* is *parent* then a list of parent cells is written in the same
-format as the input file used by the :ref:`read_grid<command-read-grid>`
-command. Thus the file can be used to start a subsequent simulation
-using the same grid topology.
-
-If *mode* is *geom* then the geometric description of all the child
-cells is written in the following format. This file can be used in
-conjunction with snapshot files of per-grid properties, written by the
-:ref:`dump grid<command-dump>` command, to visualize various properties on
-the grid.
+The file is in the following format which is the same as the input
+file used by the :ref:`command-read-grid`.  Thus the file
+can be used to start a subsequent simulation with the same grid
+topology.
 
 .. code-block:: none
 
    Description line 
 
-   N points
-   M cells 
-
-   Points 
-
-   1 x y z
-   2 x y z
+   N cells
+   M levels
+   n1 n2 n3 level-1
+   n1 n2 n3 level-2
    ...
-   N x y z 
+   n1 n2 n3 level-M
 
    Cells 
 
-   1 p1 p2 p3 p4 ...
-   2 p1 p2 p3 p4 ...
+   id1
+   id2
    ...
-   M p1 p2 p3 p4 ... 
+   idN ... 
+   
 
+The file begins with an arbitrary description line followed by zero or
+more blank lines.  The header section of the file then lists the
+number of grid cells N and the number of levels M in the hierarchical
+grid.  For each level the n1, n2, n3 values give the size of the
+sub-grid that parent cells (one level lower) are sub-divided into at
+this level.  The lines in the header section can be in any order
+except the the number of levels M must appear before any of the
+level-* lines.  A blank line ends the header section.
 
-The file will have N points and M grid cells. For each point the x,y,z
-coordinates are output. For each grid cell, the indices of the 4 (in 2d)
-or 8 (in 3d) points comprising the corners of the grid cell are output.
-Each point index is an integer from 1 to N. The ordering of the point
-indices is (LL,LR,UR,UL) or counter-clockwise for 2d grid cells. For 3d
-grid cells it is the same where the first 4 indices are the lower-Z
-indices, and the next 4 are the upper-Z indices.
-
-.. important:: The points in the output file will not be unique.
-	       Instead there will be 4 or 8 for each grid cell, with some (x,y,z) coordinates being duplicated since they are shared by multiple grid cells.
-	       Converting the output file to one with a unique list of points is currently a post-processing task.
+The Cells section of the file lists all the grid cell IDs, one per
+line.  They may be in arbitrary order, particularly if the file is
+written in parallel, where each processor contributes a subset of the
+grid cell IDs.
 
 *************
 Restrictions:

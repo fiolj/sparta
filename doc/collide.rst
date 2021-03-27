@@ -88,7 +88,7 @@ style.
 For each collision attempt, a random pair of particles is selected, with
 one particle from each group. Whether the collision occurs or not is a
 function of the relative velocities of the two particles, their
-respectives species, and other parameters of the collision style; see
+respective species, and other parameters of the collision style; see
 equation 11.4 in [Bird94]_.
 
 .. note:: If you are using the ambipolar approximation with charged species, as described in :ref:`howto-ambipolar`, and you have used the :ref:`collide_modify ambipolar yes <command-collide-modify>` command to enable ambipolar collisions (not required), and you are using a mixture ID with multiple groups, then the ambipolar electron species must be in a group by itself.
@@ -149,7 +149,7 @@ The meaning of additional properties is as follows:
 -  tref = reference temperature (temperature units)
 -  alpha = angular scattering parameter (unitless)
 
-The methodolgy for deriving VSS/VHS parameters from these properties is
+The methodology for deriving VSS/VHS parameters from these properties is
 explained in Chapter 3 of [Bird94]_. Parameter values for
 the most common gases are given in Appendix A of the same book. These
 values are based on the first-order approximation of the Chapman-Enskog
@@ -185,6 +185,27 @@ A5. C1 and C2 are in eq A6. The units of these parameters is as follows:
 Note that a collision data file with the 4 extra relaxation parameters
 (per species) can be used when the *relax* keyword is specified as
 *constant*. In that case, the extra parameters are simply ignored.
+
+For interspecies collisions, the collision parameters default to
+the average of the parameters for each involved species.  To override
+this default, lines specific to each interspecies pair can be added
+anywhere in the collision data file.  The format for these lines is as
+described above, with the addition of a second species name.  For
+example, with the *relax* keyword specified, an interspecies
+collision line would contain the following information for collisions
+between species-ID and species-ID1:
+
+.. code-block::
+   species-ID species-ID1 diam omega tref alpha Zrotinf T* C1 C2
+
+In an interspecies line, a specific parameter can be returned to the
+default behavior (an average) by making it negative.  For example, to
+override only {omega} for the above case, the line could appear as
+follows:
+
+.. code-block::
+   species-ID species-ID1 -1 omega -1 -1 -1 -1 -1 -1
+
 
 --------------
 

@@ -316,7 +316,7 @@ MPI_PATH), and the name of the library file (via MPI_LIB). See
 Makefile.serial for an example of how this can be done.
 
 If you are installing MPI yourself, we recommend MPICH 1.2 or 2.0 or
-OpenMPI. MPICH can be downloaded from the `Argonne MPI site <http://www-unix.mcs.anl.gov/mpi>`__. OpenMPI can be downloaded the
+OpenMPI. MPICH can be downloaded from the `Argonne MPI site <http://www.mpich.org>`__. OpenMPI can be downloaded from the
 `OpenMPI site <http://www.open-mpi.org>`__. If you are running on a big
 parallel platform, your system admins or the vendor should have already
 installed a version of MPI, which will be faster than MPICH or OpenMPI,

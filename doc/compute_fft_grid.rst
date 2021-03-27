@@ -64,7 +64,7 @@ velocity components in each grid cell to a dump file every 1000 steps:
 Description:
 ************
 
-Define a computation that performs FFTs on per-grid values. This can be
+Define a computation that performs forward FFTs on per-grid values. This can be
 useful, for example, in calculating the energy spectrum of a turbulent
 flow.
 
@@ -82,7 +82,7 @@ different ways. The values for a single timestep can be output by the
 timesteps can be averaged by the :ref:`fix ave/grid<command-fix-ave-grid>`
 command.
 
-An FFT is performed on each input value independently.
+A FFT is performed on each input value independently.
 
 Each listed input can be the result of a :ref:`compute<command-compute>` or
 :ref:`fix<command-fix>` or the evaluation of a :ref:`variable<command-variable>`,
@@ -118,7 +118,10 @@ If the *sum* keyword is set to *yes*, the results of all FFTs will be
 summed together, grid value by grid value, to create a single output.
 
 The result of each FFT is scaled by the *sfactor* value of the *scale*
-keyword, whose default is 1.0.
+keyword, whose default is 1.0.  Note that forward FFTs do
+not perform any scaling of their own; backward FFTs scale each output
+value by N = # of points in the FFT grid.
+
 
 If the *conjugate* keyword is set to *no*, the result of each FFT is 2
 values for each grid point, the real and imaginary parts of a complex
@@ -129,7 +132,7 @@ effectively the squared length of the complex 2-vector with real and
 imaginary components.
 
 If one or more of the *kx*, *ky*, *kz*, or *kmag* keywords are set to
-*yes*, then one or moer extra columns of per-grid output is generated.
+*yes*, then one or more extra columns of per-grid output is generated.
 For *kx* the x-component of the K-space wavevector is generated.
 Similarly for *ky* and *kz*. For *kmag* the length of each K-space
 wavevector is generated. These values can be useful, for example, for

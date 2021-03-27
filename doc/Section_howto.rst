@@ -559,10 +559,34 @@ Details of grid geometry in SPARTA
 
 SPARTA overlays a grid over the simulation domain which is used to track particles and to co-locate particles in the same grid cell for performing collision and chemistry operations. Surface elements are also assigned to grid cells they intersect with, so that particle/surface collisions can be efficiently computed.
 
-SPARTA uses a Cartesian hierarchical grid. Cartesian means that the faces of a grid cell, at any level of the hierarchy, are aligned with the Cartesian xyz axes. I.e. each grid cell is an axis-aligned pallelpiped or rectangular box. The hierarchy of grid cells is defined in the following manner. The entire simulation box is a single "root" grid cell at level 0 of the hierarchy. It is sub-divided into a regular Nx by Ny by Nz grid of cells, all at level 1 of the hierarchy. "Regular" means all the Nx*Ny*Nz sub-divided cells within a parent cell are the same size. Each Nx,Ny,Nz value >= 1 (although if Nx = Ny = Nz = 1 then obviously there is no sub-division). Any of the cells at level 1 can be further sub-divided in the same manner to create cells at level 2, and recursively for levels 3, 4,
-etc. The Nx,Ny,Nz values for sub-dividing an individual parent cell can be uniquely chosen. All level 2 cells do not need to be sub-divided using the same Nx,Ny,Nz values. Grids for 2d and 3d simulations (see the :ref:`dimension<command-dimension>`) follow the same rules, except that ``Nz = 1`` is required at every level of sub-division for 2d grids.
+SPARTA uses a Cartesian hierarchical grid. Cartesian means that the faces of a grid cell, at any level of the hierarchy, are aligned with the Cartesian xyz axes. I.e. each grid cell is an axis-aligned pallelpiped or rectangular box. 
 
-Note that this manner of defining a hierarchy allows for flexible grid cell refinement in any region of the simulation domain. E.g. around a surface, or in a high-density region of the gas flow. Also note that a 3d oct-tree (quad-tree in 2d) is a special case of the SPARTA hierarchical grid, where Nx = Ny = Nz = 2 is always used to sub-divide a grid cell.
+
+The hierarchy of grid cells is defined for N levels, from 1 to N.  The
+entire simulation box is a single parent grid cell, conceptually at
+level 0.  It is subdivided into a regular grid of Nx by Ny by Nz cells
+at level 1.  "Regular" means all the Nx*Ny*Nz sub-divided cells within
+any parent cell are the same size.  Each of those cells can be a child
+cell (no further sub-division) or it can be a parent cell which is
+further subdivided into Nx by Ny by Nz cells at level 2.  This can
+recurse to as many levels as desired.  Different cells can stop
+recursing at different levels.  The Nx,Ny,Nz values for each level of
+the grid can be different, but they are the same for every grid cell
+at the same level.  The per-level Nx,Ny,Nz values are defined by the
+:ref:`command-create-grid`, :ref:`command-read-grid`, or :ref:`command-fix-adapt`.
+
+As described below, each child cell is assigned an ID which encodes
+the cell's logical position within in the hierarchical grid, as a
+32-bit or 64-bit unsigned integer ID.  The precision is set by the
+-DSPARTA_BIG or -DSPARTA_SMALL or -DSPARTA_BIGBIG compiler switch, as
+described in :ref:`Section 2.2<start-step-4>`.  The number of
+grid levels that can be used depends on this precision and the
+resolution of the grid at each level.  For example, in a 3d
+simulation, a level that is refined with a 2x2x2 sub-grid requires 4
+bits of the ID.  Thus a maximum of 8 levels can be used for 32-bit IDs
+and 16 levels for 64-bit IDs.
+
+This manner of defining a hierarchy grid allows for flexible grid cell refinement in any region of the simulation domain. E.g. around a surface, or in a high-density region of the gas flow. Also note that a 3d oct-tree (quad-tree in 2d) is a special case of the SPARTA hierarchical grid, where Nx = Ny = Nz = 2 is used at every level.
 
 An example 2d hierarchical grid is shown in the diagram, for a circular surface object (in red) with the grid refined on the upwind side of the object (flow from left to right). The first level coarse grid is 18x10.  2nd level grid cells are defined in a subset of those cells with a 3x3 sub-division. A subset of the 2nd level cells contain 3rd level grid cells via a further 3x3 sub-division.
 
@@ -574,7 +598,7 @@ portion of the simulation domain that is "outside" any surface objects
 and is typically filled with particles.
 
 -  root cell = the simulation box itself
--  parent cell = a grid cell at any level that is sub-divided further
+-  parent cell = a grid cell that is sub-divided (root cell = parent cell)
 -  child cell = a grid cell that is not sub-divided further
 -  unsplit cell = a child cell not intersected by any surface elements
 -  cut cell = a child cell intersected by one or more surface elements,
@@ -583,7 +607,10 @@ and is typically filled with particles.
    elemments, two or more resulting disjoint flow regions
 -  sub cell = one disjoint flow region portion of a split cell
 
-The list of parent cells in a simulation is stored by every processor and is read in by the :ref:`command-read-grid`, or defined by the :ref:`command-create-grid`. Child cells are inferred by the same 2 commands and the union of all child cells is the entire simulation domain. Child cells are distributed across processors, so that each child cell is owned by exactly one processor, as discussed below.
+In SPARTA, parent cells are only conceptual.  They do not exist or
+require memory.  Child cells store various attributes and are
+distributed across processors, so that each child cell is owned by
+exactly one processor, as discussed below.
 
 When surface objects are defined via the :ref:`command-read-surf`, they intersect child cells. In this contex "intersection" by a surface element means a geometric overlap between the area of the surface element and the volume of the grid cell (or length of element and area of grid cell in 2d). Thus an intersection includes a surface triangle that only touches a grid cell on its face, edge, or at its corner point. When intersected by one or more surface elements, a child cell becomes one of 3 flavors: unsplit, cut, or split. A child cell not intersected by any surface elements is an unsplit cell. It can be entirely in the flow region or entirely inside a surface object. If a child cell is intersected so that it is partitioned into two contiguous volumes, one in the flow region, the other
 inside a surface object, then it is a cut cell. This is the usual case. Note that either the flow volume or inside volume can be of size zero, if the surface only "touches" the grid cell, i.e. the intersection is only on a face, edge, or corner point of the grid cell. The left side of the diagram below is an example, where red represents the flow region. Sometimes a child cell can be partitioned by surface elements so that more than one contiguous flow region is created. Then it is a split cell. Additionally, each of the two or more contiguous flow regions is a sub cell of the split cell.  The right side of the diagram shows a split cell with 3 sub cells.
@@ -592,21 +619,30 @@ inside a surface object, then it is a cut cell. This is the usual case. Note tha
 
 The union of (1) unsplit cells that are in the flow region (not entirely interior to a surface object) and (2) flow region portions of cut cells and (3) sub cells is the entire flow region of the simulation domain.  These are the only kinds of child cells that store particles. Split cells and unsplit cells interior to surface objects have no particles.
 
-Every parent and child cell is assigned an ID by SPARTA. These IDs can be output in integer or string form by the :ref:`command-dump`, using its *id* and *idstr* attributes. The integer form can also be output by the :ref:`compute property/grid <command-compute-property-grid>`.
+Child cell IDs can be output in integer or string form by the :ref:`command-dump`, using its *id* and *idstr* attributes.  The integer form can also be output by the :ref:`compute property/grid <command-compute-property-grid>`.
 
-Here is how the grid cell ID is computed and stored by SPARTA. Say the 1st level grid is a 10x10x20 sub-division (2000 cells) of the root cell.  The 1st level cells are numbered from 1 to 2000 with the x-dimension varying fastest, then y, and finally the z-dimension slowest. Now say the 374th (out of 2000, 14 in x, 19 in y, 1 in z) 1st-level cell has a 2x2x2 sub-division (8 cells), and consider the 4th 2nd-level cell (2 in x, 2 in y, 1 in z) within the 374th cell. It could be a parent cell if it is further sub-divided, or a child cell if not. In either case its ID is the same. The rightmost 11 bits of the integer ID are encoded with
-374.
-This is because it requires 11 bits to represent 2000 cells (1 to 2000) at level 1. The next 4 bits are used to encode 1 to 8, specifically 4 in the case of this cell. Thus the cell ID in integer format is 4*2048 + 374 = 8566. In string format it will be printed as 4-374, with dashes separating the levels.
+Here is how a grid cell ID is computed by SPARTA, either for parent or
+child cells.  Say the level 1 grid is a 10x10x20 sub-division (2000
+cells) of the root cell.  The level 1 cells are numbered from 1 to
+2000 with the x-dimension varying fastest, then y, and finally the
+z-dimension slowest.  Now say the 374th (out of 2000, 14 in x, 19 in
+y, 1 in z) level 1 cell has a 2x2x2 sub-division (8 cells), and
+consider the 4th level 2 cell (2 in x, 2 in y, 1 in z) within the
+374th cell.  It could be a parent cell if it is further sub-divided,
+or a child cell if not.  In either case its ID is the same.  The
+rightmost 11 bits of the integer ID are encoded with 374.  This is
+because it requires 11 bits to represent 2000 cells (1 to 2000) at
+level 1.  The next 4 bits are used to encode 1 to 8, specifically 4 in
+the case of this cell.  Thus the cell ID in integer format is 4*2048 +
+374 = 8566.  In string format it will be printed as 4-374, with dashes
+separating the levels.
 
 Note that a child cell has the same ID whether it is unsplit, cut, or split. Currently, sub cells of a split cell also have the same ID, though that may change in the future.
 
-The number of hierarchical levels a SPARTA grid can contain is limited to whether all cell IDs can be encoded in an integer. By default cell IDs are stored in 32-bit integers. 64-bit integers can be used if SPARTA is compiled with the -DSPARTA_BIGBIG option, as explained in :ref:`start-steps-build-make`.
-
-For 32-bit cell IDs if every level uses a 2x2x2 sub-division which requires 4 bits (to store values from 1 to 8), then a grid can have 7 levels. For 64-bit cell IDs, 15 levels could be defined.
-
 The :ref:`command-create-grid`, :ref:`command-balance-grid`, and :ref:`command-fix-balance` determine the assignment of child cells to processors. If a child cell is assigned to a processor, that processor owns the cell whether it is an unsplit, cut, or split cell. It also owns any sub cells that are part of a split cell.
 
-Depending on how they the commands are used, the child cells assigned to each processor will either be "clumped" or "dispersed".
+Depending on which assignment options in these commands are used, the child cells assigned to each processor will either be "clumped" or "dispersed".
+
 
 Clumped means each processor's cells will be geometrically compact.  Dispersed means the processor's cells will be geometrically dispersed across the simulation domain and so they cannot be enclosed in a small bounding box.
 

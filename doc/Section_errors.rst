@@ -731,12 +731,10 @@ Errors
 *Grid cutoff is longer than box length in a periodic dimension*
    This is not allowed. Reduce the size of the cutoff specified by the
    global gridcut command.
-*Grid file does not contain parents*
-   No parent cells appeared in the grid file.
-*Grid in/out other-mark error %d\n*
+*Grid in/out other-mark error %d*
    Grid cell marking as inside, outside, or overlapping with surface
    elements failed. Please report the issue to the SPARTA developers.
-*Grid in/out self-mark error %d for icell %d, icorner %d, connect %d %d, other cell %d, other corner %d, values %d %d\n*
+*Grid in/out self-mark error %d for icell %d, icorner %d, connect %d %d, other cell %d, other corner %d, values %d %d*
    A grid cell was incorrectly marked as inside, outside, or overlapping
    with surface elements. Please report the issue to the SPARTA
    developers.
@@ -1021,9 +1019,6 @@ Errors
 *Parent cell child missing*
    Hierarchical grid traversal failed. Please report the issue to the
    SPARTA developers.
-*Parent cell's parent does not exist in grid file*
-   Parent cells must be listed in order such that each cell's parents
-   have already appeared in the list.
 *Particle %d on proc %d hit inside of surf %d on step %ld*
    This error should not happen if particles start outside of physical
    objects. Please report the issue to the SPARTA developers.

@@ -32,8 +32,7 @@ top of the first page of the manual (this page).
    don't want it to be part of very patch.
 -  At some point, there also will be a :ref:`Developer.pdf`
    file in the doc directory, which describes the internal structure and
-   algorithms of SPARTA. NOTE: as of 21 Apr 2015, this file is not yet
-   available.
+   algorithms of SPARTA.
 
 .. note::
    - The source for this version of the manual is in the `docs branch of this fork <https://github.com/fiolj/sparta/tree/docs>`__.

@@ -21,7 +21,7 @@ Syntax:
 
 one or more keyword/value pairs
 
-keyword = ``fnum`` or ``nrho`` or ``vstream`` or ``temp`` or ``gravity`` or ``surfs`` or ``surfgrid`` or ``surfmax`` or ``cellmax`` or ``splitmax`` or ``surftally`` or ``surfpush`` or ``gridcut`` or ``comm/sort`` or ``comm/style`` or ``weight`` or ``particle/reorder`` or ``mem/limit``
+keyword = ``fnum`` or ``nrho`` or ``vstream`` or ``temp`` or ``gravity`` or ``surfs`` or ``surfgrid`` or ``surfmax`` or ``splitmax`` or ``surftally`` or ``surfpush`` or ``gridcut`` or ``comm/sort`` or ``comm/style`` or ``weight`` or ``particle/reorder`` or ``mem/limit``
 
 
 
@@ -61,10 +61,6 @@ keyword = ``fnum`` or ``nrho`` or ``vstream`` or ``temp`` or ``gravity`` or ``su
 
   Nsurf = max # of surface elements allowed in single grid cell
 
-- :ref:`cellmax<global-cellmax>` value = Ncell
-
-  Ncell = max # of grid cells a single surf can overlap
-
 - :ref:`splitmax<global-splitmax>` value = Nsplit
 
   Nsplit = max # of sub-cells one grid cell can be split into by surface elements
@@ -98,7 +94,7 @@ keyword = ``fnum`` or ``nrho`` or ``vstream`` or ``temp`` or ``gravity`` or ``su
 - :ref:`weight<global-weight>` value = wstyle mode
 
   - wstyle = cell
-  - mode = none or volume or radius
+  - mode = none or volume or radius or *radius/only*
 
 - :ref:`particle/reorder<global-particle/reorder>` value = nsteps
 
@@ -178,11 +174,6 @@ The *surfgrid* keyword
 The *surfmax* keyword
   determines the maximum number of surface elements (lines in 2d, triangles in 3d) that can overlap a single grid cell. The default is 100, which should be large enough for any simulation, unless you define very coarse grid cells relative to the size of surface elements they contain.
 
-.. _global-cellmax:
-
-The *cellmax* keyword
-  determines the maximum number of grid cells that a single surface element (lines in 2d, tringles in 3d) can overlap. This keyword is only used if the *persurf* algorithm defined by the *surfgrid* keyword is invoked. The default is 100, which should be large enough for most simulations, unless you define one or more very large surface elements relative to the size of grid cells they intersect.
-
 .. _global-splitmax:
 
 The *splitmax* keyword
@@ -249,9 +240,25 @@ The *comm/style* keyword
 The *weight* keyword
   determines whether particle weighting is used.  Currently the only style allowed, as specified by wstyle = *cell*, is per-cell weighting. This is a mechanism for inducing every grid cell to contain roughly the same number of particles (even if cells are of varying size), so as to minimize the total number of particles used in a simulation while preserving accurate time and spatial averages of flow quantities. The cell weights also affect how many particles per cell are created by the :ref:`create_particles<command-create-particles>` and :ref:`fix emit<command-fix-emit-face>` command variants.
 
-  If the mode is set to *none*, per-cell weighting is turned off if it was previously enabled. For mode = *volume* or *radius*, per-cell weighting is enabled, which triggers two computations. First, at the time this command is issued, each grid cell is assigned a "weight" which is calculated based either on the cell *volume* or *radius*, as specified by the *mode* setting.
-
-  For the *volume* setting, the weight of a cell is its 3d volume for a 3d model, and the weight is its 2d area for a 2d model. For an axi-symmetric model, the weight is the 3d volume of the 2d axi-symmetric cell, i.e. the volume the area sweeps out when rotated around the y=0 axis of symmetry. The *radius* setting is only allowed for axisymmetric systems. The weight in this case is the distance the cell's midpoint is from the y=0 axis of symmetry. See :ref:`Section 6.2<howto-axisymmetric>` for more details on axi-symmetric models.
+If the mode is set to *none*, per-cell weighting is turned off if it
+was previously enabled.  For mode = *volume* or *radius* or
+*radius/only*, per-cell weighting is enabled, which triggers two
+computations.  First, at the time this command is issued, each grid
+cell is assigned a "weight" which is calculated based either on the
+cell *volume* or *radius*, as specified by the *mode* setting.  For
+the *volume* setting, the weight of a cell is its 3d volume for a 3d
+model, and the weight is its 2d area for a 2d model.  For an
+axi-symmetric model, the weight is the 3d volume of the 2d
+axi-symmetric cell, i.e. the volume the area sweeps out when rotated
+around the y=0 axis of symmetry.  The *radius* and *radius/only*
+settings are only allowed for axisymmetric systems.  For the *radius*
+option, the weight is the distance the cell midpoint is from the y=0
+axis of symmetry, multiplied by the length of the cell in the x
+direction.  This mode attempts to preserve a uniform number of
+particles in each cell, regardless of the cell area, for a uniform
+targeted density.  For the *radius/only* option, the weight is just the
+distance the cell midpoint is from the y=0 axis of symmetry.
+This mode attempts to preserve a uniform distribution of particles per unit area,for a uniform targeted density.  See :ref:`Section 6.2<howto-axisymmetric>` for more details on axi-symmetric models.
 
   Second, when a particle moves from an initial cell to a final cell, the initial/final ratio of the two cell weights is calculated. If the ratio > 1, then additional particles may be created in the final cell, by cloning the attributes of the incoming particle. E.g. if the ratio = 3.4, then two extra particle are created, and a 3rd is created with probability 0.4. If the ratio < 1, then the incoming particle may be deleted. E.g. if the ratio is 0.7, then the incoming particle is deleted with probability 0.3.
 
@@ -303,7 +310,6 @@ The keyword defaults are
 - surfs = explicit
 - surfgrid = auto
 - surfmax = 100
-- cellmax = 100
 - splitmax = 10
 - surftally = auto
 - surfpush = yes

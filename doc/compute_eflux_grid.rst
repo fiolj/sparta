@@ -52,7 +52,7 @@ Examples:
    compute 1 eflux/grid all species heatx heaty heatz
    compute 1 eflux/grid subset species heaty 
 
-These commands will dump 10 time averaged energy flux densities for each
+These commands will dump time averaged energy flux densities for each
 species and each grid cell to a dump file every 1000 steps:
 
 ::
