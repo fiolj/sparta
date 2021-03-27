@@ -74,8 +74,8 @@ of the manual for details.
 Related commands:
 *****************
 
-:ref:`command-create-box`,
-:ref:`command-create-grid`
+- :ref:`command-create-box`,
+- :ref:`command-create-grid`
 
 ********
 Default:

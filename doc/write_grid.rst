@@ -86,8 +86,8 @@ Restrictions:
 Related commands:
 *****************
 
-:ref:`command-read-grid`
-:ref:`command-create-grid`
+- :ref:`command-read-grid`
+- :ref:`command-create-grid`
 
 ********
 Default:

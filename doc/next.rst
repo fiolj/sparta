@@ -159,10 +159,10 @@ Restrictions:
 Related commands:
 *****************
 
-:ref:`command-jump`,
-:ref:`command-include`,
-:ref:`command-shell`,
-:ref:`command-variable`
+- :ref:`command-jump`,
+- :ref:`command-include`,
+- :ref:`command-shell`,
+- :ref:`command-variable`
 
 ********
 Default:
