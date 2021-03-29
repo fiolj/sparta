@@ -15,7 +15,9 @@ it means for SPARTA to be an open-source code, and acknowledge the
 funding and people who have contributed to SPARTA.
 
 .. contents::
-   :depth: 2
+   :local:
+   :depth: 1
+
 
 --------------
 
@@ -56,7 +58,7 @@ brief discussion of the open-source philosophy.
 
 SPARTA is designed to be easy to modify or extend with new capabilities,
 such as new collision or chemistry models, boundary conditions, or
-diagnostics. See :ref:`Section 10<modify>` for more details.
+diagnostics. See :numref:`modify` for more details.
 
 SPARTA is written in C++ which is used at a hi-level to structure the
 code and its options in an object-oriented fashion. The kernel
@@ -64,7 +66,7 @@ computations use simple data structures and C-like code for effciency.
 So SPARTA is really written in an object-oriented C style.
 
 SPARTA was developed with internal funding at `Sandia National Laboratories <http://www.sandia.gov>`__, a US Department of Energy lab.
-See :ref:`Section 1.5<intro-acknowledgements>` below for more information on SPARTA
+See :numref:`intro-acknowledgements` below for more information on SPARTA
 funding and individuals who have contributed to SPARTA.
 
 --------------

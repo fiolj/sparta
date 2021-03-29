@@ -32,7 +32,7 @@ keyword = ``fnum`` or ``nrho`` or ``vstream`` or ``temp`` or ``gravity`` or ``su
 - ``vstream`` values = :ref:`Vx Vy Vz = streaming velocity of background gas<global-vstream>` (velocity units)
 
 
-- ``temp`` values:ref:`thermal = temperature of background gas<global-temp>` (temperature units)
+- ``temp`` values :ref:`thermal = temperature of background gas<global-temp>` (temperature units)
 
 - ``gravity`` values :ref:`= mag ex ey ez<global-gravity>` 
 
@@ -55,7 +55,7 @@ keyword = ``fnum`` or ``nrho`` or ``vstream`` or ``temp`` or ``gravity`` or ``su
 
 - ``splitmax`` value :ref:`Nsplit = max # of sub-cells one grid cell can be split into by surface elements<global-splitmax>` 
 
-- ``surftally`` value:ref:`= reduce or rvous or auto<global-surftally>`
+- ``surftally`` value :ref:`= reduce or rvous or auto<global-surftally>`
 
   - reduce = tally surf collision info via MPI_Allreduce operations
   - rvous = tally via a rendezvous algorithm
@@ -133,7 +133,7 @@ The *temp* keyword
 .. _global-gravity:
 
 The *gravity* keyword
-  sets an acceleration term which is included in the motion of particles. The magnitude of gravity is set by the *mag* keyword. Its direction of action is set as (ex,ex,ez). The direction does not have to be a unit vector. If the magnitude is set to 0.0, no acceleration term is included, which is the default.
+  sets an acceleration term which is included in the motion of particles. The magnitude of gravity is set by the *mag* keyword. Its direction of action is set as (ex,ey,ez). The direction does not have to be a unit vector. If the magnitude is set to 0.0, no acceleration term is included, which is the default.
 
 --------------
 
@@ -142,7 +142,7 @@ The *gravity* keyword
 The *surfs* keyword
   determines what kind of surface elements SPARTA uses and how they are distributed across processors. Possible values are *explicit*, *explicit/distributed*, and *implicit*.
 
-  See the :ref:`Howto 6.13<howto-implicit-surface>` section of the manual for an explantion of explicit versus implicit surfaces. The distributed option can be important for models with huge numbers of surface elements. Each processor stores copies of only the surfaces that overlap grid cells it owns or has ghost copies of. Implicit surfaces are always distributed.
+  See the :numref:`howto-surface-elements` for an explanation of explicit versus implicit surfaces. The distributed option can be important for models with huge numbers of surface elements. Each processor stores copies of only the surfaces that overlap grid cells it owns or has ghost copies of. Implicit surfaces are always distributed.
 
   The *explicit* setting is the default and means each processor stores a copy of all the defined surface elements. Note that a surface element requires about 100 bytes of storage, so storing a million on a single processor requires about 100 MBytes.
 
@@ -201,7 +201,7 @@ The *gridcut* keyword
   |image0|
 
   .. important:: Using the *gridcut* keyword with a cutoff >= 0.0 is only allowed if the grid cells owned by each processor are "clumped". If each processor's grid cells are "dispersed", then ghost cells cannot be created with a *gridcut* cutoff >= 0.0.
-		 Whenever ghost cells are generated, a warning to this effect will be triggered. At a later point when surfaces are read in or a simulation is performed, an error will result. The solution is to use the :ref:`balance_grid<command-balance-grid>` command to change to a clumped grid cell assignment. See :ref:`Section 6.8<howto-grids>` of the manual for an explanation of clumped and dispersed grid cell assignments and their relative performance trade-offs.
+		 Whenever ghost cells are generated, a warning to this effect will be triggered. At a later point when surfaces are read in or a simulation is performed, an error will result. The solution is to use the :ref:`balance_grid<command-balance-grid>` command to change to a clumped grid cell assignment. See :numref:`howto-grids` of the manual for an explanation of clumped and dispersed grid cell assignments and their relative performance trade-offs.
 
   .. important:: If grid cells have already been defined via the :ref:`create_grid<command-create-grid>`, :ref:`read_grid<command-read-grid>`, or :ref:`read_restart<command-read-restart>` commands, when the *gridcut* cutoff is specified, then any ghost cell information that is currently stored will be erased. As discussed in the preceeding paragraph, a :ref:`balance_grid<command-balance-grid>` command must then be invoked to regenerate ghost cell information. If this is not done before surfaces are read in or a simulation is performed, an error will result.
 
@@ -242,7 +242,7 @@ direction.  This mode attempts to preserve a uniform number of
 particles in each cell, regardless of the cell area, for a uniform
 targeted density.  For the *radius/only* option, the weight is just the
 distance the cell midpoint is from the y=0 axis of symmetry.
-This mode attempts to preserve a uniform distribution of particles per unit area,for a uniform targeted density.  See :ref:`Section 6.2<howto-axisymmetric>` for more details on axi-symmetric models.
+This mode attempts to preserve a uniform distribution of particles per unit area,for a uniform targeted density.  See :numref:`howto-axisymmetric` for more details on axi-symmetric models.
 
   Second, when a particle moves from an initial cell to a final cell, the initial/final ratio of the two cell weights is calculated. If the ratio > 1, then additional particles may be created in the final cell, by cloning the attributes of the incoming particle. E.g. if the ratio = 3.4, then two extra particle are created, and a 3rd is created with probability 0.4. If the ratio < 1, then the incoming particle may be deleted. E.g. if the ratio is 0.7, then the incoming particle is deleted with probability 0.3.
 

@@ -536,10 +536,10 @@ SPARTA can be coupled to other codes in at least 3 ways. Each has advantages and
     .. important:: The examples/COUPLE dir has not been added to the distribution yet.
 
 
-:ref:`Section 2.3<start-optional-packages>` of the manual describes how to build SPARTA as a library. Once this is done, you can interface with SPARTA either via C++, C, Fortran, or Python (or any other language that supports a vanilla C-like interface). For example, from C++ you could create one (or more) "instances" of SPARTA, pass it an input script to process, or execute individual commands, all by invoking the correct class methods in SPARTA. From C or Fortran you can make function calls to do the same things. See :ref:`Section_9<python>` of the manual for a description of the Python wrapper provided with SPARTA that operates through the SPARTA library interface.
+:numref:`start-optional-packages` of the manual describes how to build SPARTA as a library. Once this is done, you can interface with SPARTA either via C++, C, Fortran, or Python (or any other language that supports a vanilla C-like interface). For example, from C++ you could create one (or more) "instances" of SPARTA, pass it an input script to process, or execute individual commands, all by invoking the correct class methods in SPARTA. From C or Fortran you can make function calls to do the same things. See :numref:`python` of the manual for a description of the Python wrapper provided with SPARTA that operates through the SPARTA library interface.
 
 The files src/library.cpp and library.h contain the C-style interface to
-SPARTA. See :ref:`Section 6.6<howto-library>` of the manual for a description
+SPARTA. See :numref:`howto-library` of the manual for a description
 of the interface and how to extend it for your needs.
 
 Note that the ``sparta_open()`` function that creates an instance of SPARTA takes an MPI communicator as an argument. This means that instance of SPARTA will run on the set of processors in the communicator. Thus the calling code can run SPARTA on all or a subset of processors. For example, a wrapper script might decide to alternate between SPARTA and another code, allowing them both to run on all the processors. Or it might allocate half the processors to SPARTA and half to the other code and run both codes simultaneously before syncing them up periodically.  Or it might instantiate multiple instances of SPARTA to perform different calculations.
@@ -579,7 +579,7 @@ As described below, each child cell is assigned an ID which encodes
 the cell's logical position within in the hierarchical grid, as a
 32-bit or 64-bit unsigned integer ID.  The precision is set by the
 -DSPARTA_BIG or -DSPARTA_SMALL or -DSPARTA_BIGBIG compiler switch, as
-described in :ref:`Section 2.2<start-step-4>`.  The number of
+described in :numref:`start-step-4`.  The number of
 grid levels that can be used depends on this precision and the
 resolution of the grid at each level.  For example, in a 3d
 simulation, a level that is refined with a 2x2x2 sub-grid requires 4
@@ -965,7 +965,7 @@ the count, mass flux, and energy flux of particles that pass through
 transparent surface elements. These quantities can then be time averaged
 via the :ref:`fix ave/surf<command-fix-ave-surf>` command or output via the
 :ref:`dump surf<command-dump>` command in the usual ways, as described
-in :ref:`Section Output from SPARTA<howto-output>`.
+in :numref:`howto-output`: :ref:`howto-output`.
 
 The examples/circle/in.circle.transparent script shows how to use these commands when modeling flow around a 2d circle. Two additional transparent line segments are placed in front of the circle to tally particle count and kinetic energy flux in both directions in front of the object. These are defined in the data.plane1 and data.plane2 files.  The resulting tallies are output with the :ref:`command-stats-style`. They could also be output with a :ref:`command-dump` for more resolution if the 2 lines were each defined as multiple line segments.
 

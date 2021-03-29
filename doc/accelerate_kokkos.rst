@@ -1,14 +1,9 @@
-:orphan:
-
-:ref:`Return to Section accelerate overview<accelerate>`
-
-
 
 .. _accelerate-kokkos:
 
-##################
-5.3 KOKKOS package
-##################
+**************
+KOKKOS package
+**************
 
 
 Kokkos is a templated C++ library that provides abstractions to allow a
@@ -44,9 +39,8 @@ compatible with specific hardware.
 
 .. _accelerate-kokkos-building-make:
 
-*******************************************************
 Building SPARTA with the KOKKOS package with Makefiles:
-*******************************************************
+=======================================================
 
 To build with the KOKKOS package, start with the provided Kokkos
 Makefiles in /src/MAKE/. You may need to modify the KOKKOS_ARCH variable
@@ -59,9 +53,8 @@ in the Makefile to match your specific hardware. For example:
 
 .. _accelerate-kokkos-building-cmake:
 
-***************************************************
 Building SPARTA with the KOKKOS package with CMake:
-***************************************************
+===================================================
 
 To build with the KOKKOS package, start with the provided preset files
 in /cmake/presets/. You may need to set -D Kokkos_ARCH_{TYPE}=ON
@@ -75,9 +68,8 @@ to match your specific hardware. For example:
 See the `Advanced Kokkos Options:`_ section below for a listing of all
 Kokkos architecture options.
 
-**********************************************
 Compile for CPU-only (MPI only, no threading):
-**********************************************
+==============================================
 
 Use a C++14 compatible compiler and set Kokkos architecture variable as described above. Then do the following:
 
@@ -98,9 +90,8 @@ using CMake:
    make
 
 
-*************************************************
 Compile for CPU-only (MPI plus OpenMP threading):
-*************************************************
+=================================================
 
 .. note:: To build with Kokkos support for OpenMP threading, your compiler must support the OpenMP interface. You should have one or more multi-core CPUs so that multiple threads can be launched by each MPI task running on a CPU.
 
@@ -124,9 +115,8 @@ using CMake:
    make
 
 
-*********************************************************
 Compile for Intel KNL Xeon Phi (Intel Compiler, OpenMPI):
-*********************************************************
+=========================================================
 
 Use a C++14 compatible compiler and do the following:
 
@@ -144,9 +134,8 @@ using CMake:
    cmake -C /path/to/sparta/cmake/presets/kokkos_phi.cmake
    make
 
-**************************************************
 Compile for CPUs and GPUs (with OpenMPI or MPICH):
-**************************************************
+==================================================
 
 .. note:: To build with Kokkos support for NVIDIA GPUs, NVIDIA CUDA software version 7.5 or later must be installed on your system.
 
@@ -169,9 +158,8 @@ using CMake:
    make
 
 
-***************************************
 Running SPARTA with the KOKKOS package:
-***************************************
+=======================================
 
 All Kokkos operations occur within the context of an individual MPI task
 running on a single node of the machine. The total number of MPI tasks
@@ -240,9 +228,8 @@ KOKKOS package always uses atomics in these computes when necessary. The
 use of atomics instead of duplication can be forced by compiling with
 the "-DSPARTA_KOKKOS_USE_ATOMICS" compile switch.
 
-*************************
 Core and Thread Affinity:
-*************************
+=========================
 
 When using multi-threading, it is important for performance to bind both
 MPI tasks to physical cores, and threads to physical cores, so they do
@@ -264,9 +251,8 @@ set OMP_PROC_BIND=spread and OMP_PLACES=threads. For binding threads
 with the KOKKOS pthreads option, compile SPARTA the KOKKOS HWLOC=yes
 option as described below.
 
-*************************************************
 Running on Knight's Landing (KNL) Intel Xeon Phi:
-*************************************************
+=================================================
 
 Here is a quick overview of how to use the KOKKOS package for the Intel
 Knight's Landing (KNL) Xeon Phi:
@@ -381,9 +367,8 @@ See the `Benchmark page <http://sparta.sandia.gov/bench.html>`__ of the
 SPARTA web site for performance of the KOKKOS package on different
 hardware.
 
-************************
 Advanced Kokkos options:
-************************
+========================
 
 There are other allowed options when building with the KOKKOS package.
 A few options are listed here; for a full list of all options,
@@ -524,7 +509,6 @@ checking on Kokkos data structures, but may slow down performance.
 
 Restrictions:
 =============
-
 
 Currently, there are no precision options with the KOKKOS package. All
 compilation and computation is performed in double precision.

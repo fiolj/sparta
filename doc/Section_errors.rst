@@ -318,8 +318,8 @@ Errors
    Cell IDs must fit in 32 bits (SPARTA small integer) or 64 bits
    (SPARTA big integer), as specified by the -DSPARTA_SMALL,
    -DSPARTA_BIG, or -DSPARTA_BIGBIG options in the low-level Makefile
-   used to build SPARTA. See Section 2.2 of the manual for details. And
-   see Section 4.8 for details on how cell IDs are formatted.
+   used to build SPARTA. See :numref:`start-making-sparta` of the manual for details.
+   And see :numref:`howto-grids` for details on how cell IDs are formatted.
 *Cell type mis-match when marking on neigh proc*
    Grid cell marking as inside, outside, or overlapping with surface
    elements failed. Please report the issue to the SPARTA developers.
@@ -1254,16 +1254,16 @@ Errors
 *Too big a timestep*
    Reset_timestep timestep value must fit in a SPARTA big integer, as
    specified by the -DSPARTA_SMALL, -DSPARTA_BIG, or -DSPARTA_BIGBIG
-   options in the low-level Makefile used to build SPARTA. See Section
-   2.2 of the manual for details.
+   options in the low-level Makefile used to build SPARTA.
+   See :numref:`start-making-sparta` of the manual for details.
 *Too many surfs in one cell*
    Use the global surfmax command to increase this max allowed number of
    surfs per grid cell.
 *Too many timesteps*
    The cummulative timesteps must fit in a SPARTA big integer, as as
    specified by the -DSPARTA_SMALL, -DSPARTA_BIG, or -DSPARTA_BIGBIG
-   options in the low-level Makefile used to build SPARTA. See Section
-   2.2 of the manual for details.
+   options in the low-level Makefile used to build SPARTA.
+   See :numref:`start-making-sparta` of the manual for details.
 *Too much buffered per-proc info for dump*
    Number of dumped values per processor cannot exceed a small integer
    (~2 billion values).

@@ -1,6 +1,4 @@
 
-
-
 .. _accelerate:
 
 ###############################
@@ -17,13 +15,13 @@ provided with SPARTA that contains code optimized for certain kinds of
 hardware, including multi-core CPUs, GPUs, and Intel Xeon Phi
 coprocessors.
 
--  5.1 :ref:`Measuring performance <accelerate-measuring>`
--  5.2 :ref:`Accelerator packages with optimized styles <accelerate-measuring>`
--  5.3 :ref:`KOKKOS package <accelerate-kokkos>`
+.. contents::
+   :local:
+   :depth: 1
 
 The `Benchmark page <http://sparta.sandia.gov/bench.html>`__ of the
 SPARTA web site gives performance results for the various accelerator
-packages discussed in Section 5.2, for several of the standard SPARTA
+packages discussed in :numref:`accelerate-optimized`, for several of the standard SPARTA
 benchmark problems, as a function of problem size and number of compute
 nodes, on different hardware platforms.
 
@@ -185,3 +183,6 @@ The KOKKOS accelerator package doc page explains:
 -  speed-ups to expect
 -  guidelines for best performance
 -  restrictions
+
+.. include:: accelerate_kokkos.rst
+

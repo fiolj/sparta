@@ -1,8 +1,4 @@
 
-
-
-
-
 .. _packages:
 
 ########
@@ -70,7 +66,7 @@ and use the package:
      - int or ext
    * - :ref:`package-kokkos<packages-package-kokkos>`
      - Kokkos-enabled styles
-     - :ref:`Section 5.3.3<accelerate-kokkos>`
+     - :ref:`accelerate-kokkos`
      - `Benchmarks <http://sparta.sandia.gov/bench.html>`__
      - -
 
@@ -310,10 +306,12 @@ Supporting info:
 -  src/KOKKOS: filenames -> commands
 -  src/KOKKOS/README
 -  lib/kokkos/README
--  the `Accelerating SPARTA <accelerate>` section
--  :ref:`Section 5.3.3 <accelerate-kokkos>`
--  :ref:`Section 2.6 -k on ... <start-command-line-options>`
--  :ref:`Section 2.6 -sf kk <start-command-line-options>`
--  :ref:`Section 2.6 -pk kokkos <start-command-line-options>`
+-  :numref:`accelerate`: :ref:`accelerate`
+-  :ref:`accelerate-kokkos`
+-  :numref:`start-command-line-options` ``-k`` on :ref:`start-command-line-options`
+-  :numref:`start-command-line-options` ``-sf kk``
+-  :numref:`start-command-line-options` ``-pf kokkos``
 -  :ref:`package kokkos <command-package>`
 -  `Benchmarks page <http://sparta.sandia.gov/bench.html>`__ of web site
+
+
