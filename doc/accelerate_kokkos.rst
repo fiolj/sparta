@@ -292,7 +292,7 @@ Nt. The product of these two values should be N, i.e. 256 or 264.
 
 **Running on GPUs:**
 
-Use the "-k" `command-line switch <Section_commands.html#start_7>`__ to
+Use the "-k" :ref:`command-line switch <commands>` to
 specify the number of GPUs per node, and the number of threads per MPI
 task. Typically the -np setting of the mpirun command should set the
 number of MPI tasks/node to be equal to the # of physical GPUs on the

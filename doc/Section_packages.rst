@@ -82,16 +82,11 @@ FFT package
 ***********
 
 
-
-
-
-
-
 .. _packages-package-fft-contents:
 
 
-Contents:
-=========
+Contents
+========
 
 
 
@@ -100,10 +95,7 @@ is specified in the Makefile.machine using the FFT_INC, FFT_PATH, and
 FFT_LIB variables. Supported external FFT libraries that can be
 specified include FFTW2, FFTW3, and MKL.If no FFT library is specified
 in the Makefile, SPARTA will use the internal KISS FFT library that is
-included with SPARTA. See the see discussion in
-doc/Section_start.html#2_2 (step 6).
-
-
+included with SPARTA. See the see discussion in :numref:`start-step-6`: :ref:`start-step-6`.
 
 
 

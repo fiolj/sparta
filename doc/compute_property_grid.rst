@@ -137,9 +137,8 @@ You can specify the accelerated styles explicitly in your input script
 by including their suffix, or you can use the :ref:`-suffix command-line switch<start-command-line-options>` when you invoke SPARTA, or you can
 use the :ref:`command-suffix` in your input script.
 
-See the "Accelerating SPARTA"_Section_accelerate.html section of the
-manual for more instructions on how to use the accelerated styles
-effectively.
+See the :ref:`accelerate` section of the manual for more instructions on
+how to use the accelerated styles effectively.
 
 
 *************

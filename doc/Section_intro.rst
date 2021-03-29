@@ -82,11 +82,11 @@ SPARTA features
 
 
 This section highlights SPARTA features, with links to specific commands
-which give more details. The `next section <grids>` illustrates the
+which give more details. The :ref:`next section<grids>` illustrates the
 kinds of grid geometries and surface definitions which SPARTA supports.
 
 If SPARTA doesn't have your favorite collision model, boundary
-condition, or diagnostic, see `Section 10 <modify>` of
+condition, or diagnostic, see :numref:`modify` of
 the manual, which describes how it can be added to SPARTA.
 
 
@@ -151,7 +151,7 @@ Geometry
    local refinement
 -  :ref:`create grid from input script<command-create-grid>` or `read from
    file <command-read-grid>`
--  embed :triangulated (3d) or line-segmented (2d) surfaces in grid,
+-  embed triangulated (3d) or line-segmented (2d) surfaces in grid,
    :ref:`read in from file<command-read-surf>`
 
 
@@ -318,20 +318,18 @@ SPARTA distribution.
 
 Here is a summary of what the GPL means for SPARTA users:
 
-(1) Anyone is free to use, modify, or extend SPARTA in any way they
-choose, including for commercial purposes.
+1. Anyone is free to use, modify, or extend SPARTA in any way they choose, including for commercial purposes.
 
-(2) If you distribute a modified version of SPARTA, it must remain
-open-source, meaning you distribute it under the terms of the GPL. You
-should clearly annotate such a code as a derivative version of SPARTA.
+2. If you distribute a modified version of SPARTA, it must remain
+   open-source, meaning you distribute it under the terms of the GPL.
+   You should clearly annotate such a code as a derivative version of SPARTA.
 
-(3) If you release any code that includes SPARTA source code, then it
-must also be open-sourced, meaning you distribute it under the terms of
-the GPL.
+3. If you release any code that includes SPARTA source code, then it must also
+   be open-sourced, meaning you distribute it under the terms of the GPL.
 
-(4) If you give SPARTA files to someone else, the GPL LICENSE file and
-source file headers (including the copyright and GPL notices) should
-remain part of the code.
+4. If you give SPARTA files to someone else, the GPL LICENSE file and
+   source file headers (including the copyright and GPL notices) should
+   remain part of the code.
 
 In the spirit of an open-source code, these are various ways you can
 contribute to making SPARTA better. You can send email to the

@@ -11,7 +11,8 @@ This section describes how a SPARTA input script is formatted and what
 commands are used to define a SPARTA simulation.
 
 .. contents::
-   :depth: 2
+   :local:
+   :depth: 1
 
 --------------
 

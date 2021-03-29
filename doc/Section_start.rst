@@ -12,7 +12,8 @@ This section describes how to build and run SPARTA, for both new and
 experienced users.
 
 .. contents::
-   :depth: 2
+   :local:
+   :depth: 1
 
 --------------
 
@@ -74,8 +75,8 @@ This section has the following sub-sections:
 .. _start-read-first:
 
 
-Read this first:
-================
+Read this first
+===============
 
 
 
@@ -102,18 +103,11 @@ it in future SPARTA releases.
 
 
 
-
-
 .. _start-steps-build-make:
 
 
-Steps to build a SPARTA executable using make:
+Steps to build a SPARTA executable using make
 ==============================================
-
-
-
-
-
 
 .. _start-step-0:
 
@@ -474,8 +468,8 @@ You should get the executable spa_foo when the build is complete.
 .. _start-steps-build-cmake:
 
 
-Steps to build a SPARTA executable using CMake:
-===============================================
+Steps to build a SPARTA executable using CMake
+==============================================
 
 .. _start-step-c0:
 
@@ -588,7 +582,7 @@ script and escaping newlines. For example:
    cmake \
    -C  /path/to/sparta/cmake/presets/<NAME>.cmake \
    -D  -D<OPTION_NAME>=<VALUE> \
-   /path/to/sparta/cmake :pre
+   /path/to/sparta/cmake
 
 
 .. _start-step-c4:
@@ -651,8 +645,7 @@ src/spatype.h.  The only reason to use the BIGBIG setting is if you
 have a regular grid with more than ~2 billion grid cells or a
 hierarchical grid with enough levels that grid cell IDs cannot fit in
 a 32-bit integer.  In either case, SPARTA will generate an error
-message for "Cell ID has too many bits".  See "Section
-4.8"_Section_howto.html#howto_8 of the manual for details on how cell
+message for "Cell ID has too many bits".  See :numref:`howto-grids` of the manual for details on how cell
 IDs are formatted.  The only reason to use the SMALL setting is if
 your machine does not support 64-bit integers.
 
@@ -669,9 +662,8 @@ will use that data type.
 
 Using one of the -DPACK_ARRAY, -DPACK_POINTER, and -DPACK_MEMCPY
 options can make for faster parallel FFTs on some platforms.  The
--DPACK_ARRAY setting is the default.  See the "compute
-fft/grid"_compute_fft_grid.html command for info about FFTs.  See STEP
-??? below for info about building SPPARKS with an FFT library.
+-DPACK_ARRAY setting is the default.  See the :ref:`command-compute-fft-grid` for info about FFTs.
+See STEP ??? below for info about building SPPARKS with an FFT library.
 
 
 .. _start-step-c5:
@@ -807,7 +799,7 @@ Step 8
 ------
 
 You may select between 2 TPLs, JPEG or PNG, for writing out JPEG or PNG files
-via the "dump image"_dump_image.html command. To select a TPL, use:
+via the :ref:`dump image command<command-dump>`. To select a TPL, use:
 
 ::
 
@@ -877,8 +869,8 @@ You should get build/src/spa_tutorial and build/src/libsparta.a.
 .. _start-errors-occur:
 
 
-Errors that can occur when making SPARTA:
-=========================================
+Errors that can occur when making SPARTA
+========================================
 
 
 
@@ -886,26 +878,26 @@ Errors that can occur when making SPARTA:
 
 Here are two non-obvious errors that can occur:
 
-(1) If the make command breaks immediately with errors that indicate it
-can't find files with a "*" in their names, this can be because your
-machine's native make doesn't support wildcard expansion in a makefile.
-Try gmake instead of make. If that doesn't work, try using a -f switch
-with your make command to use a pre-generated Makefile.list which
-explicitly lists all the needed files, e.g.
+1. If the make command breaks immediately with errors that indicate it
+   can't find files with a "*" in their names, this can be because your
+   machine's native make doesn't support wildcard expansion in a makefile.
+   Try gmake instead of make. If that doesn't work, try using a -f switch
+   with your make command to use a pre-generated Makefile.list which
+   explicitly lists all the needed files, e.g.
 
-::
-
-   make makelist
-   make -f Makefile.list g++
-   gmake -f Makefile.list mac 
-
-The first "make" command will create a current Makefile.list with all
-the file names in your src dir. The 2nd "make" command (make or gmake)
-will use it to build SPARTA.
-
-(2) If you get an error that says something like 'identifier "atoll" is
-undefined', then your machine does not support "long long" integers. Try
-using the -DSPARTA_LONGLONG_TO_LONG setting described above in Step 4.
+   ::
+   
+      make makelist
+      make -f Makefile.list g++
+      gmake -f Makefile.list mac 
+   
+   The first "make" command will create a current Makefile.list with all
+   the file names in your src dir. The 2nd "make" command (make or gmake)
+   will use it to build SPARTA.
+   
+2. If you get an error that says something like 'identifier "atoll" is
+   undefined', then your machine does not support "long long" integers. Try
+   using the -DSPARTA_LONGLONG_TO_LONG setting described above in Step 4.
 
 --------------
 
@@ -914,8 +906,8 @@ using the -DSPARTA_LONGLONG_TO_LONG setting described above in Step 4.
 .. _start-additional-build-make:
 
 
-Additional build tips using make:
-=================================
+Additional build tips using make
+================================
 
 
 Building SPARTA for multiple platforms.
@@ -926,8 +918,8 @@ Cleaning up.
    Typing "make clean-all" or "make clean-foo" will delete \*.o object files created when SPARTA is built, for either all builds or for a particular machine.
 
 
-Additional build tips using CMake:
-==================================
+Additional build tips using CMake
+=================================
 
 Building SPARTA for multiple platforms.
    It's best to build SPARTA for multiple platforms from different build directories. However, each target creates its own spa_TARGET binary and multiple targets can be built from the same build directory. Note that the \*.o object files in build/src will reflective of the most recent build configuration. Also note that if BUILD_SHARED_LIBS was enabled, libsparta will be reflective of the most recent build configuration.
@@ -938,8 +930,8 @@ Cleaning up.
 .. _start-building-mac:
 
 
-Building for a Mac:
-===================
+Building for a Mac
+==================
 
 OS X is BSD Unix, so it should just work.  See the Makefile.mac or
 cmake/presets/mac.cmake file.
@@ -948,8 +940,8 @@ cmake/presets/mac.cmake file.
 .. _start-building-windows:
 
 
-Building for Windows:
-=====================
+Building for Windows
+====================
 
 
 At some point we may provide a pre-built Windows executable for SPARTA.
@@ -990,8 +982,8 @@ This section has the following sub-sections:
 .. _start-package-basics:
 
 
-Package basics:
-===============
+Package basics
+==============
 
 The source code for SPARTA is structured as a set of core files which
 are always included, plus optional packages. Packages are groups of
@@ -1021,8 +1013,8 @@ page specfies if it is part of a package.
 .. _start-includingexcluding:
 
 
-Including/excluding packages with make:
-=======================================
+Including/excluding packages with make
+======================================
 
 
 
@@ -1089,8 +1081,8 @@ currently installed in the src directory.
 
 .. _start-includingexcluding-cmake:
 
-Including/excluding packages with CMake:
-========================================
+Including/excluding packages with CMake
+=======================================
 
 To use (or not use) a package you must include it (or exclude it)
 before building SPARTA.  From the build directory, do:
@@ -1166,7 +1158,7 @@ To build SPARTA as a static library ("\*.a" file on Linux), type
 
 ::
 
-   make foo mode=lib 
+   make foo mode=lib
 
 where foo is the machine name. This kind of library is typically used to
 statically link a driver application to SPARTA, so that you can insure
@@ -1199,6 +1191,7 @@ or:
 
    cmake -C /path/to/sparta/cmake/presets/foo.cmake -DBUILD_SHARED_LIBS=ON /path/to/sparta/cmake
    make
+
 
 where foo is the machine name. This kind of library is required when
 wrapping SPARTA with Python; see :ref:`python` for details. This will use the
