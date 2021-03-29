@@ -93,11 +93,7 @@ documentation for all SPARTA commands.
 
 ..   list_commands
 
-.. only:: html
-	  
-	  *************
-	  Command Index
-	  *************
 
-* :ref:`Command index<genindex>`
+
+   
 

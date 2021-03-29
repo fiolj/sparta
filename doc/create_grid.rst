@@ -21,27 +21,27 @@ Syntax:
 
 - Nx,Ny,Nz = size of 1st-level grid in each dimension
 - zero or more keywords/args pairs may be appended
-- keyword = *block* or *clump* or *random* or *stride* or *levels* or *subset* or
-  *region* or *inside*
+- keyword = ``block`` or ``clump`` or ``random`` or ``stride`` or ``levels`` or ``subset`` or
+  ``region`` or ``inside``
 
-keyword = *block} or *clump} or *random} or *stride} or *levels} or *subset} or *region} or *inside} :l
-  - *block* args = Px Py Pz
-    Px,Py,Pz = # of processors in each dimension, any can be * (see below)
-  - *clump* arg = *xyz* or *xzy* or *yxz* or *yzx* or *zxy* or *zyx*
-  - *random* args = none
-  - *stride* arg = *xyz* or *xzy* or *yxz* or *yzx* or *zxy* or *zyx*
-  - *levels* arg = Nlevels
-  - *subset* args = Ilevel Px Py Pz Cx Cy Cz
+  - ``block`` :ref:`args = Px Py Pz<create-grid-block>` = # of processors in each dimension, any can be * (see below)
+  - ``clump`` :ref:`arg = xyz or xzy or yxz or yzx or zxy or zyx<create-grid-clump>`
+  - ``random`` :ref:`args = none<create-grid-random>`
+  - ``stride`` :ref:`arg = xyz or xzy or yxz or yzx or zxy or zyx<create-grid-stride>`
+  - ``levels`` :ref:`arg = Nlevels<create-grid-levels>`
+  - ``subset`` :ref:`args = ilevel Px Py Pz Cx Cy Cz<create-grid-subset>`
 
-    - Ilevel = which level(s) to define, see syntax below
+    - ilevel = which level(s) to define, see syntax below
     - Px Py Pz = extent of parent cells in each dimension in which to create child cells
     - Cx Cy Cz = size of child sub-grid in each dimension within parent cells
-  - *region* args = Ilevel reg-ID Cx Cy Cz 
-    - Ilevel = which level(s) to define, see syntax below
+
+  - ``region`` :ref:`args = ilevel reg-ID Cx Cy Cz<create-grid-region>`
+
+    - ilevel = which level(s) to define, see syntax below
     - reg-ID = ID of region which parent cells must be in to create child cells
     - Cx Cy Cz = size of child sub-grid in each dimension within parent cells
 
-  - *inside* args = *any* or *all*
+  - ``inside`` :ref:`args = any or all <create-grid-inside>`
 
 *********
 Examples:
@@ -102,44 +102,54 @@ used to determine which processors are assigned which cells in the
 grid.  The *inside* keyword is ignored for single-level grids.  If no
 keyword is used, a setting of block 0 0 0 is the default.
 
-The *block* keyword maps the P processors to a *Px* by *Py* by *Pz*
-logical grid that overlays the actual *Nx* by *Ny* by *Nz* grid. This
-effectively assigns a contiguous 3d sub-block of cells to each
-processor.
+.. _create-grid-block:
 
-Any of the *Px*, *Py*, *Pz* parameters can be specified with an asterisk
-"*", in which case SPARTA will choose the number of processors in that
-dimension. It will do this based on the size and shape of the global
-grid so as to minimize the surface-to-volume ratio of each processor's
-sub-block of cells.
+The *block* keyword
+  maps the P processors to a *Px* by *Py* by *Pz* logical grid that overlays the actual *Nx* by *Ny* by *Nz* grid.
+  This effectively assigns a contiguous 3d sub-block of cells to each processor.
 
-The product of Px, Py, Pz must equal P, the total # of processors SPARTA
-is running on. For a 2d simulation, Pz must equal 1. If multiple
-partitions are being used then P is the number of processors in this
-partition; see :ref:`Section 2.6<start-command-line-options>` for an
-explanation of the -partition command-line switch.
+  Any of the *Px*, *Py*, *Pz* parameters can be specified with an asterisk
+  "*", in which case SPARTA will choose the number of processors in that
+  dimension. It will do this based on the size and shape of the global
+  grid so as to minimize the surface-to-volume ratio of each processor's
+  sub-block of cells.
 
-Note that if you run on a large, prime number of processors P, then a
-grid such as 1 x P x 1 will be required, which may incur extra
-communication costs.
+  The product of Px, Py, Pz must equal P, the total # of processors SPARTA
+  is running on. For a 2d simulation, Pz must equal 1. If multiple
+  partitions are being used then P is the number of processors in this
+  partition; see :ref:`Section 2.6<start-command-line-options>` for an
+  explanation of the -partition command-line switch.
 
-The *random* keyword means that each grid cell will be assigned randomly
-to one of the processors. Note that in this case different processors
-will typically not be assigned exactly the same number of cells.
+  Note that if you run on a large, prime number of processors P, then a
+  grid such as 1 x P x 1 will be required, which may incur extra
+  communication costs.
 
-The *clump* keyword means that the Pth clump of cells is assigned to
-the same processor, where P is the number of processors. E.g. if
-there are N = 100 cells and 10 processors, then the 1st processor
-(proc 0) will be assigned cells 1 to 10. The 2nd processor (proc 1)
-will be assigned cells 11 to 20. And The 10th processor (proc 9) will
-be assigned cells 91 to 100.
+.. _create-grid-random:
 
-The *stride* keyword means that every Pth cell is assigned to the same
-processor, where P is the number of processors. E.g. if there are 100
-cells and 10 processors, then the 1st processor (proc 0) will be
-assigned cells 1,11,21, ..., 91. The 2nd processor (proc 1) will be
-assigned cells 2,12,22 ..., 92. The 10th processor (proc 9) will be
-assigned cells 10,20,30, ..., 100.
+The *random* keyword
+  means that each grid cell will be assigned randomly
+  to one of the processors. Note that in this case different processors
+  will typically not be assigned exactly the same number of cells.
+
+.. _create-grid-clump:
+
+The *clump* keyword
+  means that the Pth clump of cells is assigned to
+  the same processor, where P is the number of processors. E.g. if
+  there are N = 100 cells and 10 processors, then the 1st processor
+  (proc 0) will be assigned cells 1 to 10. The 2nd processor (proc 1)
+  will be assigned cells 11 to 20. And The 10th processor (proc 9) will
+  be assigned cells 91 to 100.
+
+.. _create-grid-stride:
+
+The *stride* keyword
+  means that every Pth cell is assigned to the same
+  processor, where P is the number of processors. E.g. if there are 100
+  cells and 10 processors, then the 1st processor (proc 0) will be
+  assigned cells 1,11,21, ..., 91. The 2nd processor (proc 1) will be
+  assigned cells 2,12,22 ..., 92. The 10th processor (proc 9) will be
+  assigned cells 10,20,30, ..., 100.
 
 
 The argument for *stride* and *clump* determines how the N grid cells
@@ -150,6 +160,8 @@ ordered from 1 to N with the y dimension (J index) varying fastest, the
 x dimension next (I index), and the z dimension slowest (K index).
 
 --------------
+
+.. _create-grid-levels:
 
 A hierarchical grid with more than one level can be defined using the
 *levels* keyword.  The *Nlevels* argument is the number of levels
@@ -166,8 +178,8 @@ cells of level 2 or higher that are within a single level 1 cells are
 assigned to the processor that owns the level 1 cell.
 
 The settings for every level, from 2 to Nlevels, must be specified
-exactly once via the *Ilevel* argument to either a *subset* or
-*region* keyword.  *Ilevel* can be specfied as a single number or use
+exactly once via the *ilevel* argument to either a *subset* or
+*region* keyword.  *ilevel* can be specfied as a single number or use
 a wildcard asterisk in place of or in conjuction with one or two
 integers to specify multiple levels at the same time.  This takes the
 form “*” or “*n” or “n*” or “m*n”.  An asterisk with no numeric values
@@ -176,76 +188,85 @@ levels from 2 to n (inclusive). A trailing asterisk means all levels
 from n to Nlevels (inclusive). A middle asterisk means all levels from
 m to n (inclusive).
 
-For the *subset* keyword, the Px, Py, Pz arguments specify which cells
-in the previous level are flagged as parents and sub-divided to create
-cells at the new level.  For example, if the level 1 grid is
-100x100x100, then Px, Py, Pz for level 2 could select any contiguous
-range of cells from 1 to 100 in x, y, or z.  If the level 2 grid is
-4x4x2 within any level 1 cell (as set by Cx, Cy, Cz), then Px, Py, Pz
-for level 3 could select any contiguous range of cells from 1 to 4 in
-x, y and 1 to 2 in z.  Each of the Px, Py, Pz arguments can be a
-single number or be specified with a wildcard asterisk, the same as
-described above for *Ilevel*, where the bounds of Px (for example) are
-1 to Cx in the preceeding parent level.
+.. _create-grid-subset:
 
-The Cx, Cy, Cz arguments are the number of new cells (in each
-dimension) to partition each selected parent cell into.  *Cz* must be
-one for 2d.  Any of Cx, Cy, Cz may have a value of 1, but they cannot
-all be 1.  Note that for each new level, only grid cells that exist in
-the previous level are partitioned further.  E.g. level 3 cells are
-only added to level 2 cells that exist, since some level 1 cells may
-not have been partitioned into level 2 cells.
+For the *subset* keyword,
+  the Px, Py, Pz arguments specify which cells
+  in the previous level are flagged as parents and sub-divided to create
+  cells at the new level.  For example, if the level 1 grid is
+  100x100x100, then Px, Py, Pz for level 2 could select any contiguous
+  range of cells from 1 to 100 in x, y, or z.  If the level 2 grid is
+  4x4x2 within any level 1 cell (as set by Cx, Cy, Cz), then Px, Py, Pz
+  for level 3 could select any contiguous range of cells from 1 to 4 in
+  x, y and 1 to 2 in z.  Each of the Px, Py, Pz arguments can be a
+  single number or be specified with a wildcard asterisk, the same as
+  described above for *ilevel*, where the bounds of Px (for example) are
+  1 to Cx in the preceeding parent level.
 
-For example this command creates a two-level grid:
+  The Cx, Cy, Cz arguments are the number of new cells (in each
+  dimension) to partition each selected parent cell into.  *Cz* must be
+  one for 2d.  Any of Cx, Cy, Cz may have a value of 1, but they cannot
+  all be 1.  Note that for each new level, only grid cells that exist in
+  the previous level are partitioned further.  E.g. level 3 cells are
+  only added to level 2 cells that exist, since some level 1 cells may
+  not have been partitioned into level 2 cells.
 
-::
+  For example this command creates a two-level grid:
+  
+  ::
+  
+     create_grid 10 10 10 levels 2 * * * 2 2 3 
+  
+  The 1st level is 10x10x10.  Each of the 1000 level 1 cells is further
+  partitioned into 2x2x3 cells.  This means the total number of
+  resulting grid cells is 1000 * 12 = 12000.
 
-   create_grid 10 10 10 levels 2 * * * 2 2 3 
+  This command creates a 3-level grid:
+  
+  ::
+  
+     create_grid 8 8 10 levels 3 level 2 5* * * 4 4 4 level 3 1 2*3 3* 2 2 1
+  
+  The first level is 8x8x10.  The second level is 4x4x4 within each
+  level 1 cell, but only half or 320 of the 640 level 1 cells are
+  sub-divided, namely those with x indices from 5 to 8.  Those with x
+  indices from 1 to 4 remain as level 1 cells.  Some of the level 2
+  cells are further partitioned into 2x2x1 level 3 cells.  For the 4x4x4
+  level 2 grid within 320 or the level 1 cells, only the level 2 cells
+  with x index = 1, y index = 2-3, and z-index = 3-4 are further
+  partitioned into level 3 cells, which is just 4 of the 64 level 2
+  cells.  The resulting grid thus has 24640 grid cells: 320 level 1
+  cells, 19200 level 2 cells, and 5120 level 3 cells.
+  
+.. _create-grid-region:
 
-The 1st level is 10x10x10.  Each of the 1000 level 1 cells is further
-partitioned into 2x2x3 cells.  This means the total number of
-resulting grid cells is 1000 * 12 = 12000.
+For the *region* keyword,
+  the subset of cells in the previous level
+  which are flagged as parents and sub-divided is determined by which of
+  them are in the geometric region specified by *reg-ID*.
+  
+  The :ref:`region<command-region>` command can define volumes for simple
+  geometric objects such as a sphere or rectangular block. It can also
+  define unions or intersections of simple objects or other union or
+  intersection objects. by defining an appropriate region, a complex
+  portion of the simulation domain can be refined to a new level.
+  
+.. _create-grid-inside:
 
-This command creates a 3-level grid:
-
-::
-
-   create_grid 8 8 10 levels 3 level 2 5* * * 4 4 4 level 3 1 2*3 3* 2 2 1
-
-The first level is 8x8x10.  The second level is 4x4x4 within each
-level 1 cell, but only half or 320 of the 640 level 1 cells are
-sub-divided, namely those with x indices from 5 to 8.  Those with x
-indices from 1 to 4 remain as level 1 cells.  Some of the level 2
-cells are further partitioned into 2x2x1 level 3 cells.  For the 4x4x4
-level 2 grid within 320 or the level 1 cells, only the level 2 cells
-with x index = 1, y index = 2-3, and z-index = 3-4 are further
-partitioned into level 3 cells, which is just 4 of the 64 level 2
-cells.  The resulting grid thus has 24640 grid cells: 320 level 1
-cells, 19200 level 2 cells, and 5120 level 3 cells.
-
-For the *region* keyword, the subset of cells in the previous level
-which are flagged as parents and sub-divided is determined by which of
-them are in the geometric region specified by *reg-ID*.
-
-The :ref:`region<command-region>` command can define volumes for simple
-geometric objects such as a sphere or rectangular block. It can also
-define unions or intersections of simple objects or other union or
-intersection objects. by defining an appropriate region, a complex
-portion of the simulation domain can be refined to a new level.
-
-Each grid cell at the previous level is tested to see whether it is
-"in" the region.  The *inside* keyword determines how this is done.
-If *inside* is set to *any*, which is the default, then a grid cell is
-in the region if any of its corner points (4 in 2d, 8 in 3d) is in the
-region.  If *inside* is set to *all*, then all 4 or 8 of its corner
-points must be in the region for a grid cell to be in the region.
-Note that the *side* option for the :ref:`command-region` can
-be used to define whether the inside or outside of the geometric
-region is considered to be "in" the region.
-
-If the grid cell is in the region, then it is refined using the Cx, Cy,
-Cz arguments in the same way the *subset* keyword uses them.
-Examples using the *region* keyword are given above.
+The *inside* keyword
+  Each grid cell at the previous level is tested to see whether it is
+  "in" the region.  The *inside* keyword determines how this is done.
+  If *inside* is set to *any*, which is the default, then a grid cell is
+  in the region if any of its corner points (4 in 2d, 8 in 3d) is in the
+  region.  If *inside* is set to *all*, then all 4 or 8 of its corner
+  points must be in the region for a grid cell to be in the region.
+  Note that the *side* option for the :ref:`command-region` can
+  be used to define whether the inside or outside of the geometric
+  region is considered to be "in" the region.
+  
+  If the grid cell is in the region, then it is refined using the Cx, Cy,
+  Cz arguments in the same way the *subset* keyword uses them.
+  Examples using the *region* keyword are given above.
 
 --------------
 
@@ -261,14 +282,13 @@ This command can only be used after the simulation box is defined by the
 Related commands:
 *****************
 
-:ref:`command-create-box`,
-:ref:`command-read-grid`
+- :ref:`command-create-box`
+- :ref:`command-read-grid`
 
 ********
 Default:
 ********
 
 The default setting for `block` vs `clump` vs `random` vs `stride` is `block`
-with Px = Py = Pz = *.  The `inside` keyword has a default setting of
-`any`.
+with Px = Py = Pz = \*.  The `inside` keyword has a default setting of `any`.
 

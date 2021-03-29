@@ -311,9 +311,9 @@ Supporting info:
 -  src/KOKKOS/README
 -  lib/kokkos/README
 -  the `Accelerating SPARTA <accelerate>` section
--  `Section 5.3.3 <accelerate-kokkos>`
--  `Section 2.6 -k on ... <start-command-line-options>`
--  `Section 2.6 -sf kk <start-command-line-options>`
--  `Section 2.6 -pk kokkos <start-command-line-options>`
--  `package kokkos <command-package>`
+-  :ref:`Section 5.3.3 <accelerate-kokkos>`
+-  :ref:`Section 2.6 -k on ... <start-command-line-options>`
+-  :ref:`Section 2.6 -sf kk <start-command-line-options>`
+-  :ref:`Section 2.6 -pk kokkos <start-command-line-options>`
+-  :ref:`package kokkos <command-package>`
 -  `Benchmarks page <http://sparta.sandia.gov/bench.html>`__ of web site

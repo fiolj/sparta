@@ -19,7 +19,7 @@ coprocessors.
 
 -  5.1 :ref:`Measuring performance <accelerate-measuring>`
 -  5.2 :ref:`Accelerator packages with optimized styles <accelerate-measuring>`
--  5.2.1 :ref:`KOKKOS package <accelerate-kokkos>`
+-  5.3 :ref:`KOKKOS package <accelerate-kokkos>`
 
 The `Benchmark page <http://sparta.sandia.gov/bench.html>`__ of the
 SPARTA web site gives performance results for the various accelerator

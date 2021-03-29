@@ -25,82 +25,66 @@ keyword = ``fnum`` or ``nrho`` or ``vstream`` or ``temp`` or ``gravity`` or ``su
 
 
 
-- :ref:`fnum<global-fnum>` value = ratio
+- ``fnum`` value = :ref:`ratio of physical particles to simulation particles<global-fnum>` 
 
-  ratio = Fnum ratio of physical particles to simulation particles
+- ``nrho`` value = :ref:`density = number density of background gas<global-nrho>` (# per length^3 units)
 
-- :ref:`nrho<global-nrho>` value = density
+- ``vstream`` values = :ref:`Vx Vy Vz = streaming velocity of background gas<global-vstream>` (velocity units)
 
-  density = number density of background gas (# per length^3 units)
 
-- :ref:`vstream<global-vstream>` values = Vx Vy Vz
+- ``temp`` values:ref:`thermal = temperature of background gas<global-temp>` (temperature units)
 
-  Vx,Vy,Vz = streaming velocity of background gas (velocity units)
-
-- :ref:`temp<global-temp>` values = thermal
-
-  thermal = temperature of background gas (temperature units)
-
-- :ref:`gravity<global-gravity>` values = mag ex ey ez
+- ``gravity`` values :ref:`= mag ex ey ez<global-gravity>` 
 
   - mag = magnitude of acceleration due to gravity (acceleration units)
   - ex,ey,ez = direction vector that gravity acts in
 
-- :ref:`surfs<global-surfs>` value = explicit or explicit/distributed or implicit
+- ``surfs`` value :ref:`= explicit or explicit/distributed or implicit <global-surfs>` 
 
   - explicit = surfs defined in read_surf file, each proc owns copy of all surfs
   - explicit/distributed = surfs defined in read_surf file, each proc owns only the surfs for its owned_ghost grid cells
   - implicit = surfs defined in read_isurf file, each proc owns only the surfs for its owned+ghost grid cells surfgrid value = percell or persurf or auto
+
+- ``surfgrid`` value :ref:`= percell or persurf or auto<global-surfgrid>`
+
   - percell = loop over my cells and check every surf
   - persurf = loop over my surfs and cells they overlap
   - auto = choose percell or persurf based on surface element and proc count
 
-- :ref:`surfgrid<global-surfgrid>` value = percell or persurf or auto
+- ``surfmax`` value  :ref:`Nsurf = max # of surface elements allowed in single grid cell<global-surfmax>` 
 
-- :ref:`surfmax<global-surfmax>` value = Nsurf
+- ``splitmax`` value :ref:`Nsplit = max # of sub-cells one grid cell can be split into by surface elements<global-splitmax>` 
 
-  Nsurf = max # of surface elements allowed in single grid cell
-
-- :ref:`splitmax<global-splitmax>` value = Nsplit
-
-  Nsplit = max # of sub-cells one grid cell can be split into by surface elements
-
-- :ref:`surftally<global-surftally>` value = reduce or rvous or auto
+- ``surftally`` value:ref:`= reduce or rvous or auto<global-surftally>`
 
   - reduce = tally surf collision info via MPI_Allreduce operations
   - rvous = tally via a rendezvous algorithm
   - auto = choose reduce or rvous based on surface element and proc count
     
-- :ref:`surfpush<global-surfpush>` value(s) = no/yes or slo shi svalue
+- ``surfpush`` value(s) :ref:`no/yes or slo shi svalue<global-surfpush>` 
 
   - no = do not push surface element points near cell surface
   - yes = push surface element points near cell surface if necessary
   - slo,shi = push points within this range
   - svalue = push points to this value
 
-- :ref:`gridcut<global-gridcut>` value = cutoff
+- ``gridcut`` value :ref:`cutoff = acquire ghost cells up to this far away <global-gridcut>` (distance units)
 
-  cutoff = acquire ghost cells up to this far away (distance units)
+- ``comm/sort`` value :ref:`yes or no: sort incoming messages by proc ID if yes, else no sort<global-comm/sort>`
 
-- :ref:`comm/sort<global-comm/sort>` value = yes or no
-
-  yes/no = sort incoming messages by proc ID if yes, else no sort
-
-- :ref:`comm/style<global-comm/style>` value = neigh or all
+- ``comm/style`` value :ref:`neigh or all <global-comm/style>`
 
   - neigh = setup particle comm with subset of near-neighbor processor
   - all = allow particle comm with potentially any processor
 
-- :ref:`weight<global-weight>` value = wstyle mode
+- ``weight`` value :ref:`wstyle mode<global-weight>` 
 
   - wstyle = cell
   - mode = none or volume or radius or *radius/only*
 
-- :ref:`particle/reorder<global-particle/reorder>` value = nsteps
+- ``particle/reorder`` value :ref:`nsteps = reorder the particles every this many timesteps<global-particle/reorder>`
 
-  nsteps = reorder the particles every this many timesteps
-
-- :ref:`mem/limit<global-mem/limit>` value = grid or bytes
+- ``mem/limit`` value :ref:`grid or bytes<global-mem/limit>`
 
   - grid = limit extra memory for load-balancing, particle reordering, and restart file read/write to grid cell memory
   - bytes = limit extra particle memory to this amount (in MBytes) 

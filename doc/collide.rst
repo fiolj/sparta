@@ -196,6 +196,7 @@ collision line would contain the following information for collisions
 between species-ID and species-ID1:
 
 .. code-block::
+
    species-ID species-ID1 diam omega tref alpha Zrotinf T* C1 C2
 
 In an interspecies line, a specific parameter can be returned to the
@@ -204,6 +205,7 @@ override only {omega} for the above case, the line could appear as
 follows:
 
 .. code-block::
+
    species-ID species-ID1 -1 omega -1 -1 -1 -1 -1 -1
 
 

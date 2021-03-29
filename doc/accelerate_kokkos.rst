@@ -6,9 +6,9 @@
 
 .. _accelerate-kokkos:
 
-####################
-5.3.3 KOKKOS package
-####################
+##################
+5.3 KOKKOS package
+##################
 
 
 Kokkos is a templated C++ library that provides abstractions to allow a
