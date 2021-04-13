@@ -107,7 +107,7 @@ available in SPARTA:
 There are also additional accelerated compute styles included in the
 SPARTA distribution for faster performance on specific hardware. The
 list of these with links to the individual styles are given in the pair
-section of :ref:`this page<commands-individual>`.
+section of :ref:`this page<genindex>`.
 
 --------------
 

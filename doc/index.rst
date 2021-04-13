@@ -1,5 +1,4 @@
 
-
 .. _index:
 
 ####################
@@ -8,7 +7,6 @@ SPARTA Documentation
 
  
 **SPARTA** stands for **S**\ tochastic **PA**\ rallel **R**\ arefied-gas **T**\ ime-accurate **A**\ nalyzer.
-
 
 
 **Version info**

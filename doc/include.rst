@@ -2,8 +2,6 @@
 
 .. index:: include
 
-
-
 .. _command-include:
 
 ###############
@@ -51,8 +49,8 @@ Restrictions:
 Related commands:
 *****************
 
-:ref:`command-variable`,
-:ref:`command-jump`
+- :ref:`command-variable`,
+- :ref:`command-jump`
 
 ********
 Default:
