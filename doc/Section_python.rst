@@ -47,7 +47,6 @@ For make, from the src directory, type
 .. code-block:: bash
 
    make mode=shlib foo
-   make -f Makefile.shlib foo 
 
 
 For CMake, from the build directory, tyoe

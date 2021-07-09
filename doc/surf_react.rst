@@ -37,8 +37,8 @@ Examples:
 
 ::
 
-   surf_react global 0.2 0.15
-   surf_react prob air.surf 
+   surf_react 1 global 0.2 0.15
+   surf_react 1 prob air.surf 
 
 ************
 Description:

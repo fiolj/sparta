@@ -312,15 +312,17 @@ one or more nodes, each with two GPUs.
 
 .. code-block:: bash
 
-   mpirun -np 2 spa_kokkos_cuda_mpi -k on g 2 -sf kk -in in.collide          # 1 node,   2 MPI tasks/node, 2 GPUs/node
-   mpirun -np 32 -ppn 2 spa_kokkos_cuda_mpi -k on g 2 -sf kk -in in.collide  # 16 nodes, 2 MPI tasks/node, 2 GPUs/node (32 GPUs total) 
+   mpirun -np 2 spa_kokkos_cuda -k on g 2 -sf kk -in in.collide          # 1 node,   2 MPI tasks/node, 2 GPUs/node
+   mpirun -np 32 -ppn 2 spa_kokkos_cuda -k on g 2 -sf kk -in in.collide  # 16 nodes, 2 MPI tasks/node, 2 GPUs/node (32 GPUs total)
+
 
 .. note:: The default for the :ref:`package kokkos<command-package>` command is to use "parallel" reduction of statistics along with threaded communication. However, using "atomic" reduction is typically faster for GPUs. Use the "-pk kokkos" :ref:`command-line switch<start-command-line-options>` to change the default :ref:`package kokkos<command-package>` options.
 	  See its doc page for details and default settings. Experimenting with its options can provide a speed-up for specific calculations. For example:
 
 	  ::
 
-	     mpirun -np 2 spa_kokkos_cuda_mpi -k on g 2 -sf kk -pk kokkos reduction atomic -in in.collide      # set reduction = atomic 
+	     mpirun -np 2 spa_kokkos_cuda -k on g 2 -sf kk -pk kokkos reduction atomic -in in.collide      # set reduction = atomic
+
 
 .. note:: Using OpenMP threading and CUDA together is currently not possible with the SPARTA KOKKOS package.
 
