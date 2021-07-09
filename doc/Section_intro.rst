@@ -108,14 +108,14 @@ General features
 -  :ref:`easy to extend<modify>` with new features and
    functionality
 -  runs from an :ref:`input script<commands>`
--  syntax for defining and using :ref:`variables and    formulas<command-variable>`
+-  syntax for defining and using :ref:`variables and formulas<command-variable>`
 -  syntax for :ref:`looping over runs<command-jump>` and breaking out of
    loops
 -  run one or :ref:`multiple simulations simultaneously<howto-multiple-simulations>` (in parallel) from one script
 -  :ref:`build as library<start-build-library>`, invoke SPARTA thru
    :ref:`library interface<howto-library>` or provided
    :ref:`Python wrapper<python>`.
--  `couple with other codes <howto-other-code>`: SPARTA
+-  :ref:`couple with other codes <howto-other-code>`: SPARTA
    calls other code, other code calls SPARTA, umbrella code calls both
 
 
@@ -149,7 +149,7 @@ Geometry
 
 -  :ref:`Cartesian, hierarchical grids<intro-grids>` with multiple levels of
    local refinement
--  :ref:`create grid from input script<command-create-grid>` or `read from
+-  :ref:`create grid from input script<command-create-grid>` or :ref:`read from
    file <command-read-grid>`
 -  embed triangulated (3d) or line-segmented (2d) surfaces in grid,
    :ref:`read in from file<command-read-surf>`
@@ -380,9 +380,7 @@ Acknowledgments and citations
 SPARTA development has been funded by the `US Department of Energy <http://www.doe.gov>`__ (DOE).
 
 If you use SPARTA results in your published work, please cite the
-paper(s) listed under the `Citing SPARTA link <http://sparta.sandia.gov/cite.html>`__ of the SPARTA WWW page, and
-include a pointer to the `SPARTA WWW Site <http://sparta.sandia.gov>`__
-(http://sparta.sandia.gov):
+paper(s) listed under the `Citing SPARTA link <http://sparta.sandia.gov/papers.html>`__ of the SPARTA WWW page, and include a pointer to the `SPARTA WWW Site <http://sparta.sandia.gov>`__ (http://sparta.sandia.gov):
 
 The `Publications link <http://sparta.sandia.gov/papers.html>`__ on the
 SPARTA WWW page lists papers that have cited SPARTA. If your paper is

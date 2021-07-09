@@ -80,18 +80,18 @@ names or user-chosen ID strings.
 
 Here is how each line in the input script is parsed by SPARTA:
 
-1. If the last printable character on the line is a "&" character (with no surrounding quotes), the command is assumed to continue on the next line.
-   The next line is concatenated to the previous line by removing the "&" character and newline. This allows long commands to be continued across two or more lines.
+1. If the last printable character on the line is a ``&`` character, the command is assumed to continue on the next line.
+   The next line is concatenated to the previous line by removing the ``&`` character and newline. This allows long commands to be continued across two or more lines.
 
-2. All characters from the first "#" character onward are treated as comment and discarded. See an exception in (6). Note that a comment after a trailing "&" character will prevent the command from continuing on the next line. Also note that for multi-line commands a single leading "#" will comment out the entire command.
+2. All characters from the first ``#`` character onward until a newline are treated as comment and discarded. See an exception in (6). Note that a comment after a trailing ``&`` character will prevent the command from continuing on the next line. Also note that for multi-line commands a single leading ``#`` will comment out the entire command.
 
-3. The line is searched repeatedly for "$" characters, which indicate variables that are replaced with a text string. See an exception in (6).
+3. The line is searched repeatedly for ``$`` characters, which indicate variables that are replaced with a text string. See an exception in (6).
 
-   If the ``$`` is followed by curly brackets, then the variable name is the text inside the curly brackets. If no curly brackets follow the ``$``, then the variable name is the single character immediately following the $.  Thus ``${myTemp}`` and ``$x`` refer to variable names "myTemp" and "x".
+   If the ``$`` is followed by curly brackets, then the variable name is the text inside the curly brackets. If no curly brackets follow the ``$``, then the variable name is the single character immediately following the $.  Thus ``${myTemp}`` and ``$x`` refer to variable names ``myTemp`` and ``x``.
 
    How the variable is converted to a text string depends on what style of variable it is; see the :ref:`command-variable` doc page for details. It can be a variable that stores multiple text strings, and return one of them. The returned text string can be multiple "words" (space separated) which will then be interpreted as multiple arguments in the input command. The variable can also store a numeric formula which will be evaluated and its numeric result returned as a string.
 
-   As a special case, if the $ is followed by parenthesis, then the text inside the parenthesis is treated as an "immediate" variable and evaluated as an :ref:`equal-style variable<command-variable>`. This is a way to use numeric formulas in an input script without having to assign them to variable names. For example, these 3 input script lines:
+   As a special case, if the ``$`` is followed by parenthesis, then the text inside the parenthesis is treated as an "immediate" variable and evaluated as an :ref:`equal-style variable<command-variable>`. This is a way to use numeric formulas in an input script without having to assign them to variable names. For example, these 3 input script lines:
 
    ::
 
@@ -117,13 +117,13 @@ Here is how each line in the input script is parsed by SPARTA:
 
    Nor can you specify this ``$($x-1.0)`` for an immediate variable, but you could use ``$(v_x-1.0)``, since the latter is valid syntax for an :ref:`equal-style variable<command-variable>`.
 
-   See the `command-variable` for more details of how strings are assigned to variables and evaluated, and how they can be used in input script commands.
+   See the :ref:`command-variable` for more details of how strings are assigned to variables and evaluated, and how they can be used in input script commands.
 
 4. The line is broken into "words" separated by whitespace (tabs, spaces). Note that words can thus contain letters, digits, underscores, or punctuation characters.
 
 5. The first word is the command name. All successive words in the line are arguments.
 
-6. If you want text with spaces to be treated as a single argument, it can be enclosed in either double or single quotes. A long single argument enclosed in quotes can even span multiple lines if the "&" character is used, as described above. E.g.
+6. If you want text with spaces to be treated as a single argument, it can be enclosed in either double or single quotes. A long single argument enclosed in quotes can even span multiple lines if the ``&`` character is used, as described above. E.g.
 
    ::
 
