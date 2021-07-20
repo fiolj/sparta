@@ -23,7 +23,7 @@ Syntax:
 
    compute ID boundary/kk mix-ID value1 value2 ... 
 
--  ``ID`` is documented in :ref:`compute<command-compute>` command
+-  ``ID`` is documented in :ref:`command-compute`
 -  ``boundary`` = style name of this compute command
 -  ``mix-ID`` = mixture ID to perform calculation on
 

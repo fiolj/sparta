@@ -2,8 +2,6 @@
 
 .. index:: collide
 
-
-
 .. _command-collide:
 
 ###############
@@ -22,11 +20,11 @@ Syntax:
 -  style = ``none`` or ``vss``
 -  args = arguments for that style
 
-   none args = none
+   - :ref:`none<collide-none>` args = none
      No argument is passed
-   vss args = mix-ID file
-     - mix-ID = ID of mixture to use for group definitions
-     - file = filename that lists species with their VSS model parameters
+   - :ref:`vss<collide-vss>` args = mix-ID file
+     - :ref:`mix-ID<collide-mixID>` = ID of mixture to use for group definitions
+     - :ref:`file<collide-file>` = filename that lists species with their VSS model parameters
    vss/kk args = mix-ID file
      - mix-ID = ID of mixture to use for group definitions
      - file = filename that lists species with their VSS model parameters 
@@ -69,7 +67,9 @@ be used to alter aspects of how collisions are performed. For example,
 it can be used to turn on/off the tracking of vibrational energy and its
 exchange in collisions.
 
-A *mix-ID* argument is specified for each collision style. It must
+.. _collide-mixID:
+
+A ``mix-ID`` argument is specified for each collision style. It must
 contain all the species defined for use by the simulation, via the
 :ref:`species<command-species>` command. The group definitions in the mixture
 assign one or more particle species to each group. These groupings are
@@ -95,12 +95,16 @@ equation 11.4 in [Bird94]_.
 
 --------------
 
-The *none* style means that no particle-particle collisions will be
+.. _collide-none:
+
+The ``none`` style means that no particle-particle collisions will be
 performed, i.e. the simulation models free-molecular flow.
 
 --------------
 
-The *vss* style implements the Variable Soft Sphere (VSS) model for
+.. _collide-vss:
+
+The ``vss`` style implements the Variable Soft Sphere (VSS) model for
 collisions. As discussed below, with appropriate parameter choices, it
 can also compute the Variable Hard Sphere (VHS) model and the Hard
 Sphere (HS) model. See chapters 2.6 and 2.7 in [Bird94]_
@@ -121,7 +125,9 @@ angular-scattering parameter, which relates the scattering angle to the
 impact parameter. Setting *alpha* = 1 produces isotropic (hard sphere)
 interactions, which converts the VSS model into a VHS model.
 
-The *file* argument is for a collision data file which contains
+.. _collide-file:
+
+The ``file`` argument is for a collision data file which contains
 definitions of VSS model parameters for some number of species. Example
 files are included in the data directory of the SPARTA distribution,
 with a "\*.css" suffix. The file can contain species not used by this
