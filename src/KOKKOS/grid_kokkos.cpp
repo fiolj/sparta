@@ -1,12 +1,12 @@
 /* ----------------------------------------------------------------------
    SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
    http://sparta.sandia.gov
-   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov
+   Steve Plimpton, sjplimp@gmail.com, Michael Gallis, magalli@sandia.gov
    Sandia National Laboratories
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
    DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government retains
-   certain rights in this software.  This software is distributed under 
+   certain rights in this software.  This software is distributed under
    the GNU General Public License.
 
    See the README file in the top-level SPARTA directory.
@@ -28,8 +28,10 @@ using namespace SPARTA_NS;
 using namespace MathConst;
 
 #define DELTA 8192
+#define DELTAPARENT 1024
 #define BIG 1.0e20
 #define MAXGROUP 32
+#define MAXLEVEL 32
 
 // default value, can be overridden by global command
 
@@ -44,7 +46,7 @@ enum{REGION_ALL,REGION_ONE,REGION_CENTER};      // same as Surf
 
 enum{UNKNOWN,OUTSIDE,INSIDE,OVERLAP};           // several files
 enum{NCHILD,NPARENT,NUNKNOWN,NPBCHILD,NPBPARENT,NPBUNKNOWN,NBOUND};  // Update
-enum{NOWEIGHT,VOLWEIGHT,RADWEIGHT};
+enum{NOWEIGHT,VOLWEIGHT,RADWEIGHT,RADUNWEIGHT};
 
 // allocate space for static class variable
 
@@ -53,24 +55,52 @@ enum{NOWEIGHT,VOLWEIGHT,RADWEIGHT};
 // corners[i][j] = J corner points of face I of a grid cell
 // works for 2d quads and 3d hexes
 
-//int corners[6][4] = {{0,2,4,6}, {1,3,5,7}, {0,1,4,5}, {2,3,6,7}, 
+//int corners[6][4] = {{0,2,4,6}, {1,3,5,7}, {0,1,4,5}, {2,3,6,7},
 //                     {0,1,2,3}, {4,5,6,7}};
 
 /* ---------------------------------------------------------------------- */
 
 GridKokkos::GridKokkos(SPARTA *sparta) : Grid(sparta)
 {
-
+  delete [] plevels;
+  memoryKK->create_kokkos(k_plevels,plevels,MAXLEVEL,"grid:plevels");
 }
 
 GridKokkos::~GridKokkos()
 {
-  if (copy || copymode) return;
+  if (!uncopy && (copy || copymode)) return;
 
   cells = NULL;
   cinfo = NULL;
   sinfo = NULL;
   pcells = NULL;
+  plevels = NULL;
+
+  // deallocate views of views in serial to prevent race condition in profiling tools
+
+  for (int i = 0; i < k_eivec.extent(0); i++)
+    k_eivec.h_view(i).k_view = decltype(k_eivec.h_view(i).k_view)();
+
+  for (int i = 0; i < k_eiarray.extent(0); i++)
+    k_eiarray.h_view(i).k_view = decltype(k_eiarray.h_view(i).k_view)();
+
+  for (int i = 0; i < k_edvec.extent(0); i++)
+    k_edvec.h_view(i).k_view = decltype(k_edvec.h_view(i).k_view)();
+
+  for (int i = 0; i < k_edarray.extent(0); i++)
+    k_edarray.h_view(i).k_view = decltype(k_edarray.h_view(i).k_view)();
+
+  eivec = NULL;
+  eiarray = NULL;
+  edvec = NULL;
+  edarray = NULL;
+
+  ewhich = NULL;
+  eicol = NULL;
+  edcol = NULL;
+
+  ncustom_ivec = ncustom_iarray = 0;
+  ncustom_dvec = ncustom_darray = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -88,6 +118,7 @@ void GridKokkos::grow_cells(int n, int m)
   } else {
 
     if (nlocal+nghost+n >= maxcell) {
+      const int oldmax = maxcell;
       while (maxcell < nlocal+nghost+n) maxcell += DELTA;
       if (cells == NULL)
           k_cells = tdual_cell_1d("grid:cells",maxcell);
@@ -97,6 +128,8 @@ void GridKokkos::grow_cells(int n, int m)
         this->modify(Device,CELL_MASK); // needed for auto sync
       }
       cells = k_cells.h_view.data();
+
+      if (ncustom) reallocate_custom(oldmax,maxcell);
     }
 
     if (nlocal+m >= maxlocal) {
@@ -114,26 +147,24 @@ void GridKokkos::grow_cells(int n, int m)
 }
 
 /* ----------------------------------------------------------------------
-   insure pcells can hold N new parent cells
+   grow pcells
 ------------------------------------------------------------------------- */
 
-void GridKokkos::grow_pcells(int n)
+void GridKokkos::grow_pcells()
 {
   if (sparta->kokkos->prewrap) {
-    Grid::grow_pcells(n);
+    Grid::grow_pcells();
   } else {
 
-    if (nparent+n >= maxparent) {
-      while (maxparent < nparent+n) maxparent += DELTA;
-      if (pcells == NULL)
-          k_pcells = tdual_pcell_1d("grid:pcells",maxparent);
-      else {
-        this->sync(Device,PCELL_MASK); // force resize on device
-        k_pcells.resize(maxparent);
-        this->modify(Device,PCELL_MASK); // needed for auto sync
-      }
-      pcells = k_pcells.h_view.data();
+    maxparent += DELTA;
+    if (pcells == NULL)
+        k_pcells = tdual_pcell_1d("grid:pcells",maxparent);
+    else {
+      this->sync(Device,PCELL_MASK); // force resize on device
+      k_pcells.resize(maxparent);
+      this->modify(Device,PCELL_MASK); // needed for auto sync
     }
+    pcells = k_pcells.h_view.data();
   }
 }
 
@@ -165,6 +196,8 @@ void GridKokkos::grow_sinfo(int n)
 
 void GridKokkos::wrap_kokkos_graphs()
 {
+  if (!surf->exist) return;
+
   // csurfs
 
   Kokkos::Crs<int, SPAHostType, void, int> h_csurfs;
@@ -277,6 +310,11 @@ void GridKokkos::wrap_kokkos()
     memory->sfree(pcells);
     pcells = k_pcells.h_view.data();
   }
+
+  // plevels doesn't need wrap but was modified on host
+
+  k_plevels.modify_host();
+  k_plevels.sync_device();
 }
 
 /* ---------------------------------------------------------------------- */
@@ -297,11 +335,49 @@ void GridKokkos::sync(ExecutionSpace space, unsigned int mask)
     if (mask & CINFO_MASK) k_cinfo.sync_device();
     if (mask & PCELL_MASK) k_pcells.sync_device();
     if (mask & SINFO_MASK) k_sinfo.sync_device();
+    if (mask & PLEVEL_MASK) k_plevels.sync_device();
+    if (mask & CUSTOM_MASK) {
+      if (ncustom) {
+        if (ncustom_ivec)
+          for (int i = 0; i < ncustom_ivec; i++)
+            k_eivec.h_view[i].k_view.sync_device();
+
+        if (ncustom_iarray)
+          for (int i = 0; i < ncustom_iarray; i++)
+            k_eiarray.h_view[i].k_view.sync_device();
+
+        if (ncustom_dvec)
+          for (int i = 0; i < ncustom_dvec; i++)
+            k_edvec.h_view[i].k_view.sync_device();
+
+        if (ncustom_darray)
+          for (int i = 0; i < ncustom_darray; i++)
+            k_edarray.h_view[i].k_view.sync_device();
+      }
+    }
   } else {
     if (mask & CELL_MASK) k_cells.sync_host();
     if (mask & CINFO_MASK) k_cinfo.sync_host();
     if (mask & PCELL_MASK) k_pcells.sync_host();
     if (mask & SINFO_MASK) k_sinfo.sync_host();
+    if (mask & PLEVEL_MASK) k_plevels.sync_host();
+    if (mask & CUSTOM_MASK) {
+      if (ncustom_ivec)
+        for (int i = 0; i < ncustom_ivec; i++)
+          k_eivec.h_view[i].k_view.sync_host();
+
+      if (ncustom_iarray)
+        for (int i = 0; i < ncustom_iarray; i++)
+          k_eiarray.h_view[i].k_view.sync_host();
+
+      if (ncustom_dvec)
+        for (int i = 0; i < ncustom_dvec; i++)
+          k_edvec.h_view[i].k_view.sync_host();
+
+      if (ncustom_darray)
+        for (int i = 0; i < ncustom_darray; i++)
+          k_edarray.h_view[i].k_view.sync_host();
+    }
   }
 }
 
@@ -321,6 +397,26 @@ void GridKokkos::modify(ExecutionSpace space, unsigned int mask)
     if (mask & CINFO_MASK) k_cinfo.modify_device();
     if (mask & PCELL_MASK) k_pcells.modify_device();
     if (mask & SINFO_MASK) k_sinfo.modify_device();
+    if (mask & PLEVEL_MASK) k_plevels.modify_device();
+    if (mask & CUSTOM_MASK) {
+      if (ncustom) {
+        if (ncustom_ivec)
+          for (int i = 0; i < ncustom_ivec; i++)
+            k_eivec.h_view[i].k_view.modify_device();
+
+        if (ncustom_iarray)
+          for (int i = 0; i < ncustom_iarray; i++)
+            k_eiarray.h_view[i].k_view.modify_device();
+
+        if (ncustom_dvec)
+          for (int i = 0; i < ncustom_dvec; i++)
+            k_edvec.h_view[i].k_view.modify_device();
+
+        if (ncustom_darray)
+          for (int i = 0; i < ncustom_darray; i++)
+            k_edarray.h_view[i].k_view.modify_device();
+      }
+    }
     if (sparta->kokkos->auto_sync)
       sync(Host,mask);
   } else {
@@ -328,5 +424,25 @@ void GridKokkos::modify(ExecutionSpace space, unsigned int mask)
     if (mask & CINFO_MASK) k_cinfo.modify_host();
     if (mask & PCELL_MASK) k_pcells.modify_host();
     if (mask & SINFO_MASK) k_sinfo.modify_host();
+    if (mask & PLEVEL_MASK) k_plevels.modify_host();
+    if (mask & CUSTOM_MASK) {
+      if (ncustom) {
+        if (ncustom_ivec)
+          for (int i = 0; i < ncustom_ivec; i++)
+            k_eivec.h_view[i].k_view.modify_host();
+
+        if (ncustom_iarray)
+          for (int i = 0; i < ncustom_iarray; i++)
+            k_eiarray.h_view[i].k_view.modify_host();
+
+        if (ncustom_dvec)
+          for (int i = 0; i < ncustom_dvec; i++)
+            k_edvec.h_view[i].k_view.modify_host();
+
+        if (ncustom_darray)
+          for (int i = 0; i < ncustom_darray; i++)
+            k_edarray.h_view[i].k_view.modify_host();
+      }
+    }
   }
 }

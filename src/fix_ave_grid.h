@@ -1,12 +1,12 @@
 /* ----------------------------------------------------------------------
    SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
    http://sparta.sandia.gov
-   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov
+   Steve Plimpton, sjplimp@gmail.com, Michael Gallis, magalli@sandia.gov
    Sandia National Laboratories
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
    DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government retains
-   certain rights in this software.  This software is distributed under 
+   certain rights in this software.  This software is distributed under
    the GNU General Public License.
 
    See the README file in the top-level SPARTA directory.
@@ -50,7 +50,7 @@ class FixAveGrid : public Fix {
   int nrepeat,irepeat,nsample;
   bigint nvalid;
 
-  char **ids;                // ID/name of compute,fix,variable to access   
+  char **ids;                // ID/name of compute,fix,variable to access
   int *which;                // COMPUTE or FIX or VARIABLE
   int *argindex;             // which column from compute or fix to access
   int *value2index;          // index of compute,fix,variable
@@ -81,18 +81,18 @@ class FixAveGrid : public Fix {
 
   int ntallyID;            // # of cells I have tallies for
   int maxtallyID;          // # of tallies currently allocated
-  surfint *tally2cell;     // tally2cell[I] = cell ID of Ith tally
+  surfint *tally2surf;     // tally2surf[I] = surf ID of Ith tally
   double *vec_tally;       // tally values, maxtally in length
   double **array_tally;
 
-  // hash for cell IDs
+  // hash for surf IDs
 
 #ifdef SPARTA_MAP
-  typedef std::map<cellint,int> MyHash;
+  typedef std::map<surfint,int> MyHash;
 #elif defined SPARTA_UNORDERED_MAP
-  typedef std::unordered_map<cellint,int> MyHash;
+  typedef std::unordered_map<surfint,int> MyHash;
 #else
-  typedef std::tr1::unordered_map<cellint,int> MyHash;
+  typedef std::tr1::unordered_map<surfint,int> MyHash;
 #endif
 
   MyHash *hash;

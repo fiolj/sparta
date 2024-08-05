@@ -1,12 +1,12 @@
 /* ----------------------------------------------------------------------
    SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
    http://sparta.sandia.gov
-   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov
+   Steve Plimpton, sjplimp@gmail.com, Michael Gallis, magalli@sandia.gov
    Sandia National Laboratories
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
    DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government retains
-   certain rights in this software.  This software is distributed under 
+   certain rights in this software.  This software is distributed under
    the GNU General Public License.
 
    See the README file in the top-level SPARTA directory.
@@ -285,7 +285,7 @@ int ComputeSonineGrid::query_tally_grid(int index, double **&array, int *&cols)
 ------------------------------------------------------------------------- */
 
 void ComputeSonineGrid::
-post_process_grid(int index, int nsample,
+post_process_grid(int index, int /*nsample*/,
                   double **etally, int *emap, double *vec, int nstride)
 {
   index--;
@@ -295,7 +295,6 @@ post_process_grid(int index, int nsample,
   int k = 0;
 
   if (!etally) {
-    nsample = 1;
     etally = tally;
     emap = map[index];
     vec = vector_grid;

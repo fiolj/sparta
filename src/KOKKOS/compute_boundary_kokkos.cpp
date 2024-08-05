@@ -1,12 +1,12 @@
 /* ----------------------------------------------------------------------
    SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
    http://sparta.sandia.gov
-   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov
+   Steve Plimpton, sjplimp@gmail.com, Michael Gallis, magalli@sandia.gov
    Sandia National Laboratories
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
    DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government retains
-   certain rights in this software.  This software is distributed under 
+   certain rights in this software.  This software is distributed under
    the GNU General Public License.
 
    See the README file in the top-level SPARTA directory.
@@ -85,7 +85,7 @@ void ComputeBoundaryKokkos::compute_array()
 
   // sum tallies across processors
 
-  if (sparta->kokkos->gpu_direct_flag) {
+  if (sparta->kokkos->gpu_aware_flag) {
     MPI_Allreduce(d_myarray.data(),d_array.data(),nrow*ntotal,
                   MPI_DOUBLE,MPI_SUM,world);
     k_array.modify_device();
@@ -129,9 +129,9 @@ void ComputeBoundaryKokkos::pre_boundary_tally()
 
   need_dup = sparta->kokkos->need_dup<DeviceType>();
   if (need_dup)
-    dup_myarray = Kokkos::Experimental::create_scatter_view<Kokkos::Experimental::ScatterSum, Kokkos::Experimental::ScatterDuplicated>(d_myarray);
+    dup_myarray = Kokkos::Experimental::create_scatter_view<typename Kokkos::Experimental::ScatterSum, typename Kokkos::Experimental::ScatterDuplicated>(d_myarray);
   else
-    ndup_myarray = Kokkos::Experimental::create_scatter_view<Kokkos::Experimental::ScatterSum, Kokkos::Experimental::ScatterNonDuplicated>(d_myarray);
+    ndup_myarray = Kokkos::Experimental::create_scatter_view<typename Kokkos::Experimental::ScatterSum, typename Kokkos::Experimental::ScatterNonDuplicated>(d_myarray);
 }
 
 void ComputeBoundaryKokkos::post_boundary_tally()

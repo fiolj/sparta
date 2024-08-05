@@ -1,12 +1,12 @@
 /* ----------------------------------------------------------------------
    SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
    http://sparta.sandia.gov
-   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov
+   Steve Plimpton, sjplimp@gmail.com, Michael Gallis, magalli@sandia.gov
    Sandia National Laboratories
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
    DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government retains
-   certain rights in this software.  This software is distributed under 
+   certain rights in this software.  This software is distributed under
    the GNU General Public License.
 
    See the README file in the top-level SPARTA directory.
@@ -40,12 +40,12 @@ ComputeReactISurfGrid(SPARTA *sparta, int narg, char **arg) :
   if (narg < 4) error->all(FLERR,"Illegal compute react/isurf/grid command");
 
   int igroup = grid->find_group(arg[2]);
-  if (igroup < 0) 
+  if (igroup < 0)
     error->all(FLERR,"Compute react/isurf/grid group ID does not exist");
   groupbit = grid->bitmask[igroup];
 
   isr = surf->find_react(arg[3]);
-  if (isr < 0) 
+  if (isr < 0)
     error->all(FLERR,"Compute react/isurf/grid reaction ID does not exist");
 
   ntotal = surf->sr[isr]->nlist;
@@ -73,7 +73,7 @@ ComputeReactISurfGrid(SPARTA *sparta, int narg, char **arg) :
       char *copy = new char[n];
       strcpy(copy,&arg[iarg][2]);
       char *ptr = copy;
-      while (ptr = strtok(ptr,"/")) {
+      while ((ptr = strtok(ptr,"/")) != (char *) NULL) {
         for (int ireaction = 0; ireaction < ntotal; ireaction++) {
           reaction2col[ireaction][icol] = 0;
           if (which == REACTANT) {
@@ -131,7 +131,7 @@ void ComputeReactISurfGrid::init()
   if (!surf->exist)
     error->all(FLERR,"Cannot use compute react/isurf/grid "
                "when surfs do not exist");
-  if (!surf->implicit) 
+  if (!surf->implicit)
     error->all(FLERR,"Cannot use compute react/isurf/grid with explicit surfs");
 
   // warn if any surfs in group are assigned to different surf react model
@@ -159,7 +159,7 @@ void ComputeReactISurfGrid::init()
   if (flagall && comm->me == 0) {
     char str[128];
     sprintf(str,
-            "Compute react/isurf/grid %ld surfs "
+            "Compute react/isurf/grid " BIGINT_FORMAT " surfs "
             "are not assigned to surf react model",flagall);
     error->warning(FLERR,str);
   }
@@ -199,7 +199,7 @@ void ComputeReactISurfGrid::clear()
 }
 
 /* ----------------------------------------------------------------------
-   tally values for a single particle in icell 
+   tally values for a single particle in icell
      colliding with surface element isurf, performing reaction (1 to N)
    iorig = particle ip before collision
    ip,jp = particles after collision
@@ -210,8 +210,8 @@ void ComputeReactISurfGrid::clear()
      except sum tally to to per-grid-cell array_grid
 ------------------------------------------------------------------------- */
 
-void ComputeReactISurfGrid::surf_tally(int isurf, int icell, int reaction, 
-                                   Particle::OnePart *iorig, 
+void ComputeReactISurfGrid::surf_tally(int isurf, int icell, int reaction,
+                                   Particle::OnePart *iorig,
                                    Particle::OnePart *ip, Particle::OnePart *jp)
 {
   // skip if no reaction
@@ -233,7 +233,6 @@ void ComputeReactISurfGrid::surf_tally(int isurf, int icell, int reaction,
   // itally = tally index of isurf
   // if 1st reaction on this isurf, add surf ID to hash
   // grow tally list if needed
-  // for implicit surfs, surfID is really a cellID
 
   int itally;
   double *vec;
@@ -267,7 +266,7 @@ void ComputeReactISurfGrid::surf_tally(int isurf, int icell, int reaction,
 }
 
 /* ----------------------------------------------------------------------
-   return # of tallies and their indices into my local surf list
+   return # of tallies and their indices into my owned+ghost cell list
 ------------------------------------------------------------------------- */
 
 int ComputeReactISurfGrid::tallyinfo(surfint *&ptr)
@@ -296,24 +295,19 @@ void ComputeReactISurfGrid::post_process_isurf_grid()
     memory->create(array_grid,maxgrid,ntotal,"isurf/grid:array_grid");
   }
 
-  // zero array_grid
+  // perform rendezvous comm on tallies to sum ghost tallies
+  //   to my owned grid cells
+  // for implicit surfs, surfIDs are also cellIDs
 
-  int i,j;
-  for (i = 0; i < nglocal; i++)
-    for (j = 0; j < ntotal; j++)
-      array_grid[i][j] = 0.0;
-
-  // perform rendezvous comm on tallies to sum them to my grid cells
-  // array_surf_tally can be NULL if this proc has performed no tallies
-
-  surf->collate_array_implicit(ntally,ntotal,tally2surf,
+  grid->collate_array_implicit(ntally,ntotal,(cellint *) tally2surf,
                                array_surf_tally,array_grid);
-  
+
   // zero out result if icell not in grid group
   // can't apply until now, b/c tally included surfs in ghost cells and
   // cinfo does not have mask values for ghost cells
 
   Grid::ChildInfo *cinfo = grid->cinfo;
+  int j;
 
   for (int icell = 0; icell < nglocal; icell++) {
     if (!(cinfo[icell].mask & groupbit)) {

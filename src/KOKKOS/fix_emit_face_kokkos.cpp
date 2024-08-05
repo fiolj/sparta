@@ -1,12 +1,12 @@
 /* ----------------------------------------------------------------------
    SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
    http://sparta.sandia.gov
-   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov
+   Steve Plimpton, sjplimp@gmail.com, Michael Gallis, magalli@sandia.gov
    Sandia National Laboratories
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
    DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government retains
-   certain rights in this software.  This software is distributed under 
+   certain rights in this software.  This software is distributed under
    the GNU General Public License.
 
    See the README file in the top-level SPARTA directory.
@@ -26,7 +26,7 @@
 #include "modify.h"
 #include "geometry.h"
 #include "input.h"
-#include "random_park.h"
+#include "random_knuth.h"
 #include "math_const.h"
 #include "memory_kokkos.h"
 #include "error.h"
@@ -311,7 +311,7 @@ void FixEmitFaceKokkos::perform_task()
   particleKK->nlocal = nlocal_before + nnew;
   particleKK->modify(SPARTA_NS::Device, PARTICLE_MASK);
 
-  if (modify->n_add_particle) {
+  if (modify->n_update_custom) {
     auto h_keep = Kokkos::create_mirror_view(d_keep);
     auto h_task = Kokkos::create_mirror_view(d_task);
     Kokkos::deep_copy(h_keep, d_keep);
@@ -336,7 +336,7 @@ void FixEmitFaceKokkos::perform_task()
       auto inew = h_cands2new(cand);
       auto ilocal = nlocal_before + inew;
 
-      modify->add_particle(ilocal,temp_thermal,
+      modify->update_custom(ilocal,temp_thermal,
           temp_rot,temp_vib,vstream);
     }
   }
@@ -418,9 +418,9 @@ void FixEmitFaceKokkos::operator()(TagFixEmitFace_perform_task, const int &i, in
         do {
           do beta_un = (6.0*rand_gen.drand() - 3.0);
           while (beta_un + scosine < 0.0);
-          normalized_distbn_fn = 2.0 * (beta_un + scosine) / 
+          normalized_distbn_fn = 2.0 * (beta_un + scosine) /
             (scosine + sqrt(scosine*scosine + 2.0)) *
-            exp(0.5 + (0.5*scosine)*(scosine-sqrt(scosine*scosine + 2.0)) - 
+            exp(0.5 + (0.5*scosine)*(scosine-sqrt(scosine*scosine + 2.0)) -
                 beta_un*beta_un);
         } while (normalized_distbn_fn < rand_gen.drand());
 
@@ -468,9 +468,9 @@ void FixEmitFaceKokkos::operator()(TagFixEmitFace_perform_task, const int &i, in
         do {
           beta_un = (6.0*rand_gen.drand() - 3.0);
         } while (beta_un + scosine < 0.0);
-        normalized_distbn_fn = 2.0 * (beta_un + scosine) / 
+        normalized_distbn_fn = 2.0 * (beta_un + scosine) /
           (scosine + sqrt(scosine*scosine + 2.0)) *
-          exp(0.5 + (0.5*scosine)*(scosine-sqrt(scosine*scosine + 2.0)) - 
+          exp(0.5 + (0.5*scosine)*(scosine-sqrt(scosine*scosine + 2.0)) -
               beta_un*beta_un);
       } while (normalized_distbn_fn < rand_gen.drand());
 
@@ -521,7 +521,7 @@ void FixEmitFaceKokkos::grow_task()
     for (int i = 0; i < ntaskmax; i++)
       tasks[i].ntargetsp = k_ntargetsp.h_view.data() + i*k_ntargetsp.h_view.extent(1);
   }
-  
+
   if (subsonic_style == PONLY) {
     k_vscale.modify_host(); // force resize on host
     k_vscale.sync_host();

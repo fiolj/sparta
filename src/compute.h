@@ -1,12 +1,12 @@
 /* ----------------------------------------------------------------------
    SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
    http://sparta.sandia.gov
-   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov
+   Steve Plimpton, sjplimp@gmail.com, Michael Gallis, magalli@sandia.gov
    Sandia National Laboratories
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
    DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government retains
-   certain rights in this software.  This software is distributed under 
+   certain rights in this software.  This software is distributed under
    the GNU General Public License.
 
    See the README file in the top-level SPARTA directory.
@@ -66,6 +66,7 @@ class Compute : protected Pointers {
   int maxtime;        // max # of entries time list can hold
   bigint *tlist;      // list of timesteps the Compute is called on
 
+  int first_init;         // 0 if init() not yet called, otherwise 1
   int invoked_flag;       // non-zero if invoked or accessed this step, 0 if not
   bigint invoked_scalar;  // last timestep on which compute_scalar() was invoked
   bigint invoked_vector;       // ditto for compute_vector()
@@ -75,9 +76,11 @@ class Compute : protected Pointers {
   bigint invoked_per_surf;     // ditto for compute_per_surf()
 
   Compute(class SPARTA *, int, char **);
-  Compute(class SPARTA* sparta) : Pointers(sparta) {} 
+  Compute(class SPARTA* sparta) : Pointers(sparta) {} // needed for Kokkos
   virtual ~Compute();
   virtual void init() {}
+  void set_init();
+  virtual void post_constructor() {}
 
   virtual double compute_scalar() {return 0.0;}
   virtual void compute_vector() {}
@@ -86,7 +89,7 @@ class Compute : protected Pointers {
   virtual void compute_per_grid() {}
   virtual void compute_per_surf() {}
   virtual void clear() {}
-  virtual void surf_tally(int, int, int, Particle::OnePart *,  
+  virtual void surf_tally(int, int, int, Particle::OnePart *,
                           Particle::OnePart *, Particle::OnePart *) {}
   virtual void boundary_tally(int, int, int, Particle::OnePart *,
                               Particle::OnePart *, Particle::OnePart *) {}
@@ -112,8 +115,8 @@ class Compute : protected Pointers {
   // Kokkos methods
 
   int kokkos_flag;          // 1 if Kokkos-enabled
-  int copy,copymode;        // 1 if copy of class (prevents deallocation of
-                            //  base class when child copy is destroyed)
+  int copy,uncopy,copymode; // prevent deallocation of
+                            //  base class when child copy is destroyed
 };
 
 }

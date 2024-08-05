@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------
    SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
    http://sparta.sandia.gov
-   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov
+   Steve Plimpton, sjplimp@gmail.com, Michael Gallis, magalli@sandia.gov
    Sandia National Laboratories
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
@@ -116,12 +116,12 @@ void ComputeSonineGridKokkos::compute_per_grid_kokkos()
     need_dup = 0;
 
   if (need_dup) {
-    dup_tally = Kokkos::Experimental::create_scatter_view<Kokkos::Experimental::ScatterSum, Kokkos::Experimental::ScatterDuplicated>(d_tally);
-    dup_vcom_tally = Kokkos::Experimental::create_scatter_view<Kokkos::Experimental::ScatterSum, Kokkos::Experimental::ScatterDuplicated>(d_vcom);
+    dup_tally = Kokkos::Experimental::create_scatter_view<typename Kokkos::Experimental::ScatterSum, typename Kokkos::Experimental::ScatterDuplicated>(d_tally);
+    dup_vcom_tally = Kokkos::Experimental::create_scatter_view<typename Kokkos::Experimental::ScatterSum, typename Kokkos::Experimental::ScatterDuplicated>(d_vcom);
   }
   else {
-    ndup_tally = Kokkos::Experimental::create_scatter_view<Kokkos::Experimental::ScatterSum, Kokkos::Experimental::ScatterNonDuplicated>(d_tally);
-    ndup_vcom_tally = Kokkos::Experimental::create_scatter_view<Kokkos::Experimental::ScatterSum, Kokkos::Experimental::ScatterNonDuplicated>(d_vcom);
+    ndup_tally = Kokkos::Experimental::create_scatter_view<typename Kokkos::Experimental::ScatterSum, typename Kokkos::Experimental::ScatterNonDuplicated>(d_tally);
+    ndup_vcom_tally = Kokkos::Experimental::create_scatter_view<typename Kokkos::Experimental::ScatterSum, typename Kokkos::Experimental::ScatterNonDuplicated>(d_vcom);
   }
 
   // calculate center of mass velocity for each cell and group
@@ -133,10 +133,8 @@ void ComputeSonineGridKokkos::compute_per_grid_kokkos()
       Kokkos::parallel_for(Kokkos::RangePolicy<DeviceType, TagComputeSonineGrid_compute_vcom_init_atomic<1> >(0,nlocal),*this);
     else
       Kokkos::parallel_for(Kokkos::RangePolicy<DeviceType, TagComputeSonineGrid_compute_vcom_init_atomic<0> >(0,nlocal),*this);
-    DeviceType().fence();
     Kokkos::parallel_for(Kokkos::RangePolicy<DeviceType, TagComputeSonineGrid_normalize_vcom>(0,nglocal),*this);
   }
-  DeviceType().fence();
 
   if (need_dup) {
     Kokkos::Experimental::contribute(d_vcom, dup_vcom_tally);
@@ -152,13 +150,14 @@ void ComputeSonineGridKokkos::compute_per_grid_kokkos()
     else
       Kokkos::parallel_for(Kokkos::RangePolicy<DeviceType, TagComputeSonineGrid_compute_per_grid_atomic<0> >(0,nlocal),*this);
   }
-  DeviceType().fence();
   copymode = 0;
 
   if (need_dup) {
     Kokkos::Experimental::contribute(d_tally, dup_tally);
     dup_tally = decltype(dup_tally)(); // free duplicated memory
   }
+
+  d_plist = decltype(d_plist)();
 }
 
 /* ---------------------------------------------------------------------- */
@@ -168,9 +167,9 @@ KOKKOS_INLINE_FUNCTION
 void ComputeSonineGridKokkos::operator()(TagComputeSonineGrid_compute_vcom_init_atomic<NEED_ATOMICS>, const int &i) const {
   // compute COM velocity on this timestep for each cell and group
 
-  // The tally array is duplicated for OpenMP, atomic for CUDA, and neither for Serial
-  auto v_com_tally = ScatterViewHelper<NeedDup<NEED_ATOMICS,DeviceType>::value,decltype(dup_vcom_tally),decltype(ndup_vcom_tally)>::get(dup_vcom_tally,ndup_vcom_tally);
-  auto a_vcom_tally = v_com_tally.template access<AtomicDup<NEED_ATOMICS,DeviceType>::value>();
+  // The tally array is duplicated for OpenMP, atomic for GPUs, and neither for Serial
+  auto v_com_tally = ScatterViewHelper<typename NeedDup<NEED_ATOMICS,DeviceType>::value,decltype(dup_vcom_tally),decltype(ndup_vcom_tally)>::get(dup_vcom_tally,ndup_vcom_tally);
+  auto a_vcom_tally = v_com_tally.template access<typename AtomicDup<NEED_ATOMICS,DeviceType>::value>();
 
   const int ispecies = d_particles[i].ispecies;
   const int igroup = d_s2g(imix,ispecies);
@@ -245,10 +244,10 @@ template<int NEED_ATOMICS>
 KOKKOS_INLINE_FUNCTION
 void ComputeSonineGridKokkos::operator()(TagComputeSonineGrid_compute_per_grid_atomic<NEED_ATOMICS>, const int &i) const {
 
-  // The tally array is duplicated for OpenMP, atomic for CUDA, and neither for Serial
+  // The tally array is duplicated for OpenMP, atomic for GPUs, and neither for Serial
 
-  auto v_tally = ScatterViewHelper<NeedDup<NEED_ATOMICS,DeviceType>::value,decltype(dup_tally),decltype(ndup_tally)>::get(dup_tally,ndup_tally);
-  auto a_tally = v_tally.template access<AtomicDup<NEED_ATOMICS,DeviceType>::value>();
+  auto v_tally = ScatterViewHelper<typename NeedDup<NEED_ATOMICS,DeviceType>::value,decltype(dup_tally),decltype(ndup_tally)>::get(dup_tally,ndup_tally);
+  auto a_tally = v_tally.template access<typename AtomicDup<NEED_ATOMICS,DeviceType>::value>();
 
   const int ispecies = d_particles[i].ispecies;
   const int igroup = d_s2g(imix,ispecies);
@@ -380,7 +379,7 @@ void ComputeSonineGridKokkos::post_process_grid_kokkos(int index,
   if (!d_etally.data()) {
     d_etally = d_tally;
     emap = map[index];
-    d_vec = d_vector;
+    d_vec = d_vector_grid;
   }
 
   this->d_etally = d_etally;
@@ -390,7 +389,6 @@ void ComputeSonineGridKokkos::post_process_grid_kokkos(int index,
 
   copymode = 1;
   Kokkos::parallel_for(Kokkos::RangePolicy<DeviceType, TagComputeSonineGrid_post_process_grid>(lo,hi),*this);
-  DeviceType().fence();
   copymode = 0;
 }
 
@@ -418,7 +416,7 @@ void ComputeSonineGridKokkos::reallocate()
 
   nglocal = grid->nlocal;
   memoryKK->create_kokkos(k_vector_grid,vector_grid,nglocal,"sonine/grid:vector_grid");
-  d_vector = k_vector_grid.d_view;
+  d_vector_grid = k_vector_grid.d_view;
   memoryKK->create_kokkos(k_tally,tally,nglocal,ntotal,"sonine/grid:tally");
   d_tally = k_tally.d_view;
   d_vcom = DAT::t_float_3d ("d_vcom",nglocal,ngroup,4);
