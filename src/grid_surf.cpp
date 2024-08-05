@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------
+ /* ----------------------------------------------------------------------
    SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
    http://sparta.sandia.gov
-   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov
+   Steve Plimpton, sjplimp@gmail.com, Michael Gallis, magalli@sandia.gov
    Sandia National Laboratories
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
@@ -62,7 +62,7 @@ enum{SOUTSIDE,SINSIDE,ONSURF2OUT,ONSURF2IN};  // several files (changed 2 words)
    for distributed surfs, have to use surf alg
    PERAUTO option chooses based on total nsurfs vs nprocs
    see info on subflag, outflag options with surf2grid_split()
-   called from Readsurf, MoveSurf, RemoveSurf, ReadRestart, and FixMoveSurf
+   called from ReadSurf, MoveSurf, RemoveSurf, ReadRestart, and FixMoveSurf
 ------------------------------------------------------------------------- */
 
 void Grid::surf2grid(int subflag, int outflag)
@@ -95,8 +95,8 @@ void Grid::surf2grid(int subflag, int outflag)
 void Grid::surf2grid_implicit(int subflag, int outflag)
 {
   int dim = domain->dimension;
-  if (dim == 3) cut3d = new Cut3d(sparta);
-  else cut2d = new Cut2d(sparta,domain->axisymmetric);
+  if (dim == 3 && !cut3d) cut3d = new Cut3d(sparta);
+  else if (dim == 2 && !cut2d) cut2d = new Cut2d(sparta,domain->axisymmetric);
 
   tmap = tcomm1 = tcomm2 = tcomm3 = 0.0;
 
@@ -220,6 +220,8 @@ void Grid::surf2grid_cell_algorithm(int outflag)
   double *lo,*hi;
 
   int dim = domain->dimension;
+  if (dim == 3 && !cut3d) cut3d = new Cut3d(sparta);
+  else if (dim == 2 && !cut2d) cut2d = new Cut2d(sparta,domain->axisymmetric);
 
   if (outflag) {
     MPI_Barrier(world);
@@ -230,9 +232,6 @@ void Grid::surf2grid_cell_algorithm(int outflag)
 
   double *slo = surf->bblo;
   double *shi = surf->bbhi;
-
-  if (dim == 3) cut3d = new Cut3d(sparta);
-  else cut2d = new Cut2d(sparta,domain->axisymmetric);
 
   // compute overlap of all surfs with each cell I own
   // info stored in nsurf,csurfs
@@ -247,13 +246,13 @@ void Grid::surf2grid_cell_algorithm(int outflag)
     if (cells[icell].nsplit <= 0) continue;
 
     // skip grid cell if outside bounding box of all surfs
-    
+
     lo = cells[icell].lo;
     hi = cells[icell].hi;
     if (!box_overlap(lo,hi,slo,shi)) continue;
 
     // cut2d/3d surf2grid finds intersection of all surfs with a single grid cell
-    
+
     ptr = csurfs->vget();
 
     if (dim == 3)
@@ -278,13 +277,17 @@ void Grid::surf2grid_cell_algorithm(int outflag)
       if (dim == 2) {
 
         for (i = 0; i < nsurf; i++) {
-          if (!lines[ptr[i]].transparent) nontrans = 1;
-          break;
+          if (!lines[ptr[i]].transparent) {
+            nontrans = 1;
+            break;
+          }
         }
       } else {
         for (i = 0; i < nsurf; i++) {
-          if (!tris[ptr[i]].transparent) nontrans = 1;
-          break;
+          if (!tris[ptr[i]].transparent) {
+            nontrans = 1;
+            break;
+          }
         }
       }
 
@@ -314,8 +317,9 @@ void Grid::surf2grid_cell_algorithm(int outflag)
 }
 
 /* ----------------------------------------------------------------------
-   find surfs that overlap owned grid cells, for non-distributed or distributed
-   algorithm: 
+   find surfs that overlap owned grid cells
+     for non-distributed or distributed explicit surfs
+   algorithm:
      each proc responsible for subset of surfs
      loop over levels of hierarchical grid
      conceptual uniform grid at that level overlayed on bounding box for all surfs
@@ -326,17 +330,16 @@ void Grid::surf2grid_cell_algorithm(int outflag)
      each proc can then identify surf/grid intersections for its RCB grid cells
        done recursively by dropping each surf down conceptual tree of parent cells
        until reach child cells that exist at level
-     irregular comm the surf/grid intersection pairs back to procs that own grid cells
+     irregular comm of surf/grid intersection pairs back to procs that own grid cells
    in cells: set nsurf, csurfs
    in cinfo: set type=OVERLAP for cells with surfs
 ------------------------------------------------------------------------- */
 
 void Grid::surf2grid_surf_algorithm(int outflag)
 {
-  int i,j,n,ix,iy,iz,icell,isurf;
+  int i,n,icell,isurf;
   cellint childID,parentID;
   double t1,t2,t3,t4,t5;
-  double ctr[3];
   Irregular *irregular;
 
   double *boxlo,*boxhi;             // corner points of entire simulation box
@@ -351,9 +354,9 @@ void Grid::surf2grid_surf_algorithm(int outflag)
   double bblo[3],bbhi[3];           // corners of a bounding box
   double rcblo[3],rcbhi[3];         // corners of my RCB box
   GridTree *gtree;                  // tree of RCB cuts for partitioning uniform grid
-  
+
   // data structs for communication
-  
+
   struct Send2 {
     cellint childID;
     int proc,icell;
@@ -370,18 +373,18 @@ void Grid::surf2grid_surf_algorithm(int outflag)
 
   int me = comm->me;
   int nprocs = comm->nprocs;
-  int dim = domain->dimension;
   int distributed = surf->distributed;
- 
+
+  int dim = domain->dimension;
+  if (dim == 3 && !cut3d) cut3d = new Cut3d(sparta);
+  else if (dim == 2 && !cut2d) cut2d = new Cut2d(sparta,domain->axisymmetric);
+
   boxlo = domain->boxlo;
   boxhi = domain->boxhi;
 
   surf->bbox_all();                 // bounding box for all surfs
   allsurflo = surf->bblo;
   allsurfhi = surf->bbhi;
-
-  if (dim == 3) cut3d = new Cut3d(sparta);
-  else cut2d = new Cut2d(sparta,domain->axisymmetric);
 
   int *plist;
   memory->create(plist,nprocs,"surf2grid:plist");
@@ -446,22 +449,22 @@ void Grid::surf2grid_surf_algorithm(int outflag)
     // unilo/hi = inclusive range of grid box of overlapping grid box
 
     id_find_child_uniform_level(level,0,boxlo,boxhi,allsurflo,
-				unilo[0],unilo[1],unilo[2]);
+                                unilo[0],unilo[1],unilo[2]);
     id_find_child_uniform_level(level,1,boxlo,boxhi,allsurfhi,
-				unihi[0],unihi[1],unihi[2]);
+                                unihi[0],unihi[1],unihi[2]);
 
     // compute a recursive decomp (RCB) of the uniform grid box
     // gtree = tree of RCB cuts, cuts are along grid planes
     // myunilo/hi = inclusive range of my portion of grid box
     // rcblo/hi = corner points of my RCB box
-    
+
     partition_grid(0,nprocs-1,unilo[0],unihi[0],unilo[1],unihi[1],
-		   unilo[2],unihi[2],gtree);
+                   unilo[2],unihi[2],gtree);
     myunilo[0] = unilo[0]; myunihi[0] = unihi[0];
     myunilo[1] = unilo[1]; myunihi[1] = unihi[1];
     myunilo[2] = unilo[2]; myunihi[2] = unihi[2];
     mybox(me,0,nprocs-1,myunilo[0],myunihi[0],myunilo[1],
-	  myunihi[1],myunilo[2],myunihi[2],gtree);
+          myunihi[1],myunilo[2],myunihi[2],gtree);
 
     childID = id_uniform_level(level,myunilo[0],myunilo[1],myunilo[2]);
     id_lohi(childID,level,boxlo,boxhi,rcblo,bbhi);
@@ -482,9 +485,9 @@ void Grid::surf2grid_surf_algorithm(int outflag)
       if (dim == 2) surf->bbox_one(&lines[isurf],slo,shi);
       else surf->bbox_one(&tris[isurf],slo,shi);
       id_find_child_uniform_level(level,0,boxlo,boxhi,slo,
-				  sunilo[0],sunilo[1],sunilo[2]);
+                                  sunilo[0],sunilo[1],sunilo[2]);
       id_find_child_uniform_level(level,1,boxlo,boxhi,shi,
-				  sunihi[0],sunihi[1],sunihi[2]);
+                                  sunihi[0],sunihi[1],sunihi[2]);
 
       // drop trimmed surf box on RCB tree
       // return list of procs whose RCB subbox it overlaps
@@ -494,20 +497,20 @@ void Grid::surf2grid_surf_algorithm(int outflag)
       if (!np) continue;
 
       for (i = 0; i < np; i++) {
-	if (nsend == maxsend1) {
-	  maxsend1 += DELTA_SEND;
-	  memory->grow(proclist1,maxsend1,"surf2grid:proclist1");
-	  if (dim == 2)
-	    sbuf1 = (char *) memory->srealloc(sbuf1,maxsend1*sizeof(Surf::Line),
-					      "surf2grid:sbuf1");
-	  else
-	    sbuf1 = (char *) memory->srealloc(sbuf1,maxsend1*sizeof(Surf::Tri),
-					      "surf2grid:sbuf1");
-	}
-	proclist1[nsend] = plist[i];
-	if (dim == 2) memcpy(&sbuf1[nsend*nbytes_surf],&lines[isurf],nbytes_surf);
-	else memcpy(&sbuf1[nsend*nbytes_surf],&tris[isurf],nbytes_surf);
-	nsend++;
+        if (nsend == maxsend1) {
+          maxsend1 += DELTA_SEND;
+          memory->grow(proclist1,maxsend1,"surf2grid:proclist1");
+          if (dim == 2)
+            sbuf1 = (char *) memory->srealloc(sbuf1,maxsend1*sizeof(Surf::Line),
+                                              "surf2grid:sbuf1");
+          else
+            sbuf1 = (char *) memory->srealloc(sbuf1,maxsend1*sizeof(Surf::Tri),
+                                              "surf2grid:sbuf1");
+        }
+        proclist1[nsend] = plist[i];
+        if (dim == 2) memcpy(&sbuf1[nsend*nbytes_surf],&lines[isurf],nbytes_surf);
+        else memcpy(&sbuf1[nsend*nbytes_surf],&tris[isurf],nbytes_surf);
+        nsend++;
       }
     }
 
@@ -543,7 +546,7 @@ void Grid::surf2grid_surf_algorithm(int outflag)
       id_find_child_uniform_level(level,0,boxlo,boxhi,ctr,cx,cy,cz);
 
       // glo/hi = single cell grid box
-      
+
       glo[0] = cx; ghi[0] = cx;
       glo[1] = cy; ghi[1] = cy;
       glo[2] = cz; ghi[2] = cz;
@@ -553,10 +556,10 @@ void Grid::surf2grid_surf_algorithm(int outflag)
       if (np != 1) error->one(FLERR,"Box drop of grid cell failed");
 
       if (nsend == maxsend2) {
-	maxsend2 += DELTA_SEND;
-	memory->grow(proclist2,maxsend2,"surf2grid:proclist2");
-	sbuf2 = (Send2 *) memory->srealloc(sbuf2,maxsend2*sizeof(Send2),
-					  "surf2grid:sbuf2");
+        maxsend2 += DELTA_SEND;
+        memory->grow(proclist2,maxsend2,"surf2grid:proclist2");
+        sbuf2 = (Send2 *) memory->srealloc(sbuf2,maxsend2*sizeof(Send2),
+                                          "surf2grid:sbuf2");
       }
 
       proclist2[nsend] = plist[0];
@@ -580,7 +583,7 @@ void Grid::surf2grid_surf_algorithm(int outflag)
 
     // chash = hash with cell IDs I own in RCB decomp
     //   key = childID, value = index in my RCB list of child cells
-    // phash = hash with all parent cell IDs of child cells 
+    // phash = hash with all parent cell IDs of child cells
     //   key = parentID, value not used
     //   b/c RCB grid box is compact, size of phash should be small
     // rcblohi = lo/hi extents of each child cells
@@ -595,13 +598,11 @@ void Grid::surf2grid_surf_algorithm(int outflag)
       (*chash)[childID] = i;
       id_lohi(childID,level,boxlo,boxhi,rcblohi[i].lo,rcblohi[i].hi);
 
-      int flag;
-      
       for (int ilevel = level; ilevel > 0; ilevel--) {
-	parentID = parent_of_child(childID,ilevel);
-	if (phash->find(parentID) != phash->end()) break;
-	(*phash)[parentID] = 0;
-	childID = parentID;
+        parentID = id_parent_of_child(childID,ilevel);
+        if (phash->find(parentID) != phash->end()) break;
+        (*phash)[parentID] = 0;
+        childID = parentID;
       }
     }
 
@@ -615,7 +616,7 @@ void Grid::surf2grid_surf_algorithm(int outflag)
     //   bblo/hi = intersection of surf bbox with RCB box
     //   recurse2d/3d starts with bblo/hi within parentID = 0 (sim box)
     //     will find every child cell in chash that surf intersects with
-    //     checks for actual intersectino are via cut2d/cut3d
+    //     checks for actual intersection are via cut2d/cut3d
     //   build list of pairs, one pair = surf index, cell index
     //     both are indices into received RCB surf/cells data
 
@@ -630,54 +631,56 @@ void Grid::surf2grid_surf_algorithm(int outflag)
     if (dim == 2) {
       for (i = 0; i < nrecv1; i++) {
 
-	// skip surf if it does not intersect my RCB box
-      
-	overlap = cut2d->surf2grid_one(rcblines[i].p1,rcblines[i].p2,rcblo,rcbhi);
-	if (!overlap) continue;
+        // skip surf if it does not intersect my RCB box
 
-	// slo/hi = bbox around one surf
-	
-	surf->bbox_one(&rcblines[i],slo,shi);
+        overlap = cut2d->surf2grid_one(rcblines[i].p1,rcblines[i].p2,rcblo,rcbhi);
+        if (!overlap) continue;
 
-	// bblo/hi = overlap of surf bbox with my RCB box
-	
-	bblo[0] = MAX(slo[0],rcblo[0]);
-	bblo[1] = MAX(slo[1],rcblo[1]);
-	bbhi[0] = MIN(shi[0],rcbhi[0]);
-	bbhi[1] = MIN(shi[1],rcbhi[1]);
+        // slo/hi = bbox around one surf
 
-	// find all my RCB child cells this surf intersects
-	
-	recurse2d(0,0,boxlo,boxhi,i,&rcblines[i],bblo,bbhi,
-		  npair,maxpair,pairs,chash,phash);
+        surf->bbox_one(&rcblines[i],slo,shi);
+
+        // bblo/hi = overlap of surf bbox with my RCB box
+
+        bblo[0] = MAX(slo[0],rcblo[0]);
+        bblo[1] = MAX(slo[1],rcblo[1]);
+        bbhi[0] = MIN(shi[0],rcbhi[0]);
+        bbhi[1] = MIN(shi[1],rcbhi[1]);
+        bblo[2] = 0.0;
+        bbhi[2] = 0.0;
+
+        // find all my RCB child cells this surf intersects
+
+        recurse2d(0,0,boxlo,boxhi,i,&rcblines[i],bblo,bbhi,
+                  npair,maxpair,pairs,chash,phash);
       }
-      
+
     } else {
       for (i = 0; i < nrecv1; i++) {
 
-	// skip surf if it does not intersect my RCB box
-      
-	overlap = cut3d->surf2grid_one(rcbtris[i].p1,rcbtris[i].p2,rcbtris[i].p3,
-				       rcblo,rcbhi);
-	if (!overlap) continue;
+        // skip surf if it does not intersect my RCB box
 
-	// slo/hi = bbox around one surf
-	
-	surf->bbox_one(&rcbtris[i],slo,shi);
+        overlap = cut3d->surf2grid_one(rcbtris[i].p1,rcbtris[i].p2,rcbtris[i].p3,
+                                       rcblo,rcbhi);
+        if (!overlap) continue;
 
-	// bblo/hi = overlap of surf bbox with my RCB box
-	
-	bblo[0] = MAX(slo[0],rcblo[0]);
-	bblo[1] = MAX(slo[1],rcblo[1]);
-	bblo[2] = MAX(slo[2],rcblo[2]);
-	bbhi[0] = MIN(shi[0],rcbhi[0]);
-	bbhi[1] = MIN(shi[1],rcbhi[1]);
-	bbhi[2] = MIN(shi[2],rcbhi[2]);
+        // slo/hi = bbox around one surf
 
-	// find all my RCB child cells this surf intersects
+        surf->bbox_one(&rcbtris[i],slo,shi);
 
-	recurse3d(0,0,boxlo,boxhi,i,&rcbtris[i],bblo,bbhi,
-		  npair,maxpair,pairs,chash,phash);
+        // bblo/hi = overlap of surf bbox with my RCB box
+
+        bblo[0] = MAX(slo[0],rcblo[0]);
+        bblo[1] = MAX(slo[1],rcblo[1]);
+        bblo[2] = MAX(slo[2],rcblo[2]);
+        bbhi[0] = MIN(shi[0],rcbhi[0]);
+        bbhi[1] = MIN(shi[1],rcbhi[1]);
+        bbhi[2] = MIN(shi[2],rcbhi[2]);
+
+        // find all my RCB child cells this surf intersects
+
+        recurse3d(0,0,boxlo,boxhi,i,&rcbtris[i],bblo,bbhi,
+                  npair,maxpair,pairs,chash,phash);
       }
     }
 
@@ -696,10 +699,10 @@ void Grid::surf2grid_surf_algorithm(int outflag)
 
     for (i = 0; i < npair; i++) {
       if (nsend == maxsend3) {
-	maxsend3 += DELTA_SEND;
-	memory->grow(proclist3,maxsend3,"surf2grigd:proclist3");
-	sbuf3 = (Send3 *) memory->srealloc(sbuf3,maxsend3*sizeof(Send3),
-					  "surf2grid:sbuf3");
+        maxsend3 += DELTA_SEND;
+        memory->grow(proclist3,maxsend3,"surf2grigd:proclist3");
+        sbuf3 = (Send3 *) memory->srealloc(sbuf3,maxsend3*sizeof(Send3),
+                                          "surf2grid:sbuf3");
       }
 
       surfindex = pairs[i][0];
@@ -714,7 +717,7 @@ void Grid::surf2grid_surf_algorithm(int outflag)
     irregular = new Irregular(sparta);
     int nrecv3 = irregular->create_data_uniform(nsend,proclist3,1);
     Send3 *rbuf3 = (Send3 *) memory->smalloc(nrecv3*sizeof(Send3),
-					     "surf2grid:rbuf3");
+                                             "surf2grid:rbuf3");
     irregular->exchange_uniform((char *) sbuf3,sizeof(Send3),(char *) rbuf3);
     delete irregular;
 
@@ -735,10 +738,10 @@ void Grid::surf2grid_surf_algorithm(int outflag)
       if (cells[icell].nsplit <= 0) continue;
       nsurf = cells[icell].nsurf;
       if (nsurf) {
-	if (nsurf > maxsurfpercell)
-	  error->one(FLERR,"Too many surfs in one cell - set global surfmax");
-	cells[icell].csurfs = csurfs->get(nsurf);
-	cells[icell].nsurf = 0;
+        if (nsurf > maxsurfpercell)
+          error->one(FLERR,"Too many surfs in one cell - set global surfmax");
+        cells[icell].csurfs = csurfs->get(nsurf);
+        cells[icell].nsurf = 0;
       }
     }
 
@@ -797,10 +800,10 @@ void Grid::surf2grid_surf_algorithm(int outflag)
 
     if (dim == 2) {
       for (i = 0; i < nslocal; i++)
-	shash[lines[i].id] = i;
+        shash[lines[i].id] = i;
     } else {
       for (i = 0; i < nslocal; i++)
-	shash[tris[i].id] = i;
+        shash[tris[i].id] = i;
     }
 
     for (icell = 0; icell < nlocal; icell++) {
@@ -811,7 +814,7 @@ void Grid::surf2grid_surf_algorithm(int outflag)
       n = cells[icell].nsurf;
 
       for (i = 0; i < n; i++)
-	list[i] = shash[list[i]];
+        list[i] = shash[list[i]];
     }
   }
 
@@ -840,19 +843,19 @@ void Grid::surf2grid_surf_algorithm(int outflag)
       n = cells[icell].nsurf;
 
       for (i = 0; i < n; i++)
-	if (shash.find(list[i]) == shash.end()) {
-	  shash[list[i]] = 0;
-	  ncount++;
-	}
+        if (shash.find(list[i]) == shash.end()) {
+          shash[list[i]] = 0;
+          ncount++;
+        }
     }
 
     // allocate memory for rvous input
 
     int *proclist;
-    memory->create(proclist,ncount,"surf2grid:proclist2");
+    memory->create(proclist,ncount,"surf2grid:proclist");
     InRvous *inbuf =
       (InRvous *) memory->smalloc((bigint) ncount*sizeof(InRvous),
-				  "surf2grid:inbuf");
+                                  "surf2grid:inbuf");
 
     // create rvous inputs
     // proclist = owner of each surf
@@ -878,8 +881,8 @@ void Grid::surf2grid_surf_algorithm(int outflag)
     else outbytes = sizeof(OutRvousTri);
 
     int nreturn = comm->rendezvous(1,ncount,(char *) inbuf,sizeof(InRvous),
-				   0,proclist,rendezvous_surfrequest,
-				   0,outbuf,outbytes,(void *) this);
+                                   0,proclist,rendezvous_surfrequest,
+                                   0,outbuf,outbytes,(void *) this);
 
     memory->destroy(proclist);
     memory->sfree(inbuf);
@@ -924,7 +927,7 @@ void Grid::surf2grid_surf_algorithm(int outflag)
       n = cells[icell].nsurf;
 
       for (i = 0; i < n; i++)
-	list[i] = shash[list[i]];
+        list[i] = shash[list[i]];
     }
   }
 
@@ -942,7 +945,7 @@ void Grid::surf2grid_surf_algorithm(int outflag)
     if (cells[icell].nsplit <= 0) continue;
 
     qsort(cells[icell].csurfs,cells[icell].nsurf,
-	  sizeof(surfint),compare_surfIDs);
+          sizeof(surfint),compare_surfIDs);
 
     list = cells[icell].csurfs;
     n = cells[icell].nsurf;
@@ -950,13 +953,17 @@ void Grid::surf2grid_surf_algorithm(int outflag)
 
     if (dim == 2) {
       for (i = 0; i < n; i++) {
-	if (!lines[list[i]].transparent) nontrans = 1;
-	break;
+        if (!lines[list[i]].transparent) {
+          nontrans = 1;
+          break;
+        }
       }
     } else {
       for (i = 0; i < n; i++) {
-	if (!tris[list[i]].transparent) nontrans = 1;
-	break;
+        if (!tris[list[i]].transparent) {
+          nontrans = 1;
+          break;
+        }
       }
     }
 
@@ -976,7 +983,7 @@ void Grid::surf2grid_surf_algorithm(int outflag)
    if subflag = 1, create new owned split and sub cells as needed
      called from ReadSurf, RemoveSurf, MoveSurf, FixAblate
    if subflag = 0, split/sub cells already exist
-     called from ReadRestart
+     called from ReadRestart, only for explicit surfs
    outflag = 1 for timing and statistics info
    in cells: set nsplit, isplit
    in cinfo: set corner, volume
@@ -985,10 +992,10 @@ void Grid::surf2grid_surf_algorithm(int outflag)
 
 void Grid::surf2grid_split(int subflag, int outflag)
 {
-  int i,isub,nsurf,nsplitone,xsub;
+  int i,isub,nsplitone,xsub;
   int *surfmap,*ptr;
   double t1,t2;
-  double *lo,*hi,*vols;
+  double *vols;
   double xsplit[3];
   ChildCell *c;
   SplitInfo *s;
@@ -1027,46 +1034,46 @@ void Grid::surf2grid_split(int subflag, int outflag)
 
     } else if (subflag) {
       if (nsplitone > maxsplitpercell) {
-	max = MAX(max,nsplitone);
-	csplits->vgot(0);
-	
+        max = MAX(max,nsplitone);
+        csplits->vgot(0);
+
       } else {
-	cells[icell].nsplit = nsplitone;
-	nunsplitlocal--;
+        cells[icell].nsplit = nsplitone;
+        nunsplitlocal--;
 
-	cells[icell].isplit = nsplitlocal;
-	add_split_cell(1);
-	s = &sinfo[nsplitlocal-1];
-	s->icell = icell;
-	s->csplits = surfmap;
-	s->xsub = xsub;
-	s->xsplit[0] = xsplit[0];
-	s->xsplit[1] = xsplit[1];
-	if (dim == 3) s->xsplit[2] = xsplit[2];
-	else s->xsplit[2] = 0.0;
+        cells[icell].isplit = nsplitlocal;
+        add_split_cell(1);
+        s = &sinfo[nsplitlocal-1];
+        s->icell = icell;
+        s->csplits = surfmap;
+        s->xsub = xsub;
+        s->xsplit[0] = xsplit[0];
+        s->xsplit[1] = xsplit[1];
+        if (dim == 3) s->xsplit[2] = xsplit[2];
+        else s->xsplit[2] = 0.0;
 
-	ptr = s->csubs = csubs->vget();
+        ptr = s->csubs = csubs->vget();
 
         // add nsplitone sub cells
         // collide and fixes also need to add cells
 
-	for (i = 0; i < nsplitone; i++) {
-	  isub = nlocal;
-	  add_sub_cell(icell,1);
+        for (i = 0; i < nsplitone; i++) {
+          isub = nlocal;
+          add_sub_cell(icell,1);
           if (collide) collide->add_grid_one();
           if (modify->n_pergrid) modify->add_grid_one();
-	  cells[isub].nsplit = -i;
-	  cinfo[isub].volume = vols[i];
-	  ptr[i] = isub;
-	}
-	
-	csubs->vgot(nsplitone);
-	csplits->vgot(cells[icell].nsurf);
+          cells[isub].nsplit = -i;
+          cinfo[isub].volume = vols[i];
+          ptr[i] = isub;
+        }
+
+        csubs->vgot(nsplitone);
+        csplits->vgot(cells[icell].nsurf);
       }
 
     } else {
       if (cells[icell].nsplit != nsplitone) {
-        printf("BAD %d %d: %d %d\n",icell,cells[icell].id,
+        printf("BAD %d " CELLINT_FORMAT ": %d %d\n",icell,cells[icell].id,
                nsplitone,cells[icell].nsplit);
         error->one(FLERR,
                    "Inconsistent surface to grid mapping in read_restart");
@@ -1102,36 +1109,9 @@ void Grid::surf2grid_split(int subflag, int outflag)
                "set global splitmax");
   }
 
-  // stats on pushed cells and unmarked corner points in OVERLAP cells
+  // stats on unmarked corner points in OVERLAP cells
 
   if (outflag) {
-    int npushmax;
-    int *npushcell;
-    if (dim == 3) {
-      npushmax = cut3d->npushmax;
-      npushcell = cut3d->npushcell;
-    } else {
-      npushmax = cut2d->npushmax;
-      npushcell = cut2d->npushcell;
-    }
-    int *npushall = new int[npushmax+1];
-    MPI_Allreduce(npushcell,npushall,npushmax+1,MPI_INT,MPI_SUM,world);
-    if (comm->me == 0) {
-      if (screen) {
-        fprintf(screen,"  ");
-        for (int i = 1; i <= npushmax; i++)
-          fprintf(screen,"%d ",npushall[i]);
-        fprintf(screen,"= number of pushed cells\n");
-      }
-      if (logfile) {
-        fprintf(logfile,"  ");
-        for (int i = 1; i <= npushmax; i++)
-          fprintf(logfile,"%d ",npushall[i]);
-        fprintf(logfile,"= number of pushed cells\n");
-      }
-    }
-    delete [] npushall;
-
     int noverlap = 0;
     int ncorner = 0;
     for (int icell = 0; icell < nlocal; icell++) {
@@ -1160,10 +1140,27 @@ void Grid::surf2grid_split(int subflag, int outflag)
     }
   }
 
-  // clean up
+  // print info on unusual surf split cases
 
-  if (dim == 3) delete cut3d;
-  else delete cut2d;
+  if (dim == 3) {
+    int ntiny = cut3d->ntiny;
+    int alltiny;
+    MPI_Allreduce(&ntiny,&alltiny,1,MPI_INT,MPI_SUM,world);
+    if (alltiny && comm->me == 0) {
+      if (screen) fprintf(screen,"  %d tiny edges removed\n",alltiny);
+      if (logfile) fprintf(logfile,"  %d tiny edges removed\n",alltiny);
+    }
+
+    int nshrink = cut3d->nshrink;
+    int allshrink;
+    MPI_Allreduce(&nshrink,&allshrink,1,MPI_INT,MPI_SUM,world);
+    if (allshrink && comm->me == 0) {
+      if (screen)
+        fprintf(screen,"  %d cells shrunk to enable splitting\n",allshrink);
+      if (logfile)
+        fprintf(logfile,"  %d cells shrunk to enable splitting\n",allshrink);
+    }
+  }
 
   if (outflag) {
     MPI_Barrier(world);
@@ -1175,7 +1172,7 @@ void Grid::surf2grid_split(int subflag, int outflag)
 /* ----------------------------------------------------------------------
    enumerate all child cells in chash which a single line intersects with
    done recursively, 1st call from surf2grid_surf_algorithm() uses parentID = root
-     phash stores IDs of all parent cells for child cells in chash
+   phash stores IDs of all parent cells for child cells in chash
    bblo/hi = portion of bounding box for surf that is wholly within parentID
    parentID = parent cell
    level = level of parent cell
@@ -1187,96 +1184,77 @@ void Grid::surf2grid_split(int subflag, int outflag)
 ------------------------------------------------------------------------- */
 
 void Grid::recurse2d(cellint parentID, int level, double *plo, double *phi,
-		     int surfindex, Surf::Line *line, double *bblo, double *bbhi,
+                     int surfindex, Surf::Line *line, double *bblo, double *bbhi,
                      int &npair, int &maxpair, int **&pairs,
-		     MyHash *chash, MyHash *phash)
+                     MyHash *chash, MyHash *phash)
 {
   int ix,iy,cflag,pflag,overlap;
   cellint ichild,childID;
   double celledge;
   double clo[3],chi[3];
   double newlo[3],newhi[3];
-  
+
   double *p1 = line->p1;
   double *p2 = line->p2;
 
   int nx = plevels[level].nx;
   int ny = plevels[level].ny;
   int nbits = plevels[level].nbits;
-  
+
   // ij lohi = indices for range of child cells overlapped by surf bbox
-  // overlap means point is inside grid cell or touches boundary
-  // same equation as in Grid::id_find_child()
+  // overlap = surf bbox include any interior of grid cell or touches its boundary
+  // id_point_child() returns cell indices for >= lo and < hi
+  // so check if lower range should be decremented
 
-  int ilo = static_cast<int> ((bblo[0]-plo[0]) * nx/(phi[0]-plo[0]));
-  int ihi = static_cast<int> ((bbhi[0]-plo[0]) * nx/(phi[0]-plo[0]));
-  int jlo = static_cast<int> ((bblo[1]-plo[1]) * ny/(phi[1]-plo[1]));
-  int jhi = static_cast<int> ((bbhi[1]-plo[1]) * ny/(phi[1]-plo[1]));
-
-  // augment indices if surf bbox touches or slightly overlaps cell edges
-  // same equation as in Grid::id_child_lohi()
+  int ilo,ihi,jlo,jhi,klo,khi;
+  id_point_child(bblo,plo,phi,nx,ny,1,ilo,jlo,klo);
+  id_point_child(bbhi,plo,phi,nx,ny,1,ihi,jhi,khi);
 
   celledge = plo[0] + ilo*(phi[0]-plo[0])/nx;
-  if (bblo[0] <= celledge) ilo--;
-  celledge = plo[0] + (ihi+1)*(phi[0]-plo[0])/nx;
-  if (bbhi[0] >= celledge) ihi++;
-
+  if (bblo[0] <= celledge && ilo > 0) ilo--;
   celledge = plo[1] + jlo*(phi[1]-plo[1])/ny;
-  if (bblo[1] <= celledge) jlo--;
-  celledge = plo[1] + (jhi+1)*(phi[1]-plo[1])/ny;
-  if (bbhi[1] >= celledge) jhi++;
-
-  // insure each index is between 0 and Nxy-1 inclusive
-
-  ilo = MAX(ilo,0);
-  ilo = MIN(ilo,nx-1);
-  ihi = MAX(ihi,0);
-  ihi = MIN(ihi,nx-1);
-  jlo = MAX(jlo,0);
-  jlo = MIN(jlo,ny-1);
-  jhi = MAX(jhi,0);
-  jhi = MIN(jhi,ny-1);
+  if (bblo[1] <= celledge && jlo > 0) jlo--;
 
   // loop over range of grid cells between ij lohi inclusive
   // if cell is neither a child or parent cell in chash/phash, skip it
   // if line does not intersect cell, skip it
-  // if cell is a child, add intersectino to pairs list
-  // if pairs is a parent:
+  // if cell is a child, add intersection to pairs list
+  // if cell is a parent:
   //   recurse using new lohi for intersection of surf bbox with new parent cell
 
   for (iy = jlo; iy <= jhi; iy++) {
     for (ix = ilo; ix <= ihi; ix++) {
       ichild = (cellint) iy*nx + ix + 1;
       childID = parentID | (ichild << nbits);
-      
+
       if (chash->find(childID) == chash->end()) cflag = 0;
       else cflag = 1;
       if (phash->find(childID) == phash->end()) pflag = 0;
       else pflag = 1;
       if (!cflag && !pflag) continue;
-      
+
       grid->id_child_lohi(level,plo,phi,ichild,clo,chi);
       overlap = cut2d->surf2grid_one(p1,p2,clo,chi);
       if (!overlap) continue;
 
       if (cflag) {
-	if (npair == maxpair) {
-	  maxpair += DELTA_SEND;
-	  memory->grow(pairs,maxpair,2,"surf2grid:pairs");
-	}
-	pairs[npair][0] = surfindex;
-	pairs[npair][1] = (*chash)[childID];
-	npair++;
-	continue;
+        if (npair == maxpair) {
+          maxpair += DELTA_SEND;
+          memory->grow(pairs,maxpair,2,"surf2grid:pairs");
+        }
+        pairs[npair][0] = surfindex;
+        pairs[npair][1] = (*chash)[childID];
+        npair++;
+        continue;
       }
 
       if (pflag) {
-	newlo[0] = MAX(bblo[0],clo[0]);
-	newlo[1] = MAX(bblo[1],clo[1]);
-	newhi[0] = MIN(bbhi[0],chi[0]);
-	newhi[1] = MIN(bbhi[1],chi[1]);
-	recurse2d(childID,level+1,clo,chi,surfindex,line,newlo,newhi,
-		  npair,maxpair,pairs,chash,phash);
+        newlo[0] = MAX(bblo[0],clo[0]);
+        newlo[1] = MAX(bblo[1],clo[1]);
+        newhi[0] = MIN(bbhi[0],chi[0]);
+        newhi[1] = MIN(bbhi[1],chi[1]);
+        recurse2d(childID,level+1,clo,chi,surfindex,line,newlo,newhi,
+                  npair,maxpair,pairs,chash,phash);
       }
     }
   }
@@ -1297,16 +1275,16 @@ void Grid::recurse2d(cellint parentID, int level, double *plo, double *phi,
 ------------------------------------------------------------------------- */
 
 void Grid::recurse3d(cellint parentID, int level, double *plo, double *phi,
-		     int surfindex, Surf::Tri *tri, double *bblo, double *bbhi,
+                     int surfindex, Surf::Tri *tri, double *bblo, double *bbhi,
                      int &npair, int &maxpair, int **&pairs,
-		     MyHash *chash, MyHash *phash)
+                     MyHash *chash, MyHash *phash)
 {
   int ix,iy,iz,cflag,pflag,overlap;
   cellint ichild,childID;
   double celledge;
   double clo[3],chi[3];
   double newlo[3],newhi[3];
-  
+
   double *p1 = tri->p1;
   double *p2 = tri->p2;
   double *p3 = tri->p3;
@@ -1315,50 +1293,22 @@ void Grid::recurse3d(cellint parentID, int level, double *plo, double *phi,
   int ny = plevels[level].ny;
   int nz = plevels[level].nz;
   int nbits = plevels[level].nbits;
-  
+
   // ijk lohi = indices for range of child cells overlapped by surf bbox
-  // overlap means point is inside grid cell or touches boundary
-  // same equation as in Grid::id_find_child()
+  // overlap = surf bbox include any interior of grid cell or touches its boundary
+  // id_point_child() returns cell indices for >= lo and < hi
+  // so check if lower range should be decremented
 
-  int ilo = static_cast<int> ((bblo[0]-plo[0]) * nx/(phi[0]-plo[0]));
-  int ihi = static_cast<int> ((bbhi[0]-plo[0]) * nx/(phi[0]-plo[0]));
-  int jlo = static_cast<int> ((bblo[1]-plo[1]) * ny/(phi[1]-plo[1]));
-  int jhi = static_cast<int> ((bbhi[1]-plo[1]) * ny/(phi[1]-plo[1]));
-  int klo = static_cast<int> ((bblo[2]-plo[2]) * nz/(phi[2]-plo[2]));
-  int khi = static_cast<int> ((bbhi[2]-plo[2]) * nz/(phi[2]-plo[2]));
-
-  // augment indices if surf bbox touches or slightly overlaps cell edges
-  // same equation as in Grid::id_child_lohi()
+  int ilo,ihi,jlo,jhi,klo,khi;
+  id_point_child(bblo,plo,phi,nx,ny,nz,ilo,jlo,klo);
+  id_point_child(bbhi,plo,phi,nx,ny,nz,ihi,jhi,khi);
 
   celledge = plo[0] + ilo*(phi[0]-plo[0])/nx;
-  if (bblo[0] <= celledge) ilo--;
-  celledge = plo[0] + (ihi+1)*(phi[0]-plo[0])/nx;
-  if (bbhi[0] >= celledge) ihi++;
-
+  if (bblo[0] <= celledge && ilo > 0) ilo--;
   celledge = plo[1] + jlo*(phi[1]-plo[1])/ny;
-  if (bblo[1] <= celledge) jlo--;
-  celledge = plo[1] + (jhi+1)*(phi[1]-plo[1])/ny;
-  if (bbhi[1] >= celledge) jhi++;
-
+  if (bblo[1] <= celledge && jlo > 0) jlo--;
   celledge = plo[2] + klo*(phi[2]-plo[2])/nz;
-  if (bblo[2] <= celledge) klo--;
-  celledge = plo[2] + (khi+1)*(phi[2]-plo[2])/nz;
-  if (bbhi[2] >= celledge) khi++;
-
-  // insure each index is between 0 and Nxyz-1 inclusive
-
-  ilo = MAX(ilo,0);
-  ilo = MIN(ilo,nx-1);
-  ihi = MAX(ihi,0);
-  ihi = MIN(ihi,nx-1);
-  jlo = MAX(jlo,0);
-  jlo = MIN(jlo,ny-1);
-  jhi = MAX(jhi,0);
-  jhi = MIN(jhi,ny-1);
-  klo = MAX(klo,0);
-  klo = MIN(klo,nz-1);
-  khi = MAX(khi,0);
-  khi = MIN(khi,nz-1);
+  if (bblo[2] <= celledge && klo > 0) klo--;
 
   // loop over range of grid cells between ij lohi inclusive
   // if cell is neither a child or parent cell in chash/phash, skip it
@@ -1371,39 +1321,39 @@ void Grid::recurse3d(cellint parentID, int level, double *plo, double *phi,
     for (iy = jlo; iy <= jhi; iy++) {
       for (ix = ilo; ix <= ihi; ix++) {
         ichild = (cellint) iz*nx*ny + (cellint) iy*nx + ix + 1;
-	childID = parentID | (ichild << nbits);
-      
-	if (chash->find(childID) == chash->end()) cflag = 0;
-	else cflag = 1;
-	if (phash->find(childID) == phash->end()) pflag = 0;
-	else pflag = 1;
-	if (!cflag && !pflag) continue;
-      
-	grid->id_child_lohi(level,plo,phi,ichild,clo,chi);
-	overlap = cut3d->surf2grid_one(p1,p2,p3,clo,chi);
-	if (!overlap) continue;
+        childID = parentID | (ichild << nbits);
 
-	if (cflag) {
-	  if (npair == maxpair) {
-	    maxpair += DELTA_SEND;
-	    memory->grow(pairs,maxpair,2,"surf2grid:pairs");
-	  }
-	  pairs[npair][0] = surfindex;
-	  pairs[npair][1] = (*chash)[childID];
-	  npair++;
-	  continue;
-	}
+        if (chash->find(childID) == chash->end()) cflag = 0;
+        else cflag = 1;
+        if (phash->find(childID) == phash->end()) pflag = 0;
+        else pflag = 1;
+        if (!cflag && !pflag) continue;
 
-	if (pflag) {
-	  newlo[0] = MAX(bblo[0],clo[0]);
-	  newlo[1] = MAX(bblo[1],clo[1]);
-	  newlo[2] = MAX(bblo[2],clo[2]);
-	  newhi[0] = MIN(bbhi[0],chi[0]);
-	  newhi[1] = MIN(bbhi[1],chi[1]);
-	  newhi[2] = MIN(bbhi[2],chi[2]);
-	  recurse3d(childID,level+1,clo,chi,surfindex,tri,newlo,newhi,
-		    npair,maxpair,pairs,chash,phash);
-	}
+        grid->id_child_lohi(level,plo,phi,ichild,clo,chi);
+        overlap = cut3d->surf2grid_one(p1,p2,p3,clo,chi);
+        if (!overlap) continue;
+
+        if (cflag) {
+          if (npair == maxpair) {
+            maxpair += DELTA_SEND;
+            memory->grow(pairs,maxpair,2,"surf2grid:pairs");
+          }
+          pairs[npair][0] = surfindex;
+          pairs[npair][1] = (*chash)[childID];
+          npair++;
+          continue;
+        }
+
+        if (pflag) {
+          newlo[0] = MAX(bblo[0],clo[0]);
+          newlo[1] = MAX(bblo[1],clo[1]);
+          newlo[2] = MAX(bblo[2],clo[2]);
+          newhi[0] = MIN(bbhi[0],chi[0]);
+          newhi[1] = MIN(bbhi[1],chi[1]);
+          newhi[2] = MIN(bbhi[2],chi[2]);
+          recurse3d(childID,level+1,clo,chi,surfindex,tri,newlo,newhi,
+                    npair,maxpair,pairs,chash,phash);
+        }
       }
     }
   }
@@ -1418,8 +1368,8 @@ void Grid::recurse3d(cellint parentID, int level, double *plo, double *phi,
 ------------------------------------------------------------------------- */
 
 void Grid::partition_grid(int proclower, int procupper,
-			  int xlo, int xhi, int ylo, int yhi, int zlo, int zhi,
-			  GridTree *gtree)
+                          int xlo, int xhi, int ylo, int yhi, int zlo, int zhi,
+                          GridTree *gtree)
 {
   // end recursion when partition is a single proc
 
@@ -1463,8 +1413,8 @@ void Grid::partition_grid(int proclower, int procupper,
 ------------------------------------------------------------------------- */
 
 void Grid::mybox(int me, int proclower, int procupper,
-		 int &xlo, int &xhi, int &ylo, int &yhi, int &zlo, int &zhi,
-		 GridTree *gtree)
+                 int &xlo, int &xhi, int &ylo, int &yhi, int &zlo, int &zhi,
+                 GridTree *gtree)
 {
   // end recursion when partition is a single proc
 
@@ -1496,7 +1446,7 @@ void Grid::mybox(int me, int proclower, int procupper,
 ------------------------------------------------------------------------- */
 
 void Grid::box_drop(int *lo, int *hi, int proclower, int procupper,
-		    GridTree *gtree, int &noverlap, int *overlap)
+                    GridTree *gtree, int &noverlap, int *overlap)
 {
   // end recursion when partition is a single proc
   // add proc to overlap list
@@ -1611,7 +1561,7 @@ void Grid::clear_surf()
       if (icell != nlocal-1) {
         memcpy(&cells[icell],&cells[nlocal-1],sizeof(ChildCell));
         memcpy(&cinfo[icell],&cinfo[nlocal-1],sizeof(ChildInfo));
-        if (collide) collide->copy_grid_one(nlocal-1,icell);
+        if (collide && collide->ngroups) collide->copy_grid_one(nlocal-1,icell);
         if (modify->n_pergrid) modify->copy_grid_one(nlocal-1,icell);
       }
       nlocal--;
@@ -1654,8 +1604,8 @@ void Grid::clear_surf()
     for (int icell = 0; icell < nlocal; icell++) {
       ip = cinfo[icell].first;
       while (ip >= 0) {
-	particles[ip].icell = icell;
-	ip = next[ip];
+        particles[ip].icell = icell;
+        ip = next[ip];
       }
     }
   }
@@ -1670,6 +1620,94 @@ void Grid::clear_surf()
 
   nunsplitlocal = nlocal;
   nsplitlocal = nsublocal = 0;
+}
+
+/* ----------------------------------------------------------------------
+   remove effects of implicit surf split cells on grid and particles
+   remove sub-cells from grid list and set all cells to unsplit
+   reassign particles in sub-cells to parent split cell
+   allows a subsequent read_isurf command to work correctly
+   called by read_restart after reading restart file for simulation
+     which used implicit surfs and thus may have had split cells
+------------------------------------------------------------------------- */
+
+void Grid::clear_surf_implicit()
+{
+  int icell;
+  double *lo,*hi;
+
+  int dimension = domain->dimension;
+  int ncorner = 8;
+  if (dimension == 2) ncorner = 4;
+
+  // store cellIDs = list of cellID each particle is in
+  // sub-cells and parent split cell have the same cellID
+
+  Particle::OnePart *particles = particle->particles;
+  int nplocal = particle->nlocal;
+
+  cellint *cellIDs;
+  memory->create(cellIDs,nplocal,"grid:cellIDs");
+
+  for (int i = 0; i < nplocal; i++)
+    cellIDs[i] = cells[particles[i].icell].id;
+
+  // compress cell list to remove all sub-cells
+  // reset cell and corner types, and cell volume
+
+  int celltype = OUTSIDE;
+
+  icell = 0;
+  while (icell < nlocal) {
+    if (cells[icell].nsplit <= 0) {
+      if (icell != nlocal-1) {
+        memcpy(&cells[icell],&cells[nlocal-1],sizeof(ChildCell));
+        memcpy(&cinfo[icell],&cinfo[nlocal-1],sizeof(ChildInfo));
+      }
+      nlocal--;
+    } else {
+      cells[icell].ilocal = icell;
+      cells[icell].nsurf = 0;
+      cells[icell].csurfs = NULL;
+      cells[icell].nsplit = 1;
+      cells[icell].isplit = -1;
+      cinfo[icell].type = celltype;
+      for (int m = 0; m < ncorner; m++) cinfo[icell].corner[m] = UNKNOWN;
+      lo = cells[icell].lo;
+      hi = cells[icell].hi;
+      if (dimension == 3)
+        cinfo[icell].volume = (hi[0]-lo[0]) * (hi[1]-lo[1]) * (hi[2]-lo[2]);
+      else if (domain->axisymmetric)
+        cinfo[icell].volume = MY_PI * (hi[1]*hi[1]-lo[1]*lo[1]) * (hi[0]-lo[0]);
+      else
+        cinfo[icell].volume = (hi[0]-lo[0]) * (hi[1]-lo[1]);
+      icell++;
+    }
+  }
+
+  // reset all cell counters
+
+  nunsplitlocal = nlocal;
+  nsplitlocal = nsublocal = 0;
+
+  // create hash for new set of owned grid cells
+
+  hash->clear();
+
+  for (icell = 0; icell < nlocal; icell++)
+    (*hash)[cells[icell].id] = icell;
+
+  // use hash to reassign each particle's index into cell list
+  // uses the temporary cellIDs list created above
+
+  for (int i = 0; i < nplocal; i++)
+    particles[i].icell = (*hash)[cellIDs[i]];
+
+  // clean up
+
+  memory->destroy(cellIDs);
+  hash->clear();
+  hashfilled = 0;
 }
 
 /* ----------------------------------------------------------------------
@@ -1779,55 +1817,59 @@ void Grid::assign_split_cell_particles(int icell)
 }
 
 /* ----------------------------------------------------------------------
-   check if particle at x is outside any surfs in icell
-   icell can be split or unsplit cell, not a sub cell
-   if outside, return 1, else return 0
-   // NOTE: make this only for implicit surfs
+   return a point X in icell that is in the flow (outside of all surfs)
+   do NOT call for a cell with no surfs
 ------------------------------------------------------------------------- */
 
-int Grid::outside_surfs(int icell, double *x,
-                        Cut3d *cut3d_caller, Cut2d *cut2d_caller)
+int Grid::point_outside_surfs(int icell, double *x)
 {
-  if (cells[icell].nsurf == 0) {
-    if (cinfo[icell].type == INSIDE) return 0;
-    else return 1;
-  }
+  if (surf->implicit)
+    return point_outside_surfs_implicit(icell,x);
+  else
+    return point_outside_surfs_explicit(icell,x);
+}
 
-  // set xnew to midpt of first line or center pt of first triangle
-  // for implicit surfs this is guaranteed to be a pt in or on icell
-  // then displace it by EPSSURF in the line/tri norm direction
-  // reason for this:
-  //   want to insure an inside particle is flagged
-  //   requires a ray from inside particle x to xnew intersects a surf
-  //   if no intersection, logic below assumes particle is outside
-  //   if xnew is midpt of tri, then an inside particle may have no intersection
-  //     due to round-off
+/* ----------------------------------------------------------------------
+   variant for implicit surfs
+   return a point X in icell that is in the flow (outside of all surfs)
+   set X to midpt of first line (2d) or center pt of first triangle (3d)
+   for implicit surfs this should be a pt in or on ICELL
+   displace X by EPSSURF in the line/tri norm direction
+   without EPSSURF displacement, test via outside_surfs() for
+     a particle which is inside surfs  may not intersect due to round-off
+------------------------------------------------------------------------- */
 
+int Grid::point_outside_surfs_implicit(int icell, double *x)
+{
+  int dim = domain->dimension;
   Surf::Line *lines = surf->lines;
   Surf::Tri *tris = surf->tris;
   surfint *csurfs = cells[icell].csurfs;
 
-  int dim = domain->dimension;
-  double xnew[3],edge[3];
+  double edge[3];
   double edgelen,minedge,displace;
 
   int isurf = csurfs[0];
 
   if (dim == 2) {
-    xnew[0] = 0.5 * (lines[isurf].p1[0] + lines[isurf].p2[0]);
-    xnew[1] = 0.5 * (lines[isurf].p1[1] + lines[isurf].p2[1]);
-    xnew[2] = 0.0;
+    x[0] = 0.5 * (lines[isurf].p1[0] + lines[isurf].p2[0]);
+    x[1] = 0.5 * (lines[isurf].p1[1] + lines[isurf].p2[1]);
+    x[2] = 0.0;
 
     MathExtra::sub3(lines[isurf].p1,lines[isurf].p2,edge);
     minedge = MathExtra::len3(edge);
 
+    displace = EPSSURF * minedge;
+    x[0] += displace*lines[isurf].norm[0];
+    x[1] += displace*lines[isurf].norm[1];
+
   } else {
     double onethird = 1.0/3.0;
-    xnew[0] = onethird *
+    x[0] = onethird *
       (tris[isurf].p1[0] + tris[isurf].p2[0] + tris[isurf].p3[0]);
-    xnew[1] = onethird *
+    x[1] = onethird *
       (tris[isurf].p1[1] + tris[isurf].p2[1] + tris[isurf].p3[1]);
-    xnew[2] = onethird *
+    x[2] = onethird *
       (tris[isurf].p1[2] + tris[isurf].p2[2] + tris[isurf].p3[2]);
 
     MathExtra::sub3(tris[isurf].p1,tris[isurf].p2,edge);
@@ -1837,48 +1879,166 @@ int Grid::outside_surfs(int icell, double *x,
     edgelen = MathExtra::len3(edge);
     minedge = MIN(minedge,edgelen);
     MathExtra::sub3(tris[isurf].p3,tris[isurf].p1,edge);
+    edgelen = MathExtra::len3(edge);
     minedge = MIN(minedge,edgelen);
+
+    displace = EPSSURF * minedge;
+    x[0] += displace*tris[isurf].norm[0];
+    x[1] += displace*tris[isurf].norm[1];
+    x[2] += displace*tris[isurf].norm[2];
   }
 
-  displace = EPSSURF * minedge;
-  xnew[0] += displace*tris[isurf].norm[0];
-  xnew[1] += displace*tris[isurf].norm[1];
-  xnew[2] += displace*tris[isurf].norm[2];
+  return -1;      // should never be reached
+}
 
-  // loop over surfs, ray-trace from x to xnew, see which surf is hit first
-  // if no surf is hit (roundoff), assume particle is outside
+/* ----------------------------------------------------------------------
+   variant for explicit surfs
+   return a point X in icell that is in the flow (outside of all surfs)
+   loop over surfs:
+     clip surf to grid cell via Cut::clip_external()
+     check that number of clipped points is not a single point or tri edge
+     check that line/tri does not just graze cell edge or face
+     graze = all clipped points on same edge/face and outward normal
+     set X to midpt of clipped line (2d_ or center pt of first 3 clip pts (3d)
+     for implicit surfs this should be a pt in or on ICELL
+   displace X by EPSSURF in the line/tri norm direction
+   without EPSSURF displacement, test via outside_surfs() for
+     a particle which is inside surfs  may not intersect due to round-off
+------------------------------------------------------------------------- */
 
-  int m,cflag,hitflag,side,minside;
-  double param,minparam;
+int Grid::point_outside_surfs_explicit(int icell, double *x)
+{
+  int dim = domain->dimension;
+  if (dim == 3 && !cut3d) cut3d = new Cut3d(sparta);
+  else if (dim == 2 && !cut2d) cut2d = new Cut2d(sparta,domain->axisymmetric);
+
+  double *lo = cells[icell].lo;
+  double *hi = cells[icell].hi;
+  surfint *csurfs = cells[icell].csurfs;
+  int nsurf = cells[icell].nsurf;
+
+  double minsize = MIN(hi[0]-lo[0],hi[1]-lo[1]);
+  double displace = EPSSURF * minsize;
+
+  if (dim == 2) {
+    int npoint;
+    double cpath[4];
+    double *norm;
+    Surf::Line *line;
+
+    Surf::Line *lines = surf->lines;
+
+    for (int i = 0; i < nsurf; i++) {
+      line = &lines[csurfs[i]];
+      if (line->transparent) continue;
+      norm = line->norm;
+
+      npoint = cut2d->clip_external(line->p1,line->p2,lo,hi,cpath);
+      if (npoint < 2) continue;
+
+      int edge = cut2d->sameedge_external(&cpath[0],&cpath[2],lo,hi);
+      if (edge) {
+        if (edge == 1 and norm[0] < 0.0) continue;
+        if (edge == 2 and norm[0] > 0.0) continue;
+        if (edge == 3 and norm[1] < 0.0) continue;
+        if (edge == 4 and norm[1] > 0.0) continue;
+      }
+
+      x[0] = 0.5*(cpath[0]+cpath[2]) + displace*norm[0];
+      x[1] = 0.5*(cpath[1]+cpath[3]) + displace*norm[1];
+      x[2] = 0.0;
+      return 1;
+    }
+
+  } else {
+    int npoint;
+    double cpath[24];
+    double *norm;
+    Surf::Tri *tri;
+
+    Surf::Tri *tris = surf->tris;
+
+    for (int i = 0; i < nsurf; i++) {
+      tri = &tris[csurfs[i]];
+      if (tri->transparent) continue;
+      norm = tri->norm;
+
+      npoint = cut3d->clip_external(tri->p1,tri->p2,tri->p3,lo,hi,cpath);
+      if (npoint < 3) continue;
+
+      int face = cut3d->sameface_external(&cpath[0],&cpath[3],&cpath[6],lo,hi);
+      if (face) {
+        if (face == 1 and norm[0] < 0.0) continue;
+        if (face == 2 and norm[0] > 0.0) continue;
+        if (face == 3 and norm[1] < 0.0) continue;
+        if (face == 4 and norm[1] > 0.0) continue;
+        if (face == 5 and norm[2] < 0.0) continue;
+        if (face == 6 and norm[2] > 0.0) continue;
+      }
+
+      double onethird = 1.0/3.0;
+      x[0] = onethird*(cpath[0]+cpath[3]+cpath[6]) + displace*norm[0];
+      x[1] = onethird*(cpath[1]+cpath[4]+cpath[7]) + displace*norm[1];
+      x[2] = onethird*(cpath[2]+cpath[5]+cpath[8]) + displace*norm[2];
+      return 1;
+    }
+  }
+
+  // unable to find a point in flow volume, all surfs invoked "continue"
+  // means entire cell is actually outside or inside, just touched by surfs
+  // if outside, caller does not need to call outside_surfs()
+  // if inside, caller can detect that its flow volume = zero
+
+  return 0;
+}
+
+/* ----------------------------------------------------------------------
+   check if particle at X is outside any surfs in icell (in the flow)
+   use Xcell as reference point in flow, calculated by point_outside_surfs()
+   do NOT call for a cell with no surfs
+   if outside return 1, else return 0
+------------------------------------------------------------------------- */
+
+int Grid::outside_surfs(int icell, double *x, double *xcell)
+{
+  int dim = domain->dimension;
+  Surf::Line *lines = surf->lines;
+  Surf::Tri *tris = surf->tris;
+  surfint *csurfs = cells[icell].csurfs;
+
+  int m,isurf,hitflag,side;
+  double param;
   double xc[3];
   Surf::Line *line;
   Surf::Tri *tri;
 
+  // loop over surfs, ray-trace from x to xcell, see how many surfaces were hit
+
   int nsurf = cells[icell].nsurf;
 
-  cflag = 0;
-  minparam = 2.0;
+  int cnt = 0;
   for (m = 0; m < nsurf; m++) {
     isurf = csurfs[m];
     if (dim == 3) {
       tri = &tris[isurf];
       hitflag = Geometry::
-        line_tri_intersect(x,xnew,tri->p1,tri->p2,tri->p3,
-                           tri->norm,xc,param,side);
+        line_tri_intersect_noeps(x,xcell,tri->p1,tri->p2,tri->p3,
+                                 tri->norm,xc,param,side);
     } else {
       line = &lines[isurf];
       hitflag = Geometry::
-        line_line_intersect(x,xnew,line->p1,line->p2,line->norm,xc,param,side);
+        line_line_intersect(x,xcell,line->p1,line->p2,line->norm,xc,param,side);
     }
-    if (hitflag && param < minparam) {
-      cflag = 1;
-      minparam = param;
-      minside = side;
-    }
+    if (hitflag) cnt++;
   }
 
-  if (!cflag) return 1;
-  if (minside == SOUTSIDE || minside == ONSURF2OUT) return 1;
+  // if no surf was hit, particle is outside surfs
+  // else check how many surfaces were hit
+  //   odd number = inside, even number = outside
+
+  if (cnt == 0) return 1;
+  if (cnt % 2 == 0) return 1;
+
   return 0;
 }
 
@@ -1950,7 +2110,7 @@ void Grid::surf2grid_stats()
     smax = MAX(smax,cells[icell].nsurf);
 
     cmax = MAX(cells[icell].hi[0] - cells[icell].lo[0],
-	       cells[icell].hi[1] - cells[icell].lo[1]);
+               cells[icell].hi[1] - cells[icell].lo[1]);
     if (dimension == 3)
       cmax = MAX(cmax,cells[icell].hi[2] - cells[icell].lo[2]);
 
@@ -1962,13 +2122,13 @@ void Grid::surf2grid_stats()
         //       which is not yet initialized
         // maybe should do rendezvous already to get them?
 
-	len = surf->line_size(cells[icell].csurfs[i]);
-	sratio = MIN(sratio,len/cmax);
+        len = surf->line_size(cells[icell].csurfs[i]);
+        sratio = MIN(sratio,len/cmax);
       }
     } else if (dimension == 3) {
       for (int i = 0; i < cells[icell].nsurf; i++) {
-	surf->tri_size(cells[icell].csurfs[i],len);
-	sratio = MIN(sratio,len/cmax);
+        surf->tri_size(cells[icell].csurfs[i],len);
+        sratio = MIN(sratio,len/cmax);
       }
     }
   }
@@ -2055,7 +2215,7 @@ void Grid::flow_stats()
   if (comm->me == 0) {
     if (screen) {
       fprintf(screen,"  %d %d %d = cells outside/inside/overlapping surfs\n",
-	      outall,inall,overall);
+              outall,inall,overall);
       fprintf(screen," ");
       for (i = 0; i < maxsplitall; i++) fprintf(screen," %d",tallyall[i]);
       fprintf(screen," = surf cells with 1,2,etc splits\n");
@@ -2064,7 +2224,7 @@ void Grid::flow_stats()
     }
     if (logfile) {
       fprintf(logfile,"  %d %d %d = cells outside/inside/overlapping surfs\n",
-	      outall,inall,overall);
+              outall,inall,overall);
       fprintf(logfile," ");
       for (i = 0; i < maxsplitall; i++) fprintf(logfile," %d",tallyall[i]);
       fprintf(logfile," = surf cells with 1,2,etc splits\n");
@@ -2080,6 +2240,7 @@ void Grid::flow_stats()
 /* ----------------------------------------------------------------------
    compute flow volume for entire box, using list of surfs
    volume for one surf is projection to lower z face (3d) or y face (2d)
+   skip transparent surfs
    NOTE: this does not work if any surfs are clipped to zlo or zhi faces in 3d
          this does not work if any surfs are clipped to ylo or yhi faces in 3d
          need to add contribution due to closing surfs on those faces
@@ -2120,6 +2281,7 @@ double Grid::flow_volume()
 
   if (domain->dimension == 3) {
     for (int i = 0; i < n; i++) {
+      if (tris[i].transparent) continue;
       p1 = tris[i].p1;
       p2 = tris[i].p2;
       p3 = tris[i].p3;
@@ -2140,6 +2302,7 @@ double Grid::flow_volume()
 
   } else if (domain->axisymmetric) {
     for (int i = 0; i < n; i++) {
+      if (lines[i].transparent) continue;
       p1 = lines[i].p1;
       p2 = lines[i].p2;
       volume -=
@@ -2155,6 +2318,7 @@ double Grid::flow_volume()
 
   } else {
     for (int i = 0; i < n; i++) {
+      if (lines[i].transparent) continue;
       p1 = lines[i].p1;
       p2 = lines[i].p2;
       volume -= (0.5*(p1[1]+p2[1]) - boxlo[1]) * (p2[0]-p1[0]);

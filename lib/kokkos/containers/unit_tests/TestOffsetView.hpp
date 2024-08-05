@@ -1,43 +1,17 @@
 //@HEADER
 // ************************************************************************
 //
-//                        Kokkos v. 3.0
-//       Copyright (2020) National Technology & Engineering
+//                        Kokkos v. 4.0
+//       Copyright (2022) National Technology & Engineering
 //               Solutions of Sandia, LLC (NTESS).
 //
 // Under the terms of Contract DE-NA0003525 with NTESS,
 // the U.S. Government retains certain rights in this software.
 //
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
+// Part of Kokkos, under the Apache License v2.0 with LLVM Exceptions.
+// See https://kokkos.org/LICENSE for license information.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 //
-// 1. Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//
-// 2. Redistributions in binary form must reproduce the above copyright
-// notice, this list of conditions and the following disclaimer in the
-// documentation and/or other materials provided with the distribution.
-//
-// 3. Neither the name of the Corporation nor the names of the
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY NTESS "AS IS" AND ANY
-// EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-// PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL NTESS OR THE
-// CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-// PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-// LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-// NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// Questions? Contact Christian R. Trott (crtrott@sandia.gov)
-//
-// ************************************************************************
 //@HEADER
 
 /*
@@ -50,9 +24,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
-#include <impl/Kokkos_Timer.hpp>
+#include <Kokkos_Timer.hpp>
 #include <Kokkos_OffsetView.hpp>
-#include <KokkosExp_MDRangePolicy.hpp>
 
 using std::cout;
 using std::endl;
@@ -64,14 +37,14 @@ void test_offsetview_construction() {
   using offset_view_type = Kokkos::Experimental::OffsetView<Scalar**, Device>;
   using view_type        = Kokkos::View<Scalar**, Device>;
 
-  Kokkos::Experimental::index_list_type range0 = {-1, 3};
-  Kokkos::Experimental::index_list_type range1 = {-2, 2};
+  std::pair<int64_t, int64_t> range0 = {-1, 3};
+  std::pair<int64_t, int64_t> range1 = {-2, 2};
 
   {
     offset_view_type o1;
     ASSERT_FALSE(o1.is_allocated());
 
-    o1 = offset_view_type("o1", range0, range1);
+    o1 = offset_view_type("o1", {-1, 3}, {-2, 2});
     offset_view_type o2(o1);
     offset_view_type o3("o3", range0, range1);
 
@@ -91,8 +64,8 @@ void test_offsetview_construction() {
   ASSERT_EQ(ov.begin(1), -2);
   ASSERT_EQ(ov.end(1), 3);
 
-  ASSERT_EQ(ov.extent(0), 5);
-  ASSERT_EQ(ov.extent(1), 5);
+  ASSERT_EQ(ov.extent(0), 5u);
+  ASSERT_EQ(ov.extent(1), 5u);
 
 #if defined(KOKKOS_ENABLE_CUDA_LAMBDA) || !defined(KOKKOS_ENABLE_CUDA)
   {
@@ -130,8 +103,6 @@ void test_offsetview_construction() {
     }
   }
 
-  // FIXME_SYCL requires MDRange policy
-#ifndef KOKKOS_ENABLE_SYCL
   const int ovmin0 = ov.begin(0);
   const int ovend0 = ov.end(0);
   const int ovmin1 = ov.begin(1);
@@ -179,7 +150,6 @@ void test_offsetview_construction() {
 
   ASSERT_EQ(OVResult, answer) << "Bad data found in OffsetView";
 #endif
-#endif
 
   {
     offset_view_type ovCopy(ov);
@@ -215,8 +185,6 @@ void test_offsetview_construction() {
                                   point3_type{{extent0, extent1, extent2}});
 
 #if defined(KOKKOS_ENABLE_CUDA_LAMBDA) || !defined(KOKKOS_ENABLE_CUDA)
-    // FIXME_SYCL requires MDRange policy
-#ifdef KOKKOS_ENABLE_SYCL
     int view3DSum = 0;
     Kokkos::parallel_reduce(
         rangePolicy3DZero,
@@ -239,7 +207,6 @@ void test_offsetview_construction() {
 
     ASSERT_EQ(view3DSum, offsetView3DSum)
         << "construction of OffsetView from View and begins array broken.";
-#endif
 #endif
   }
   view_type viewFromOV = ov.view();
@@ -266,8 +233,6 @@ void test_offsetview_construction() {
     Kokkos::deep_copy(aView, ov);
 
 #if defined(KOKKOS_ENABLE_CUDA_LAMBDA) || !defined(KOKKOS_ENABLE_CUDA)
-    // FIXME_SYCL requires MDRange policy
-#ifndef KOKKOS_ENABLE_SYCL
     int sum = 0;
     Kokkos::parallel_reduce(
         rangePolicy2D,
@@ -278,7 +243,6 @@ void test_offsetview_construction() {
 
     ASSERT_EQ(sum, 0) << "deep_copy(view, offsetView) broken.";
 #endif
-#endif
   }
 
   {  // test view to  offsetview deep copy
@@ -288,8 +252,6 @@ void test_offsetview_construction() {
     Kokkos::deep_copy(ov, aView);
 
 #if defined(KOKKOS_ENABLE_CUDA_LAMBDA) || !defined(KOKKOS_ENABLE_CUDA)
-    // FIXME_SYCL requires MDRange policy
-#ifndef KOKKOS_ENABLE_SYCL
     int sum = 0;
     Kokkos::parallel_reduce(
         rangePolicy2D,
@@ -299,7 +261,6 @@ void test_offsetview_construction() {
         sum);
 
     ASSERT_EQ(sum, 0) << "deep_copy(offsetView, view) broken.";
-#endif
 #endif
   }
 }
@@ -369,7 +330,6 @@ void test_offsetview_unmanaged_construction() {
     ASSERT_EQ(bb, ii);
   }
 
-#ifdef KOKKOS_ACTIVE_EXECUTION_MEMORY_SPACE_HOST
   {
     using offset_view_type = Kokkos::Experimental::OffsetView<Scalar*, Device>;
 
@@ -409,7 +369,6 @@ void test_offsetview_unmanaged_construction() {
     ASSERT_THROW(offset_view_type(&s, {0, 0, 0}, {1, 1, 1}),
                  std::runtime_error);
   }
-#endif  // KOKKOS_ACTIVE_EXECUTION_MEMORY_SPACE_HOST
 }
 
 template <typename Scalar, typename Device>
@@ -471,8 +430,6 @@ void test_offsetview_subview() {
       ASSERT_EQ(offsetSubview.end(1), 9);
 
 #if defined(KOKKOS_ENABLE_CUDA_LAMBDA) || !defined(KOKKOS_ENABLE_CUDA)
-      // FIXME_SYCL requires MDRange policy
-#ifndef KOKKOS_ENABLE_SYCL
       using range_type = Kokkos::MDRangePolicy<Device, Kokkos::Rank<2>,
                                                Kokkos::IndexType<int> >;
       using point_type = typename range_type::point_type;
@@ -498,7 +455,6 @@ void test_offsetview_subview() {
           sum);
 
       ASSERT_EQ(sum, 6 * (e0 - b0) * (e1 - b1));
-#endif
 #endif
     }
 
@@ -701,12 +657,9 @@ void test_offsetview_offsets_rank3() {
 }
 #endif
 
-// FIXME_SYCL needs MDRangePolicy
-#ifndef KOKKOS_ENABLE_SYCL
 TEST(TEST_CATEGORY, offsetview_construction) {
   test_offsetview_construction<int, TEST_EXECSPACE>();
 }
-#endif
 
 TEST(TEST_CATEGORY, offsetview_unmanaged_construction) {
   test_offsetview_unmanaged_construction<int, TEST_EXECSPACE>();

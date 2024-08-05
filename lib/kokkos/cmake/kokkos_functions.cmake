@@ -5,6 +5,14 @@
 # Validate options are given with correct case and define an internal
 # upper-case version for use within
 
+set(Kokkos_OPTIONS_NOT_TO_EXPORT
+  Kokkos_ENABLE_BENCHMARKS
+  Kokkos_ENABLE_EXAMPLES
+  Kokkos_ENABLE_TESTS
+  Kokkos_ENABLE_HEADER_SELF_CONTAINMENT_TESTS
+  Kokkos_ENABLE_COMPILER_WARNINGS
+)
+
 #
 #
 # @FUNCTION: kokkos_deprecated_list
@@ -57,7 +65,52 @@ FUNCTION(kokkos_option CAMEL_SUFFIX DEFAULT TYPE DOCSTRING)
   # Make sure this appears in the cache with the appropriate DOCSTRING
   SET(${CAMEL_NAME} ${DEFAULT} CACHE ${TYPE} ${DOCSTRING})
 
-  #I don't love doing it this way because it's N^2 in number options, but cest la vie
+  IF (KOKKOS_HAS_TRILINOS)
+    IF (NOT CAMEL_NAME IN_LIST Kokkos_OPTIONS_NOT_TO_EXPORT)
+      TRIBITS_PKG_EXPORT_CACHE_VAR(${CAMEL_NAME})
+    ENDIF()
+  ENDIF()
+
+  #I don't love doing it this way because it's N^2 in number options, but c'est la vie
+  FOREACH(opt ${KOKKOS_GIVEN_VARIABLES})
+    STRING(TOUPPER ${opt} OPT_UC)
+    IF ("${OPT_UC}" STREQUAL "${UC_NAME}")
+      IF (NOT "${opt}" STREQUAL "${CAMEL_NAME}")
+        IF (KOKKOS_HAS_TRILINOS)
+          #Allow this for now if Trilinos... we need to bootstrap our way to integration
+          MESSAGE(WARNING "Deprecated option ${opt} found - please change spelling to ${CAMEL_NAME}")
+          SET(${CAMEL_NAME} "${${opt}}" CACHE ${TYPE} ${DOCSTRING} FORCE)
+          UNSET(${opt} CACHE)
+        ELSE()
+          MESSAGE(FATAL_ERROR "Matching option found for ${CAMEL_NAME} with the wrong case ${opt}. Please delete your CMakeCache.txt and change option to -D${CAMEL_NAME}=${${opt}}. This is now enforced to avoid hard-to-debug CMake cache inconsistencies.")
+        ENDIF()
+      ENDIF()
+    ENDIF()
+  ENDFOREACH()
+
+  #okay, great, we passed the validation test - use the default
+  IF (DEFINED ${CAMEL_NAME})
+    SET(${UC_NAME} ${${CAMEL_NAME}} PARENT_SCOPE)
+  ELSE()
+    SET(${UC_NAME} ${DEFAULT} PARENT_SCOPE)
+  ENDIF()
+ENDFUNCTION()
+
+INCLUDE (CMakeDependentOption)
+FUNCTION(kokkos_dependent_option CAMEL_SUFFIX DOCSTRING DEFAULT DEPENDENCY FORCE)
+  SET(CAMEL_NAME Kokkos_${CAMEL_SUFFIX})
+  STRING(TOUPPER ${CAMEL_NAME} UC_NAME)
+
+  LIST(APPEND KOKKOS_OPTION_KEYS ${CAMEL_SUFFIX})
+  SET(KOKKOS_OPTION_KEYS ${KOKKOS_OPTION_KEYS} PARENT_SCOPE)
+  LIST(APPEND KOKKOS_OPTION_VALUES "${DOCSTRING}")
+  SET(KOKKOS_OPTION_VALUES ${KOKKOS_OPTION_VALUES} PARENT_SCOPE)
+  LIST(APPEND KOKKOS_OPTION_TYPES BOOL)
+  SET(KOKKOS_OPTION_TYPES ${KOKKOS_OPTION_TYPES} PARENT_SCOPE)
+
+  CMAKE_DEPENDENT_OPTION(${CAMEL_NAME} ${DOCSTRING} ${DEFAULT} "${DEPENDENCY}" ${FORCE})
+
+  #I don't love doing it this way because it's N^2 in number options, but c'est la vie
   FOREACH(opt ${KOKKOS_GIVEN_VARIABLES})
     STRING(TOUPPER ${opt} OPT_UC)
     IF ("${OPT_UC}" STREQUAL "${UC_NAME}")
@@ -102,6 +155,8 @@ FUNCTION(kokkos_append_config_line LINE)
 ENDFUNCTION()
 
 MACRO(kokkos_export_cmake_tpl NAME)
+  cmake_parse_arguments(KOKKOS_EXTRA_ARG "REQUIRED" "" "COMPONENTS" ${ARGN})
+
   #CMake TPLs are located with a call to find_package
   #find_package locates XConfig.cmake files through
   #X_DIR or X_ROOT variables set prior to calling find_package
@@ -125,7 +180,16 @@ MACRO(kokkos_export_cmake_tpl NAME)
     KOKKOS_APPEND_CONFIG_LINE("  SET(${NAME}_ROOT  ${${NAME}_ROOT})")
     KOKKOS_APPEND_CONFIG_LINE("ENDIF()")
   ENDIF()
-  KOKKOS_APPEND_CONFIG_LINE("FIND_DEPENDENCY(${NAME})")
+  SET(KOKKOS_CONFIG_STRING "FIND_DEPENDENCY(${NAME}")
+
+  IF(KOKKOS_EXTRA_ARG_REQUIRED)
+    STRING(APPEND KOKKOS_CONFIG_STRING " REQUIRED")
+  ENDIF()
+  IF(KOKKOS_EXTRA_ARG_COMPONENTS)
+    STRING(APPEND KOKKOS_CONFIG_STRING " COMPONENTS ${KOKKOS_EXTRA_ARG_COMPONENTS}")
+  ENDIF()
+  STRING(APPEND KOKKOS_CONFIG_STRING ")")
+  KOKKOS_APPEND_CONFIG_LINE(${KOKKOS_CONFIG_STRING})
 ENDMACRO()
 
 MACRO(kokkos_export_imported_tpl NAME)
@@ -169,9 +233,7 @@ MACRO(kokkos_export_imported_tpl NAME)
       ENDIF()
 
       SET(TPL_LINK_OPTIONS)
-      IF(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.13.0")
-        GET_TARGET_PROPERTY(TPL_LINK_OPTIONS ${NAME} INTERFACE_LINK_OPTIONS)
-      ENDIF()
+      GET_TARGET_PROPERTY(TPL_LINK_OPTIONS ${NAME} INTERFACE_LINK_OPTIONS)
       IF(TPL_LINK_OPTIONS)
         KOKKOS_APPEND_CONFIG_LINE("INTERFACE_LINK_OPTIONS ${TPL_LINK_OPTIONS}")
       ENDIF()
@@ -226,14 +288,6 @@ MACRO(kokkos_import_tpl NAME)
     SET(TPL_IMPORTED_NAME Kokkos::${NAME})
   ENDIF()
 
-  # Even though this policy gets set in the top-level CMakeLists.txt,
-  # I have still been getting errors about ROOT variables being ignored
-  # I'm not sure if this is a scope issue - but make sure
-  # the policy is set before we do any find_package calls
-  IF(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.12.0")
-    CMAKE_POLICY(SET CMP0074 NEW)
-  ENDIF()
-
   IF (KOKKOS_ENABLE_${NAME})
     #Tack on a TPL here to make sure we avoid using anyone else's find
     FIND_PACKAGE(TPL${NAME} REQUIRED MODULE)
@@ -241,7 +295,11 @@ MACRO(kokkos_import_tpl NAME)
       MESSAGE(FATAL_ERROR "Find module succeeded for ${NAME}, but did not produce valid target ${TPL_IMPORTED_NAME}")
     ENDIF()
     IF(NOT TPL_NO_EXPORT)
-      KOKKOS_EXPORT_IMPORTED_TPL(${TPL_IMPORTED_NAME})
+      GET_TARGET_PROPERTY(TPL_ORIGINAL_NAME ${TPL_IMPORTED_NAME} ALIASED_TARGET)
+      IF (NOT TPL_ORIGINAL_NAME)
+        SET(TPL_ORIGINAL_NAME ${TPL_IMPORTED_NAME})
+      ENDIF()
+      KOKKOS_EXPORT_IMPORTED_TPL(${TPL_ORIGINAL_NAME})
     ENDIF()
     LIST(APPEND KOKKOS_ENABLED_TPLS ${NAME})
   ENDIF()
@@ -314,7 +372,7 @@ MACRO(kokkos_create_imported_tpl NAME)
   CMAKE_PARSE_ARGUMENTS(TPL
    "INTERFACE"
    "LIBRARY"
-   "LINK_LIBRARIES;INCLUDES;COMPILE_OPTIONS;LINK_OPTIONS"
+   "LINK_LIBRARIES;INCLUDES;COMPILE_DEFINITIONS;COMPILE_OPTIONS;LINK_OPTIONS"
    ${ARGN})
 
 
@@ -333,6 +391,9 @@ MACRO(kokkos_create_imported_tpl NAME)
     ENDIF()
     IF(TPL_INCLUDES)
       TARGET_INCLUDE_DIRECTORIES(${NAME} INTERFACE ${TPL_INCLUDES})
+    ENDIF()
+    IF(TPL_COMPILE_DEFINITIONS)
+      TARGET_COMPILE_DEFINITIONS(${NAME} INTERFACE ${TPL_COMPILE_DEFINITIONS})
     ENDIF()
     IF(TPL_COMPILE_OPTIONS)
       TARGET_COMPILE_OPTIONS(${NAME} INTERFACE ${TPL_COMPILE_OPTIONS})
@@ -354,6 +415,10 @@ MACRO(kokkos_create_imported_tpl NAME)
     IF(TPL_INCLUDES)
       SET_TARGET_PROPERTIES(${NAME} PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${TPL_INCLUDES}")
+    ENDIF()
+    IF(TPL_COMPILE_DEFINITIONS)
+      SET_TARGET_PROPERTIES(${NAME} PROPERTIES
+        INTERFACE_COMPILE_DEFINITIONS "${TPL_COMPILE_DEFINITIONS}")
     ENDIF()
     IF(TPL_COMPILE_OPTIONS)
       SET_TARGET_PROPERTIES(${NAME} PROPERTIES
@@ -584,11 +649,16 @@ ENDMACRO()
 #
 #   ``LIBRARY <name>``
 #
-#     If specified, this gives the name of the library to look for
+#     If specified, this gives the name of the library to look for.
+#     The full path for the library found will be used as IMPORTED_LOCATION
+#     for the target created. Thus, this cannot be used for interface libraries.
 #
 #   ``LIBRARIES <name1> <name2> ...``
 #
-#     If specified, this gives a list of libraries to find for the package
+#     If specified, this gives a list of libraries to find for the package.
+#     As opposed to the LIBRARY argument, this can be used with interface
+#     libraries. In that case, we directly use the names provided here
+#     for linking when creating the new target.
 #
 #   ``LIBRARY_PATHS <path1> <path2> ...``
 #
@@ -704,6 +774,7 @@ MACRO(kokkos_find_imported NAME)
     SET(IMPORT_TYPE)
     IF (TPL_INTERFACE)
       SET(IMPORT_TYPE "INTERFACE")
+      SET(${NAME}_FOUND_LIBRARIES ${TPL_LIBRARIES})
     ENDIF()
     KOKKOS_CREATE_IMPORTED_TPL(${TPL_IMPORTED_NAME}
       ${IMPORT_TYPE}
@@ -770,7 +841,7 @@ FUNCTION(kokkos_link_tpl TARGET)
 ENDFUNCTION()
 
 FUNCTION(COMPILER_SPECIFIC_OPTIONS_HELPER)
-  SET(COMPILERS NVIDIA PGI XL DEFAULT Cray Intel Clang AppleClang IntelClang GNU HIP Fujitsu)
+  SET(COMPILERS NVIDIA NVHPC DEFAULT Cray Intel Clang AppleClang IntelLLVM GNU HIPCC Fujitsu MSVC)
   CMAKE_PARSE_ARGUMENTS(
     PARSE
     "LINK_OPTIONS;COMPILE_OPTIONS;COMPILE_DEFINITIONS;LINK_LIBRARIES"
@@ -787,15 +858,15 @@ FUNCTION(COMPILER_SPECIFIC_OPTIONS_HELPER)
     SET(COMPILER ${KOKKOS_CXX_COMPILER_ID})
   ENDIF()
 
-  SET(COMPILER_SPECIFIC_FLAGS_TMP)
+  SET(COMPILER_SPECIFIC_FLAGS_TMP ${PARSE_DEFAULT})
   FOREACH(COMP ${COMPILERS})
     IF (COMPILER STREQUAL "${COMP}")
       IF (PARSE_${COMPILER})
-        IF (NOT "${PARSE_${COMPILER}}" STREQUAL "NO-VALUE-SPECIFIED")
+        IF ("${PARSE_${COMPILER}}" STREQUAL "NO-VALUE-SPECIFIED")
+           SET(COMPILER_SPECIFIC_FLAGS_TMP "")
+        ELSE()
            SET(COMPILER_SPECIFIC_FLAGS_TMP ${PARSE_${COMPILER}})
         ENDIF()
-      ELSEIF(PARSE_DEFAULT)
-        SET(COMPILER_SPECIFIC_FLAGS_TMP ${PARSE_DEFAULT})
       ENDIF()
     ENDIF()
   ENDFOREACH()
@@ -926,6 +997,9 @@ ENDFUNCTION()
 #       DIRECTORY   --> all files in directory
 #       PROJECT     --> all files/targets in a project/subproject
 #
+# NOTE: this is VERY DIFFERENT than the version in KokkosConfigCommon.cmake.in.
+# This version explicitly uses nvcc_wrapper.
+#
 FUNCTION(kokkos_compilation)
     # check whether the compiler already supports building CUDA
     KOKKOS_CXX_COMPILER_CUDA_TEST(Kokkos_CXX_COMPILER_COMPILES_CUDA)
@@ -947,10 +1021,21 @@ FUNCTION(kokkos_compilation)
         MESSAGE(FATAL_ERROR "Kokkos could not find 'kokkos_launch_compiler'. Please set '-DKokkos_COMPILE_LAUNCHER=/path/to/launcher'")
     ENDIF()
 
+    # find nvcc_wrapper
+    FIND_PROGRAM(Kokkos_NVCC_WRAPPER
+        NAMES           nvcc_wrapper
+        HINTS           ${PROJECT_SOURCE_DIR}
+        PATHS           ${PROJECT_SOURCE_DIR}
+        PATH_SUFFIXES   bin)
+
+    IF(NOT Kokkos_COMPILE_LAUNCHER)
+        MESSAGE(FATAL_ERROR "Kokkos could not find 'nvcc_wrapper'. Please set '-DKokkos_COMPILE_LAUNCHER=/path/to/nvcc_wrapper'")
+    ENDIF()
+
     IF(COMP_GLOBAL)
         # if global, don't bother setting others
-        SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${Kokkos_COMPILE_LAUNCHER} ${CMAKE_CXX_COMPILER}")
-        SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_LINK "${Kokkos_COMPILE_LAUNCHER} ${CMAKE_CXX_COMPILER}")
+        SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${Kokkos_COMPILE_LAUNCHER} ${Kokkos_NVCC_WRAPPER} ${CMAKE_CXX_COMPILER}")
+        SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_LINK "${Kokkos_COMPILE_LAUNCHER} ${Kokkos_NVCC_WRAPPER} ${CMAKE_CXX_COMPILER}")
     ELSE()
         FOREACH(_TYPE PROJECT DIRECTORY TARGET SOURCE)
             # make project/subproject scoping easy, e.g. KokkosCompilation(PROJECT) after project(...)
@@ -961,8 +1046,8 @@ FUNCTION(kokkos_compilation)
             # set the properties if defined
             IF(COMP_${_TYPE})
                 # MESSAGE(STATUS "Using nvcc_wrapper :: ${_TYPE} :: ${COMP_${_TYPE}}")
-                SET_PROPERTY(${_TYPE} ${COMP_${_TYPE}} PROPERTY RULE_LAUNCH_COMPILE "${Kokkos_COMPILE_LAUNCHER} ${CMAKE_CXX_COMPILER}")
-                SET_PROPERTY(${_TYPE} ${COMP_${_TYPE}} PROPERTY RULE_LAUNCH_LINK "${Kokkos_COMPILE_LAUNCHER} ${CMAKE_CXX_COMPILER}")
+                SET_PROPERTY(${_TYPE} ${COMP_${_TYPE}} PROPERTY RULE_LAUNCH_COMPILE "${Kokkos_COMPILE_LAUNCHER} ${Kokkos_NVCC_WRAPPER} ${CMAKE_CXX_COMPILER}")
+                SET_PROPERTY(${_TYPE} ${COMP_${_TYPE}} PROPERTY RULE_LAUNCH_LINK "${Kokkos_COMPILE_LAUNCHER} ${Kokkos_NVCC_WRAPPER} ${CMAKE_CXX_COMPILER}")
             ENDIF()
         ENDFOREACH()
     ENDIF()

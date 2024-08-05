@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------
    SPARTA - Stochastic PArallel Rarefied-gas Time-accurate Analyzer
    http://sparta.sandia.gov
-   Steve Plimpton, sjplimp@sandia.gov, Michael Gallis, magalli@sandia.gov
+   Steve Plimpton, sjplimp@gmail.com, Michael Gallis, magalli@sandia.gov
    Sandia National Laboratories
 
    Copyright (2014) Sandia Corporation.  Under the terms of Contract
@@ -26,7 +26,7 @@
 #include "modify.h"
 #include "geometry.h"
 #include "input.h"
-#include "random_park.h"
+#include "random_knuth.h"
 #include "math_const.h"
 #include "memory.h"
 #include "error.h"
@@ -63,8 +63,8 @@ FixEmitFace::FixEmitFace(SPARTA *sparta, int narg, char **arg) :
   while (iarg < narg) {
     if (strcmp(arg[iarg],"all") == 0) {
       if (domain->dimension == 3)
-	faces[XLO] = faces[XHI] = faces[YLO] = faces[YHI] =
-	  faces[ZLO] = faces[ZHI] = 1;
+        faces[XLO] = faces[XHI] = faces[YLO] = faces[YHI] =
+          faces[ZLO] = faces[ZHI] = 1;
       else faces[XLO] = faces[XHI] = faces[YLO] = faces[YHI] = 1;
     } else if (strcmp(arg[iarg],"xlo") == 0) faces[XLO] = 1;
     else if (strcmp(arg[iarg],"xhi") == 0) faces[XHI] = 1;
@@ -261,13 +261,12 @@ void FixEmitFace::create_task(int icell)
   // works for 2d quads and 3d hexes
 
   int corners[6][4] = {{0,2,4,6}, {1,3,5,7}, {0,1,4,5}, {2,3,6,7},
-		       {0,1,2,3}, {4,5,6,7}};
+                       {0,1,2,3}, {4,5,6,7}};
   int nface_pts = 4;
   if (domain->dimension == 2) nface_pts = 2;
 
   // loop over 6 faces of icell
 
-  int ntaskorig = ntask;
   int nmask = cells[icell].nmask;
 
   for (i = 0; i < 6; i++) {
@@ -402,7 +401,7 @@ void FixEmitFace::create_task(int icell)
       else area = cells[icell].hi[0]-cells[icell].lo[0];
     } else if (iface == ZLO || iface == ZHI) {
       area = (cells[icell].hi[0]-cells[icell].lo[0]) *
-	(cells[icell].hi[1]-cells[icell].lo[1]);
+        (cells[icell].hi[1]-cells[icell].lo[1]);
     }
     tasks[ntask].area = area;
 
@@ -493,7 +492,7 @@ void FixEmitFace::perform_task_onepass()
   //   shift Maxwellian distribution by stream velocity component
   //   see Bird 1994, p 259, eq 12.5
 
-  int nfix_add_particle = modify->n_add_particle;
+  int nfix_update_custom = modify->n_update_custom;
 
   for (int i = 0; i < ntask; i++) {
     pcell = tasks[i].pcell;
@@ -517,28 +516,28 @@ void FixEmitFace::perform_task_onepass()
     if (perspecies) {
       for (isp = 0; isp < nspecies; isp++) {
         ispecies = species[isp];
-	ntarget = tasks[i].ntargetsp[isp]+random->uniform();
-	ninsert = static_cast<int> (ntarget);
+        ntarget = tasks[i].ntargetsp[isp]+random->uniform();
+        ninsert = static_cast<int> (ntarget);
         scosine = indot / vscale[isp];
 
         nactual = 0;
-	for (int m = 0; m < ninsert; m++) {
-	  x[0] = lo[0] + random->uniform() * (hi[0]-lo[0]);
-	  x[1] = lo[1] + random->uniform() * (hi[1]-lo[1]);
-	  if (dimension == 3) x[2] = lo[2] + random->uniform() * (hi[2]-lo[2]);
+        for (int m = 0; m < ninsert; m++) {
+          x[0] = lo[0] + random->uniform() * (hi[0]-lo[0]);
+          x[1] = lo[1] + random->uniform() * (hi[1]-lo[1]);
+          if (dimension == 3) x[2] = lo[2] + random->uniform() * (hi[2]-lo[2]);
           else x[2] = 0.0;
 
           if (region && !region->match(x)) continue;
 
-	  do {
-	    do beta_un = (6.0*random->uniform() - 3.0);
-	    while (beta_un + scosine < 0.0);
-	    normalized_distbn_fn = 2.0 * (beta_un + scosine) /
-	      (scosine + sqrt(scosine*scosine + 2.0)) *
-	      exp(0.5 + (0.5*scosine)*(scosine-sqrt(scosine*scosine + 2.0)) -
-		  beta_un*beta_un);
-	  } while (normalized_distbn_fn < random->uniform());
-	
+          do {
+            do beta_un = (6.0*random->uniform() - 3.0);
+            while (beta_un + scosine < 0.0);
+            normalized_distbn_fn = 2.0 * (beta_un + scosine) /
+              (scosine + sqrt(scosine*scosine + 2.0)) *
+              exp(0.5 + (0.5*scosine)*(scosine-sqrt(scosine*scosine + 2.0)) -
+                  beta_un*beta_un);
+          } while (normalized_distbn_fn < random->uniform());
+
           v[ndim] = beta_un*vscale[isp]*normal[ndim] + vstream[ndim];
 
           theta = MY_2PI * random->uniform();
@@ -549,55 +548,55 @@ void FixEmitFace::perform_task_onepass()
           evib = particle->evib(ispecies,temp_vib,random);
           id = MAXSMALLINT*random->uniform();
 
-	  particle->add_particle(id,ispecies,pcell,x,v,erot,evib);
+          particle->add_particle(id,ispecies,pcell,x,v,erot,evib);
           nactual++;
 
           p = &particle->particles[particle->nlocal-1];
           p->flag = PINSERT;
           p->dtremain = dt * random->uniform();
 
-          if (nfix_add_particle)
-            modify->add_particle(particle->nlocal-1,temp_thermal,
+          if (nfix_update_custom)
+            modify->update_custom(particle->nlocal-1,temp_thermal,
                                  temp_rot,temp_vib,vstream);
-	}
+        }
 
-	nsingle += nactual;
+        nsingle += nactual;
       }
 
     } else {
       if (np == 0) {
-	ntarget = tasks[i].ntarget+random->uniform();
-	ninsert = static_cast<int> (ntarget);
+        ntarget = tasks[i].ntarget+random->uniform();
+        ninsert = static_cast<int> (ntarget);
       } else {
-	ninsert = npertask;
-	if (i >= nthresh) ninsert++;
+        ninsert = npertask;
+        if (i >= nthresh) ninsert++;
       }
 
       nactual = 0;
       for (int m = 0; m < ninsert; m++) {
-	rn = random->uniform();
-	isp = 0;
-	while (cummulative[isp] < rn) isp++;
+        rn = random->uniform();
+        isp = 0;
+        while (cummulative[isp] < rn) isp++;
         ispecies = species[isp];
         scosine = indot / vscale[isp];
 
-	x[0] = lo[0] + random->uniform() * (hi[0]-lo[0]);
-	x[1] = lo[1] + random->uniform() * (hi[1]-lo[1]);
+        x[0] = lo[0] + random->uniform() * (hi[0]-lo[0]);
+        x[1] = lo[1] + random->uniform() * (hi[1]-lo[1]);
         if (dimension == 3) x[2] = lo[2] + random->uniform() * (hi[2]-lo[2]);
         else x[2] = 0.0;
 
         if (region && !region->match(x)) continue;
 
-	do {
-	  do {
-	    beta_un = (6.0*random->uniform() - 3.0);
-	  } while (beta_un + scosine < 0.0);
-	  normalized_distbn_fn = 2.0 * (beta_un + scosine) /
-	    (scosine + sqrt(scosine*scosine + 2.0)) *
-	    exp(0.5 + (0.5*scosine)*(scosine-sqrt(scosine*scosine + 2.0)) -
-		beta_un*beta_un);
-	} while (normalized_distbn_fn < random->uniform());
-	
+        do {
+          do {
+            beta_un = (6.0*random->uniform() - 3.0);
+          } while (beta_un + scosine < 0.0);
+          normalized_distbn_fn = 2.0 * (beta_un + scosine) /
+            (scosine + sqrt(scosine*scosine + 2.0)) *
+            exp(0.5 + (0.5*scosine)*(scosine-sqrt(scosine*scosine + 2.0)) -
+                beta_un*beta_un);
+        } while (normalized_distbn_fn < random->uniform());
+
         v[ndim] = beta_un*vscale[isp]*normal[ndim] + vstream[ndim];
 
         theta = MY_2PI * random->uniform();
@@ -608,15 +607,15 @@ void FixEmitFace::perform_task_onepass()
         evib = particle->evib(ispecies,temp_vib,random);
         id = MAXSMALLINT*random->uniform();
 
-	particle->add_particle(id,ispecies,pcell,x,v,erot,evib);
+        particle->add_particle(id,ispecies,pcell,x,v,erot,evib);
         nactual++;
 
         p = &particle->particles[particle->nlocal-1];
         p->flag = PINSERT;
         p->dtremain = dt * random->uniform();
 
-        if (nfix_add_particle)
-          modify->add_particle(particle->nlocal-1,temp_thermal,
+        if (nfix_update_custom)
+          modify->update_custom(particle->nlocal-1,temp_thermal,
                                temp_rot,temp_vib,vstream);
       }
 
@@ -664,7 +663,7 @@ void FixEmitFace::perform_task_twopass()
   //   shift Maxwellian distribution by stream velocity component
   //   see Bird 1994, p 259, eq 12.5
 
-  int nfix_add_particle = modify->n_add_particle;
+  int nfix_update_custom = modify->n_update_custom;
 
   int ninsert_dim1 = perspecies ? nspecies : 1;
   int** ninsert_values;
@@ -749,8 +748,8 @@ void FixEmitFace::perform_task_twopass()
           p->flag = PINSERT;
           p->dtremain = dt * random->uniform();
 
-          if (nfix_add_particle)
-            modify->add_particle(particle->nlocal-1,temp_thermal,
+          if (nfix_update_custom)
+            modify->update_custom(particle->nlocal-1,temp_thermal,
                 temp_rot,temp_vib,vstream);
         }
 
@@ -802,8 +801,8 @@ void FixEmitFace::perform_task_twopass()
         p->flag = PINSERT;
         p->dtremain = dt * random->uniform();
 
-        if (nfix_add_particle)
-          modify->add_particle(particle->nlocal-1,temp_thermal,
+        if (nfix_update_custom)
+          modify->update_custom(particle->nlocal-1,temp_thermal,
               temp_rot,temp_vib,vstream);
       }
 
@@ -1077,7 +1076,7 @@ void FixEmitFace::grow_task()
   int oldmax = ntaskmax;
   ntaskmax += DELTATASK;
   tasks = (Task *) memory->srealloc(tasks,ntaskmax*sizeof(Task),
-				    "emit/face:tasks");
+                                    "emit/face:tasks");
 
   // set all new task bytes to 0 so valgrind won't complain
   // if bytes between fields are uninitialized
