@@ -28,10 +28,11 @@ scmds = "|".join(cmds).replace("(", r"\(").replace(")", r"\)")
 recmds = re.compile("(:(("+scmds+"|,"+")+)$)")
 # recmdargs = re.compile(':('+'|'.join(cmd_args)+r')\([^\)]+\)')
 recmdargs = re.compile('(:('+'|'.join(cmd_args)+r')\([^\)]+\))')
-
+recmds = re.compile("(:(("+scmds+"|," + '('+'|'.join(cmd_args)+r')\([^\)]+\)' + ")+)$)")
 
 # fi = pi / "Section_accelerate.txt"
-fi = pi / "fix.txt"
+fi = pi / "Section_howto.txt"
+# fi = pi / "fix.txt"
 
 
 def get_par_cmds(paragraph):
@@ -48,8 +49,8 @@ def get_par_cmds(paragraph):
   """
 
   m = recmds.search(paragraph)
-  if not m:
-    m = recmdargs.search(paragraph)
+  # if not m:
+  #   m = recmdargs.search(paragraph)
   if m:
     parrafo = paragraph[:m.start()]
     cmd = paragraph[m.start()+1:m.end()].split(",")
@@ -83,5 +84,6 @@ if __name__ == '__main__':
   s = read_txtfile(fi)
   for m in repar.finditer(s):
     par, cmds = get_par_cmds(m.group().rstrip())
+
     if len(cmds) >= 1:
       print(cmds)
