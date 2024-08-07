@@ -49,7 +49,7 @@ def apply_inmrkp(s):
   def repl(m):
     dmrkup = {'[':"**", '{':'*'}
     delim = dmrkup[m.group(1)]
-    return f"{delim}{m.group(2).strip()}{delim}"
+    return f"{delim}{m.group(2).strip().replace("*",r"\*")}{delim}"
 
   s1= rebraceS.sub(r"\2"+":h6\n\n",s)
   s1= rebrace.sub(repl,s1)
@@ -58,8 +58,6 @@ def apply_inmrkp(s):
 
 def read_sjptxt(fi):
   """Read txt file and preprocess the contents
-
-  
 
   Parameters
   ----------
@@ -129,17 +127,78 @@ apply_cmds = {
   'h5':lambda x:f"\n{x}\n{len(x)*'^'}\n",
   'h6':lambda x:f"\n{x}\n{len(x)*'\"'}\n",
   'pre':fmt_literal,
+  'ul':lambda x: f"{x}\n",
   'ulb':lambda x: f"{x}\n",
   'ule':lambda x: f"{x}\n\n",
   'olb':lambda x: f"{x}\n",
   'ole':lambda x: f"{x}\n\n",
-  'l': lambda x: f"- {x}",
+  'l': lambda x: f"- {x.replace('\n',' ')}",
   'line': lambda x: "\n--------------\n",
   'all(p)': lambda x: '\n\n'.join(x.splitlines())+'\n',
   'all(b)':lambda x:f"{x}\n",
   'all(l)': lambda x: '\n-'.join(x.splitlines())+'\n',
   # 'link':lambda x:x,
 }
+
+def cleanup_header(s):
+  """Remove standard SPARTA header
+
+
+  Parameters
+  ----------
+  s : string. Contents of file
+  
+
+  Returns
+  -------
+  
+  string:
+  """
+  headers = ['."Previous Section"_Section_commands.html - "SPARTA WWW Site"_sws - "SPARTA Documentation"_sd - "SPARTA Commands"_sc - "Next Section"_Section_example.html :c\n\n\n:link(sws,http://sparta.sandia.gov)\n\n:link(sd,Manual.html)\n\n:link(sc,Section_commands.html#comm)\n\n\n:line \n\n',
+             '"SPARTA WWW Site"_sws - "SPARTA Documentation"_sd - "SPARTA Commands"_sc :c\n\n\n:link(sws,http://sparta.sandia.gov)\n\n:link(sd,Manual.html)\n\n:link(sc,Section_commands.html#comm)\n\n\n:line\n\n'             
+             ]
+  for h in headers:
+    s =s.replace(h,'')
+  return s
+
+# def skip_paragraph(s):
+#   """short description
+
+#   long description
+
+#   Parameters
+#   ----------
+#   s : 
+  
+
+#   Returns
+#   -------
+  
+#   bool:
+#   """
+#   orig_header1 = """"SPARTA WWW Site"_sws - "SPARTA Documentation"_sd - "SPARTA Commands"_sc :c:link(sws,http://sparta.sandia.gov):link(sd,Manual.html):link(sc,Section_commands.html#comm):line"""  
+
+#   return par.replace(' ','') != orig_header1
+#   return not any(t in s for t in ['"SPARTA WWW Site"','sws,http://sparta.sandia.gov','sd,Manual.html','sc,Section_commands.html']) 
+
+def create_link(s):
+  """Create a target link from a title
+
+  Remove short words and spaces
+
+  Parameters
+  ----------
+  s : 
+  
+
+  Returns
+  -------
+  
+  string: a target name
+  """
+  ignore = ['a', 'and', 'de', 'des', 'for', 'in', 'of', 'on', 'the']
+  return (''.join([x for x in s.split() if x.lower() not in ignore]))
+
 
 
 if __name__ == '__main__':
@@ -149,10 +208,14 @@ if __name__ == '__main__':
   fn = "fix.txt"
   fn = "variable.txt"
   fn = "write_restart.txt"
+  fn = "Section_howto.txt"
+  fi = pi/fn
+
   # for fi in pi.glob("*.txt"):
   #   s = read_sjptxt(fi)
-  fi = pi/fn
+
   s = read_sjptxt(fi)
+  s = cleanup_header(s)
   s = apply_inmrkp(s)
 
   ss = ""
@@ -162,17 +225,11 @@ if __name__ == '__main__':
     # if len(commds) >= 1:
     #   print(f"++{par}++")
     #   print(commds)
-    ppar = par.rstrip()
-    for c in commds:
-      if c in cmds:
-        ppar = apply_cmds[c](ppar)
+    if skip_paragraph(par):
+      ppar = par.rstrip()
+      for c in commds:
+        if c in cmds:
+          ppar = apply_cmds[c](ppar)
+      ss += f"{ppar}\n\n"
     
-    # for c in commds:
-    #   if c in cmds:
-    #     ppar = apply_cmds[c](ppar)
-    #   else:
-    #     ppar = par
-    ss += f"{ppar}\n"
-    # # ss += apply_cmd_par(s)
-    (po / fn).with_suffix('.rst').write_text(ss)
-
+  (po / fi.name).with_suffix('.rst').write_text(ss)
