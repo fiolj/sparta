@@ -37,12 +37,9 @@ fi = pi / "fix.txt"
 def get_par_cmds(paragraph):
   """Return the paragraph and commands
 
-
-
   Parameters
   ----------
   paragraph : text to analyze
-
 
   Returns
   -------
