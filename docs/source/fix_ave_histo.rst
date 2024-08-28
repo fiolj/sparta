@@ -663,10 +663,6 @@ Default:
 
 
 
-none
-
-
-
 The option defaults are mode = scalar, ave = one, start = 0, no file
 output, no region/mixture/group restriction on inclusion of particles
 or grid cells, beyond = ignore, and title 1,2,3 = strings as described

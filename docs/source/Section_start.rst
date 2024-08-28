@@ -148,6 +148,12 @@ job on your machine, please find a local expert to help you.
 
 
 
+SPARTA requires that the compiler supports C++11. SPARTA will throw an error
+if this is not the case. If you are building SPARTA with Kokkos, the compiler
+must support C++17.
+
+
+
 If you have a build problem that you are convinced is a SPARTA issue
 (e.g. the compiler complains about a line of SPARTA source code), then
 please send an email to the

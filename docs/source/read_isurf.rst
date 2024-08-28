@@ -319,8 +319,8 @@ be.
 
 The threshold must be specified as a floating point value such that 0
 < thresh < 255.  An integer value for thresh (e.g. 128 or 128.0) is
-not allowed, because that could induce implicit surfaces with zero
-length (2d line) or area (3d triangle).
+not allowed, because that could induce generation of implicit surfaces
+with zero length (2d line) or area (3d triangle).
 
 
 
