@@ -1,86 +1,44 @@
 
 :orphan:
 
-
-
 .. index:: next
-
-
 
 .. _next:
 
-
-
-
 .. _next-command:
-
-
 
 ############
 next command
 ############
 
-
-
-
 .. _next-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    next variables
 
-
-
-
 variables = one or more variable names
 
-
-
-
 .. _next-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    next x
    next a t x myTemp
 
-
-
-
 .. _next-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 This command is used with variables defined by the
 :ref:`variable<variable>` command.  It assigns the next value to the
@@ -89,30 +47,22 @@ variable from the list of values defined for that variable by the
 subsequently substituted for in an input script command, the new value
 is used.
 
-
-
 See the :ref:`variable<variable>` command for info on how to define and
 use different kinds of variables in SPARTA input scripts.  If a
 variable name is a single lower-case character from "a" to "z", it can
 be used in an input script command as $a or $z.  If it is multiple
 letters, it can be used as $\{myTemp\}.
 
-
-
 If multiple variables are used as arguments to the *next* command,
 then all must be of the same variable style: *index*, *loop*, *file*,
 *universe*, or *uloop*.  An exception is that *universe*- and
 *uloop*-style variables can be mixed in the same *next* command.
-
-
 
 All the variables specified with the next command are incremented by
 one value from their respective list of values.  A *file*-style
 variable reads the next line from its associated file.  *String-* or
 *particle*- or *equal*- or *world*-style variables cannot be used with
 the the next command, since they only store a single value.
-
-
 
 When any of the variables in the next command has no more values, a
 flag is set that causes the input script to skip the next
@@ -122,14 +72,10 @@ command, the variable that has exhausted its values is also deleted.
 This allows it to be used and re-defined later in the input script.
 *File*-style variables are exhausted when the end-of-file is reached.
 
-
-
 When the next command is used with *index*- or *loop*-style variables,
 the next value is assigned to the variable for all processors.  When
 the next command is used with *file*-style variables, the next line is
 read from its file and the string assigned to the variable.
-
-
 
 When the next command is used with *universe*- or *uloop*-style
 variables, all *universe*- or *uloop*-style variables must be listed
@@ -144,19 +90,12 @@ and *uloop*-style variables are incremented using the files
 "tmp.sparta.variable" and "tmp.sparta.variable.lock" which you will
 see in your directory during and after such a SPARTA run.
 
-
-
 Here is an example of running a series of simulations using the next
 command with an *index*-style variable.  If this input script is named
 in.flow, 8 simulations would be run using surface data files from
 directories run1 thru run8.
 
-
-
-
 ::
-
-
 
    variable d index run1 run2 run3 run4 run5 run6 run7 run8
    shell cd $d
@@ -170,9 +109,6 @@ directories run1 thru run8.
    next d
    jump in.flow
 
-
-
-
 If the variable "d" were of style *universe*, and the same in.flow
 input script were run on 3 partitions of processors, then the first 3
 simulations would begin, one on each set of processors.  Whichever
@@ -180,17 +116,10 @@ partition finished first, it would assign variable "d" the 4th value
 and run another simulation, and so forth until all 8 simulations were
 finished.
 
-
-
 Jump and next commands can also be nested to enable multi-level loops.
 For example, this script will run 15 simulations in a double loop.
 
-
-
-
 ::
-
-
 
    variable i loop 3
    variable j loop 5
@@ -204,19 +133,11 @@ For example, this script will run 15 simulations in a double loop.
    next i
    jump in.script
 
-
-
-
 Here is an example of a double loop which uses the :ref:`if<if>` and
 :ref:`jump<jump>` commands to break out of the inner loop when a
 condition is met, then continues iterating thru the outer loop.
 
-
-
-
 ::
-
-
 
    label	    loopa
    variable    a loop 5
@@ -230,63 +151,33 @@ condition is met, then continues iterating thru the outer loop.
    label	    break
    variable    b delete
 
-
-
-
-
 ::
-
-
 
    next	    a
    jump	    in.script loopa
 
-
-
-
 .. _next-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _next-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`jump<jump>`, :ref:`include<include>`, :ref:`shell<shell>`,
 :ref:`variable<variable>`,
 
-
-
 .. _next-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 none
-
-
 

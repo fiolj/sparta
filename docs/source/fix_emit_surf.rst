@@ -1,77 +1,39 @@
 
 :orphan:
 
-
-
 .. index:: fix_emit_surf
-
-
 
 .. _fix-emit-surf:
 
-
-
-
 .. _fix-emit-surf-command:
-
-
 
 #####################
 fix emit/surf command
 #####################
 
-
-
-
 .. _fix-emit-surf-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    fix ID emit/surf mix-ID group-ID keyword value ...
 
-
-
-
 - ID is documented in :ref:`fix<fix>` command 
-
-
 
 - emit/surf = style name of this fix command
 
-
-
 - mix-ID = ID of mixture to use when creating particles
-
-
 
 - group-ID = ID of surface group that emits particles
 
-
-
 - zero or more keyword/value pairs may be appended
-
-
 
 - keyword = *n* or *normal* or *nevery* or *perspecies* or *region* or *subsonic* or *custom*
 
-
-
-
 ::
-
-
 
    *n* value = Np = number of particles to create
    Np can be a variable (see below)
@@ -86,58 +48,29 @@ Syntax:
    attribute = *nrho* or *vstream* or *speed* or *temp* or *fractions*
    s_name = custom per-surf vector or array with name
 
-
-
-
-
-
-
-
 .. _fix-emit-surf-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    fix in emit/surf air all
    fix in emit/face mymix myPatch region circle normal yes
    fix in emit/surf air all subsonic 0.1 300
    fix in emit/surf air all subsonic 0.05 NULL
 
-
-
-
-
 ::
-
-
 
    read_surf sdata.circle custom myrho float 0 custom mystream float 3
    fix in emit/surf air all custom nrho s_myrho custom vstream s_mystream
 
-
-
-
 .. _fix-emit-surf-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Emit particles from a group of surface elements, continuously during a
 simulation.  If invoked every timestep, this fix creates a continuous
@@ -146,27 +79,19 @@ command can only be used with explicit surfaces, not implicit.  See
 :ref:`Section Howto 6.13<howto-surface-elements:-explicit,-implicit,>` for a discussion of
 explicit and implicit surface elements.
 
-
-
 The properties of the added particles are determined by the mixture
 with ID *mix-ID*.  This sets the number and species of added
 particles, as well as their streaming velocity, thermal temperature,
 and internal energy modes.  The details are explained below.
 
-
-
 Which surface elements emit particles is specified by the *group-ID*
 for a surface group, which defines a set of surface elements.  The
 :ref:`group surf<group>` is used to define surface groups.
-
-
 
 On each insertion timestep, each grid cell that overlaps with one or
 more emitting surface elements performs the following computations to
 add particles for each grid cell/surface element pairing.  The
 particles are added at the beginning of the SPARTA timestep.
-
-
 
 The molecular flux emitted from a surface element per unit time is
 given by equation 4.22 of :ref:`(Bird94)<Bird94>`.  The number of particles
@@ -174,19 +99,12 @@ given by equation 4.22 of :ref:`(Bird94)<Bird94>`.  The number of particles
 within a grid cell is based on this flux and additional global, flow,
 and surface element properties:
 
-
-
 global property: *fnum* ratio as specified by the "global"_global.html" command
 flow properties: number density, streaming velocity, and thermal temperature
 surface element properties: portion of surface element area that overlaps with the grid cell and its orientation relative to the streaming velocity
 
-
-
-
 The flow properties are defined for the specified mixture via the
 :ref:`mixture<mixture>` command.
-
-
 
 If *M* has a fractional value, e.g. 12.5, then 12 particles are added,
 and a 13th depending on the value of a random number.  Each particle
@@ -196,14 +114,11 @@ chosen randomly in accord with the *frac* settings of the collection
 of species in the mixture, as set by the :ref:`mixture<mixture>`
 command.
 
-
-
 .. important::
 
   The preceeding calculation is actually done using
   surface element areas associated with *weighted* cell volumes.  Grid
   cells can be weighted using the :ref:`global weight<global>` command.
-
 
 .. note::
 
@@ -214,29 +129,19 @@ command.
   oriented in the direction normal to the surface element, rather than
   in the direction of the streaming velocity.
 
-
 If the final particle velocity is not directed "out of" the surface
 element, then the velocity sampling procedure is repeated until it is.
 This insures that all added particles emit from the surface element,
 as desired.
 
-
-
 The first timestep that added particles are advected, they move for a
 random fraction of the timestep.  This insures a continuous flow field
 of particles emitting from each surface element.
-
-
-
-
-
 
 The *n* keyword can alter how many particles are added, which can be
 useful for debugging purposes.  If *Np* is set to 0, then the number
 of added particles is a function of *fnum*, *nrho*, and other mixture
 settings, as described above.
-
-
 
 If *Np* is set to a value > 0, then the *fnum* and *nrho* settings are
 ignored, and roughly *Np* particles are added on each insertion
@@ -246,8 +151,6 @@ of emitted particles is set to its fraction of the total emission area
 that results in a fractional value, then an extra particle is emitted
 depending on the value of a random number, as explained above.
 
-
-
 The *Np* value can be also be specified as an equal-style
 :ref:`variable<variable>`.  If the value is a variable, it should be
 specified as v_name, where name is the variable name.  In this case,
@@ -256,14 +159,10 @@ value used as *Np* on that step to determine the target number of
 emitted particles for each grid cell/surface element pair, the same as
 described in the preceeding paragraph.
 
-
-
 Equal-style variables can specify formulas with various mathematical
 functions, and include :ref:`stats_style<stats-style>` command
 keywords for the simulation box parameters and timestep and elapsed
 time.  Thus it is easy to specify a time-dependent value of *Np*.
-
-
 
 .. note::
 
@@ -280,18 +179,13 @@ time.  Thus it is easy to specify a time-dependent value of *Np*.
   mixture.  The effect is that particles effectively stream outward from
   each emitting surface element.
 
-
 The *nevery* keyword determines how often particles are added.  If
 *Nstep* > 1, this may give a non-continuous, clumpy distribution in
 the inlet flow field.
 
-
-
 The *perspecies* keyword determines how the species of each added
 particle is randomly determined.  This has an effect on the
 statistical properties of added particles.
-
-
 
 If *perspecies* is set to *yes*, then a target insertion number *M*
 for a grid cell/surface element pair is calculated for each species,
@@ -300,8 +194,6 @@ set by the :ref:`mixture nfrac<mixture>` command.  If *M* has a
 fractional value, e.g. 12.5, then 12 particles of that species will
 always be added, and a 13th depending on the value of a random number.
 
-
-
 If *perspecies* is set to *no*, then a single target insertion number
 *M* for a grid cell/surface element pair is calculated for all the
 species.  Each time a particle is added, a random number is used to
@@ -309,8 +201,6 @@ choose the species of the particle, based on the relative number
 fractions of all the species in the mixture.  As before, if *M* has a
 fractional value, e.g. 12.5, then 12 particles will always be added,
 and a 13th depending on the value of a random number.
-
-
 
 Here is a simple example that illustrates the difference between the
 two options.  Assume a mixture with 2 species, each with a relative
@@ -323,15 +213,12 @@ will be 5 particles of each of the two species.  But on one timestep
 it might be 6 of the first and 4 of the second.  On another timestep
 it might be 3 of the first and 7 of the second.
 
-
-
 .. note::
 
   that the *side* option
   for the :ref:`region<region>` command can be used to define whether the
   inside or outside of the geometric region is considered to be "in" the
   region.
-
 
 .. important::
 
@@ -344,7 +231,6 @@ it might be 3 of the first and 7 of the second.
   some or all of the particle insertions are rejected due to not being
   inside the region.
 
-
 The *subsonic* keyword uses the method of Fang and Liou
 :ref:`(Fang02)<Fang02>` to determine the number of particles to insert in
 each grid cell on the emitting face(s).  They used the method of
@@ -354,8 +240,6 @@ These properties are then applied to calculate the molecular flux
 across a grid cell face per unit time, as given by equation 4.22 of
 :ref:`(Bird94)<Bird94>`.
 
-
-
 This keyword allows specification of both the pressure and temperature
 at the surface or just the pressure (by specifying the temperature as
 NULL).  If specified, the temperature must be > 0.0.  Currently,
@@ -363,8 +247,6 @@ instantaneous values for the density, temperature, and stream velocity
 of particles in the cells containing the surface elements are computed
 and used to determine the properties of inserted particles on each
 timestep.
-
-
 
 .. important::
 
@@ -377,7 +259,6 @@ timestep.
   condition, and performs well in cases where the cells are adequately
   populated.
 
-
 .. important::
 
   When using this keyword, you should also use an
@@ -387,10 +268,6 @@ timestep.
   were exiting the simulation domain.  That is necessary to produce the
   correct subsonic conditions that the particle insertions due to this
   command are trying to achieve.
-
-
-
-
 
 The *custom* keyword can be used to tailor the emission of particles
 from individual surface elements.  This is done by using custom
@@ -402,18 +279,13 @@ initialization by use of :ref:`surf-style variables<variable>`.  See
 :ref:`Section Howto 6.17<howto-custom-perparticl-pergrid,-persurf>` for a discussion of
 custom per-surf attributes.
 
-
-
 .. important::
 
   The *custom* keyword cannot be used together with
   either the *n* or *subsonic* keywords.
 
-
 The *attribute* value of the *custom* keyword can be any of the
 following:
-
-
 
 nrho = number density (# per length^3 units) = per-surf vector
 vstream = 3-component streaming velocity (velocity units) = per-surf array with 3 columns
@@ -421,14 +293,9 @@ speed = length of streaming velocity vector in normal direction (velocity units)
 temp = temperature (temperature units) = per-surf vector
 fractions = species fractions (unitless) = per-surf array
 
-
-
-
 The *s_name* value of the *custom* keyword is the name of the custom
 per-surf vector or array.  It must store floating-point values and be
 a vector or array, as indicated in the list above.
-
-
 
 When the fix emit/surf command calculates the number of particles (and
 their attributes) to be emitted from each surface element, by default
@@ -438,8 +305,6 @@ fractions.  The same values are used for all surface elements.  If the
 *custom* keyword is used for one or more of these properties, the
 values of the associated custom per-surf vector(s) or array(s)
 override the default mixture properties.
-
-
 
 The *custom* attribute *vstream* can only be used if the *normal*
 keyword is set to *no*, which is the default.  In this case it must
@@ -451,14 +316,10 @@ instead.  It must refer to a custom per-surf vector which stores the
 element.  I.e. it is the scalar length of the streaming velocity
 vector, as described above for the *normal* keyword.
 
-
-
 The *custom* attribute *temp* sets a temperature for each surface
 element.  This temperature is used as the thermal temeperature for
 each inserted particle which means it affects its thermal velocity
 components as well as its rotational and vibrational energies.
-
-
 
 The *custom* attribute *fractions* must refer to a per-surf custom
 array with N columns, where N is the number of species in the mixture.
@@ -466,14 +327,10 @@ For each surface element, the N values will be used to set the
 relative fractions of emitted particles for that element, using the
 logic for the *perspecies yes/no* keyword described above.
 
-
-
 For each surface element, the N per-species fractional values must sum
 to 1.0.  However, one or more of the numeric values can be < zero, say
 M of them.  In this case, each of the M values will be reset to (1 -
 sum)/M, where sum is the sum of the N-M values which are >= zero.
-
-
 
 .. note::
 
@@ -483,24 +340,13 @@ sum)/M, where sum is the sum of the N-M values which are >= zero.
   It is the order the gas species names were listed when the mixture
   command was specified (one or more times).
 
-
-
-
-
 .. _fix-emit-surf-restart,-output:
-
-
 
 *********************
 Restart, output info:
 *********************
 
-
-
-
 No information about this fix is written to :ref:`binary restart files<restart>`.
-
-
 
 This fix computes a global vector of length 2 which can be accessed by
 various output commands.  The first element of the vector is the total
@@ -509,29 +355,18 @@ second element is the cummulative total number added since the
 beginning of the run.  The 2nd value is initialized to zero each time
 a run is performed.
 
-
-
 .. _fix-emit-surf-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 A *n* setting of *Np* > 0 or *Np* as a variable can only be used with
 a *perspecies* setting of *no*.
-
-
 
 If *normal* is set to *no*, which is the default, then unlike the :ref:`fix emit/face<fix-emit-face>` command, no warning is issued if a
 surface element has an inward normal in a direction opposing the
 streaming velocity, as defined by the mixture.
-
-
 
 For that surface element, particles will still be emitted, so long as
 a small fraction have a thermal velocity large enough to overcome the
@@ -539,57 +374,30 @@ outward streaming velocity, so that their net velocity is inward.  The
 threshold for this is the thermal velocity for particles 3\*sigma from
 the mean thermal velocity.
 
-
-
 .. _fix-emit-surf-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`mixture<mixture>`, :ref:`create_particles<create-particles>`, :ref:`fix emit/face<fix-emit-face>`
 
-
-
 .. _fix-emit-surf-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The keyword defaults are n = 0, normal = no, nevery = 1, perspecies =
 yes, region = none, no subsonic settings.
 
-
-
-
-
-
 .. _Bird94:
-
-
 
 **(Bird94)** G. A. Bird, Molecular Gas Dynamics and the Direct
 Simulation of Gas Flows, Clarendon Press, Oxford (1994).
 
-
-
 .. _Fang02:
-
-
 
 **(Fang02)** Y. Fang and W. W. Liou, Microfluid Flow Computations
 Using a Parallel DSMC Code, AIAA 2002-1057. (2002).
-
-
 

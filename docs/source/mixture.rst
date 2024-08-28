@@ -1,69 +1,35 @@
 
 :orphan:
 
-
-
 .. index:: mixture
-
-
 
 .. _mixture:
 
-
-
-
 .. _mixture-command:
-
-
 
 ###############
 mixture command
 ###############
 
-
-
-
 .. _mixture-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    mixture ID species1 species2 ... keyword args ...
 
-
-
-
 - ID = user-defined name of the mixture 
-
-
 
 - species1, species2, ... = zero or more species IDs to include in the mixture
 
-
-
 - zero or more keyword/arg pairs may be appended
-
-
 
 - keyword = *nrho* or *vstream* or *temp* or *frac* or *group* or *copy* or *delete*
 
-
-
-
 ::
-
-
 
    *nrho* arg = density
    density = number density of entire mixture (# per length^3 units)
@@ -85,28 +51,13 @@ Syntax:
    *delete* args = sp1 sp2 ...
    sp1,sp2,... = species to delete from the mixture
 
-
-
-
-
-
-
-
 .. _mixture-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    mixture air N O NO group lite
    mixture air N O NO vstream 250.0 0.0 0.0 group species
@@ -115,26 +66,16 @@ Examples:
    mixture background N O 
    mixture air delete N NO
 
-
-
-
 .. _mixture-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Define a gas mixture and its properties.  A mixture can be referenced
 by its ID in several other SPARTA commands such as
 :ref:`create_particles<create-particles>` or :ref:`per-grid computes<compute>`.  Any number of mixtures can be defined and
 used in a simulation.
-
-
 
 A mixture is a collection of one or more particle species as defined
 by the :ref:`species<species>` command.  Each species belongs to a
@@ -143,13 +84,9 @@ group can be acted on together by other commands.  The mixture has
 both global attributes and per-species attributes.  All attributes
 have default values unless they are explicitly specified.
 
-
-
 The ID for a mixture is used to identify the mixture in other
 commands.  Each mixture ID must be unique.  The ID can only contain
 alphanumeric characters and underscores.
-
-
 
 .. note::
 
@@ -158,18 +95,13 @@ alphanumeric characters and underscores.
   or change its attributes.  Also note that a species can belong to more
   than one mixture.
 
-
 There are 2 default mixtures defined by SPARTA that always exist.
-
-
 
 The first default mixture has an ID = "all", and contains all species
 that have been defined.  When new species are created via the
 "species" command, they are automatically added to this mixture.  This
 mixture has only a single group, also named "all", which all species
 belong to.
-
-
 
 The second default mixture has an ID = "species", and also contains
 all species that have been defined.  When new species are created via
@@ -178,11 +110,6 @@ mixture.  This mixture defines one group per species, each with the
 species name, so that each species in the mixture belongs to its own
 group.
 
-
-
-
-
-
 Zero or more species can be specified in the mixture command.  If a
 listed species is not already in the mixture, due to a previous
 mixture command with the same ID, then that species is added to the
@@ -190,47 +117,30 @@ mixture.  As discussed below, it will be assigned to a default group
 and assigned default per-species attributes, unless the appropriate
 keywords are also specified.
 
-
-
 Species can be specified which are already part of the mixture, to
 change their group assignment or their per-species proerties, as
 disussed below.
-
-
 
 Zero species can be specified, if other keywords are used which alter
 group assignments or change global attributes of the mixture, as
 discussed below.
 
-
-
-
-
-
 These keywords set global attributes of the mixture.
-
-
 
 The *nrho* keyword sets a global attribute of the mixture, namely its
 density.  For 3d simulations the units of the specified *density* are
 #/volume.  For 2d, the units are effectively #/area, since the
 z-dimension thickness of the simulation box = 1.0.
 
-
-
 The *vstream* keyword sets a global attribute of the mixture, namely
 the streaming velocity.  Particles created using the mixture will use
 the specified *Vx,Vy,Vz* values.
-
-
 
 The *temp* keyword sets a global attribute of the mixture, namely the
 thermal temperature of its particles.  It must be a value >= zero.
 When particles are created, this value is used to sample a Gaussian
 velocity distribution, which is superposed on the streaming velocity,
 when each particle's velocity is initialized.
-
-
 
 The *trot* keyword sets a global attribute of the mixture, namely the
 rotational temperature of its particles.  It must be a value >= zero.
@@ -239,8 +149,6 @@ energy distribution to define each particle's rotational energy.  If
 this keyword is not specified, the thermal temperature is used as the
 default.
 
-
-
 The *tvig* keyword sets a global attribute of the mixture, namely the
 vibrational temperature of its particles.  It must be a value >= zero.
 When particles are created, this value is used to sample a Gaussian
@@ -248,14 +156,7 @@ energy distribution to define each particle's vibrational energy.  If
 this keyword is not specified, the thermal temperature is used as the
 default.
 
-
-
-
-
-
 This keyword sets per-species attributes of the mixture.
-
-
 
 The *frac* keyword sets a per-species attribute for individual species
 in the mixture.  Each species has a relative fractional density, such
@@ -267,16 +168,9 @@ mixture, then when a simulation is run, the *frac* value for each of
 the M species is set to (1 - sum)/M, where sum is the sum of the
 *frac* values for the N-M assigned species.
 
-
-
-
-
-
 Each species in a mixture is assigned to exactly one group.  The
 *group* keyword can be used to set or change these assignments.  Every
 mixture has one or more named groups.
-
-
 
 As described by the :ref:`collide<collide>` command, mixture groups are
 used when performing collisions so that collisions attempts, partners,
@@ -285,21 +179,16 @@ efficiency.  :ref:`Per-grid computes<compute>` also use mixture groups
 to calculate per-grid quantities on a per-grid-cell, per-group basis,
 i.e. on subsets of particles within each grid cell.
 
-
-
 .. note::
 
   that
   this means that mixtures defined with mixture commands that never use
   the *group* keyword will have just a single group.
 
-
 If the *group* keyword is used, the group ID can be any string you
 choose.  Similar to the mixture ID, it can only contain alphanumeric
 characters and underscores.  Using SELF for the group ID has a special
 meaning as discussed below.
-
-
 
 The operation of the *group* keyword depends on whether no species or
 some species are specified explicitly in the mixture command.  It also
@@ -309,45 +198,24 @@ that have no species assigned to them are deleted.  This includes the
 "default" group if it was implicitly created by a previous mixture
 command.
 
-
-
 - If no species are listed in the mixture command and the group ID is SELF, then every species already in the mixture is assigned to a group with its species ID as the group ID.  I.e. there will now be one species per group. 
-
-
 
 - If one or more species are listed and the group ID is SELF, then each listed species is assigned to a group with its species ID as the group ID.
 
-
-
 - If no species are listed and the group ID is not SELF, then all species already in the mixture are assigned to a group with the specified ID.
-
-
 
 - If one or more species are listed and the group ID is not SELF, then the listed species are all assigned to a group with the specified ID.
 
-
-
-
-
-
-
-
 These keywords operate on one or more mixtures.
-
-
 
 The *copy* keyword creates a new mixture with *new-ID* which is
 an identical copy of the mixture with *ID*.  Regardless of where
 the *copy* keyword appears in the command, the operation
 is delayed until all other keywords have been invoked.
 
-
-
 This is useful if you wish to create a new mixture which is nearly the
 same as the current mixture.  Subsequent mixture commands can be used
 to change the properties of the new mixture.
-
-
 
 The *delete* keyword removes one or more species from the mixture,
 specified as *sp1*, *sp2*, etc.  No other keywords can be used with
@@ -356,62 +224,34 @@ that are currently in the mixture.  When using *delete*, no species
 can be defined before the keyword, i.e. *species1*, *species2*, etc
 cannot be defined in the comand syntax described above.
 
-
-
 After the listed species are removed, any group IDs for the mixture
 that have no species assigned to them are also deleted.
 
-
-
-
-
-
 .. _mixture-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 The streaming velocity and thermal temperature of the mixture cannot
 both be zero.  A zero streaming velocity means a zero vector =
 (0,0,0).
 
-
-
 The restrictions on use of the *delete* keyword are described above.
 
-
-
 .. _mixture-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`global<global>`, :ref:`create_particles<create-particles>`
 
-
-
 .. _mixture-default:
-
-
 
 ********
 Default:
 ********
-
-
-
 
 The *nrho*, *vstream*, and *temp* defaults are those defined for the
 background gas density, as set by the :ref:`global<global>` command.
@@ -420,6 +260,4 @@ The *trot* and *tvib* defaults are to use the thermal temperature
 The *frac* default is described above.  The *group* keyword has no
 default; if it is not used, new species not already in the mixture are
 assigned to a group with a group ID = "default".
-
-
 

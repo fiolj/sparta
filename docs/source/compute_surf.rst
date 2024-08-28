@@ -1,88 +1,45 @@
 
 :orphan:
 
-
-
 .. index:: compute_surf
-
-
 
 .. _compute-surf:
 
-
-
-
 .. _compute-surf-command:
-
-
 
 ####################
 compute surf command
 ####################
 
-
-
-
 .. _compute-surf-kk-command:
-
-
 
 #######################
 compute surf/kk command
 #######################
 
-
-
-
 .. _compute-surf-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    compute ID surf group-ID mix-ID value1 value2 ... keyword setting ...
 
-
-
-
 - ID is documented in :ref:`compute<compute>` command 
-
-
 
 - surf = style name of this compute command
 
-
-
 - group-ID = group ID for which surface elements to perform calculation on
-
-
 
 - mix-ID = mixture ID for particles to perform calculation on
 
-
-
 - one or more values can be appended
-
-
 
 - value = *n* or *nwt* or *nflux* or *nflux_incident* or *mflux* or *mflux_incident* or *fx* or *fy* or *fz* or *press* or *px* or *py* or *pz* or *shx* or *shy* or *shz* or *ke*
 
-
-
-
 ::
-
-
 
    n = count of particles hitting surface element
    nwt = weighted count of particles hitting surface element
@@ -100,81 +57,40 @@ Syntax:
    echem = flux of particle chemical catalytic energy on surface element
    etot = flux of particle total energy on surface element
 
-
-
-
 - zero or more keyword/setting pairs can be appended
-
-
 
 - keyword = *norm*
 
-
-
-
 ::
-
-
 
    norm arg = *flux* or *flow* for dividing flux quantities by area or not
 
-
-
-
-
-
-
-
 .. _compute-surf-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    compute 1 surf all all n press etot
    compute mine surf sphere species press shx shy shz
    compute 2 surf all all mflux ke erot norm flow
 
-
-
-
 These commands will dump time averages for each species and each
 surface element to a dump file every 1000 steps:
 
-
-
-
 ::
-
-
 
    compute 1 surf all species n press shx shy shz
    fix 1 ave/surf all 10 100 1000 c_1\[\*\]
    dump 1 surf all 1000 tmp.surf id f_1\[\*\]
 
-
-
-
 These commands will time-average the force on each surface element
 then sum them across element to compute drag (fx) and lift (fy) on the
 body:
 
-
-
-
 ::
-
-
 
    compute 1 surf all all fx fy
    fix 1 ave/surf all 10 100 1000 c_1\[\*\]
@@ -182,19 +98,11 @@ body:
    stats 1000
    stats_style step cpu np c_2\[1\] c_2\[2\]
 
-
-
-
 .. _compute-surf-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Define a computation that calculates one or more values for each
 explicit surface element in a surface element group, based on the
@@ -206,20 +114,14 @@ specified by *group-ID* are included in the calculations.  See the
 :ref:`group surf<group>` command for info on how surface elements can
 be assigned to surface groups.
 
-
-
 This command can only be used for simulations with explicit surface
 elements.  See the similar :ref:`compute isurf/grid<compute-isurf-grid>` command for use with simulations
 with implicit surface elements.
-
-
 
 Explicit surface elements are triangles for 3d simulations and line
 segments for 2d simulations.  Unlike implicit surface elements, each
 explicit triangle or line segment may span multiple grid cells.  See
 :ref:`Section 4.9<howto-details-surfaces-sparta>` of the manual for details.
-
-
 
 .. note::
 
@@ -233,7 +135,6 @@ explicit triangle or line segment may span multiple grid cells.  See
   the *n* and *nwt* values which simply tally counts of particles
   colliding with the surface element.
 
-
 If the explicit surface element is transparent, the particle will pass
 through the surface unaltered.  See the transparent keyword for the
 :ref:`read_surf<read-surf>` command.  The count of particles going
@@ -241,20 +142,14 @@ through the surfacce as well as their mass or energy fluxes can still
 be tallied by this compute.  See details on transparent surface
 elements below.
 
-
-
 Also note that all values for a collision are tallied based on the
 species group of the incident particle.  Quantities associated with
 outgoing particles are part of the same tally, even if they are in
 different species groups.
 
-
-
 The results of this compute can be used by different commands in
 different ways.  The values for a single timestep can be output by the
 :ref:`dump surf<dump>` command.
-
-
 
 .. note::
 
@@ -265,7 +160,6 @@ different ways.  The values for a single timestep can be output by the
   sampling steps.  However for the current values listed below, the two
   normalization methods are the same.
 
-
 .. note::
 
   If particle weighting is enabled via the :ref:`global   weight<global>` command, then all of the values below are scaled
@@ -274,14 +168,8 @@ different ways.  The values for a single timestep can be output by the
   the *n* value, which is NOT scaled by the weight; it is a simple count
   of particle collisions with the surface element.
 
-
-
-
-
 The *n* value counts the number of particles in the group striking the
 surface element.
-
-
 
 The *nwt* value counts the number of particles in the group striking
 the surface element and weights the count by the weight assigned to
@@ -290,129 +178,78 @@ occurs.  The *nwt* quantity will only be different than *n* if
 particle weighting is enabled via the :ref:`global weight<global>`
 command.
 
-
-
 The *nflux* and *nflux_incident* values calculate the net and incident
 number flux imparted to the surface element by particles in the group
 respectively. Incident flux sums over all the impacting particles,
 while net flux subtracts out reflected particles and includes effects
 from surface chemistry such as particle deletion. These are computed as
 
-
-
-
 ::
 
-
-
    Nflux = N / (A \* dt / fnum)
-
-
-
 
 where N is the number of all contributing particles, normalized by
 A = the area of the surface element, dt = the timestep, and fnum = the
 real/simulated particle ratio set by the :ref:`global fnum<global>`
 command.
 
-
-
 If the optional *norm* key is set to *flow*, then the area A is not
 included in the Nflux formula.  The Nflux quantity becomes effectively
 a particle flow rate (count per time).  See discussion of the *norm*
 keyword below.
 
-
-
 The *mflux* and *mflux_incident* values calculate the net and incident
 mass flux imparted to the surface element by particles in the group
 respectively.  These are computed as
 
-
-
-
 ::
-
-
 
    Mflux = Sum_i (mass_i) / (A \* dt / fnum)
 
-
-
-
 where the sum is over all contributing particle masses, normalized by
 the area of the surface element, dt and fnum as defined before.
-
-
 
 If the optional *norm* key is set to *flow*, then the area A is not
 included in the Nflux formula.  Then Mflux quantity becomes
 effectively a mass flow rate (mass per time).  See discussion of the
 *norm* keyword below.
 
-
-
 The *fx*, *fy*, *fz* values calculate the components of force extered
 on the surface element by particles in the group, with respect to the
 x, y, z coordinate axes.  These are computed as
 
-
-
-
 ::
-
-
 
    p_delta = mass \* (V_post - V_pre)
    Px = - Sum_i (p_delta_x) / (dt / fnum)
    Py = - Sum_i (p_delta_y) / (dt / fnum)
    Pz = - Sum_i (p_delta_z) / (dt / fnum)
 
-
-
-
 where p_delta is the change in momentum of a particle, whose velocity
 changes from V_pre to V_post when colliding with the surface element.
 The force exerted on the surface element is the sum over all
 contributing p_delta, normalized by dt and fnum as defined before.
 
-
-
 The *press* value calculates the pressure *P* exerted on the surface
 element in the normal direction by particles in the group, such that
 outward pressure is positive.  This is computed as
 
-
-
-
 ::
-
-
 
    p_delta = mass \* (V_post - V_pre)
    P = Sum_i (p_delta_i dot N) / (A \* dt / fnum)
-
-
-
 
 where p_delta, V_pre, V_post, dt, fnum are defined as before.  The
 pressure exerted on the surface element is the sum over all
 contributing p_delta dotted into the outward normal N of the surface
 element, also normalized by A = the area of the surface element.
 
-
-
 The *px*, *py*, *pz* values calculate the normal pressure Px, Py, Pz
 extered on the surface element in the direction of its normal by
 particles in the group, with respect to the x, y, z coordinate axes.
 These are computed as
 
-
-
-
 ::
-
-
 
    p_delta = mass \* (V_post - V_pre)
    p_delta_n = (p_delta dot N) N
@@ -420,27 +257,17 @@ These are computed as
    Py = - Sum_i (p_delta_n_y) / (A \* dt / fnum)
    Pz = - Sum_i (p_delta_n_z) / (A \* dt / fnum)
 
-
-
-
 where p_delta, V_pre, V_post, N, A, and dt are defined as before.
 P_delta_n is the normal component of the change in momentum vector
 p_delta of a particle.  P_delta_n_x (and y,z) are its x, y, z
 components.
-
-
 
 The *shx*, *shy*, *shz* values calculate the shear pressure Sx, Sy, Sz
 extered on the surface element in the tangential direction to its
 normal by particles in the group, with respect to the x, y, z
 coordinate axes.  These are computed as
 
-
-
-
 ::
-
-
 
    p_delta = mass \* (V_post - V_pre)
    p_delta_t = p_delta - (p_delta dot N) N
@@ -448,32 +275,19 @@ coordinate axes.  These are computed as
    Sy = - Sum_i (p_delta_t_y) / (A \* dt / fnum)
    Sz = - Sum_i (p_delta_t_z) / (A \* dt / fnum)
 
-
-
-
 where p_delta, V_pre, V_post, N, A, and dt are defined as before.
 P_delta_t is the tangential component of the change in momentum vector
 p_delta of a particle.  P_delta_t_x (and y,z) are its x, y, z
 components.
 
-
-
 The *ke* value calculates the kinetic energy flux *Eflux* imparted to
 the surface element by particles in the group, such that energy lost
 by a particle is a positive flux.  This is computed as
 
-
-
-
 ::
-
-
 
    e_delta = 1/2 mass (V_post^2 - V_pre^2)
    Eflux = - Sum_i (e_delta) / (A \* dt / fnum)
-
-
-
 
 where e_delta is the kinetic energy change in a particle, whose
 velocity changes from V_pre to V_post when colliding with the surface
@@ -482,86 +296,54 @@ over all contributing e_delta, normalized by A = the area of the
 surface element and dt = the timestep and fnum = the real/simulated
 particle ratio set by the :ref:`global fnum<global>` command.
 
-
-
 If the optional *norm* key is set to *flow*, then the area A is not
 included in the Eflux formula.  Then Eflux quantity becomes
 effectively an energy flow rate (energy per time).  See discussion of
 the *norm* keyword below.
 
-
-
 The *erot* value calculates the rotational energy flux *Eflux*
 imparted to the surface element by particles in the group, such that
 energy lost by a particle is a positive flux.  This is computed as
 
-
-
-
 ::
-
-
 
    e_delta = Erot_post - Erot_pre
    Eflux = - Sum_i (e_delta) / (A \* dt / fnum)
-
-
-
 
 where e_delta is the rotational energy change in a particle, whose
 internal rotational energy changes from Erot_pre to Erot_post when
 colliding with the surface element.  The flux equation is the same as
 for the *ke* value.
 
-
-
 If the optional *norm* key is set to *flow*, then the area A is not
 included in the Eflux formula.  Then Eflux quantity becomes
 effectively an energy flow rate (energy per time).  See discussion of
 the *norm* keyword below.
 
-
-
 The *evib* value calculates the vibrational energy flux *Eflux*
 imparted to the surface element by particles in the group, such that
 energy lost by a particle is a positive flux.  This is computed as
 
-
-
-
 ::
-
-
 
    e_delta = Evib_post - Evib_pre
    Eflux = - Sum_i (e_delta) / (A \* dt / fnum)
-
-
-
 
 where e_delta is the vibrational energy change in a particle, whose
 internal vibrational energy changes from Evib_pre to Evib_post when
 colliding with the surface element.  The flux equation is the same as
 for the *ke* value.
 
-
-
 If the optional *norm* key is set to *flow*, then the area A is not
 included in the Eflux formula.  Then Eflux quantity becomes
 effectively an energy flow rate (energy per time).  See discussion of
 the *norm* keyword below.
 
-
-
 The *echem* value calculates the chemical catalytic energy flux *Eflux*
 imparted to the surface element by particles in the group, such that
 energy lost by a particles recombining is a positive flux.  This is computed as
 
-
-
 Eflux = - Sum_i (e_recomb) / (A \* dt / fnum)
-
-
 
 where e_recomb is the catalytic chemical energy of a particle pair
 (positive for an exothermic recombination reaction). The flux equation
@@ -569,48 +351,30 @@ is the same as for the *ke* value. This option applies only to the
 *prob* style of surface reations. A value of 0.0 will be returned
 for other styles of surface reactions, e.g. *global* and *adsorb*.
 
-
-
 The *etot* value calculates the total energy flux imparted to the
 surface element by particles in the group, such that energy lost by a
 particle is a positive flux.  This is simply the sum of kinetic,
 rotational, and vibrational energies.  Thus the total energy flux is
 the sum of what is computed by the *ke*, *erot*, and *evib* values.
 
-
-
 If the optional *norm* key is set to *flow*, then the area A is not
 included in the *etot* formula.  Then *etot* quantity becomes
 effectively an energy flow rate (energy per time).  See discussion of
 the *norm* keyword below.
 
-
-
-
-
-
 .. _compute-surf-transparen-surface-elements:
-
-
 
 *****************************
 Transparent surface elements:
 *****************************
 
-
-
-
 This compute will tally information on particles that pass through
 transparent surface elements.  The :ref:`Section 6.15<howto-transparen-surface-elements>` doc page provides an overview of
 transparent surfaces and how to create them.
 
-
-
 The *n* and *nwt* value are calculated the same for transparent
 surfaces as for non-transparent.  I.e. they are the count and weighted
 count of particles passing through the surface.
-
-
 
 The *nflux*, *mflux*, *ke*, *erot*. *evib*, *echem*, and *etot* values are
 fluxes.  For transparent surfaces, they are calculated only for the
@@ -621,13 +385,9 @@ for particles hitting the inward face of the transparent surface.  See
 :ref:`Section 6.15<howto-transparen-surface-elements>` for how to do tallying in
 both directions.
 
-
-
 All the other values are calculated as described above.  This means
 they will be zero, since the incident and outgoing particle have the
 same mass and velocity.
-
-
 
 .. important::
 
@@ -644,60 +404,35 @@ same mass and velocity.
   triangle (or line segment in 2d), which may or may not be what you
   want.
 
-
 See the optional norm keyword (below) to calculate flux values
 un-normalized by the surface element area.  Also see the "sum-area"
 and "ave-area" modes of the :ref:`compute reduce<compute-reduce>`
 command for additional ways to sum or average either normalized or
 un-normalized flux values produced by this compute.
 
-
-
-
-
-
 .. _compute-surf-optional-norm-keyword:
-
-
 
 **********************
 Optional norm keyword:
 **********************
-
-
-
 
 If the *norm* keyword is used with a setting of *flow*, then the
 formulas above for all flux values will not use the surface element
 area A in the denominator.  Specifically these values are nflux,
 mflux, ke, erot, evib, etot.
 
-
-
 The formulas thus compute the aggregate mass or energy flow to the
 surface (e.g. mass per time), not the flux (e.g. mass per area per
 time).
 
-
-
 If the setting is *flux* (the default), then the flux formulas will be
 calculated as shown with the area A in the denominator.
 
-
-
-
-
-
 .. _compute-surf-output-info:
-
-
 
 ************
 Output info:
 ************
-
-
-
 
 This compute calculates a per-surf array, with the number of columns
 equal to the number of values times the number of groups.  The
@@ -706,18 +441,12 @@ ordering of columns is first by values, then by groups.  I.e. if the
 columns would be *n* and *u* for the first group, the 3rd and 4th
 columns would be *n* and *u* for the second group, etc.
 
-
-
 Surface elements not in the specified *group-ID* will output zeroes
 for all their values.
-
-
 
 The array can be accessed by any command that uses per-surf values
 from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
 for an overview of SPARTA output options.
-
-
 
 The per-surf array values will be in the :ref:`units<units>`
 appropriate to the individual values as described above. *N* is
@@ -725,11 +454,6 @@ unitless.  *Press*, *px*, *py*, *pz*, *shx*, *shy*, *shz* are in in
 pressure units.  *Ke*, *erot*, *evib*, *echem*, and *etot* are in
 energy/area-time units for 3d simulations and energy/length-time units
 for 2d simulations.
-
-
-
-
-
 
 Styles with a *kk* suffix are functionally the same as the
 corresponding style without the suffix.  They have been optimized to
@@ -739,70 +463,38 @@ The accelerated styles take the same arguments and should produce the
 same results, except for different random number, round-off and
 precision issues.
 
-
-
 These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
-
-
 
 You can specify the accelerated styles explicitly in your input script
 by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
-
-
 See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
-
-
-
-
-
 .. _compute-surf-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _compute-surf-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`fix ave/surf<fix-ave-surf>`, :ref:`dump surf<dump>`, :ref:`compute isurf/grid<compute-isurf-grid>`
 
-
-
 .. _compute-surf-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The default for the norm keyword is flux.
-
-
 

@@ -1,138 +1,70 @@
 
 :orphan:
 
-
-
 .. index:: compute_dt_grid
-
-
 
 .. _compute-dt-grid:
 
-
-
-
 .. _compute-dt-grid-command:
-
-
 
 #######################
 compute dt/grid command
 #######################
 
-
-
-
 .. _compute-dt-grid-kk-command:
-
-
 
 ##########################
 compute dt/grid/kk command
 ##########################
 
-
-
-
 .. _compute-dt-grid-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    compute ID dt/grid group-ID tfraction cfraction lambda temperature usq vsq wsq
 
-
-
-
 - ID is documented in :ref:`compute<compute>` command 
-
-
 
 - dt/grid = style name of this compute command
 
-
-
 - group-ID = group ID for which grid cells to perform calculation on
-
-
 
 - tfraction = fraction of grid cell transit time used to calculate timestep
 
-
-
 - cfraction = fraction of grid cell mean collision time used to calculate timestep
-
-
 
 - lambda = compute or fix column for mean free path, prefaced by "c\_" or "f\_"
 
-
-
 - temperature = compute or fix column for temperature, prefaced by "c\_" or "f\_"
-
-
 
 - usq = compute or fix column for x component of velocity squared, prefaced by "c\_" or "f\_"
 
-
-
 - vsq = compute or fix column for y component of velocity squared, prefaced by "c\_" or "f\_"
-
-
 
 - wsq = compute or fix column for z component of velocity squared, prefaced by "c\_" or "f\_"
 
-
-
-
-
-
-
 .. _compute-dt-grid-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    compute 1 grid all mymixture nrho temp usq vsq wsq
    fix 1 ave/grid all 10 50 500 c_1\[\*\]
    compute lambda lambda/grid f_1\[1\] f_1\[2\] Ar
    compute tstep dt/grid all 0.25 0.1 c_lambda f_1\[2\] f_1\[3\] f_1\[4\] f_1\[5\]
 
-
-
-
 .. _compute-dt-grid-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Calculate a current timestep for each grid cell in a grid cell group,
 based on the properties of particles currently in the cell and the
@@ -143,23 +75,15 @@ timestep for a variable timestep simulation.  See this
 :ref:`section<howto-custom-perparticl-pergrid,-persurf>` of the manual for more
 information on variable timestep simulations.
 
-
-
 Only grid cells in the grid group specified by *group-ID* are included
 in the calculations.  See the :ref:`group grid<group>` command for info
 on how grid cells can be assigned to grid groups.
-
-
 
 The *tfraction* and *cfraction* arguments are both values from 0.0 to
 which are applied to the transit term and collision term in the
 example formula for a candidate cell timestep below.
 
-
-
 .. math:: \Delta t_{\mathrm{cell}} = \min{\left( \mathrm{cfraction} \times \mathrm{mean\_collision\_time}, \mathrm{tfraction}\times \Delta x /\mathrm{max\_most\_probable\_speed} \right)}
-
-
 
 In practice, multiple transit-based timestep candidates are
 constructed based on the cell dimensions in each coordinate direction
@@ -172,8 +96,6 @@ Bird recomnmends setting the collision fraction to 0.2, which is
 likely a good starting point for the selection of both of these
 fractions.
 
-
-
 The remaining 5 arguments specify either computes which calculate various per
 grid cell quantities or fixes which time average those
 per grid cell quantities.  The 5 quantities are per grid cell mean
@@ -182,25 +104,16 @@ velocity squared for particles in the grid cell.  The :ref:`compute lambda<compu
 The :ref:`compute thermal/grid<compute-thermal-grid>` command can also
 compute a per grid cell temperature.
 
-
-
 This is done by specifying the lambda, temperature, usq, vsq, wsq
 arguments like this:
-
-
 
 c_ID = compute with ID that calculates a per grid cell quantity as a vector output
 c_ID\[m\] = compute with ID that calculates a quantity as its Mth column of array output
 f_ID\[m\] = fix with ID that calculates a time-averaged quantity as a vector output
 f_ID\[m\] = fix with ID that calculates a time-averaged quantity as its Mth column of array output
 
-
-
-
 See the Example section above for an example of how these arguments
 can be specified.
-
-
 
 .. important::
 
@@ -209,24 +122,13 @@ can be specified.
   *Nfreq* argument.  Thus this compute can only be invoked on those
   timesteps.
 
-
-
-
-
 .. _compute-dt-grid-output-info:
-
-
 
 ************
 Output info:
 ************
 
-
-
-
 This compute calculates a per-grid vector.
-
-
 
 .. note::
 
@@ -242,15 +144,9 @@ This compute calculates a per-grid vector.
   zero (including the maximum most probable speed, the velocity magnitude, and
   the mean free path).
 
-
 The vector can be accessed by any command that uses per-grid values
 from a compute as input.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>`
 for an overview of SPARTA output options.
-
-
-
-
-
 
 Styles with a *kk* suffix are functionally the same as the
 corresponding style without the suffix.  They have been optimized to
@@ -260,38 +156,22 @@ The accelerated styles take the same arguments and should produce the
 same results, except for different random number, round-off and
 precision issues.
 
-
-
 These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
-
-
 
 You can specify the accelerated styles explicitly in your input script
 by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
-
-
 See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
-
-
-
-
-
 .. _compute-dt-grid-restrictio:
-
-
 
 *************
 Restrictions:
 *************
-
-
-
 
 As explained above, to use this compute with *nrho* or *temp* defined
 as input from a :ref:`fix ave/grid<fix-ave-grid>` command, this compute
@@ -299,47 +179,24 @@ must only be invoked on timesteps that are multiples of the *Nfreq*
 argument used by the fix, since those are the steps when it produces
 output.
 
-
-
 .. _compute-dt-grid-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`fix dt/reset<fix-dt-reset>`, :ref:`compute grid<compute-grid>`,
 :ref:`compute thermal/grid<compute-thermal-grid>`, :ref:`fix ave/grid<fix-ave-grid>`
 
-
-
 .. _compute-dt-grid-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 none
-
-
-
-
-
 
 .. _Bird2013:
 
-
-
 **(Bird2013)** G. A. Bird, The DSMC method, CreateSpace Independent Publishing Platform, 2013.
-
-
 

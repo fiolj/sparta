@@ -1,61 +1,31 @@
 
 :orphan:
 
-
-
 .. index:: collide_modify
-
-
 
 .. _collide-modify:
 
-
-
-
 .. _collide-modify-command:
-
-
 
 ######################
 collide_modify command
 ######################
 
-
-
-
 .. _collide-modify-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    collide_modify keyword values ...
 
-
-
-
 - one or more keyword/value pairs may be listed 
-
-
 
 - keywords = *vremax* or *remain* or *ambipolar* or *nearcp* or *rotate* or *vibrate*
 
-
-
-
 ::
-
-
 
    *vremax* values = Nevery startflag
    Nevery = zero vremax every this many timesteps
@@ -68,57 +38,30 @@ Syntax:
    *rotate* value = *no* or *smooth*
    *vibrate* value = *no* or *smooth* or *discrete*
 
-
-
-
-
-
-
-
 .. _collide-modify-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    collide_modify vremax 1000 yes
    collide_modify vremax 0 no remain no
    collide_modify ambipolar yes
 
-
-
-
 .. _collide-modify-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Set parameters that affect how collisions are performed.
-
-
 
 The *vremax* keyword affects how often the Vremax parameter, for
 collision frequency is re-zeroed during the simulation.  This
 parameter is stored for each grid cell and each pair of collision
 groups (groups are described by the :ref:`collide<collide>` command).
-
-
 
 The value of Vremax affects how many events are attempted in each grid
 cell for a pair of groups, and thus the overall time spent performing
@@ -129,22 +72,16 @@ timestep, though this does not affect the number of collisions
 actually performed.  Thus if Vremax grows large, collisions become
 less efficient, though still accurate.
 
-
-
 For non-equilibrium flows, it is typically desirable to reset Vremax
 to zero fairly frequently (e.g. every 1000 steps) so that it does not
 become large, due to anomolously fast moving particles.  In contrast,
 when a system is at equilibrium, it is typically desirable to not
 reset Vremax to zero since it will also stay roughly constant.
 
-
-
 If *Nevery* is specified as 0, Vremax is not zeroed during a run.
 Otherwise Vremax is zeroed on timesteps that are a multiple of
 *Nevery*.  Additionally, if *startflag* is set to *yes*, Vremax is
 zeroed at the start of every run.  If it is set to *no*, it is not.
-
-
 
 The *remain* keyword affects how the number of attempted collisions
 for each grid cell is calculated each timestep.  If the value is set
@@ -157,21 +94,16 @@ to the computed collision count for that step.  If the value is set to
 attempts are made and an 8th attempt is made conditionally with a
 probability of 0.3, using a random number.
 
-
-
 The *nearcp* keyword stands for "near collision partner" and affects
 how collision partners are selected.  If *no* is specified, which is
 the default, then collision partner pairs are selected randomly from
 all particles in the grid cell.  In this case the *Nlimit* parameter
 is ignored, though it must still be specfied.
 
-
-
 .. note::
 
   that choosing *Nlimit* judiciously will avoid costly searches
   when there are large numbers of particles in some or all grid cells.
-
 
 If the *ambipolar* keyword is set to *yes*, then collisions within a
 grid cell with use the ambipolar approximation.  This requires use of
@@ -188,15 +120,11 @@ is still a one-to-one correspondence between ambipolar ions and
 electron, and each pair is recombined into a single ambipolar
 particle.
 
-
-
 The *rotate* keyword determines how rotational energy is treated in
 particle collisions and stored by particles.  If the value is set to
 *no*, then rotational energy is not tracked; every particle's
 rotational energy is 0.0.  If the value is set to *smooth*, a
 particle's rotational energy is a single continuous value.
-
-
 
 The *vibrate* keyword determines how vibrational energy is treated in
 particle collisions and stored by particles.  If the value is set to
@@ -208,8 +136,6 @@ to discrete values, namely multiples of kT where k = the Boltzmann
 constant and T is one or more characteristic vibrational temperatures
 set for the particle species.
 
-
-
 .. note::
 
   that in the *discrete* case, if any species are defined that have
@@ -218,75 +144,41 @@ set for the particle species.
   used with its optional *vibfile* keyword to set the vibrational info
   (temperature, relaxation number, degeneracy) for those species.
 
-
 Also note that if any such species are defined (with more than one
 vibrational mode, then use of the *discrete* option also requires the
 :ref:`fix vibmode<fix-vibmode>` command be used to allocate storage for
 the per-particle mode values.
 
-
-
-
-
-
 .. _collide-modify-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _collide-modify-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`collide<collide>`
 
-
-
 .. _collide-modify-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The option defaults are vremax = (0,yes), remain = yes, ambipolar no,
 nearcp no, rotate smooth, and vibrate = no.
 
-
-
-
-
-
 .. _Gallis11:
-
-
 
 **(Gallis11)** M. A. Gallis, J. R. Torczynski, "Effect of
 Collision-Partner Selection Schemes on the Accuracy and Efficiency of
 the Direct Simulation Monte Carlo Method," International Journal for
 Numerical Methods in Fluids, 67(8):1057-1072. DOI:10.1002/fld.2409
 (2011).
-
-
 

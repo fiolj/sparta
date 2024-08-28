@@ -1,61 +1,31 @@
 
 :orphan:
 
-
-
 .. index:: global
-
-
 
 .. _global:
 
-
-
-
 .. _global-command:
-
-
 
 ##############
 global command
 ##############
 
-
-
-
 .. _global-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    global keyword values ...
 
-
-
-
 - one or more keyword/value pairs 
-
-
 
 - keyword = *fnum* or *nrho* or *vstream* or *temp* or *field* or *surfs* or *surfgrid* or *surfmax* or *splitmax* or *surftally* or *gridcut* or *comm/sort* or *comm/style* or *weight* or *particle/reorder* or *mem/limit*
 
-
-
-
 ::
-
-
 
    *fnum* value = ratio
    ratio = Fnum ratio of physical particles to simulation particles
@@ -112,28 +82,13 @@ Syntax:
    *optmove* value = yes or no
    yes/no = use optimized particle move if yes, else use regular move
 
-
-
-
-
-
-
-
 .. _global-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    global fnum 1.0e20
    global vstream 100.0 0 0 fnum 5.0e18
@@ -142,54 +97,34 @@ Examples:
    global mem/limit 100 
    global field constant 9.8 0 0 1
 
-
-
-
 .. _global-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Define global properties of the system.
-
-
 
 The *fnum* keyword sets the ratio of real, physical molecules to
 simulation particles.  E.g. a value of 1.0e20 means that one particle
 in the simulation represents 1.0e20 molecules of the particle species.
-
-
 
 The *nrho* keyword sets the number density of the background gas.  For
 3d simulations the units are #/volume.  For 2d, the units are
 effectively #/area since the z dimension is treated as having a length
 of 1.0.
 
-
-
 Assuming your simulation is populated by particles from the background
 gas, the *fnum* and *nrho* settings can determine how many particles
 will be present in your simulation, when using the
 :ref:`create_particles<create-particles>` or :ref:`fix emit<fix-emit-face>` command variants.
 
-
-
 The *vstream* keyword sets the streaming velocity of the background
 gas.
-
-
 
 The *temp* keyword sets the thermal temperature of the background gas.
 This is a Gaussian velocity distribution superposed on top of the
 streaming velocity.
-
-
 
 .. note::
 
@@ -197,16 +132,12 @@ streaming velocity.
   these can be set by the global command.  If the *field* keyword is
   specified multiple times, only the last one has an effect.
 
-
 The *none* setting turns off any external field setting previously
 specified.  It is the default.
-
-
 
 .. note::
 
   that a z-component cannot be used for 2d simulations.
-
 
 The *particle* setting is for a field that is computed on a per
 particle basis, depending on the position or other attributes of each
@@ -217,13 +148,9 @@ the components of the field vector for each particle.  These may alter
 both the position and velocity of each particle when it is advected
 each timestep.
 
-
-
 See the doc page for the :ref:`fix field/particle<fix-field-particle>`
 command for the only current fix in SPARTA which is compatible with
 the *particle* setting.
-
-
 
 The *grid* setting is for a field that is computed on a per grid cell
 basis and applied to all the particles in the grid cell.  A spatially-
@@ -239,13 +166,9 @@ computed once at the beginning of each simulation run.  For a field
 with time-dependence you can choose how often to recompute the field,
 depending on how fast it varies.
 
-
-
 See the doc page for the :ref:`fix field/grid<fix-field-grid>` command
 for the only current fix in SPARTA which is compatible with the
 *grid* setting.
-
-
 
 .. note::
 
@@ -261,16 +184,11 @@ for the only current fix in SPARTA which is compatible with the
   *particle* option.  This is because the field applied to each particle
   is the value it has at the center of the particle's grid cell.
 
-
-
-
-
 .. note::
 
   that a surface element requires about 100 bytes of
   storage, so storing a million on a single processor requires about 100
   MBytes.
-
 
 The *surfgrid* keyword determines what algorithm is used to enumerate
 the overlaps (intersections) between grid cells and surface elements
@@ -287,15 +205,11 @@ processor.  The bounding box around each surface is used to find all
 grid cells it possibly overlaps.  For large numbers of surface
 elements or processors, the *persurf* algorithm is generally faster.
 
-
-
 The *surfmax* keyword determines the maximum number of surface
 elements (lines in 2d, triangles in 3d) that can overlap a single grid
 cell.  The default is 100, which should be large enough for any
 simulation, unless you define very coarse grid cells relative to the
 size of surface elements they contain.
-
-
 
 The *splitmax* keyword determines the maximum number of sub-cells a
 single grid cell can be split into as a result of its intersection
@@ -303,8 +217,6 @@ with multiple surface elements (lines in 2d, triangles in 3d).  The
 default is 10, which should be large enough for any simulation, unless
 you embed a complex-shaped surface object into one or a very few grid
 cells.
-
-
 
 The *surftally* keyword determines what algorithm is used to combine
 tallies of surface collisions across processors that own portions of
@@ -324,11 +236,6 @@ rendezvous style of communication is performed where every processor
 sends its tally contributions directly to the processor which owns the
 element as one of its N/P elements.
 
-
-
-
-
-
 The *gridcut* keyword determines the cutoff distance at which ghost
 grid cells will be stored by each processor.  Assuming the processor
 owns a compact clump of grid cells (see below), it will also store
@@ -343,8 +250,6 @@ cutoff the size of 2-3 grid cell diameters is a good compromise that
 requires only modest memory to store ghost cells and allows all
 particle moves to complete in only one pass of communication.
 
-
-
 An example of the *gridcut* cutoff applied to a clumped assignment is
 shown in this zoom-in of a 2d hierarchical grid with 5 levels, refined
 around a tilted ellipsoidal surface object (outlined in pink).  One
@@ -353,11 +258,7 @@ around the orange cells, extended by a short cutoff distance, is drawn
 as a purple rectangle.  The rectangle contains only a few ghost grid
 cells owned by other processors.
 
-
-
 .. image:: JPG/partition_zoom_cutoff.jpg
-
-
 
 .. important::
 
@@ -373,7 +274,6 @@ cells owned by other processors.
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.
 
-
 .. important::
 
   If grid cells have already been defined via the
@@ -386,7 +286,6 @@ cells owned by other processors.
   surfaces are read in or a simulation is performed, an error will
   result.
 
-
 The *comm/sort* keyword determines whether the messages a proc
 receives for migrating particles (every step) and ghost grid cells (at
 setup and after re-balance) are sorted by processor ID.  Doing this
@@ -395,8 +294,6 @@ parallel, because simulations should be reproducible when run on the
 same number of processors.  Without sorting, messages may arrive in a
 randomized order, which means lists of particles and grid cells end up
 in a different order leading to statistical differences between runs.
-
-
 
 The *comm/style* keyword determines the style of particle
 communication that is performed to migrate particles every step.  The
@@ -411,8 +308,6 @@ faster.  However, if the flow is streaming in one dominant direction,
 there may be no particle migration needed to upwind processors, so the
 *all* method can generate smaller counts of neighboring processors.
 
-
-
 .. note::
 
   that the *neigh* style only has an effect (at run time) when the
@@ -420,7 +315,6 @@ there may be no particle migration needed to upwind processors, so the
   :ref:`fix balance<fix-balance>` commands.  If that is not the case,
   SPARTA performs the particle communication as if the *all* setting
   were in place.
-
 
 The *weight* keyword determines whether particle weighting is used.
 Currently the only style allowed, as specified by wstyle = *cell*, is
@@ -431,8 +325,6 @@ a simulation while preserving accurate time and spatial averages of
 flow quantities.  The cell weights also affect how many particles per
 cell are created by the :ref:`create_particles<create-particles>` and
 :ref:`fix emit<fix-emit-face>` command variants.
-
-
 
 If the mode is set to *none*, per-cell weighting is turned off if it
 was previously enabled.  For mode = *volume* or *radius* or
@@ -455,8 +347,6 @@ distance the cell midpoint is from the y=0 axis of symmetry. This mode attempts 
 per unit area, for a uniform targeted density.  See :ref:`Section 6.2<howto-axisymmetr-simulation>` for more details on axi-symmetric
 models.
 
-
-
 Second, when a particle moves from an initial cell to a final cell,
 the initial/final ratio of the two cell weights is calculated.  If the
 ratio > 1, then additional particles may be created in the final cell,
@@ -466,15 +356,12 @@ probability 0.4.  If the ratio < 1, then the incoming particle may be
 deleted.  E.g. if the ratio is 0.7, then the incoming particle is
 deleted with probability 0.3.
 
-
-
 .. note::
 
   that the first calculation of weights is performed whenever the
   *global weight* command is issued.  If particles already exist, they
   are not cloned or destroyed by the new weights.  The second
   calculation only happens when a simulation is run.
-
 
 The *particle/reorder* keyword determines how often the list of 
 particles on each processor is reordered to store particles in the same 
@@ -487,8 +374,6 @@ requires sorting the particles, which is done automatically when
 collisions are enabled. If collisions are not enabled, then sorting
 will also be performed in addition to reordering.
 
-
-
 The *mem/limit* keyword limits the amount of memory allocated for 
 several operations: load balancing, reordering of particles, and restart 
 file read/write. This should only be necessary for very large 
@@ -498,16 +383,12 @@ can trigger a memory error due to the additional memory they require.
 Setting a limit on the memory size will perform these operations more 
 incrementally so that memory errors do not occur.
 
-
-
 A load-balance operation can use as much as 3x more memory than the 
 memory used to store particles (reported by SPARTA when a simulation 
 begins). Particle reordering temporarily doubles the memory needed to 
 store particles because it is performed out-of-place by default. Reading 
 and writing restart files also requires temporary buffers to hold grid 
 cells and particles and can double the memory required.
-
-
 
 Specifying the value for *mem/limit* as *grid*, will allocate extra 
 memory limited to the size of memory for storing grid cells on each 
@@ -519,8 +400,6 @@ integer, e.g. 0.5 if you want to use 1/2 MByte of extra memory or 100
 for a 100 MByte buffer. Specifying a value of 0 (the default) means no 
 limit is used. The value used for *mem/limit* must not exceed 2GB or an
 error will occur.
-
-
 
 For load-balancing, the communication of grid and particle data to new 
 processors will then be performed in multiple passes (if necessary) so 
@@ -534,14 +413,11 @@ reading from multiple files (i.e. a "%" character was used in the
 command to write out the restart) and the number of MPI ranks is greater 
 than the number of files.
 
-
-
 .. note::
 
   that for these operations if the extra memory is too small, 
   performance will suffer due to the large number of multiple passes 
   required.
-
 
 If the *optmove* keyword is set to *yes* then an optimized move
 algorithm will be used when possible. Normally, as particles advect
@@ -558,55 +434,32 @@ will be used for that specific particle on that timestep. The *optmove
 yes* option cannot be used when surfaces are defined, the grid is not
 uniform, or when fix adapt is enabled, otherwise an error will result.
 
-
-
 .. _global-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 The global surfmax command must be used before surface elements are
 defined, e.g. via the :ref:`read_surf<read-surf>` command.
 
-
-
 .. _global-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`mixture<mixture>`
 
-
-
 .. _global-default:
-
-
 
 ********
 Default:
 ********
-
-
-
 
 The keyword defaults are fnum = 1.0, nrho = 1.0, vstream = 0.0 0.0
 0.0, temp = 273.15, field = none, surfs = explicit, surfgrid = auto,
 surfmax = 100, splitmax = 10, surftally = auto,
 gridcut = -1.0, comm/sort = no, comm/style = neigh, weight = cell
 none, particle/reorder = 0, mem/limit = 0, optmove = no.
-
-
 

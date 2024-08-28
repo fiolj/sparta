@@ -1,130 +1,65 @@
 
 :orphan:
 
-
-
 .. index:: fix_emit_face_file
-
-
 
 .. _fix-emit-face-file:
 
-
-
-
 .. _fix-emit-face-file-command:
-
-
 
 ##########################
 fix emit/face/file command
 ##########################
 
-
-
-
 .. _fix-emit-face-file-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    fix ID emit/face/file mix-ID face filename boundary-ID keyword value ...
 
-
-
-
 - ID is documented in :ref:`fix<fix>` command 
-
-
 
 - emit/face/file = style name of this fix command
 
-
-
 - mix-ID = ID of mixture to use when creating particles
-
-
 
 - face = *xlo* or *xhi* or *ylo* or *yhi* or *zlo* or *zhi*
 
-
-
 - filename = input data file with boundary values for the emission
-
-
 
 - boundary-ID = section of data file to read
 
-
-
 - zero or more keyword/value pairs may be appended
-
-
 
 - keyword = *frac* or *nevery* or *perspecies* or *region*
 
-
-
-
 ::
-
-
 
    *frac* value = fraction = 0.0 to 1.0 fraction of particles to insert
    *nevery* value = Nstep = insert every this many timesteps
    *perspecies* value = *yes* or *no*
    *region* value = region-ID
 
-
-
-
-
-
-
-
 .. _fix-emit-face-file-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    fix in emit/face/file air xlo input.data xlo
    fix in emit/face/file mymix ylo file.txt oneface frac 0.1 nevery 10
 
-
-
-
 .. _fix-emit-face-file-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Emit particles from a face of the simulation box, continuously during
 a simulation.  The particles are added using properties of the
@@ -136,8 +71,6 @@ example, to model an object inserted into a plume flow where the flow
 has spatially varying properties.  If invoked every timestep, this fix
 creates a continuous influx of particles thru the face.
 
-
-
 The properties of the added particles are determined by the mixture
 with ID *mix-ID* and the input file.  Together they set the number and
 species of added particles, as well as their streaming velocity,
@@ -145,42 +78,29 @@ thermal temperature, and internal energy modes.  Settings for a
 subsonic pressure boundary condition is also allowed.  The details are
 explained below.
 
-
-
 Only one face of the simulation box can be specified via the *face*
 argument.  The 6 possible faces are *xlo*, *xhi*, *ylo*, *yhi*, *zlo*,
 or *zhi*.  This command can be used multiple times to add particles on
 multiple faces.
-
-
 
 On each insertion timestep, each grid cell with a face touching the
 specified boundary *face* performs the following computations to add
 particles.  The particles are added at the beginning of the SPARTA
 timestep.
 
-
-
 The molecular flux across a grid cell face per unit time is given by
 equation 4.22 of :ref:`(Bird94)<Bird94>`.  The number of particles *M* to
 add on a particular grid cell face is based on this flux and
 additional global, flow, and cell face properties:
 
-
-
 global property: *fnum* ratio as specified by the "global"_global.html" command
 flow properties: number density, streaming velocity, and thermal temperature
 cell face properties: area of face and its orientation relative to the streaming velocity
-
-
-
 
 The flow properties are defined for the specified mixture via the
 :ref:`mixture<mixture>` command.  Any or all them can be overridden by
 values in the input data file, which affect individual grid cells as
 described below.
-
-
 
 If *M* has a fractional value, e.g. 12.5, then 12 particles are
 added, and a 13th depending on the value of a random number.  Each
@@ -191,8 +111,6 @@ of the collection of species in the mixture, as set by the
 spatially varying number fraction values in the input data file, as
 described below.
 
-
-
 .. note::
 
   that if the
@@ -200,22 +118,14 @@ described below.
   flow), then no rotational or vibrational energy will be assigned to
   created particles.
 
-
 If the final particle velocity is not directed "into" the grid cell,
 then the velocity sampling procedure is repeated until it is.  This
 insures that all added particles enter the simulation domain, as
 desired.
 
-
-
 The first timestep that added particles are advected, they move for a
 random fraction of the timestep.  This insures a continuous flow field
 of particles entering the simulation box.
-
-
-
-
-
 
 For 3d simulations, the input data file defines a 2d **mesh of points**
 which conceptually overlays some portion or all of the specified face
@@ -230,15 +140,12 @@ thermal temperature), as well as the number fraction of any species in
 the mixture.  Any value not defined in the input data file defaults to
 the mixture value.
 
-
-
 .. important::
 
   It is critical to understand that the input data file
   defines **mesh points** on the face of the simulation box.  It does not
   define **mesh cells**, e.g. 2d squares or rectangles, each with flow
   properties.
-
 
 For 3d simulations, 2d mesh points are defined in the file using I,J
 indices.  (The 1d mesh points for 2d simulations are described below).
@@ -252,13 +159,9 @@ the mapping is to the ylo or yhi face.  1d mesh points for a 2d
 simulation are defined in an analogous manner, e.g. for face xlo, I =
 y.
 
-
-
 For a 3d simulation, interpolation from values on the 2d mesh points
 to any grid cell face that is on the corresponding simulation box face
 is done in the following manner.  There are 3 cases to consider.
-
-
 
 (a) For a grid cell face that is entirely inside the area defined by
 the file mesh points, the centroid (center point) of the grid cell
@@ -269,12 +172,8 @@ the grid cell face.  This value is then used for the calculation
 described above for *M* = the number of particles to add on the cell
 face as well as the properties of the added particles.
 
-
-
 (b) For a grid cell face that is entirely outside the area defined by
 the file mesh points, no particles are added in that grid cell.
-
-
 
 .. note::
 
@@ -283,16 +182,10 @@ the file mesh points, no particles are added in that grid cell.
   area.  Also, particles are only added within the overlap area of the
   grid cell face.
 
-
 For a 2d simulation, the 3 cases are similar, except for (a) and (c)
 the centroid is the midpoint of a line segment, the centroid is
 surrounded by 2 mesh points, and linear interpolation (described
 below) is performed to determine the value for the grid face.
-
-
-
-
-
 
 .. note::
 
@@ -303,21 +196,11 @@ below) is performed to determine the value for the grid face.
   non-matching boundary IDs, until it finds one that matches the
   specified boundary-ID.  The lines that follow must be in this order:
 
-
-
 ::
-
-
 
    # plume ABC info           (one or more comment or blank lines)
 
-
-
-
-
 ::
-
-
 
    PLUME_ABC                  (boundary-ID is first word on line)
    NIJ 4 10                   (mesh size: Ni by Nj points)
@@ -326,30 +209,20 @@ below) is performed to determine the value for the grid face.
    IMESH 0.0 0.3 0.9 1.0      (mesh point coordinates in I direction)
    JMESH ...                  (mesh point coordinates in J direction)
    (blank)
-   1 1.0 300.0 0.5          (I, J, value1, value2, ...)
-   2 1.02 310.0 0.5           
-   ...
+   .. contents::
+   :depth: 1
+   :local:
+...
    10 3.0 400.0 0.7
-
-
-
 
 This format is for a 3d simulation.  For a 2d simulation, there are 3
 changes:
 
-
-
-
 ::
-
-
 
    "NIJ 4 10" is replaced by "NI 6"
    JMESH line is not included
    "I,J,value1,..." is replaced by "I,value1,..."
-
-
-
 
 A section begins with a non-blank line whose first character is not a
 "#".  Blank lines or lines starting with "#" can be used as comments
@@ -358,13 +231,9 @@ identifies the section.  The line can contain additional text, but the
 initial text must match the boundary-ID specified in the fix
 emit/face/file command.  Otherwise the section is skipped.
 
-
-
 The VALUES line lists Nv keywords.  The list of possible keywords is
 as follows, along with the meaning of the numeric value specified for
 the mesh point:
-
-
 
 nrho = number density
 vx,vy,vz = 3 components of streaming velocity
@@ -374,20 +243,13 @@ tvib = vibrational temperature
 press = pressure for subsonic boundary condition
 species = number fraction of any species in the mixture
 
-
-
-
 The IMESH and JMESH lines must list values that are monotonically
 increasing.
-
-
 
 Following a blank line, the next N = Ni x Nj lines (or N = Ni lines
 for a 2d simulation) list the tabulated values.  The format of each
 line is I,J followed by Nv values.  The N lines can be in any order,
 but all unique I,J (or I for 2d) indices must be listed.
-
-
 
 .. note::
 
@@ -401,7 +263,6 @@ but all unique I,J (or I for 2d) indices must be listed.
   the sum = 1.0, as explained on the :ref:`mixture<mixture>` command doc
   page.  If this cannot be done, an error will be generated.
 
-
 If the *press* keyword is used, this means a subsonic pressure
 boundary condition is used for the face, similar to how the *subsonic*
 keyword is used for the :ref:`fix emit/face<fix-emit-face>` command.
@@ -410,8 +271,6 @@ then it is similar to the "subsonic press NULL" setting for the :ref:`fix emit/f
 is similar to the "subsonic press temp" setting for the :ref:`fix emit/face<fix-emit-face>` command.  The difference with this
 command is that both the *press* and *temp* values can be vary
 spatially across the box face, like the other keyword values.
-
-
 
 The subsonic pressure boundary condition is uses the method of Fang
 and Liou :ref:`(Fang02)<Fang02>` to determine the number of particles to
@@ -422,16 +281,12 @@ achieved.  These properties are then applied to calculate the
 molecular flux across a grid cell face per unit time, as given by
 equation 4.22 of :ref:`(Bird94)<Bird94>`.
 
-
-
 As explained above the input data file can specify both the pressure
 and temperature at the boundary or just the pressure.  If specified,
 the temperature must be > 0.0.  Currently, instantaneous values for
 the density, temperature, and stream velocity of particles in the
 cells adjacent to the boundary face(s) are computed and used to
 determine the properties of inserted particles on each timestep.
-
-
 
 .. important::
 
@@ -444,7 +299,6 @@ determine the properties of inserted particles on each timestep.
   condition, and performs well in cases where the cells are adequately
   populated.
 
-
 .. important::
 
   When using a subsonic prsesure boundary condition, you
@@ -456,60 +310,33 @@ determine the properties of inserted particles on each timestep.
   correct subsonic conditions that the particle insertions due to this
   command are trying to achieve.
 
-
-
-
-
 For 3d simulations, bilinear interpolation from the 2d mesh point
 values specified in the file is performed using this equation to
 calculate the value at the centroid point (i,j) in the grid cell face:
 
-
-
-
 ::
-
-
 
    f(i,j) = 1/area \* (f(i1,j1)\*(i2-i)\*(j2-j) + f(i2,j1)\*(i-i1)\*(j2-j) +
    f(i2,j2)\*(i-i1)\*(j-j1) + f(i1,j2)\*(i2-i)\*(j-j1))
-
-
-
 
 where the 4 surrounding mesh points are (i1,j1), (i2,j1), (i2,j2), and
 (i1,j2).  The 4 f() values on the right-hand side are the values
 defined at the mesh points.  The sum is normalized by the area of the
 overlap between the grid cell face and the file mesh.
 
-
-
 For 2d simulations, linear interpolation from the 1d mesh point values
 specified in the file is performed using this equation to calculate
 the value at the centroid point (i) in the grid cell line:
 
-
-
-
 ::
-
-
 
    f(i) = 1/length \* (f(i1)\*(i2-i) + f(i2)\*(i-i1)
    = f(i1) + (i - i1)/(i2 - i1) \* (f(i2) - f(i1))
-
-
-
 
 where the 2 surrounding mesh points are (i1) and (i2).  The 2 f()
 values on the right-hand side are the values defined at the mesh
 points.  The sum is normalized by the length of the overlap between
 the grid cell line and file mesh.
-
-
-
-
-
 
 The *frac* keyword can alter how many particles are added, which
 can be useful for debugging purposes.  If *frac* is set to 1.0 (the
@@ -520,27 +347,19 @@ by frac to determine the number of particles added in each grid
 cell.  Thus a simulation with less particles can easily be run to test
 if it is setup correctly.
 
-
-
 The *nevery* keyword determines how often particles are added.  If
 *Nstep* > 1, this may give a non-continuous, clumpy distribution in
 the inlet flow field.
 
-
-
 The *perspecies* keyword determines how the species of each added
 particle is randomly determined.  This has an effect on the
 statistical properties of added particles.
-
-
 
 If *perspecies* is set to *yes*, then a target insertion number *M* in
 a grid cell is calculated for each species, which is a function of the
 relative number fraction of the species, as set by the :ref:`mixture nfrac<mixture>` command.  If *M* has a fractional value,
 e.g. 12.5, then 12 particles of that species will always be added,
 and a 13th depending on the value of a random number.
-
-
 
 If *perspecies* is set to *no*, then a single target insertion number
 *M* in a grid cell is calculated for all the species.  Each time a
@@ -549,8 +368,6 @@ the particle, based on the relative number fractions of all the
 species in the mixture.  As before, if *M* has a fractional value,
 e.g. 12.5, then 12 particles will always be added, and a 13th
 depending on the value of a random number.
-
-
 
 Here is a simple example that illustrates the difference between the
 two options.  Assume a mixture with 2 species, each with a relative
@@ -563,32 +380,19 @@ particles of each of the two species.  But on one timestep it might be
 of the first and 4 of the second.  On another timestep it might be 3
 of the first and 7 of the second.
 
-
-
 .. note::
 
   that the *side* option for the :ref:`region<region>` command can be
   used to define whether the inside or outside of the geometric region
   is considered to be "in" the region.
 
-
-
-
-
 .. _fix-emit-face-file-restart,:
-
-
 
 *********************
 Restart, output info:
 *********************
 
-
-
-
 No information about this fix is written to :ref:`binary restart files<restart>`.
-
-
 
 This fix computes a global vector of length 2 which can be accessed by
 various output commands.  The first element of the vector is the total
@@ -597,24 +401,15 @@ second element is the cummulative total number added since the
 beginning of the run.  The 2nd value is initialized to zero each time
 a run is performed.
 
-
-
 .. _fix-emit-face-file-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 Particles cannot be added on periodic faces of the simulation box.
 Particles cannot be added on *z* faces of the simluation box for a 2d
 simulation.
-
-
 
 Unlike the :ref:`fix emit/face<fix-emit-face>` command, no warning is
 issued if the specified emission face has an inward normal in a
@@ -622,56 +417,31 @@ direction opposing the streaming velocity, as defined by the mixture.
 This is because the streaming velocity as defined by the specified
 mixture may be overridden by values in the file.
 
-
-
 For that grid cell, particles will still be emitted from that face, so
 long as a small fraction have a thermal velocity large enough to
 overcome the outward streaming velocity, so that their net velocity is
 inward.  The threshold for this is the thermal velocity for particles
 3\*sigma from the mean thermal velocity.
 
-
-
 .. _fix-emit-face-file-related:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`mixture<mixture>`, :ref:`create_particles<create-particles>`, :ref:`fix emit/face<fix-emit-face>`
 
-
-
 .. _fix-emit-face-file-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The keyword defaults are frac = 1.0, nevery = 1, perspecies = yes,
 region = none.
 
-
-
-
-
-
 .. _Bird94:
-
-
 
 **(Bird94)** G. A. Bird, Molecular Gas Dynamics and the Direct
 Simulation of Gas Flows, Clarendon Press, Oxford (1994).
-
-
 

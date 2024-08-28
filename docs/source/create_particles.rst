@@ -1,72 +1,37 @@
 
 :orphan:
 
-
-
 .. index:: create_particles
-
-
 
 .. _create-particles:
 
-
-
-
 .. _create-particles-command:
-
-
 
 ########################
 create_particles command
 ########################
 
-
-
-
 .. _create-particles-kk-command:
-
-
 
 ###########################
 create_particles/kk command
 ###########################
 
-
-
-
 .. _create-particles-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    create_particles mix-ID style args keyword value ...
 
-
-
-
 - mix-ID = ID of mixture to use when creating particles 
-
-
 
 - style = *n* or *single*
 
-
-
-
 ::
-
-
 
    *n* args = Np
    Np = 0 or number of particles to create
@@ -75,21 +40,11 @@ Syntax:
    x,y,z = position of particle (distance units)
    vx,vy,vz = velocity of particle (velocity units)
 
-
-
-
 - zero or more keyword/value pairs may be appended
-
-
 
 - keyword = *cut* or *global* or *region* or *species* or *density* or *temperature* or *velocity* or *twopass*
 
-
-
-
 ::
-
-
 
    *cut* value = *yes* or *no*
    *global* value = *yes* or *no*
@@ -108,28 +63,13 @@ Syntax:
    xvar,yvar,zvar = names of internal-style variables for x,y,z
    *twopass* values = none
 
-
-
-
-
-
-
-
 .. _create-particles-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    create_particles background n 0
    create_particles air n 100000 region sphere
@@ -140,26 +80,17 @@ Examples:
    create_particles air n 0 temperature myTemp xgrid ygrid zgrid
    create_particles air n 0 velocity myVx NULL myVz xpos ypos NULL twopass
 
-
-
-
 .. _create-particles-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 .. note::
 
   that
   this command can be used multiple times to add more and more
   particles.
-
 
 .. important::
 
@@ -175,13 +106,10 @@ Description:
   and (optionally) :ref:`collide_modify<collide-modify>` commands must be
   used before this command.
 
-
 If the *n* style is used with *Np* = 0, then the number of created
 particles is calculated by SPARTA as a function of the global *fnum*
 value, the mixture number density, and the flow volume of the
 simulation domain.
-
-
 
 .. note::
 
@@ -192,12 +120,9 @@ simulation domain.
   at a (slightly) higher density to compensate for no particles being
   created in cut cells that still contribute to the overall flow volume.
 
-
 If the *n* style is used with a non-zero *Np*, then exactly *Np*
 particles are created, which can be useful for debugging or
 benchmarking purposes.
-
-
 
 Based on the value of *Np*, each grid cell will have a target number
 of particles *M* to insert, which is a function of the cell's flow
@@ -207,13 +132,10 @@ fractional value, e.g. 12.5, then 12 particles will be inserted, and a
 cells are looped over, the remainder fraction is accumulated, so that
 exactly *Np* particles are created across all the processors.
 
-
-
 .. important::
 
   The preceeding calculation is actually done using
   *weighted* cell volumes.  Grid cells can be weighted using the :ref:`global   weight<global>` command.
-
 
 Each particle is inserted at a random location within the grid cell.
 The particle species is chosen randomly in accord with the *frac*
@@ -226,22 +148,13 @@ the streaming velocity and thermal temperature are also set by the
 vibrational energies of the particle are also set based on the *trot*
 and *tvib* settings for the mixture, as explained above.
 
-
-
 The *single* style creates a single particle.  This can be useful for
 debugging purposes, e.g. to advect a single particle towards a
 surface.  A single particle of the specified species is inserted at
 the specified position and with the specified velocity.  In this case
 the *mix-ID* is ignored.
 
-
-
-
-
-
 This is the meaning of the other allowed keywords.
-
-
 
 The *cut* keyword controls how grid cells cut by surfaces are treated.
 If *yes* is specified (the default) then particles are added to the
@@ -249,12 +162,8 @@ flow portion of those cells (outside the surfaces).  If *no* is
 specified, then particles are only created in grid cells which are
 entirely external to surfaces, not in grid cells cut by surfaces.
 
-
-
 The *global* keyword only applies when the *n* style is used, and
 controls how particles are generated in parallel.
-
-
 
 If the value is *yes*, then every processor loops over all *Np*
 particles.  As the coordinates of each is generated, each processor
@@ -262,12 +171,9 @@ checks what grid cell it is in, and only stores the particle if it
 owns that grid cell.  Thus an identical set of particles are created,
 no matter how many processors are running the simulation
 
-
-
 .. important::
 
   The *global* yes option is not yet implemented.
-
 
 If the value is *no*, then each of the *P* processors generates a
 *N/P* subset of particles, using its own random number generation.  It
@@ -278,14 +184,11 @@ number of processors and the mapping of grid cells to procesors.  The
 overall set of created particles should have the same statistical
 properties as with the *yes* setting.
 
-
-
 .. note::
 
   that the *side* option for the :ref:`region<region>`
   command can be used to define whether the inside or outside of the
   geometric region is considered to be "in" the region.
-
 
 .. important::
 
@@ -296,7 +199,6 @@ properties as with the *yes* setting.
   attempt to add are included in the count for N, even if some or all of
   the particle insertions are rejected due to not being inside the
   region.
-
 
 The *species* keyword can be used to create particles with a
 spatially-dependent separation of species.  The specified *svar* is
@@ -314,16 +216,12 @@ values directly.  Their names are specified as *xvar*, *yvar*, and
 *zvar*.  If any of them is not used in the *svar* formula, it can be
 specified as NULL.
 
-
-
 When a particle is added, its coordinates are stored in the *xvar*,
 *yvar*, *zvar* variables if they are specified.  The *svar* variable
 is then evaluated.  The returned value is used to set the species of
 that particle, based on the list of species defined for the mixture.
 If the returned value is <= 0 or greater than Nsp = the number of
 species in the mixture, then no particle is created.
-
-
 
 .. note::
 
@@ -332,11 +230,7 @@ species in the mixture, then no particle is created.
   values <= 0 or greater than Nsp = the number of species in the
   mixture.
 
-
-
 ::
-
-
 
    variable x internal 0
    variable y internal 0
@@ -344,13 +238,8 @@ species in the mixture, then no particle is created.
    variable s equal "(v_y < 0.5\*(ylo+yhi) + 0.15\*yhi\*sin(2\*PI\*v_n\*v_x/xhi)) + 1"
    create_particles species n 10000 species s x y NULL
 
-
-
-
 .. image:: JPG/species_variation_small.jpg
            :target: JPG/species_variation.jpg
-
-
 
 The *density* keyword can be used to create particles with a
 spatially-dependent density variation.  The specified *dvar* is the
@@ -363,8 +252,6 @@ the input script; their initial numeric values can by anything.  Their
 names are specified as *xvar*, *yvar*, and *zvar*.  If any of them is
 not used in the *dvar* formula, it can be specified as NULL.
 
-
-
 When particles are added to a grid cell, its center point coordinates
 are stored in *xvar*, *yvar*, *zvar* if they are defined.  The *dvar*
 variable is then evaluated.  The returned value is used as a scale
@@ -374,32 +261,21 @@ would otherwise be the case, due to the global *fnum* and mixture
 *nrho* settings that define the density, as explained above.  A value
 of 1.2 would create 20% more particles in that grid cell.
 
-
-
 .. note::
 
   that less than requested N particles will be created in
   this case because all the scale factors generated by the variable *d*
   are less than 1.0.
 
-
-
 ::
-
-
 
    variable x internal 0
    variable y internal 0
    variable d equal "v_x/xhi \* v_y/yhi"
    create_particles air n 10000 density d x y NULL
 
-
-
-
 .. image:: JPG/density_variation_small.jpg
            :target: JPG/density_variation.jpg
-
-
 
 The *temperature* keyword can be used to create particles with a
 spatially-dependent thermal temperature variation.  The specified
@@ -412,8 +288,6 @@ numeric values can by anything.  Their names are specified as *xvar*,
 *yvar*, and *zvar*.  If any of them is not used in the *tvar* formula,
 it can be specified as NULL.
 
-
-
 When particles are added to a grid cell, its center point coordinates
 are stored in *xvar*, *yvar*, *zvar* if they are defined.  The *tvar*
 variable is then evaluated.  The returned value is used as a scale
@@ -424,26 +298,16 @@ mixture *temp* setting which defines the thermal temperature, as
 explained above.  A value of 1.2 would create particles with a 20%
 higher thermal temperature.
 
-
-
 As an example, these commands can be used in a 2d simulation, to
 create a thermal temperature gradient in x, where the temperature on
 the left side of the box is the default value, and the temperature on
 the right side is 3x larger.
 
-
-
-
 ::
-
-
 
    variable x internal 0
    variable t equal "1.0 + 2.0\*(v_x-xlo)/(xhi-xlo)"
    create_particles air n 10000 temperature t x NULL NULL
-
-
-
 
 The *velocity* keyword can be used to create particles with a
 spatially-dependent streaming velocity.  The specified *vxvar*,
@@ -452,8 +316,6 @@ corresponding component of the streaming velocity.  If any of them are
 specified as NULL, then that streaming velocity component is set by
 the corresponding global or mixture streaming velocity component, the
 same as if the *velocity* keyword were not used.
-
-
 
 The formulas for the *vxvar*, *vyvar*, *vzvar* variables can use one
 or two or three variables which will store the x, y, or z coordinates
@@ -464,16 +326,12 @@ are specified as *xvar*, *yvar*, and *zvar*.  If any of them is not
 used in the *vxvar*, *vyvar*, *vzvar* formulas, it can be specified as
 NULL.
 
-
-
 When a particle is added, its coordinates are stored in *xvar*,
 *yvar*, *zvar* if they are defined.  The *vxvar*, *vyvar*, *vzvar*
 variables are then evaluated.  The returned values are used to set the
 streaming velocity of that particle.  A thermal velocity is also added
 to the particle, using the the global or mixture temperature, as
 described above.
-
-
 
 As an example, these commands can be used in a 2d simulation, to give
 particles an initial velocity pointing towards the upper right corner
@@ -482,12 +340,7 @@ the same time (assuming their thermal velocity is small and it is not
 a collisional flow).  Click on the image to play an animation of the
 effect.
 
-
-
-
 ::
-
-
 
    variable x internal 0
    variable y internal 0
@@ -495,13 +348,8 @@ effect.
    variable vy equal (yhi-v_y)/(1000\*7.0e-9)
    create_particles air n 10000 velocity vx vy NULL x y NULL
 
-
-
-
 .. image:: JPG/velocity_variation_small.jpg
            :target: JPG/velocity_variation.gif
-
-
 
 The *twopass* keyword does not require a value.  If used, the
 creation procedure will loop over the creation grid cells twice, the
@@ -513,15 +361,8 @@ used, the non-KOKKOS and KOKKOS runs will use random numbers
 differently and thus generate different particles, though they will be
 statistically similar.
 
-
-
-
-
-
 This command (or more generically styles) can take a suffix as shown
 at the top of this page.
-
-
 
 Styles with a *kk* suffix are functionally the same as the
 corresponding style without the suffix.  They have been optimized to
@@ -531,70 +372,38 @@ The accelerated styles take the same arguments and should produce the
 same results, except for different random number, round-off and
 precision issues.
 
-
-
 These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
-
-
 
 You can specify the accelerated styles explicitly in your input script
 by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
-
-
 See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
-
-
-
-
-
 .. _create-particles-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _create-particles-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`mixture<mixture>`, :ref:`fix emit/face<fix-emit-face>`
 
-
-
 .. _create-particles-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The option defaults are cut = yes and global = no.
-
-
 

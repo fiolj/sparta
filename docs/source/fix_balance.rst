@@ -1,149 +1,75 @@
 
 :orphan:
 
-
-
 .. index:: fix_balance
-
-
 
 .. _fix-balance:
 
-
-
-
 .. _fix-balance-command:
-
-
 
 ###################
 fix balance command
 ###################
 
-
-
-
 .. _fix-balance-kk-command:
-
-
 
 ######################
 fix balance/kk command
 ######################
 
-
-
-
 .. _fix-balance-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    fix ID balance Nfreq thresh bstyle args
 
-
-
-
 - ID is documented in :ref:`fix<fix>` command 
-
-
 
 - balance = style name of this fix command
 
-
-
 - Nfreq = perform dynamic load balancing every this many steps
-
-
 
 - thresh = rebalance if imbalance factor is above this threshhold
 
-
-
 - bstyle = *random* or *proc* or *rcb*
 
-
-
-
 ::
-
-
 
    *random* args = none 
    *proc* args = none 
    *rcb* args = weight
    weight = *cell* or *part* or *time*
 
-
-
-
 - zero or more keyword/value(s) pairs may be appended
-
-
 
 - keyword = *axes* or *flip*
 
-
-
-
 ::
-
-
 
    *axes* value = dims
    dims = string with any of "x", "y", or "z" characters in it
    *flip* value = yes or no
 
-
-
-
-
-
-
-
 .. _fix-balance-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    fix 1 balance 1000 1.1 rcb cell
    fix 2 balance 10000 1.0 random
 
-
-
-
 .. _fix-balance-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 This command dynamically adjusts the assignment of grid cells and
 their particles to processors as a simulation runs, to attempt to
@@ -153,12 +79,8 @@ periodically during the simulation. To perform "static" balancing,
 before or between runs, see the :ref:`balance_grid<balance-grid>`
 command.
 
-
-
 This command is useful to use during simulations where the spatial
 distribution of particles varies with time, leading to load imbalance.
-
-
 
 After grid cells have been assigned, they are migrated to new owning
 processors, along with any particles they own or other per-cell
@@ -166,30 +88,20 @@ attributes stored by fixes.  The internal data structures within
 SPARTA for grid cells and particles are re-initialized with the new
 decomposition.
 
-
-
 The details of how child cells are assigned to processors by the
 various options of this command are described below.  The cells
 assigned to each processor will either be "clumped" or "dispersed".
-
-
 
 The *rcb* keyword will produce clumped assignments of child cells to
 each processor.  This means each processor's cells will be
 geometrically compact.  The *random* and *proc* keywords will produce
 dispersed assignments of child cells to each processor.
 
-
-
 .. important::
 
   See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.
-
-
-
-
 
 Rebalancing is attempted by this command once every *Nfreq* timesteps,
 but only if the current imbalance factor exceeds the specified
@@ -199,8 +111,6 @@ processor.  Thus an imbalance factor of 1.0 is perfect balance.  For
 particles running on 10 processors, if the most heavily loaded
 processor has 1200 particles, then the factor is 1.2, meaning there is
 a 20% imbalance.  The *thresh* setting must be >= 1.0.
-
-
 
 .. important::
 
@@ -214,15 +124,9 @@ a 20% imbalance.  The *thresh* setting must be >= 1.0.
   run times of your simulation to judge how often balancing should be
   performed, and how aggressively to set the *thresh* value.
 
-
-
-
-
 The *random* keyword means that each grid cell will be assigned
 randomly to one of the processors.  In this case every processor will
 typically not be assigned exactly the same number of grid cells.
-
-
 
 The *proc* keyword means that each processor will choose a random
 processor to assign its first grid cell to.  It will then loop over
@@ -231,27 +135,19 @@ around the collection of processors if necessary.  In this case every
 processor will typically not be assigned exactly the same number of
 grid cells.
 
-
-
 The *rcb* keyword uses a recurvise coordinate bisectioning (RCB)
 algorithm to assign spatially-compact clumps of grid cells to
 processors.  Each grid cell has a "weight" in this algorithm so that
 each processor is assigned an equal total weight of grid cells, as
 nearly as possible.
 
-
-
 If the *weight* argument is specified as *cell*, then the weight for
 each grid cell is 1.0, so that each processor will end up with an
 equal number of grid cells.
 
-
-
 If the *weight* argument is specified as *part*, than the weight for
 each grid cell is the number of particles it currently owns, so that
 each processor will end up with an equal number of particles.
-
-
 
 If the *weight* argument is specified as *time*, then timers are used
 to estimate the cost of each grid cell.  The cost from the timers is
@@ -265,14 +161,11 @@ of timesteps *Nfreq* between balancing steps also needs to be large
 enough to give reliable timings. The timers used for balancing tally
 time from the move, sort, collide, and modify portions of each timestep.
 
-
-
 .. important::
 
   The :ref:`adapt_grid<adapt-grid>` command zeros out
   timing data, so the weight *time* option is not available immediatly
   after this command.
-
 
 .. important::
 
@@ -280,7 +173,6 @@ time from the move, sort, collide, and modify portions of each timestep.
   shift cells to different processors, which makes the accumulated
   timing data for the weight *time* option less accurate when load
   balancing is performed immediately after this command.
-
 
 .. note::
 
@@ -291,19 +183,11 @@ time from the move, sort, collide, and modify portions of each timestep.
   compactly bounded by a rectangle.  Click for a larger version of the
   image.
 
-
 .. image:: JPG/partition_small.jpg
            :target: JPG/partition.jpg
 
-
-
-
-
-
 The optional keywords *axes* and *flip* only apply to the *rcb*
 style.  Otherwise they are ignored.
-
-
 
 The *axes* keyword allows limiting the partitioning created by the RCB
 algorithm to a subset of dimensions.  The default is to allow cuts in
@@ -313,8 +197,6 @@ string with 1, 2, or 3 characters.  The characters must be one of "x",
 example, in 3d, a dims = xz would only partition the 3d grid only in
 the x and z dimensions.
 
-
-
 The *flip* keyword is useful for debugging.  If it is set to *yes*
 then each time an RCB partitioning is done, the coordinates of grid
 cells will (internally only) undergo a sign flip to insure that the
@@ -323,25 +205,13 @@ owner, at least when more than a few processors are used.  This will
 insure all particle and grid data moves to new processors, fully
 exercising the rebalancing code.
 
-
-
-
-
-
 .. _fix-balance-restart,-output-info:
-
-
 
 *********************
 Restart, output info:
 *********************
 
-
-
-
 No information about this fix is written to :ref:`binary restart files<restart>`.
-
-
 
 This fix computes a global scalar which is the imbalance factor after
 the most recent rebalance.  It also computes a global vector of length
@@ -349,25 +219,15 @@ with additional information about the most recent rebalancing and
 the cummulative count of rebalancings.  The 3 values in the vector are
 as follows:
 
-
-
-= max particle count on any processor after last rebalance
-= imbalance factor before the last rebalance was performed
-= cummulative count of rebalances since the fix was specified
-
-
-
+.. contents::
+   :depth: 1
+   :local:
 
 As explained above, the imbalance factor is the ratio of the maximum
 number of particles on any processor to the average number of
 particles per processor. For the *rcb* style's *time* option, the
 imbalance factor after the most recent rebalance cannot be computed
 and 0.0 is returned for the global scalar value.
-
-
-
-
-
 
 Styles with a *kk* suffix are functionally the same as the
 corresponding style without the suffix.  They have been optimized to
@@ -377,70 +237,38 @@ The accelerated styles take the same arguments and should produce the
 same results, except for different random number, round-off and
 precision issues.
 
-
-
 These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
-
-
 
 You can specify the accelerated styles explicitly in your input script
 by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
-
-
 See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
-
-
-
-
-
 .. _fix-balance-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _fix-balance-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`create_grid<create-grid>`, :ref:`balance_grid<balance-grid>`
 
-
-
 .. _fix-balance-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 none
-
-
 

@@ -1,73 +1,37 @@
 
 :orphan:
 
-
-
 .. index:: compute_reduce
-
-
 
 .. _compute-reduce:
 
-
-
-
 .. _compute-reduce-command:
-
-
 
 ######################
 compute reduce command
 ######################
 
-
-
-
 .. _compute-reduce-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    compute ID reduce mode input1 input2 ... keyword args ...
 
-
-
-
 - ID is documented in :ref:`compute<compute>` command 
-
-
 
 - reduce = style name of this compute command
 
-
-
 - mode = *sum* or *min* or *max* or *ave* or *sumsq* or *avesq* or *sum-area* or *ave-area*
-
-
 
 - one or more inputs can be listed
 
-
-
 - input = x, y, z, vx, vy, vz, ke, erot, evib, c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name, p_name, p_name\[N\], g_name, g_name\[N\], s_name, s_name\[N\]
 
-
-
-
 ::
-
-
 
    x,y,z,vx,vy,vz = particle position or velocity component
    ke,erot,evib = particle energy component
@@ -83,21 +47,11 @@ Syntax:
    s_name = custom per-surf vector with name
    s_name\[N\] = Nth column of per-surf custom array with name, N can include wildcard (see below)
 
-
-
-
 - zero or more keyword/args pairs may be appended
-
-
 
 - keyword = *replace* or *subset*
 
-
-
-
 ::
-
-
 
    *replace* args = vec1 vec2
    vec1 = reduced value from this input vector will be replaced
@@ -105,64 +59,33 @@ Syntax:
    *subset* arg = subsetID
    subsetID = mixture-ID or grid group-ID or surface group-ID
 
-
-
-
-
-
-
-
 .. _compute-reduce-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    compute 1 reduce sum c_grid\[\*\]
    compute 2 reduce min f_ave v_myKE subset trace_species
    compute 3 reduce max c_mine\[1\] c_mine\[2\] c_temp replace 1 3 replace 2 3
 
-
-
-
 These commands will include the average grid cell temperature, across
 all grid cells, in the stats output:
 
-
-
-
 ::
-
-
 
    compute 1 temp
    compute	2 grid all all temp
    compute 3 reduce ave c_2\[1\]
    stats_style step c_temp c_3
 
-
-
-
 .. _compute-reduce-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Define a calculation that "reduces" one or more vector inputs into
 scalar values, one per listed input.  The inputs can be per-particle
@@ -176,15 +99,12 @@ per-particle, per-grid, or per-surf quantities.  See the
 perform the same operations as the compute reduce command on global
 vectors.
 
-
-
 .. important::
 
   All inputs to a compute reduce command must be the
   same type: per-particle, per-grid, or per-surf.  You can use the
   command multiple times if you need to reduce values of different
   types.
-
 
 The reduction operation is specified by the *mode* setting.  The *sum*
 option adds the values in the vector into a global total.  The *min*
@@ -197,8 +117,6 @@ divdes the sum of squares by the number of values.  These two
 operations can be useful for calculating the variance of some
 quantity, e.g. variance = sumsq - ave^2.
 
-
-
 .. note::
 
   that both of these
@@ -206,20 +124,12 @@ quantity, e.g. variance = sumsq - ave^2.
   time) produced by the :ref:`compute surf<compute-surf>` command with
   its default *norm* = yes option.
 
-
-
-
-
 Each listed input vector is operated on independently.
-
-
 
 Each listed input vector can be a particle attribute or can be the
 result of a :ref:`compute<compute>` or :ref:`fix<fix>` or the evaluation
 of a :ref:`variable<variable>`.  Or it can be a custom attribute of a
 particle, grid cell, or surface element.
-
-
 
 .. note::
 
@@ -233,34 +143,20 @@ particle, grid cell, or surface element.
   trailing asterisk means all indices from n to N (inclusive).  A middle
   asterisk means all indices from m to n (inclusive).
 
-
 Using a wildcard is the same as if the individual columns of the array
 had been listed one by one.  E.g. these 2 compute reduce commands are
 equivalent, since the :ref:`compute grid<compute-grid>` command creates
 a per-grid array with 3 columns:
 
-
-
-
 ::
-
-
 
    compute myGrid grid all all u v w
    compute 2 all reduce min c_myGrid\[\*\]
    compute 2 all reduce min c_myGrid\[1\] c_myGrid\[2\] c_myGrid\[3\]
 
-
-
-
-
-
-
 The particle attributes x,y,z,vx,vy,vz are position and velocity
 components.  The ke,erot,evib attributes are for kinetic, rotational,
 and vibrational energy of particles.
-
-
 
 If a value begins with "c\_", a compute ID must follow which has been
 previously defined in the input script.  Computes can generate
@@ -272,8 +168,6 @@ by the compute is used.  Users can also write code for their own
 compute styles and :ref:`add them to SPARTA<modify>`.  See the
 discussion above for how N can be specified with a wildcard asterisk
 to effectively specify multiple values.
-
-
 
 .. note::
 
@@ -287,7 +181,6 @@ to effectively specify multiple values.
   the discussion above for how N can be specified with a wildcard
   asterisk to effectively specify multiple values.
 
-
 If a value begins with "v\_", a variable name must follow which has
 been previously defined in the input script.  It must be a
 :ref:`particle-style or grid-style or surf-style variable<variable>`.
@@ -297,8 +190,6 @@ Particle-style variables can also reference various per-particle
 attributes (position, velocity, etc).  So these variables are a very
 general means of creating per-particle or per-grid or per-surf
 quantities to reduce.
-
-
 
 If a value begins with "p\_" or "g\_" or "s\_", then a custom
 per-particle, per-grid, or per-surf attribute with the specified name
@@ -311,8 +202,6 @@ e.g. :ref:`fix ambipolar<fix-ambipolar>` or :ref:`fix surf/temp<fix-surf-temp>` 
 the user or defined by the command.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
 attributes.
 
-
-
 If no bracketed integer is appended, the custom attribute must be a
 per-particle, per-grid, or per-surf vector (single value).  If a
 bracketed integer is appended, the custom attribute must be a
@@ -320,11 +209,6 @@ per-particle, per-grid, or per-surf arayy (multiple values) and the
 Nth column of the custom array is used.  See the discussion above for
 how N can be specified with a wildcard asterisk to effectively specify
 multiple values.
-
-
-
-
-
 
 If the *replace* keyword is used, two indices *vec1* and *vec2* are
 specified, where each index ranges from 1 to the # of input values.
@@ -334,25 +218,15 @@ input vector.  The index N of that value within *vec2* is also stored.
 Then, instead of performing a min/max on the *vec1* input vector, the
 stored index is used to select the Nth element of the *vec1* vector.
 
-
-
 Here is an example which prints out both the grid cell ID and number
 of particles for the grid cell with the maximum number of particles:
 
-
-
-
 ::
-
-
 
    compute 1 property/grid id
    compute	2 grid all n
    compute	3 reduce max c_1 c_2\[1\] replace 1 2
    stats_style step c_temp c_3\[1\] c_3\[2\]
-
-
-
 
 The first two input values in the compute reduce command are vectors
 with the ID and particle count of each grid cell.  Instead of taking
@@ -361,44 +235,30 @@ this context, the *replace* keyword will extract the ID for the grid
 cell which has the maximum number of particles.  This ID and the
 cell's particle count will be printed with the statistical output.
 
-
-
 .. note::
 
   that the *replace* keyword can be used multiple times with
   different pairs of indices.
-
-
-
-
 
 The *subset* keyword allows selection of a subset of each input
 vectors quantities to be used for the reduce operation.  This may
 affect all of the reduction operations.  E.g. the ave and avesq
 operations will become averages for only a subset of numerical values.
 
-
-
 If inputs are per-particle values, then a mixture ID should be
 specified.  Only particle species belonging to the mixture will be
 included in the calculations.  See the :ref:`mixture<mixture>` command
 for how a set of species is included in a mixture.
-
-
 
 If inputs are per-grid values, then a grid group ID should be
 specified.  Only grid cells in the grid group will be included in the
 calculations.  See the :ref:`group grid<group>` command for info on how
 grid cells can be assigned to grid groups.
 
-
-
 If inputs are per-surf values, then a surface group ID should be
 specified.  Only surface elements in the surface group will be
 included in the calculations.  See the :ref:`group surf<group>` command
 for info on how surface elements can be assigned to surface groups.
-
-
 
 .. important::
 
@@ -410,30 +270,16 @@ for info on how surface elements can be assigned to surface groups.
   commands.  Thus you may want to use an argument for the *subset*
   keyword which is consistent with the inputs, but that is not required.
 
-
-
-
-
 If a single input is specified this compute produces a global scalar
 value.  If multiple inputs are specified, this compute produces a
 global vector of values, the length of which is equal to the number of
 inputs specified.
 
-
-
-
-
-
 .. _compute-reduce-output-info:
-
-
 
 ************
 Output info:
 ************
-
-
-
 
 This compute calculates a global scalar if a single input value is
 specified or a global vector of length N where N is the number of
@@ -442,55 +288,30 @@ be used by any command that uses global scalar or vector values from a
 compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>` for an
 overview of SPARTA output options.
 
-
-
 The scalar or vector values will be in whatever :ref:`units<units>` the
 quantities being reduced are in.
 
-
-
 .. _compute-reduce-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _compute-reduce-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`compute<compute>`, :ref:`fix<fix>`, :ref:`variable<variable>`
 
-
-
 .. _compute-reduce-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 none
-
-
 

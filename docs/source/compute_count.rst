@@ -1,120 +1,60 @@
 
 :orphan:
 
-
-
 .. index:: compute_count
-
-
 
 .. _compute-count:
 
-
-
-
 .. _compute-count-command:
-
-
 
 #####################
 compute count command
 #####################
 
-
-
-
 .. _compute-count-kk-command:
-
-
 
 ########################
 compute count/kk command
 ########################
 
-
-
-
 .. _compute-count-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    compute ID count id1 id2 ...
 
-
-
-
 - ID is documented in :ref:`compute<compute>` command 
-
-
 
 - count = style name of this compute command
 
-
-
 - id1,id2,... = species ID or mixture ID or mixture/group
 
-
-
-
 ::
-
-
 
    species ID = ID used with the :ref:`species<species>` command
    mixture ID = ID used with the :ref:`mixture<mixture>` command, expands to all groups in mixture
    mixture/group = ID of mixture followed by name of a group within mixture
 
-
-
-
-
-
-
-
 .. _compute-count-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    compute 1 count species
    compute Ncounts count N N2 N+ air/O
 
-
-
-
 .. _compute-count-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Define a computation that counts the number of particles currently in
 the simulation for various species or groups within mixtures.  Groups
@@ -122,17 +62,11 @@ are collections of one or more species within a mixture.  See the
 "mixture" command for an explanation of how species are added to a
 mixture and how groups of species within the mixture are defined.
 
-
-
 Each of the listed *ids* (id1, id2, etc) can be in one of three
 formats.  Any of the ids can be in any of the formats.
 
-
-
 An *id* can be a species ID, in which case the count is for particles
 of that species.
-
-
 
 An *id* can be a mixture ID, in which case one count is performed for
 each of the groups within the mixture.  In the first example above,
@@ -142,36 +76,18 @@ in the simulation, there will thus be 10 counts calculated, the same
 as if the command had been specified with explicit names for all 10
 species, e.g.
 
-
-
-
 ::
 
-
-
    compute 1 count O2 N2 O N NO O2+ N2+ O+ N+ NO+
-
-
-
 
 An *id* can also be of the form mix-ID/name where mix-ID is a mixture
 ID and name is the name of a group in that mixture.
 
-
-
-
-
-
 .. _compute-count-output-info:
-
-
 
 ************
 Output info:
 ************
-
-
-
 
 If there is a single count accumulated, this compute calculates a
 global scalar.  If there are multiple counts accumulated, it
@@ -180,14 +96,7 @@ results can be used by any command that uses global scalar or vector
 values from a compute as input.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>` for an overview of SPARTA output
 options.
 
-
-
 The values will all be unitless counts.
-
-
-
-
-
 
 Styles with a *kk* suffix are functionally the same as the
 corresponding style without the suffix.  They have been optimized to
@@ -197,71 +106,39 @@ The accelerated styles take the same arguments and should produce the
 same results, except for different random number, round-off and
 precision issues.
 
-
-
 These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
-
-
 
 You can specify the accelerated styles explicitly in your input script
 by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
-
-
 See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
-
-
-
-
-
 .. _compute-count-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 It is an error if a listed *id* is both a species ID and a mixture ID,
 since this command cannot distinguish between them.
 
-
-
 .. _compute-count-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 none
 
-
-
 .. _compute-count-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 none
-
-
 

@@ -1,106 +1,54 @@
 
 :orphan:
 
-
-
 .. index:: dump
-
-
 
 .. _dump:
 
-
-
-
 .. _dump-command:
-
-
 
 ############
 dump command
 ############
 
-
-
-
 Ref: :ref:`dump image<dump-image>` command
 
-
-
 .. _dump-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    dump ID style select-ID N file args
 
-
-
-
 - ID = user-assigned name for the dump 
-
-
 
 - style = *particle* or *grid* or *surf* or *image*
 
-
-
 - select-ID = which particles, grid cells, surface elements to dump
 
-
-
-
 ::
-
-
 
    for dump style = particle or image, use a mixture ID
    for style = grid, use a grid group ID
    for style = surf, use a surface group ID
 
-
-
-
 - N = dump every this many timesteps
-
-
 
 - file = name of file to write dump info to
 
-
-
 - args = list of arguments for a particular style
 
-
-
-
 ::
-
-
 
    *particle* args = list of particle attributes
    possible attributes = id, type, proc, cellID, x, y, z, xs, ys, zs, vx, vy, vz,
    ke, erot, evib, 
    c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name, p_name, p_name\[N\]
 
-
-
-
-
 ::
-
-
 
    id = particle ID
    type = particle species as an integer index
@@ -118,25 +66,13 @@ Syntax:
    p_name = custom per-particle vector with name
    p_name\[N\] = Nth column of custom per-particle array with name, N can include wildcard (see below)
 
-
-
-
-
 ::
-
-
 
    *grid* args = list of grid attributes
    possible attributes = id, idstr, split, proc, xlo, ylo, zlo, xhi, yhi, zhi,
    c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name, g_name, g_name\[N\]
 
-
-
-
-
 ::
-
-
 
    id = integer form of grid cell ID
    idstr = string form of grid cell ID
@@ -154,25 +90,13 @@ Syntax:
    g_name = custom per-grid vector with name
    g_name\[N\] = Nth column of custom per-grid array with name, N can include wildcard (see below)
 
-
-
-
-
 ::
-
-
 
    *surf* args = list of surf attributes
    possible attributes = id, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z, area,
    c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name, s_name, s_name\[N\]
 
-
-
-
-
 ::
-
-
 
    id = surface element ID
    v1x,v1y,v1z = coords of 1st vertex in surface element
@@ -187,63 +111,32 @@ Syntax:
    s_name = custom per-surf vector with name
    s_name\[N\] = Nth column of custom per-surf array with name, N can include wildcard (see below)
 
-
-
-
-
 ::
-
-
 
    *image* args = discussed on :ref:`dump image<dump-image>` doc page
 
-
-
-
-
-
-
-
 .. _dump-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    dump 1 particle all 100 dump.myforce.\* id type x y vx fx
    dump 2 particle inflow 100 dump.%.myforce id type c_myF\[3\] v_ke
    dump 3 grid all 1000 tmp.grid id proc xlo ylo zlo xhi yhi zhi
 
-
-
-
 .. _dump-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Dump a snapshot of simulation quantities to one or more files every N
 timesteps in one of several styles.  The *image* style is the
 exception; it creates a JPG or PPM image file of the simulation
 configuration every N timesteps, as discussed on the :ref:`dump image<dump-image>` doc page.
-
-
 
 The ID for a dump is used to identify the dump in other commands.
 Each dump ID must be unique.  The ID can only contain alphanumeric
@@ -252,15 +145,11 @@ same style so long as they have different IDs.  A dump can be deleted
 with the :ref:`undump<undump>` command, after which its ID can be
 re-used.
 
-
-
 The *style* setting determines what quantities are written to the file
 and in what format.  The *particle*, *grid*, *surf* options are for
 particles, grid cells, or surface elements.  Settings made via the
 :ref:`dump_modify<dump-modify>` command can also alter what info is
 included in the file and the format of individual values.
-
-
 
 The *select-ID* setting determines which particles, grid cells, or
 surface elements are output.  For *style* = *particle*, the
@@ -272,52 +161,31 @@ the group are output.  For *style* = *surf*, the *select-ID* is for a
 surface eleemnt group, as defined by the :ref:`group surf<group>`
 command.  Only surface elements in the group are output.
 
-
-
 As described below, the filename determines the kind of output (text
 or binary or gzipped, one big file or one per timestep, one big file
 or one per processor).
 
-
-
 The precision of values output to text-based dump files can be
 controlled by the :ref:`dump_modify format<dump-modify>` command and
 its options.
-
-
-
-
-
 
 The *particle* and *grid* and *surf* styles create files in a simple
 text format that is self-explanatory when viewing a dump file.  Many
 of the SPARTA :ref:`post-processing tools<tools>`, including
 `Pizza.py <http://pizza.sandia.gov>`__, work with this format.
 
-
-
 For post-processing purposes the text files are self-describing in the
 following sense.
-
-
 
 The dimensions of the simulation box are included in each snapshot.
 This information is formatted as:
 
-
-
-
 ::
-
-
 
    ITEM: BOX BOUNDS xx yy zz
    xlo xhi
    ylo yhi
    zlo zhi
-
-
-
 
 where xlo,xhi are the maximum extents of the simulation box in the
 x-dimension, and similarly for y and z.  The "xx yy zz" represent 6
@@ -326,13 +194,9 @@ simulation box boundaries (xlo,xhi and ylo,yhi and zlo,zhi).  Each of
 the 6 characters is either o = outflow, p = periodic, or s = specular.
 See the :ref:`boundary<boundary>` command for details.
 
-
-
 The "ITEM: NUMBER OF ATOMS" or "ITEM: NUMBER OF CELLS" or "ITEM:
 NUMBER OF SURFS" entry in each snapshot gives the number of particles,
 grid cells, surfaces to follow.
-
-
 
 The "ITEM: ATOMS" or "ITEM: CELLS" or "ITEM: SURFS" entry in each
 snapshot lists column descriptors for the per-particle or per-grid or
@@ -340,11 +204,6 @@ per-surf lines that follow.  The descriptors are the attributes
 specied in the dump command for the style.  Possible attributes are
 listed above and will appear in the order specified.  An explanation
 of the possible attributes is given below.
-
-
-
-
-
 
 .. note::
 
@@ -355,13 +214,10 @@ of the possible attributes is given below.
   between runs by using the :ref:`dump_modify every<dump-modify>`
   command.
 
-
 The specified filename determines how the dump file(s) is written.
 The default is to write one large text file, which is opened when the
 dump command is invoked and closed when an :ref:`undump<undump>`
 command is used or when SPARTA exits.
-
-
 
 .. note::
 
@@ -370,7 +226,6 @@ command is used or when SPARTA exits.
   (e.g. 00010), which can make it easier to read a series of dump files
   in order by some post-processing tools.
 
-
 If a "%" character appears in the filename, then one file is written
 for each processor and the "%" character is replaced with the
 processor ID from 0 to P-1.  For example, tmp.dump.% becomes
@@ -378,13 +233,10 @@ tmp.dump.0, tmp.dump.1, ... tmp.dump.P-1, etc.  This creates smaller
 files and can be a fast mode of output on parallel machines that
 support parallel I/O for output.
 
-
-
 .. note::
 
   that the "\*" and "%" characters can be used together to produce a
   large number of small dump files!
-
 
 If the filename ends with ".bin", the dump file (or files, if "\*" or
 "%" is also used) is written in binary format.  A binary dump file
@@ -394,22 +246,14 @@ to convert it back to text format  or write your own code to read the
 binary file.  The format of the binary file can be understood by
 looking at the tools/binary2txt.cpp file.
 
-
-
 .. note::
 
   The file "binary2txt.cpp" is not currently shipped with SPARTA
-
 
 If the filename ends with ".gz", the dump file (or files, if "\*" or "%"
 is also used) is written in gzipped format.  A gzipped dump file will
 be about 3x smaller than the text version, but will also take longer
 to write.
-
-
-
-
-
 
 .. note::
 
@@ -425,33 +269,19 @@ to write.
   asterisk means all indices from n to N (inclusive).  A middle asterisk
   means all indices from m to n (inclusive).
 
-
 Using a wildcard is the same as if the individual columns of the array
 had been listed one by one.  E.g. these 2 dump commands are
 equivalent, since the :ref:`compute grid<compute-grid>` command creates
 a per-grid array with 3 columns:
 
-
-
-
 ::
-
-
 
    compute myGrid all all u v w
    dump 2 grid all 100 tmp.dump id c_myGrid\[\*\]
    dump 2 grid all 100 tmp.dump id c_myGrid\[1\] c_myGrid\[2\] c_myGrid\[3\]
 
-
-
-
-
-
-
 This section explains the particle attributes that can be specified as
 part of the *particle* style.
-
-
 
 *Id* is the particle ID.  *Type* is an integer index representing the
 particle species.  It is a value from 1 to Nspecies. The value
@@ -459,14 +289,10 @@ corresponds to the order in which species were defined via the
 :ref:`species<species>` command.  *Proc* is the ID of the processor
 which currently owns the particle.
 
-
-
 The *x*, *y*, *z* attributes write particle coordinates "unscaled", in
 the appropriate distance :ref:`units<units>`.  Use *xs*, *ys*, *zs* to
 "scale" the coordinates to the box size, so that each value is 0.0 to
 1.0.
-
-
 
 *Vx*, *vy*, *vz* are components of particle velocity.  The *ke*,
 *erot*, and *evib* attributes are the kinetic, rotational, and
@@ -475,15 +301,11 @@ given by 1/2 m (vx^2 + vy^2 + vz^2).  The way that rotational and
 vibrational energy is treated in collisions and stored by particles is
 affected by the :ref:`collide_modify<collide-modify>` command.
 
-
-
 The *c_ID* and *c_ID\[N\]* attributes allow per-particle vectors or
 arrays calculated by a :ref:`compute<compute>` to be output.  The ID in
 the attribute should be replaced by the actual ID of the compute that
 has been defined previously in the input script.  See the
 :ref:`compute<compute>` command for details.
-
-
 
 If *c_ID* is used as a attribute, the compute must calculate a
 per-particle vector, and it is output.  If *c_ID\[N\]* is used, the
@@ -492,14 +314,10 @@ range from 1-M, which will output the Nth column of the M-column
 array.  See the discussion above for how N can be specified with a
 wildcard asterisk to effectively specify multiple values.
 
-
-
 The *f_ID* and *f_ID\[N\]* attributes allow vector or array
 per-particle quantities calculated by a :ref:`fix<fix>` to be output.
 The ID in the attribute should be replaced by the actual ID of the fix
 that has been defined previously in the input script.
-
-
 
 If *f_ID* is used as a attribute, the fix must calculate a
 per-particle vector, and it is output.  If *f_ID\[N\]* is used, the
@@ -507,8 +325,6 @@ fix must calculate a per-particle array, and N must be in the range
 from 1-M, which will output the Nth column of the M-column array.
 See the discussion above for how N can be specified with a
 wildcard asterisk to effectively specify multiple values.
-
-
 
 The *v_name* attribute allows per-particle vectors calculated by a
 :ref:`variable<variable>` to be output.  The name in the attribute
@@ -520,15 +336,11 @@ per-particle attributes, stats keywords, or invoke other computes,
 fixes, or variables when they are evaluated, so this is a very general
 means of creating quantities to output to a dump file.
 
-
-
 The *p_name* and *p_name\[N\]* attributes allow custom per-particle
 vectors or arrays defined by some other command to be output.  The
 name should be replaced by the name of the attribute.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
 attributes and command that define them.  For example, the :ref:`fix ambipolar<fix-ambipolar>` command which defines the per-particle
 custom vector "ionambi" and custom array "velambi".
-
-
 
 If *p_name* is used as a attribute, the custom attribute must be a
 vector, and it is output.  If *p_name\[N\]* is used, the custom
@@ -537,21 +349,12 @@ will output the Nth column of an M-column array.  See the discussion
 above for how N can be specified with a wildcard asterisk to
 effectively specify multiple values.
 
-
-
 See :ref:`Section 10<modify>` of the manual for information on
 how to add new compute and fix styles to SPARTA to calculate
 per-particle quantities which could then be output into dump files.
 
-
-
-
-
-
 This section explains the grid cell attributes that can be specified
 as part of the *grid* style.
-
-
 
 .. note::
 
@@ -567,7 +370,6 @@ as part of the *grid* style.
   unsplit cells can be outside (in the flow) or inside surface objects,
   if they exist.
 
-
 *Id* and *idstr* are two different forms of the grid cell ID.  In
 SPARTA each grid cell is assigned a unique ID which represents its
 location, in a topological sense, within the hierarchical grid.  This
@@ -580,8 +382,6 @@ is cell 6 (at level 3) within cell 4 within cell 33.  If you specify
 *id*, the ID is printed directly as an integer.  If you specify
 *idstr*, it is printed as a string.
 
-
-
 .. note::
 
   that the *id* and *idstr* of two or more sub-cells are the same
@@ -589,10 +389,7 @@ is cell 6 (at level 3) within cell 4 within cell 33.  If you specify
   means that if a simulation has split cells, the dump file will contain
   duplicate IDs in the same snapshot.
 
-
 *Proc* is the ID of the processor which currently owns the grid cell.
-
-
 
 The *xlo*, *ylo*, *zlo* attributes write the coordinates of the
 lower-left corner of the grid cell in the appropriate distance
@@ -604,8 +401,6 @@ simulation.  As with *id* and *idstr*, as explained above, these
 attributes are the same for multiple sub-cells of a single split cell
 they are part of.
 
-
-
 .. note::
 
   that unsplit cells which
@@ -614,14 +409,11 @@ they are part of.
   surface element(s) which only touch a face, edge, or corner point of
   the grid cell, will have a flow volume of 0.0.
 
-
 The *c_ID* and *c_ID\[N\]* attributes allow per-grid vectors or arrays
 calculated by a :ref:`compute<compute>` to be output.  The ID in the
 attribute should be replaced by the actual ID of the compute that has
 been defined previously in the input script.  See the
 :ref:`compute<compute>` command for details.
-
-
 
 If *c_ID* is used as a attribute, and the compute calculates a
 per-grid vector, then the per-grid vector is output.  If *c_ID\[N\]*
@@ -630,14 +422,10 @@ Nth column of the M-column per-grid array calculated by the compute.
 See the discussion above for how N can be specified with a wildcard
 asterisk to effectively specify multiple values.
 
-
-
 The *f_ID* and *f_ID\[N\]* attributes allow per-grid vectors or arrays
 calculated by a :ref:`fix<fix>` to be output.  The ID in the attribute
 should be replaced by the actual ID of the fix that has been defined
 previously in the input script.
-
-
 
 If *f_ID* is used as a attribute, and the fix calculates a per-grid
 vector, then the per-grid vector is output.  If *f_ID\[N\]* is used,
@@ -645,8 +433,6 @@ then N must be in the range from 1-M, which will output the Nth column
 of the M-columne per-grid array calculated by the fix.  See the
 discussion above for how N can be specified with a wildcard asterisk
 to effectively specify multiple values.
-
-
 
 The *v_name* attribute allows per-grid vectors calculated by a
 :ref:`variable<variable>` to be output.  The name in the attribute
@@ -658,8 +444,6 @@ stats keywords, or invoke other computes, fixes, or variables when
 they are evaluated, so this is a very general means of creating
 quantities to output to a dump file.
 
-
-
 The *g_name* and *g_name\[N\]* attributes allow custom per-grid cell
 vectors or arrays defined by some other command to be output.  The
 name should be replaced by the name of the attribute.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
@@ -668,8 +452,6 @@ attributes and command that define them.  For example, the
 attributes.  (The surf/react implicit command has not yet been
 released in public SPARTA).
 
-
-
 If *g_name* is used as a attribute, the custom attribute must be a
 vector, and it is output.  If *g_name\[N\]* is used, the custom
 attribute must be an array, and N must be in the range from 1-M, which
@@ -677,16 +459,9 @@ will output the Nth column of an M-column array.  See the discussion
 above for how N can be specified with a wildcard asterisk to
 effectively specify multiple values.
 
-
-
 See :ref:`Section 10<modify>` of the manual for information on
 how to add new compute and fix styles to SPARTA to calculate per-grid
 quantities which could then be output into dump files.
-
-
-
-
-
 
 This section explains the surface element attributes that can be
 specified as part of the *surf* style.  For 2d simulations, a surface
@@ -696,31 +471,21 @@ line segment.  For 3d simulations, a surface element is a triangle
 with 3 corner points.  Crossing (v2-v1) into (v3-v1) determines the
 outward normal of the triangle.
 
-
-
 *Id* is the surface element ID.
-
-
 
 The *v1x*, *v1y*, *v1z*, *v2x*, *v2y*, *v2z*, *v3x*, *v3y*, *v3z*
 attributes write the coordinates of the vertices of the end or corner
 points of the surface element.  The *v1z*, *v2z*, *v3x*, *v3y*, and
 *v3z* attributes cannot be used for a 2d simulation.
 
-
-
 The *area* attribute writes the surface element area (3d and
 axisymmetric) or length (2d).
-
-
 
 The *c_ID* and *c_ID\[N\]* attributes allow per-surf vectors or arrays
 calculated by a :ref:`compute<compute>` to be output.  The ID in the
 attribute should be replaced by the actual ID of the compute that has
 been defined previously in the input script.  See the
 :ref:`compute<compute>` command for details.
-
-
 
 If *c_ID* is used as a attribute, and the compute calculates a per-srf
 vector, then the per-surf vector is output.  If *c_ID\[N\]* is used,
@@ -729,14 +494,10 @@ of the M-column per-surf array calculated by the compute.  See the
 discussion above for how N can be specified with a wildcard asterisk
 to effectively specify multiple values.
 
-
-
 The *f_ID* and *f_ID\[N\]* attributes allow per-surf vectors or arrays
 calculated by a :ref:`fix<fix>` to be output.  The ID in the attribute
 should be replaced by the actual ID of the fix that has been defined
 previously in the input script.
-
-
 
 If *f_ID* is used as a attribute, and the fix calculates a per-surf
 vector, then the per-surf vector is output.  If *f_ID\[N\]* is used,
@@ -744,8 +505,6 @@ then N must be in the range from 1-M, which will output the Nth column
 of the M-column per-surf array calculated by the fix.  See the
 discussion above for how N can be specified with a wildcard asterisk
 to effectively specify multiple values.
-
-
 
 The *v_name* attribute allows per-surf vectors calculated by a
 :ref:`variable<variable>` to be output.  The name in the attribute
@@ -757,8 +516,6 @@ stats keywords, or invoke other computes, fixes, or variables when
 they are evaluated, so this is a very general means of creating
 quantities to output to a dump file.
 
-
-
 The *s_name* and *s_name\[N\]* attributes allow custom per-surface
 element vectors or arrays defined by some other command to be output.
 The name should be replaced by the name of the attribute.  See
@@ -768,8 +525,6 @@ custom attributes and command that define them.  For example, the
 :ref:`surf_react adsorb<surf-react-adsorb>` commands can define
 per-surf attributes.
 
-
-
 If *s_name* is used as a attribute, the custom attribute must be a
 vector, and it is output.  If *s_name\[N\]* is used, the custom
 attribute must be an array, and N must be in the range from 1-M, which
@@ -777,62 +532,34 @@ will output the Nth column of an M-column array.  See the discussion
 above for how N can be specified with a wildcard asterisk to
 effectively specify multiple values.
 
-
-
 See :ref:`Section 10<modify>` of the manual for information on
 how to add new compute and fix styles to SPARTA to calculate per-surf
 quantities which could then be output into dump files.
 
-
-
-
-
-
 .. _dump-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 To write gzipped dump files, you must compile SPARTA with the
 -DSPARTA_GZIP option - see the :ref:`Making SPARTA<start-making-sparta>`
 section of the documentation.
 
-
-
 .. _dump-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`dump image<dump-image>`, :ref:`dump_modify<dump-modify>`,
 :ref:`undump<undump>`
 
-
-
 .. _dump-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The defaults for the image style are listed on the :ref:`dump image<dump-image>` doc page.
-
-
 

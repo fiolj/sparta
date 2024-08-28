@@ -1,69 +1,35 @@
 
 :orphan:
 
-
-
 .. index:: dump_modify
-
-
 
 .. _dump-modify:
 
-
-
-
 .. _dump-modify-command:
-
-
 
 ###################
 dump_modify command
 ###################
 
-
-
-
 .. _dump-modify-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    dump_modify dump-ID keyword values ...
 
-
-
-
 - dump-ID = ID of dump to modify 
-
-
 
 - one or more keyword/value pairs may be appended
 
-
-
 - these keywords apply to various dump styles
-
-
 
 - keyword = *append* or *buffer* or *every* or *fileper* or *first* or *flush* or *format* or *nfile* or *pad* or *region* or *thresh*
 
-
-
-
 ::
-
-
 
    *append* arg = *yes* or *no*
    *buffer* arg = *yes* or *no*
@@ -87,21 +53,11 @@ Syntax:
    value = numeric value to compare to
    these 3 args can be replaced by the word "none" to turn off thresholding
 
-
-
-
 - these keywords apply only to the (image} and *movie* :ref:`styles<dump-image>`
-
-
 
 - keyword = *bcolor* or *bdiam* or *backcolor* or *bitrate* or *boxcolor* or *cmap* or *color* or *framerate* or *gcolor* or *glinecolor* or *pcolor* or *pdiam* or *scolor* or *slinecolor*
 
-
-
-
 ::
-
-
 
    *backcolor* arg = color
    color = name of color for background
@@ -152,28 +108,13 @@ Syntax:
    *slinecolor* arg = color
    color = name of color for surface element outlines
 
-
-
-
-
-
-
-
 .. _dump-modify-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    dump_modify 1 format line "%d %d %20.15g %g %g"
    dump_modify 1 format float %20.15g
@@ -182,38 +123,17 @@ Examples:
    dump_modify 1 every v_myVar
    dump_modify 1 cmap particle min max cf 0.0 3 min green 0.5 yellow max blue boxcolor red
 
-
-
-
 .. _dump-modify-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Modify the parameters of a previously defined dump command.  Not all
 parameters are relevant to all dump styles.
 
-
-
-
-
-
-
-
-
 These keywords apply to all dump styles unless otherwise noted.  The
 descriptions give details.
-
-
-
-
-
 
 The *append* keyword applies to all dump styles except *image* and
 *movie*.  It also applies only to text output files, not to binary or
@@ -226,11 +146,6 @@ before the first command that causes dump snapshots to be output,
 e.g. a :ref:`run<run>` command.  Once the dump file has been opened,
 this keyword has no further effect.
 
-
-
-
-
-
 The *buffer* keyword applies only all dump styles except *image* and
 *movie*.  It also applies only to text output files, not to binary or
 gzipped files.  If specified as *yes*, which is the default, then each
@@ -241,17 +156,10 @@ by those processors(s) as one large chunk of text.  If specified as
 processor(s) which perform file wirtes, and those processor(s) format
 and write it line by line into the output file.
 
-
-
 The buffering mode is typically faster since each processor does the
 relatively expensive task of formatting the output for its own atoms.
 However it requires about twice the memory (per processor) for the
 extra buffering.
-
-
-
-
-
 
 The *every* keyword changes the dump frequency originally specified by
 the :ref:`dump<dump>` command to a new value.  The every keyword can be
@@ -270,34 +178,16 @@ using the variable option with the *every* keyword, you also need to
 use the *first* option if you want an initial snapshot written to the
 dump file.
 
-
-
 For example, the following commands will
 write snapshots at timesteps 0,10,20,30,100,200,300,1000,2000,etc:
 
-
-
-
 ::
-
-
 
    variable	        s equal logfreq(10,3,10)
    dump		1 particle all 100 tmp.dump id type x y z
    dump_modify	1 every v_s first yes
 
-
-
-
-
-
-
 The *fileper* keyword is documented below with the *nfile* keyword.
-
-
-
-
-
 
 The *first* keyword determines whether a dump snapshot is written on
 the very first timestep after the dump command is invoked.  This will
@@ -307,11 +197,6 @@ if this is not the case, a dump snapshot will only be written if the
 setting of this keyword is *yes*.  If it is *no*, which is the
 default, then it will not be written.
 
-
-
-
-
-
 The *flush* keyword applies to all dump styles except *image* and
 *movie*.  It also applies only when the styles are used to write
 multiple successive snapshots to the same file.  It determines whether
@@ -320,15 +205,8 @@ dump file.  A flush insures the output in that file is current (no
 buffering by the OS), even if SPARTA halts before the simulation
 completes.
 
-
-
-
-
-
 The *format* keyword can be used to change the default numeric format
 output by the text-based dump styles: *particle*, *grid*, *surf*.
-
-
 
 All the specified format strings are C-style formats, e.g. as used by
 the C/C++ printf() command.  The *line* keyword takes a single
@@ -341,16 +219,12 @@ string* also takes a single format argument which is used for the Mth
 value output in each line, e.g. the 5th column is output in high
 precision for "format 5 %20.15g".
 
-
-
 The *format* keyword can be used multiple times.  The precedence is
 that for each value in a line of output, the *M* format (if specified)
 is used, else the *int* or *float* setting (if specified) is used,
 else the *line* setting (if specified) for that value is used, else
 the default setting is used.  A setting of *none* clears all previous
 settings, reverting all values to their default format.
-
-
 
 .. note::
 
@@ -364,10 +238,6 @@ settings, reverting all values to their default format.
   signed integer, e.g. one with "%ld", if SPARTA was compiled with the
   -DSPARTA_BIGBIG option for 8-byte IDs.
 
-
-
-
-
 The *nfile* or *fileper* keywords apply to all dump styles except
 *image* and *movie*.  They can be used in conjunction with the "%"
 wildcard character in the specified dump file name.  As explained on
@@ -378,24 +248,15 @@ The *nfile* or *fileper* keyword can be used to set P to a smaller
 value, which can be more efficient when running on a large number of
 processors.
 
-
-
 The *nfile* keyword sets P to the specified Nf value.  For example, if
 Nf = 4, and the simulation is running on 100 processors, 4 files will
 be written, by processors 0,25,50,75.  Each will collect information
 from itself and the next 24 processors and write it to a dump file.
 
-
-
 For the *fileper* keyword, the specified value of Np means write one
 file for every Np processors.  For example, if Np = 4, every 4th
 processor (0,4,8,12,etc) will collect information from itself and the
 next 3 processors and write it to a dump file.
-
-
-
-
-
 
 The *pad* keyword only applies when the dump filename is specified
 with a wildcard "\*" character which becomes the timestep.  If *pad* is
@@ -407,20 +268,11 @@ yield 0000100, 0012000, 2000000.  This can be useful so that
 post-processing programs can easily read the files in ascending
 timestep order.
 
-
-
-
-
-
 .. note::
 
   that a region can
   be defined as the "inside" or "outside" of a geometric shape, and it
   can be the "union" or "intersection" of a series of simpler regions.
-
-
-
-
 
 .. note::
 
@@ -430,31 +282,14 @@ timestep order.
   coordinates of particles whose velocity components are above some
   threshold.
 
-
-
-
-
-
-
-
 These keywords apply only to the :ref:`dump image<dump-image>` and
 :ref:`dump movie<dump-image>` styles.  Any keyword that affects an
 image, also affects a movie, since the movie is simply a collection of
 images.  Some of the keywords only affect the :ref:`dump movie<dump-image>` style.  The descriptions give details.
 
-
-
-
-
-
 The *backcolor* keyword can be used with the :ref:`dump image<dump-image>` command to set the background color of the
 images.  The color name can be any of the 140 pre-defined colors (see
 below) or a color name defined by the dump_modify color option.
-
-
-
-
-
 
 The *bitrate* keyword can be used with the :ref:`dump movie<dump-image>` command to define the size of the resulting
 movie file and its quality via setting how many kbits per second are
@@ -464,27 +299,16 @@ also determined by the compression format and encoder.  The default
 setting is 2000 kbit/s, which will result in average quality with
 older compression formats.
 
-
-
 .. important::
 
   Not all movie file formats supported by dump movie
   allow the bitrate to be set.  If not, the setting is silently ignored.
-
-
-
-
 
 The *boxcolor* keyword can be used with the :ref:`dump image<dump-image>` command to set the color of the simulation box
 drawn around the particles in each image.  See the "dump image box"
 command for how to specify that a box be drawn.  The color name can be
 any of the 140 pre-defined colors (see below) or a color name defined
 by the dump_modify color option.
-
-
-
-
-
 
 The *cmap* keyword can be used with the :ref:`dump image<dump-image>`
 command to define a color map that is used to draw "objects" which can
@@ -493,15 +317,11 @@ be *particle* or *grid* or *surf* or *gridx* or *gridy* or *gridz* which
 correspond to the same keywords in the :ref:`dump image<dump-image>`
 command.
 
-
-
 Color maps are used to assign a specific RGB (red/green/blue) color
 value to an individual object when it is drawn, based on the object's
 attribute, which is a numeric value, e.g. the x-component of velocity
 for a particle, if the particle-attribute "vx" was specified in the
 :ref:`dump image<dump-image>` command.
-
-
 
 The basic idea of a color map is that the attribute will be within a
 range of values, and that range is associated with a a series of
@@ -509,12 +329,8 @@ colors (e.g. red, blue, green).  A specific value (vx = -3.2) can then
 mapped to the series of colors (e.g. halfway between red and blue),
 and a specific color is determined via an interpolation procedure.
 
-
-
 There are many possible options for the color map, enabled by the
 *cmap* keyword.  Here are the details.
-
-
 
 The *lo* and *hi* settings determine the range of values allowed for
 the attribute.  If numeric values are used for *lo* and/or *hi*, then
@@ -524,13 +340,9 @@ I.e. the range is static.  If *lo* is specified as *min* or *hi* as
 be calculated each time an image is drawn, based on the set of objects
 being visualized.
 
-
-
 The *style* setting is two letters, such as "ca".  The first letter is
 either "c" for continuous, "d" for discrete, or "s" for sequential.
 The second letter is either "a" for absolute, or "f" for fractional.
-
-
 
 A continuous color map is one in which the color changes continuously
 from value to value within the range.  A discrete color map is one in
@@ -538,8 +350,6 @@ which discrete colors are assigned to sub-ranges of values within the
 range.  A sequential color map is one in which discrete colors are
 assigned to a sequence of sub-ranges of values covering the entire
 range.
-
-
 
 An absolute color map is one in which the values to which colors are
 assigned are specified explicitly as values within the range.  A
@@ -551,8 +361,6 @@ map the number 5.0 would be used.  But for a fractional map, the
 number 0.75 would be used since 5.0 is 3/4 of the way from -10.0 to
 10.0.
 
-
-
 The *delta* setting is only specified if the style is sequential.  It
 specifies the bin size to use within the range for assigning
 consecutive colors to.  For example, if the range is from -10.0 to
@@ -560,22 +368,17 @@ and a *delta* of 1.0 is used, then 20 colors will be assigned to
 the range.  The first will be from -10.0 <= color1 < -9.0, then 2nd
 from -9.0 <= color2 < -8.0, etc.
 
-
-
 The *N* setting is how many entries follow.  The format of the entries
 depends on whether the color map style is continuous, discrete or
 sequential.  In all cases the *color* setting can be any of the 140
 pre-defined colors (see below) or a color name defined by the
 dump_modify color option.
 
-
-
 .. note::
 
   that numeric values can be specified either
   as absolute numbers or as fractions (0.0 to 1.0) of the range,
   depending on the "a" or "f" in the style setting for the color map.
-
 
 Here is how the entries are used to determine the color of an
 individual object, given the value X of its attribute.  X will fall
@@ -586,15 +389,12 @@ surrounding entries are "red" at -10.0 and "blue" at 0.0, then the
 object's color will be halfway between "red" and "blue", which happens
 to be "purple".
 
-
-
 .. note::
 
   that numeric *lo* and *hi* values
   can be specified either as absolute numbers or as fractions (0.0 to
   1.0) of the range, depending on the "a" or "f" in the style setting
   for the color map.
-
 
 Here is how the entries are used to determine the color of an
 individual object, given the value X of its attribute.  The entries
@@ -606,17 +406,11 @@ override the default.  Also note that no interpolation of a color RGB
 is done.  All objects will be drawn with one of the colors in the list
 of entries.
 
-
-
 .. note::
 
   that the sequential
   color map is really a shorthand way of defining a discrete color map
   without having to specify where all the bin boundaries are.
-
-
-
-
 
 The *color* keyword can be used with the :ref:`dump image<dump-image>`
 command to define a new color name, in addition to the 140-predefined
@@ -626,17 +420,10 @@ dump_modify keyword that takes a color name as a value.  The RGB
 values should each be floating point values between 0.0 and 1.0
 inclusive.
 
-
-
 When a color name is converted to RGB values, the user-defined color
 names are searched first, then the 140 pre-defined color names.  This
 means you can also use the *color* keyword to overwrite one of the
 pre-defined color names with new RBG values.
-
-
-
-
-
 
 The *framerate* keyword can be used with the :ref:`dump movie<dump-image>` command to define the duration of the resulting
 movie file.  Movie files written by the dump *movie* command have a
@@ -649,21 +436,13 @@ frame rate higher than 24 is not recommended, as it will result in
 simply dropping the rendered images. It is more efficient to dump
 images less frequently.
 
-
-
-
-
-
 The *gcolor* keyword can be used one or more times with the :ref:`dump image<dump-image>` command, only when its grid color setting is
 *proc*, to set the color that grid cells will be drawn in the image.
-
-
 
 .. note::
 
   that for this command, processor IDs range from 1
   to Nprocs inclusive, instead of the more customary 0 to Nprocs-1.
-
 
 The specified *color* can be a single color which is any of the 140
 pre-defined colors (see below) or a color name defined by the
@@ -673,27 +452,15 @@ color is assigned to all the specified processors.  In the latter
 case, the list of colors are assigned in a round-robin fashion to each
 of the specified processors.
 
-
-
-
-
-
 The *glinecolor* keyword can be used with the :ref:`dump image<dump-image>` command to set the color of the grid cell
 outlines drawn around the grid cells in each image.  See the "dump
 image gline" command for how to specify that cell outlines be drawn.
 The color name can be any of the 140 pre-defined colors (see below) or
 a color name defined by the dump_modify color option.
 
-
-
-
-
-
 The *pcolor* keyword can be used one or more times with the :ref:`dump image<dump-image>` command, only when its particle color setting is
 *type* or *procs*, to set the color that particles will be drawn in
 the image.
-
-
 
 If the particle color setting is *type*, then the specified *type* for the
 *pcolor* keyword should be an integer from 1 to Ntypes = the number of
@@ -706,14 +473,11 @@ to n (inclusive).  A trailing asterisk means all types from n to N
 (inclusive).  A middle asterisk means all types from m to n
 (inclusive).
 
-
-
 .. note::
 
   that for this
   command, processor IDs range from 1 to Nprocs inclusive, instead of
   the more customary 0 to Nprocs-1.
-
 
 The specified *color* can be a single color which is any of the 140
 pre-defined colors (see below) or a color name defined by the
@@ -722,11 +486,6 @@ by a "/" character, e.g. red/green/blue.  In the former case, that
 color is assigned to all the specified particle types.  In the latter
 case, the list of colors are assigned in a round-robin fashion to each
 of the specified particle types.
-
-
-
-
-
 
 The *pdiam* keyword can be used with the :ref:`dump image<dump-image>`
 command, when its particle diameter setting is *type*, to set the size
@@ -737,21 +496,12 @@ argument to specify a range of particle types.  The specified *diam*
 is the size in whatever distance :ref:`units<units>` the input script
 is using.
 
-
-
-
-
-
 The *scolor* keyword can be used one or more times with the :ref:`dump image<dump-image>` command, only when its surface element color
 setting is *one* or *proc*, to set the color that surface elements
 will be drawn in the image.
 
-
-
 When the surf color is *one*, the *proc* setting for this command
 is ignored.
-
-
 
 .. note::
 
@@ -759,13 +509,10 @@ is ignored.
   command, processor IDs range from 1 to Nprocs inclusive, instead of
   the more customary 0 to Nprocs-1.
 
-
 When the surf color is *one*, the specified *color* setting for
 this command must be a single color which is any of the 140
 pre-defined colors (see below) or a color name defined by the
 dump_modify color option.
-
-
 
 When the surf color is *proc*, the *color* setting for this command
 can be one or more colors separated by a "/" character,
@@ -774,11 +521,6 @@ all the specified processors.  For two or more colors, the list of
 colors are assigned in a round-robin fashion to each of the specified
 processors.
 
-
-
-
-
-
 The *slinecolor* keyword can be used with the :ref:`dump image<dump-image>` command to set the color of the surface element
 outlines drawn around the surface elements in each image.  See the
 "dump image sline" command for how to specify that surface element
@@ -786,55 +528,29 @@ outlines be drawn.  The color name can be any of the 140 pre-defined
 colors (see below) or a color name defined by the dump_modify color
 option.
 
-
-
-
-
-
 .. _dump-modify-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _dump-modify-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`dump<dump>`, :ref:`dump image<dump-image>`, :ref:`undump<undump>`
 
-
-
 .. _dump-modify-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The option defaults are
-
-
 
 append = no
 buffer = yes for all dump styles except *image* and *movie*
@@ -858,24 +574,14 @@ scolor = \* gray
 slinecolor = white
 thresh = none
 
-
-
-
-
-
-
 These are the 140 colors that SPARTA pre-defines for use with the
 :ref:`dump image<dump-image>` and dump_modify commands.  Additional
 colors can be defined with the dump_modify color command.  The 3
 numbers listed for each name are the RGB (red/green/blue) values.
 Divide each value by 255 to get the equivalent 0.0 to 1.0 value.
 
-
-
 .. list-table::
    :header-rows: 0
-
-
 
    * - aliceblue = 240, 248, 255 
      -  antiquewhite = 250, 235, 215 
@@ -1017,6 +723,4 @@ Divide each value by 255 to get the equivalent 0.0 to 1.0 value.
      -  whitesmoke = 245, 245, 245 
      -  yellow = 255, 255, 0 
      -  yellowgreen = 154, 205, 50
-
-
 

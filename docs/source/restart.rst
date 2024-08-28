@@ -1,107 +1,54 @@
 
 :orphan:
 
-
-
 .. index:: restart
-
-
 
 .. _restart:
 
-
-
-
 .. _restart-command:
-
-
 
 ###############
 restart command
 ###############
 
-
-
-
 .. _restart-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    restart 0
    restart N root keyword value ...
    restart N file1 file2 keyword value ...
 
-
-
-
 - N = write a restart file every this many timesteps 
-
-
 
 - N can be a variable (see below)
 
-
-
 - root = filename to which timestep # is appended
-
-
 
 - file1,file2 = two full filenames, toggle between them when writing file
 
-
-
 - zero or more keyword/value pairs may be appended
-
-
 
 - keyword = *fileper* or *nfile*
 
-
-
-
 ::
-
-
 
    *fileper* arg = Np
    Np = write one file for every this many processors
    *nfile* arg = Nf
    Nf = write this many files, one from each of Nf processors
 
-
-
-
-
-
-
-
 .. _restart-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    restart 0
    restart 1000 flow.restart
@@ -109,19 +56,11 @@ Examples:
    restart 10000 flow.%.1 flow.%.2 nfile 10
    restart v_mystep flow.restart
 
-
-
-
 .. _restart-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Write out a binary restart file every so many timesteps, in either or
 both of two modes, as a run proceeds.  A value of 0 means do not write
@@ -130,8 +69,6 @@ is specified, a series of filenames will be created which include the
 timestep in the filename.  If two filenames are specified, only 2
 restart files will be created, with those names.  SPARTA will toggle
 between the 2 names as it writes successive restart files.
-
-
 
 .. note::
 
@@ -142,11 +79,8 @@ between the 2 names as it writes successive restart files.
   every 1000 steps, using two filenames.  Using restart 0 will turn off
   both modes of output.
 
-
 Similar to :ref:`dump<dump>` files, the restart filename(s) can contain
 two wild-card characters.
-
-
 
 If a "\*" appears in the single filename, it is replaced with the
 current timestep value.  This is only recognized when a single
@@ -156,8 +90,6 @@ restart.2000.equil, etc.  If a single filename is used with no "\*",
 then the timestep value is appended.  E.g. the 2nd example above
 creates restart files as follows: flow.restart.1000,
 flow.restart.2000, etc.
-
-
 
 If a "%" character appears in the restart filename(s), then one file
 is written for each processor and the "%" character is replaced with
@@ -170,8 +102,6 @@ of output and subsequent input on parallel machines that support
 parallel I/O.  The optional *fileper* and *nfile* keywords discussed
 below can alter the number of files written.
 
-
-
 Restart files are written on timesteps that are a multiple of N but
 not on the first timestep of a run or minimization.  You can use the
 :ref:`write_restart<write-restart>` command to write a restart file
@@ -179,8 +109,6 @@ before a run begins.  A restart file is not written on the last
 timestep of a run unless it is a multiple of N.  A restart file is
 written on the last timestep of a minimization if N > 0 and the
 minimization converges.
-
-
 
 Instead of a numeric value, N can be specifed as an :ref:`equal-style variable<variable>`, which should be specified as v_name, where
 name is the variable name.  In this case, the variable is evaluated at
@@ -192,42 +120,22 @@ logfreq() and stride() math functions for :ref:`equal-style variables<variable>`
 this context.  Other similar math functions could easily be added as
 options for :ref:`equal-style variables<variable>`.
 
-
-
 For example, the following commands will write restart files 
 every step from 1100 to 1200, and could be useful for debugging
 a simulation where something goes wrong at step 1163:
 
-
-
-
 ::
-
-
 
    variable	s equal stride(1100,1200,1)
    restart		v_s tmp.restart
 
-
-
-
-
-
-
 See the :ref:`read_restart<read-restart>` command for information about
 what is stored in a restart file.
-
-
 
 Restart files can be read by a :ref:`read_restart<read-restart>`
 command to restart a simulation from a particular state.  Because the
 file is binary (to enable exact restarts), it may not be readable on
 another machine.
-
-
-
-
-
 
 The optional *nfile* or *fileper* keywords can be used in conjunction
 with the "%" wildcard character in the specified restart file name(s).
@@ -237,73 +145,39 @@ the number of processors the simulation is running on.  The *nfile* or
 *fileper* keyword can be used to set P to a smaller value, which can
 be more efficient when running on a large number of processors.
 
-
-
 The *nfile* keyword sets P to the specified Nf value.  For example, if
 Nf = 4, and the simulation is running on 100 processors, 4 files will
 be written, by processors 0,25,50,75.  Each will collect information
 from itself and the next 24 processors and write it to a restart file.
-
-
 
 For the *fileper* keyword, the specified value of Np means write one
 file for every Np processors.  For example, if Np = 4, every 4th
 processor (0,4,8,12,etc) will collect information from itself and the
 next 3 processors and write it to a restart file.
 
-
-
-
-
-
 .. _restart-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _restart-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`write_restart<write-restart>`, :ref:`read_restart<read-restart>`
 
-
-
 .. _restart-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
-
 ::
 
-
-
    restart 0
-
-
-
 

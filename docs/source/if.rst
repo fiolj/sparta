@@ -1,48 +1,25 @@
 
 :orphan:
 
-
-
 .. index:: if
-
-
 
 .. _if:
 
-
-
-
 .. _if-command:
-
-
 
 ##########
 if command
 ##########
 
-
-
-
 .. _if-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
 
-
-
    if boolean then t1 t2 ... elif boolean f1 f2 ... elif boolean f1 f2 ... else e1 e2 ...
-
-
-
 
 boolean = a Boolean expression evaluated as TRUE or FALSE (see below)
 then = required word
@@ -52,24 +29,13 @@ f1,f2,...,fN = one or more SPARTA commands to execute if elif condition is met, 
 else = optional argument
 e1,e2,...,eN = one or more SPARTA commands to execute if no condition is met, each enclosed in quotes (optional arguments)
 
-
-
-
 .. _if-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    if "$\{steps\} > 1000" then quit
    if "$\{myString\} == a10" then quit
@@ -83,19 +49,11 @@ Examples:
    "print 'Max step reached'"
    if "$\{eng\} > $\{eng_previous\}" then "jump file1" else "jump file2"
 
-
-
-
 .. _if-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 .. note::
 
@@ -104,7 +62,6 @@ Description:
   will be evaluated as part of the expression.  Thus a user-defined
   formula that reflects the current state of the simulation can be used
   to issue one or more new commands.
-
 
 If the result of the Boolean expression is TRUE, then one or more
 commands (t1, t2, ..., tN) are executed.  If it is FALSE, then Boolean
@@ -116,19 +73,13 @@ are executed.  The elif and else keywords and their associated
 commands are optional.  If they aren't specified and the initial
 Boolean expression is FALSE, then no commands are executed.
 
-
-
 The syntax for Boolean expressions is described below.
-
-
 
 Each command (t1, f1, e1, etc) can be any valid SPARTA input script
 command, except an :ref:`include<include>` command, which is not
 allowed. If the command is more than one word, it must enclosed in
 quotes, so it will be treated as a single argument, as in the examples
 above.
-
-
 
 .. important::
 
@@ -139,17 +90,12 @@ above.
   more details on using quotes in arguments.  Only one of level of
   nesting is allowed, but that should be sufficient for most use cases.
 
-
 .. note::
 
   that by using the line continuation character "&", the if command
   can be spread across many lines, though it is still a single command:
 
-
-
 ::
-
-
 
    if "$a < $b" then &
    "print 'Minimum value = $a'" &
@@ -158,15 +104,11 @@ above.
    'print "Minimum value = $b"' &
    "run 50000"
 
-
-
-
 .. note::
 
   that if one of the commands to execute is :ref:`quit<quit>`, as in
   the first example above, then executing the command will cause SPARTA
   to halt.
-
 
 .. note::
 
@@ -174,17 +116,11 @@ above.
   command can be used to break out of a loop.  See the :ref:`variable   delete<variable>` command for info on how to delete the associated
   loop variable, so that it can be re-used later in the input script.
 
-
 Here is an example of a double loop which uses the if and
 :ref:`jump<jump>` commands to break out of the inner loop when a
 condition is met, then continues iterating thru the outer loop.
 
-
-
-
 ::
-
-
 
    label	    loopa
    variable    a loop 5
@@ -198,22 +134,10 @@ condition is met, then continues iterating thru the outer loop.
    label	    break
    variable    b delete
 
-
-
-
-
 ::
-
-
 
    next	    a
    jump	    in.script loopa
-
-
-
-
-
-
 
 .. note::
 
@@ -221,50 +145,29 @@ condition is met, then continues iterating thru the outer loop.
   command.  Thus if you want to include spaces in the expression for
   clarity, you must enclose the entire expression in quotes.
 
-
 An expression is built out of numbers (which start with a digit or
 period or minus sign) or strings (which start with a letter and can
 contain alphanumeric characters or underscores):
 
-
-
-
 ::
-
-
 
    0.2, 100, 1.0e20, -15.4, etc 
    InP, myString, a123, ab_23_cd, etc
 
-
-
-
 and Boolean operators:
-
-
-
 
 ::
 
-
-
    A == B, A != B, A < B, A <= B, A > B, A >= B, A && B, A || B, !A
-
-
-
 
 Each A and B is a number or string or a variable reference like $a or
 $\{abc\}, or A or B can be another Boolean expression.
-
-
 
 If a variable is used it can produce a number when evaluated, like an
 :ref:`equal-style variable<variable>`.  Or it can produce a string,
 like an :ref:`index-style variable<variable>`.  For an individual
 Boolean operator, A and B must both be numbers or must both be
 strings.  You cannot compare a number to a string.
-
-
 
 Expressions are evaluated left to right and have the usual C-style
 precedence: the unary logical NOT operator "!" has the highest
@@ -275,15 +178,11 @@ operator "||" has the lowest precedence.  Parenthesis can be used to
 group one or more portions of an expression and/or enforce a different
 order of evaluation than what would occur with the default precedence.
 
-
-
 When the 6 relational operators (first 6 in list above) compare 2
 numbers, they return either a 1.0 or 0.0 depending on whether the
 relationship between A and B is TRUE or FALSE.  When the 6 relational
 operators compare 2 strings, they also return a 1.0 or 0.0 for TRUE or
 FALSE, but the comparison is done by the C function strcmp().
-
-
 
 When the 3 logical operators (last 3 in list above) compare 2 numbers,
 they also return either a 1.0 or 0.0 depending on whether the
@@ -295,58 +194,30 @@ logical NOT operator returns 1.0 if its argument is 0.0, else it
 returns 0.0.  The 3 logical operators can only be used to operate on
 numbers, not on strings.
 
-
-
 The overall Boolean expression produces a TRUE result if the result is
 non-zero.  If the result is zero, the expression result is FALSE.
 
-
-
-
-
-
 .. _if-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _if-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`variable<variable>`, :ref:`print<print>`
 
-
-
 .. _if-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 none
-
-
 

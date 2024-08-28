@@ -1,65 +1,33 @@
 
 :orphan:
 
-
-
 .. index:: write_surf
-
-
 
 .. _write-surf:
 
-
-
-
 .. _write-surf-command:
-
-
 
 ##################
 write_surf command
 ##################
 
-
-
-
 .. _write-surf-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    write_surf file
 
-
-
-
 - file = name of file to write surface element info to 
-
-
 
 - zero or more keyword/args pairs may be appended
 
-
-
 - keyword = *points* or *type* or *custom* or *fileper* or *nfile*
 
-
-
-
 ::
-
-
 
    *points* arg = *yes* or *no* to include a Points section in the file
    *type* arg = none
@@ -70,47 +38,24 @@ Syntax:
    *nfile* arg = Nf
    Nf = write this many files, one from each of Nf processors
 
-
-
-
-
-
-
-
 .. _write-surf-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    write_surf data.surf
    write_surf data.surf type custom temperature custom flags
    write_surf data.surf points no
    write_surf data.surf.% nfile 50
 
-
-
-
 .. _write-surf-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Write a surface file in text format describing the currently defined
 surface elements, whether they be explicit or implicit surfaces.  See
@@ -118,8 +63,6 @@ the :ref:`read_surf<read-surf>` and :ref:`read_isurf<read-isurf>`
 commands for a definition of surface elements and how they are defined
 and used be SPARTA.  The surface file can be used for later input to a
 new simulation or for post-processing and visualization.
-
-
 
 .. note::
 
@@ -133,12 +76,9 @@ new simulation or for post-processing and visualization.
   renumbered by these operations to create compressed, contiguous lists.
   These lists are what is output by this command.
 
-
 The output file is written as a text file in the same format as the
 file the :ref:`read_surf<read-surf>` command reads for explicit
 surfaces.
-
-
 
 Similar to :ref:`dump<dump>` files, the surface filename can contain
 two wild-card characters.  If a "\*" appears in the filename, it is
@@ -150,15 +90,11 @@ contains global information, i.e. just the header information for the
 number of points and lines or triangles, as described on the
 :ref:`read_surf<read-surf>` doc page.
 
-
-
 For example, the files written for filename data.% would be data.base,
 data.0, data.1, ..., data.P-1.  This creates smaller files and can be
 a fast mode of output and subsequent input on parallel machines that
 support parallel I/O.  The optional *fileper* and *nfile* keywords
 discussed below can alter the number of files written.
-
-
 
 .. note::
 
@@ -169,20 +105,12 @@ discussed below can alter the number of files written.
   :ref:`read_isurf<read-isurf>` command, because this command creates
   files in an explicit surface format.
 
-
 See the :ref:`Howto 6.13<howto-surface-elements:-explicit,-implicit,>` section of the manual
 for a discussion of explicit and implicit surfaces as well as
 distributed versus non-distributed storage of surface elements.  You
 cannot mix explicit and implicit surfaces in the same simulation.
 
-
-
-
-
-
 The following optional keywords can be used with this command.
-
-
 
 If the *points* keyword is specified with a value of *yes*, then a
 Points section is included in the written file.  The Lines or
@@ -191,13 +119,9 @@ the *points* keyword is specified with a value of *no*, then a Points
 section is not included. The Lines or Triangles section will list the
 coordinates of line segment or trianges corners directly.
 
-
-
 If the *type* keyword is specified, then a surface element type is
 included for each line or triangle in the Lines or Triangles section.
 If it is not specified, element types are not incuded.
-
-
 
 If the *custom* keyword is specified along with the *name* of a custom
 per-surf vector or array, then the per-surf values for that vector or
@@ -208,8 +132,6 @@ element, depending on how it was defined.  If the *custom* keyword is
 used multiple times, then the value(s) for each *name* are appended in
 the order the *custom* keywords are specified.
 
-
-
 The *nfile* or *fileper* keywords can be used in conjunction
 with the "%" wildcard character in the specified surface file name.
 As explained above, the "%" character causes the surface file to be
@@ -218,68 +140,38 @@ the number of processors the simulation is running on.  The *nfile* or
 *fileper* keyword can be used to set P to a smaller value, which can
 be more efficient when running on a large number of processors.
 
-
-
 The *nfile* keyword sets P to the specified Nf value.  For example, if
 Nf = 4, and the simulation is running on 100 processors, 4 files will
 be written, by processors 0,25,50,75.  Each will collect information
 from itself and the next 24 processors and write it to a surface file.
-
-
 
 For the *fileper* keyword, the specified value of Np means write one
 file for every Np processors.  For example, if Np = 4, every 4th
 processor (0,4,8,12,etc) will collect information from itself and the
 next 3 processors and write it to a surface file.
 
-
-
-
-
-
 .. _write-surf-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _write-surf-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`read_surf<read-surf>`, :ref:`read_isurf<read-isurf>`
 
-
-
 .. _write-surf-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The default is points = yes.  If the *fileper* or *nfile* keywords are
 not used, a single file is written.
-
-
 

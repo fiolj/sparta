@@ -1,122 +1,63 @@
 
 :orphan:
 
-
-
 .. index:: fix_ave_histo
-
-
 
 .. _fix-ave-histo:
 
-
-
-
 .. _fix-ave-histo-command:
-
-
 
 #####################
 fix ave/histo command
 #####################
 
-
-
-
 .. _fix-ave-histo-kk-command:
-
-
 
 ########################
 fix ave/histo/kk command
 ########################
 
-
-
-
 .. _fix-ave-histo-weight-command:
-
-
 
 ############################
 fix ave/histo/weight command
 ############################
 
-
-
-
 .. _fix-ave-histo-weight-kk:
-
-
 
 ###############################
 fix ave/histo/weight/kk command
 ###############################
 
-
-
-
 .. _fix-ave-histo-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    fix ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2 ... keyword args ...
 
-
-
-
 - ID is documented in :ref:`fix<fix>` command 
-
-
 
 - style = *ave/histo* or *ave/histo/weight* = style name of this fix command
 
-
-
 - Nevery = use input values every this many timesteps
-
-
 
 - Nrepeat = # of times to use input values for calculating histogram
 
-
-
 - Nfreq = calculate histogram every this many timesteps
-
-
 
 - lo,hi = lo/hi bounds within which to histogram
 
-
-
 - Nbin = # of histogram bins
-
-
 
 - one or more input values can be listed
 
-
-
 - value = x, y, z, vx, vy, vz, fx, fy, fz, c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name
 
-
-
-
 ::
-
-
 
    x,y,z,vx,vy,vz = particle attribute (position, velocity component)
    c_ID = scalar or vector calculated by a compute with ID
@@ -125,21 +66,11 @@ Syntax:
    f_ID\[I\] = Ith component of vector or Ith column of array calculated by a fix with ID, I can include wildcard (see below)
    v_name = value(s) calculated by an equal-style or particle-style or grid-style variable with name
 
-
-
-
 - zero or more keyword/arg pairs may be appended
-
-
 
 - keyword = *mode* or *file* or *region* or *mix* or *group* or *ave* or *start* or *beyond* or *overwrite* or *title1* or *title2* or *title3*
 
-
-
-
 ::
-
-
 
    *mode* arg = *scalar* or *vector*
    scalar = all input values are scalars
@@ -167,46 +98,23 @@ Syntax:
    *title3* arg = string
    string = text to print as 3rd line of output file, only for vector mode
 
-
-
-
-
-
-
-
 .. _fix-ave-histo-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    fix 1 ave/histo 100 5 1000 0.5 1.5 50 c_myGrid\[\*\] file temp.histo ave running
    fix 1 ave/histo 100 5 1000 0 5 100 c_kePart "My output values"
    fix 1 ave/histo/weight 1 100 1000 -2.0 2.0 18 vx vy ave running beyond extra
 
-
-
-
 .. _fix-ave-histo-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Use one or more values as inputs every few timesteps to create a
 single histogram.  The histogram can then be averaged over longer
@@ -215,14 +123,10 @@ file.  The fix ave/histo/weight command has identical syntax to fix
 ave/histo, except that exactly two values must be specified.  See
 details below.
 
-
-
 A histogram is simply a count of the number of values that fall within
 a histogram bin.  *Nbins* are defined, with even spacing between *lo*
 and *hi*.  Values that fall outside the lo/hi bounds can be treated in
 different ways; see the discussion of the *beyond* keyword below.
-
-
 
 Each input value can be a particle attribute (position, velocity), or
 can be the result of a :ref:`compute<compute>` or :ref:`fix<fix>` that
@@ -235,12 +139,8 @@ Particle attributes are per-particle vector values.  See the doc page
 for individual "compute" and "fix" commands to see what kinds of
 quantities they generate.
 
-
-
 The input values must either be all scalars or all vectors (or
 arrays), depending on the setting of the *mode* keyword.
-
-
 
 .. note::
 
@@ -248,18 +148,13 @@ arrays), depending on the setting of the *mode* keyword.
   input values combined together, not one histogram per input value.
   See below for details on the format of the output of this fix.
 
-
 If *mode* = scalar, then the input values must be scalars, or vectors
 with a bracketed term appended, indicating the Ith value of the vector
 is used.
 
-
-
 If *mode* = vector, then the input values must be vectors, or arrays
 with a bracketed term appended, indicating the Ith column of the array
 is used.
-
-
 
 .. note::
 
@@ -273,25 +168,16 @@ is used.
   asterisk means all indices from n to N (inclusive).  A middle asterisk
   means all indices from m to n (inclusive).
 
-
 Using a wildcard is the same as if the individual elements of the
 vector or columns of the array had been listed one by one.  E.g. these
 fix ave/histo commands are equivalent, since the :ref:`compute grid<compute-grid>` command creates a per-grid array with 3
 columns:
 
-
-
-
 ::
-
-
 
    compute myGrid grid all all u v w
    fix 1 ave/histo 100 1 100 c_myGrid file tmp1.grid mode vector
    fix 2 ave/histo 100 1 100 c_myGrid\[1\] c_myGrid\[2\] c_myGrid\[3\] file tmp2.grid mode vector
-
-
-
 
 If the fix ave/histo/weight command is used, exactly two values must
 be specified.  If the values are vectors, they must be the same
@@ -301,11 +187,6 @@ second value (a scalar or vector) is used as a "weight".  This means
 that instead of each value tallying a "1" to its bin, the
 corresponding weight is tallied.  E.g. the Nth entry in the first
 vector tallies the Nth entry (weight) in the second vector.
-
-
-
-
-
 
 The *Nevery*, *Nrepeat*, and *Nfreq* arguments specify on what
 timesteps the input values will be used in order to contribute to the
@@ -317,8 +198,6 @@ be non-zero even if *Nrepeat* is 1.  Also, the timesteps
 contributing to the histogram value cannot overlap, 
 i.e. Nrepeat\*Nevery can not exceed Nfreq.
 
-
-
 For example, if Nevery=2, Nrepeat=6, and Nfreq=100, then input values
 on timesteps 90,92,94,96,98,100 will be used to compute the final
 histogram on timestep 100.  Similarly for timesteps
@@ -326,14 +205,7 @@ histogram on timestep 100.  Similarly for timesteps
 = 100, then no time averaging of the histogram is done; a histogram is
 simply generated on timesteps 100,200,etc.
 
-
-
-
-
-
 The particle attribute values (x,y,z,vx,vy,vz) are self-explanatory.
-
-
 
 If a value begins with "c\_", a compute ID must follow which has been
 previously defined in the input script.  If *mode* = scalar, then if
@@ -347,15 +219,12 @@ per-grid array calculated by the compute is used.  See the discussion
 above for how I can be specified with a wildcard asterisk to
 effectively specify multiple values.
 
-
-
 .. note::
 
   that there is a :ref:`compute reduce<compute-reduce>` command
   which can sum per-particle or per-grid or per-surf quantities into a
   global scalar or vector which can thus be accessed by fix ave/histo.
   Users can also write code for their own compute styles and :ref:`add them   to SPARTA<modify>`.
-
 
 If a value begins with "f\_", a fix ID must follow which has been
 previously defined in the input script.  If *mode* = scalar, then if
@@ -369,14 +238,11 @@ array calculated by the fix is used.  See the discussion above for how
 I can be specified with a wildcard asterisk to effectively specify
 multiple values.
 
-
-
 .. note::
 
   that some fixes only produce their values on certain timesteps,
   which must be compatible with *Nevery*, else an error will result.
   Users can also write code for their own fix styles and :ref:`add them to   SPARTA<modify>`.
-
 
 If a value begins with "v\_", a variable name must follow which has
 been previously defined in the input script.  If *mode* = scalar, then
@@ -384,8 +250,6 @@ only equal-style variables can be used.  If *mode* = vector, then only
 particle-style or grid-style variables can be used, which produce
 per-particle per-grid vectors respectively.  See the
 :ref:`variable<variable>` command for details.
-
-
 
 .. note::
 
@@ -395,21 +259,13 @@ per-particle per-grid vectors respectively.  See the
   variables when they are evaluated, so this is a very general means of
   specifying quantities to histogram.
 
-
-
-
-
 Additional optional keywords also affect the operation of this fix.
-
-
 
 If the *mode* keyword is set to *scalar*, then all input values must
 be global scalars, or elements of global vectors.  If the *mode*
 keyword is set to *vector*, then all input values must be global or
 per-particle or per-grid vectors, or columns of global or per-particle
 or per-grid arrays.
-
-
 
 The *file* keyword allows a filename to be specified.  Every *Nfreq*
 steps, one histogram is written to the file.  This includes a leading
@@ -425,19 +281,13 @@ normalized count is the bin count divided by the total count (not
 including values not histogrammed), so that the normalized values sum
 to 1.0 across all bins.
 
-
-
 The *region*, *mix*, and *group* keywords limit which particles
 or grid cells are included in the histogramming.
-
-
 
 The *region* keyword only applies to per-particle histogramming.  Only
 particles in the specified *region-ID* are included in the histogram.
 See the :ref:`region<region>` command for details of how geometric
 regions are defined.
-
-
 
 The *mix* keyword only applies to per-particle histogramming.  Only
 particles whose species are in the specified *mixture-ID* are included
@@ -445,27 +295,19 @@ in the histogram, which allows for only a subset of species to be
 included.  See the :ref:`mixture<mixture>` command for details of how
 mixtures are defined.
 
-
-
 The *group* keyword only applies to per-grid cell histogramming.  Only
 grid cells in the grid group specified by *group-ID* are included in
 the histogram.  See the :ref:`grid group<group>` command for details of
 how grid groups are defined.
-
-
 
 The *ave* keyword determines how the histogram produced every *Nfreq*
 steps are averaged with histograms produced on previous steps that
 were multiples of *Nfreq*, before they are accessed by another output
 command or written to a file.
 
-
-
 If the *ave* setting is *one*, then the histograms produced on
 timesteps that are multiples of *Nfreq* are independent of each other;
 they are output as-is without further averaging.
-
-
 
 If the *ave* setting is *running*, then the histograms produced on
 timesteps that are multiples of *Nfreq* are summed and averaged in a
@@ -476,8 +318,6 @@ when the fix is defined; it can only be restarted by deleting the fix
 via the :ref:`unfix<unfix>` command, or by re-defining the fix by
 re-specifying it.
 
-
-
 If the *ave* setting is *window*, then the histograms produced on
 timesteps that are multiples of *Nfreq* are summed within a moving
 "window" of time, so that the last M histograms are used to produce
@@ -486,14 +326,10 @@ will be the combined histogram of the individual histograms on
 steps 8000,9000,10000.  Outputs on early steps will be sums over less
 than M histograms if they are not available.
 
-
-
 The *start* keyword specifies what timestep histogramming will begin
 on.  The default is step 0.  Often input values can be 0.0 at time 0,
 so setting *start* to a larger value can avoid including a 0.0 in
 a running or windowed histogram.
-
-
 
 The *beyond* keyword determines how input values that fall outside the
 *lo* to *hi* bounds are treated.  Values such that *lo* <= value <=
@@ -509,87 +345,50 @@ values > *hi* are counted in the last bin (Nbins+1).  Values between
 "coordinate" stored and printed for these two extra bins is *lo* and
 *hi*.
 
-
-
 The *overwrite* keyword will continuously overwrite the output file
 with the latest output, so that it only contains one timestep worth of
 output.  This option can only be used with the *ave running* setting.
-
-
 
 The *title1* and *title2* and *title3* keywords allow specification of
 the strings that will be printed as the first 3 lines of the output
 file, assuming the *file* keyword was used.  SPARTA uses default
 values for each of these, so they do not need to be specified.
 
-
-
 By default, these header lines are as follows:
 
-
-
-
 ::
-
-
 
    # Histogram for fix ID
    # TimeStep Number-of-bins Total-counts Missing-counts Min-value Max-value
    # Bin Coord Count Count/Total
-
-
-
 
 In the first line, ID is replaced with the fix-ID.  The second line
 describes the six values that are printed at the first of each section
 of output.  The third describes the 4 values printed for each bin in
 the histogram.
 
-
-
-
-
-
 .. _fix-ave-histo-restart,-output:
-
-
 
 *********************
 Restart, output info:
 *********************
 
-
-
-
 No information about this fix is written to :ref:`binary restart files<restart>`.
-
-
 
 This fix produces a global vector and global array which can be
 accessed by various output commands.  The values can only be accessed
 on timesteps that are multiples of *Nfreq* since that is when a
 histogram is generated.  The global vector has 4 values:
 
-
-
-= total counts in the histogram
-= values that were not histogrammed (see *beyond* keyword)
-= min value of all input values, including ones not histogrammed
-= max value of all input values, including ones not histogrammed
-
-
-
+.. contents::
+   :depth: 1
+   :local:
 
 The global array has # of rows = Nbins and # of columns = 3.  The
 first column has the bin coordinate, the 2nd column has the count of
 values in that histogram bin, and the 3rd column has the bin count
 divided by the total count (not including missing counts), so that the
 values in the 3rd column sum to 1.0.
-
-
-
-
-
 
 Styles with a *kk* suffix are functionally the same as the
 corresponding style without the suffix.  They have been optimized to
@@ -599,74 +398,42 @@ The accelerated styles take the same arguments and should produce the
 same results, except for different random number, round-off and
 precision issues.
 
-
-
 These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
-
-
 
 You can specify the accelerated styles explicitly in your input script
 by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
-
-
 See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
-
-
-
-
-
 .. _fix-ave-histo-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _fix-ave-histo-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`compute<compute>`, :ref:`fix ave/time<fix-ave-time>`,
 :ref:`variable<variable>`
 
-
-
 .. _fix-ave-histo-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The option defaults are mode = scalar, ave = one, start = 0, no file
 output, no region/mixture/group restriction on inclusion of particles
 or grid cells, beyond = ignore, and title 1,2,3 = strings as described
 above.
-
-
 

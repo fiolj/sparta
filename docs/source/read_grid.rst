@@ -1,117 +1,60 @@
 
 :orphan:
 
-
-
 .. index:: read_grid
-
-
 
 .. _read-grid:
 
-
-
-
 .. _read-grid-command:
-
-
 
 #################
 read_grid command
 #################
 
-
-
-
 .. _read-grid-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    read_grid filename keyword args ...
 
-
-
-
 - filename = name of grid file 
-
-
 
 - zero or more keyword/args pairs may be appended
 
-
-
 - keyword = *custom*
 
-
-
-
 ::
-
-
 
    *custom* args = name datatype Nc
    name = name of custom per-grid vector or array
    datatype = *int* or *float* = for integer or floating point values
    Nc = 0 for a vector (single value), Nc >= 1 for an array (one or more values)
 
-
-
-
-
-
-
-
 .. _read-grid-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    read_grid data.grid
    read_grid data.grid custom temperature double 0
 
-
-
-
 .. _read-grid-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Read a grid file in text format which lists the grid cell IDs to be
 used to construct a hierarchical grid that overalys the simulation
 domain defined by the :ref:`create_box<create-box>` command.  The grid
 can also be defined by the :ref:`create_grid<create-grid>` command.
-
-
 
 .. note::
 
@@ -119,20 +62,15 @@ can also be defined by the :ref:`create_grid<create-grid>` command.
   simply numbered from 1 to N.  They also encode the cell's logical
   position within the grid hierarchy.
 
-
 The specified file can be a text file or a gzipped text file (detected
 by a .gz suffix).  See the :ref:`write_grid<writegrid>` command for a
 description of the format of the file.
-
-
 
 The grid cell IDs read from the file (one per line) are assigned to
 processors in a round-robin fashion, which means in general the set of
 cells a processor owns will not be contiguous in a geometric sense.
 They are thus assumed to be a "dispersed" assignment of grid cells to
 each processor.
-
-
 
 .. important::
 
@@ -144,7 +82,6 @@ each processor.
   balance" command can be used to re-assign them in a load-balanced
   manner periodically during a running simulation.
 
-
 The *custom* keyword allows a custom per-grid vector or array to be
 created and initialized.  Custom vectors or arrays associate a single
 value or multiple values with each grid cell.  They can be output by
@@ -154,16 +91,12 @@ commands.  For example, many of the models for the
 use of a per-surf vector allows the temperature of individual surface
 elements to be specified.
 
-
-
 The *name* argument is the name assigned to the new custom vector or
 array.  The *datatytpe* argument is *int* or *float* which determines
 whether the vector/array stores integer or floating point values.  The
 *Nc* argument is 0 for a per-surgrid vector and an integer >= 1 for an
 array with *Nc* columns.  A per-grid vector stores a single value per
 grid cell; a per-grid array stores Nc values per grid cell.
-
-
 
 Each use of the *custom* keyword determines how many values are
 appended for each line following the grid cell ID.  For a custom
@@ -173,73 +106,40 @@ vectors or arrays in the order the *custom* keywords are specified.
 For example, for this read_grid command, 4 custom values should be
 added to the end of each line in the Cells section of the input file:
 
-
-
-
 ::
 
-
-
    read_grid grid.data custom temperature float 0 custom flags int 3
-
-
-
 
 The first floating-point value will be the temperature, the next 3
 integers will be flags.
 
-
-
 .. _read-grid-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 This command can only be used after the simulation box is defined by
 the :ref:`create_box<create-box>` command.
-
-
 
 To read gzipped grid files, you must compile SPARTA with the
 -DSPARTA_GZIP option - see :ref:`Section 2.2<start-making-sparta>` of
 the manual for details.
 
-
-
 .. _read-grid-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`create_box<create-box>`, :ref:`create_grid<create-grid>`,
 :ref:`write_grid<write-grid>`
 
-
-
 .. _read-grid-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 none
-
-
 

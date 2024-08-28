@@ -1,99 +1,52 @@
 
 :orphan:
 
-
-
 .. index:: fix_ambipolar
-
-
 
 .. _fix-ambipolar:
 
-
-
-
 .. _fix-ambipolar-command:
-
-
 
 #####################
 fix ambipolar command
 #####################
 
-
-
-
 .. _fix-ambipolar-command-kk:
-
-
 
 ########################
 fix ambipolar command/kk
 ########################
 
-
-
-
 .. _fix-ambipolar-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
 
-
-
    fix ID ambipolar especies ion1 ion2 ...
-
-
-
 
 ID is documented in :ref:`fix<fix>` command
 ambipolar = style name of this fix command
 especies = species ID for ambipolar electrons
 ion1,ion2,... = species IDs for one or more ambipolar ions
 
-
-
-
 .. _fix-ambipolar-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    fix 1 ambipolar e N+ O+ NO+
 
-
-
-
 .. _fix-ambipolar-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Enable the ambipolar approximation to be used in a simulation.  The
 ambipolar approximation is a computationally efficient way to model
@@ -103,15 +56,11 @@ particles which move independently.  This would require a simulation
 with a very small timestep due to electon's small mass and high speed
 (1000x that of an ion or neutral particle).
 
-
-
 Instead each ambipolar electron is assumed to stay "close" to its
 parent ion, so that the plasma gas appears macroscopically neutral.
 Each pair of particles thus moves together through the simulation
 domain, as if they were a single particle, which is how they are
 stored within SPARTA.  This means a normal timestep can be used.
-
-
 
 An overview of how to run simulations with the ambipolar approximation
 is given in the :ref:`Section 6.11<howto-ambipolar-approximat>`.  This
@@ -122,16 +71,12 @@ commands that can be used in an input script to invoke various options
 associated with the ambipolar approximation.  All of them depend on
 this fix ambipolar command being defined.
 
-
-
 This command defines *especies* which is the species ID associated
 with the ambipolar electrons.  It also specifies one or more species
 IDs as *ion1*, *ion2*, etc for ambipolar ions.  SPARTA checks that the
 especies has a negative charge (as read in by the
 :ref:`species<species>` command), and the ions have positive charges.
 An error is flagged if that is not the case.
-
-
 
 Internally, this fix defines two custom particle attributes.  The
 first is named "ionambi" and is an integer vector (one integer per
@@ -140,25 +85,13 @@ The second is named "velambi" and is a floating-point array (3 values
 per particle).  It stores the velocity of the ambipolar electron
 associated with the ambipolar ion if it exists, or zeroes otherwise.
 
-
-
-
-
-
 .. _fix-ambipolar-restart,-output-info:
-
-
 
 *********************
 Restart, output info:
 *********************
 
-
-
-
 No information about this fix is written to :ref:`binary restart files<restart>`.
-
-
 
 However, the values of the two custom particle attributes defined by
 this fix are written to the restart file.  Namely the integer value
@@ -169,22 +102,13 @@ is read.  If a new fix ambipolar command is specified in the restart
 script before the first :ref:`run<run>` command is used, then the
 ambipolar model will continue to be used in the continued run.
 
-
-
 No global or per-particle or per-grid quantities are stored by this
 fix for access by various output commands.
-
-
 
 However, the two custom per-particle attributes defined by this fix
 can be accessed by the :ref:`dump particle<dump>` command, as p_ionambi
 and p_velambi.  That means those per-particle values can be written to
 particle dump files.
-
-
-
-
-
 
 Styles with a *kk* suffix are functionally the same as the
 corresponding style without the suffix.  They have been optimized to
@@ -194,70 +118,38 @@ The accelerated styles take the same arguments and should produce the
 same results, except for different random number, round-off and
 precision issues.
 
-
-
 These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
-
-
 
 You can specify the accelerated styles explicitly in your input script
 by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
-
-
 See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
-
-
-
-
-
 .. _fix-ambipolar-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _fix-ambipolar-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`collide_modify ambipolar yes<collide-modify>`
 
-
-
 .. _fix-ambipolar-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 none
-
-
 

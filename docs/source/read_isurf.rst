@@ -1,81 +1,41 @@
 
 :orphan:
 
-
-
 .. index:: read_isurf
-
-
 
 .. _read-isurf:
 
-
-
-
 .. _read-isurf-command:
-
-
 
 ##################
 read_isurf command
 ##################
 
-
-
-
 .. _read-isurf-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    read_isurf group-ID Nx Ny Nz filename thresh ablateID keyword args ...
 
-
-
-
 - group-ID = group ID for which grid cells to perform calculation on 
-
-
 
 - Nx,Ny,Nz = grid cell extent for adding implicit surfs
 
-
-
 - filename = binary file with grid corner point values
-
-
 
 - thresh = threshold for surface definition, value > 0.0 and < 255.0
 
-
-
 - ablateID = ID of a :ref:`fix ablate<fix-ablate>` command
-
-
 
 - zero or more keyword/args pairs may be appended
 
-
-
 - keyword = *group* or *type* or *push* or *precision* or *read*
 
-
-
-
 ::
-
-
 
    group arg = group-ID
    group-ID = new or existing surface group to assign the surface elements to
@@ -85,53 +45,28 @@ Syntax:
    precision arg = int or double
    read arg = serial or parallel
 
-
-
-
-
-
-
-
 .. _read-isurf-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    read_isurf portion 100 100 1 isurf.material.2d 180.5 fablate group mesh
    read_isurf subset 150 100 50 isurf.materials.3d 120.5 fablate type isurf.type
    read_isurf subset 150 100 50 isurf.materials.3d 120.5 fablate read parallel
 
-
-
-
 .. _read-isurf-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Read the geometry of a surface from the specified file.  In SPARTA, a
 "surface" is a collection of surface elements that represent the
 surface of one or more physical objects which will be embedded in the
 global simulation box.  Surfaces can be explicit or implicit.
-
-
 
 This command reads implicit surfaces from a file containing grid
 corner point values which implicitly define the surface elements.  See
@@ -141,15 +76,11 @@ explantion of explicit versus implicit surfaces as well as distributed
 versus non-distributed storage.  You cannot mix explicit and implicit
 surfaces in the same simulation.
 
-
-
 Surface elements are triangles in 3d or line segments in 2d.  Surface
 elements for each physical object are required to be a complete,
 connected set that tile the entire surface of the object.  See the
 discussion of watertight surfaces below.  Implicit surfaces will
 always be watertight, due to the algorithm that defines them.
-
-
 
 Here are simulation snapshots of 2d and 3d implicit surface models
 through which particles could flow.  Click on either image for a
@@ -159,16 +90,10 @@ created via Marching Cubes (discussed below) from a tomographic image
 of a sample of NASA FiberForm (TM) material, used as a heat shield
 material on spacecraft.
 
-
-
 .. image:: JPG/porous3d_initial_small.png
            :target: JPG/porous3d_initial.png
 
-
-
 :image()
-
-
 
 Particles collide with surface elements as they advect.  Each surface
 element is assigned to a collision model, specified by the
@@ -182,14 +107,10 @@ the :ref:`compute isurf/grid<compute-isurf-grid>` command,
 time-averaged via the :ref:`fix ave/grid<fix-ave-grid>` command, and
 ouput via the :ref:`dump surface<dump>` command.
 
-
-
 Surface elememts can be assigned to surface groups via the :ref:`group surf<group>` command.  Surface group IDs are used by other
 commands to operate on selected sets of elements.  This command has a
 *type* keyword which can be used to help assign different elements to
 different groups.
-
-
 
 .. note::
 
@@ -199,19 +120,11 @@ different groups.
   different commands does not overlap.  However currently, that is not
   yet possible.
 
-
 The format of a surface file for implicit surfaces is discussed below.
-
-
 
 The tools directory contains a implicit_grid.py tool which can create
 implicit surface files in a randomized manner for different grid
 extents.
-
-
-
-
-
 
 The specified *group-ID* must be the name of a grid cell group, as
 defined by the :ref:`group grid<group>` command, which contains a set
@@ -221,27 +134,18 @@ contiguous 3d array, with specified extent *Nx* by *Ny* by *Nz*.  For
 comprise a 2d array of cells that is *Nx* by *Ny*.  These are the grid
 cells in which implicit surfaces will be created.
 
-
-
 The specified *filename* is for a binary file in the following format:
-
-
 
 first 4 bytes = Nxfile (integer)
 next 4 bytes = Nyfile (integer)
 next 4 bytes = Nzfile (integer), only for 3d simulations
 final N bytes = Nxfile by Nyfile by Nzfile grid corner point values (integer)
 
-
-
-
 For 2d simulations, the first 8 bytes store 2 integers in binary
 format: Nxfile and Nyfile.  For 3d simulations, the first 12 bytes
 store 3 integers in binary format: Nxfile, Nyfile, and Nzfile.  These
 are the dimensions of the grid of corner point values in the remainder
 of the file.
-
-
 
 .. important::
 
@@ -252,12 +156,9 @@ of the file.
   give an error if the read_isurf Nx,Ny,Nz arguments do not match the
   first 2 or 3 integers in the file.
 
-
 The remaining N bytes of the file are a series of corner point values.
 There are N = Nxfile \* Nyfile values in 2d, and N = Nxfile \* Nyfile \*
 Nzfile values in 3d.
-
-
 
 If the *precision* keyword is set to *int*, which is the default, then
 the values are one-byte integers, from 0 to 255 inclusive.  If the
@@ -271,8 +172,6 @@ command, where material is removed incrementally (from the corner
 point values) due to collisions of particles with the implicit
 surfaces.
 
-
-
 .. important::
 
   The corner point values are a 2d or 3d regular array
@@ -284,12 +183,9 @@ surfaces.
   in the simulation domain is the same: their x indices vary fastest,
   then y, and their z indices very slowest.
 
-
 The 8 corner point values (4 in 2d) for each grid cell are used with a
 marching cubes algorithm (marching squares in 2d) to infer a set of
 triangles (line segments in 2d) which are created in the grid cell.
-
-
 
 .. important::
 
@@ -297,17 +193,11 @@ triangles (line segments in 2d) which are created in the grid cell.
   same grid cell are assigned the same surface ID, which is the grid
   cell ID.
 
-
 A good description of the two algorithms is given on these Wikipedia
 webpages:
 
-
-
 https://en.wikipedia.org/wiki/Marching_cubes
 https://en.wikipedia.org/wiki/Marching_squares
-
-
-
 
 The algorithms require a threshold value as input, which is the
 *thresh* value in the read_isurf command.  For corner point values
@@ -315,14 +205,10 @@ that bracket the threshold, it determines precisely where in the grid
 cell the corner points of the inferred implicit surface elements will
 be.
 
-
-
 The threshold must be specified as a floating point value such that 0
 < thresh < 255.  An integer value for thresh (e.g. 128 or 128.0) is
 not allowed, because that could induce generation of implicit surfaces
 with zero length (2d line) or area (3d triangle).
-
-
 
 .. important::
 
@@ -347,7 +233,6 @@ with zero length (2d line) or area (3d triangle).
   aggregate set of induced implicit surfaces will not be consistent
   across the y periodic boundary.
 
-
 The specified *ablateID* is the fix ID of a :ref:`fix ablate<fix-ablate>` command which has been previously specified in
 the input script.  It will store the grid corner point values for each
 grid cell.  It also has the code logic for converting grid corner
@@ -355,15 +240,8 @@ point values to surface elements (line segments or triangles) and also
 optinally allows for the surface to be ablated during a simulation due
 to particles colliding with the surface elements.
 
-
-
-
-
-
 The following optional keywords affect attributes of the read-in
 surface elements and how they are read.
-
-
 
 Surface groups are collections of surface elements.  Each surface
 element belongs to one or more surface groups; all elements belong to
@@ -371,15 +249,11 @@ the "all" group, which is created by default.  Surface group IDs are
 used by other commands to identify a group of suface elements to
 operate on.  See the :ref:`group surf<group>` command for more details.
 
-
-
 Every surface element also stores a *type* which is a positive
 integer.  *Type* values are useful for flagging subsets of elements.
 For example, implicit surface elemnts in different regions of the
 simulation box.  Surface element types can be used to define surface
 groups.  See the :ref:`group surf<group>` command for details.
-
-
 
 The *group* keyword specifies an extra surface *group-ID* to which all
 the implicit surface elements are assigned when created by the read-in
@@ -388,32 +262,21 @@ the "all" group and to *group-ID*.  If *group-ID* does not exist, a
 new surface group is created.  If it does exist the create implicit
 surface elements are added to that group.
 
-
-
 The *type* keyword triggers the reading of a per grid cell type file
 with the specified name *tfile*.
 
-
-
 The specified *filename* is for a binary file in the following format:
-
-
 
 first 4 bytes = Nxfile (integer)
 next 4 bytes = Nyfile (integer)
 next 4 bytes = Nzfile (integer), only for 3d simulations
 final N bytes = Nxfile by Nyfile by Nzfile grid corner point values (integer)
 
-
-
-
 For 2d simulations, the first 8 bytes store 2 integers in binary
 format: Nxfile and Nyfile.  For 3d simulations, the first 12 bytes
 store 3 integers in binary format: Nxfile, Nyfile, and Nzfile.  These
 are the dimensions of the grid of corner point values in the remainder
 of the file.
-
-
 
 .. important::
 
@@ -423,14 +286,11 @@ of the file.
   SPARTA will give an error if the read_isurf Nx,Ny,Nz arguments do not
   match the first 2 or 3 integers in the file.
 
-
 The remaining N bytes of the file are a series of one-byte integer
 values.  There are N = Nxfile \* Nyfile values in 2d, and N = Nxfile \*
 Nyfile \* Nzfile values in 3d.  Each value is a single byte integer
 from 1 to 255 inclusive, since surface element type values must be >
 0.
-
-
 
 .. important::
 
@@ -443,12 +303,9 @@ from 1 to 255 inclusive, since surface element type values must be >
   domain is the same: their x indices vary fastest, then y, and their z
   indices very slowest.
 
-
 The type value for each grid cell is used to assign a type value to
 each surface element created in that grid cell by the marching cubes
 or squares algorithm.
-
-
 
 The *push* keyword specifies whether or not (*yes* or *no*) to "push"
 grid corner points values to their minimum/maximum possible values,
@@ -465,18 +322,13 @@ this operation is to reset corner point values to 0 if they are fully
 exterior to the surface object(s), and likewise to 255 if they are
 fully interior to the surface object(s).
 
-
-
 .. note::
 
   that the push is a one-time operation, performed when the corner
   point values are read in, before the first set of surface elements are
   created by the marching cubes or marching squares algorithms.
 
-
 The default for the *push* keyword is *yes*.
-
-
 
 The *read* keyword specifies how the input file of grid corner point
 values is read.  If the value is *serial*, which is the default, then
@@ -491,21 +343,11 @@ by each grid cell that owns one of the corner point values.  The
 *parallel* option can be faster for simulations with large grid corner
 point files and large numbers of processors.
 
-
-
-
-
-
 .. _read-isurf-restrictio:
-
-
 
 *************
 Restrictions:
 *************
-
-
-
 
 This command can only be used after the simulation box is defined by
 the :ref:`create_box<create-box>` command, and after a grid has been
@@ -513,40 +355,22 @@ created by the :ref:`create_grid<create-grid>` command.  If particles
 already exist in the simulation, you must insure particles do not end
 up inside the set of implicit surfaces.
 
-
-
 Simulations with implicit surfaces cannot perform grid adaptation.
 
-
-
 .. _read-isurf-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`read_surf<read-surf>`, :ref:`write_surf<write-surf>`, :ref:`fix ablate<fix-ablate>`
 
-
-
 .. _read-isurf-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The optional keyword defaults are group = all, type = no, push = yes,
 precision int, and read serial.
-
-
 

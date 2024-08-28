@@ -1,76 +1,38 @@
 
 :orphan:
 
-
-
 .. index:: custom
-
-
 
 .. _custom:
 
-
-
-
 .. _custom-command:
-
-
 
 ##############
 custom command
 ##############
 
-
-
-
 .. _custom-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    custom style attribute action args ... keyword value ...
 
-
-
-
 - style = *particle* or *grid* or *surf* 
-
-
 
 - attribute = name of custom attribute
 
-
-
-
 ::
-
-
 
    name = custom vector attribute with name
    name\[N\] = Nth column of custom array attribute with name
 
-
-
-
 - action = *set* or *remove*
 
-
-
-
 ::
-
-
 
    *set* args = v_name subset-ID region-ID
    v_name = equal-, particle-, grid-, or surf-style variable with name
@@ -78,57 +40,28 @@ Syntax:
    region-ID = only apply to particle/grid/surf in region, NULL to not test
    *remove* args = none
 
-
-
-
 - zero of more keyword/arg pairs may be appended (only for action = set)
 
-
-
-
 ::
-
-
 
    keyword = *type* or *size*
    *type* arg = *int* or *float*
    *size* arg = M for number of columns in a new custom array
 
-
-
-
-
-
-
-
 .. _custom-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    variable ivec particle id/100000
    variable sdvec surf c_1\*10+3.5
    variable sdarray1 surf s_dvec+1
    variable sdarray2 surf v_sdarray1+1
 
-
-
-
-
 ::
-
-
 
    custom particle ivec set v_ivec air NULL type int
    custom surf dvec set v_sdvec all NULL
@@ -137,19 +70,11 @@ Examples:
    custom particle ivec remove
    custom surf darray remove
 
-
-
-
 .. _custom-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Create or reset or remove a custom attribute for individual particles,
 grid cells, or surface elements.  To create or reset an attribute a
@@ -159,12 +84,8 @@ entity).  They can also be integer or floating point values.  See
 :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of
 custom attributes.
 
-
-
 The specified *style* setting is *particle* or *grid* or *surf*
 for per-particle, per-grid, or per-surf attributes.
-
-
 
 The *attribute* specifies the name of the attribute to operate on.
 The same name can be used for attributes of different styles.
@@ -177,18 +98,12 @@ entity).  The integer *N* must be between 1 and M = # of columns in
 the array (values per entity).  See the *size* keyword discussion
 below for how to specify M if it is a new custom array.
 
-
-
 The *action* is specified as *set* or *remove*.
-
-
 
 If *remove* is used, then the *attribute* should be simply the name of
 the attribute, whether it is a vector or array.  No trailing brackets
 are specified.  The attribute will be removed from the system.  No
 further arguments can be specified.
-
-
 
 If *set* is used, then the attribute is created if it does not already
 exist and its values are initialized.  If it already exists, its
@@ -200,16 +115,12 @@ array, use an *attribute* name suffixed by a bracketed integer,
 e.g. dipole\[3\].  The integer must be a value from 1 to M, where M is
 the number of columns (values per entity) in the array.
 
-
-
 The specified *v_name* is the name of a previously defined variable
 which this command will evaluate.  It must be either an equal-style or
 particle-style or grid-style or surf-style variable.  All of these
 styles define a mathematical formula which is used to compute the
 value(s) of the variable.  See the :ref:`variable<variable>` for
 details.
-
-
 
 If an equal-style variable is specified, it produces a single value
 which will be assigned as the custom value to all particles or grid
@@ -220,8 +131,6 @@ evaluated it generates one value for each particle, grid cell, or
 surface element, which is assigned to the custom vector or to a column
 of the custom array.
 
-
-
 .. note::
 
   that the latter 3 variable styles can include outputs from
@@ -231,21 +140,17 @@ of the custom array.
   calculate values for each entity which vary spatially or which depend
   on the current timestep.
 
-
 The next two arguments, *subset-ID* and *region-ID*, can limit which
 particles, grid cells, or surface elements are assigned a custom
 value.  An individual particle, grid cell, or surface element must
 meet both criteria to have its custom value set, otherwise its value
 is set to zero.
 
-
-
 .. note::
 
   that "all" is a pre-defined mixture ID which
   contains all particles.  Likewise "all" is the name of a pre-defined
   group with all grid cells or surface elements.
-
 
 The *region-ID* is the ID of a geometric region defined by the
 :ref:`region<region>` command.  Only particles or grid cells or surface
@@ -254,18 +159,12 @@ of a grid cell or surface element is used for the region check.  If
 *region-ID* is specified as NULL, then the region criterion is not
 applied.
 
-
-
 Two optional keywords affect the creation of a new custom vector or
 array.  They are ignored if the custom vector or array already exists.
-
-
 
 The *type* keyword can be used with *int* or *float* as its arg.  The
 created custom attribute will then store either integer or
 floating-point values.  Floating point values are the default.
-
-
 
 The *size* keyword can be used with arg = 0 to create a custom vector
 (which is the default).  It can also be used with an arg M >= 1 to
@@ -276,54 +175,28 @@ custom vector.  But if a new *attribute* name with a bracket is used,
 the *size* keyword must be used so that the column dimension of the
 array is known.
 
-
-
-
-
-
 .. _custom-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _custom-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`mixture<mixture>`, :ref:`group<group>`, :ref:`region<region>`
 
-
-
 .. _custom-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The default settings for creation of a new custom attibute are type =
 float and size = 0.
-
-
 

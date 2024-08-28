@@ -1,88 +1,46 @@
 
 :orphan:
 
-
-
 .. index:: jump
-
-
 
 .. _jump:
 
-
-
-
 .. _jump-command:
-
-
 
 ############
 jump command
 ############
 
-
-
-
 .. _jump-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
 
-
-
    jump file label
-
-
-
 
 file = filename of new input script to switch to
 label = optional label within file to jump to
 
-
-
-
 .. _jump-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    jump newfile
    jump in.run2 runloop
    jump SELF runloop
 
-
-
-
 .. _jump-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 This command closes the current input script file, opens the file with
 the specified name, and begins reading SPARTA commands from that file.
@@ -90,12 +48,8 @@ Unlike the :ref:`include<include>` command, the original file is not
 returned to, although by using multiple jump commands it is possible
 to chain from file to file or back to the original file.
 
-
-
 If the word "SELF" is used for the filename, then the current input
 script is re-opened and read again.
-
-
 
 .. important::
 
@@ -103,49 +57,26 @@ script is re-opened and read again.
   current input script is being read through stdin (standard input),
   e.g.
 
-
-
 ::
 
-
-
    spa_g++ < in.script
-
-
-
 
 since the SELF option invokes the C-library rewind() call, which may
 not be supported for stdin on some systems or by some MPI
 implementations.  This can be worked around by using the :ref:`-in command-line argument<start-running-sparta>`, e.g.
 
-
-
-
 ::
 
-
-
    spa_g++ -in in.script
-
-
-
 
 or by using the :ref:`-var command-line argument<start-running-sparta>` to pass the script name as a
 variable to the input script.  In the latter case, a
 :ref:`variable<variable>` called "fname" could be used in place of
 SELF, e.g.
 
-
-
-
 ::
 
-
-
    spa_g++ -var fname in.script < in.script
-
-
-
 
 The 2nd argument to the jump command is optional.  If specified, it is
 treated as a label and the new file is scanned (without executing
@@ -157,12 +88,7 @@ etc.  The :ref:`next<next>` command is used to exit the loop after 10
 iterations.  When the "a" variable has been incremented for the tenth
 time, it will cause the next jump command to be skipped.
 
-
-
-
 ::
-
-
 
    variable a loop 10
    label loop
@@ -172,9 +98,6 @@ time, it will cause the next jump command to be skipped.
    next a
    jump in.flow loop
 
-
-
-
 If the jump *file* argument is a variable, the jump command can be
 used to cause different processor partitions to run different input
 scripts.  In this example, SPARTA is run on 40 processors, with 4
@@ -182,39 +105,20 @@ partitions of 10 procs each.  An in.file containing the example
 variable and jump command will cause each partition to run a different
 simulation.
 
-
-
-
 ::
-
-
 
    mpirun -np 40 lmp_ibm -partition 4x10 -in in.file
 
-
-
-
-
 ::
-
-
 
    variable f world script.1 script.2 script.3 script.4
    jump $f
-
-
-
 
 Here is an example of a double loop which uses the :ref:`if<if>` and
 jump commands to break out of the inner loop when a condition is met,
 then continues iterating thru the outer loop.
 
-
-
-
 ::
-
-
 
    label	    loopa
    variable    a loop 5
@@ -228,64 +132,34 @@ then continues iterating thru the outer loop.
    label	    break
    variable    b delete
 
-
-
-
-
 ::
-
-
 
    next	    a
    jump	    in.script loopa
 
-
-
-
 .. _jump-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 If you jump to a file and it does not contain the specified label,
 SPARTA will come to the end of the file and exit.
 
-
-
 .. _jump-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`variable<variable>`, :ref:`include<include>`, :ref:`label<label>`,
 :ref:`next<next>`
 
-
-
 .. _jump-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 none
-
-
 

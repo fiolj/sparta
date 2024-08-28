@@ -1,100 +1,51 @@
 
 :orphan:
 
-
-
 .. index:: dump_image
-
-
 
 .. _dump-image:
 
-
-
-
 .. _dump-image-command:
-
-
 
 ##################
 dump image command
 ##################
 
-
-
-
 .. _dump-image-movie-command:
-
-
 
 ##################
 dump movie command
 ##################
 
-
-
-
 .. _dump-image-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    dump ID style mix-ID N file color diameter keyword value ...
 
-
-
-
 - ID = user-assigned name for the dump 
-
-
 
 - style = *image* or *movie* = style of dump command (other styles *particle* or *grid* or *surf* are discussed on the :ref:`dump<dump>` doc page)
 
-
-
 - mix-ID = mixture ID for which particles to include in image
-
-
 
 - N = dump every this many timesteps
 
-
-
 - file = name of file to write image to
-
-
 
 - color = particle attribute that determines color of each particle
 
-
-
 - diameter = particle attribute that determines size of each particle
-
-
 
 - zero or more keyword/value pairs may be appended
 
-
-
 - keyword = *particle* or *pdiam* or *grid* or *gridx* or *gridy* or *gridz* or *surf* or *size* or *view* or *center* or *up* or *zoom* or *persp* or *box* or *gline* or *sline* or *axes* or *shiny* or *ssao*
 
-
-
-
 ::
-
-
 
    *particle* = yes/no = do or do not draw particles
    *pdiam* value = number = numeric value for particle diameter (distance units)
@@ -152,65 +103,34 @@ Syntax:
    seed = random # seed (positive integer)
    dfactor = strength of shading from 0.0 to 1.0
 
-
-
-
-
-
-
-
 .. _dump-image-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    dump myDump image all 100 dump.\*.jpg type type
    dump myDump movie all 100 movie.mpg type type
-
-
-
 
 These commands will dump shapshot images of all particles whose
 species are in the *mix-ID* to a file every 100 steps.  The last two
 shell command will make a movie from the JPG files (once the run has
 finished) and play it in the Firefox browser:
 
-
-
-
 ::
-
-
 
    dump                4 image all 100 tmp.\*.jpg type type pdiam 0.2 view 90 -90 
    dump_modify	    4 pad 4
    % convert tmp\*jpg tmp.gif
    % firefox tmp.gif
 
-
-
-
 .. _dump-image-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Dump a high-quality ray-traced image of the simulation every N
 timesteps and save the images either as a sequence of JPEG or PNG or
@@ -218,27 +138,18 @@ PPM files, or as a single movie file.  The options for this command as
 well as the :ref:`dump_modify<dump-modify>` command control what is
 included in the image and how it appears.
 
-
-
 Any or all of these entities can be included in the images:
-
-
 
 particles (all in mixture or limited to a :ref:`region<region>`)
 grid cells (all or limited to a :ref:`region<region>`)
 x,y,z planes cutting through the grid
 surface elements
 
-
-
-
 Particles can be colored by any attribute allowed by the :ref:`dump particle<dump>` command.  Grid cells and the x,y,z cutting planes
 can be colored by any per-grid attribute calculated by a
 :ref:`compute<compute>` or :ref:`fix<fix>`.  Surface elements can be
 colored by any per-surf attribute calculated by a
 :ref:`compute<compute>` or :ref:`fix<fix>`.
-
-
 
 A series of images can easily be converted into an animated movie of
 your simulation (see further details below), or the process can be
@@ -247,30 +158,18 @@ command.  Other dump styles store snapshots of numerical data
 asociated with particles, grid cells, and surfaces in various formats,
 as discussed on the :ref:`dump<dump>` doc page.
 
-
-
 Here are two sample images, rendered as JPG files.  
 Click to see the full-size images.
 
-
-
 <DIV ALIGN=center>
-
-
 
 .. image:: JPG/sphere_image_small.jpg
            :target: JPG/sphere_image.jpg
 
-
-
 .. image:: JPG/mix_sine_small.jpg
            :target: JPG/mix_sine.jpg
 
-
-
 </DIV>
-
-
 
 The left image is flow around a sphere with visualization of
 triangular surface elements on the sphere surface (colored by surface
@@ -280,11 +179,6 @@ species).  The right image is the initial condition for a 2d
 simulation of Rayleigh-Taylor mixing as a relatively dense heavy gas
 (red) mixes with a light gas (green), driven by gravity in the
 downward direction.
-
-
-
-
-
 
 The filename suffix determines whether a JPEG, PNG, or PPM file is
 created with the *image* dump style.  If the suffix is ".jpg" or
@@ -296,8 +190,6 @@ PNG has lossless compression; and PPM files are uncompressed but can
 be compressed with gzip, if SPARTA has been compiled with
 -DSPARTA_GZIP and a ".gz" suffix is used.
 
-
-
 Similarly, the format of the resulting movie is chosen with the
 *movie* dump style.  This is handled by the underlying FFmpeg
 converter program, which must be available on your machine, and thus
@@ -306,18 +198,11 @@ examples are: .avi, .mpg, .m4v, .mp4, .mkv, .flv, .mov, .gif
 Additional settings of the movie compression like bitrate and
 framerate can be set using the :ref:`dump_modify<dump-modify>` command.
 
-
-
 To write out JPEG and PNG format files, you must build SPARTA with
 support for the corresponding JPEG or PNG library.  To convert images
 into movies, SPARTA has to be compiled with the -DSPARTA_FFMPEG flag.
 See :ref:`Section 2.2<start-making-sparta>` of the manual for
 instructions on how to do this.
-
-
-
-
-
 
 .. note::
 
@@ -328,7 +213,6 @@ instructions on how to do this.
   between runs by using the :ref:`dump_modify every<dump-modify>`
   command.
 
-
 .. note::
 
   that the :ref:`dump_modify pad<dump-modify>` command can be used to
@@ -336,15 +220,9 @@ instructions on how to do this.
   can make it easier to convert a series of images into a movie in the
   correct ordering.
 
-
 Dump *movie* filenames on the other hand, must not have any wildcard
 character since only one file combining all images into a single movie
 will be written by the movie encoder.
-
-
-
-
-
 
 Several of the keywords determine what objects are rendered in the
 image, namely particles, grid cells, or surface elements.  There are
@@ -354,34 +232,20 @@ will likely not need to change.  The :ref:`dump modify<dump-modify>`
 also has options specific to the dump image style, particularly for
 assigning colors to particles and other image features.
 
-
-
-
-
-
 .. _dump-image-rendering-particles:
-
-
 
 ######################
 Rendering of particles
 ######################
-
-
-
 
 Particles are drawn by default using the *color* and *diameter*
 settings.  The *particle* keyword allow you to turn off the drawing of
 all particles, if the specified value is *no*.  Only particles in a
 geometric region can be drawn using the :ref:`dump_modify region<dump-modify>` command.
 
-
-
 The *color* and *diameter* settings determine the color and size of
 particles rendered in the image.  They can be any particle attribute
 defined for the :ref:`dump particle<dump>` command, including *type*.
-
-
 
 The *diameter* setting can be overridden with a numeric value by the
 optional *pdiam* keyword, in which case you can specify the *diameter*
@@ -390,13 +254,9 @@ overrides the *diameter* setting with a specified numeric value.  All
 particles will be drawn with that diameter, e.g. 1.5, which is in
 whatever distance :ref:`units<units>` the input script defines.
 
-
-
 If *type* is specified for the *color* setting, then the color of each
 particle is determined by its type = species index.  By default the
 mapping of types to colors is as follows:
-
-
 
 type 1 = red
 type 2 = green
@@ -405,40 +265,27 @@ type 4 = yellow
 type 5 = aqua
 type 6 = purple
 
-
-
-
 and repeats itself for types > 6.  This mapping can be changed by the
 :ref:`dump_modify pcolor<dump-modify>` command.
-
-
 
 If *proc* is specified for the *color* setting, then the color of each
 particle is determined by the ID of the owning processor.  The default
 mapping of proc IDs to colors is that same as in the list above,
 except that proc P corresponds to type P+1.
 
-
-
 If *type* is specified for the *diameter* setting then the diameter of
 each particle is determined by its type = species index.  By default
 all types have diameter 1.0.  This mapping can be changed by the
 :ref:`dump_modify adiam<dump-modify>` command.
-
-
 
 If *proc* is specified for the *diameter* setting then the diameter of
 each particle will be the proc ID (0 up to Nprocs-1) in whatever
 :ref:`units<units>` you are using, which is undoubtably not what you
 want.
 
-
-
 Any of the particle attributes listed in the :ref:`dump custom<dump>`
 command can also be used for the *color* or *diameter* settings.  They
 are interpreted in the following way.
-
-
 
 If "vx", for example, is used as the *color* setting, then the color
 of the particle will depend on the x-component of its velocity.  The
@@ -451,21 +298,12 @@ how the color map is defined, that mapping can take place via
 interpolation so that a value of -3.2 is halfway between "red" and
 "blue", or discretely so that the value of -3.2 is "orange".
 
-
-
 If "vx", for example, is used as the *diameter* setting, then the
 particle will be rendered using the x-component of its velocity as the
 diameter.  If the per-particle value <= 0.0, them the particle will not be
 drawn.
 
-
-
-
-
-
 Rendering of grid cells :h0
-
-
 
 The *grid* keyword turns on the drawing of grid cells with the
 specified color attribute.  For 2d, the grid cell is shaded with an
@@ -473,31 +311,21 @@ rectangle that is infinitely thin in the z dimension, which allows you
 to still see the particles in the grid cell.  For 3d, the grid cell is
 drawn as a solid brick, which will obscure the particles inside it.
 
-
-
 Only grid cells in a geometric region can be drawn using the
 :ref:`dump_modify region<dump-modify>` command.
-
-
 
 The *gridx* and *gridy* and *gridz* keywords turn on the drawing of of
 a 2d plane of grid cells at the specified coordinate.  This is a way
 to draw one or more slices through a 3d image.
 
-
-
 The :ref:`dump_modify region<dump-modify>` command does not apply
 to the *gridx* and *gridy* and *gridz* plane drawing.
-
-
 
 If *proc* is specified for the *color* setting, then the color of each
 grid cell is determined by its owning processor ID.  This is useful
 for visualizing the result of a load balancing of the grid cells,
 e.g. by the :ref:`balance_grid<balance-grid>` or :ref:`fix balance<fix-balance>` commands.  By default the mapping of proc
 IDs to colors is as follows:
-
-
 
 proc ID 1 = red
 proc ID 2 = green
@@ -506,21 +334,15 @@ proc ID 4 = yellow
 proc ID 5 = aqua
 proc ID 6 = purple
 
-
-
-
 .. note::
 
   that for this command, processor
   IDs range from 1 to Nprocs inclusive, instead of the more customary 0
   to Nprocs-1.  This mapping can be changed by the :ref:`dump_modify   gcolor<dump-modify>` command.
 
-
 The *color* setting can also be a per-grid compute or fix.  In this
 case, it is specified as *c_ID* or *c_ID\[N\]* for a compute and as
 *f_ID* and *f_ID\[N\]* for a fix.
-
-
 
 This allows per grid cell values in a vector or array to be used to
 color the grid cells.  The ID in the attribute should be replaced by
@@ -528,33 +350,20 @@ the actual ID of the compute or fix that has been defined previously
 in the input script.  See the :ref:`compute<compute>` or :ref:`fix<fix>`
 command for details.
 
-
-
 If *c_ID* is used as a attribute, then the per-grid vector calculated
 by the compute is used.  If *c_ID\[N\]* is used, then N must be in the
 range from 1-M, which will use the Nth column of the per-grid array
 calculated by the compute.
-
-
 
 If *f_ID* is used as a attribute, then the per-grid vector calculated
 by the fix is used.  If *f_ID\[N\]* is used, then N must be in the
 range from 1-M, which will use the Nth column of the per-grid array
 calculated by the fix.
 
-
-
 The manner in which values in the vector or array are mapped to color
 is determined by the :ref:`dump_modify cmap<dump-modify>` command.
 
-
-
-
-
-
 Rendering of surface elements :h-1
-
-
 
 The *surf* keyword turns on the drawing of surface elements with the
 specified color attribute.  For 2d, the surface element is a line
@@ -564,24 +373,16 @@ setting is ignored.  The entire surface is rendered, which in 3d will
 hide any grid cells (or fractions of a grid cell) that are inside the
 surface.
 
-
-
 The :ref:`dump_modify region<dump-modify>` command does not apply to
 surface element drawing.
 
-
-
 If *one* is specified for the *color* setting, then the color of every
 surface element is drawn with the color specified by the :ref:`dump_modify scolor<dump-modify>` keyword, which is gray by default.
-
-
 
 If *proc* is specified for the *color* setting, then the color of each
 surface element is determined by its owning processor ID.  Surface
 elements are assigned to owning processors in a round-robin fashion.
 By default the mapping of proc IDs to colors is as follows:
-
-
 
 proc ID 1 = red
 proc ID 2 = green
@@ -590,9 +391,6 @@ proc ID 4 = yellow
 proc ID 5 = aqua
 proc ID 6 = purple
 
-
-
-
 .. note::
 
   that for this command, processor
@@ -600,12 +398,9 @@ proc ID 6 = purple
   to Nprocs-1.  This mapping can be changed by the :ref:`dump_modify   scolor<dump-modify>` command, which has not yet been added to
   SPARTA.
 
-
 The *color* setting can also be a per-surf compute or fix.  In this
 case, it is specified as *c_ID* or *c_ID\[N\]* for a compute and as
 *f_ID* and *f_ID\[N\]* for a fix.
-
-
 
 This allows per-surf values in a vector or array to be used to color
 the surface elemtns.  The ID in the attribute should be replaced by
@@ -613,46 +408,25 @@ the actual ID of the compute or fix that has been defined previously
 in the input script.  See the :ref:`compute<compute>` or :ref:`fix<fix>`
 command for details.
 
-
-
 If *c_ID* is used as a attribute, then the per-surf vector calculated
 by the compute is used.  If *c_ID\[N\]* is used, then N must be in the
 range from 1-M, which will use the Nth column of the per-surf array
 calculated by the compute.
-
-
 
 If *f_ID* is used as a attribute, then the per-surf vector calculated
 by the fix is used.  If *f_ID\[N\]* is used, then N must be in the
 range from 1-M, which will use the Nth column of the per-surf array
 calculated by the fix.
 
-
-
 The manner in which values in the vector or array are mapped to color
 is determined by the :ref:`dump_modify cmap<dump-modify>` command.
-
-
-
-
-
-
-
-
 
 The *size* keyword sets the width and height of the created images,
 i.e. the number of pixels in each direction.
 
-
-
-
-
-
 The *view*, *center*, *up*, *zoom*, and *persp* values determine how
 3d simulation space is mapped to the 2d plane of the image.  Basically
 they control how the simulation box appears in the image.
-
-
 
 All of the *view*, *center*, *up*, *zoom*, and *persp* values can be
 specified as numeric quantities, whose meaning is explained below.
@@ -663,8 +437,6 @@ equal-style variable is time-dependent, this is a means of changing
 the way the simulation box appears from image to image, effectively
 doing a pan or fly-by view of your simulation.
 
-
-
 The *view* keyword determines the viewpoint from which the simulation
 box is viewed, looking towards the *center* point.  The *theta* value
 is the vertical angle from the +z axis, and must be an angle from 0 to
@@ -673,8 +445,6 @@ and can be positive or negative.  A value of 0.0 is a view along the
 +x axis, towards the *center* point.  If *theta* or *phi* are
 specified via variables, then the variable values should be in
 degrees.
-
-
 
 .. note::
 
@@ -687,7 +457,6 @@ degrees.
   created.  If the box size or shape is changing, this will adjust the
   center point in simulation space.
 
-
 The *up* keyword determines what direction in simulation space will be
 "up" in the image.  Internally it is stored as a vector that is in the
 plane perpendicular to the view vector implied by the *theta* and
@@ -695,31 +464,19 @@ plane perpendicular to the view vector implied by the *theta* and
 vector and user-specified up vector.  Thus this internal vector is
 computed from the user-specified *up* vector as
 
-
-
-
 ::
 
-
-
    up_internal = view cross (up cross view)
-
-
-
 
 This means the only restriction on the specified *up* vector is that
 it cannot be parallel to the *view* vector, implied by the *theta* and
 *phi* values.
-
-
 
 The *zoom* keyword scales the size of the simulation box as it appears
 in the image.  The default *zfactor* value of 1 should display an
 image mostly filled by the particles in the simulation box.  A *zfactor* >
 will make the simulation box larger; a *zfactor* < 1 will make it
 smaller.  *Zfactor* must be a value > 0.0.
-
-
 
 The *persp* keyword determines how much depth perspective is present
 in the image.  Depth perspective makes lines that are parallel in
@@ -730,15 +487,9 @@ value between 0.0 and 1.0 will introduce more perspective.  A *pfactor*
 value > 1 will create a highly skewed image with a large amount of
 perspective.
 
-
-
 .. important::
 
   The *persp* keyword is not yet supported as an option.
-
-
-
-
 
 The *box* keyword determines how the simulation box boundaries are
 rendered as thin cylinders in the image.  If *no* is set, then the box
@@ -746,8 +497,6 @@ boundaries are not drawn and the *diam* setting is ignored.  If *yes*
 is set, the 12 edges of the box are drawn, with a diameter that is a
 fraction of the shortest box length in x,y,z (for 3d) or x,y (for 2d).
 The color of the box boundaries can be set with the :ref:`dump_modify boxcolor<dump-modify>` command.
-
-
 
 The *gline* keyword determines how the outlines of grid cells are
 rendered as thin cylinders in the image.  If the *gridx* or *gridy* or
@@ -758,15 +507,11 @@ whether the *grid* keyword is specified or not.  In this case, the
 :ref:`dump_modify region<dump-modify>` command can be used to restrict
 which grid cells the outlines are drawn for.
 
-
-
 For the *gline* keywork, if *no* is set, then grid outlines are not
 drawn and the *diam* setting is ignored.  If *yes* is set, the 12
 edges of each grid cell are drawn, with a diameter that is a fraction
 of the shortest box length in x,y,z (for 3d) or x,y (for 2d).  The
 color of the grid cell outlines can be set with the :ref:`dump_modify glinecolor<dump-modify>` command.
-
-
 
 The *sline* keyword determines how the outlines of surface elements
 are rendered as thin cylinders in the image.  If *no* is set, then the
@@ -775,8 +520,6 @@ ignored.  If *yes* is set, a line is drawn for 2d and a triangle
 outline for 3d surface elements, with a diameter that is a fraction of
 the shortest box length in x,y,z (for 3d) or x,y (for 2d).  The color
 of the surface element outlines can be set with the :ref:`dump_modify slinecolor<dump-modify>` command.
-
-
 
 The *axes* keyword determines how the coordinate axes are rendered as
 thin cylinders in the image.  If *no* is set, then the axes are not
@@ -788,17 +531,10 @@ how long the cylinders will be as a fraction of the respective box
 lengths.  The *diam* setting determines their thickness as a fraction
 of the shortest box length in x,y,z (for 3d) or x,y (for 2d).
 
-
-
-
-
-
 The *shiny* keyword determines how shiny the objects rendered in the
 image will appear.  The *sfactor* value must be a value 0.0 <=
 *sfactor* <= 1.0, where *sfactor* = 1 is a highly reflective surface
 and *sfactor* = 0 is a rough non-shiny surface.
-
-
 
 The *ssao* keyword turns on/off a screen space ambient occlusion
 (SSAO) model for depth shading.  If *yes* is set, then particles
@@ -808,48 +544,27 @@ increase the cost of computing the image by roughly 2x.  The strength
 of the effect can be scaled by the *dfactor* parameter.  If *no* is
 set, no depth shading is performed.
 
-
-
-
-
-
 A series of JPEG, PNG, or PPM images can be converted into a movie
 file and then played as a movie using commonly available tools.  Using
 dump style *movie* automates this step and avoids the intermediate
 step of writing (many) image snapshot file.
 
-
-
 To manually convert JPEG, PNG or PPM files into an animated GIF or
 MPEG or other movie file you can:
 
-
-
 - a) Use the ImageMagick convert program. 
-
-
-
 
 ::
 
-
-
    % convert \*.jpg foo.gif
    % convert -loop 1 \*.ppm foo.mpg
-
-
-
 
 Animated GIF files from ImageMagick are unoptimized. You can use a
 program like gifsicle to optimize and massively shrink them.
 MPEG files created by ImageMagick are in MPEG-1 format with rather
 inefficient compression and low quality.
 
-
-
 - b) Use QuickTime.
-
-
 
 Select "Open Image Sequence" under the File menu Load the images into
 QuickTime to animate them Select "Export" under the File menu Save the
@@ -859,118 +574,59 @@ files. Some of the supported formats require to buy a license and some
 are not readable on all platforms until specific runtime libraries are
 installed.
 
-
-
 - c) Use FFmpeg
-
-
 
 FFmpeg is a command line tool that is available on many platforms and
 allows extremely flexible encoding and decoding of movies.
 
-
-
-
 ::
-
-
 
    cat snap.\*.jpg | ffmpeg -y -f image2pipe -c:v mjpeg -i - -b:v 2000k movie.m4v
    cat snap.\*.ppm | ffmpeg -y -f image2pipe -c:v ppm -i - -b:v 2400k movie.avi
 
-
-
-
 Frontends for FFmpeg exist for multiple platforms. For more
 information see the `FFmpeg homepage <http://www.ffmpeg.org/>`__
 
-
-
-
-
-
-
-
-
-
 You can play a movie file as follows:
 
-
-
 - a) Use your browser to view an animated GIF movie. 
-
-
 
 Select "Open File" under the File menu
 Load the animated GIF file
 
-
-
 - b) Use the freely available mplayer or ffplay tool to view a movie. Both are available for multiple OSes and support a large variety of file formats and decoders.
 
-
-
-
 ::
-
-
 
    % mplayer foo.mpg 
    % ffplay bar.avi
 
-
-
-
 - c) Use the `Pizza.py <http>`__://www.sandia.gov/~sjplimp/pizza.html `animate tool <http>`__://www.sandia.gov/~sjplimp/pizza/doc/animate.html, which works directly on a series of image files.
-
-
-
 
 ::
 
-
-
    a = animate("foo\*.jpg")
-
-
-
 
 - d) QuickTime and other Windows- or MacOS-based media players can obviously play movie files directly. Similarly for corresponding tools bundled with Linux desktop environments.  However, due to licensing issues with some file formats, the formats may require installing additional libraries, purchasing a license, or may not be supported.  
 
-
-
-
-
-
 .. _dump-image-restrictio:
-
-
 
 *************
 Restrictions:
 *************
-
-
-
 
 To write JPEG images, you must use the -DSPARTA_JPEG switch when
 building SPARTA and link with a JPEG library. To write PNG images, you
 must use the -DSPARTA_PNG switch when building SPARTA and link with a
 PNG library.
 
-
-
 To write *movie* files, you must use the -SPARTA_FFMPEG switch when
 building SPARTA.  The FFmpeg executable must also be available on the
 machine where SPARTA is being run.  Typically it's name is lowercase,
 i.e. ffmpeg.
 
-
-
 See :ref:`Section 2.2.2 section<start_2_1>` and :ref:`Section 2.2.2 section<start_2_1>` sections section of the
 documentation for details on how to compile with optional switches.
-
-
 
 .. note::
 
@@ -986,55 +642,32 @@ documentation for details on how to compile with optional switches.
   when rendering too large of image sizes. Typical warnings look like
   this:
 
-
-
 ::
-
-
 
    \[mpeg @ 0x98b5e0\] packet too large, ignoring buffer limits to mux it
    \[mpeg @ 0x98b5e0\] buffer underflow st=0 bufi=281407 size=285018
    \[mpeg @ 0x98b5e0\] buffer underflow st=0 bufi=283448 size=285018
-
-
-
 
 In this case it is recommended to either reduce the size of the image
 or encode in a different format that is also supported by your copy of
 FFmpeg, and which does not have this limitation (e.g. .avi, .mkv,
 mp4).
 
-
-
 .. _dump-image-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`dump<dump>`, :ref:`dump_modify<dump-modify>`, :ref:`undump<undump>`
 
-
-
 .. _dump-image-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The defaults for the keywords are as follows:
-
-
 
 particle = yes
 pdiam = not specified (use diameter setting)
@@ -1057,7 +690,4 @@ sline = no 0.0
 axes = no 0.0 0.0
 shiny = 1.0
 ssao = no
-
-
-
 

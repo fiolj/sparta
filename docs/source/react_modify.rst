@@ -1,61 +1,31 @@
 
 :orphan:
 
-
-
 .. index:: react_modify
-
-
 
 .. _react-modify:
 
-
-
-
 .. _react-modify-command:
-
-
 
 ####################
 react_modify command
 ####################
 
-
-
-
 .. _react-modify-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    react_modify keyword values ...
 
-
-
-
 - one or more keyword/value pairs may be listed 
-
-
 
 - keywords = *recomb* or *rboost* or *compute_chem_rates* or *partial_energy*
 
-
-
-
 ::
-
-
 
    *recomb* value = yes or no = enable or disable defined recombination reactions
    *rboost* value = rfactor
@@ -64,49 +34,24 @@ Syntax:
    reaction without performing the reaction
    *partial_energy* = yes or no = use partial energy or total energy for TCE chemistry
 
-
-
-
-
-
-
-
 .. _react-modify-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    react_modify recomb no
    react_modify rboost 100.0
 
-
-
-
 .. _react-modify-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Set parameters that affect how reactions are performed.
-
-
 
 The *recomb* keyword turns on or off recombination reactions.  It is
 only relevant if recombination reactions were defined in the reaction
@@ -114,8 +59,6 @@ file read in by the :ref:`react<react>` command.  If the setting is
 *no* then they will be disabled even if they were listed in the
 reaction file.  This is useful to turn recombination reactions off, to
 see if they affect simulation results.
-
-
 
 The *rboost* keyword is a setting for recombination reactions.  It is
 ignored if no recombination reactions exist, or the *recomb* keyword
@@ -131,12 +74,8 @@ compensate, when a recombination reaction is actually tested for
 occurrence, its rate is boosted by a factor of N, making it N times
 more likely to occur.
 
-
-
 The smallest value *rboost* can be set to is 1.0, which effectively
 applies no boost factor.
-
-
 
 .. important::
 
@@ -145,19 +84,14 @@ applies no boost factor.
   SPARTA does not check for this, so you should estimate the largest
   boost factor that is safe to use for your model.
 
-
 The *compute_chem_rates* keyword is a setting that allows the user to
 only compute Arrhenius rates for chemical reactions without performing them.
 Currently only the TCE reaction model supports this keyword; an error
 will occur when using the QK or TCE/QK reaction model with this keyword.
 
-
-
 The *partial_energy* keyword is a setting that allows the user to
 choose the amount of internal energy and internal degrees of freedom
 used in the TCE model.
-
-
 
 If the *partial_energy* keyword is set to *yes*, the rDOF model of
 Bird is used, and only the sum of the relative translational energy
@@ -165,8 +99,6 @@ between the partcles and a fraction of the rotational energy is
 used. The participating internal degrees of freedom are either set to
 (dissociation reactions), or 0 (recombination, exchange, ionization
 reactions).
-
-
 
 Conversely, if the *partial_energy* keyword is set to *no*, then the
 total energy model is used, i.e. the sum of the relative translational
@@ -177,54 +109,28 @@ vibrational energy model used has an impact on the internal degrees of
 freedom used in the TCE model in that case. This option is ignored for
 the QK reaction model.
 
-
-
-
-
-
 .. _react-modify-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _react-modify-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`react<react>`
 
-
-
 .. _react-modify-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The option defaults are recomb = yes, rboost = 1000.0,
 compute_chem_rates = no, partial_energy = yes.
-
-
 

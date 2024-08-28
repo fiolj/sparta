@@ -1,57 +1,29 @@
 
 :orphan:
 
-
-
 .. index:: stats_style
-
-
 
 .. _stats-style:
 
-
-
-
 .. _stats-style-command:
-
-
 
 ###################
 stats_style command
 ###################
 
-
-
-
 .. _stats-style-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    stats_style arg1 arg2 ...
 
-
-
-
 - arg1,arg2,... = list of keywords 
 
-
-
-
 ::
-
-
 
    possible keywords = step, elapsed, elaplong, dt, time, cpu, tpcpu, spcpu,
    wall, np, npave, ntouch, ntouchave, ncomm, ncommave,
@@ -67,13 +39,7 @@ Syntax:
    		      sc_ID\[I\], sr_ID\[I\],
    v_name
 
-
-
-
-
 ::
-
-
 
    step = timestep
    elapsed = timesteps since start of this run
@@ -111,66 +77,34 @@ Syntax:
    sr_ID\[I\] = Ith component of global vector calculated by a surface reaction model with ID
    v_name = scalar value calculated by an equal-style variable with name
 
-
-
-
-
-
-
-
 .. _stats-style-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    stats_style step cpu np
    stats_style step cpu spcpu np xlo xhi c_myCount\[2\]
    stats_style step cpu spcpu np xlo xhi c_myCount\[\*\]
 
-
-
-
 .. _stats-style-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Determine what statistical data is printed to the screen and log file.
-
-
 
 The values printed by the various keywords are instantaneous values,
 calculated on the current timestep.  The exception is the keywords
 suffixed by "ave", which print a running total divided by the number
 of timesteps.
 
-
-
 Options invoked by the :ref:`stats_modify<stats-modify>` command can
 be used to set the numeric precision of each printed value, as well as
 other attributes of the statistics.
-
-
-
-
-
 
 The *step* and *elapsed* keywords refer to timestep count.  *Step* is
 the current timestep.  *Elapsed* is the number of timesteps elapsed
@@ -180,8 +114,6 @@ runs.  See the *start* and *stop* keywords for the :ref:`run<run>`
 command for info on how to invoke a series of runs that keep track of
 an initial starting time. If these keywords are not used, then
 *elapsed* and *elaplong* are the same value.
-
-
 
 The *cpu* keyword is elapsed CPU seconds since the beginning of this
 run.  The *tpcpu* and *spcpu* keywords are measures of how fast your
@@ -193,18 +125,11 @@ relative to the last time they were invoked.  Thus if you are printing
 out statistical output every 100 timesteps, the two keywords will
 continually output the time and timestep rate for the last 100 steps.
 
-
-
 The *wall* keyword is elapsed time in seconds since SPARTA was
 launched.  This can be used to time portions of the input script in
 the following manner:
 
-
-
-
 ::
-
-
 
    variable            t equal wall
    variable            t1 equal $t
@@ -213,17 +138,9 @@ the following manner:
    variable            delta equal v_2-v_1
    print               "Delta time = $*delta*"
 
-
-
-
-
-
-
 The *np*, *ntouch*, *ncomm*, *nbound*, *nexit*, *nscoll*, *nscheck*,
 *ncoll*, *nattempt*, *nreact*, and *nsreact* keywords all generate
 counts for the current timestep.
-
-
 
 The *npave*, *ntouchave*, *ncommave*, *nboundave*, *nexitave*,
 *nscollave*, *nscheckave*, *ncollave*, *nattemptave*, *nreactave*, and
@@ -231,55 +148,35 @@ The *npave*, *ntouchave*, *ncommave*, *nboundave*, *nexitave*,
 total of the corresponding count divided by *elapsed* = the number of
 timesteps since the start of the current run.
 
-
-
 The *np* keyword is the number of particles.
-
-
 
 The *ntouch* keyword is the number of cells touched by the particles
 during the move portion of the timestep.  E.g. if a particle moves
 from cell A to adjacent cell B, it touches 2 cells.
 
-
-
 The *ncomm* keyword is the number of particles communicated
 to other processors.
-
-
 
 The *nbound* keyword is the number of particles that collided with a
 global boundary.  Crossing a periodic boundary or exiting an outflow
 boundary is not counted.
 
-
-
 The *nexit* keyword is the number of particles that exited the
 simulation box through an outflow boundary.
 
-
-
 The *nscoll* keyword is the number of particle/surface collisions that
 occurred, where a particle collided with a geometric surface.
-
-
 
 The *nscheck* keyword is the number of particle/surface collisions
 that were checked for.  If a cell is overlapped by N surface elements,
 all N must be checked for collisions each time a particle in that cell
 moves.
 
-
-
 The *ncoll* keyword is the number of particle/particle collisions that
 occurred.
 
-
-
 The *nattempt* keyword is the number of particle/particle collisions
 that were attempted.
-
-
 
 The *nreact* keyword is the number of chemical reactions that
 occurred.  The *nsreact* keyword is the number of chemical reactions
@@ -287,38 +184,23 @@ on surfaces that occurred, including the global boundaries if they are
 treated as reacting surfaces, via the :ref:`bound_modify<bound-modify>`
 command.
 
-
-
 The *ngrid* keyword is the number of grid cells which includes both
 unsplit and split cells.  The *nsplit* keyword is the number of split
 cells.  See :ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a
 description of the hierarchical grid used by SPARTA and a definition
 of these kinds of grid cells.
 
-
-
 The *maxlevel* keyword is the # of levels of grid refinement currently
 used in the simulation. This may change due to dynamic grid
 adaptation.
 
-
-
 The *vol* keyword is the volume (or area in 2d) of the simulation box.
-
-
 
 The *lx*, *ly*, *lz* keywords are the dimensions of the simulation
 box.
 
-
-
 The *xlo*, *xhi*, *ylo*, *yhi*, *zlo*, *zhi* keywords are the
 boundaries of the simulation box.
-
-
-
-
-
 
 For output values from a compute or fix, the bracketed index I used to
 index a vector, as in *c_ID\[I\]* or *f_ID\[I\]*, can be specified
@@ -331,30 +213,17 @@ means all indices from 1 to n (inclusive).  A trailing asterisk means
 all indices from n to N (inclusive).  A middle asterisk means all
 indices from m to n (inclusive).
 
-
-
 Using a wildcard is the same as if the individual elements of the
 vector had been listed one by one.  E.g. these 2 stats_style commands
 are equivalent, since the :ref:`compute reduce<compute-reduce>` command
 creates a global vector with 6 values.
 
-
-
-
 ::
-
-
 
    compute myCount reduce max x y z vx vy vz
    stats_style step np c_myCount\[\*\]
    stats_style step np c_myCount\[1\] c_myCount\[2\] c_myCount\[3\] &
    c_myCount\[4\] c_myCount\[5\] c_myCount\[6\]
-
-
-
-
-
-
 
 For the following keywords, the ID in the keyword should be replaced
 by the actual ID of a surface collision model, surface reaction model,
@@ -363,8 +232,6 @@ input script.  See those commands for details.  If the entity
 calculates a global scalar, vector, or array, then the keyword formats
 with 0, 1, or 2 brackets will reference a scalar value from the
 entity.
-
-
 
 The *c_ID* and *c_ID\[I\]* and *c_ID\[I\]\[J\]* keywords allow global
 values calculated by a compute to be output.  As discussed on the
@@ -377,8 +244,6 @@ below.  See the discussion above for how the I in *c_ID\[I\]* can be
 specified with a wildcard asterisk to effectively specify multiple
 values from a global compute vector.
 
-
-
 The *f_ID* and *f_ID\[I\]* and *f_ID\[I\]\[J\]* keywords allow global
 values calculated by a fix to be output.  As discussed on the
 :ref:`fix<fix>` doc page, fixes can calculate global, per-particle,
@@ -389,15 +254,11 @@ variable referenced, as discussed below.  See the discussion above for
 how the I in *f_ID\[I\]* can be specified with a wildcard asterisk to
 effectively specify multiple values from a global fix vector.
 
-
-
 The *sc_ID\[I\]* and *sr_ID\[I\]* keywords allow global values
 calculated by a surface collision model or surface reaction model to
 be output.  As discussed on the :ref:`surf_collide<surf-collide>` and
 :ref:`surf_react<surf-react>` doc pages, these models both calculate a
 global vector of quantities.
-
-
 
 The *v_name* keyword allow the current value of a variable to be
 output.  The name in the keyword should be replaced by the variable
@@ -409,65 +270,33 @@ or stats keywords, or they can invoke other computes, fixes, or
 variables when evaluated, so this is a very general means of creating
 statistical output.
 
-
-
 See :ref:`Section_modify<modify>` for information on how to add
 new compute and fix styles to SPARTA to calculate quantities that can
 then be referenced with these keywords to generate statistical output.
 
-
-
-
-
-
 .. _stats-style-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _stats-style-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`stats<stats>`, :ref:`stats_modify<stats-modify>`
 
-
-
 .. _stats-style-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
-
 ::
 
-
-
    stats_style step cpu np
-
-
-
 

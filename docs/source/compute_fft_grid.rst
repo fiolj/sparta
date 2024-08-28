@@ -1,80 +1,41 @@
 
 :orphan:
 
-
-
 .. index:: compute_fft_grid
-
-
 
 .. _compute-fft-grid:
 
-
-
-
 .. _compute-fft-grid-command:
-
-
 
 ########################
 compute fft/grid command
 ########################
 
-
-
-
 .. _compute-fft-grid-kk-command:
-
-
 
 ###########################
 compute fft/grid/kk command
 ###########################
 
-
-
-
 .. _compute-fft-grid-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    compute ID fft/grid value1 value2 ... keyword args ...
 
-
-
-
 - ID is documented in :ref:`compute<compute>` command 
-
-
 
 - fft/grid = style name of this compute command
 
-
-
 - one or more values can be appended
-
-
 
 - value = c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name
 
-
-
-
 ::
-
-
 
    c_ID = per-grid vector calculated by a compute with ID
    c_ID\[I\] = Ith column of per-grid array calculated by a compute with ID
@@ -82,21 +43,11 @@ Syntax:
    f_ID\[I\] = Ith column of per-grid or array calculated by a fix with ID
    v_name = per-grid vector calculated by a grid-style variable with name
 
-
-
-
 - zero or more keyword/arg pairs can be appended
-
-
 
 - keyword = *sum* or *scale* or *conjugate* or *kmag*
 
-
-
-
 ::
-
-
 
    *sum* = *yes* or *no* to sum all FFTs into a single output
    *scale* = sfactor = numeric value to scale results by
@@ -106,68 +57,35 @@ Syntax:
    *kx* = *yes* or *no* = calculate z-component of wavelength or not
    *kmag* = *yes* or *no* = calculate wavelength magnitude or not
 
-
-
-
-
-
-
-
 .. _compute-fft-grid-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
 
-
-
    compute 1 fft/grid c_1
-
-
-
 
 These commands will dump FFTs of instantaneous and time-averaged
 velocity components in each grid cell to a dump file every 1000 steps:
 
-
-
-
 ::
-
-
 
    compute 1 grid all u v w
    fix 1 ave/grid 10 100 1000 c_1
    compute 2 fft/grid f_1\[1\] f_1\[2\] f_1\[3\]
    dump 1 grid all 1000 tmp.grid id c_2 f_1
 
-
-
-
 .. _compute-fft-grid-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Define a computation that performs forward FFTs on per-grid values.  
 This can be useful, for example, in calculating the energy spectrum
 of a turbulent flow.
-
-
 
 The defined grid must be a regular one-level grid (not hierarchical)
 with an even number of grid cells in each dimension.  Depending on the
@@ -177,25 +95,17 @@ simulation domain should be periodic in all dimensions, as set by the
 :ref:`boundary<boundary>` command, though SPARTA does not check for
 that.
 
-
-
 The results of this compute can be used by different commands in
 different ways.  The values for a single timestep can be output by the
 :ref:`dump grid<dump>` command.  The values over many sampling
 timesteps can be averaged by the :ref:`fix ave/grid<fix-ave-grid>`
 command.
 
-
-
 A forward FFT is perfomed on each input value independently.
-
-
 
 Each listed input can be the result of a :ref:`compute<compute>` or
 :ref:`fix<fix>` or the evaluation of a :ref:`variable<variable>`, all of
 which must generate per-grid quantities.
-
-
 
 If a value begins with "c\_", a compute ID must follow which has been
 previously defined in the input script.  The compute must generate a
@@ -204,8 +114,6 @@ doc page for details.  If no bracketed integer is appended, the vector
 calculated by the compute is used.  If a bracketed integer is
 appended, the Ith column of the array calculated by the compute is
 used.  Users can also write code for their own compute styles and :ref:`add them to SPARTA<modify>`.
-
-
 
 .. note::
 
@@ -216,23 +124,15 @@ used.  Users can also write code for their own compute styles and :ref:`add them
   integer is appended, the Ith column of the array calculated by the fix
   is used.  Users can also write code for their own fix style and :ref:`add   them to SPARTA<modify>`.
 
-
 If a value begins with "v\_", a variable name must follow which has
 been previously defined in the input script.  It must be a :ref:`grid-style variable<variable>`.  Such a variable defines a formula which can
 reference stats keywords or invoke other computes, fixes, or variables
 when they are evaluated.  So this is a very general means of creating
 a per-grid input to perform an FFT on.
 
-
-
-
-
-
 If the *sum* keyword is set to *yes*, the results of all FFTs
 will be summed together, grid value by grid value, to create
 a single output.
-
-
 
 .. note::
 
@@ -240,13 +140,11 @@ a single output.
   not perform any scaling of their own; backward FFTs scale each output
   value by N = # of points in the FFT grid.
 
-
 .. note::
 
   that this value
   is effectively the squared length of the complex 2-vector with real
   and imaginary components.
-
 
 If one or more of the *kx*, *ky*, *kz*, or *kmag* keywords are set to
 *yes*, then one or more extra columns of per-grid output is generated.
@@ -255,8 +153,6 @@ Similarly for *ky* and *kz*.  For *kmag* the length of each K-space
 wavevector is generated.  These values can be useful, for example, for
 histogramming an energy spectrum computed from the FFT of a velocity
 field, as a function of wavelength or a component of the wavelength.
-
-
 
 .. note::
 
@@ -272,29 +168,15 @@ field, as a function of wavelength or a component of the wavelength.
   with a max index of M/2, and Kz in the z-dimension with a max index of
   P/2.
 
-
-
-
-
-
-
-
 .. _compute-fft-grid-output-info:
-
-
 
 ************
 Output info:
 ************
 
-
-
-
 The number of per-grid values ouptut by this compute depends on the
 optional keyword settings.  The number of FFTs is equal to the number
 of specified input values.
-
-
 
 There are 2 columns of output per FFT if *sum* = no and *conjugate* =
 no, with real and imaginary components for each FFT.  There is 1
@@ -308,12 +190,8 @@ come before the FFT columns, in the order *kx*, *ky*, *kz*, *kmag*.
 Thus is only *ky* and *kmag* are set to yes, there will be 2 extra
 columns, the first for *ky* and the 2nd for *kmag*.
 
-
-
 If the total number of output columns = 1, then this compute produces
 a per-grid vector as output.  Otherwise it produces a per-grid array.
-
-
 
 .. note::
 
@@ -324,12 +202,9 @@ a per-grid vector as output.  Otherwise it produces a per-grid array.
   zero result.  This is because their sub-cells actually contain the
   particles that are geometrically inside the split cell.
 
-
 The array can be accessed by any command that uses per-grid values
 from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
 for an overview of SPARTA output options.
-
-
 
 The per-grid vector or array values will be in the :ref:`units<units>`
 appropriate to the FFT operations as described above.  The K-space
@@ -337,11 +212,6 @@ wavevector magnitudes are effectively unitless, e.g. sqrt(Kx^2 + Ky^2
 + Kz^2) where Kx,Ky,Kz are integers.  The FFT values can be real or
 imaginary or squared values in K-space resulting from FFTs of per-grid
 quantities in whatever units the specified input values represent.
-
-
-
-
-
 
 Styles with a *kk* suffix are functionally the same as the
 corresponding style without the suffix.  They have been optimized to
@@ -351,72 +221,40 @@ The accelerated styles take the same arguments and should produce the
 same results, except for different random number, round-off and
 precision issues.
 
-
-
 These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
-
-
 
 You can specify the accelerated styles explicitly in your input script
 by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
-
-
 See the :ref:`Accelerating SPARTA<accelerate>` section of the
 manual for more instructions on how to use the accelerated styles
 effectively.
 
-
-
-
-
-
 .. _compute-fft-grid-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 This style is part of the FFT package.  It is only enabled if SPARTA
 was built with that package.  See the :ref:`Getting Started<start-making-sparta-optional-packages>` section for more info.
 
-
-
 .. _compute-fft-grid-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`fix ave/grid<fix-ave-grid>`, :ref:`dump grid<dump>`, :ref:`compute grid<compute-grid>`
 
-
-
 .. _compute-fft-grid-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The option defaults are sum = no, scale = 1.0, conjugate = no, kmag =
 no.
-
-
 

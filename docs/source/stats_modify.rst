@@ -1,61 +1,31 @@
 
 :orphan:
 
-
-
 .. index:: stats_modify
-
-
 
 .. _stats-modify:
 
-
-
-
 .. _stats-modify-command:
-
-
 
 ####################
 stats_modify command
 ####################
 
-
-
-
 .. _stats-modify-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    stats_modify keyword value ...
 
-
-
-
 - one or more keyword/value pairs may be listed 
-
-
 
 - keyword = *flush* or *format* or *every*
 
-
-
-
 ::
-
-
 
    *flush* value = *yes* or *no*
    *format* values = *line* string, *int* string, *float* string, M string, or *none*
@@ -64,58 +34,31 @@ Syntax:
    *every* value = v_name
    v_name = an equal-style variable name
 
-
-
-
-
-
-
-
 .. _stats-modify-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    stats_modify flush yes
    stats_modify format 3 %15.8g
    stas_modify format line "%ld %g %g %15.8g"
 
-
-
-
 .. _stats-modify-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 Set options for how statistical information is computed and printed by
 SPARTA.
-
-
 
 The *flush* keyword invokes a flush operation after statistical info
 is written to the log file.  This insures the output in that file is
 current (no buffering by the OS), even if SPARTA halts before the
 simulation completes.
-
-
 
 The *format* keyword can be used to change the default numeric format
 of any of quantities the :ref:`stats_style<stats-style>` command
@@ -130,16 +73,12 @@ format argument which is used for the Mth value output in each line,
 e.g. the 5th column is output in high precision for "format 5
 %20.15g".
 
-
-
 The *format* keyword can be used multiple times.  The precedence is
 that for each value in a line of output, the *M* format (if specified)
 is used, else the *int* or *float* setting (if specified) is used,
 else the *line* setting (if specified) for that value is used, else
 the default setting is used.  A setting of *none* clears all previous
 settings, reverting all values to their default format.
-
-
 
 .. note::
 
@@ -151,7 +90,6 @@ settings, reverting all values to their default format.
   those keywords.  However, when specifying the *line* option or *format
   M string* option for *step* and *natoms*, you should specify a format
   string appropriate for an 8-byte signed integer, e.g. one with "%ld".
-
 
 The *every* keyword allows a variable to be specified which will
 determine the timesteps on which statistical output is generated.  It
@@ -166,23 +104,13 @@ examples of useful functions to use in this context.  Other similar
 math functions could easily be added as options for :ref:`equal-style variables<variable>`.  In addition, statistical output will always
 occur on the first and last timestep of each run.
 
-
-
 For example, the following commands will output statistical info at
 timesteps 0,10,20,30,100,200,300,1000,2000,etc:
 
-
-
-
 ::
-
-
 
    variable	s equal logfreq(10,3,10)
    stats_modify	1 every v_s
-
-
-
 
 .. note::
 
@@ -192,51 +120,29 @@ timesteps 0,10,20,30,100,200,300,1000,2000,etc:
   to a non-zero value, then the variable setting of the stats_modify
   every command will be overridden.
 
-
 .. _stats-modify-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _stats-modify-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`stats<stats>`, :ref:`stats_style<stats-style>`
 
-
-
 .. _stats-modify-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The option defaults are flush = no, format int = "%8d", format float =
 "%12.8g", and every = non-variable setting provided by the
 :ref:`stats<stats>` command.
-
-
 

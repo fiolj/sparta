@@ -1,61 +1,31 @@
 
 :orphan:
 
-
-
 .. index:: region
-
-
 
 .. _region:
 
-
-
-
 .. _region-command:
-
-
 
 ##############
 region command
 ##############
 
-
-
-
 .. _region-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    region ID style args keyword value ...
 
-
-
-
 - ID = user-assigned name for the region 
-
-
 
 - style = *block* or *cylinder* or *plane* or *sphere* or *union* or *intersect*
 
-
-
-
 ::
-
-
 
    *block* args = xlo xhi ylo yhi zlo zhi
    xlo,xhi,ylo,yhi,zlo,zhi = bounds of block in all dimensions (distance units)
@@ -77,73 +47,38 @@ Syntax:
    N = # of regions to follow, must be 2 or greater
    reg-ID1,reg-ID2, ... = IDs of regions to intersect
 
-
-
-
 - zero or more keyword/value pairs may be appended
-
-
 
 - keyword = *side*
 
-
-
-
 ::
-
-
 
    *side* value = *in* or *out*
    *in* = the region is inside the specified geometry
    *out* = the region is outside the specified geometry
 
-
-
-
-
-
-
-
 .. _region-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    region 1 block -3.0 5.0 INF 10.0 INF INF
    region 2 sphere 0.0 0.0 0.0 5 side out
    region void cylinder y 2 3 5 -5.0 INF
    region outside union 4 side1 side2 side3 side4
 
-
-
-
 .. _region-descriptio:
-
-
 
 ************
 Description:
 ************
 
-
-
-
 This command defines a geometric region of space.  Various other
 commands use regions.  See the :ref:`group grid<group>`, :ref:`group surf<group>`, and :ref:`dump_modify<dump-modify>` commands for
 examples.
-
-
 
 Commands which use regions typically test whether a point is contained
 in the region or not.  For this purpose, coordinates exactly on the
@@ -154,12 +89,8 @@ the *side in* keyword, but would not be part of the region if it were
 defined using the *side out* keyword.  See more details on the *side*
 keyword below.
 
-
-
 The lo/hi values for the *block* or *cylinder* styles can be specified
 as INF which means a large negative or positive number (1.0e20).
-
-
 
 For style *cylinder*, the c1,c2 params are coordinates in the 2 other
 dimensions besides the cylinder axis dimension.  For dim = x, c1/c2 =
@@ -168,13 +99,9 @@ third example above specifies a cylinder with its axis in the
 y-direction located at x = 2.0 and z = 3.0, with a radius of 5.0, and
 extending in the y-direction from -5.0 to infinity.
 
-
-
 The *union* style creates a region consisting of the volume of all the
 listed regions combined.  The *intersect* style creates a region
 consisting of the volume that is common to all the listed regions.
-
-
 
 .. important::
 
@@ -185,7 +112,6 @@ consisting of the volume that is common to all the listed regions.
   with the 2d x-y plane of the simulation has the 2d geometric extent
   you want.
 
-
 The *side* keyword determines whether the region is considered to be
 inside or outside of the specified geometry.  Using this keyword in
 conjunction with *union* and *intersect* regions, complex geometries
@@ -195,50 +121,27 @@ constructed listing the region-IDs of the 2 spheres, the resulting
 region would be all the volume in the simulation box that was outside
 both of the spheres.
 
-
-
 .. _region-restrictio:
-
-
 
 *************
 Restrictions:
 *************
 
-
-
-
 none
 
-
-
 .. _region-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`dump_modify<dump-modify>`
 
-
-
 .. _region-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The option default is side = in.
-
-
 

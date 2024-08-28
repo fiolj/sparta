@@ -1,65 +1,33 @@
 
 :orphan:
 
-
-
 .. index:: read_surf
-
-
 
 .. _read-surf:
 
-
-
-
 .. _read-surf-command:
-
-
 
 #################
 read_surf command
 #################
 
-
-
-
 .. _read-surf-syntax:
-
-
 
 *******
 Syntax:
 *******
 
-
-
-
-
 ::
-
-
 
    read_surf filename keyword args ...
 
-
-
-
 - filename = name of surface file 
-
-
 
 - zero or more keyword/args pairs may be appended
 
-
-
 - keyword = *type* or *custom* or *origin* or *trans* or *atrans* or *ftrans* or *scale* or *rotate* or *transparent* or *invert* or *clip* or *group* or *typeadd* or *particle* or *file*
 
-
-
-
 ::
-
-
 
 .. note::
 
@@ -97,27 +65,13 @@ Syntax:
      *file* args = identical to those defined for the :ref:`write_surf<write-surf>` command
      NOTE: if used, the file keyword must come last
 
-
-
-
-
-
-
 .. _read-surf-examples:
-
-
 
 *********
 Examples:
 *********
 
-
-
-
-
 ::
-
-
 
    read_surf surf.sphere
    read_surf surf.sphere type custom temperature float 0
@@ -127,19 +81,11 @@ Examples:
    read_surf surf.file trans 10 5 0 scale 3 3 3 invert clip file tmp.surfs
    read_surf surf.file trans 10 5 0 scale 3 3 3 invert clip file tmp.surfs.% points no nfile 32
 
-
-
-
 .. _read-surf-descriptio:
-
-
 
 ************
 Description:
 ************
-
-
-
 
 Read the geometry of a surface from the specified file.  In SPARTA, a
 "surface" is a collection of surface elements that represent the
@@ -152,14 +98,10 @@ explantion of explicit versus implicit surfaces as well as distributed
 versus non-distributed storage.  You cannot mix explicit and implicit
 surfaces in the same simulation.
 
-
-
 Surface elements are triangles in 3d or line segments in 2d.  Surface
 elements for each physical object are required to be a complete,
 connected set that tile the entire surface of the object.  See the
 discussion of watertight objects below.
-
-
 
 Particles collide with surface elements as they advect.  Each surface
 element is assigned to a collision model, specified by the
@@ -172,22 +114,16 @@ element due to their interactions with particles can be tallied via
 the :ref:`compute surf<compute-surf>` command, time-averaged via the
 :ref:`fix ave/surf<fix-ave-surf>` command, and ouput via the :ref:`dump surface<dump>` command.
 
-
-
 Surface elememts can be assigned to surface groups via the :ref:`group surf<group>` command.  Surface group IDs are used by other
 commands to operate on selected sets of elements.  This command has
 *group* and *typeadd* keywords which can be used to help assign
 different elements or different objects to different groups.
-
-
 
 Explicit surface elements can be stored in a distributed fashion (each
 processor only stores elements which overlap grid cells it owns or has
 a ghost cell copy of).  Or each processor can store a copy of all
 surface elements (the default).  See the :ref:`global surfs<global>`
 command to change this setting.
-
-
 
 .. note::
 
@@ -199,26 +135,15 @@ command to change this setting.
   single surface file, e.g. containing a unit sphere, to be used
   multiple times in a single simulation or in different simulations.
 
-
 The tools directory contains tools that can create surface files with
 simple geometric objects (spheres, blocks, etc).  It also has tools
 that can convert surface files in other formats to the SPARTA format
 for explicit surfaces, e.g. for files created by a mesh-generation
 program.
 
-
-
-
-
-
-
-
-
 If all the surface elements are contained in a single file, the
 specified file can be a text file or a gzipped text file (detected by
 a .gz suffix).
-
-
 
 If a "%" character appears in the surface filename, SPARTA expects a
 set of multiple files to exist.  The :ref:`write_surf<write-surf>`
@@ -230,8 +155,6 @@ additional files.  For example, if the surface file was specified as
 save.% when it was written, then read_surf reads the files save.base,
 save.0, save.1, ... save.P-1, where P is the number of processors that
 created the surface file.
-
-
 
 .. note::
 
@@ -245,15 +168,9 @@ created the surface file.
   processors in the current SPARTA simulation.  This can be a fast mode
   of input on parallel machines that support parallel I/O.
 
-
 The remainder of this section describes the format of a single surface
 file, whether it is the only file or one of multiple files flagged
 with a processor number.
-
-
-
-
-
 
 A surface file for explicit surfaces has a header and a body.
 The header appears first.  The first line of the header is always
@@ -264,8 +181,6 @@ comment is deleted), it is skipped.  If the line contains a header
 keyword, the corresponding value is read from the line.  If it doesn't
 contain a header keyword, the line begins the body of the file.
 
-
-
 The body of the file contains one or more sections.  The first line of
 a section has only a keyword.  The next line is skipped.  The
 remaining lines of the section contain values.  The number of lines in
@@ -273,41 +188,28 @@ a section depends on the section keyword as described below.  Zero or
 more blank lines can be used between sections.  Sections can appear in
 any order.
 
-
-
 The formatting of individual lines in the surface file (indentation,
 spacing between words and numbers) is not important except that header
 and section keywords must be capitalized as shown and can't have extra
 white space between their words.
 
-
-
 These are the recognized header keywords.  Header lines can come in
 any order.  The value(s) are read from the beginning of the line.
 Thus the keyword *points* should be in a line like "1000 points".
-
-
 
 *files* = # of files in set (only for base file, see below)
 *points* = # of points in surface (optional, see below)
 *lines* = # of line segments in surface (only allowed for 2d)
 *triangles* = # of triangles in surface (only allowed for 3d)
 
-
-
-
 The *files* keyword only appears in the "base" file for a set of
 multiple files indicated by the "%" character in the filename.  It
 tells SPARTA how many additional files exist in the set.  A "base"
 file has no additional sections, i.e. no body.
 
-
-
 The *points* keyword is optional (see below).  For a set of multiple
 files, it cannot appear in the "base" file, but only in individual
 files in the set.
-
-
 
 The *points*, *lines*, *triangles* keywords refer to the number of
 points, lines, triangles in an individual file.  Except in the case of
@@ -315,40 +217,21 @@ a "base" file for a set of multiple files.  In that case, the *lines*
 and *triangles* keywords give the number of lines or triangles in the
 entire set.
 
-
-
-
-
-
 These are the recognized section keywords for the body of the file.
 
-
-
 *Points, Lines, Triangles*
-
-
-
 
 The *Points* section consists of N consecutive entries, where N = # of
 points, each of this form:
 
-
-
-
 ::
-
-
 
    index x y z    (for 3d) 
    index x y      (for 2d)
 
-
-
-
 .. note::
 
   that for 2d simulations, *z* should be omitted.
-
 
 .. important::
 
@@ -361,7 +244,6 @@ points, each of this form:
   all copies must be numerically identical, in order for SPARTA to
   verify the surface is a watertight object, as discussed below.
 
-
 .. important::
 
   The *points* keyword and *Points* section are not
@@ -369,27 +251,15 @@ points, each of this form:
   optional format for the *Lines* or *Triangles* sections includes point
   coordinates directly with each line or triangle.
 
-
-
-
-
 The *Lines* section is only allowed for 2d simulations and consists of
 N entries, where N = # of lines.  All entries must be in the same
 format, either A or B.  If a Points section was included, use format
 A.  If it was not, use format B.
 
-
-
-
 ::
-
-
 
    line-ID (type) p1 p2 (custom1) (custom2) ...                      # format A
    line-ID (type) p1x p1y p2x p2y (custom1) (custom2) ...     # format B
-
-
-
 
 The *line-ID* is stored internally with the line and can be output by
 the :ref:`dump surf<dump>` command.  If the read_surf commmand is
@@ -399,8 +269,6 @@ For a set of multiple files, each line in the collection of all files
 should have a unique ID, and the IDs should range from 1 to N, where N
 is the number of lines specified in the base file.
 
-
-
 .. note::
 
   that SPARTA does not check line-IDs for uniqueness, only that
@@ -408,20 +276,16 @@ is the number of lines specified in the base file.
   lines in an individual file (single or multiple) do not need to be
   listed by ID order; they can be in any order.
 
-
 .. important::
 
   If the read_surf command is used when lines already
   exist, i.e. to add new lines, then each line-ID is incremented by
   Nprevious = the # of lines that already exist.
 
-
 *Type* is an optional integer value and can only be specified if the
 *type* keyword is used.  It must be a positive integer for each line.
 If not specified, the type of each line is set to 1.  Line IDs and
 types can be used to assign lines to surface groups via the :ref:`group surf<group>` command.
-
-
 
 For format A, *p1* and *p2* are the indices of the 2 end points of the
 line segment, as found in the Points section.  Each is a value from 1
@@ -429,16 +293,12 @@ to the # of points, as described above.  For format B, (p1x,p1y) and
 (p2x,p2y) are the (x,y) coordinates of the two points (1,2) in the
 line.
 
-
-
 The ordering of *p1*, *p2* is important as it defines the direction of
 the outward normal for the line segment when a particle collides with
 it.  Molecules only collide with the "outer" edge of a line segment.
 This is defined by a right-hand rule.  The outward normal N = (0,0,1)
 x (p2-p1).  In other words, a unit z-direction vector is crossed into
 the vector from *p1* to *p2* to determine the normal.
-
-
 
 The *custom* values are optional and can only be specified if the
 *custom* keyword is used one or more times.  Each use of the *custom*
@@ -450,43 +310,22 @@ specified.  For example, for this read_surf command, 4 custom values
 should be added to the end of each line in the Lines section of the
 input file:
 
-
-
-
 ::
-
-
 
    read_surf surf.sphere type custom temperature float 0 custom flags int 3
 
-
-
-
 The first floating-point value will be the temperature, the next 3
 integers will be flags.
-
-
-
-
-
 
 The *Triangles* section is only allowed for 3d simulations and
 consists of N entries, where N = # of triangles.  All entries must be
 in the same format, either A or B.  If a Points section was included,
 use format A.  If it was not, use format B.
 
-
-
-
 ::
-
-
 
    tri-ID (type) p1 p2 p3 (custom1) (custom2) ...                                               # format A
    tri-ID (type) p1x p1y p1z p2x p2y p2z p3x p3y p3z (custom1) custom2) ...  # format B
-
-
-
 
 The tri-ID is stored internally with the triangle and can be output
 with the :ref:`dump surf<dump-surf>` comand.  If the read_surf command
@@ -496,8 +335,6 @@ file.  For a set of multiple files, each triangle in the collection of
 all files should have a unique ID, and the IDs should range from 1 to
 N, where N is the number of triangles specified in the base file.
 
-
-
 .. note::
 
   that SPARTA does not check tri-IDs for uniqueness, only that the
@@ -505,13 +342,11 @@ N, where N is the number of triangles specified in the base file.
   triangles in an individual file (single or multiple) do not need to be
   listed by ID order; they can be in any order.
 
-
 .. important::
 
   If the read_surf command is used when triangles
   already exist, i.e. to add new triangles, then each tri-ID is
   incremented by Nprevious = the # of triangles that already exist.
-
 
 *Type* is an optional integer value and can only be specified if the
 *type* keyword is used.  It must be a positive integer for each
@@ -519,15 +354,11 @@ triangle.  If not specified, the type of each triangle is set to 1.
 Triangle IDs and types can be used to assign triangles to surface
 groups via the :ref:`group surf<group>` command.
 
-
-
 For format A, *p1*, *p2*, and *p3* are the indices of the 3 corner
 points of the triangle, as found in the Points section.  Each is a
 value from 1 to the # of points, as described above.  For format B,
 (p1x,p1y,p1z), (p2x,p2y,p2z), and (p3x,p3y,p3z) are the (x,y,z)
 coordinates of the three corner points (1,2,3) of the triangle.
-
-
 
 The ordering of *p1*, *p2*, *p3* is important as it defines the
 direction of the outward normal for the triangle when a particle
@@ -535,8 +366,6 @@ collides with it.  Molecules only collide with the "outer" face of a
 triangle. This is defined by a right-hand rule.  The outward normal N
 = (p2-p1) x (p3-p1).  In other words, the edge from *p1* to *p2* is
 crossed into the edge from *p1* to *p3* to determine the normal.
-
-
 
 The *custom* values are optional and can only be specified if the
 *custom* keyword is used one or more times.  Each use of the *custom*
@@ -547,41 +376,21 @@ custom vectors or arrays in the order the *custom* keywords are
 specified.  For example, for this read_surf command, 4 custom values
 should be added to the end of each triangle in the Triangles section:
 
-
-
-
 ::
-
-
 
    read_surf surf.sphere type custom temperature float 0 custom flags int 3
 
-
-
-
 The first floating-point value will be the temperature, the next 3
 integers will be flags.
-
-
-
-
-
-
-
-
 
 The following optional keywords affect the format of the surface
 file(s) that are read.  If used, these two keywords must come before
 any other keywords.
 
-
-
 The *type* keyword means that each surface element in the Lines or
 Triangles section will include a surface element type, which is a
 positive integer.  See the discussion of the format of the Lines
 and Triangles sections above for details.
-
-
 
 The *custom* keyword allows a custom per-surf vector or array to be
 created and initialized.  Custom vectors or arrays associate a single
@@ -592,8 +401,6 @@ other commands.  For example, many of the models for the
 use of a per-surf vector allows the temperature of individual surface
 elements to be specified.
 
-
-
 The *name* argument is the name assigned to the new custom vector or
 array.  The *datatype* argument is *int* or *float* which determines
 whether the vector/array stores integer or floating point values.  The
@@ -601,12 +408,8 @@ final *Nc* argument is 0 for a per-surf vector and an integer >= 1 for
 an array with *Nc* columns.  A per-surf vector stores a single value
 per surface element; a per-surf array stores Nc values per element.
 
-
-
 The *custom* keyword can be used multiple times.  See the discussion
 of the format of the Lines and Triangles sections above for details.
-
-
 
 If the read_surf command is used multiple times and the same custom
 options are not used when reading each file, then the same custom
@@ -616,17 +419,10 @@ surface files which included custom values.  Otherwise the custom
 attributes of elements that were not specified in surface files are
 are initialized to zero.
 
-
-
-
-
-
 The following optional keywords affect the geometry of the read-in
 surface elements.  The geometric transformations they describe are
 performed in the order they are listed, which gives flexibility in how
 surfaces can be manipulated.
-
-
 
 .. note::
 
@@ -635,29 +431,20 @@ surfaces can be manipulated.
   may not be the same as a *rotate* operation followed by an *origin*
   operation.
 
-
 Most of the keywords perform a geometric transformation on all the
 vertices in the surface file with respect to an origin point.  By
 default the origin is (0.0,0.0,0.0), regardless of the position of
 individual vertices in the file.
 
-
-
 The *origin* keyword resets the origin to the specified *Ox,Oy,Oz*.
 This operation has no effect on the vertices.
-
-
 
 The *trans* keyword shifts or displaces the origin by the vector
 (Dx,Dy,Dz).  It also displaces each vertex by (Dx,Dy,Dz).
 
-
-
 The *atrans* keyword resets the origin to an absolute point (Ax,Ay,Az)
 which implies a displacement (Dx,Dy,Dz) from the current origin.  It
 also displaces each vertex by (Dx,Dy,Dz).
-
-
 
 The *ftrans* keyword resets the origin to a fractional point
 (Fx,Fy,Fz).  Fractional means that Fx = 0.0 is the lower edge/face in
@@ -666,22 +453,16 @@ x-dimension, and similarly for Fy and Fz.  This change of origin
 implies a displacement (Dx,Dy,Dz) from the current origin.  This
 operation also displaces each vertex by (Dx,Dy,Dz).
 
-
-
 The *scale* keyword does not change the origin.  It computes the
 displacement vector of each vertex from the origin (delx,dely,delz)
 and scales that vector by (Sx,Sy,Sz), so that the new vertex
 coordinate is (Ox + Sx\*delx,Oy + Sy\*dely,Oz + Sz\*delz).
-
-
 
 The *rotate* keyword does not change the origin.  It rotates the
 coordinates of all vertices by an angle *theta* in a counter-clockwise
 direction, around the vector starting at the origin and pointing in
 the direction *Rx,Ry,Rz*.  Any rotation can be represented by an
 appropriate choice of origin, *theta* and (Rx,Ry,Rz).
-
-
 
 The *transparent* keyword flags all the read in surface elements as
 transparent, meaning particles pass through them.  This is useful for
@@ -691,8 +472,6 @@ transparent collision model to those the surface elements.  The
 for transparent surf elements.  The :ref:`Section 6.15<howto-transparen-surface-elements>` doc page provides an overview of
 transparent surfaces.  See those doc pages for details.
 
-
-
 The *invert* keyword does not change the origin or any vertex
 coordinates.  It flips the direction of the outward surface normal of
 each surface element by changing the ordering of its vertices.  Since
@@ -700,8 +479,6 @@ particles only collide with the outer surface of a surface element,
 this is a mechanism for using a surface files containing a single
 sphere (for example) as either a sphere to embed in a flow field, or a
 spherical outer boundary containing the flow.
-
-
 
 The *clip* keyword does not change the origin.  It truncates or
 "clips" a surface that extends outside the simulation box in the
@@ -720,8 +497,6 @@ some of its triangles may include points on the faces of the
 simulation box.  A similar operation is performed in 2d with the 4
 clip edges represented by the edges of the global simulation box.
 
-
-
 .. important::
 
   If a surface you clip crosses a periodic boundary, as
@@ -736,15 +511,12 @@ clip edges represented by the edges of the global simulation box.
   inconsistent cells when it attempts to mark all the grid cells and
   their corner points as inside vs outside the surface.
 
-
 If you use the *clip* keyword, you should check the resulting
 statistics of the clipped surface printed out by this command,
 including the minimum size of line and triangle edge lengths.  It is
 possible that very short lines or very small triangles will be created
 near the box surface due to the clipping operation, depending on the
 coordinates of the initial unclipped points.
-
-
 
 If this is the case, an optional *fraction* argument can be appended
 to the *clip* keyword.  *Fraction* is a unitless value which is
@@ -757,8 +529,6 @@ tiny surface elements from being created due to clipping.  If
 points are not moved.  If specified, *fraction* must be a value
 between 0.0 and 0.5.
 
-
-
 .. note::
 
   that the *clip* operation may delete some surface elements and
@@ -768,7 +538,6 @@ between 0.0 and 0.5.
   by the :ref:`write_surf<write-surf>` command, which can then be used an
   input to a new simulation or for post-processing and visualization.
 
-
 .. important::
 
   When the *clip* operation deletes or adds surface
@@ -777,23 +546,15 @@ between 0.0 and 0.5.
   ID of a surface element that is unclipped may change due to this
   reordering.
 
-
-
-
-
 The following optional keywords affect group and type settings for the
 read-in surface elements as well as how particles are treated when
 surface elements are added.
-
-
 
 Surface groups are collections of surface elements.  Each surface
 element belongs to one or more surface groups; all elements belong to
 the "all" group, which is created by default.  Surface group IDs are
 used by other commands to identify a group of suface elements to
 operate on.  See the :ref:`group surf<group>` command for more details.
-
-
 
 Every surface element also stores a *type* which is a positive
 integer.  *Type* values are useful for flagging subsets of elements or
@@ -802,15 +563,11 @@ triangles on a sphere.  Or one sphere out of several that the file
 contains.  Surface element types can be used to define surface groups.
 See the :ref:`group surf<group>` command for details.
 
-
-
 The *group* keyword specifies an extra surface *group-ID* to assign
 all the read-in surface elements to.  All the read-in elements are
 assigned to the "all" group and to *group-ID*.  If *group-ID* does not
 exist, a new surface group is created.  If it does exist the read-in
 surface elements are added to that group.
-
-
 
 The *typeadd* keyword defines an *Noffset* value which is added to the
 type of each read-in surface element.  The default is Noffset = 0,
@@ -818,15 +575,12 @@ which means the read-in type values are not altered.  If type values
 are not included in the file, they default to 1 for every element, but
 can still be altered by the *typeadd* keyword.
 
-
-
 .. note::
 
   that use of the *group* and *typeadd* keywords allow the same
   surface file to be read multiple times (e.g. with different origins,
   tranlations, rotations, etc) to define multiple objects, and assign
   their surface elements to different groups or different type values.
-
 
 The *particle* keyword determines how particles in the simulation are
 affected by the new surface elements.  If the setting is *none*, which
@@ -843,11 +597,6 @@ a surface object, and a new object is being read in, and you know
 the new object is smaller than the one it replaced.  E.g. for a model
 of a shrinking or ablating object.
 
-
-
-
-
-
 .. important::
 
   The final optional keyword is *file*, which must be
@@ -855,24 +604,17 @@ of a shrinking or ablating object.
   arguments in the read_surf command are passed to the
   :ref:`write_surf<write-surf>` command.
 
-
 If the *file* keyword is used, the surfaces will be written out to the
 specified *filename* immediately after they are read in (and
 transformed by any of the optional keywords).
-
-
 
 The arguments for this keyword are identical to those used for the
 :ref:`write_surf<write-surf>` command.  This includes a file name with
 optional "\*" and "%" wildcard characters as well as the write_surf
 optional keyword/arguments.
 
-
-
 The format for the output file is the same as for the file read by
 this command.
-
-
 
 .. note::
 
@@ -882,23 +624,11 @@ this command.
   surface elements removed by clipping.  This may include a renumbering
   of the surface element IDs.
 
-
-
-
-
-
-
-
 .. _read-surf-restrictio:
-
-
 
 *************
 Restrictions:
 *************
-
-
-
 
 This command can only be used after the simulation box is defined by
 the :ref:`create_box<create-box>` command, and after a grid has been
@@ -907,24 +637,17 @@ already exist in the simulation, you must insure particles do not
 end up inside the added surfaces.  See the *particle* keyword
 for options with regard to particles.
 
-
-
 To read gzipped surface files, you must compile SPARTA with the
 -DSPARTA_GZIP option - see :ref:`Section 2.2<start-making-sparta>` of
 the manual for details.
 
-
-
 The *clip* keyword cannot be used when the :ref:`global surfs explicit/distributed<global>` command has been used.  This is
 because we have not yet figured out how to clip distributed surfaces.
-
-
 
 .. note::
 
   that using the *clip* operation guarantees that
   this will be the case.
-
 
 The surface elements in a single surface file must represent a
 "watertight" surface.  For a 2d simulation this means that every point
@@ -937,15 +660,12 @@ clipping, which allows for use of watertight surface object (e.g. a
 sphere) that is only partially inside the simulation box, but which
 when clipped to the box becomes non-watertight, e.g. half of a sphere.
 
-
-
 .. note::
 
   that this definition of watertight does not require that the
   surface elements in a file represent a single physical object;
   multiple objects (e.g. spheres) can be represented, provided each is
   watertight.
-
 
 Another restriction on surfaces is that they do not represent an
 object that is "infinitely thin", so that two sides of the same object
@@ -956,43 +676,25 @@ surface, errors will be generated if a particle hits the "inside" of a
 surface element before hitting the "outside" of another element.  This
 can occur for infinitely thin surfaces due to numeric round-off.
 
-
-
 When running a simulation with multiple objects, read from one or more
 surface files, you should insure they do not touch or overlap with
 each other.  SPARTA does not check for this, but it will typically
 lead to unphysical particle dynamics.
 
-
-
 .. _read-surf-related-commands:
-
-
 
 *****************
 Related commands:
 *****************
 
-
-
-
 :ref:`read_isurf<read-isurf>`, :ref:`write_surf<write-surf>`
 
-
-
 .. _read-surf-default:
-
-
 
 ********
 Default:
 ********
 
-
-
-
 The default origin for the vertices in the surface file is (0,0,0).
 The defaults for group = all, typeadd = 0, particle = none.
-
-
 
