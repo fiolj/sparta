@@ -692,6 +692,9 @@ As described above, the CMake option Kokkos_ARCH_*TYPE*=ON or the makefile setti
    * -  A64FX 
      -  HOST 
      -  ARMv8.2 with SVE Support 
+   * -  ARMV9_GRACE 
+     -  HOST 
+     -  ARMv9 NVIDIA Grace CPU 
    * -  SNB 
      -  HOST 
      -  Intel Sandy/Ivy Bridge CPU (AVX 1) 
