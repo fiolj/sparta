@@ -1,0 +1,165 @@
+
+:orphan:
+
+
+
+.. index:: scale_particles
+
+
+
+.. _scale-particles:
+
+
+
+
+.. _scale-particles-command:
+
+
+
+#######################
+scale_particles command
+#######################
+
+
+
+
+.. _scale-particles-syntax:
+
+
+
+*******
+Syntax:
+*******
+
+
+
+
+
+::
+
+
+
+   scale_particles mix-ID factor
+
+
+
+
+mix-ID = ID of mixture to use when scaling particles
+factor = scale factor
+
+
+
+
+.. _scale-particles-examples:
+
+
+
+*********
+Examples:
+*********
+
+
+
+
+
+::
+
+
+
+   scale_particles air 0.5
+   scale_particles air 4.0
+
+
+
+
+.. _scale-particles-descriptio:
+
+
+
+************
+Description:
+************
+
+
+
+
+Scale the number of particles in the simulation by cloning or deleting
+individual particles.  This can be useful between runs, or after
+reading a restart file, to increase or decrease the particle count
+before a new :ref:`run<run>` command is issued, as if the :ref:`global fnum<global>` value had been changed.  For example, an initial
+coarse simulation can be performed, followed by a simulation at
+higher resolution.
+
+
+
+Only particles of species in the specified mixture are considered for
+cloning/deleting.  See the :ref:`mixture<mixture>` command for how it
+defines a collection of species.
+
+
+
+The specified *factor* can be any value >= 0.0.
+
+
+
+If *factor* < 1.0, then for each particle, a random number *R* is
+generated.  If R > factor, the particle is deleted.
+
+
+
+If *factor* > 1.0, then for each particle additional particles may be
+created, by cloning all attributes of the original particle, except
+for a new random particle ID assigned to each new particle.  E.g. if
+*factor* = 3.4, then two extra particles are created, and a 3rd is
+created with probability 0.4.
+
+
+
+
+
+
+.. _scale-particles-restrictio:
+
+
+
+*************
+Restrictions:
+*************
+
+
+
+
+none
+
+
+
+.. _scale-particles-related-commands:
+
+
+
+*****************
+Related commands:
+*****************
+
+
+
+
+:ref:`create_particles<create-particles>`
+
+
+
+.. _scale-particles-default:
+
+
+
+********
+Default:
+********
+
+
+
+
+none
+
+
+
