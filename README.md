@@ -15,7 +15,7 @@ Analyzer.
 
 **NOTE:**  Alternatively reformatted versions of the Manual in HTML, PDF and EPUb may be found in
 
-  - Readthedocs: https://sparta-docs.readthedocs.io/ o http://sparta-docs.rtfd.io/
+  - [Readthedocs](https://sparta-docs.readthedocs.io/)
 
   - The source for this version of the manual is in the **docs** [branch of this fork](https://github.com/fiolj/sparta/tree/docs)
 
@@ -42,21 +42,12 @@ under the terms of the GNU Public License (GPL).
 The primary authors of the code are Steve Plimpton and Michael Gallis,
 who can be emailed at sjplimp@sandia.gov and magalli@sandia.gov.  
 
-## Documentation
+## Official documentation
 
 The SPARTA web site at http://sparta.sandia.gov has more information about
 the code and its uses.
 
 The manual may be found at https://sparta.sandia.gov/doc/Manual.html
-
-
-## Alternatively Formatted documentation
-
-
-**NOTE:**  Alternatively reformatted versions of the Manual in HTML, PDF and EPUb may be found in
-
-  - Readthedocs: https://sparta-docs.readthedocs.io/ o http://sparta-docs.rtfd.io/
-  - The source for this version of the manual is in the **docs** [branch of this fork](https://github.com/fiolj/sparta/tree/docs)
 
 
 ## What is in the SPARTA distribution?
