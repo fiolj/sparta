@@ -22,7 +22,7 @@ help:
 # Make the .rst from .txt. script txt2rst.py must be in ~/.local/bin (or $PATH-"findable")
 sources:
 	@echo "Updating copy of files"
-	@rsync -ruv index.rst $(SOURCEDIR)
+	@rsync -ruv addhocs/index.rst $(SOURCEDIR)
 	@rsync -ruv ../doc/Eqs/*.* $(SOURCEDIR)/Eqs/
 	@rsync -ruv ../doc/JPG/*.* $(SOURCEDIR)/JPG/
 	@echo "Converting ..."

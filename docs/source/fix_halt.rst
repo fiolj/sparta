@@ -29,10 +29,8 @@ Syntax:
 
 - attribute = *tlimit* or v_name
 
-::
-
-   tlimit = elapsed CPU time (in seconds)
-   v_name = name of :ref:`equal-style variable<variable>`
+  - tlimit = elapsed CPU time (in seconds)
+  - v_name = name of :ref:`equal-style variable<variable>`
 
 - operator = "<" or "<=" or ">" or ">=" or "==" or "!=" or "|^"
 

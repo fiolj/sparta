@@ -1,0 +1,388 @@
+{
+  "dump": [
+    [
+      "\"dump image\"_dump_image.html command :h3",
+      "Ref: \"dump image\"_dump_image.html command"
+    ],
+    [
+      "\"boundary\"_doc/boundary.html",
+      "\"boundary\"_boundary.html"
+    ],
+    [
+      "(see the \"binary2txt\ntool\"_Section_tools.html#binary)",
+      ""
+    ],
+    [
+      "tools/binary2txt.cpp file.",
+      "tools/binary2txt.cpp file.\n\n  NOTE: The file \"binary2txt.cpp\" is not currently shipped with SPARTA\n\n"
+    ],
+    [
+      "_collid_modify.html",
+      "_collide_modify.html"
+    ],
+    [
+      "_surf_react_implicit.html",
+      "_surf_react.html"
+    ]
+  ],
+  "dump_image": [
+    [
+      "\"Section 2.2.2\"_Section_start.html#start_2_2",
+      "\"Section 2.2.2 section\"_Section_start.html#start_2_1 and \"Section 2.2.2 section\"_Section_start.html#start_2_1 sections"
+    ]
+  ],
+  "surf_react": [
+    [
+      "\"surf_react adsorb\"_surf_react_adsorb.html command :h3",
+      "[\"surf_react adsorb\"_surf_react_adsorb.html] command"
+    ],
+    [
+      "\"fix\n",
+      "\n\"fix "
+    ],
+    [
+      "_fix_ambipolar.hmtl",
+      "_fix_ambipolar.html"
+    ]
+  ],
+  "react": [
+    [
+      "_fix_ambipolar.hmtl",
+      "_fix_ambipolar.html"
+    ],
+    [
+      ":link(Gallis11)",
+      ":link(Gallis10)"
+    ]
+  ],
+  "Section_accelerate": [
+    [
+      "\"collide_style\"_collide_style.html",
+      "\"collide_style\"_collide.html"
+    ],
+    [
+      "\"stat\"_stat.html",
+      "\"stats\"_stats.html"
+    ]
+  ],
+  "Section_commands": [
+    [
+      "_surf_adsorb.html",
+      "_surf_react_adsorb.html"
+    ]
+  ],
+  "Section_intro": [
+    [
+      "_gnu2",
+      "_https://www.gnu.org/licenses/lgpl.html"
+    ],
+    [
+      "\"Section 1.4\"_#intro_4 below",
+      "\"Section below\"_#intro_4"
+    ],
+    [
+      "\"Section 10\"_Section_modify.html",
+      "section \" \"_Section_modify.html"
+    ],
+    [
+      "1.5\"_#intro_5 below",
+      "below\"_#intro_5"
+    ],
+    [
+      "\"Sections 4.9\"_Section_howto.html#howto_9",
+      "Sections \" \"_Section_howto.html#howto_8"
+    ],
+    [
+      "\"4.10\"_Section_howto.html#",
+      "\" \"_Section_howto.html#howto_9"
+    ]
+  ],
+  "Section_howto": [
+    [
+      "_#stat",
+      "_#stats"
+    ],
+    [
+      "#start3",
+      "#start_3"
+    ],
+    [
+      "start2_2",
+      "start_2"
+    ],
+    [
+      "\"balance\"_balance.html",
+      "\"balance\"_balance_grid.html"
+    ],
+    [
+      "_fix_emit.html",
+      "_fix_emit_face.html"
+    ],
+    [
+      "_fix_adapt_grid.html",
+      "_fix_adapt.html"
+    ],
+    [
+      "_dump_surf.html",
+      "_dump.html"
+    ]
+  ],
+  "Section_packages": [
+    [
+      "\"Section 2.2\"_Section_start.html#2_2 (step 6)",
+      "\"Section 2.2\"_Section_start.html#start_2 (step 6)"
+    ]
+  ],
+  "Section_start": [
+    [
+      "This section has the following sub-sections:\n\n\"Read this first\"_#start_2_1\n\"Steps to build a SPARTA executable using make\"_#start_2_2_1\n\"Steps to build a SPARTA executable using CMake\"_#start_2_2_2\n\"Common errors that can occur when making SPARTA\"_#start_2_3\n\"Additional build tips using make\"_#start_2_4_1\n\"Additional build tips using CMake\"_#start_2_4_2\n\"Building for a Mac\"_#start_2_5\n\"Building for Windows\"_#start_2_6 :ul",
+      ""
+    ]
+  ],
+  "Section_tools": [
+    [
+      "implicit_grid tool :h4,link(jagged)",
+      "implicit_grid tool :h4,link(implicit)"
+    ],
+    [
+      "paraview tools :h4,link(paraview)",
+      "paraview tools :h4,link(paraview-tools)"
+    ]
+  ],
+  "surf_collide": [
+    [
+      "[temp/freq}",
+      "{temp/freq}"
+    ]
+  ],
+  "fix_ave_grid": [
+    [
+      "4.8\"_Section_howto.html#howto_ of the manual gives",
+      "How-to\"_Section_howto.html#howto_8 of the manual gives"
+    ],
+    [
+      "_surf-react_implicit.html",
+      "_surf_react.html"
+    ]
+  ],
+  "fix_ave_histo": [
+    [
+      "_compute_com_chunk.html",
+      "_compute_grid.html"
+    ]
+  ],
+  "fix_halt": [
+    [
+    "tlimit = elapsed CPU time (in seconds)",
+    "  - tlimit = elapsed CPU time (in seconds)"
+    ],
+    [	
+    "v_name = name of \"equal-style variable\"_variable.html :pre",
+    "  - v_name = name of \"equal-style variable\"_variable.html\n"
+    ]
+  ],
+  "variable": [
+    [
+      "\"Section commands 3.2\"_Section_commands.html#3_2",
+      "\"Section commands\"_Section_commands.html#cmd_2"
+    ],
+    [
+      "_fix_ave_spatial.html",
+      "_fix_ave.html"
+    ]
+  ],
+  "compute_eflux_grid": [
+    [
+      "_compute_grid.txt",
+      "_compute_grid.html"
+    ],
+    [
+      ", \"compute\n",
+      "\n\"compute "
+    ],
+    [
+      "_compute_thermal_grid.txt",
+      "_compute_thermal_grid.html"
+    ],
+    [
+      "_compute_pflux_grid.txt",
+      "_compute_pflux_grid.html"
+    ]
+  ],
+  "compute_thermal_grid": [
+    [
+      "_compute_grid.txt",
+      "_compute_grid.html"
+    ]
+  ],
+  "compute_react_isurf_grid": [
+    [
+      "\"surf_react\"_surf_react ",
+      "\"surf_react\"_surf_react.html "
+    ]
+  ],
+  "compute_pflux_grid": [
+    [
+      "_compute_grid.txt",
+      "_compute_grid.html"
+    ],
+    [
+      "_compute_thermal_grid.txt",
+      "_compute_thermal_grid.html"
+    ],
+    [
+      ", \"compute\n",
+      "\n\"compute "
+    ],
+    [
+      "_compute_eflux_grid.txt",
+      "_compute_eflux_grid.html"
+    ]
+  ],
+  "fix_emit_face": [
+    [
+      "_boundary.htmo",
+      "_boundary.html"
+    ]
+  ],
+  "fix_emit_surf": [
+    [
+      "_status_style.html",
+      "_stats_style.html"
+    ]
+  ],
+  "fix_emit_face_file": [
+    [
+      "_boundary.htmo",
+      "_boundary.html"
+    ]
+  ],
+  "fix_ablate": [
+    [
+      "\"fix\n",
+      "\n\"fix "
+    ],
+    [
+      "_fix_ablate ",
+      "_fix_ablate.html "
+    ]
+  ],
+  "fix_dt_reset": [
+    [
+      "1 = DTmin",
+      "  - 1 = DTmin"
+    ],
+    [
+      "2 = DTmax",
+      "  - 2 = DTmax"
+    ],
+    [
+      "3 = DTave",
+      "  - 3 = DTave"
+    ]
+  ],
+  "fix_temp_rescale": [
+    [
+      "fix_temp_globalrescale.html",
+      "fix_temp_global_rescale.html"
+    ]
+  ],
+  "compute_dt_grid": [
+    [
+      "_fit_dt_reset",
+      "_fix_dt_reset"
+    ],
+    [
+      "_compute_lambda.html",
+      "_compute_lambda_grid.html"
+    ]
+  ],
+  "compute_lambda_grid": [
+    [
+      "\"fix_ave_grid.html\"_fix ave/grid",
+      "\"fix ave/grid\"_fix_ave_grid.html"
+    ],
+    [
+      "\"compute_grid.html\"_compute_grid",
+      "\"compute_grid\"_compute_grid.html"
+    ],
+    [
+      "\"compute_thermal_grid.html\"_compute thermal/grid",
+      "\"compute thermal/grid\"_compute_thermal_grid.html"
+    ],
+    [
+      "\"dump.html\"_dump grid",
+      "\"dump grid\"_dump.html"
+    ],
+    [
+      "\"mixture.html\"_mixture",
+      "\"mixture\"_mixture.html"
+    ],
+    [
+      "\"units.html\"_units",
+      "\"units\"_units.html"
+    ],
+    [
+      "\"collide.html\"_collide",
+      "\"collide\"_collide.html"
+    ]
+  ],
+  "compute_react_surf": [
+    [
+      "_surf_react ",
+      "_surf_react.html "
+    ]
+  ],
+  "compute_react_boundary": [
+    [
+      "_surf_react ",
+      "_surf_react.html "
+    ]
+  ],
+  "adapt_grid": [
+    [
+      "_read_grid ",
+      "_read_grid.html "
+    ],
+    [
+      "_read_grid,",
+      "_read_grid.html,"
+    ]
+  ],
+  "balance_grid": [
+    [
+      "_read_grid ",
+      "_read_grid.html "
+    ],
+    [
+      "_read_grid,",
+      "_read_grid.html,"
+    ]
+  ],
+  "create_isurf": [
+    [
+      "_read_isurf\n",
+      "_read_isurf.html\n"
+    ],
+    [
+      "_read_isurf ",
+      "_read_isurf.html "
+    ],
+    [
+      "_read_isurf,",
+      "_read_isurf.html,"
+    ],
+    [
+      "_read_surf ",
+      "_read_surf.html "
+    ],
+    [
+      "_read_surf,",
+      "_read_surf.html,"
+    ],
+    [
+      "_read_surf\n",
+      "_read_surf.html\n"
+    ]
+  ]
+}
