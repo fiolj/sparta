@@ -74,11 +74,12 @@ new simulation or for post-processing and visualization.
   by the :ref:`remove_surf<remove-surf>` command, then points may have
   also been deleted.  In either case, surface points and elements are
   renumbered by these operations to create compressed, contiguous lists.
-  These lists are what is output by this command.
+  These lists of surface elements are what is output by this command.
 
 The output file is written as a text file in the same format as the
 file the :ref:`read_surf<read-surf>` command reads for explicit
-surfaces.
+surfaces.  See the :ref:`read_surf<read-surf>` doc page for a
+description of its format.
 
 Similar to :ref:`dump<dump>` files, the surface filename can contain
 two wild-card characters.  If a "\*" appears in the filename, it is
@@ -100,10 +101,19 @@ discussed below can alter the number of files written.
 
   that implicit surfaces read in by the
   :ref:`read_isurf<read-isurf>` command can be written out by the
-  write_surf command, e.g. for visualization purposes.  But the file
-  created by this command cannot be read back in to SPARTA via the
-  :ref:`read_isurf<read-isurf>` command, because this command creates
-  files in an explicit surface format.
+  write_surf command, e.g. for visualization purposes or to start a
+  second simulation treating implicit surfaces previously ablated via
+  the :ref:`fix ablate<fix-ablate>` command as constant, unchanging
+  explicit surfaces.  Because this command creates files in an explicit
+  surface format, it can only be read back in to SPARTA via the
+  :ref:`read_surf<read-surf>` command.  It cannot be read back in via the
+  :ref:`read_isurf<read-isurf>` command.
+
+Also note, that implicit surfaces use the grid cell ID as the surface
+element ID for all line segments (2d) or triangles (3d) in the same
+grid cell.  When this command writes them to a file, the surface
+element IDs in the file become integers between 1 and N, where N is
+the total number of implicit surface elements.
 
 See the :ref:`Howto 6.13<howto-surface-elements:-explicit,-implicit,>` section of the manual
 for a discussion of explicit and implicit surfaces as well as
@@ -156,7 +166,7 @@ next 3 processors and write it to a surface file.
 Restrictions:
 *************
 
-none
+The *custom* keyword cannot be used with implicit surfaces.
 
 .. _write-surf-related-commands:
 

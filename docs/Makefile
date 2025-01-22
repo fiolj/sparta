@@ -19,10 +19,14 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-# update_web: clean-src html 
-# 	# make html
-# 	rsync --delete -rv _build/html/* ~/Trabajos/fiolj-github/sparta/
-# 	# cp _build/epub/SPARTA.epub ~/trabajo/Proyectos/fiolj-github/data/sparta-manual.epub
+# Make the .rst from .txt. script txt2rst.py must be in ~/.local/bin (or $PATH-"findable")
+sources:
+	@echo "Updating copy of files"
+	@rsync -ruv index.rst $(SOURCEDIR)
+	@rsync -ruv ../doc/Eqs/*.* $(SOURCEDIR)/Eqs/
+	@rsync -ruv ../doc/JPG/*.* $(SOURCEDIR)/JPG/
+	@echo "Converting ..."
+	txt2rst
 
 clean-src:
 	rm -f *.rst~

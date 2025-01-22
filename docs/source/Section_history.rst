@@ -17,14 +17,14 @@ molecular dynamics codes I've distributed.
 Coming attractions
 ******************
 
-The `wish list link <http://sparta.sandia.gov/future.html>`__ on the
+The `wish list link <https://sparta.github.io/future.html>`__ on the
 SPARTA web page gives a list of features we are planning to add to
 SPARTA in the future.  Please contact the
-`developers <_http://sparta.sandia.gov/authors.html>`__ you are interested
+`developers <_https://sparta.github.io/authors.html>`__ you are interested
 in contributing to the those developments or would be a future user of
 that feature.
 
-You can also send `email to the developers <http://sparta.sandia.gov/authors.html>`__ if you want to add
+You can also send `email to the developers <https://sparta.github.io/authors.html>`__ if you want to add
 your wish to the list.
 
 .. _history-past-versions:
@@ -34,7 +34,7 @@ Past versions
 *************
 
 Sandia's predecessor to SPARTA is a DSMC code called ICARUS.  It was
-developed in the early 1990s by Tim Bartel and `Steve Plimpton <http>`__://www.sandia.gov/~sjplimp.  It was later modified and
+developed in the early 1990s by Tim Bartel and `Steve Plimpton <https://sjplimp.github.io>`__.  It was later modified and
 extended by Michael Gallis.
 
 ICARUS is a 2d code, written in Fortran, which models the flow
@@ -44,7 +44,7 @@ represented with analytic equations, which allows for fast particle
 tracking.
 
 Some details about ICARUS, including simulation snapshots and papers,
-are discussed on `this page <http>`__://www.sandia.gov/~sjplimp/dsmc.html
+are discussed on `this page <http://sjplimp.github.io/dsmc.html>`__
 
 Performance-wise ICARUS scaled quite well on several generations of
 parallel machines, and is still used by Sandia researchers today.
@@ -56,7 +56,7 @@ SPARTA development began in late 2011.  In contrast to ICARUS, it is a
 track particles.  Surfaces are embedded in the grid, which cuts and
 splits their flow volumes.
 
-The `Authors link <http://sparta.sandia.gov/history.html>`__ on the SPARTA
+The `Authors link <https://sparta.github.io/history.html>`__ on the SPARTA
 web page gives a timeline of features added to the code since it's
 initial open-source release.
 

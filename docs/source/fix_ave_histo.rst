@@ -380,9 +380,10 @@ accessed by various output commands.  The values can only be accessed
 on timesteps that are multiples of *Nfreq* since that is when a
 histogram is generated.  The global vector has 4 values:
 
-.. contents::
-   :depth: 1
-   :local:
+= total counts in the histogram
+= values that were not histogrammed (see *beyond* keyword)
+= min value of all input values, including ones not histogrammed
+= max value of all input values, including ones not histogrammed
 
 The global array has # of rows = Nbins and # of columns = 3.  The
 first column has the bin coordinate, the 2nd column has the count of
@@ -402,7 +403,7 @@ These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-commandlin-options>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
 See the :ref:`Accelerating SPARTA<accelerate>` section of the

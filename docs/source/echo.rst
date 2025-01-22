@@ -45,7 +45,7 @@ command to the screen and/or log file as it is read and processed.  If
 an input script has errors, it can be useful to look at echoed output
 to see the last command processed.
 
-The :ref:`command-line switch<start-running-sparta>` -echo can be used
+The :ref:`command-line switch<start-commandlin-options>` -echo can be used
 in place of this command.
 
 .. _echo-restrictio:

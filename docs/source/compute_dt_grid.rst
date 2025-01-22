@@ -25,7 +25,7 @@ Syntax:
 
 ::
 
-   compute ID dt/grid group-ID tfraction cfraction lambda temperature usq vsq wsq
+   compute ID dt/grid group-ID tfraction cfraction tau temperature usq vsq wsq
 
 - ID is documented in :ref:`compute<compute>` command 
 
@@ -37,7 +37,7 @@ Syntax:
 
 - cfraction = fraction of grid cell mean collision time used to calculate timestep
 
-- lambda = compute or fix column for mean free path, prefaced by "c\_" or "f\_"
+- tau = compute or fix column for mean collision time, prefaced by "c\_" or "f\_"
 
 - temperature = compute or fix column for temperature, prefaced by "c\_" or "f\_"
 
@@ -57,8 +57,8 @@ Examples:
 
    compute 1 grid all mymixture nrho temp usq vsq wsq
    fix 1 ave/grid all 10 50 500 c_1\[\*\]
-   compute lambda lambda/grid f_1\[1\] f_1\[2\] Ar
-   compute tstep dt/grid all 0.25 0.1 c_lambda f_1\[2\] f_1\[3\] f_1\[4\] f_1\[5\]
+   compute mct lambda/grid f_1\[1\] f_1\[2\] tau
+   compute tstep dt/grid all 0.25 0.1 c_mct f_1\[2\] f_1\[3\] f_1\[4\] f_1\[5\]
 
 .. _compute-dt-grid-descriptio:
 
@@ -72,7 +72,7 @@ grid cell size.  The per-grid cell timesteps can be output in a
 per-grid dump file for post analyses.  Or they can be used as input to
 the :ref:`fix dt/reset<fix-dt-reset>` command to adjust the global
 timestep for a variable timestep simulation.  See this
-:ref:`section<howto-custom-perparticl-pergrid,-persurf>` of the manual for more
+:ref:`section<howto-variable-timestep-simulation>` of the manual for more
 information on variable timestep simulations.
 
 Only grid cells in the grid group specified by *group-ID* are included
@@ -99,12 +99,14 @@ fractions.
 The remaining 5 arguments specify either computes which calculate various per
 grid cell quantities or fixes which time average those
 per grid cell quantities.  The 5 quantities are per grid cell mean
-free path (lambda), temperature, and the xyz components of the
-velocity squared for particles in the grid cell.  The :ref:`compute lambda<compute-lambda-grid>` calculates a mean free path.  The :ref:`compute grid<compute-grid>` command can calculate the other 4 quantities.
+collision time (tau), temperature, and the xyz components of the
+velocity squared for particles in the grid cell. A mean collision time can be
+calculated with the :ref:`compute lambda/grid<compute-lambda-grid>` command using the
+tau option. The :ref:`compute grid<compute-grid>` command can calculate the other 4 quantities.
 The :ref:`compute thermal/grid<compute-thermal-grid>` command can also
 compute a per grid cell temperature.
 
-This is done by specifying the lambda, temperature, usq, vsq, wsq
+This is done by specifying the tau, temperature, usq, vsq, wsq
 arguments like this:
 
 c_ID = compute with ID that calculates a per grid cell quantity as a vector output
@@ -140,9 +142,8 @@ This compute calculates a per-grid vector.
   geometrically inside the split cell.  Additionally, any cell that is able
   to store particles but does not have any particles when this compute is
   invoked produces a zero result.  Finally, a zero result is produced if any
-  cell data to be used in the timestep calculation is sufficiently close to
-  zero (including the maximum most probable speed, the velocity magnitude, and
-  the mean free path).
+  cell data to be used in the timestep calculation is
+  zero (including temperature, speed, and mean collision time).
 
 The vector can be accessed by any command that uses per-grid values
 from a compute as input.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>`
@@ -160,7 +161,7 @@ These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-commandlin-options>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
 See the :ref:`Accelerating SPARTA<accelerate>` section of the
@@ -186,7 +187,8 @@ Related commands:
 *****************
 
 :ref:`fix dt/reset<fix-dt-reset>`, :ref:`compute grid<compute-grid>`,
-:ref:`compute thermal/grid<compute-thermal-grid>`, :ref:`fix ave/grid<fix-ave-grid>`
+:ref:`compute thermal/grid<compute-thermal-grid>`, :ref:`compute lambda/grid<compute-lambda-grid>`,
+:ref:`fix ave/grid<fix-ave-grid>`
 
 .. _compute-dt-grid-default:
 

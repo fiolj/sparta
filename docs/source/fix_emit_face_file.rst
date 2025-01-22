@@ -200,20 +200,16 @@ below) is performed to determine the value for the grid face.
 
    # plume ABC info           (one or more comment or blank lines)
 
-::
-
-   PLUME_ABC                  (boundary-ID is first word on line)
-   NIJ 4 10                   (mesh size: Ni by Nj points)
-   NV 3                       (Nv = number of values per mesh point)
-   VALUES nrho temp Ar        (list of Nv values per mesh point)
-   IMESH 0.0 0.3 0.9 1.0      (mesh point coordinates in I direction)
-   JMESH ...                  (mesh point coordinates in J direction)
-   (blank)
-   .. contents::
+PLUME_ABC                  (boundary-ID is first word on line)
+NIJ 4 10                   (mesh size: Ni by Nj points)
+NV 3                       (Nv = number of values per mesh point)
+VALUES nrho temp Ar        (list of Nv values per mesh point)
+IMESH 0.0 0.3 0.9 1.0      (mesh point coordinates in I direction)
+JMESH ...                  (mesh point coordinates in J direction)
+(blank)
+.. contents::
    :depth: 1
    :local:
-...
-   10 3.0 400.0 0.7
 
 This format is for a 3d simulation.  For a 2d simulation, there are 3
 changes:

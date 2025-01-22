@@ -21,11 +21,11 @@ Syntax:
 
    run N keyword values ...
 
-- value = # of integer timesteps N or ending time (see *time* keyword below) 
+- value = # of integer timesteps N 
 
 - zero or more keyword/value pairs may be appended
 
-- keyword = *upto* or *start* or *stop* or *pre* or *post* or *every* or *time*
+- keyword = *upto* or *start* or *stop* or *pre* or *post* or *every*
 
 ::
 
@@ -40,7 +40,6 @@ Syntax:
    M = break the run into M-timestep segments and invoke one or more commands between each segment
    c1,c2,...,cN = one or more SPARTA commands, each enclosed in quotes
    c1 = NULL means no command will be invoked
-   *time* value = none
 
 .. _run-examples:
 
@@ -56,8 +55,6 @@ Examples:
    run 1000 pre no post yes
    run 100000 start 0 stop 1000000 every 1000 "print 'Temp = $t'"
    run 100000 every 1000 NULL
-   run 5.7 time
-   run 5.7 time every 100 NULL
 
 .. _run-descriptio:
 
@@ -65,9 +62,7 @@ Examples:
 Description:
 ************
 
-Run or continue a simulation for a specified number of timesteps.  If
-the *time* keyword is used, run for a specified amount of physical
-time.
+Run or continue a simulation for a specified number of timesteps.
 
 A value of N = 0 is acceptable; only the statistics of the system are
 computed and printed without taking a timestep.
@@ -80,9 +75,7 @@ machine that allocates chunks of time and terminate your job when time
 is exceeded.  If you need to restart your script multiple times
 (reading in the last restart file), you can keep restarting your
 script with the same run command until the simulation finally
-completes.  If the *time* keyword is used, the *upto* keyword is not
-needed since the time option runs the simulation "up to" the specified
-time.
+completes.
 
 The *start* or *stop* keywords can be used if multiple runs are being
 performed and you want a :ref:`variable<variable>` or :ref:`fix<fix>`
@@ -195,26 +188,8 @@ If the *pre* and *post* options are set to "no" when used with the
 run will print the full timing summary, but these operations will be
 skipped for intermediate runs.
 
-If the *time* keyword is used in conjunction with the *every* keyword,
-the shorter runs of M steps each are performed until the specified end
-time is reached, possibly reducing the number of steps in the last run.
-
-.. important::
-
-  You might hope to specify a command that exits the run
-  by jumping out of the loop, e.g.
-
-::
-
-   compute t temp
-   variable T equal c_t
-   run 10000 every 100 "if '$T < 300.0' then 'jump SELF afterrun'"
-
-Unfortunately this will not currently work.  The run command simply
-executes each command one at a time each time it pauses, then
-continues the run.  You can replace the jump command with a simple
-:ref:`quit<quit>` command and cause SPARTA to exit during the
-middle of a run when the condition is met.
+If you want SPARTA to exit early during the middle of a run when a
+condition is met, use :ref:`fix halt<fix-halt>`.
 
 .. _run-restrictio:
 
@@ -233,7 +208,7 @@ run a simulation for any number of steps (ok, up to 2^63 steps).
 Related commands:
 *****************
 
-none
+:ref:`fix halt<fix-halt>`
 
 .. _run-default:
 

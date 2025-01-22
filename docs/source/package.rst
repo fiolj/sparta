@@ -69,7 +69,7 @@ is because it specifies settings that the accelerator package used in
 its initialization, before a simulation is defined.
 
 This command can also be specified from the command-line when
-launching SPARTA, using the "-pk" :ref:`command-line switch<start-running-sparta>`.  The syntax is exactly the same as
+launching SPARTA, using the "-pk" :ref:`command-line switch<start-commandlin-options>`.  The syntax is exactly the same as
 when used in an input script.
 
 .. note::
@@ -79,14 +79,14 @@ when used in an input script.
   can be built with the accelerator package without using it in a
   particular simulation).  However, a default version of the command is
   typically invoked by other accelerator settings. For example, the
-  KOKKOS package requires a "-k on" :ref:`command-line   switch<start-running-sparta>` respectively, which invokes a
+  KOKKOS package requires a "-k on" :ref:`command-line   switch<start-commandlin-options>` respectively, which invokes a
   "package kokkos" command with default settings.
 
 .. note::
 
   A package command for a particular style can be invoked multiple
   times when a simulation is setup, e.g. by the "-k on", "-sf", and
-  "-pk" :ref:`command-line switches<start-running-sparta>`, and by using
+  "-pk" :ref:`command-line switches<start-commandlin-options>`, and by using
   this command in an input script.  Each time it is used all of the
   style options are set, either to default values or to specified
   settings.  I.e. settings from previous invocations do not persist
@@ -157,7 +157,7 @@ with the KOKKOS package.  See the :ref:`Making SPARTA<start-making-sparta-option
 Related commands:
 *****************
 
-:ref:`suffix<suffix>`, "-pk" :ref:`command-line setting<start-running-sparta>`
+:ref:`suffix<suffix>`, "-pk" :ref:`command-line setting<start-commandlin-options>`
 
 .. _package-default:
 
@@ -168,7 +168,7 @@ Default:
 For the KOKKOS package, the option defaults are react/extra = 1.1,
 react/retry = no, and gpu/aware yes. For CPUs: comm = serial, and for
 GPUs: comm = threaded.  These settings are made automatically by the
-required "-k on" :ref:`command-line switch<start-running-sparta>`. You
+required "-k on" :ref:`command-line switch<start-commandlin-options>`. You
 can change them by using the package kokkos command in your input script
-or via the "-pk kokkos" :ref:`command-line switch<start-running-sparta>`.
+or via the "-pk kokkos" :ref:`command-line switch<start-commandlin-options>`.
 

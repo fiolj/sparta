@@ -601,7 +601,7 @@ Load the animated GIF file
    % mplayer foo.mpg 
    % ffplay bar.avi
 
-- c) Use the `Pizza.py <http>`__://www.sandia.gov/~sjplimp/pizza.html `animate tool <http>`__://www.sandia.gov/~sjplimp/pizza/doc/animate.html, which works directly on a series of image files.
+- c) Use the `Pizza.py <https://lammps.github.io/pizza>`__ `animate tool <https://lammps.gitbug.io/pizza/doc/animate.html>`__, which works directly on a series of image files.
 
 ::
 

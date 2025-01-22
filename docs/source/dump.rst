@@ -172,7 +172,7 @@ its options.
 The *particle* and *grid* and *surf* styles create files in a simple
 text format that is self-explanatory when viewing a dump file.  Many
 of the SPARTA :ref:`post-processing tools<tools>`, including
-`Pizza.py <http://pizza.sandia.gov>`__, work with this format.
+`Pizza.py <https://lammps.github.io/pizza>`__, work with this format.
 
 For post-processing purposes the text files are self-describing in the
 following sense.

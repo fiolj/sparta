@@ -66,7 +66,7 @@ ext = external library: you will need to download and install it on your machine
    * - :ref:`KOKKOS<packages-kokkos-package>`
      -  Kokkos-enabled styles
      -  :ref:`Section 5.3<accelerate-kokkos-package>`
-     -  `Benchmarks <http://sparta.sandia.gov/bench.html>`__
+     -  `Benchmarks <https://sparta.github.io/bench.html>`__
      -  -
 
 .. _packages-fft-package:
@@ -80,18 +80,19 @@ FFT package
 Contents:
 =========
 
-Apply Fast Fourier Transforms (FFTs) to simulation data. The FFT library is
-specified in the Makefile.machine using the FFT_INC, FFT_PATH, and FFT_LIB
-variables. Supported external FFT libraries that can be specified include FFTW3
-and MKL. If no FFT library is specified in the Makefile, SPARTA will use the
-internal KISS FFT library that is included with SPARTA.
+Apply Fast Fourier Transforms (FFTs) to simulation data. The FFT
+library is specified in the Makefile.machine or CMake using the
+FFT_INC, FFT_PATH, and FFT_LIB variables. Supported external FFT
+libraries that can be specified include FFTW3 or MKL. If no FFT
+library is specified, SPARTA will use the internal KISS FFT library
+that is included with SPARTA.
 
-Similarly an external FFT library can be specified for the KOKKOS package.
-Options are CUFFT, HIPFFT, FFTW3, and MKL. If no FFT library is specified in
-the Makefile, SPARTA will use the internal Kokkos version of the KISS FFT
-library that is included with SPARTA.
+Similarly an external FFT library can be specified for the KOKKOS
+package.  Options are CUFFT, HIPFFT, FFTW3, MKL, or MKL_GPU. If no FFT
+library is specified in the Makefile, SPARTA will use the internal
+Kokkos version of the KISS FFT library that is included with SPARTA.
 
-See the see discussion in doc/Section_start.html#2_2 (step 6).
+See the see discussion in :ref:`Section 2.2<start-making-sparta>` (step 6).
 
 .. _packages-install-uninstall-make:
 
@@ -147,7 +148,7 @@ CPUs, KNLs, or GPUs.  All the styles have a "kk" as a suffix in their
 style name.  :ref:`Section 5.3<accelerate-kokkos-package>` gives details
 of what hardware and software is required on your system, and how to
 build and use this package.  Its styles can be invoked at run time via
-the "-sf kk" or "-suffix kk" :ref:`command-line switches<start-running-sparta>`.
+the "-sf kk" or "-suffix kk" :ref:`command-line switches<start-commandlin-options>`.
 
 You must have a C++17 compatible compiler to use this package.
 
@@ -281,9 +282,9 @@ src/KOKKOS/README
 lib/kokkos/README
 the :ref:`Accelerating SPARTA<accelerate-kokkos-package>` section
 :ref:`Section 5.3<accelerate-kokkos-package>`
-:ref:`Section 2.6 -k on ...<start-running-sparta>`
-:ref:`Section 2.6 -sf kk<start-running-sparta>`
-:ref:`Section 2.6 -pk kokkos<start-running-sparta>`
+:ref:`Section 2.6 -k on ...<start-commandlin-options>`
+:ref:`Section 2.6 -sf kk<start-commandlin-options>`
+:ref:`Section 2.6 -pk kokkos<start-commandlin-options>`
 :ref:`package kokkos<package>`
-`Benchmarks page <http://sparta.sandia.gov/bench.html>`__ of web site
+`Benchmarks page <https://sparta.github.io/bench.html>`__ of web site
 

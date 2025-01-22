@@ -251,12 +251,12 @@ remain part of the code.
 
 In the spirit of an open-source code, these are various ways you can
 contribute to making SPARTA better.  You can send email to the
-`developers <http://sparta.sandia.gov/authors.html>`__ on any of these
+`developers <https://sparta.github.io/authors.html>`__ on any of these
 topics.
 
 - Point prospective users to the `SPARTA WWW Site <http://sparta.sandia.gov>`__.  Mention it in talks or link to it from your WWW site. 
 
-- If you find an error or omission in this manual or on the `SPARTA WWW Site <http://sparta.sandia.gov>`__, or have a suggestion for something to clarify or include, send an email to the `developers <http://sparta.sandia.gov/authors.html>`__.
+- If you find an error or omission in this manual or on the `SPARTA WWW Site <http://sparta.sandia.gov>`__, or have a suggestion for something to clarify or include, send an email to the `developers <https://sparta.github.io/authors.html>`__.
 
 - If you find a bug, :ref:`Section 12.1<errors-reporting-bugs>` describes how to report it.
 
@@ -279,20 +279,20 @@ Acknowledgments and citations
 SPARTA development has been funded by the `US Department of Energy <http://www.doe.gov>`__ (DOE).
 
 If you use SPARTA results in your published work, please cite the
-paper(s) listed under the `Citing SPARTA link <http://sparta.sandia.gov/cite.html>`__ of the SPARTA WWW page, and
+paper(s) listed under the `Citing SPARTA link <https://sparta.github.io/cite.html>`__ of the SPARTA WWW page, and
 include a pointer to the `SPARTA WWW Site <http://sparta.sandia.gov>`__
-(http://sparta.sandia.gov):
+(https://sparta.github.io):
 
-The `Publications link <http://sparta.sandia.gov/papers.html>`__ on the
+The `Publications link <https://sparta.github.io/papers.html>`__ on the
 SPARTA WWW page lists papers that have cited SPARTA.  If your paper is
 not listed there, feel free to send us the info.  If the simulations
 in your paper produced cool pictures or animations, we'll be pleased
-to add them to the `Pictures <http://sparta.sandia.gov/pictures.html>`__
-or `Movies <http://sparta.sandia.gov/movies.html>`__ pages of the SPARTA
+to add them to the `Pictures <https://sparta.github.io/pictures.html>`__
+or `Movies <https://sparta.github.io/movies.html>`__ pages of the SPARTA
 WWW site.
 
 The core group of SPARTA developers is at Sandia National Labs:
 
-Steve Plimpton, sjplimp at sandia.gov
+Steve Plimpton, sjplimp at gmail.com
 Michael Gallis, magalli at sandia.gov
 

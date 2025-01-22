@@ -43,8 +43,8 @@ Examples:
 
    compute 1 grid all mymixture nrho temp usq vsq wsq
    fix 1 ave/grid all 10 50 500 c_1\[\*\]
-   compute lambda lambda/grid f_1\[1\] f_1\[2\] Ar
-   compute tstep dt/grid all 0.25 0.1 c_lambda f_1\[2\] f_1\[3\] f_1\[4\] f_1\[5\]
+   compute mct lambda/grid f_1\[1\] f_1\[2\] tau
+   compute tstep dt/grid all 0.25 0.1 c_mct f_1\[2\] f_1\[3\] f_1\[4\] f_1\[5\]
 
 ::
 
@@ -88,12 +88,11 @@ f_ID\[m\] = fix with ID that calculates a time-averaged timestep as its Mth colu
 
 .. note::
 
-  that some of the per-cell timesteps may be zero for a number of reasons.  First,
-  the data used to calculate the timestep, such as maximum most probable speed and mean
-  free path, may be sufficiently close to zero.  Also, some cells may not contain particles,
-  either due to their type or to local flow conditions.  For example, split cells
-  (in which sub cells store the particles) and cells interior to surface objects do not
-  store particles.  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the manual for
+  that some of the per-cell timesteps may be zero for several reasons.  First,
+  data used to calculate the timestep, such as mean collision time, temperature, or particle speed, may be zero.
+  Also, some cells may not contain particles, either due to their type or to local flow conditions.
+  For example, split cells (in which sub cells store the particles) and cells interior to surface
+  objects do not store particles.  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the manual for
   details of how SPARTA defines child, unsplit, split, and sub cells.
 
 From the per-cell timesteps, 3 values are extracted by this fix.  They
@@ -129,15 +128,15 @@ timestep is overwritten with the new value.
 
 It also computes a global vector of length 3 with these values:
 
-.. _fix-dt-reset-toctoctoc-related:
+- 1 = DTmin
+- 2 = DTmax
+- 3 = DTave
 
-***************************
-.. contents::
-   :depth: 1
-   :local:
+.. _fix-dt-reset-related-commands:
 
+*****************
 Related commands:
-***************************
+*****************
 
 :ref:`compute dt/grid<compute-dt-grid>`
 

@@ -202,7 +202,7 @@ These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-commandlin-options>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
 See the :ref:`Accelerating SPARTA<accelerate>` section of the

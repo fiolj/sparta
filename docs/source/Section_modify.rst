@@ -19,7 +19,7 @@ extend with new functionality.
 In this section, changes and additions users can make are listed along
 with minimal instructions.  If you add a new feature to SPARTA and
 think it will be of general interest to users, please submit it to the
-`developers <http://sparta.sandia.gov/authors.html>`__ for inclusion in
+`developers <https://sparta.github.io/authors.html>`__ for inclusion in
 the released version of SPARTA.
 
 The best way to add a new feature is to find a similar feature in
@@ -93,9 +93,9 @@ functionality:
 
 If you have a question about how to compute something or about
 internal SPARTA data structures or algorithms, feel free to send an
-email to the `developers <http://sparta.sandia.gov/authors.html>`__.
+email to the `developers <https://sparta.github.io/authors.html>`__.
 
-- If you add something you think is generally useful, also send an email to the `developers <http://sparta.sandia.gov/authors.html>`__ so we can consider adding it to the SPARTA distribution.  
+- If you add something you think is generally useful, also send an email to the `developers <https://sparta.github.io/authors.html>`__ so we can consider adding it to the SPARTA distribution.  
 
 .. _modify-compute-styles:
 

@@ -27,12 +27,14 @@ Syntax:
 
 - thresh = threshold for corner values used to generate implicit surfaces, value > 0.0 and < 255.0
 
-- mode = *inout* or *ave*
+- mode = *inout* or *ave* or *multi*
 
 ::
 
    *inout* = mark corner points as either inside or outside surf
-   *ave* = smooth values by averaging expected corner point values based on intersections between the explicit surfaces and cell edges
+   *voxel* = assign corner point values based on local solid fraction
+   *ave* = smooth values by averaging expected corner point values based on intersections between the explicit surfaces and cell edges 
+   *multi* = mark corners using multiple values (i.e. multivalues)
 
 .. _create-isurf-examples:
 
@@ -71,7 +73,7 @@ points.  See the :ref:`read_isurf<read-isurf>` command for details.
 
 This command derives the 2d or 3d grid of corner point values from the
 set of explicit surface elements, rather then reading them from a
-file.  It then proceeds similarly to the :ref:`read_isurf<read-isurf>`
+file :ref:`(Hong24)<Hong24>`.  It then proceeds similarly to the :ref:`read_isurf<read-isurf>`
 command where implicit line segments or triangles within each grid
 cell are calculated from the 4 or 8 corner points of the cell.  When
 the process is complete, all explicit surfaces are removed from the
@@ -83,7 +85,7 @@ command.
 
 .. important::
 
-  As for the :ref:`read_surf<read-surf>` command, all
+  As for the :ref:`read_isurf<read-isurf>` command, all
   implicit triangles (line segments in 2d) created within the same grid
   cell are assigned the same surface ID, which is the grid cell ID.
 
@@ -109,8 +111,8 @@ contiguous 3d array with extent *Nx* by *Ny* by *Nz*.  For 2d
 simulations, *Nz* must be specified as 1, and the group must comprise
 a 2d array of cells that is *Nx* by *Ny*.  These are the grid cells
 within which implicit surfaces will be created.  It is important that
-the specified group of grid cells wholly contain the explicit
-surfaces as explained in the next paragraph.
+the specified group of grid cells wholly contain the explicit surfaces
+as explained in the next paragraph.
 
 .. important::
 
@@ -130,7 +132,7 @@ surfaces as explained in the next paragraph.
   must insure the Nx by Ny by Nz grid of cells spans that entire
   dimension.  And if any explicit surfaces intersect that boundary, both
   periodic boundaries must be intersected in the identical manner.
-  E.g. if the y dimension is periodic, the amy intersected by one or
+  E.g. if the y dimension is periodic, the any intersection by one or
   more explicit surfaces of the ylo boundary must also occur at the yhi
   boundary, with identical x and z coordinates for each intersection.
   Otherwise the aggregate set of induced implicit surfaces will not be
@@ -159,6 +161,30 @@ point values to 255 if they are inside the volume or area. If the
 explicit surface exactly intersects a grid cell corner, the corner
 point is treated as outside (value = zero).
 
+The *voxel* mode sets corner point values based on the local solid
+fraction. The solid fraction is defined as the proportion of the grid
+cell volume which is solid and is a value between 0 and 1.  For a
+given corner point, the local solid fraction is the average solid
+volume of the cells adjoined by that corner point. Currently, the
+surface conversion, regardless of the option, assumes all grid cells
+are identical in size and shape. Thus, the average is taken as the sum
+of the solid fractions in each of the N surrounding cells divided by
+N.  (The specific value of N is explained in the next paragraph.)  The
+solid fraction is computed from the solid volume which is determined
+by the gas volume which is a per-grid cell quantity computed by
+SPARTA.  That is, (solid volume) = (grid cell volume) - (gas volume)
+and (solid fraction) = (solid volume) / (grid cell volume)
+
+Interior corner points (corner points not located on the domain
+boundaries) average over four cells in 2D and eight cells in 3D (N = 4
+in 2D and N = 8 in 3D).  If a corner point is on the domain boundary
+but not at one of the corners of the domain, the solid fraction is
+determined from two cells in 2D and four cells in 3D. Corner points
+located at the corners of the domain do not compute an average but use
+the solid fraction of the corresponding corner grid cell. With the
+solid fraction, the corner point is calculated as (corner point value)
+= (solid fraction) \* 255.
+
 The *ave* mode is meant to generate implicit surfaces which more
 precisely represent the explicit surfaces.  As with *inout* mode,
 corner point values outside (or on) the surface are set to zero.  For
@@ -176,6 +202,18 @@ intersection point.  When multiple cell edges for the same inside
 corner point are intersected by explicit surface elements, the value
 assigned to the inside corner point is the average of the values
 computed for the individual cell edges.
+
+.. image:: JPG/multivalues_small.png
+
+The *multi* mode utilizes multivalues. Each corner stores 4 values in
+2D and 6 values in 3D. For each cell edge, there are two multivalues
+located at two different corner values which determine the location of
+the vertex. For example, the location of the purple 'x' mark is
+determined by the third multivalue value in the top left corner and
+the fourth multivalue value in the bottom left corner.  *multi* does
+not require averaging since all corner point values computed for each
+vertex can be stored. In general, multivalues distorts the surface
+less during the surface conversion.
 
 .. note::
 
@@ -239,7 +277,7 @@ distributed.
 
 If particles already exist in the simulation along with the explicit
 surfaces, they will generally end up outside the implicit surfaces (in
-the flow volume) as well.  In some cases the generated implicit
+the flow volume) as well.  In some cases, the generated implicit
 surfaces will reduce the flow volume slightly (for a particular grid
 cell).  If this occurs any particles which were previously outside the
 explicit surfaces but are now inside the implicit surfaces are
@@ -260,5 +298,9 @@ Related commands:
 Default:
 ********
 
-There are no default values.
+none
+
+.. _Hong24:
+
+**(Hong24)** A. Y. K. Hong, M. A. Gallis, S. G Moore, and S. J. Plimpton, "Towards physically realistic ablation modeling in direct simulation Monte Carlo," Physics of Fluids (2024).
 

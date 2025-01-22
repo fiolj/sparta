@@ -42,7 +42,7 @@ Description:
 ************
 
 This command allows you to use variants of various styles if they
-exist.  In that respect it operates the same as the :ref:`-suffix command-line switch<start-running-sparta>`.  It also has options
+exist.  In that respect it operates the same as the :ref:`-suffix command-line switch<start-commandlin-options>`.  It also has options
 to turn off or back on any suffix setting made via the command line.
 
 The specified style *kk* refers to the optional KOKKOS package that
@@ -83,7 +83,7 @@ none
 Related commands:
 *****************
 
-:ref:`Command-line switch -suffix<start-running-sparta>`
+:ref:`Command-line switch -suffix<start-commandlin-options>`
 
 .. _suffix-default:
 

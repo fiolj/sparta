@@ -121,7 +121,7 @@ of each processor's sub-block of cells.
 The product of Px, Py, Pz must equal P, the total # of processors
 SPARTA is running on.  For a 2d simulation, Pz must equal 1. If
 multiple partitions are being used then P is the number of processors
-in this partition; see :ref:`Section 2.6<start-running-sparta>` for an
+in this partition; see :ref:`Section 2.6<start-commandlin-options>` for an
 explanation of the -partition command-line switch.
 
 .. note::

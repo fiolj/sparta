@@ -63,13 +63,13 @@ script is re-opened and read again.
 
 since the SELF option invokes the C-library rewind() call, which may
 not be supported for stdin on some systems or by some MPI
-implementations.  This can be worked around by using the :ref:`-in command-line argument<start-running-sparta>`, e.g.
+implementations.  This can be worked around by using the :ref:`-in command-line argument<start-commandlin-options>`, e.g.
 
 ::
 
    spa_g++ -in in.script
 
-or by using the :ref:`-var command-line argument<start-running-sparta>` to pass the script name as a
+or by using the :ref:`-var command-line argument<start-commandlin-options>` to pass the script name as a
 variable to the input script.  In the latter case, a
 :ref:`variable<variable>` called "fname" could be used in place of
 SELF, e.g.

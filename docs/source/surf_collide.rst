@@ -168,7 +168,11 @@ The second is a surf-style variable with a formula which can calculate
 a different temperature for each surface element, e.g. a temperature
 which depends on the geometric location of the center point of the
 surface element.  The calculation can also be time-dependent if
-desired.
+desired.  A surf-style variable can also access a compute or fix which
+outputs per-surf quantities.  For example the :ref:`compute surf<compute-surf>` and :ref:`fix ave/surf<fix-ave-surf>` commands
+can tally or average energy transfer from particles to surface
+elements, which could be used to infer a temperature for each surface
+element.
 
 .. note::
 
@@ -594,7 +598,7 @@ These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-commandlin-options>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
 See the :ref:`Accelerating SPARTA<accelerate>` section of the

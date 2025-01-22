@@ -41,5 +41,8 @@ Thumbs.db
 /cmake_install.cmake
 /spa
 
+
 doc/PDFgen.sh
-std*
+doc/Eqs/auto/
+docs/doctrees/
+docs/html/

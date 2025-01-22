@@ -157,7 +157,7 @@ storing the output in different log and dump files, for example
 All of the above examples work whether you are running on 1 or
 multiple processors, but assumed you are running SPARTA on a single
 partition of processors.  SPARTA can be run on multiple partitions via
-the "-partition" command-line switch as described in :ref:`Section 2.5<start-running-sparta>` of the manual.
+the "-partition" command-line switch as described in :ref:`Section 2.5<start-commandlin-options>` of the manual.
 
 In the last 2 examples, if SPARTA were run on 3 partitions, the same
 scripts could be used if the "index" and "loop" variables were
@@ -531,7 +531,7 @@ Library.cpp contains these 4 functions:
    char \*sparta_command(void \*, char \*);
 
 The sparta_open() function is used to initialize SPARTA, passing in a
-list of strings as if they were :ref:`command-line arguments<start-running-sparta>` when SPARTA is run in
+list of strings as if they were :ref:`command-line arguments<start-commandlin-options>` when SPARTA is run in
 stand-alone mode from the command line, and a MPI communicator for
 SPARTA to run under.  It returns a ptr to the SPARTA object that is
 created, and which is used in subsequent library calls.  The
@@ -778,19 +778,28 @@ integer form can also be output by the :ref:`compute property/grid<compute-prope
 
 Here is how a grid cell ID is computed by SPARTA, either for parent or
 child cells.  Say the level 1 grid is a 10x10x20 sub-division (2000
-cells) of the root cell.  The level 1 cells are numbered from 1 to
-with the x-dimension varying fastest, then y, and finally the
-z-dimension slowest.  Now say the 374th (out of 2000, 14 in x, 19 in
-y, 1 in z) level 1 cell has a 2x2x2 sub-division (8 cells), and
-consider the 4th level 2 cell (2 in x, 2 in y, 1 in z) within the
-374th cell.  It could be a parent cell if it is further sub-divided,
-or a child cell if not.  In either case its ID is the same.  The
-rightmost 11 bits of the integer ID are encoded with 374.  This is
-because it requires 11 bits to represent 2000 cells (1 to 2000) at
-level 1.  The next 4 bits are used to encode 1 to 8, specifically 4 in
-the case of this cell.  Thus the cell ID in integer format is 4\*2048 +
-= 8566.  In string format it will be printed as 4-374, with dashes
-separating the levels.
+cells) of the root cell (simulation box).  The level 1 cells are
+numbered from 1 to 2000 with the x-dimension varying fastest, then y,
+and finally the z-dimension slowest.  Consider the 376th level 1 cell.
+It would be the 6th cell in the x direction of the grid, 8th cell in
+y, and 4th cell in z.  I.e. 376 = (z-1)\*100 + (y-1)\*10 + (x-1) + 1.
+Now consider the case where level 2 cells use a 2x2x2 sub-division (8
+cells) of level 1 cells and consider the 4th level 2 cell within the
+376th level 1 cell.  This would be the 2nd cell in x, 2nd cell in y,
+and 1st cell in z.  I.e. 4 = (z-1)\*4 + (y-1)\*2 + (x-1) + 1.
+
+This level 2 cell could itself be a parent cell if it were further
+sub-divided, or a child cell if not.  In either case its ID is the
+same and is calcluated as follows.  The rightmost 11 bits of the
+integer ID are encoded with 376.  This is because it requires 11 bits
+to represent 2000 cells (1 to 2000) at level 1.  The next 4 bits are
+encoded with 4, because it requires 4 bits to represent 8 cells (1 to
+8) at level 2.  Thus the level 2 cell ID in integer format is 4\*2048 +
+= 8568.  In string format it would be 376-4, with dashes
+separating each of the levels.  Either of these formats (integer or
+string) can be specified as id or idstr for output of grid cell info
+with the :ref:`dump grid<dump-grid>` command; see its doc page for more
+details.
 
 .. note::
 

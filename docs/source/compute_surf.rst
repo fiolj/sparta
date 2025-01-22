@@ -37,7 +37,7 @@ Syntax:
 
 - one or more values can be appended
 
-- value = *n* or *nwt* or *nflux* or *nflux_incident* or *mflux* or *mflux_incident* or *fx* or *fy* or *fz* or *press* or *px* or *py* or *pz* or *shx* or *shy* or *shz* or *ke*
+- value = *n* or *nwt* or *nflux* or *nflux_incident* or *mflux* or *mflux_incident* or *fx* or *fy* or *fz* or *tx* or *ty* or *tz* or *press* or *px* or *py* or *pz* or *shx* or *shy* or *shz* or *ke*
 
 ::
 
@@ -48,6 +48,7 @@ Syntax:
    mflux = net flux of mass through surface element
    mflux_incident = incident flux of mass on surface element
    fx,fy,fz = components of force on surface element
+   tx,ty,tz = components of torque on body center-of-mass
    press = magnitude of normal pressure on surface element
    px,py,pz = components of normal pressure on surface element
    shx,shy,shz = components of shear stress on surface element
@@ -59,11 +60,12 @@ Syntax:
 
 - zero or more keyword/setting pairs can be appended
 
-- keyword = *norm*
+- keyword = *norm* or *com*
 
 ::
 
    norm arg = *flux* or *flow* for dividing flux quantities by area or not
+   com args = Cx Cy Cz = coords of center-of-mass of body for calculating torque
 
 .. _compute-surf-examples:
 
@@ -106,9 +108,9 @@ Description:
 
 Define a computation that calculates one or more values for each
 explicit surface element in a surface element group, based on the
-particles that collide with that element. The values are summed for
-each group of species in the specified mixture.  See the
-:ref:`mixture<mixture>` command for how a set of species can be
+particles that collide with that element or are emitted from it.  The
+values are summed for each group of species in the specified mixture.
+See the :ref:`mixture<mixture>` command for how a set of species can be
 partitioned into groups.  Only surface elements in the surface group
 specified by *group-ID* are included in the calculations.  See the
 :ref:`group surf<group>` command for info on how surface elements can
@@ -127,13 +129,15 @@ explicit triangle or line segment may span multiple grid cells.  See
 
   that when a particle collides with a surface element, it can
   bounce off (possibly as a different species), be captured by the
-  surface (vanish), or a 2nd particle can also be emitted.  The formulas
-  below account for all the possible outcomes.  For example, the kinetic
-  energy flux *ke* onto a suface element for a single collision includes
-  a positive contribution from the incoming particle and negative
-  contributions from 0, 1, or 2 outgoing particles.  The exception is
-  the *n* and *nwt* values which simply tally counts of particles
-  colliding with the surface element.
+  surface (vanish), or a 2nd particle can also be emitted.
+  Additionally, surface elements can emit particles directly -- see the
+  :ref:`fix_emit_surf<fix-emit-surf>` command doc page.  The formulas
+  below account for all these possible outcomes.  For example, the
+  kinetic energy flux *ke* onto a suface element for a single collision
+  includes a positive contribution from the incoming particle and
+  negative contributions from 0, 1, or 2 outgoing particles.  The
+  exception is the *n* and *nwt* values which simply tally counts of
+  particles colliding with the surface element.
 
 If the explicit surface element is transparent, the particle will pass
 through the surface unaltered.  See the transparent keyword for the
@@ -214,21 +218,50 @@ included in the Nflux formula.  Then Mflux quantity becomes
 effectively a mass flow rate (mass per time).  See discussion of the
 *norm* keyword below.
 
-The *fx*, *fy*, *fz* values calculate the components of force extered
-on the surface element by particles in the group, with respect to the
-x, y, z coordinate axes.  These are computed as
+The *fx*, *fy*, *fz* values calculate the xyz components of force
+exerted on the surface element by particles in the group.  These are
+computed as
 
 ::
 
    p_delta = mass \* (V_post - V_pre)
-   Px = - Sum_i (p_delta_x) / (dt / fnum)
-   Py = - Sum_i (p_delta_y) / (dt / fnum)
-   Pz = - Sum_i (p_delta_z) / (dt / fnum)
+   Fx = - Sum_i (p_delta_x) / (dt / fnum)
+   Fy = - Sum_i (p_delta_y) / (dt / fnum)
+   Fz = - Sum_i (p_delta_z) / (dt / fnum)
 
 where p_delta is the change in momentum of a particle, whose velocity
 changes from V_pre to V_post when colliding with the surface element.
 The force exerted on the surface element is the sum over all
 contributing p_delta, normalized by dt and fnum as defined before.
+
+The *tx*, *ty*, *tz* values calculate the xyz components of torque Tq
+exerted on the entire body by particles in the group colliding with
+this surface element.  Use of these values requires the the
+center-of-mass (COM) of the body be specified so the torque can be
+calculated around the COM.  The COM can be the geometric center of a
+triangulated object, or it can reflect an uneven distribution of mass
+within the body.  The torque components are computed as
+
+::
+
+   p_delta = mass \* (V_post - V_pre)
+   force = p_delta / (dt / fnum)
+   R = Xcollide - Xcom
+   Tq = R x force
+
+where p_delta is the change in momentum of a particle, whose velocity
+changes from V_pre to V_post when colliding with the surface element.
+The vector R is from the COM specified by the *com* keyword Xcollide =
+the collision point on the surface.  The force exerted on then the
+surface element is the sum over all contributing p_delta, normalized
+by dt and fnum as defined before.
+
+.. note::
+
+  that if the surfaces defined in a simulation represent multiple
+  objects each with their own COM, then you should use this command
+  multiple times with different surface groups, if you want to
+  calculate the torque on each object.
 
 The *press* value calculates the pressure *P* exerted on the surface
 element in the normal direction by particles in the group, such that
@@ -410,11 +443,7 @@ and "ave-area" modes of the :ref:`compute reduce<compute-reduce>`
 command for additional ways to sum or average either normalized or
 un-normalized flux values produced by this compute.
 
-.. _compute-surf-optional-norm-keyword:
-
-**********************
-Optional norm keyword:
-**********************
+**Optional keywords**
 
 If the *norm* keyword is used with a setting of *flow*, then the
 formulas above for all flux values will not use the surface element
@@ -425,8 +454,14 @@ The formulas thus compute the aggregate mass or energy flow to the
 surface (e.g. mass per time), not the flux (e.g. mass per area per
 time).
 
-If the setting is *flux* (the default), then the flux formulas will be
-calculated as shown with the area A in the denominator.
+If the *norm* keyword setting is *flux* (the default), then the flux
+formulas will be calculated as shown with the area A in the
+denominator.
+
+The *com* keyword is only used if torque is being computed by any of
+the *tx*, *ty*, *tz* values.  The *Cx*, *Cy*, *Cz* settings are the
+coordinates of the center-of-mass of the body around which the torque
+will be calculated.
 
 .. _compute-surf-output-info:
 
@@ -467,7 +502,7 @@ These accelerated styles are part of the KOKKOS package. They are only
 enabled if SPARTA was built with that package.  See the :ref:`Making SPARTA<start-making-sparta-optional-packages>` section for more info.
 
 You can specify the accelerated styles explicitly in your input script
-by including their suffix, or you can use the :ref:`-suffix command-line switch<start-running-sparta>` when you invoke SPARTA, or you can
+by including their suffix, or you can use the :ref:`-suffix command-line switch<start-commandlin-options>` when you invoke SPARTA, or you can
 use the :ref:`suffix<suffix>` command in your input script.
 
 See the :ref:`Accelerating SPARTA<accelerate>` section of the

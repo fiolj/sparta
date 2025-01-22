@@ -156,7 +156,7 @@ will use the value set (internally) by another command.
   script (with 2 exceptions, read further).  This is to allow an input
   script to be processed multiple times without resetting the variables;
   see the :ref:`jump<jump>` or :ref:`include<include>` commands.  It also
-  means that using the :ref:`command-line switch<start-running-sparta>`
+  means that using the :ref:`command-line switch<start-commandlin-options>`
   -var will override a corresponding index variable setting in the input
   script.
 
@@ -221,7 +221,7 @@ string is assigned.  All processors assign the same string to the
 variable.
 
 *Index* style variables with a single string value can also be set by
-using the command-line switch -var; see :ref:`Section 2.6<start-running-sparta>` of the manual for details.
+using the command-line switch -var; see :ref:`Section 2.6<start-commandlin-options>` of the manual for details.
 
 The *loop* style is identical to the *index* style except that the
 strings are the integers from 1 to N inclusive, if only one argument N
@@ -236,7 +236,7 @@ inclusive, and the string N1 is initially assigned to the variable.
 N1 <= N2 and N2 >= 0 is required.
 
 For the *world* style, one or more strings are specified.  There must
-be one string for each processor partition or "world".  See :ref:`Section 2.6<start-running-sparta>` of the manual for information on
+be one string for each processor partition or "world".  See :ref:`Section 2.6<start-commandlin-options>` of the manual for information on
 running SPARTA with multiple partitions via the "-partition"
 command-line switch.  This variable command assigns one string to each
 world.  All processors in the world are assigned the same string.  The
@@ -246,7 +246,7 @@ you wish to run different simulations on different partitions.
 
 For the *universe* style, one or more strings are specified.  There
 must be at least as many strings as there are processor partitions or
-"worlds".  See :ref:`this page<start-running-sparta>` for information
+"worlds".  See :ref:`this page<start-commandlin-options>` for information
 on running SPARTA with multiple partitions via the "-partition"
 command-line switch.  This variable command initially assigns one
 string to each world.  When a :ref:`next<next>` command is encountered

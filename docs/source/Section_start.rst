@@ -54,17 +54,6 @@ sub-directories:
 Making SPARTA
 *************
 
-This section has the following sub-sections:
-
-:ref:`Read this first<start_2_1>`
-:ref:`Steps to build a SPARTA executable using make<start_2_2_1>`
-:ref:`Steps to build a SPARTA executable using CMake<start_2_2_2>`
-:ref:`Common errors that can occur when making SPARTA<start_2_3>`
-:ref:`Additional build tips using make<start_2_4_1>`
-:ref:`Additional build tips using CMake<start_2_4_2>`
-:ref:`Building for a Mac<start_2_5>`
-:ref:`Building for Windows<start_2_6>`
-
 .. _start-read-first:
 
 Read this first:
@@ -87,12 +76,12 @@ must support C++17.
 If you have a build problem that you are convinced is a SPARTA issue
 (e.g. the compiler complains about a line of SPARTA source code), then
 please send an email to the
-`developers <http://sparta.sandia.gov/authors.html>`__.
+`developers <https://sparta.github.io/authors.html>`__.
 
 If you succeed in building SPARTA on a new kind of machine, for which
 there isn't a similar Makefile in the src/MAKE directory or .cmake file
 in cmake/presets, send it to the 
-`developers <http://sparta.sandia.gov/authors.html>`__ and we'll include it in future SPARTA releases.
+`developers <https://sparta.github.io/authors.html>`__ and we'll include it in future SPARTA releases.
 
 .. _start-steps-build-sparta-executable:
 
@@ -236,9 +225,9 @@ MPI version does not recognize "long long" data types.  In this case a
 "long" data type is likely already 64-bits, in which case this setting
 will use that data type.
 
-Using one of the -DPACK_ARRAY, -DPACK_POINTER, and -DPACK_MEMCPY
+Using one of the -DFFT_PACK_ARRAY, -DFFT_PACK_POINTER, and -DFFT_PACK_MEMCPY
 options can make for faster parallel FFTs on some platforms.  The
--DPACK_ARRAY setting is the default.  See the :ref:`compute fft/grid<compute-fft-grid>` command for info about FFTs.  See Step
+-DFFT_PACK_ARRAY setting is the default.  See the :ref:`compute fft/grid<compute-fft-grid>` command for info about FFTs.  See Step
 below for info about building SPARTA with an FFT library.
 
 **Step 5**
@@ -312,13 +301,19 @@ Selecting -DFFT_FFTW will use the FFTW3 library.
 
   that using the KISS FFT library on GPUs may give
   suboptimal performance. Other options can be specified using the form
-  -DFFT_KOKKOS_XXX. Available values for XXX when using Kokkos are: CUFFT,
-  HIPFFT, MKL or FFTW3. When using the Kokkos CUDA backend, either CUFFT
-  or KISS must be used. When using the Kokkos HIP backend, either HIPFFT
-  or KISS must be used. When using the Kokkos OpenMP or Serial backend,
-  either MKL, FFTW3, or KISS must be used. The CUFFT option specifies the
-  `cuFFT library <https://developer.nvidia.com/cufft>`__ from NVIDIA. The
-  HIPFFT option specifies the `rocFFT   library <https://rocm.docs.amd.com/projects/rocFFT/en/latest/>`__ from AMD.
+  -DFFT_KOKKOS_XXX. Available values for XXX when using Kokkos are:
+  CUFFT, HIPFFT, MKL_GPU, MKL or FFTW3. When using the Kokkos CUDA
+  backend, either CUFFT or KISS must be used. When using the Kokkos HIP
+  backend, either HIPFFT or KISS must be used. When using the Kokkos
+  SYCL backend, either MKL_GPU or KISS must be used. When using the
+  Kokkos OpenMP or Serial backend, either MKL, FFTW3, or KISS must be
+  used.
+
+The CUFFT option specifies the `cuFFT library <https://developer.nvidia.com/cufft>`__ from NVIDIA. The HIPFFT
+option specifies the `rocFFT library <https://rocm.docs.amd.com/projects/rocFFT/en/latest/>`__ from
+AMD. The HIPFFT option specifies the `rocFFT library <https://rocm.docs.amd.com/projects/rocFFT/en/latest/>`__ from
+AMD. The MKL_GPU option supports GPU offload of FFTs on Intel GPUs
+with oneMKL using the Kokkos SYCL backend.
 
 .. note::
 
@@ -336,8 +331,8 @@ Building FFTW for your box should be as simple as ./configure; make.
 
 The FFT_INC variable also allows for a -DFFT_SINGLE setting that will
 use single-precision FFTs, which can speed-up the calculation,
-particularly in parallel or on GPUs.  Fourier transform and related
-PPPM operations are somewhat insensitive to floating point truncation
+particularly in parallel or on GPUs.  Fourier transform operations
+are somewhat insensitive to floating point truncation
 errors and thus do not always need to be performed in double
 precision.  Using the -DFFT_SINGLE setting trades off a little
 accuracy for reduced memory use and parallel communication costs for
@@ -868,7 +863,7 @@ standard Linux make or CMake, just as you would on any Linux box.
 You can also import the \*.cpp and \*.h files into Microsoft Visual
 Studio.  If someone does this and wants to provide project files or
 other Windows build tips, please send them to the
-`developers <http://sparta.sandia.gov/authors.html>`__ and we will include
+`developers <https://sparta.github.io/authors.html>`__ and we will include
 them in the distribution.
 
 .. _start-making-sparta-optional-packages:
@@ -1362,7 +1357,7 @@ or:
    cd /path/to/bench
    mpirun -np 4 spa_g++ < in.free
 
-See `this page <http://sparta.sandia.gov/bench.html>`__ for timings for this and the other benchmarks on
+See `this page <https://sparta.github.io/bench.html>`__ for timings for this and the other benchmarks on
 various platforms.
 
 The screen output from SPARTA is described in the next section.  As it

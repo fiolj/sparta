@@ -36,12 +36,12 @@ you can fix the problem.  Of course, SPARTA cannot figure out physics
 or numerical mistakes, like choosing too big a timestep or specifying
 erroneous collision parameters.  If you run into errors that SPARTA
 doesn't catch that you think it should flag, please send an email to
-the `developers <http://sparta.sandia.gov/authors.html>`__.
+the `developers <https://sparta.github.io/authors.html>`__.
 
 If you get an error message about an invalid command in your input
 script, you can determine what command is causing the problem by
 looking in the log.sparta file, or using the :ref:`echo command<echo>`
-in your script or "-echo screen" as a :ref:`command-line argument<start-running-sparta>` to see it on the screen.  For a
+in your script or "-echo screen" as a :ref:`command-line argument<start-commandlin-options>` to see it on the screen.  For a
 given command, SPARTA expects certain arguments in a specified order.
 If you mess this up, SPARTA will often flag the error, but it may read
 a bogus argument and assign a value that is valid, but not what you
@@ -92,10 +92,10 @@ Reporting bugs
 If you are confident that you have found a bug in SPARTA, please
 follow these steps.
 
-Check the `New features and bug fixes <http://sparta.sandia.gov/bug.html>`__ section of the `SPARTA web site <http://sparta.sandia.gov>`__ to see if the bug has already been fixed.
+Check the `New features and bug fixes <https://sparta.github.io/bug.html>`__ section of the `SPARTA web site <http://sparta.sandia.gov>`__ to see if the bug has already been fixed.
 
 If not, please email a description of the problem to the
-`developers <http://sparta.sandia.gov/authors.html>`__.
+`developers <https://sparta.github.io/authors.html>`__.
 
 The most useful thing you can do to help us fix the bug is to isolate
 the problem.  Run it on the smallest number of particles and grid

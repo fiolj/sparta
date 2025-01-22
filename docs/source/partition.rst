@@ -46,7 +46,7 @@ Description:
 
 This command invokes the specified command on a subset of the
 partitions of processors you have defined via the -partition
-command-line switch.  See :ref:`Section 2.6<start-running-sparta>` of
+command-line switch.  See :ref:`Section 2.6<start-commandlin-options>` of
 the manual for an explanation of the switch.
 
 Normally, every input script command in your script is invoked by
@@ -67,7 +67,7 @@ will be invoked on all the partitions which do not match the Np
 argument.
 
 Partitions are numbered from 1 to Np, where Np is the number of
-partitions specified by the :ref:`-partition command-line switch<start-running-sparta>`.
+partitions specified by the :ref:`-partition command-line switch<start-commandlin-options>`.
 
 *N* can be specified in one of two ways.  An explicit numeric value
 can be used, as in the 1st example above.  Or a wild-card asterisk can
