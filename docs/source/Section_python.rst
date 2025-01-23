@@ -1,17 +1,20 @@
 
 
-.. _python-interface-sparta:
+.. _python-11-interface-sparta:
 
-##########################
-Python interface to SPARTA
-##########################
+##############################
+11. Python interface to SPARTA
+##############################
 
 This section describes how to build and use SPARTA via a Python
 interface.
 
-.. contents::
-   :depth: 1
-   :local:
+   - 11.1 :ref:`Building SPARTA as a shared library<python-building-sparta-shared-library>`
+   - 11.2 :ref:`Installing the Python wrapper into Python<python-installing-wrapper-into>`
+   - 11.3 :ref:`Extending Python with MPI to run in parallel<python-extending-mpi-run-parallel>`
+   - 11.4 :ref:`Testing the Python-SPARTA interface<python-testing-pythonspar-interface>`
+   - 11.5 :ref:`Using SPARTA from Python<python-sparta>`
+   - 11.6 :ref:`Example Python scripts that use SPARTA<python-example-scripts-sparta>`
 
 The SPARTA distribution includes the file python/sparta.py which wraps
 the library interface to SPARTA.  This file makes it possible to
@@ -26,10 +29,10 @@ read what you type.
 `Python <http://www.python.org>`__ is a powerful scripting and programming
 language which can be used to wrap software like SPARTA and many other
 packages.  It can be used to glue multiple pieces of software
-together, e.g. to run a coupled or multiscale model.  See :ref:`Section 4.7<howto-coupling-sparta-other-codes>` of the manual and the examples/COUPLE
+together, e.g. to run a coupled or multiscale model.  See :ref:`Section 4.7<howto-67-coupling-sparta-other>` of the manual and the examples/COUPLE
 directory of the distribution for more ideas about coupling SPARTA to
 other codes.  See :ref:`Section 2.4<start-building-sparta-library>` about how
-to build SPARTA as a library, and :ref:`Section 4.6<howto-library-interface-sparta>` for a description of the library
+to build SPARTA as a library, and :ref:`Section 4.6<howto-66-library-interface-sparta>` for a description of the library
 interface provided in src/library.cpp and src/library.h and how to
 extend it for your needs.  As described below, that interface is what
 is exposed to Python.  It is designed to be easy to add functions to.
@@ -109,8 +112,8 @@ Installing the Python wrapper into Python
 
 For Python to invoke SPARTA, there are 2 files it needs to know about:
 
-python/sparta.py
-src/libsparta.so
+   - python/sparta.py
+   - src/libsparta.so
 
 Sparta.py is the Python wrapper on the SPARTA library interface.
 Libsparta.so is the shared SPARTA library that Python loads, as
@@ -118,8 +121,8 @@ described above.
 
 You can insure Python can find these files in one of two ways:
 
-set two environment variables
-run the python/install.py script
+   - set two environment variables
+   - run the python/install.py script
 
 If you set the paths to these files as environment variables, you only
 have to do it once.  For the csh or tcsh shells, add something like
@@ -198,11 +201,11 @@ as a library and allow MPI functions to be called from Python.
 
 These include
 
-`pyMPI <http://pympi.sourceforge.net/>`__
-`maroonmpi <http://code.google.com/p/maroonmpi/>`__
-`mpi4py <http://code.google.com/p/mpi4py/>`__
-`myMPI <http>`__://nbcr.sdsc.edu/forum/viewtopic.php?t=89&sid=c997fefc3933bd66204875b436940f16
-`Pypar <http://code.google.com/p/pypar>`__
+   - `pyMPI <http://pympi.sourceforge.net/>`__
+   - `maroonmpi <http://code.google.com/p/maroonmpi/>`__
+   - `mpi4py <http://code.google.com/p/mpi4py/>`__
+   - `myMPI <http>`__://nbcr.sdsc.edu/forum/viewtopic.php?t=89&sid=c997fefc3933bd66204875b436940f16
+   - `Pypar <http://code.google.com/p/pypar>`__
 
 All of these except pyMPI work by wrapping the MPI library and
 exposing (some portion of) its interface to your Python script.  This
@@ -324,7 +327,7 @@ first importing from the sparta.py file:
    >>> from ctypes import CDLL
    >>> CDLL("libsparta.so")
 
-If an error occurs, carefully go thru the steps in :ref:`Section 2.4<start-building-sparta-library>` and above about building a shared
+If an error occurs, carefully go thru the steps in :ref:`Section 4<start-building-sparta-library>` and above about building a shared
 library and about insuring Python can find the necessary two files it
 needs.
 
@@ -498,14 +501,14 @@ C or Fortran program.
 ::
 
    fnum = spa.extract_global(name,type) # extract a global quantity
-   # name = "dt", "fnum", etc
+                                        # name = "dt", "fnum", etc
    				     # type = 0 = int
    				     #        1 = double
 
 ::
 
    temp = spa.extract_compute(id,style,type) # extract value(s) from a compute
-   # id = ID of compute
+                                             # id = ID of compute
    					  # style = 0 = global data
    					  #	    1 = per particle data
    					  #	    2 = per grid cell data
@@ -563,7 +566,7 @@ What is returned depends on whether the compute calculates a scalar or
 vector or array.  For a scalar, a single double value is returned.  If
 the compute or fix calculates a vector or array, a pointer to the
 internal SPARTA data is returned, which you can use via normal Python
-subscripting.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>` of the
+subscripting.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>` of the
 manual for a discussion of global, per particle, per grid, and per
 surf data, and of scalar, vector, and array data types.  See the doc
 pages for individual :ref:`computes<compute>` for a description of what
@@ -581,7 +584,7 @@ the functions in the SPARTA library interface in src/library.cpp and
 library.h.  This means you can extend the Python wrapper via the
 following steps:
 
-- Add a new interface function to src/library.cpp and src/library.h. 
+- Add a new interface function to src/library.cpp and src/library.h.
 
 - Rebuild SPARTA as a shared library.
 

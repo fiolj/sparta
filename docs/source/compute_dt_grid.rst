@@ -27,7 +27,7 @@ Syntax:
 
    compute ID dt/grid group-ID tfraction cfraction tau temperature usq vsq wsq
 
-- ID is documented in :ref:`compute<compute>` command 
+- ID is documented in :ref:`compute<compute>` command
 
 - dt/grid = style name of this compute command
 
@@ -72,7 +72,7 @@ grid cell size.  The per-grid cell timesteps can be output in a
 per-grid dump file for post analyses.  Or they can be used as input to
 the :ref:`fix dt/reset<fix-dt-reset>` command to adjust the global
 timestep for a variable timestep simulation.  See this
-:ref:`section<howto-variable-timestep-simulation>` of the manual for more
+:ref:`section<howto-618-variable-timestep-simulation>` of the manual for more
 information on variable timestep simulations.
 
 Only grid cells in the grid group specified by *group-ID* are included
@@ -80,7 +80,7 @@ in the calculations.  See the :ref:`group grid<group>` command for info
 on how grid cells can be assigned to grid groups.
 
 The *tfraction* and *cfraction* arguments are both values from 0.0 to
-which are applied to the transit term and collision term in the
+1.0 which are applied to the transit term and collision term in the
 example formula for a candidate cell timestep below.
 
 .. math:: \Delta t_{\mathrm{cell}} = \min{\left( \mathrm{cfraction} \times \mathrm{mean\_collision\_time}, \mathrm{tfraction}\times \Delta x /\mathrm{max\_most\_probable\_speed} \right)}
@@ -109,10 +109,10 @@ compute a per grid cell temperature.
 This is done by specifying the tau, temperature, usq, vsq, wsq
 arguments like this:
 
-c_ID = compute with ID that calculates a per grid cell quantity as a vector output
-c_ID\[m\] = compute with ID that calculates a quantity as its Mth column of array output
-f_ID\[m\] = fix with ID that calculates a time-averaged quantity as a vector output
-f_ID\[m\] = fix with ID that calculates a time-averaged quantity as its Mth column of array output
+   - c_ID = compute with ID that calculates a per grid cell quantity as a vector output
+   - c_ID\[m\] = compute with ID that calculates a quantity as its Mth column of array output
+   - f_ID\[m\] = fix with ID that calculates a time-averaged quantity as a vector output
+   - f_ID\[m\] = fix with ID that calculates a time-averaged quantity as its Mth column of array output
 
 See the Example section above for an example of how these arguments
 can be specified.
@@ -146,7 +146,7 @@ This compute calculates a per-grid vector.
   zero (including temperature, speed, and mean collision time).
 
 The vector can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>`
+from a compute as input.  See :ref:`Section 4.4<howto-64-output-sparta-(stats,>`
 for an overview of SPARTA output options.
 
 Styles with a *kk* suffix are functionally the same as the

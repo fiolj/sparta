@@ -21,7 +21,7 @@ Syntax:
 
    fix ID ave/surf group-ID Nevery Nrepeat Nfreq value1 value2 ... keyword args ...
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - ave/surf = style name of this fix command
 
@@ -37,22 +37,22 @@ Syntax:
 
 ::
 
-   c_ID = per-surf vector calculated by a compute with ID
-   c_ID\[N\] = Nth column of per-surf array calculated by a compute with ID, N can include wildcard (see below)
-   f_ID = per-surf vector calculated by a fix with ID
-   f_ID\[N\] = Nth column of per-surf array calculated by a fix with ID, N can include wildcard (see below)
-   v_name = per-surf vector calculated by a surf-style variable with name
-   s_name = custom per-surf vector with name
-   s_name\[N\] = Nth column of per-surf custom array with name, N can include wildcard (see below)
+     c_ID = per-surf vector calculated by a compute with ID
+     c_ID\[N\] = Nth column of per-surf array calculated by a compute with ID, N can include wildcard (see below)
+     f_ID = per-surf vector calculated by a fix with ID
+     f_ID\[N\] = Nth column of per-surf array calculated by a fix with ID, N can include wildcard (see below)
+     v_name = per-surf vector calculated by a surf-style variable with name
+     s_name = custom per-surf vector with name
+     s_name\[N\] = Nth column of per-surf custom array with name, N can include wildcard (see below)
 
-- zero or more keyword/arg pairs may be appended
+-  zero or more keyword/arg pairs may be appended
 
 ::
 
    keyword = *ave*
-   *ave* args = one or running
-   one = output a new average value every Nfreq steps
-   running = accumulate average continuously
+     *ave* args = one or running
+       one = output a new average value every Nfreq steps
+       running = accumulate average continuously
 
 .. _fix-ave-surf-examples:
 
@@ -128,7 +128,7 @@ a per-surf array with 4 columns:
    compute mySurf all all n fx fy fz
    fix 1 ave/surf all 10 20 1000 c_mySurf\[\*\]
    fix 1 ave/surf all 10 20 1000 c_mySurf\[1\] c_mySurf\[2\] &
-   c_mySurf\[3\] c_mySurf\[4\]
+                                 c_mySurf\[3\] c_mySurf\[4\]
 
 The *Nevery*, *Nrepeat*, and *Nfreq* arguments specify on what
 timesteps the input values will be used in order to contribute to the
@@ -180,7 +180,7 @@ values.
 
 If a value begins with "s\_", the name of a custom per-surf vector or
 array must follow.  Custom attributes can store either a single or
-multiple values per surface element.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
+multiple values per surface element.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
 attributes and command that define them.  For example, the
 :ref:`read_surf<read-surf>`, :ref:`fix surf/temp<fix-surf-temp>`, and
 :ref:`surf_react adsorb<surf-react-adsorb>` commands can define

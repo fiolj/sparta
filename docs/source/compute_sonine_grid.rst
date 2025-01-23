@@ -27,7 +27,7 @@ Syntax:
 
    compute ID sonine/grid group-ID mix-ID keyword values ...
 
-- ID is documented in :ref:`compute<compute>` command 
+- ID is documented in :ref:`compute<compute>` command
 
 - sonine/grid = style name of this compute command
 
@@ -43,12 +43,12 @@ Syntax:
 
 ::
 
-   *a* args = dim order = sonine A moment
-   dim = *x* or *y* or *z*
-   order = number from 1 to 5
-   *b* args = dim2 order = sonine B moment
-   dim2 = *xx* or *yy* or *zz* or *xy* or *yz* or *xz*
-   order = number from 1 to 5
+     *a* args = dim order = sonine A moment
+       dim = *x* or *y* or *z*
+       order = number from 1 to 5
+     *b* args = dim2 order = sonine B moment
+       dim2 = *xx* or *yy* or *zz* or *xy* or *yz* or *xz*
+       order = number from 1 to 5
 
 .. _compute-sonine-grid-examples:
 
@@ -192,7 +192,7 @@ Grid cells not in the specified *group-ID* will have zeroes for all
 their values.
 
 The array can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
+from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
 for an overview of SPARTA output options.
 
 The per-grid array values will be in the :ref:`units<units>`

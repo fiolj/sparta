@@ -21,7 +21,7 @@ Syntax:
 
    print string keyword value
 
-- string = text string to print, which may contain variables 
+- string = text string to print, which may contain variables
 
 - zero or more keyword/value pairs may be appended
 
@@ -29,9 +29,9 @@ Syntax:
 
 ::
 
-   *file* value = filename
-   *append* value = filename
-   *screen* value = *yes* or *no*
+     *file* value = filename
+     *append* value = filename
+     *screen* value = *yes* or *no*
 
 .. _print-examples:
 

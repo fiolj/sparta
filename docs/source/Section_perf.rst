@@ -1,25 +1,25 @@
 
 .. _perf:
 
-.. _perf-performanc-scalabilit:
+.. _perf-8-performanc-scalabilit:
 
-#########################
-Performance & scalability
-#########################
+############################
+8. Performance & scalability
+############################
 
 The SPARTA distribution includes a bench sub-directory with several
 sample problems.  The Benchmarks page of the `SPARTA WWW Site <http://sparta.sandia.gov>`__
 gives timing data for these problems run on different machines,
 for both strong and weak scaling scenarioes:
 
-free = free molecular flow in a box
-collide = collisional molecular flow in a box
-sphere = flow around a sphere
+   - free = free molecular flow in a box
+   - collide = collisional molecular flow in a box
+   - sphere = flow around a sphere
 
 For each problem there is an input script and sample log file outputs
 on different machines and different numbers of processors.  E.g. a log
 file like log.free.foo.1M.P means the the free molecular problem with
-million grid cells ran on P processors of machine "foo".
+1 million grid cells ran on P processors of machine "foo".
 
 Each can be run as a serial benchmark (on one processor) or in
 parallel.  In parallel, all the benchmarks can be run as a fixed-size

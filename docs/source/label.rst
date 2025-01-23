@@ -21,7 +21,7 @@ Syntax:
 
    label ID
 
-ID = string used as label name
+   - ID = string used as label name
 
 .. _label-examples:
 

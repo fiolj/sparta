@@ -1,19 +1,26 @@
 
-
 .. _commands:
 
-########
-Commands
-########
+.. _commands-3:
+
+###########
+3. Commands
+###########
 
 This section describes how a SPARTA input script is formatted and what
 commands are used to define a SPARTA simulation.
 
-.. _commands-sparta-input-script:
+1 :ref:`SPARTA input script<commands-31-sparta-input-script>`
+3.2 :ref:`Parsing rules<commands-parsing-rules>`
+3.3 :ref:`Input script structure<commands-input-script-structure>`
+3.4 :ref:`Commands listed by category<commands-listed-by-category>`
+3.5 :ref:`Commands listed alphabetically<commands-individual>`
 
-*******************
-SPARTA input script
-*******************
+.. _commands-31-sparta-input-script:
+
+***********************
+3.1 SPARTA input script
+***********************
 
 SPARTA executes by reading commands from a input script (text file),
 one line at a time.  When the input script ends, SPARTA exits.  Each
@@ -161,7 +168,7 @@ character is used, as described above.  E.g.
    print "Volume = $v"
    print 'Volume = $v'
    variable a string "red green blue &
-   purple orange cyan"
+                      purple orange cyan"
    if "$*steps* > 1000" then quit
 
 The quotes are removed when the single argument is stored internally.
@@ -192,10 +199,11 @@ input scripts; the corresponding problems are discussed in :ref:`Section 5<examp
 
 A SPARTA input script typically has 4 parts:
 
-Initialization
-Problem definition
-Settings
-Run a simulation
+   
+   0. Initialization
+   1. Problem definition
+   2. Settings
+   3. Run a simulation
 
 The last 2 parts can be repeated as many times as desired.  I.e. run a
 simulation, change some settings, run some more, etc.  Each of the 4
@@ -215,11 +223,11 @@ Relevant commands include :ref:`dimension<dimension>`,
 These items must be defined before running a SPARTA calculation, and
 typically in this order:
 
-:ref:`create_box<create-box>` for the simulation box
-:ref:`create_grid<create-grid>` or :ref:`read_grid<read-grid>` for grid cells
-:ref:`read_surf<read-surf>` or :ref:`read_isurf<read-isurf>` for surfaces
-:ref:`species<species>` for particle species properties
-:ref:`create_particles<create-particles>` for particles
+   - :ref:`create_box<create-box>` for the simulation box
+   - :ref:`create_grid<create-grid>` or :ref:`read_grid<read-grid>` for grid cells
+   - :ref:`read_surf<read-surf>` or :ref:`read_isurf<read-isurf>` for surfaces
+   - :ref:`species<species>` for particle species properties
+   - :ref:`create_particles<create-particles>` for particles
 
 The first two are required.  Surfaces are optional.  Particles are also
 optional in the setup stage, since they can be added as the simulation

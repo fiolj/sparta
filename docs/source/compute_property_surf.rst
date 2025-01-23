@@ -21,7 +21,7 @@ Syntax:
 
    compute ID property/surf group-ID input1 input2 ...
 
-- ID is documented in :ref:`compute<compute>` command 
+- ID is documented in :ref:`compute<compute>` command
 
 - property/surf = style name of this compute command
 
@@ -31,17 +31,17 @@ Syntax:
 
 ::
 
-   possible attributes = id, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v2y, v3z, xc, yc, zc, area, normx, normy, normz
+     possible attributes = id, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v2y, v3z, xc, yc, zc, area, normx, normy, normz
 
 ::
 
-   id = surface element ID
-   v1x,v1y,v1z = coords of first line end point or triangle corner point
-   v3x,v2y,v2z = coords of second line end point or triangle corner point
-   v3x,v3y,v3z = coords of third triangle corner point
-   xc,yc,zc = coords of center of line segment or triangle
-   area = length of line segment or area of triangle
-   normx, normy, normz = unit normal vector for line segment or triangle
+     id = surface element ID
+     v1x,v1y,v1z = coords of first line end point or triangle corner point
+     v3x,v2y,v2z = coords of second line end point or triangle corner point
+     v3x,v3y,v3z = coords of third triangle corner point
+     xc,yc,zc = coords of center of line segment or triangle
+     area = length of line segment or area of triangle
+     normx, normy, normz = unit normal vector for line segment or triangle
 
 .. _compute-property-surf-examples:
 
@@ -61,7 +61,7 @@ Description:
 
 Define a computation that simply stores surface element attributes for
 each explicit surface element in a surface group.  This is useful for
-values which can be used by other :ref:`output commands<howto-output-sparta-(stats,-dumps,>` that take computes as inputs.
+values which can be used by other :ref:`output commands<howto-64-output-sparta-(stats,>` that take computes as inputs.
 See for example, the :ref:`compute reduce<compute-reduce>`, :ref:`fix ave/surf<fix-ave-surf>`, :ref:`dump surf<dump>`, and :ref:`surf-style variable<variable>` commands.
 
 Only surface elements in the surface group specified by *group-ID* are
@@ -72,7 +72,7 @@ This command can only be used for simulations with explicit surface
 elements.  Explicit surface elements are triangles for 3d simulations
 and line segments for 2d simulations.  Unlike implicit surface
 elements, each explicit triangle or line segment may span multiple
-grid cells.  See :ref:`Section 4.9<howto-details-surfaces-sparta>` of the
+grid cells.  See :ref:`Section 4.9<howto-69-details-surfaces-sparta>` of the
 manual for details.
 
 *Id* is the surface element ID, as defined in the surface data file
@@ -114,7 +114,7 @@ Surface elements not in the specified *group-ID* will output zeroes
 for all their values.
 
 The vector or array can be accessed by any command that uses per-surf
-values from a compute as input.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>` for an overview of SPARTA output
+values from a compute as input.  See :ref:`Section 4<howto-64-output-sparta-(stats,>` for an overview of SPARTA output
 options.
 
 The vector or array values will be in whatever :ref:`units<units>` the

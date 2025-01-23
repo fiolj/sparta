@@ -27,7 +27,7 @@ Syntax:
 
    fix ID balance Nfreq thresh bstyle args
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - balance = style name of this fix command
 
@@ -39,10 +39,10 @@ Syntax:
 
 ::
 
-   *random* args = none 
-   *proc* args = none 
-   *rcb* args = weight
-   weight = *cell* or *part* or *time*
+     *random* args = none 
+     *proc* args = none 
+     *rcb* args = weight
+       weight = *cell* or *part* or *time*
 
 - zero or more keyword/value(s) pairs may be appended
 
@@ -50,9 +50,9 @@ Syntax:
 
 ::
 
-   *axes* value = dims
-   dims = string with any of "x", "y", or "z" characters in it
-   *flip* value = yes or no
+     *axes* value = dims
+       dims = string with any of "x", "y", or "z" characters in it
+     *flip* value = yes or no
 
 .. _fix-balance-examples:
 
@@ -99,7 +99,7 @@ dispersed assignments of child cells to each processor.
 
 .. important::
 
-  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
+  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.
 
@@ -108,7 +108,7 @@ but only if the current imbalance factor exceeds the specified
 *thresh*.  This factor is defined as the maximum number of particles
 owned by any processor, divided by the average number of particles per
 processor.  Thus an imbalance factor of 1.0 is perfect balance.  For
-particles running on 10 processors, if the most heavily loaded
+10000 particles running on 10 processors, if the most heavily loaded
 processor has 1200 particles, then the factor is 1.2, meaning there is
 a 20% imbalance.  The *thresh* setting must be >= 1.0.
 
@@ -215,13 +215,13 @@ No information about this fix is written to :ref:`binary restart files<restart>`
 
 This fix computes a global scalar which is the imbalance factor after
 the most recent rebalance.  It also computes a global vector of length
-with additional information about the most recent rebalancing and
+3 with additional information about the most recent rebalancing and
 the cummulative count of rebalancings.  The 3 values in the vector are
 as follows:
 
-= max particle count on any processor after last rebalance
-= imbalance factor before the last rebalance was performed
-= cummulative count of rebalances since the fix was specified
+   - 1 = max particle count on any processor after last rebalance
+   - 2 = imbalance factor before the last rebalance was performed
+   - 3 = cummulative count of rebalances since the fix was specified
 
 As explained above, the imbalance factor is the ratio of the maximum
 number of particles on any processor to the average number of

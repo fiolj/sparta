@@ -23,16 +23,16 @@ Syntax:
 
 - group-ID = ID of the surface group to operate on
 
-- one or more keyword/arg pairs may be listed 
+- one or more keyword/arg pairs may be listed
 
 - keyword = *collide* or (react)
 
 ::
 
-   *collide* arg = sc-ID
-   sc-ID = ID of a surface collision model
-   *react* arg = sr-ID
-   sr-ID = ID of a surface reaction model or *none*
+     *collide* arg = sc-ID
+       sc-ID = ID of a surface collision model
+     *react* arg = sr-ID
+       sr-ID = ID of a surface reaction model or *none*
 
 .. _surf-modify-examples:
 

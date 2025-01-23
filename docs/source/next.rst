@@ -21,7 +21,7 @@ Syntax:
 
    next variables
 
-variables = one or more variable names
+   - variables = one or more variable names
 
 .. _next-examples:
 
@@ -122,14 +122,14 @@ For example, this script will run 15 simulations in a double loop.
 ::
 
    variable i loop 3
-   variable j loop 5
-   clear
-   ...
-   read_surf data.surf.$i$j 1
-   print Running simulation $i.$j
-   run 10000
-   next j
-   jump in.script
+     variable j loop 5
+     clear
+     ...
+     read_surf data.surf.$i$j 1
+     print Running simulation $i.$j
+     run 10000
+     next j
+     jump in.script
    next i
    jump in.script
 
@@ -141,13 +141,13 @@ condition is met, then continues iterating thru the outer loop.
 
    label	    loopa
    variable    a loop 5
-   label	    loopb
-   variable  b loop 5
-   print	    "A,B = $a,$b"
-   run       10000
-   if	    $b > 2 then "jump in.script break"
-   next	    b
-   jump	    in.script loopb
+     label	    loopb
+     variable  b loop 5
+     print	    "A,B = $a,$b"
+     run       10000
+     if	    $b > 2 then "jump in.script break"
+     next	    b
+     jump	    in.script loopb
    label	    break
    variable    b delete
 

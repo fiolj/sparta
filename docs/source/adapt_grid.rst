@@ -31,23 +31,23 @@ Syntax:
 
 ::
 
-   *particle* args = rthresh cthresh
-   rcount = threshold in particle count for refinment
-   ccount = threshold in particle count for coarsening
-   *surf* arg = surfID ssize
-   surfID = group ID for which surface elements to consider
-   ssize = do not refine to create cells smaller than ssize (dist units)
-   coarsen only if child cells are smaller than ssize (dist units)
-   *value* args = c_ID/c_ID\[N\]/f_ID/f_ID\[N\] rthresh cthresh
-   c_ID = ID of a compute that calculates a per grid vector, use values from vector
-   c_ID\[N\] = ID of a compute that calculates a per grid array, use values from Nth column of array
-   f_ID = ID of a fix that calculates a per grid vector, use vector
-   f_ID\[N\] = ID of a fix that calculates a per grid array, use Nth column of array
-   rvalue = threshold in value for refinement
-   cvalue = threshold in value for coarsening
-   *random* args = rfrac cfrac
-   rfrac = fraction of child cells to refine
-   cfrac = fraction of parent cells to coarsen
+     *particle* args = rthresh cthresh
+       rcount = threshold in particle count for refinment
+       ccount = threshold in particle count for coarsening
+     *surf* arg = surfID ssize
+       surfID = group ID for which surface elements to consider
+       ssize = do not refine to create cells smaller than ssize (dist units)
+               coarsen only if child cells are smaller than ssize (dist units)
+     *value* args = c_ID/c_ID\[N\]/f_ID/f_ID\[N\] rthresh cthresh
+       c_ID = ID of a compute that calculates a per grid vector, use values from vector
+       c_ID\[N\] = ID of a compute that calculates a per grid array, use values from Nth column of array
+       f_ID = ID of a fix that calculates a per grid vector, use vector
+       f_ID\[N\] = ID of a fix that calculates a per grid array, use Nth column of array
+       rvalue = threshold in value for refinement
+       cvalue = threshold in value for coarsening
+     *random* args = rfrac cfrac
+       rfrac = fraction of child cells to refine
+       cfrac = fraction of parent cells to coarsen
 
 - zero or more keyword/args pairs may be appended
 
@@ -55,25 +55,25 @@ Syntax:
 
 ::
 
-   *iterate* arg = niterate
-   niterate = number of iterations of action loop
-   *maxlevel* arg = Nmax
-   Nmax = do not refine to create child cells at a level > Nmax
-   *minlevel* arg = Nmin
-   Nmin = do not coarsen to create child cells at a level < Nmin
-   *thresh* args = rdecide cdecide
-   rdecide = *less* or *more* = refine when value is less or more than rvalue
-   cdecide = *less* or *more* = coarsen when value is less or more than cvalue
-   *combine* arg = *sum* or *min* or *max* = how to combine child values into parent value
-   *cells* args = Nx Ny Nz
-   Nx,Ny,Nz = refine a cell into Nx by Ny by Nz child cells
-   *region* args = regID rflag
-   regID = ID of region that cells must be inside to be eligible for adaptation
-   rflag = *all* or *one* or *center* = what portion of grid cell must be inside
-   *dir* args = Sx Sy Sz
-   Sx,Sy,Sz = vector components used with style *surf* to test surf elements
-   *file* arg = filename
-   filename = name of file to write out with new parent grid info
+     *iterate* arg = niterate
+       niterate = number of iterations of action loop
+     *maxlevel* arg = Nmax
+       Nmax = do not refine to create child cells at a level > Nmax
+     *minlevel* arg = Nmin
+       Nmin = do not coarsen to create child cells at a level < Nmin
+     *thresh* args = rdecide cdecide
+       rdecide = *less* or *more* = refine when value is less or more than rvalue
+       cdecide = *less* or *more* = coarsen when value is less or more than cvalue
+     *combine* arg = *sum* or *min* or *max* = how to combine child values into parent value
+     *cells* args = Nx Ny Nz
+       Nx,Ny,Nz = refine a cell into Nx by Ny by Nz child cells
+     *region* args = regID rflag
+       regID = ID of region that cells must be inside to be eligible for adaptation
+       rflag = *all* or *one* or *center* = what portion of grid cell must be inside
+     *dir* args = Sx Sy Sz
+       Sx,Sy,Sz = vector components used with style *surf* to test surf elements
+     *file* arg = filename
+       filename = name of file to write out with new parent grid info
 
 .. _adapt-grid-examples:
 
@@ -105,7 +105,7 @@ Refinement means splitting one child cell into multiple new child
 cells.  The original child cell disappears, conceptually it becomes a
 parent cell.  Coarsening means combining all the child cells of a
 parent cell, so that the child cells are deleted and the parent cell
-becomes a single new child cell.  See :ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a description of the hierarchical
+becomes a single new child cell.  See :ref:`Section howto 4.8<howto-68-details-grid-geometry>` for a description of the hierarchical
 grid used by SPARTA and definitions of child and parent cells.
 
 Grid adaptation can be useful for adjusting the grid cell sizes to the
@@ -185,7 +185,7 @@ dimensions is smaller than the specified *ssize*.
 
 The *value* style uses values calculated by a :ref:`compute<compute>`
 or :ref:`fix<fix>` to decide whether to adapt each cell.  The fix or
-compute must calculate per-grid values as described in :ref:`Section howto 4.4<howto-output-sparta-(stats,-dumps,>`.  If the compute or fix calculates a
+compute must calculate per-grid values as described in :ref:`Section howto 4.4<howto-64-output-sparta-(stats,>`.  If the compute or fix calculates a
 vector of such values, it is specified as c_ID or f_ID.  If it
 calculates an array of such values, it is specified as c_ID\[N\] or
 f_ID\[N\] when N is the column of values to use, from 1 to Ncolumns.
@@ -233,11 +233,11 @@ criterion in the same manner:
 
    compute 1 lambda/grid f_1\[2\] NULL N2 kall
    adapt_grid refine coarsen value c_1\[2\] 0.05 0.1 &
-   combine min thresh less more
+              combine min thresh less more
 
 The *random* style is provided for test and debugging purposes.  For
 each cell eligible for adaptation, a uniform random number RN bewteen
-and 1.0 is generated.  For refinement, the cell is refined if RN <
+0.0 and 1.0 is generated.  For refinement, the cell is refined if RN <
 *rfrac*, so that approximately an *rfrac* fraction of the child cells
 are refined.  Similarly, for coarsening, the parent cell is coarsened
 if RN < *cfrac*, so that approximately a *cfrac* fraction of the
@@ -252,13 +252,13 @@ Various optional keywords can also be specified.
   per grid values for the current grid.
 
 The *maxlevel* keyword limits how far a grid cell can be refined.  See
-:ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a definition of the
+:ref:`Section howto 4.8<howto-68-details-grid-geometry>` for a definition of the
 level assigned to each parent and child cell.  Child cells with a
 level >= *Nmax* are not eligible for refinement.  The default setting
 of *Nmax* = 0 means there is no limit on refinement.
 
 The *minlevel* keyword limits how far a grid cell can be coarsened.
-See :ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a definition of
+See :ref:`Section howto 4.8<howto-68-details-grid-geometry>` for a definition of
 the level assigned to each parent and child cell.  Parent cells with a
 level < *Nmin* are not eligible for coarsening.  The default setting
 of *Nmin* = 1 means the only limit on coarsening is that the first
@@ -322,7 +322,7 @@ files, each time the grid iadapts.
 If the grid is partitioned across processors in a "clumped" manner
 before this command is invoked, it will still be clumped by processor
 after the adaptation.  Likewise if it is not clumped before, it will
-remain un-clumped after adaptation.  See :ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a description clumped and
+remain un-clumped after adaptation.  See :ref:`Section howto 8<howto-68-details-grid-geometry>` for a description clumped and
 unclumped grids.
 
 If you want the grid partitioning (and their particles) to be
@@ -367,5 +367,5 @@ Default:
 
 The keyword defaults are iterate = 1, minlevel = 1, maxlevel = 0,
 thresh = more for rdecide and less for cdecide, combine = sum, cells =
-2 2 for 3d and 2 2 1 for 2d, no region, dir = 0 0 0, and no file.
+2 2 2 for 3d and 2 2 1 for 2d, no region, dir = 0 0 0, and no file.
 

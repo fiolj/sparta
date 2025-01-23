@@ -21,7 +21,7 @@ Syntax:
 
    write_restart file keyword value ...
 
-- file = name of file to write restart information to 
+- file = name of file to write restart information to
 
 - zero or more keyword/value pairs may be appended
 
@@ -29,10 +29,10 @@ Syntax:
 
 ::
 
-   *fileper* arg = Np
-   Np = write one file for every this many processors
-   *nfile* arg = Nf
-   Nf = write this many files, one from each of Nf processors
+     *fileper* arg = Np
+       Np = write one file for every this many processors
+     *nfile* arg = Nf
+       Nf = write this many files, one from each of Nf processors
 
 .. _write-restart-examples:
 

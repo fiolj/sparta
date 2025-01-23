@@ -137,7 +137,8 @@
     [
       "This section has the following sub-sections:\n\n\"Read this first\"_#start_2_1\n\"Steps to build a SPARTA executable using make\"_#start_2_2_1\n\"Steps to build a SPARTA executable using CMake\"_#start_2_2_2\n\"Common errors that can occur when making SPARTA\"_#start_2_3\n\"Additional build tips using make\"_#start_2_4_1\n\"Additional build tips using CMake\"_#start_2_4_2\n\"Building for a Mac\"_#start_2_5\n\"Building for Windows\"_#start_2_6 :ul",
       ""
-    ]
+    ],
+      ["mpirun -np 4 spa_g++ < in.free", "mpirun -np 4 spa_g++ < in.free :pre"]
   ],
   "Section_tools": [
     [
@@ -267,20 +268,6 @@
       "_fix_ablate.html "
     ]
   ],
-  "fix_dt_reset": [
-    [
-      "1 = DTmin",
-      "  - 1 = DTmin"
-    ],
-    [
-      "2 = DTmax",
-      "  - 2 = DTmax"
-    ],
-    [
-      "3 = DTave",
-      "  - 3 = DTave"
-    ]
-  ],
   "fix_temp_rescale": [
     [
       "fix_temp_globalrescale.html",
@@ -357,6 +344,12 @@
     [
       "_read_grid,",
       "_read_grid.html,"
+    ]
+  ],
+    "read_surf": [
+    [
+        "NOTE: if ",
+        "If "
     ]
   ],
   "create_isurf": [

@@ -21,11 +21,11 @@ Syntax:
 
    fix ID temp/global/rescale N Tstart Tstop fraction
 
-ID is documented in :ref:`fix<fix>` command
-temp/global/rescale = style name of this fix command
-N = thermostat every N timesteps
-Tstart,Tstop = desired temperature at start/end of run (temperature units)
-fraction = rescale to target temperature by this fraction
+   - ID is documented in :ref:`fix<fix>` command
+   - temp/global/rescale = style name of this fix command
+   - N = thermostat every N timesteps
+   - Tstart,Tstop = desired temperature at start/end of run (temperature units)
+   - fraction = rescale to target temperature by this fraction
 
 .. _fix-temp-global-rescale-examples:
 

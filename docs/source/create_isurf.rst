@@ -21,7 +21,7 @@ Syntax:
 
    create_isurf group-ID ablateID thresh mode ...
 
-- group-ID = grid ID for which grid cells to perform calculation on 
+- group-ID = grid ID for which grid cells to perform calculation on
 
 - ablateID = ID of a :ref:`fix ablate<fix-ablate>` command
 
@@ -31,10 +31,10 @@ Syntax:
 
 ::
 
-   *inout* = mark corner points as either inside or outside surf
-   *voxel* = assign corner point values based on local solid fraction
-   *ave* = smooth values by averaging expected corner point values based on intersections between the explicit surfaces and cell edges 
-   *multi* = mark corners using multiple values (i.e. multivalues)
+     *inout* = mark corner points as either inside or outside surf
+     *voxel* = assign corner point values based on local solid fraction
+     *ave* = smooth values by averaging expected corner point values based on intersections between the explicit surfaces and cell edges 
+     *multi* = mark corners using multiple values (i.e. multivalues)
 
 .. _create-isurf-examples:
 
@@ -55,7 +55,7 @@ Description:
 
 This command converts all currently defined explicit surface elements
 to implicit surface elements.  One motivation for this operation is
-that implicit surfaces can be ablated over time via the :ref:`fix ablate<fix-ablate>` command.  See the :ref:`How to 6.13<howto-surface-elements:-explicit,-implicit,>` section of the manual for an
+that implicit surfaces can be ablated over time via the :ref:`fix ablate<fix-ablate>` command.  See the :ref:`How to 6.13<howto-613-surface-elements:-explicit,>` section of the manual for an
 explantion of explicit versus implicit surfaces.
 
 Explicit surface elements are triangles in 3d or line segments in 2d.
@@ -220,7 +220,7 @@ less during the surface conversion.
   Regardless of which mode is used, implicit surfaces are an
   approximation to the original explicit surfaces.  In particular:
 
-- The set of implicit surfaces cannot fully resolve features smaller than the size of the uniform grid cells used to overlay the triangulated object.  Furthermore, neither the *inout* and *ave* mode produce implicit surface elements which conserve the normals of nearby explicit surface elements, so an exact match is often not possible. In general, defining a finer grid (shrinking the grid cell size) will give a better match of implicit surfaces to the original explicit surface elements. 
+- The set of implicit surfaces cannot fully resolve features smaller than the size of the uniform grid cells used to overlay the triangulated object.  Furthermore, neither the *inout* and *ave* mode produce implicit surface elements which conserve the normals of nearby explicit surface elements, so an exact match is often not possible. In general, defining a finer grid (shrinking the grid cell size) will give a better match of implicit surfaces to the original explicit surface elements.
 
 - If two adjoining explicit surfaces have different normal vectors, then there is effectively a discontinuous "kink" in the surface.  If the kink occurs inside a grid cell, the implicit surface elements cannot reproduce it.  This is because the 4 or 8 corner point values of a grid cell (and the *thresh* parameter) fully determine the implicit surfaces generated within that cell, and they are derived from the intersection of explicit surfaces with the faces of the grid cell.
 

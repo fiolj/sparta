@@ -21,7 +21,7 @@ Syntax:
 
    species_modify ID property value ...
 
-- ID, property, value can be repeated one or more times 
+- ID, property, value can be repeated one or more times
 
 - ID = species ID
 
@@ -29,13 +29,13 @@ Syntax:
 
 ::
 
-   mu = magnetic moment
+     mu = magnetic moment
 
 - value = value of property for that species
 
 ::
 
-   value for *mu* (magnetic moment units)
+     value for *mu* (magnetic moment units)
 
 .. _species-modify-examples:
 

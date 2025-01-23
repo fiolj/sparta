@@ -1,11 +1,11 @@
 
 .. _tools:
 
-.. _tools-additional:
+.. _tools-9-additional:
 
-################
-Additional tools
-################
+###################
+9. Additional tools
+###################
 
 SPARTA is designed to be a computational kernel for performing DSMC
 computations.  Additional pre- and post-processing steps are often
@@ -20,11 +20,11 @@ written in :ref:`Python<python>` and is available for download from `the Pizza.p
 
 Some of the Pizza.py tools relevant to SPARTA are as follows:
 
-dump - read, write, manipulate particle dump files
-gl - 3d interactive visualization via OpenGL of dump or surface files
-sdata - read, write, manipulate surface files
-olog - read log files and extract columns of data
-vcr - VCR-style GUI for 3d interactive OpenGL visualization of dump or surface files
+   - dump - read, write, manipulate particle dump files
+   - gl - 3d interactive visualization via OpenGL of dump or surface files
+   - sdata - read, write, manipulate surface files
+   - olog - read log files and extract columns of data
+   - vcr - VCR-style GUI for 3d interactive OpenGL visualization of dump or surface files
 
 The dump, sdata, and olog tools are included in the SPARTA
 distribution in the tools/pizza directory, and are used by some of the
@@ -33,17 +33,17 @@ scripts discussed below.
 This is the list of tools included in the tools directory of the
 SPARTA distribution.  Each is described in more detail below.
 
-:ref:`dump2cfg<tools-dump2cfg-tool>` - convert a particle dump file to CFG format
-:ref:`dump2xyz<tools-dump2xyz-tool>` - convert a particle dump file to XYZ format
-:ref:`grid_refine<tools-grid-refine-tool>` - refine a grid around a surface
-:ref:`implicit_grid<tools-implicit-grid-tool>` - create a random porous region with implicit surfaces
-:ref:`jagged<tools-jagged>` - create jagged 2d/3d surfaces with explicit surfaces
-:ref:`log2txt<tools-log2txt-tool>` - extract columns of info from a log file
-:ref:`logplot<tools-logplot-tool>` - plot columns of info from a log file via GnuPlot
-`paraview <http://www.paraview.org>`__ - converters of SPARTA data to `ParaView <http://www.paraview.org>`__ format
-:ref:`stl2surf<tools-stl2surf-tool>` - convert an STL text file into a SPARTA surface file
-:ref:`surf_create<tools-surf-create-tool>` - create a surface file with simple objects
-:ref:`surf_transform<tools-surf-transform-tool>` - transform surface via tranlate/scale/rotate operations
+   - :ref:`dump2cfg<tools-dump2cfg-tool>` - convert a particle dump file to CFG format
+   - :ref:`dump2xyz<tools-dump2xyz-tool>` - convert a particle dump file to XYZ format
+   - :ref:`grid_refine<tools-grid-refine-tool>` - refine a grid around a surface
+   - :ref:`implicit_grid<tools-implicit-grid-tool>` - create a random porous region with implicit surfaces
+   - :ref:`jagged<tools-jagged>` - create jagged 2d/3d surfaces with explicit surfaces
+   - :ref:`log2txt<tools-log2txt-tool>` - extract columns of info from a log file
+   - :ref:`logplot<tools-logplot-tool>` - plot columns of info from a log file via GnuPlot
+   - `paraview <http://www.paraview.org>`__ - converters of SPARTA data to `ParaView <http://www.paraview.org>`__ format
+   - :ref:`stl2surf<tools-stl2surf-tool>` - convert an STL text file into a SPARTA surface file
+   - :ref:`surf_create<tools-surf-create-tool>` - create a surface file with simple objects
+   - :ref:`surf_transform<tools-surf-transform-tool>` - transform surface via tranlate/scale/rotate operations
 
 .. _tools-dump2cfg-tool:
 
@@ -198,7 +198,7 @@ SPARTA grid and surface data (input and output) to ParaView format.
 
 `ParaView <http://www.paraview.org>`__ is a popular, powerful, freely-available
 visualization package.  You must have ParaView installed to use the
-Python scripts.  See :ref:`Section 6.16<howto-visualizin-sparta-output-paraview>` for more details.
+Python scripts.  See :ref:`Section 6.16<howto-616-visualizin-sparta-output>` for more details.
 
 The scripts were developed by Tom Otahal (Sandia).
 
@@ -236,7 +236,7 @@ one or more simple objects whose surface is represented as triangules
 (3d) or line segments (2d).  Such files can be read by the
 :ref:`read_surf<read-surf>` command.  The 3d objects it supports are a
 sphere, box, and spikysphere (randomized radius at each point).  The
-2d objects it supports are a circle, rectangle, triangle, and
+d objects it supports are a circle, rectangle, triangle, and
 spikycircly (randomized radius at each point).
 
 See the header of the script for the syntax used to run it.

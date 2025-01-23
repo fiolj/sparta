@@ -21,7 +21,7 @@ Syntax:
 
    stats N
 
-N = output statistics every N timesteps
+   - N = output statistics every N timesteps
 
 .. _stats-examples:
 

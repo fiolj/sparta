@@ -21,7 +21,7 @@ Syntax:
 
    compute ID isurf/grid group-ID mix-ID value1 value2 ...
 
-- ID is documented in :ref:`compute<compute>` command 
+- ID is documented in :ref:`compute<compute>` command
 
 - isurf/grid = style name of this compute command
 
@@ -35,17 +35,17 @@ Syntax:
 
 ::
 
-   n = count of particles hitting surface elements in a grid cell
-   nwt = weighted count of particles hitting surface elements in a grid cell
-   mflux = flux of mass on surface elements in a grid cell
-   fx,fy,fz = components of force on surface elements in a grid cell
-   press = magnitude of normal pressure on surface elements in a grid cell
-   px,py,pz = components of normal pressure on surface elements in a grid cell
-   shx,shy,shz = components of shear stress on surface elements in a grid cell
-   ke = flux of particle kinetic energy on surface elements in a grid cell
-   erot = flux of particle rotational energy on surface elements in a grid cell
-   evib = flux of particle vibrational energy on surface elements in a grid cell
-   etot = flux of particle total energy on surface elements in a grid cell
+     n = count of particles hitting surface elements in a grid cell
+     nwt = weighted count of particles hitting surface elements in a grid cell
+     mflux = flux of mass on surface elements in a grid cell
+     fx,fy,fz = components of force on surface elements in a grid cell
+     press = magnitude of normal pressure on surface elements in a grid cell
+     px,py,pz = components of normal pressure on surface elements in a grid cell
+     shx,shy,shz = components of shear stress on surface elements in a grid cell
+     ke = flux of particle kinetic energy on surface elements in a grid cell
+     erot = flux of particle rotational energy on surface elements in a grid cell
+     evib = flux of particle vibrational energy on surface elements in a grid cell
+     etot = flux of particle total energy on surface elements in a grid cell
 
 .. _compute-isurf-grid-examples:
 
@@ -164,7 +164,7 @@ Grid cells not in the specified *group-ID* will output zeroes for all
 their values.
 
 The array can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
+from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
 for an overview of SPARTA output options.
 
 The per-grid array values will be in the :ref:`units<units>`

@@ -21,7 +21,7 @@ Syntax:
 
    undump dump-ID
 
-dump-ID = ID of previously defined dump
+   - dump-ID = ID of previously defined dump
 
 .. _undump-examples:
 

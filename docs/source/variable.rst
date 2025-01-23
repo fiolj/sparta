@@ -21,58 +21,58 @@ Syntax:
 
    variable name style args ...
 
-- name = name of variable to define 
+- name = name of variable to define
 
 - style = *delete* or *index* or *loop* or *world* or *universe* or *uloop* or *string* or *format* or *getenv* or *file* or *internal* or *equal* or *particle* or *grid* or *surf*
 
 ::
 
-   *delete* = no args
-   *index* args = one or more strings
-   *loop* args = N
-   N = integer size of loop, loop from 1 to N inclusive
-   *loop* args = N pad
-   N = integer size of loop, loop from 1 to N inclusive
-   pad = all values will be same length, e.g. 001, 002, ..., 100
-   *loop* args = N1 N2
-   N1,N2 = loop from N1 to N2 inclusive
-   *loop* args = N1 N2 pad
-   N1,N2 = loop from N1 to N2 inclusive
-   pad = all values will be same length, e.g. 050, 051, ..., 100
-   *world* args = one string for each partition of processors
-   *universe* args = one or more strings
-   *uloop* args = N
-   N = integer size of loop
-   *uloop* args = N pad
-   N = integer size of loop
-   pad = all values will be same length, e.g. 001, 002, ..., 100
-   *string* arg = one string
-   *format* args = vname fstr
-   vname = name of equal-style variable to evaluate
-   fstr = C-style format string
-   *getenv* arg = one string
-   *file* arg = filename
-   *internal* arg = numeric value
-   *equal* or *particle* or *grid* or *surf* args = one formula
-   containing numbers, stats keywords, math operations, particle vectors, compute/fix and custom attribute and surface collision/reaction and variable references
-   numbers = 0.0, 100, -5.4, 2.8e-4, etc
-   constants = PI
-   stats keywords = step, np, vol, etc from :ref:`stats_style<stats-style>`
-   math operators = (), -x, x+y, x-y, x\*y, x/y, x^y, x%y,
-   x==y, x!=y, x<y, x<=y, x>y, x>=y, x&&y, x||y, !x
-   math functions = sqrt(x), exp(x), ln(x), log(x), abs(x),
-   sin(x), cos(x), tan(x), asin(x), acos(x), atan(x), atan2(y,x), erf(x),
-   random(x,y), normal(x,y), ceil(x), floor(x), round(x)
-   ramp(x,y), stagger(x,y), logfreq(x,y,z), stride(x,y,z), vdisplace(x,y), swiggle(x,y,z), cwiggle(x,y,z)
-   special functions = sum(x), min(x), max(x), ave(x), trap(x), slope(x), next(x), grid2part(x)
-   particle vectors = id, type, mass, q, mu, x, y, z, vx, vy, vz
-   grid vectors = cxlo, cxhi, cylo, cyhi, czlo, czhi
-   compute references = c_ID, c_ID\[I\], c_ID\[I\]\[J\]
-   fix references = f_ID, f_ID\[I\], f_ID\[I\]\[J\]
-   custom attribute references = p_name, p_name\[I\], g_name, g_name\[I\], s_name, s_name\[I\]
-   surface collision model references = sc_ID\[I\]
-   surface reaction model references = sr_ID\[I\]
-   variable references = v_name
+     *delete* = no args
+     *index* args = one or more strings
+     *loop* args = N
+       N = integer size of loop, loop from 1 to N inclusive
+     *loop* args = N pad
+       N = integer size of loop, loop from 1 to N inclusive
+       pad = all values will be same length, e.g. 001, 002, ..., 100
+     *loop* args = N1 N2
+       N1,N2 = loop from N1 to N2 inclusive
+     *loop* args = N1 N2 pad
+       N1,N2 = loop from N1 to N2 inclusive
+       pad = all values will be same length, e.g. 050, 051, ..., 100
+     *world* args = one string for each partition of processors
+     *universe* args = one or more strings
+     *uloop* args = N
+       N = integer size of loop
+     *uloop* args = N pad
+       N = integer size of loop
+       pad = all values will be same length, e.g. 001, 002, ..., 100
+     *string* arg = one string
+     *format* args = vname fstr
+       vname = name of equal-style variable to evaluate
+       fstr = C-style format string
+     *getenv* arg = one string
+     *file* arg = filename
+     *internal* arg = numeric value
+     *equal* or *particle* or *grid* or *surf* args = one formula
+     containing numbers, stats keywords, math operations, particle vectors, compute/fix and custom attribute and surface collision/reaction and variable references
+       numbers = 0.0, 100, -5.4, 2.8e-4, etc
+       constants = PI
+       stats keywords = step, np, vol, etc from :ref:`stats_style<stats-style>`
+       math operators = (), -x, x+y, x-y, x\*y, x/y, x^y, x%y,
+                        x==y, x!=y, x<y, x<=y, x>y, x>=y, x&&y, x||y, !x
+       math functions = sqrt(x), exp(x), ln(x), log(x), abs(x),
+                        sin(x), cos(x), tan(x), asin(x), acos(x), atan(x), atan2(y,x), erf(x),
+                        random(x,y), normal(x,y), ceil(x), floor(x), round(x)
+                        ramp(x,y), stagger(x,y), logfreq(x,y,z), stride(x,y,z), vdisplace(x,y), swiggle(x,y,z), cwiggle(x,y,z)
+       special functions = sum(x), min(x), max(x), ave(x), trap(x), slope(x), next(x), grid2part(x)
+       particle vectors = id, type, mass, q, mu, x, y, z, vx, vy, vz
+       grid vectors = cxlo, cxhi, cylo, cyhi, czlo, czhi
+       compute references = c_ID, c_ID\[I\], c_ID\[I\]\[J\]
+       fix references = f_ID, f_ID\[I\], f_ID\[I\]\[J\]
+       custom attribute references = p_name, p_name\[I\], g_name, g_name\[I\], s_name, s_name\[I\]
+       surface collision model references = sc_ID\[I\]
+       surface reaction model references = sr_ID\[I\]
+       variable references = v_name
 
 .. _variable-examples:
 
@@ -253,7 +253,7 @@ string to each world.  When a :ref:`next<next>` command is encountered
 using this variable, the first processor partition to encounter it, is
 assigned the next available string.  This continues until all the
 variable strings are consumed.  Thus, this command can be used to run
-simulations on 8 processor partitions.  The simulations will be run
+50 simulations on 8 processor partitions.  The simulations will be run
 one after the other on whatever partition becomes available, until
 they are all finished.  *Universe* style variables are incremented
 using the files "tmp.sparta.variable" and "tmp.sparta.variable.lock"
@@ -324,12 +324,12 @@ each particle whenever it is evaluated.  For *grid* style variables
 the formula computes one quantity for each grid cell whenever it is
 evaluated.  A *grid* style variable computes quantites for all flavors
 of child grid cells in the simulation, which includes unsplit, cut,
-split, and sub cells.  See :ref:`Section 4.8<howto-details-grid-geometry-sparta>` of
+split, and sub cells.  See :ref:`Section 4.8<howto-68-details-grid-geometry>` of
 the manual gives details of how SPARTA defines child, unsplit, split,
 and sub cells.  For *surf* style variables the formula computes one
 quantity for each surface element (line or triangle) whenever it is
 evaluated.  They can only be defined for explicit surfaces, not
-implicit surfaces.  See :ref:`Section 4.9<howto-details-surfaces-sparta>` of
+implicit surfaces.  See :ref:`Section 4.9<howto-69-details-surfaces-sparta>` of
 the manual for a description of both kinds of surface elements.
 
 .. note::
@@ -453,7 +453,7 @@ whether the relationship between x and y is TRUE or FALSE.  For
 example the expression x<10.0 in a particle-style variable formula
 will return 1.0 for all particles whose x-coordinate is less than
 10.0, and 0.0 for the others.  The logical AND operator will return
-if both its arguments are non-zero, else it returns 0.0.  The
+1.0 if both its arguments are non-zero, else it returns 0.0.  The
 logical OR operator will return 1.0 if either of its arguments is
 non-zero, else it returns 0.0.  The logical NOT operator returns 1.0
 if its argument is 0.0, else it returns 0.0.
@@ -824,7 +824,7 @@ cell, or per surface element.  They can be defined and initialized in
 data files, e.g. via the :ref:`read_surf<read-surf>` command.  Or they
 can be defined and used by specific commands, e.g. :ref:`fix ambipolar<fix-ambipolar>` or :ref:`fix surf/temp<fix-surf-temp>` or
 :ref:`surf_react adsorb<surf-react-adsorb>`.  The name of each
-attribute sis set by the user or defined by the command.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
+attribute sis set by the user or defined by the command.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
 attributes.
 
 Single-value attributes are referred to as per-particle, per-grid, or
@@ -973,7 +973,7 @@ if it contains variables preceeded by $ signs.  For example,
 
    variable nratio equal "$\{nfinal\}/$\{n0\}"
 
-This is because the quotes prevent variable substitution (see :ref:`Section 2.2<commands-parsing-rules>` of the manual on parsing input script
+This is because the quotes prevent variable substitution (see :ref:`Section 2<commands-parsing-rules>` of the manual on parsing input script
 commands), and thus an error will occur when the formula for "nratio"
 is evaluated later.
 

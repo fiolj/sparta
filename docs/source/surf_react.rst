@@ -23,7 +23,7 @@ Syntax:
 
    surf_react ID style args
 
-- ID = user-assigned name for the surface reaction model 
+- ID = user-assigned name for the surface reaction model
 
 - style = *global* or *prob* or *adsorb* or *global/kk* or *prob/kk*
 
@@ -31,26 +31,26 @@ Syntax:
 
 ::
 
-   *global* or *global/kk* args = pdelete pcreate
-   pdelete = probability that surface collision removes the incident particle
-   pcreate = probability that surface collision clones the incident particle
-   *prob* or *prob/kk* args = infile
-   infile = file with list of surface chemistry reactions 
-   *adsorb* args = model infile(s) n=Nsync type temp n_sites adsp1 adsp2 ...
-   model = *gs* or *ps* or *gs/ps*
-   gs = gas-surface reactions
-   ps = pure-surface reactions
-   gs/ps = both gas-surface and pure-surface reactions
-   infile(s) = file(s) with list of surface chemistry reactions
-   one file for model gs or ps
-   two files for model gs/ps, gs first, ps second
-   Nsync = perform PS reactions and sync across processors every this many timesteps
-   type = *face* or *surf*
-   face = domain boundary treated as a surface
-   surf = surface elements = triangles in 3d, lines in 2d 
-   temp = temperature of the surface
-   n_sites = # of available adsorption sites per unit area (3D) or length (2D)
-   adsp1,adsp2,... = list of species that can adsorb on surface
+     *global* or *global/kk* args = pdelete pcreate
+       pdelete = probability that surface collision removes the incident particle
+       pcreate = probability that surface collision clones the incident particle
+     *prob* or *prob/kk* args = infile
+       infile = file with list of surface chemistry reactions 
+     *adsorb* args = model infile(s) n=Nsync type temp n_sites adsp1 adsp2 ...
+       model = *gs* or *ps* or *gs/ps*
+         gs = gas-surface reactions
+         ps = pure-surface reactions
+         gs/ps = both gas-surface and pure-surface reactions
+       infile(s) = file(s) with list of surface chemistry reactions
+                   one file for model gs or ps
+                   two files for model gs/ps, gs first, ps second
+       Nsync = perform PS reactions and sync across processors every this many timesteps
+       type = *face* or *surf*
+         face = domain boundary treated as a surface
+         surf = surface elements = triangles in 3d, lines in 2d 
+       temp = temperature of the surface
+       n_sites = # of available adsorption sites per unit area (3D) or length (2D)
+       adsp1,adsp2,... = list of species that can adsorb on surface
 
 .. _surf-react-examples:
 
@@ -78,7 +78,7 @@ chemical reactions that can occur on the surface itself.
 
 One or more models can be defined and assigned to different surfaces
 or simulation box boundaries via the :ref:`surf_modify<surf-modify>` or
-:ref:`bound_modify<bound-modify>` commands.  See :ref:`Section 6.9<howto-details-surfaces-sparta>` for more details of how SPARTA defines
+:ref:`bound_modify<bound-modify>` commands.  See :ref:`Section 6.9<howto-69-details-surfaces-sparta>` for more details of how SPARTA defines
 surfaces as collections of geometric elements, triangles in 3d and
 line segments in 2d.  Also see the :ref:`react<react>` command for
 specification of a gas-phase chemistry reaction model.
@@ -139,7 +139,7 @@ IDs are defined.  This style thus defines N reactions, where
 N is the number of reactions listed in the specified file.
 
 As explained below each reaction has a specified probability between
-and 1.0.  That probability is used to choose which reaction (if
+0.0 and 1.0.  That probability is used to choose which reaction (if
 any) is performed.
 
 The format of the input surface reaction file is as follows.  Comments
@@ -187,7 +187,7 @@ There is no restriction on the species involved in the reaction.
 The *style* of each reaction is a single character (upper or lower
 case) with the following meaning:
 
-S = Surface
+   - S = Surface
 
 The style determines how many reaction coefficients are listed as C1,
 C2, etc, and how they are interpreted by SPARTA.
@@ -196,8 +196,8 @@ For S = Surface style, there are two coefficients. The first is
 required and the second is optional and will be set to 0.0 if not
 specified:
 
-C1 = probability that the reaction occurs (0.0 to 1.0)
-C2 = catalytic chemical energy of reaction (optional, positive for exothermic)
+   - C1 = probability that the reaction occurs (0.0 to 1.0)
+   - C2 = catalytic chemical energy of reaction (optional, positive for exothermic)
 
 For the *adsorb* style, gas particles can adsorb on the surface.
 Adsorbed particles can then undergo reactions with other adsorbed
@@ -239,7 +239,7 @@ All the surface reaction models calculate a global vector of values.
 The values can be used by the :ref:`stats_style<stats-style>` command
 and by :ref:`variables<variable>` that define formulas.  The latter
 means they can be used by any command that uses a variable as input,
-e.g. "the :ref:`fix ave/time<fix-ave-time>` command.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>` for an overview of SPARTA output
+e.g. "the :ref:`fix ave/time<fix-ave-time>` command.  See :ref:`Section 4.4<howto-64-output-sparta-(stats,>` for an overview of SPARTA output
 options.
 
 The *global*, *prob*, and *adsorb* styles each compute a vector of

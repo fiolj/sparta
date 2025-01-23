@@ -21,7 +21,7 @@ Syntax:
 
    unfix fix-ID
 
-fix-ID = ID of a previously defined fix
+   - fix-ID = ID of a previously defined fix
 
 .. _unfix-examples:
 

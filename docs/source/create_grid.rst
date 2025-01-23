@@ -21,7 +21,7 @@ Syntax:
 
    create_grid Nx Ny Nz keyword args ...
 
-- Nx,Ny,Nz = size of 1st-level grid in each dimension 
+- Nx,Ny,Nz = size of 1st-level grid in each dimension
 
 - zero or more keywords/args pairs may be appended
 
@@ -29,21 +29,21 @@ Syntax:
 
 ::
 
-   *block* args = Px Py Pz
-   Px,Py,Pz = # of processors in each dimension, any can be \* (see below)
-   *clump* arg = *xyz* or *xzy* or *yxz* or *yzx* or *zxy* or *zyx*
-   *random* args = none
-   *stride* arg = *xyz* or *xzy* or *yxz* or *yzx* or *zxy* or *zyx*
-   *levels* arg = Nlevels
-   *subset* args = Ilevel Px Py Pz Cx Cy Cz
-   Ilevel = which level(s) to define, see syntax below
-   Px Py Pz = extent of parent cells in each dimension in which to create child cells
-   Cx Cy Cz = size of child sub-grid in each dimension within parent cells
-   *region* args = Ilevel reg-ID Cx Cy Cz 
-   Ilevel = which level(s) to define, see syntax below
-   reg-ID = ID of region which parent cells must be in to create child cells
-   Cx Cy Cz = size of child sub-grid in each dimension within parent cells
-   *inside* args = *any* or *all*
+     *block* args = Px Py Pz
+       Px,Py,Pz = # of processors in each dimension, any can be \* (see below)
+     *clump* arg = *xyz* or *xzy* or *yxz* or *yzx* or *zxy* or *zyx*
+     *random* args = none
+     *stride* arg = *xyz* or *xzy* or *yxz* or *yzx* or *zxy* or *zyx*
+     *levels* arg = Nlevels
+     *subset* args = Ilevel Px Py Pz Cx Cy Cz
+       Ilevel = which level(s) to define, see syntax below
+       Px Py Pz = extent of parent cells in each dimension in which to create child cells
+       Cx Cy Cz = size of child sub-grid in each dimension within parent cells
+     *region* args = Ilevel reg-ID Cx Cy Cz 
+       Ilevel = which level(s) to define, see syntax below
+       reg-ID = ID of region which parent cells must be in to create child cells
+       Cx Cy Cz = size of child sub-grid in each dimension within parent cells
+     *inside* args = *any* or *all*
 
 .. _create-grid-examples:
 
@@ -89,7 +89,7 @@ dispersed assignments of child cells to each processor.
 
 .. important::
 
-  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
+  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.  The
   :ref:`balance_grid<balance-grid>` command can be used after the grid is
@@ -192,7 +192,7 @@ for level 3 could select any contiguous range of cells from 1 to 4 in
 x, y and 1 to 2 in z.  Each of the Px, Py, Pz arguments can be a
 single number or be specified with a wildcard asterisk, the same as
 described above for *Ilevel*, where the bounds of Px (for example) are
-to Cx in the preceeding parent level.
+1 to Cx in the preceeding parent level.
 
 .. note::
 

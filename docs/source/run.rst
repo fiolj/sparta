@@ -21,7 +21,7 @@ Syntax:
 
    run N keyword values ...
 
-- value = # of integer timesteps N 
+- value = # of integer timesteps N
 
 - zero or more keyword/value pairs may be appended
 
@@ -29,17 +29,17 @@ Syntax:
 
 ::
 
-   *upto* value = none
-   *start* value = N1
-   N1 = timestep at which 1st run started
-   *stop* value = N2
-   N2 = timestep at which last run will end
-   *pre* value = *no* or *yes*
-   *post* value = *no* or *yes*
-   *every* values = M c1 c2 ...
-   M = break the run into M-timestep segments and invoke one or more commands between each segment
-   c1,c2,...,cN = one or more SPARTA commands, each enclosed in quotes
-   c1 = NULL means no command will be invoked
+     *upto* value = none
+     *start* value = N1
+       N1 = timestep at which 1st run started
+     *stop* value = N2
+       N2 = timestep at which last run will end
+     *pre* value = *no* or *yes*
+     *post* value = *no* or *yes*
+     *every* values = M c1 c2 ...
+       M = break the run into M-timestep segments and invoke one or more commands between each segment
+       c1,c2,...,cN = one or more SPARTA commands, each enclosed in quotes
+       c1 = NULL means no command will be invoked
 
 .. _run-examples:
 
@@ -96,7 +96,7 @@ For example, consider these commands followed by 10 run commands:
 
 The ramp() function in the :ref:`variable<variable>` and its use in the
 "surf_collide" command will ramp the target temperature from 300 to
-during a run.  If the run commands did not have the start/stop
+500 during a run.  If the run commands did not have the start/stop
 keywords (just "run 1000"), then the temperature would ramp from 300
 to 500 during the 1000 steps of each run.  With the start/stop
 keywords, the ramping takes place smoothly over the 10000 steps of all
@@ -138,7 +138,7 @@ be redefined, e.g. to reset a load balancing parameter.  Or this could
 be useful for invoking a command you have added to SPARTA that wraps
 some other code (e.g. as a library) to perform a computation
 periodically during a long SPARTA run.  See :ref:`Section 8<modify>` of the manual for info about how to add new
-commands to SPARTA.  See :ref:`Section 6.7<howto-restarting-simulation>` of
+commands to SPARTA.  See :ref:`Section 6.7<howto-610-restarting-simulation>` of
 the manual for ideas about how to couple SPARTA to other codes.
 
 With the *every* option, N total steps are simulated, in shorter runs
@@ -179,9 +179,9 @@ are the equivalent of:
 ::
 
    run 100000 every 1000 &
-   "print 'Minimum value = $a'" &
-   "print 'Maximum value = $b'" &
-   "print 'Temp = $c'"
+     "print 'Minimum value = $a'" &
+     "print 'Maximum value = $b'" &
+     "print 'Temp = $c'"
 
 If the *pre* and *post* options are set to "no" when used with the
 *every* keyword, then the 1st run will do the full setup and the last

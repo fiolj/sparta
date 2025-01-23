@@ -21,8 +21,8 @@ Syntax:
 
    jump file label
 
-file = filename of new input script to switch to
-label = optional label within file to jump to
+   - file = filename of new input script to switch to
+   - label = optional label within file to jump to
 
 .. _jump-examples:
 
@@ -122,13 +122,13 @@ then continues iterating thru the outer loop.
 
    label	    loopa
    variable    a loop 5
-   label	    loopb
-   variable  b loop 5
-   print	    "A,B = $a,$b"
-   run       10000
-   if	    $b > 2 then "jump in.script break"
-   next	    b
-   jump	    in.script loopb
+     label	    loopb
+     variable  b loop 5
+     print	    "A,B = $a,$b"
+     run       10000
+     if	    $b > 2 then "jump in.script break"
+     next	    b
+     jump	    in.script loopb
    label	    break
    variable    b delete
 

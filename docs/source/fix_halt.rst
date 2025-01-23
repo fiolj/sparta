@@ -21,7 +21,7 @@ Syntax:
 
    fix ID halt N attribute operator avalue keyword value ...
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - halt = style name of this fix command
 
@@ -29,8 +29,8 @@ Syntax:
 
 - attribute = *tlimit* or v_name
 
-  - tlimit = elapsed CPU time (in seconds)
-  - v_name = name of :ref:`equal-style variable<variable>`
+    - tlimit = elapsed CPU time (in seconds)
+    - v_name = name of :ref:`equal-style variable<variable>`
 
 - operator = "<" or "<=" or ">" or ">=" or "==" or "!=" or "|^"
 
@@ -42,8 +42,8 @@ Syntax:
 
 ::
 
-   error value = *hard* or *soft* or *continue*
-   message value = *yes* or *no*
+     error value = *hard* or *soft* or *continue*
+     message value = *yes* or *no*
 
 .. _fix-halt-examples:
 
@@ -120,7 +120,7 @@ simulation time, which is useful when using a :ref:`variable timestep<fix-dt-res
 The choice of operators listed above are the usual comparison
 operators. The XOR operation (exclusive or) is also included as "|^".
 In this context, XOR means that if either the attribute or avalue is
-and the other is non-zero, then the result is "true". Otherwise it
+0.0 and the other is non-zero, then the result is "true". Otherwise it
 is "false".
 
 The specified *avalue* must be a numeric value.

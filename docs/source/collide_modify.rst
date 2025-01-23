@@ -21,22 +21,22 @@ Syntax:
 
    collide_modify keyword values ...
 
-- one or more keyword/value pairs may be listed 
+- one or more keyword/value pairs may be listed
 
 - keywords = *vremax* or *remain* or *ambipolar* or *nearcp* or *rotate* or *vibrate*
 
 ::
 
-   *vremax* values = Nevery startflag
-   Nevery = zero vremax every this many timesteps
-   startflag = *yes* or *no* = zero vremax at start of every run
-   *remain* value = *yes* or *no* = hold remaining fraction of collisions over to next timestep
-   *nearcp* values = choice Nlimit
-   choice = *yes* or *no* to turn on/off near collision partners
-   Nlimit = max # of attempts made to find a collision partner
-   *ambipolar* value = *no* or *yes*
-   *rotate* value = *no* or *smooth*
-   *vibrate* value = *no* or *smooth* or *discrete*
+     *vremax* values = Nevery startflag
+       Nevery = zero vremax every this many timesteps
+       startflag = *yes* or *no* = zero vremax at start of every run
+     *remain* value = *yes* or *no* = hold remaining fraction of collisions over to next timestep
+     *nearcp* values = choice Nlimit
+       choice = *yes* or *no* to turn on/off near collision partners
+       Nlimit = max # of attempts made to find a collision partner
+     *ambipolar* value = *no* or *yes*
+     *rotate* value = *no* or *smooth*
+     *vibrate* value = *no* or *smooth* or *discrete*
 
 .. _collide-modify-examples:
 

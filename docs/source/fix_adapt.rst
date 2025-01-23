@@ -27,10 +27,10 @@ Syntax:
 
    fix ID adapt Nfreq args ...
 
-ID is documented in :ref:`fix<fix>` command
-adapt = style name of this fix command
-Nfreq = perform grid adaptation every this many steps
-args = all remaining args are identical to those defined for the :ref:`adapt_grid<adapt-grid>` command
+   - ID is documented in :ref:`fix<fix>` command
+   - adapt = style name of this fix command
+   - Nfreq = perform grid adaptation every this many steps
+   - args = all remaining args are identical to those defined for the :ref:`adapt_grid<adapt-grid>` command
 
 .. _fix-adapt-examples:
 
@@ -61,7 +61,7 @@ Refinement means splitting one child cell into multiple new child
 cells; the original child cell becomes a parent cell.  Coarsening
 means combining all the child cells of a parent cell, so that the
 child cells are deleted and the parent cell becomes a single new child
-cell.  See :ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a
+cell.  See :ref:`Section howto 4.8<howto-68-details-grid-geometry>` for a
 description of the hierarchical grid used by SPARTA and a defintion of
 child and parent cells.
 

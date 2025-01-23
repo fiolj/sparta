@@ -21,21 +21,21 @@ Syntax:
 
    react style args
 
-- style = *none* or *tce* or *qk* or *tce/qk* 
+- style = *none* or *tce* or *qk* or *tce/qk*
 
 - args = arguments for that style
 
 ::
 
-   *none* args = none
-   *tce* args = infile
-   infile = file with list of gas-phase chemistry reactions
-   *qk* args = infile
-   infile = file with list of gas-phase chemistry reactions
-   *tce/qk* args = infile
-   infile = file with list of gas-phase chemistry reactions
-   *tce/kk* args = infile
-   infile = file with list of gas-phase chemistry reactions
+     *none* args = none
+     *tce* args = infile
+       infile = file with list of gas-phase chemistry reactions
+     *qk* args = infile
+       infile = file with list of gas-phase chemistry reactions
+     *tce/qk* args = infile
+       infile = file with list of gas-phase chemistry reactions
+     *tce/kk* args = infile
+       infile = file with list of gas-phase chemistry reactions
 
 .. _react-examples:
 
@@ -143,7 +143,7 @@ SPARTA.
 For the QK model, SPARTA reads the same 5 coefficients per reaction
 from the reaction file (described below) as for the TCE model.  Three
 of the coefficients (C1,C2,C5) are used to calculate terms in equation
-of :ref:`(Bird94)<Bird94>` for the probability that a reaction takes
+6.10 of :ref:`(Bird94)<Bird94>` for the probability that a reaction takes
 place.  The Arrhenius rate parameters C3 and C4 are ignored by the QK
 model.
 
@@ -261,8 +261,8 @@ means the 3rd particle must be that species.
 The *style* of each reaction is a single character (upper or lower
 case) with the following meaning:
 
-A = Arrhenius 
-Q = Quantum
+   - A = Arrhenius 
+   - Q = Quantum
 
 The style determines how many reaction coefficients are listed as C1,
 C2, etc, and how they are interpreted by SPARTA.
@@ -270,11 +270,11 @@ C2, etc, and how they are interpreted by SPARTA.
 For both the A = Arrhenius style and Q = Quantum style, there are 5
 coefficients:
 
-C1 = number of internal degrees of freedom (as defined by the TCE model)
-C2 = Arrhenius activation energy Ea
-C3 = Arrhenius prefactor A
-C4 = Arrhenius exponent b
-C5 = overall reaction energy (positive for exothermic)
+   - C1 = number of internal degrees of freedom (as defined by the TCE model)
+   - C2 = Arrhenius activation energy Ea
+   - C3 = Arrhenius prefactor A
+   - C4 = Arrhenius exponent b
+   - C5 = overall reaction energy (positive for exothermic)
 
 The different reaction styles use these values in different ways, as
 explained above.

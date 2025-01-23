@@ -21,7 +21,7 @@ Syntax:
 
    write_isurf group-ID Nx Ny Nz filename ablateID keyword args ...
 
-- group-ID = group ID for which grid cells store the implicit surfs 
+- group-ID = group ID for which grid cells store the implicit surfs
 
 - Nx,Ny,Nz = grid cell extent of the grid cell group
 
@@ -35,7 +35,7 @@ Syntax:
 
 ::
 
-   precision arg = int or double
+     precision arg = int or double
 
 .. _write-isurf-examples:
 
@@ -63,7 +63,7 @@ input to a new simulation or for post-processing and visualization.
 The specified *group-ID* is the name of a grid cell group, as defined
 by the :ref:`group grid<group>` command, which contains a set of grid
 cells, all of which are the same size, and which comprise a contiguous
-3d array, with specified extent *Nx* by *Ny* by *Nz*.  These should be
+d array, with specified extent *Nx* by *Ny* by *Nz*.  These should be
 the same parameters that were used by the :ref:`read_isurf<read-isurf>`
 command, when the original grid corner point values were read in and
 used to define a set of implicit surface elements.  For 2d

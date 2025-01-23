@@ -21,19 +21,19 @@ Syntax:
 
    collide style args keyword value ...
 
-- style = *none* or *vss* 
+- style = *none* or *vss*
 
 - args = arguments for that style
 
 ::
 
-   *none* args = none
-   *vss* args = mix-ID file
-   mix-ID = ID of mixture to use for group definitions
-   file = filename that lists species with their VSS model parameters
-   *vss/kk* args = mix-ID file
-   mix-ID = ID of mixture to use for group definitions
-   file = filename that lists species with their VSS model parameters
+     *none* args = none
+     *vss* args = mix-ID file
+       mix-ID = ID of mixture to use for group definitions
+       file = filename that lists species with their VSS model parameters
+     *vss/kk* args = mix-ID file
+       mix-ID = ID of mixture to use for group definitions
+       file = filename that lists species with their VSS model parameters
 
 - zero or more keyword/value pairs may be appended
 
@@ -41,7 +41,7 @@ Syntax:
 
 ::
 
-   *relax* value = *constant* or *variable*
+     *relax* value = *constant* or *variable*
 
 .. _collide-examples:
 
@@ -106,7 +106,7 @@ style; see equation 11.4 in :ref:`(Bird94)<Bird94>`.
 .. note::
 
   If you are using the ambipolar approximation with charged
-  species, as described in :ref:`Section 6.11<howto-ambipolar-approximat>`,
+  species, as described in :ref:`Section 6.11<howto-611-ambipolar-approximat>`,
   and you have used the :ref:`collide_modify ambipolar   yes<collide-modify>` command to enable ambipolar collisions (not
   required), and you are using a mixture ID with multiple groups, then
   the ambipolar electron species must be in a group by itself.
@@ -158,10 +158,10 @@ The species-ID is a string that will be matched to one of the species
 defined by the simulation, via the :ref:`species<species>` command.
 The meaning of additional properties is as follows:
 
-diam = VHS or VSS diameter of particle (distance units)
-omega = temperature-dependence of viscosity (unitless)
-tref = reference temperature (temperature units)
-alpha = angular scattering parameter (unitless)
+   - diam = VHS or VSS diameter of particle (distance units)
+   - omega = temperature-dependence of viscosity (unitless)
+   - tref = reference temperature (temperature units)
+   - alpha = angular scattering parameter (unitless)
 
 The methodology for deriving VSS/VHS parameters from these properties
 is explained in Chapter 3 of :ref:`(Bird94)<Bird94>`.  Parameter values for
@@ -176,7 +176,7 @@ using the rotational and vibrational relaxation numbers from the
 species data file, as read by the :ref:`species<species>` command.
 
 If the *relax* keyword is specified as *variable*, then each line has
-parameters following the species ID:
+8 parameters following the species ID:
 
 ::
 
@@ -194,10 +194,10 @@ Zrotinf and T\* are parameters in the numerator and denominator of eq
 A5.  C1 and C2 are in eq A6.  The units of these parameters is as
 follows:
 
-Zrotinf (unitless)
-T\* (temperature units)
-C1 (temperature units)
-C2 (temperature^(1/3) units)
+   - Zrotinf (unitless)
+   - T\* (temperature units)
+   - C1 (temperature units)
+   - C2 (temperature^(1/3) units)
 
 .. note::
 

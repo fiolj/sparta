@@ -1,11 +1,11 @@
 
 .. _example:
 
-.. _example-problems:
+.. _example-7-problems:
 
-################
-Example problems
-################
+###################
+7. Example problems
+###################
 
 The SPARTA distribution includes an examples sub-directory with
 several sample problems.  Each problem is in a sub-directory of its
@@ -28,13 +28,13 @@ examples can be viewed on the Movies section of the `SPARTA WWW Site <http://spa
 These are the sample problems in the examples sub-directories.  See
 the examples/README file for more details.
 
-chem = chemistry in a 3d box
-circle = 2d flow around a circular object
-collide = collisional motion in a 3d box
-free = free molecular motion in a 3d box
-sphere = 3d flow around a sphere
-spiky = 2d flow around a spiky circle
-step = 2d flow around a staircase of steps
+   - chem = chemistry in a 3d box
+   - circle = 2d flow around a circular object
+   - collide = collisional motion in a 3d box
+   - free = free molecular motion in a 3d box
+   - sphere = 3d flow around a sphere
+   - spiky = 2d flow around a spiky circle
+   - step = 2d flow around a staircase of steps
 
 Here is how you might run and visualize one of the sample problems:
 

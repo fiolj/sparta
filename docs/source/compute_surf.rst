@@ -27,7 +27,7 @@ Syntax:
 
    compute ID surf group-ID mix-ID value1 value2 ... keyword setting ...
 
-- ID is documented in :ref:`compute<compute>` command 
+- ID is documented in :ref:`compute<compute>` command
 
 - surf = style name of this compute command
 
@@ -41,22 +41,22 @@ Syntax:
 
 ::
 
-   n = count of particles hitting surface element
-   nwt = weighted count of particles hitting surface element
-   nflux = net flux of particles through surface element
-   nflux_incident = incident flux of particles on surface element
-   mflux = net flux of mass through surface element
-   mflux_incident = incident flux of mass on surface element
-   fx,fy,fz = components of force on surface element
-   tx,ty,tz = components of torque on body center-of-mass
-   press = magnitude of normal pressure on surface element
-   px,py,pz = components of normal pressure on surface element
-   shx,shy,shz = components of shear stress on surface element
-   ke = flux of particle kinetic energy on surface element
-   erot = flux of particle rotational energy on surface element
-   evib = flux of particle vibrational energy on surface element
-   echem = flux of particle chemical catalytic energy on surface element
-   etot = flux of particle total energy on surface element
+     n = count of particles hitting surface element
+     nwt = weighted count of particles hitting surface element
+     nflux = net flux of particles through surface element
+     nflux_incident = incident flux of particles on surface element
+     mflux = net flux of mass through surface element
+     mflux_incident = incident flux of mass on surface element
+     fx,fy,fz = components of force on surface element
+     tx,ty,tz = components of torque on body center-of-mass
+     press = magnitude of normal pressure on surface element
+     px,py,pz = components of normal pressure on surface element
+     shx,shy,shz = components of shear stress on surface element
+     ke = flux of particle kinetic energy on surface element
+     erot = flux of particle rotational energy on surface element
+     evib = flux of particle vibrational energy on surface element
+     echem = flux of particle chemical catalytic energy on surface element
+     etot = flux of particle total energy on surface element
 
 - zero or more keyword/setting pairs can be appended
 
@@ -64,8 +64,8 @@ Syntax:
 
 ::
 
-   norm arg = *flux* or *flow* for dividing flux quantities by area or not
-   com args = Cx Cy Cz = coords of center-of-mass of body for calculating torque
+     norm arg = *flux* or *flow* for dividing flux quantities by area or not
+     com args = Cx Cy Cz = coords of center-of-mass of body for calculating torque
 
 .. _compute-surf-examples:
 
@@ -123,7 +123,7 @@ with implicit surface elements.
 Explicit surface elements are triangles for 3d simulations and line
 segments for 2d simulations.  Unlike implicit surface elements, each
 explicit triangle or line segment may span multiple grid cells.  See
-:ref:`Section 4.9<howto-details-surfaces-sparta>` of the manual for details.
+:ref:`Section 4.9<howto-69-details-surfaces-sparta>` of the manual for details.
 
 .. note::
 
@@ -402,7 +402,7 @@ Transparent surface elements:
 *****************************
 
 This compute will tally information on particles that pass through
-transparent surface elements.  The :ref:`Section 6.15<howto-transparen-surface-elements>` doc page provides an overview of
+transparent surface elements.  The :ref:`Section 6.15<howto-615-transparen-surface-elements>` doc page provides an overview of
 transparent surfaces and how to create them.
 
 The *n* and *nwt* value are calculated the same for transparent
@@ -415,7 +415,7 @@ incident particle as if it had struck the surface.  The outgoing
 particle is ignored.  This means the tally quantity is the flux of
 particles onto the outward face of the surface.  No tallying is done
 for particles hitting the inward face of the transparent surface.  See
-:ref:`Section 6.15<howto-transparen-surface-elements>` for how to do tallying in
+:ref:`Section 6.15<howto-615-transparen-surface-elements>` for how to do tallying in
 both directions.
 
 All the other values are calculated as described above.  This means
@@ -480,7 +480,7 @@ Surface elements not in the specified *group-ID* will output zeroes
 for all their values.
 
 The array can be accessed by any command that uses per-surf values
-from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
+from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
 for an overview of SPARTA output options.
 
 The per-surf array values will be in the :ref:`units<units>`

@@ -21,8 +21,8 @@ Syntax:
 
    read_particles file Nstep
 
-file = dump file to read snapshot from
-Nstep = timestep to read
+   - file = dump file to read snapshot from
+   - Nstep = timestep to read
 
 .. _read-particles-examples:
 

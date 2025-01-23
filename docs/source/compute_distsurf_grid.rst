@@ -27,7 +27,7 @@ Syntax:
 
    compute ID distsurf/grid group-ID surf-ID keyword args ...
 
-- ID is documented in :ref:`compute<compute>` command 
+- ID is documented in :ref:`compute<compute>` command
 
 - distsurf/grid = style name of this compute command
 
@@ -41,8 +41,8 @@ Syntax:
 
 ::
 
-   *dir* args = Sx Sy Sz
-   Sx,Sy,Sz = direction vector used to test surf elements
+     *dir* args = Sx Sy Sz
+       Sx,Sy,Sz = direction vector used to test surf elements
 
 .. _compute-distsurf-grid-examples:
 
@@ -141,14 +141,14 @@ distances of each grid cell from any of the surface elements.
 
 This compute performs calculations for all flavors of child grid cells
 in the simulation, which includes unsplit, cut, split, and sub cells.
-See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the manual gives
+See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the manual gives
 details of how SPARTA defines child, unsplit, split, and sub cells.
 
 Grid cells not in the specified *group-ID* will output zeroes for all
 their values.
 
 The vector can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
+from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
 for an overview of SPARTA output options.
 
 The per-grid array values for the vector will be in distance

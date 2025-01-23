@@ -1,10 +1,11 @@
 
-
 .. _packages:
 
-########
-Packages
-########
+.. _packages-4:
+
+###########
+4. Packages
+###########
 
 This section gives an overview of the optional packages that extend
 SPARTA functionality with instructions on how to build SPARTA with
@@ -41,10 +42,10 @@ uses the package.  E.g. "fft" refers to the examples/fft
 directory; The "Library" column indicates whether an extra library is needed to build
 and use the package:
 
-dash = no library
-sys = system library: you likely have it on your machine
-int = internal library: provided with SPARTA, but you may need to build it
-ext = external library: you will need to download and install it on your machine
+   - dash = no library
+   - sys = system library: you likely have it on your machine
+   - int = internal library: provided with SPARTA, but you may need to build it
+   - ext = external library: you will need to download and install it on your machine
 
 .. _packages-sparta:
 
@@ -130,8 +131,8 @@ Install or un-install with CMake:
 Supporting info:
 ================
 
-:ref:`compute fft/grid<compute-fft-grid>`
-examples/fft
+   - :ref:`compute fft/grid<compute-fft-grid>`
+   - examples/fft
 
 .. _packages-kokkos-package:
 
@@ -277,14 +278,14 @@ Using CMake:
 Supporting info:
 ================
 
-src/KOKKOS: filenames -> commands
-src/KOKKOS/README
-lib/kokkos/README
-the :ref:`Accelerating SPARTA<accelerate-kokkos-package>` section
-:ref:`Section 5.3<accelerate-kokkos-package>`
-:ref:`Section 2.6 -k on ...<start-commandlin-options>`
-:ref:`Section 2.6 -sf kk<start-commandlin-options>`
-:ref:`Section 2.6 -pk kokkos<start-commandlin-options>`
-:ref:`package kokkos<package>`
-`Benchmarks page <https://sparta.github.io/bench.html>`__ of web site
+   - src/KOKKOS: filenames -> commands
+   - src/KOKKOS/README
+   - lib/kokkos/README
+   - the :ref:`Accelerating SPARTA<accelerate-kokkos-package>` section
+   - :ref:`Section 5.3<accelerate-kokkos-package>`
+   - :ref:`Section 2.6 -k on ...<start-commandlin-options>`
+   - :ref:`Section 2.6 -sf kk<start-commandlin-options>`
+   - :ref:`Section 2.6 -pk kokkos<start-commandlin-options>`
+   - :ref:`package kokkos<package>`
+   - `Benchmarks page <https://sparta.github.io/bench.html>`__ of web site
 

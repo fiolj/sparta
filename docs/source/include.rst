@@ -21,7 +21,7 @@ Syntax:
 
    include file
 
-file = filename of new input script to switch to
+   - file = filename of new input script to switch to
 
 .. _include-examples:
 

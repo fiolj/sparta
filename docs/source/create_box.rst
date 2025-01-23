@@ -50,12 +50,12 @@ Set the size of the simulation box.
 For a 2d simulation, as specifed by the :ref:`dimension<dimension>`
 command, *zlo* < 0.0 and *zhi* > 0.0 is required.  This means the z
 dimensions straddle 0.0.  Typical values are -0.5 and 0.5, but this is
-not required.  See :ref:`Section 6.1<howto-2d-simulation>` of the
+not required.  See :ref:`Section 6.1<howto-61-2d-simulation>` of the
 manual for more information about 2d simulations.
 
 For 2d axisymmetric simulations, as set by the
 :ref:`dimension<dimension>` and :ref:`boundary<boundary>` commands, the
-ylo setting must be 0.0.  See :ref:`Section 6.2<howto-axisymmetr-simulation>`
+ylo setting must be 0.0.  See :ref:`Section 6.2<howto-62-axisymmetr-simulation>`
 of the manual for more information about axisymmetric simulations.
 
 .. _create-box-restrictio:

@@ -21,7 +21,7 @@ Syntax:
 
    uncompute compute-ID
 
-compute-ID = ID of a previously defined compute
+   - compute-ID = ID of a previously defined compute
 
 .. _uncompute-examples:
 

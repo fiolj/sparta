@@ -21,15 +21,15 @@ Syntax:
 
    boundary x y z
 
-- x,y,z = *o* or *p* or *r* or *a* or *s*, one or two letters 
+- x,y,z = *o* or *p* or *r* or *a* or *s*, one or two letters
 
 ::
 
-   *o* is outflow
-   *p* is periodic
-   *r* is specular reflection
-   *a* is axi-symmetric
-   *s* is treat boundary as a surface
+     *o* is outflow
+     *p* is periodic
+     *r* is specular reflection
+     *a* is axi-symmetric
+     *s* is treat boundary as a surface
 
 .. _boundary-examples:
 

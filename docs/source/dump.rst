@@ -23,7 +23,7 @@ Syntax:
 
    dump ID style select-ID N file args
 
-- ID = user-assigned name for the dump 
+- ID = user-assigned name for the dump
 
 - style = *particle* or *grid* or *surf* or *image*
 
@@ -31,9 +31,9 @@ Syntax:
 
 ::
 
-   for dump style = particle or image, use a mixture ID
-   for style = grid, use a grid group ID
-   for style = surf, use a surface group ID
+     for dump style = particle or image, use a mixture ID
+     for style = grid, use a grid group ID
+     for style = surf, use a surface group ID
 
 - N = dump every this many timesteps
 
@@ -43,77 +43,77 @@ Syntax:
 
 ::
 
-   *particle* args = list of particle attributes
-   possible attributes = id, type, proc, cellID, x, y, z, xs, ys, zs, vx, vy, vz,
-   ke, erot, evib, 
-   c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name, p_name, p_name\[N\]
+     *particle* args = list of particle attributes
+       possible attributes = id, type, proc, cellID, x, y, z, xs, ys, zs, vx, vy, vz,
+                             ke, erot, evib, 
+                             c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name, p_name, p_name\[N\]
 
 ::
 
-   id = particle ID
-   type = particle species as an integer index
-   proc = ID of owning processor
-   cellID = ID of grid cell particle is in
-   x,y,z = unscaled particle coordinates
-   xs,ys,zs = scaled particle coordinates
-   vx,vy,vz = particle velocities
-   ke,erot,evib = translational, rotational, and vibrational energy
-   c_ID = per-particle vector calculated by a compute with ID
-   c_ID\[N\] = Nth column of per-particle array calculated by a compute with ID, N can include wildcard (see below)
-   f_ID = per-particle vector calculated by a fix with ID
-   f_ID\[N\] = Nth column of per-particle array calculated by a fix with ID, N can include wildcard (see below)
-   v_name = per-particle vector calculated by a particle-style variable with name
-   p_name = custom per-particle vector with name
-   p_name\[N\] = Nth column of custom per-particle array with name, N can include wildcard (see below)
+         id = particle ID
+         type = particle species as an integer index
+         proc = ID of owning processor
+         cellID = ID of grid cell particle is in
+         x,y,z = unscaled particle coordinates
+         xs,ys,zs = scaled particle coordinates
+         vx,vy,vz = particle velocities
+         ke,erot,evib = translational, rotational, and vibrational energy
+         c_ID = per-particle vector calculated by a compute with ID
+         c_ID\[N\] = Nth column of per-particle array calculated by a compute with ID, N can include wildcard (see below)
+         f_ID = per-particle vector calculated by a fix with ID
+         f_ID\[N\] = Nth column of per-particle array calculated by a fix with ID, N can include wildcard (see below)
+         v_name = per-particle vector calculated by a particle-style variable with name
+         p_name = custom per-particle vector with name
+         p_name\[N\] = Nth column of custom per-particle array with name, N can include wildcard (see below)
 
 ::
 
-   *grid* args = list of grid attributes
-   possible attributes = id, idstr, split, proc, xlo, ylo, zlo, xhi, yhi, zhi,
-   c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name, g_name, g_name\[N\]
+     *grid* args = list of grid attributes
+       possible attributes = id, idstr, split, proc, xlo, ylo, zlo, xhi, yhi, zhi,
+                             c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name, g_name, g_name\[N\]
 
 ::
 
-   id = integer form of grid cell ID
-   idstr = string form of grid cell ID
-   split = integer, either 0 (unsplit cell) or 1..N (split cell index + 1)
-   proc = processor that owns grid cell
-   xlo,ylo,zlo = coords of lower left corner of grid cell
-   xhi,yhi,zhi = coords of lower left corner of grid cell
-   xc,yc,zc = coords of center of grid cell
-   vol = flow volume of grid cell (area in 2d)
-   c_ID = per-grid vector calculated by a compute with ID
-   c_ID\[N\] = Nth column of per-grid array calculated by a compute with ID, N can include wildcard (see below)
-   f_ID = per-grid vector calculated by a fix with ID
-   f_ID\[N\] = Nth column of per-grid array calculated by a fix with ID, N can include wildcard (see below)
-   v_name = per-grid vector calculated by a grid-style variable with name
-   g_name = custom per-grid vector with name
-   g_name\[N\] = Nth column of custom per-grid array with name, N can include wildcard (see below)
+         id = integer form of grid cell ID
+         idstr = string form of grid cell ID
+         split = integer, either 0 (unsplit cell) or 1..N (split cell index + 1)
+         proc = processor that owns grid cell
+         xlo,ylo,zlo = coords of lower left corner of grid cell
+         xhi,yhi,zhi = coords of lower left corner of grid cell
+         xc,yc,zc = coords of center of grid cell
+         vol = flow volume of grid cell (area in 2d)
+         c_ID = per-grid vector calculated by a compute with ID
+         c_ID\[N\] = Nth column of per-grid array calculated by a compute with ID, N can include wildcard (see below)
+         f_ID = per-grid vector calculated by a fix with ID
+         f_ID\[N\] = Nth column of per-grid array calculated by a fix with ID, N can include wildcard (see below)
+         v_name = per-grid vector calculated by a grid-style variable with name
+         g_name = custom per-grid vector with name
+         g_name\[N\] = Nth column of custom per-grid array with name, N can include wildcard (see below)
 
 ::
 
-   *surf* args = list of surf attributes
-   possible attributes = id, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z, area,
-   c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name, s_name, s_name\[N\]
+     *surf* args = list of surf attributes
+       possible attributes = id, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z, area,
+                             c_ID, c_ID\[N\], f_ID, f_ID\[N\], v_name, s_name, s_name\[N\]
 
 ::
 
-   id = surface element ID
-   v1x,v1y,v1z = coords of 1st vertex in surface element
-   v2x,v2y,v2z = coords of 2nd vertex in surface element
-   v3x,v3y,v3z = coords of 3rd vertex in surface element
-   area = surface element area (3d, axisymmetric) or length (2d)
-   c_ID = per-surf vector calculated by a compute with ID
-   c_ID\[N\] = Nth column of per-surf array calculated by a compute with ID, N can include wildcard (see below)
-   f_ID = per-surf vector calculated by a fix with ID
-   f_ID\[N\] = Nth column of per-surf array calculated by a fix with ID, N can include wildcard (see below)
-   v_name = per-surf vector calculated by a surf-style variable with name
-   s_name = custom per-surf vector with name
-   s_name\[N\] = Nth column of custom per-surf array with name, N can include wildcard (see below)
+         id = surface element ID
+         v1x,v1y,v1z = coords of 1st vertex in surface element
+         v2x,v2y,v2z = coords of 2nd vertex in surface element
+         v3x,v3y,v3z = coords of 3rd vertex in surface element
+         area = surface element area (3d, axisymmetric) or length (2d)
+         c_ID = per-surf vector calculated by a compute with ID
+         c_ID\[N\] = Nth column of per-surf array calculated by a compute with ID, N can include wildcard (see below)
+         f_ID = per-surf vector calculated by a fix with ID
+         f_ID\[N\] = Nth column of per-surf array calculated by a fix with ID, N can include wildcard (see below)
+         v_name = per-surf vector calculated by a surf-style variable with name
+         s_name = custom per-surf vector with name
+         s_name\[N\] = Nth column of custom per-surf array with name, N can include wildcard (see below)
 
 ::
 
-   *image* args = discussed on :ref:`dump image<dump-image>` doc page
+     *image* args = discussed on :ref:`dump image<dump-image>` doc page
 
 .. _dump-examples:
 
@@ -338,7 +338,7 @@ means of creating quantities to output to a dump file.
 
 The *p_name* and *p_name\[N\]* attributes allow custom per-particle
 vectors or arrays defined by some other command to be output.  The
-name should be replaced by the name of the attribute.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
+name should be replaced by the name of the attribute.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
 attributes and command that define them.  For example, the :ref:`fix ambipolar<fix-ambipolar>` command which defines the per-particle
 custom vector "ionambi" and custom array "velambi".
 
@@ -360,7 +360,7 @@ as part of the *grid* style.
 
   that dump grid will output one line (per snapshot) for 3 kinds of
   child cells: unsplit cells, cut cells, and sub cells of split cells.
-  :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the manual gives details
+  :ref:`Section 6.8<howto-68-details-grid-geometry>` of the manual gives details
   of how SPARTA defines child, unsplit, cut, split, and sub cells.  This
   is different than :ref:`compute<compute>` or :ref:`fix<fix>` commands
   which produce per grid information; they also include split cells in
@@ -446,7 +446,7 @@ quantities to output to a dump file.
 
 The *g_name* and *g_name\[N\]* attributes allow custom per-grid cell
 vectors or arrays defined by some other command to be output.  The
-name should be replaced by the name of the attribute.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
+name should be replaced by the name of the attribute.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
 attributes and command that define them.  For example, the
 :ref:`read_grid<read-grid>` and :ref:`surf_react implicit<surf-react>` commands can define per-grid
 attributes.  (The surf/react implicit command has not yet been
@@ -519,7 +519,7 @@ quantities to output to a dump file.
 The *s_name* and *s_name\[N\]* attributes allow custom per-surface
 element vectors or arrays defined by some other command to be output.
 The name should be replaced by the name of the attribute.  See
-:ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of
+:ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of
 custom attributes and command that define them.  For example, the
 :ref:`read_surf<read-surf>`, :ref:`fix surf/temp<fix-surf-temp>`, and
 :ref:`surf_react adsorb<surf-react-adsorb>` commands can define

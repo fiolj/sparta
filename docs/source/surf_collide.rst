@@ -21,7 +21,7 @@ Syntax:
 
    surf_collide ID style args keyword values ...
 
-- ID = user-assigned name for the surface collision model 
+- ID = user-assigned name for the surface collision model
 
 - style = *specular* or *diffuse* or *cll* or *adiabatic* or *impulsive* or *td* or *piston* or *transparent* or *vanish* or *specular/kk* or *diffuse/kk* or *piston/kk* or *vanish/kk*
 
@@ -29,44 +29,44 @@ Syntax:
 
 ::
 
-   *specular* or *specular/kk* args = noslip (optional)
-   noslip = reflect all velocity components off surface (not just normal component)
-   *diffuse* or *diffuse/kk* args = Tsurf acc
-   Tsurf = temperature of surface (temperature units)
-   Tsurf can be a variable or custom per-surf attribute (see below)
-   acc = accommodation coefficient
-   *cll* args = Tsurf acc_n acc_t acc_rot acc_vib
-   Tsurf = temperature of surface (temperature units)
-   Tsurf can be a variable or custom per-surf attribute (see below)
-   acc_n = accommodation coefficient in the surface normal direction
-   acc_t = accommodation coefficient in the surface tangential direction
-   acc_rot = accommodation coefficient for the rotational modes
-   acc_vib = accommodation coefficient for the vibrational modes
-   *adiabatic* args = none
-   *impulsive* args = Tsurf model param1 param2 var theta_peak pol_pow azi_pow
-   Tsurf = temperature of surface (temperature units)
-   Tsurf can be a variable or custom per-surf attribute (see below)
-   model can be *softsphere* or *tempvar*
-   *softsphere* args = en_ratio eff_mass
-   param1 = en_ratio = fraction of energy lost in the collision
-   param2 = eff_mass = effective mass of the surface atom
-   *tempvar* args = a1 a0
-   param1 = a1 = linear term in the variation with temperature
-   param2 = a0 = constant term in the variation with temperature
-   var = variance of the scattered particle velocity distribution
-   theta_peak = peak location of the polar angle distribution
-   pol_pow = cosine power represeting the polar angular distribution
-   azi_pow = cosine power represeting the azimuthal angular distribution
-   *td* arg = Tsurf 
-   Tsurf = temperature of surface (temperature units)
-   Tsurf can be a variable or custom per-surf attribute (see below)
-   *piston* or *piston/kk* args = Vwall
-   Vwall = velocity of boundary wall (velocity units)
-   *transparent* args = none
+     *specular* or *specular/kk* args = noslip (optional)
+       noslip = reflect all velocity components off surface (not just normal component)
+     *diffuse* or *diffuse/kk* args = Tsurf acc
+       Tsurf = temperature of surface (temperature units)
+               Tsurf can be a variable or custom per-surf attribute (see below)
+       acc = accommodation coefficient
+     *cll* args = Tsurf acc_n acc_t acc_rot acc_vib
+       Tsurf = temperature of surface (temperature units)
+               Tsurf can be a variable or custom per-surf attribute (see below)
+       acc_n = accommodation coefficient in the surface normal direction
+       acc_t = accommodation coefficient in the surface tangential direction
+       acc_rot = accommodation coefficient for the rotational modes
+       acc_vib = accommodation coefficient for the vibrational modes
+     *adiabatic* args = none
+     *impulsive* args = Tsurf model param1 param2 var theta_peak pol_pow azi_pow
+       Tsurf = temperature of surface (temperature units)
+               Tsurf can be a variable or custom per-surf attribute (see below)
+       model can be *softsphere* or *tempvar*
+         *softsphere* args = en_ratio eff_mass
+           param1 = en_ratio = fraction of energy lost in the collision
+           param2 = eff_mass = effective mass of the surface atom
+         *tempvar* args = a1 a0
+           param1 = a1 = linear term in the variation with temperature
+           param2 = a0 = constant term in the variation with temperature
+       var = variance of the scattered particle velocity distribution
+       theta_peak = peak location of the polar angle distribution
+       pol_pow = cosine power represeting the polar angular distribution
+       azi_pow = cosine power represeting the azimuthal angular distribution
+     *td* arg = Tsurf 
+       Tsurf = temperature of surface (temperature units)
+               Tsurf can be a variable or custom per-surf attribute (see below)
+     *piston* or *piston/kk* args = Vwall
+       Vwall = velocity of boundary wall (velocity units)
+     *transparent* args = none
 
 ::
 
-   *vanish* or *vanish/kk* args = none
+     *vanish* or *vanish/kk* args = none
 
 - zero or more keyword/arg pairs may be appended
 
@@ -76,32 +76,32 @@ Syntax:
 
 ::
 
-   *translate* args = Vx Vy Vz
-   Vx,Vy,Vz = translational velocity of surface (velocity units)
-   *rotate* args = Pz Py Pz Wx Wy Wz
-   Px,Py,Pz = point to rotate surface around (distance units)
-   Wx,Wy,Wz = angular velocity of surface around point (radians/time) 
-   *temp/freq* arg = Nfreq
-   Nfreq = evaulate a temperature variable every this many timesteps (default = 1)
-   *partial* args = eccen (only for *cll* style)
-   eccen = eccentricity parameter
-   *barrier* args = bar_val (only for *td* style)
-   *bar_val* = value of the desorption barrier in temperature units 
-   *bond* args = bond_trans bond_rot bond_vib (only for *td* style)
-   *bond_trans* = amount of bond dissociation energy (in temperature units) going into translational mode 
-   *bond_rot* = amount of bond dissociation energy (in temperature units) going into rotational mode 
-   *bond_vib* = amount of bond dissociation energy (in temperature units) going into vibrational mode
-   *init_energy* = IE_trans IE_rot IE_vib (only for *td* style)
-   *IE_trans* = fraction of initial translational energy going into translational mode 
-   *IE_rot* = fraction of initial translational energy going into rotational mode
-   *IE_vib* = fraction of initial translational energy going into vibrational mode
-   *step* args = epsilon (only for *impulsive* style)
-   epsilon = ratio of the height to the width of the step
-   *double* args = polar_pow_2 (only for *impulsive* style)
-   polar_pow_2 = cosine power for the polar angular distribution between peak and surface
-   *intenergy* args = frac_rot frac_vib (only for *impulsive* style)
-   frac_rot = fraction of lost translational energy going into the rotational mode
-   frac_vib = fraction of lost translational energy going into the vibrational mode
+     *translate* args = Vx Vy Vz
+       Vx,Vy,Vz = translational velocity of surface (velocity units)
+     *rotate* args = Pz Py Pz Wx Wy Wz
+       Px,Py,Pz = point to rotate surface around (distance units)
+       Wx,Wy,Wz = angular velocity of surface around point (radians/time) 
+     *temp/freq* arg = Nfreq
+       Nfreq = evaulate a temperature variable every this many timesteps (default = 1)
+     *partial* args = eccen (only for *cll* style)
+       eccen = eccentricity parameter
+     *barrier* args = bar_val (only for *td* style)
+       *bar_val* = value of the desorption barrier in temperature units 
+     *bond* args = bond_trans bond_rot bond_vib (only for *td* style)
+       *bond_trans* = amount of bond dissociation energy (in temperature units) going into translational mode 
+       *bond_rot* = amount of bond dissociation energy (in temperature units) going into rotational mode 
+       *bond_vib* = amount of bond dissociation energy (in temperature units) going into vibrational mode
+     *init_energy* = IE_trans IE_rot IE_vib (only for *td* style)
+       *IE_trans* = fraction of initial translational energy going into translational mode 
+       *IE_rot* = fraction of initial translational energy going into rotational mode
+       *IE_vib* = fraction of initial translational energy going into vibrational mode
+     *step* args = epsilon (only for *impulsive* style)
+       epsilon = ratio of the height to the width of the step
+     *double* args = polar_pow_2 (only for *impulsive* style)
+       polar_pow_2 = cosine power for the polar angular distribution between peak and surface
+     *intenergy* args = frac_rot frac_vib (only for *impulsive* style)
+       frac_rot = fraction of lost translational energy going into the rotational mode
+       frac_vib = fraction of lost translational energy going into the vibrational mode
 
 .. _surf-collide-examples:
 
@@ -133,7 +133,7 @@ Description:
 Define a model for particle-surface collisions.  One or more models
 can be defined and assigned to different surfaces or simulation box
 boundaries via the :ref:`surf_modify<surf-modify>` or
-:ref:`bound_modify<bound-modify>` commands.  See :ref:`Section 4.9<howto-details-surfaces-sparta>` for more details of how SPARTA defines
+:ref:`bound_modify<bound-modify>` commands.  See :ref:`Section 4.9<howto-69-details-surfaces-sparta>` for more details of how SPARTA defines
 surfaces as collections of geometric elements, triangles in 3d and
 line segments in 2d.  Chemical reactions can also be part of a
 particle-surface interaction model.  See the
@@ -190,7 +190,7 @@ with floating point values for the temperature for each surface
 element.  These could be static values initialized, for example, by
 the :ref:`read_surf<read-surf>` command.  Or they could be dynamic
 values recomputed periodically, for example, by the "fix surf/temp"
-command.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more
+command.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more
 discussion of custom attributes.
 
 .. note::
@@ -266,7 +266,7 @@ The theoretical scattering kernel was proposed by Cercignani and
 Lampis :ref:`(Cercignani71)<Cercignani71>`. In this original model, two
 accommodation coefficients for the normal and tangential directions
 are employed. Each of these quantities can take a value between 0 and
-Specular reflection is achieved by using the values (0,0), while
+1. Specular reflection is achieved by using the values (0,0), while
 complete thermal accommodation with the surface and cosine angular
 distributions is obtained using (1,1).  There is smooth variation of
 both the energy and angular distribution for values in between these
@@ -410,7 +410,7 @@ This is useful for tallying flow statistics.  The surface elements
 must have been flagged as transparent when they were read in, via the
 :ref:`read_surf<read-surf>` command and its transparent keyword.  The
 :ref:`compute surf<compute-surf>` command will tally fluxes differently
-for transparent surf elements.  The :ref:`Section 6.15<howto-transparen-surface-elements>` doc page provides an overview of
+for transparent surf elements.  The :ref:`Section 6.15<howto-615-transparen-surface-elements>` doc page provides an overview of
 transparent surfaces.  See those doc pages for details.
 
 The *vanish* style simply deletes any particle which hits the surface.
@@ -578,7 +578,7 @@ All the surface collide models calculate a global vector of length 2.
 The values can be used by the :ref:`stats_style<stats-style>` command
 and by :ref:`variables<variable>` that define formulas.  The latter
 means they can be used by any command that uses a variable as input,
-e.g. the :ref:`fix ave/time<fix-ave-time>` command.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>` for an overview of SPARTA output
+e.g. the :ref:`fix ave/time<fix-ave-time>` command.  See :ref:`Section 4.4<howto-64-output-sparta-(stats,>` for an overview of SPARTA output
 options.
 
 The first element of the vector is the count of particles that hit

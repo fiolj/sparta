@@ -21,7 +21,7 @@ Syntax:
 
    write_surf file
 
-- file = name of file to write surface element info to 
+- file = name of file to write surface element info to
 
 - zero or more keyword/args pairs may be appended
 
@@ -29,14 +29,14 @@ Syntax:
 
 ::
 
-   *points* arg = *yes* or *no* to include a Points section in the file
-   *type* arg = none
-   *custom* arg = name
-   name = name of custom per-surf vector or array
-   *fileper* arg = Np
-   Np = write one file for every this many processors
-   *nfile* arg = Nf
-   Nf = write this many files, one from each of Nf processors
+     *points* arg = *yes* or *no* to include a Points section in the file
+     *type* arg = none
+     *custom* arg = name
+       name = name of custom per-surf vector or array
+     *fileper* arg = Np
+       Np = write one file for every this many processors
+     *nfile* arg = Nf
+       Nf = write this many files, one from each of Nf processors
 
 .. _write-surf-examples:
 
@@ -115,7 +115,7 @@ grid cell.  When this command writes them to a file, the surface
 element IDs in the file become integers between 1 and N, where N is
 the total number of implicit surface elements.
 
-See the :ref:`Howto 6.13<howto-surface-elements:-explicit,-implicit,>` section of the manual
+See the :ref:`Howto 6.13<howto-613-surface-elements:-explicit,>` section of the manual
 for a discussion of explicit and implicit surfaces as well as
 distributed versus non-distributed storage of surface elements.  You
 cannot mix explicit and implicit surfaces in the same simulation.

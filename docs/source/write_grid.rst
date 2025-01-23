@@ -21,7 +21,7 @@ Syntax:
 
    write_grid filename keyword arg ...
 
-- filename = name of file to write grid info to 
+- filename = name of file to write grid info to
 
 - zero or more keyword/args pairs may be appended
 
@@ -29,8 +29,8 @@ Syntax:
 
 ::
 
-   *custom* arg = name
-   name = name of custom per-surf vector or array
+     *custom* arg = name
+       name = name of custom per-surf vector or array
 
 .. _write-grid-examples:
 

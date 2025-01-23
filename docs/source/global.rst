@@ -21,66 +21,66 @@ Syntax:
 
    global keyword values ...
 
-- one or more keyword/value pairs 
+- one or more keyword/value pairs
 
 - keyword = *fnum* or *nrho* or *vstream* or *temp* or *field* or *surfs* or *surfgrid* or *surfmax* or *splitmax* or *surftally* or *gridcut* or *comm/sort* or *comm/style* or *weight* or *particle/reorder* or *mem/limit*
 
 ::
 
-   *fnum* value = ratio
-   ratio = Fnum ratio of physical particles to simulation particles
-   *nrho* value = density
-   density = number density of background gas (# per length^3 units)
-   *vstream* values = Vx Vy Vz
-   Vx,Vy,Vz = streaming velocity of background gas (velocity units)
-   *temp* values = thermal
-   thermal = temperature of background gas (temperature units)
-   *field* values = fstyle args
-   fstyle = *none* or *constant* or *variable* or *grid*
-   *field* arg = none
-   *constant* args = mag ex ey ez
-   mag = magnitude of field acceleration (acceleration units)
-   ex,ey,ez = direction vector which the field acts along
-   *particle* arg = fixID
-   fixID = ID of fix that computes per particle field components
-   *grid* args = fixID Nfreq
-   fixID = ID of fix that computes per grid cell field components
-   Nfreq = update field values every this many timesteps
-   *surfs* value = explicit or explicit/distributed or implicit
-   explicit = surfs defined in read_surf file, each proc owns copy of all surfs
-   explicit/distributed = surfs defined in read_surf file, each proc owns
-   only the surfs for its owned_ghost grid cells
-   implicit = surfs defined in read_isurf file, each proc owns
-   only the surfs for its owned+ghost grid cells
-   *surfgrid* value = *percell* or *persurf* or *auto*
-   percell = loop over my cells and check every surf
-   persurf = loop over my surfs and cells they overlap
-   auto = choose percell or persurf based on surface element and proc count
-   *surfmax* value = Nsurf
-   Nsurf = max # of surface elements allowed in single grid cell
-   *splitmax* value = Nsplit
-   Nsplit = max # of sub-cells one grid cell can be split into by surface elements
-   *surftally* value = *reduce* or *rvous* or *auto*
-   reduce = tally surf collision info via MPI_Allreduce operations
-   rvous = tally via a rendezvous algorithm
-   auto = choose reduce or rvous based on surface element and proc count
-   *gridcut* value = cutoff
-   cutoff = acquire ghost cells up to this far away (distance units)
-   *comm/sort* value = yes or no
-   yes/no = sort incoming messages by proc ID if yes, else no sort
-   *comm/style* value = neigh or all
-   neigh = setup particle comm with subset of near-neighbor processor
-   all = allow particle comm with potentially any processor
-   *weight* value = *wstyle* *mode*
-   wstyle = *cell*
-   mode = *none* or *volume* or *radius* or *radius/only*
-   *particle/reorder* value = *nsteps*
-   nsteps = reorder the particles every this many timesteps
-   *mem/limit* value = *grid* or bytes
-   grid = limit extra memory for load-balancing, particle reordering, and restart file read/write to grid cell memory
-   bytes = limit extra particle memory to this amount (in MBytes)
-   *optmove* value = yes or no
-   yes/no = use optimized particle move if yes, else use regular move
+     *fnum* value = ratio
+       ratio = Fnum ratio of physical particles to simulation particles
+     *nrho* value = density
+       density = number density of background gas (# per length^3 units)
+     *vstream* values = Vx Vy Vz
+       Vx,Vy,Vz = streaming velocity of background gas (velocity units)
+     *temp* values = thermal
+       thermal = temperature of background gas (temperature units)
+     *field* values = fstyle args
+       fstyle = *none* or *constant* or *variable* or *grid*
+         *field* arg = none
+         *constant* args = mag ex ey ez
+           mag = magnitude of field acceleration (acceleration units)
+           ex,ey,ez = direction vector which the field acts along
+         *particle* arg = fixID
+           fixID = ID of fix that computes per particle field components
+         *grid* args = fixID Nfreq
+           fixID = ID of fix that computes per grid cell field components
+           Nfreq = update field values every this many timesteps
+     *surfs* value = explicit or explicit/distributed or implicit
+       explicit = surfs defined in read_surf file, each proc owns copy of all surfs
+       explicit/distributed = surfs defined in read_surf file, each proc owns
+                              only the surfs for its owned_ghost grid cells
+       implicit = surfs defined in read_isurf file, each proc owns
+                              only the surfs for its owned+ghost grid cells
+     *surfgrid* value = *percell* or *persurf* or *auto*
+       percell = loop over my cells and check every surf
+       persurf = loop over my surfs and cells they overlap
+       auto = choose percell or persurf based on surface element and proc count
+     *surfmax* value = Nsurf
+       Nsurf = max # of surface elements allowed in single grid cell
+     *splitmax* value = Nsplit
+       Nsplit = max # of sub-cells one grid cell can be split into by surface elements
+     *surftally* value = *reduce* or *rvous* or *auto*
+       reduce = tally surf collision info via MPI_Allreduce operations
+       rvous = tally via a rendezvous algorithm
+       auto = choose reduce or rvous based on surface element and proc count
+     *gridcut* value = cutoff
+       cutoff = acquire ghost cells up to this far away (distance units)
+     *comm/sort* value = yes or no
+       yes/no = sort incoming messages by proc ID if yes, else no sort
+     *comm/style* value = neigh or all
+       neigh = setup particle comm with subset of near-neighbor processor
+       all = allow particle comm with potentially any processor
+     *weight* value = *wstyle* *mode*
+       wstyle = *cell*
+       mode = *none* or *volume* or *radius* or *radius/only*
+     *particle/reorder* value = *nsteps*
+       nsteps = reorder the particles every this many timesteps
+     *mem/limit* value = *grid* or bytes
+       grid = limit extra memory for load-balancing, particle reordering, and restart file read/write to grid cell memory
+       bytes = limit extra particle memory to this amount (in MBytes)
+     *optmove* value = yes or no
+       yes/no = use optimized particle move if yes, else use regular move
 
 .. _global-examples:
 
@@ -270,7 +270,7 @@ cells owned by other processors.
   later point when surfaces are read in or a simulation is performed, an
   error will result.  The solution is to use the
   :ref:`balance_grid<balance-grid>` command to change to a clumped grid
-  cell assignment.  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
+  cell assignment.  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.
 
@@ -344,7 +344,7 @@ direction.  This mode attempts to preserve a uniform number of
 particles in each cell, regardless of the cell area, for a uniform
 targeted density.  For the *radius/only* option, the weight is just the
 distance the cell midpoint is from the y=0 axis of symmetry. This mode attempts to preserve a uniform distribution of particles
-per unit area, for a uniform targeted density.  See :ref:`Section 6.2<howto-axisymmetr-simulation>` for more details on axi-symmetric
+per unit area, for a uniform targeted density.  See :ref:`Section 6.2<howto-62-axisymmetr-simulation>` for more details on axi-symmetric
 models.
 
 Second, when a particle moves from an initial cell to a final cell,

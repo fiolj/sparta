@@ -21,7 +21,7 @@ Syntax:
 
    read_restart file keyword args ...
 
-- file = name of binary restart file to read in 
+- file = name of binary restart file to read in
 
 - zero or one keyword/args pair may be listed
 
@@ -29,9 +29,9 @@ Syntax:
 
 ::
 
-   *gridcut* arg = cutoff
-   cutoff = acquire ghost cells up to this far away (distance units)
-   *balance* args = same as for :ref:`balance_grid<balance-grid>` command
+     *gridcut* arg = cutoff
+       cutoff = acquire ghost cells up to this far away (distance units)
+     *balance* args = same as for :ref:`balance_grid<balance-grid>` command
 
 .. _read-restart-examples:
 
@@ -81,7 +81,7 @@ simulation.  If the processor count changes, then the assignment will
 necessarily be different.  In particular, even if the original
 assignment was "clumped", meaning each processor's cells were
 geometrically compact, the new assignment will not be clumped; it will
-be "dispersed".  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
+be "dispersed".  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
 manual for an explanation of clumped and dispersed grid cell
 assignments and their relative performance trade-offs.
 
@@ -152,35 +152,35 @@ processors that created the restart file.
 A restart file stores only the following information about a
 simulation, as specified by the associated commands:
 
-:ref:`units<units>`
-:ref:`dimension<dimension>`
-:ref:`simulation box size<create-box>` and :ref:`boundary conditions<boundary>`
-:ref:`global settings<global>`
-:ref:`particle species info<species>`
-:ref:`mixtures<mixture>`
-geometry of the hierarchical grid that overlays the simulation domain as :ref:`created<create-grid>` or :ref:`read from a file<read-grid>`
-geometry of all defined :ref:`surface elements<read-surf>`
-:ref:`group definitions<group>` for grid cells and surface elements
-:ref:`custom attributes<custom>` for particles, grid cells, or surface elements
-current simulation time
-current :ref:`timestep size<timestep>`
-current timestep number
+   - :ref:`units<units>`
+   - :ref:`dimension<dimension>`
+   - :ref:`simulation box size<create-box>` and :ref:`boundary conditions<boundary>`
+   - :ref:`global settings<global>`
+   - :ref:`particle species info<species>`
+   - :ref:`mixtures<mixture>`
+   - geometry of the hierarchical grid that overlays the simulation domain as :ref:`created<create-grid>` or :ref:`read from a file<read-grid>`
+   - geometry of all defined :ref:`surface elements<read-surf>`
+   - :ref:`group definitions<group>` for grid cells and surface elements
+   - :ref:`custom attributes<custom>` for particles, grid cells, or surface elements
+   - current simulation time
+   - current :ref:`timestep size<timestep>`
+   - current timestep number
 
 No other information is stored in the restart file.  Specifically,
 information about these simulation entities and their associated
 commands is NOT stored:
 
-:ref:`random number seed<seed>`
-:ref:`computes<compute>`
-:ref:`fixes<fix>`
-:ref:`collision model<collide>`
-:ref:`chemistry (reaction) model<react>`
-:ref:`surface collision models<surf-collide>`
-:ref:`surface reaction models<surf-react>`
-assignment of surfaces/boundaries to surface models
-:ref:`variables<variable>`
-:ref:`regions<region>`
-output options for :ref:`stats<stats-style>`, :ref:`dump<dump>`, :ref:`restart<restart>` files
+   - :ref:`random number seed<seed>`
+   - :ref:`computes<compute>`
+   - :ref:`fixes<fix>`
+   - :ref:`collision model<collide>`
+   - :ref:`chemistry (reaction) model<react>`
+   - :ref:`surface collision models<surf-collide>`
+   - :ref:`surface reaction models<surf-react>`
+   - assignment of surfaces/boundaries to surface models
+   - :ref:`variables<variable>`
+   - :ref:`regions<region>`
+   - output options for :ref:`stats<stats-style>`, :ref:`dump<dump>`, :ref:`restart<restart>` files
 
 This means any information specified in the original input script by
 these commands needs to be re-specified in the restart input script,

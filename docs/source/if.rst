@@ -21,13 +21,13 @@ Syntax:
 
    if boolean then t1 t2 ... elif boolean f1 f2 ... elif boolean f1 f2 ... else e1 e2 ...
 
-boolean = a Boolean expression evaluated as TRUE or FALSE (see below)
-then = required word
-t1,t2,...,tN = one or more SPARTA commands to execute if condition is met, each enclosed in quotes
-elif = optional word, can appear multiple times
-f1,f2,...,fN = one or more SPARTA commands to execute if elif condition is met, each enclosed in quotes (optional arguments)
-else = optional argument
-e1,e2,...,eN = one or more SPARTA commands to execute if no condition is met, each enclosed in quotes (optional arguments)
+   - boolean = a Boolean expression evaluated as TRUE or FALSE (see below)
+   - then = required word
+   - t1,t2,...,tN = one or more SPARTA commands to execute if condition is met, each enclosed in quotes
+   - elif = optional word, can appear multiple times
+   - f1,f2,...,fN = one or more SPARTA commands to execute if elif condition is met, each enclosed in quotes (optional arguments)
+   - else = optional argument
+   - e1,e2,...,eN = one or more SPARTA commands to execute if no condition is met, each enclosed in quotes (optional arguments)
 
 .. _if-examples:
 
@@ -41,12 +41,12 @@ Examples:
    if "$\{myString\} == a10" then quit
    if "$x <= $y" then "print X is smaller = $x" else "print Y is smaller = $y"
    if "($\{eng\} > 0.0) || ($n < 1000)" then &
-   "timestep 0.005" &
+     "timestep 0.005" &
    elif $n<10000 &
-   "timestep 0.01" &
+     "timestep 0.01" &
    else &
-   "timestep 0.02" &
-   "print 'Max step reached'"
+     "timestep 0.02" &
+     "print 'Max step reached'"
    if "$\{eng\} > $\{eng_previous\}" then "jump file1" else "jump file2"
 
 .. _if-descriptio:
@@ -98,11 +98,11 @@ above.
 ::
 
    if "$a < $b" then &
-   "print 'Minimum value = $a'" &
-   "run 1000" &
+     "print 'Minimum value = $a'" &
+     "run 1000" &
    else &      
-   'print "Minimum value = $b"' &
-   "run 50000"
+     'print "Minimum value = $b"' &
+     "run 50000"
 
 .. note::
 
@@ -124,13 +124,13 @@ condition is met, then continues iterating thru the outer loop.
 
    label	    loopa
    variable    a loop 5
-   label	    loopb
-   variable  b loop 5
-   print	    "A,B = $a,$b"
-   run       10000
-   if	    '$b > 2' then "print 'Jumping to another script'" "jump in.script break"
-   next	    b
-   jump	    in.script loopb
+     label	    loopb
+     variable  b loop 5
+     print	    "A,B = $a,$b"
+     run       10000
+     if	    '$b > 2' then "print 'Jumping to another script'" "jump in.script break"
+     next	    b
+     jump	    in.script loopb
    label	    break
    variable    b delete
 

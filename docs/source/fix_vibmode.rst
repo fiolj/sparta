@@ -21,8 +21,8 @@ Syntax:
 
    fix ID vibmode
 
-ID is documented in :ref:`fix<fix>` command
-vibmode = style name of this fix command
+   - ID is documented in :ref:`fix<fix>` command
+   - vibmode = style name of this fix command
 
 .. _fix-vibmode-examples:
 
@@ -52,7 +52,7 @@ Collisions between pairs of particles will then transfer energy
 between the different modes of the two particles.
 
 An overview of how to run simulations with multiple vibrational energy
-modes is given in the :ref:`Section 4.12<howto-multiple-vibrationa-energy-levels>`.
+modes is given in the :ref:`Section 4.12<howto-612-multiple-vibrationa-energy>`.
 This includes use of the :ref:`species<species>` command with its
 *vibfile* option, and the use of the :ref:`collide_modify vibrate discrete<collide-modify>` command.  The section also lists all the
 commands that can be used in an input script to invoke various options

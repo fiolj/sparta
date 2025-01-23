@@ -1,11 +1,11 @@
 
 .. _accelerate:
 
-.. _accelerate-accelerati-sparta-performanc:
+.. _accelerate-5-accelerati-sparta-performanc:
 
-###############################
-Accelerating SPARTA performance
-###############################
+##################################
+5. Accelerating SPARTA performance
+##################################
 
 This section describes various methods for improving SPARTA
 performance for different classes of problems running on different
@@ -16,9 +16,11 @@ packages provided with SPARTA that
 contains code optimized for certain kinds of hardware, including
 multi-core CPUs, GPUs, and Intel Xeon Phi coprocessors.
 
-.. contents::
-   :depth: 1
-   :local:
+- 5.1 :ref:`Measuring performance<accelerate-measuring-performanc>`
+
+- 5.2 :ref:`Accelerator packages with optimized styles<accelerate-packages-optimized-styles>`
+
+- 5.3 :ref:`KOKKOS package<accelerate-kokkos-package>`
 
 The `Benchmark page <https://sparta.github.io/bench.html>`__ of the SPARTA
 web site gives performance results for the various accelerator
@@ -119,11 +121,11 @@ using make:
    :header-rows: 0
 
    * - install the accelerator package 
-     -  make yes-fft, make yes-kokkos, etc 
+     -    make yes-fft, make yes-kokkos, etc 
    * -  add compile/link flags to Makefile.machine in src/MAKE 
-     -  KOKKOS_ARCH=PASCAL60 
+     -    KOKKOS_ARCH=PASCAL60 
    * -  re-build SPARTA 
-     -  make kokkos_cuda
+     -    make kokkos_cuda
 
 or, using CMake from a build directory:
 
@@ -131,11 +133,11 @@ or, using CMake from a build directory:
    :header-rows: 0
 
    * - install the accelerator package 
-     -  cmake -DPKG_FFT=ON -DPKG_KOKKOS=ON, etc 
+     -    cmake -DPKG_FFT=ON -DPKG_KOKKOS=ON, etc 
    * -  add compile/link flags 
-     -  cmake -C /path/to/sparta/cmake/presets/kokkos_cuda.cmake -DKokkos_ARCH_PASCAL60=ON 
+     -    cmake -C /path/to/sparta/cmake/presets/kokkos_cuda.cmake -DKokkos_ARCH_PASCAL60=ON 
    * -  re-build SPARTA 
-     -  make
+     -    make
 
 Then do the following:
 
@@ -143,11 +145,11 @@ Then do the following:
    :header-rows: 0
 
    * - prepare and test a regular SPARTA simulation 
-     -  lmp_kokkos_cuda -in in.script; mpirun -np 32 lmp_kokkos_cuda -in in.script 
+     -    lmp_kokkos_cuda -in in.script; mpirun -np 32 lmp_kokkos_cuda -in in.script 
    * -  enable specific accelerator support via '-k on' :ref:`command-line switch<start-commandlin-options>`, 
-     -  -k on g 1 
+     -    -k on g 1 
    * -  set any needed options for the package via "-pk" :ref:`command-line switch<start-commandlin-options>` or :ref:`package<package>` command, 
-     -  only if defaults need to be changed, -pk kokkos react/retry yes 
+     -    only if defaults need to be changed, -pk kokkos react/retry yes 
    * -  use accelerated styles in your input via "-sf" :ref:`command-line switch<start-commandlin-options>` or :ref:`suffix<suffix>` command 
      -  lmp_kokkos_cuda -in in.script -sf kk
 
@@ -177,12 +179,12 @@ Here is a brief summary of what the KOKKOS package provides.
 
 The KOKKOS accelerator package doc page explains:
 
-what hardware and software the accelerated package requires
-how to build SPARTA with the accelerated package
-how to run with the accelerated package either via command-line switches or modifying the input script
-speed-ups to expect
-guidelines for best performance
-restrictions
+   - what hardware and software the accelerated package requires
+   - how to build SPARTA with the accelerated package
+   - how to run with the accelerated package either via command-line switches or modifying the input script
+   - speed-ups to expect
+   - guidelines for best performance
+   - restrictions
 
 .. _accelerate-kokkos-package:
 
@@ -234,10 +236,10 @@ To build with the KOKKOS package, start with the provided Kokkos
 Makefiles in /src/MAKE/. You may need to modify the KOKKOS_ARCH
 variable in the Makefile to match your specific hardware. For example:
 
-for Sandy Bridge CPUs, set KOKKOS_ARCH=SNB
-for Broadwell CPUs, set KOKKOS_ARCH=BWD
-for K80 GPUs, set KOKKOS_ARCH=KEPLER37
-for P100 GPUs and Power8 CPUs, set KOKKOS_ARCH=PASCAL60,POWER8
+   - for Sandy Bridge CPUs, set KOKKOS_ARCH=SNB
+   - for Broadwell CPUs, set KOKKOS_ARCH=BWD
+   - for K80 GPUs, set KOKKOS_ARCH=KEPLER37
+   - for P100 GPUs and Power8 CPUs, set KOKKOS_ARCH=PASCAL60,POWER8
 
 Building SPARTA with the KOKKOS package with CMake:
 ===================================================
@@ -246,10 +248,10 @@ To build with the KOKKOS package, start with the provided preset files
 in /cmake/presets/. You may need to set -D Kokkos_ARCH_*TYPE*=ON
 to match your specific hardware. For example:
 
-for Sandy Bridge CPUs, set -D Kokkos_ARCH_SNB=ON
-for Broadwell CPUs, set -D Kokkos_ARCH_BWD=ON
-for K80 GPUs, set -D Kokkos_ARCH_KEPLER37=ON
-for P100 GPUs and Power8 CPUs, set -D Kokkos_ARCH_PASCAL60=ON, -D Kokkos_ARCH_POWER8=ON
+   - for Sandy Bridge CPUs, set -D Kokkos_ARCH_SNB=ON
+   - for Broadwell CPUs, set -D Kokkos_ARCH_BWD=ON
+   - for K80 GPUs, set -D Kokkos_ARCH_KEPLER37=ON
+   - for P100 GPUs and Power8 CPUs, set -D Kokkos_ARCH_PASCAL60=ON, -D Kokkos_ARCH_POWER8=ON
 
 See the **Advanced Kokkos Options** section below for a listing of all
 Kokkos architecture options.
@@ -505,7 +507,7 @@ Examples of mpirun commands that follow these rules are shown below.
 The -np setting of the mpirun command sets the number of MPI
 tasks/node. The "-k on t Nt" command-line switch sets the number of
 threads/task as Nt. The product of these two values should be N, i.e.
-or 264.
+256 or 264.
 
 .. note::
 

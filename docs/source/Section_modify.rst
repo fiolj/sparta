@@ -1,17 +1,22 @@
 
 .. _modify:
 
-.. _modify-modifying-extending-sparta:
+.. _modify-10-modifying-extending-sparta:
 
-############################
-Modifying & extending SPARTA
-############################
+################################
+10. Modifying & extending SPARTA
+################################
 
 This section describes how to extend SPARTA by modifying its source code.
 
-.. contents::
-   :depth: 1
-   :local:
+10.1 :ref:`Compute styles<modify-compute-styles>`
+10.2 :ref:`Fix styles<modify-fix-styles>`
+10.3 :ref:`Region styles<modify-region-styles>`
+10.4 :ref:`Collision styles<modify-collision-styles>`
+10.5 :ref:`Surface collision styles<modify-surface-collision-styles>`
+10.6 :ref:`Chemistry styles<modify-chemistry-styles>`
+10.7 :ref:`Dump styles<modify-dump-styles>`
+10.8 :ref:`Input script commands<modify-input-script-commands>`
 
 SPARTA is designed in a modular fashion so as to be easy to modify and
 extend with new functionality.
@@ -87,7 +92,7 @@ are functions that can be optionally defined.
 Here are additional guidelines for modifying SPARTA and adding new
 functionality:
 
-- Think about whether what you want to do would be better as a pre- or post-processing step. Many computations are more easily and more quickly done that way. 
+- Think about whether what you want to do would be better as a pre- or post-processing step. Many computations are more easily and more quickly done that way.
 
 - Don't do anything within the timestepping of a run that isn't parallel.  E.g. don't accumulate a large volume of data on a single processor and analyze it.  This runs the risk of seriously degrading the parallel efficiency.
 
@@ -95,7 +100,7 @@ If you have a question about how to compute something or about
 internal SPARTA data structures or algorithms, feel free to send an
 email to the `developers <https://sparta.github.io/authors.html>`__.
 
-- If you add something you think is generally useful, also send an email to the `developers <https://sparta.github.io/authors.html>`__ so we can consider adding it to the SPARTA distribution.  
+- If you add something you think is generally useful, also send an email to the `developers <https://sparta.github.io/authors.html>`__ so we can consider adding it to the SPARTA distribution.
 
 .. _modify-compute-styles:
 

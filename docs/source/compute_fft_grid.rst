@@ -27,7 +27,7 @@ Syntax:
 
    compute ID fft/grid value1 value2 ... keyword args ...
 
-- ID is documented in :ref:`compute<compute>` command 
+- ID is documented in :ref:`compute<compute>` command
 
 - fft/grid = style name of this compute command
 
@@ -37,11 +37,11 @@ Syntax:
 
 ::
 
-   c_ID = per-grid vector calculated by a compute with ID
-   c_ID\[I\] = Ith column of per-grid array calculated by a compute with ID
-   f_ID = per-grid vector calculated by a fix with ID
-   f_ID\[I\] = Ith column of per-grid or array calculated by a fix with ID
-   v_name = per-grid vector calculated by a grid-style variable with name
+     c_ID = per-grid vector calculated by a compute with ID
+     c_ID\[I\] = Ith column of per-grid array calculated by a compute with ID
+     f_ID = per-grid vector calculated by a fix with ID
+     f_ID\[I\] = Ith column of per-grid or array calculated by a fix with ID
+     v_name = per-grid vector calculated by a grid-style variable with name
 
 - zero or more keyword/arg pairs can be appended
 
@@ -49,13 +49,13 @@ Syntax:
 
 ::
 
-   *sum* = *yes* or *no* to sum all FFTs into a single output
-   *scale* = sfactor = numeric value to scale results by
-   *conjugate* = *yes* or *no* = perform complex conjugate multiply or not
-   *kx* = *yes* or *no* = calculate x-component of wavelength or not
-   *kx* = *yes* or *no* = calculate y-component of wavelength or not
-   *kx* = *yes* or *no* = calculate z-component of wavelength or not
-   *kmag* = *yes* or *no* = calculate wavelength magnitude or not
+     *sum* = *yes* or *no* to sum all FFTs into a single output
+     *scale* = sfactor = numeric value to scale results by
+     *conjugate* = *yes* or *no* = perform complex conjugate multiply or not
+     *kx* = *yes* or *no* = calculate x-component of wavelength or not
+     *kx* = *yes* or *no* = calculate y-component of wavelength or not
+     *kx* = *yes* or *no* = calculate z-component of wavelength or not
+     *kmag* = *yes* or *no* = calculate wavelength magnitude or not
 
 .. _compute-fft-grid-examples:
 
@@ -203,7 +203,7 @@ a per-grid vector as output.  Otherwise it produces a per-grid array.
   particles that are geometrically inside the split cell.
 
 The array can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
+from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
 for an overview of SPARTA output options.
 
 The per-grid vector or array values will be in the :ref:`units<units>`

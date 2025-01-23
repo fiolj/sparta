@@ -21,7 +21,7 @@ Syntax:
 
    fix ID surf/temp surf-ID Nevery source Tinit emisurf custom-name
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - surf/temp = style name of this fix command
 
@@ -33,8 +33,8 @@ Syntax:
 
 ::
 
-   computeID = c_ID or c_ID\[N\] for a compute that calculates per surf values
-   fixID = f_ID or f_ID\[N\] for a fix that calculates per surf values
+     computeID = c_ID or c_ID\[N\] for a compute that calculates per surf values
+     fixID = f_ID or f_ID\[N\] for a fix that calculates per surf values
 
 - Tinit = initial temperature of surface (temperature units)
 

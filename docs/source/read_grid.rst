@@ -21,7 +21,7 @@ Syntax:
 
    read_grid filename keyword args ...
 
-- filename = name of grid file 
+- filename = name of grid file
 
 - zero or more keyword/args pairs may be appended
 
@@ -29,10 +29,10 @@ Syntax:
 
 ::
 
-   *custom* args = name datatype Nc
-   name = name of custom per-grid vector or array
-   datatype = *int* or *float* = for integer or floating point values
-   Nc = 0 for a vector (single value), Nc >= 1 for an array (one or more values)
+     *custom* args = name datatype Nc
+       name = name of custom per-grid vector or array
+       datatype = *int* or *float* = for integer or floating point values
+       Nc = 0 for a vector (single value), Nc >= 1 for an array (one or more values)
 
 .. _read-grid-examples:
 
@@ -74,7 +74,7 @@ each processor.
 
 .. important::
 
-  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
+  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.  The
   :ref:`balance_grid<balance-grid>` command can be used after the grid is

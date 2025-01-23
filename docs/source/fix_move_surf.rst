@@ -27,12 +27,12 @@ Syntax:
 
    fix ID move/surf groupID Nevery Nlarge args ...
 
-ID is documented in :ref:`fix<fix>` command
-move/surf = style name of this fix command
-group-ID = group ID for which surface elements to move
-Nevery = move surfaces incrementally every this many steps
-Nlarge = move surfaces the entire distance after this many timesteps
-args = all remaining args are identical to those defined for the :ref:`move_surf<move-surf>` command starting with its "style" argument
+   - ID is documented in :ref:`fix<fix>` command
+   - move/surf = style name of this fix command
+   - group-ID = group ID for which surface elements to move
+   - Nevery = move surfaces incrementally every this many steps
+   - Nlarge = move surfaces the entire distance after this many timesteps
+   - args = all remaining args are identical to those defined for the :ref:`move_surf<move-surf>` command starting with its "style" argument
 
 .. _fix-move-surf-examples:
 

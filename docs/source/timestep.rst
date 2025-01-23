@@ -21,7 +21,7 @@ Syntax:
 
    timestep dt
 
-dt = timestep size (time units)
+   - dt = timestep size (time units)
 
 .. _timestep-examples:
 

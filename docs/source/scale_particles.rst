@@ -21,8 +21,8 @@ Syntax:
 
    scale_particles mix-ID factor
 
-mix-ID = ID of mixture to use when scaling particles
-factor = scale factor
+   - mix-ID = ID of mixture to use when scaling particles
+   - factor = scale factor
 
 .. _scale-particles-examples:
 

@@ -21,7 +21,7 @@ Syntax:
 
    species file ID1 ID2 ... keyword value ...
 
-- file = filename with species info 
+- file = filename with species info
 
 - ID1, ID2, ... = one or more species names listed in file
 
@@ -33,7 +33,7 @@ Syntax:
 
 ::
 
-   *vibfile* value = vfile = filename for extra vibrational info
+     *vibfile* value = vfile = filename for extra vibrational info
 
 .. _species-examples:
 
@@ -75,7 +75,7 @@ pre-defined multi-species names can be used, each of which is expanded
 into a list of several individual species IDs.  The list of currently
 recognized abbreviations is as follows:
 
-air = N, O, NO
+   - air = N, O, NO
 
 These abbreviations can be used in combination with single-species IDs
 as in the 3rd example above.
@@ -92,15 +92,15 @@ by whitespace:
 The species-ID is a string that will be matched against the requested
 species-ID, as described above.  The properties are as follows:
 
-prop1 = molecular weight (atomic mass units, e.g. 16 for oxygen)
-prop2 = molecular mass (mass units)
-prop3 = rotational degrees of freedom (integer, unitless)
-prop4 = inverse rotational relaxtion number (unitless)
-prop5 = vibrational degrees of freedom (integer, unitless)
-prop6 = inverse vibrational relaxation number (unitless)
-prop7 = vibrational temperature (temperature units)
-prop8 = species weight (unitless)
-prop9 = multiple of electon charge (1 for a proton)
+   - prop1 = molecular weight (atomic mass units, e.g. 16 for oxygen)
+   - prop2 = molecular mass (mass units)
+   - prop3 = rotational degrees of freedom (integer, unitless)
+   - prop4 = inverse rotational relaxtion number (unitless)
+   - prop5 = vibrational degrees of freedom (integer, unitless)
+   - prop6 = inverse vibrational relaxation number (unitless)
+   - prop7 = vibrational temperature (temperature units)
+   - prop8 = species weight (unitless)
+   - prop9 = multiple of electon charge (1 for a proton)
 
 The allowed values for rotational degrees of freedom (rotdof = prop3)
 are 0,2,3.  Typically, 0 = monatomic species, 2 = diatomic, 3 =
@@ -163,9 +163,9 @@ species file.
 
 For each of the N modes, 3 values are listed:
 
-tempI = vibrational temperature of mode I (temperature units)
-relaxI = inverse vibrational relaxation number of mode I (unitless)
-degenI = degeneracy of mode I (integer, unitless)
+   - tempI = vibrational temperature of mode I (temperature units)
+   - relaxI = inverse vibrational relaxation number of mode I (unitless)
+   - degenI = degeneracy of mode I (integer, unitless)
 
 These quantities are used during collisions if vibrational energy is
 modeled in discrete levels.

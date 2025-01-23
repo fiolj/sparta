@@ -21,7 +21,7 @@ Syntax:
 
    suffix style args
 
-style = *off* or *on* or *kk*
+   - style = *off* or *on* or *kk*
 
 .. _suffix-examples:
 

@@ -21,7 +21,7 @@ Syntax:
 
    echo style
 
-style = *none* or *screen* or *log* or *both*
+   - style = *none* or *screen* or *log* or *both*
 
 .. _echo-examples:
 

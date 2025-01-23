@@ -21,18 +21,18 @@ Syntax:
 
    stats_modify keyword value ...
 
-- one or more keyword/value pairs may be listed 
+- one or more keyword/value pairs may be listed
 
 - keyword = *flush* or *format* or *every*
 
 ::
 
-   *flush* value = *yes* or *no*
-   *format* values = *line* string, *int* string, *float* string, M string, or *none*
-   string = C-style format string
-   M = integer from 1 to N, where N = # of quantities being output
-   *every* value = v_name
-   v_name = an equal-style variable name
+     *flush* value = *yes* or *no*
+     *format* values = *line* string, *int* string, *float* string, M string, or *none*
+       string = C-style format string
+       M = integer from 1 to N, where N = # of quantities being output
+     *every* value = v_name
+       v_name = an equal-style variable name
 
 .. _stats-modify-examples:
 

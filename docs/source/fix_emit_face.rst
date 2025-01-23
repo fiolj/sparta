@@ -27,7 +27,7 @@ Syntax:
 
    fix ID emit/face mix-ID face1 face2 ... keyword value(s) ...
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - emit/face = style name of this fix command
 
@@ -41,14 +41,14 @@ Syntax:
 
 ::
 
-   *n* value = Np = number of particles to create
-   *nevery* value = Nstep = add particles every this many timesteps
-   *perspecies* value = *yes* or *no*
-   *region* value = region-ID 
-   *subsonic* values = Psub Tsub
-   Psub = pressure setting at inflow boundary (pressure units)
-   Tsub = temperature setting at inflow boundary, can be NULL (temperature units)
-   *twopass* values = none
+     *n* value = Np = number of particles to create
+     *nevery* value = Nstep = add particles every this many timesteps
+     *perspecies* value = *yes* or *no*
+     *region* value = region-ID 
+     *subsonic* values = Psub Tsub
+       Psub = pressure setting at inflow boundary (pressure units)
+       Tsub = temperature setting at inflow boundary, can be NULL (temperature units)
+     *twopass* values = none
 
 .. _fix-emit-face-examples:
 
@@ -93,9 +93,9 @@ equation 4.22 of :ref:`(Bird94)<Bird94>`.  The number of particles *M* to
 insert on a particular grid cell face is based on this flux and
 additional global, flow, and cell face properties:
 
-global property: *fnum* ratio as specified by the "global"_global.html" command
-flow properties: number density, streaming velocity, and thermal temperature
-cell face properties: area of face and its orientation relative to the streaming velocity
+   - global property: *fnum* ratio as specified by the "global"_global.html" command
+   - flow properties: number density, streaming velocity, and thermal temperature
+   - cell face properties: area of face and its orientation relative to the streaming velocity
 
 The flow properties are defined for the specified mixture via the
 :ref:`mixture<mixture>` command.
@@ -165,9 +165,9 @@ number fraction of 0.5.  Assume a particular grid cell adds 10
 particles from that mixture.  If *perspecies* is set to *yes*, then
 exactly 5 particles of each species will be added on every timestep
 insertions take place.  If *perspecies* is set to *no*, then exactly
-particles will be added every time and on average there will be 5
+10 particles will be added every time and on average there will be 5
 particles of each of the two species.  But on one timestep it might be
-of the first and 4 of the second.  On another timestep it might be 3
+6 of the first and 4 of the second.  On another timestep it might be 3
 of the first and 7 of the second.
 
 .. note::
@@ -277,7 +277,7 @@ Restrictions:
 
 Particles cannot be emitted from periodic faces of the simulation box.
 Particles cannot be emitted from *z* faces of the simluation box for a
-2d simulation.
+d simulation.
 
 A *n* setting of *Np* > 0 can only be used with a *perspecies* setting
 of *no*.

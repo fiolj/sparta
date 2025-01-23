@@ -21,19 +21,19 @@ Syntax:
 
    balance_grid style args ...
 
-- style = *none* or *stride* or *clump* or *block* or *random* or *proc* or *rcb* 
+- style = *none* or *stride* or *clump* or *block* or *random* or *proc* or *rcb*
 
 ::
 
-   *none* args = none
-   *stride* args = *xyz* or *xzy* or *yxz* or *yzx* or *zxy* or *zyx*
-   *clump* args = *xyz* or *xzy* or *yxz* or *yzx* or *zxy* or *zyx*
-   *block* args = Px Py Pz
-   Px,Py,Pz = # of processors in each dimension
-   *random* args = none 
-   *proc* args = none
-   *rcb* args = weight
-   weight = *cell* or *part* or *time*
+     *none* args = none
+     *stride* args = *xyz* or *xzy* or *yxz* or *yzx* or *zxy* or *zyx*
+     *clump* args = *xyz* or *xzy* or *yxz* or *yzx* or *zxy* or *zyx*
+     *block* args = Px Py Pz
+       Px,Py,Pz = # of processors in each dimension
+     *random* args = none 
+     *proc* args = none
+     *rcb* args = weight
+       weight = *cell* or *part* or *time*
 
 - zero or more keyword/value(s) pairs may be appended
 
@@ -41,9 +41,9 @@ Syntax:
 
 ::
 
-   *axes* value = dims
-   dims = string with any of "x", "y", or "z" characters in it
-   *flip* value = yes or no
+     *axes* value = dims
+       dims = string with any of "x", "y", or "z" characters in it
+     *flip* value = yes or no
 
 .. _balance-grid-examples:
 
@@ -106,7 +106,7 @@ child cells to each processor.
 
 .. important::
 
-  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
+  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.
 

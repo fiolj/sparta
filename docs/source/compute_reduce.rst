@@ -21,7 +21,7 @@ Syntax:
 
    compute ID reduce mode input1 input2 ... keyword args ...
 
-- ID is documented in :ref:`compute<compute>` command 
+- ID is documented in :ref:`compute<compute>` command
 
 - reduce = style name of this compute command
 
@@ -33,19 +33,19 @@ Syntax:
 
 ::
 
-   x,y,z,vx,vy,vz = particle position or velocity component
-   ke,erot,evib = particle energy component
-   c_ID = per-particle or per-grid vector calculated by a compute with ID
-   c_ID\[N\] = Nth column of per-particle or per-grid array calculated by a compute with ID, N can include wildcard (see below)
-   f_ID = per-particle or per-grid or per-surf vector calculated by a fix with ID
-   f_ID\[N\] = Nth column of per-particle or per-grid or per-surf array calculated by a fix with ID, N can include wildcard (see below)
-   v_name = per-particle or per-grid or per-surf vector calculated by a particle-style or grid-style or surf-style variable with name
-   p_name = custom per-particle vector with name
-   p_name\[N\] = Nth column of per-particle custom array with name, N can include wildcard (see below)
-   g_name = custom per-grid vector with name
-   g_name\[N\] = Nth column of per-grid custom array with name, N can include wildcard (see below)
-   s_name = custom per-surf vector with name
-   s_name\[N\] = Nth column of per-surf custom array with name, N can include wildcard (see below)
+     x,y,z,vx,vy,vz = particle position or velocity component
+     ke,erot,evib = particle energy component
+     c_ID = per-particle or per-grid vector calculated by a compute with ID
+     c_ID\[N\] = Nth column of per-particle or per-grid array calculated by a compute with ID, N can include wildcard (see below)
+     f_ID = per-particle or per-grid or per-surf vector calculated by a fix with ID
+     f_ID\[N\] = Nth column of per-particle or per-grid or per-surf array calculated by a fix with ID, N can include wildcard (see below)
+     v_name = per-particle or per-grid or per-surf vector calculated by a particle-style or grid-style or surf-style variable with name
+     p_name = custom per-particle vector with name
+     p_name\[N\] = Nth column of per-particle custom array with name, N can include wildcard (see below)
+     g_name = custom per-grid vector with name
+     g_name\[N\] = Nth column of per-grid custom array with name, N can include wildcard (see below)
+     s_name = custom per-surf vector with name
+     s_name\[N\] = Nth column of per-surf custom array with name, N can include wildcard (see below)
 
 - zero or more keyword/args pairs may be appended
 
@@ -53,11 +53,11 @@ Syntax:
 
 ::
 
-   *replace* args = vec1 vec2
-   vec1 = reduced value from this input vector will be replaced
-   vec2 = replace it with vec1\[N\] where N is index of max/min value from vec2
-   *subset* arg = subsetID
-   subsetID = mixture-ID or grid group-ID or surface group-ID
+     *replace* args = vec1 vec2
+       vec1 = reduced value from this input vector will be replaced
+       vec2 = replace it with vec1\[N\] where N is index of max/min value from vec2
+     *subset* arg = subsetID
+       subsetID = mixture-ID or grid group-ID or surface group-ID
 
 .. _compute-reduce-examples:
 
@@ -199,7 +199,7 @@ per grid cell, or per surface element.  They can be defined and
 initialized in data files, e.g. via the :ref:`read_surf<read-surf>`
 command.  Or they can be defined and used by specific commands,
 e.g. :ref:`fix ambipolar<fix-ambipolar>` or :ref:`fix surf/temp<fix-surf-temp>` or :ref:`surf_react adsorb<surf-react-adsorb>`.  The name of each attribute is set by
-the user or defined by the command.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
+the user or defined by the command.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
 attributes.
 
 If no bracketed integer is appended, the custom attribute must be a
@@ -285,7 +285,7 @@ This compute calculates a global scalar if a single input value is
 specified or a global vector of length N where N is the number of
 inputs, and which can be accessed by indices 1 to N.  These values can
 be used by any command that uses global scalar or vector values from a
-compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>` for an
+compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>` for an
 overview of SPARTA output options.
 
 The scalar or vector values will be in whatever :ref:`units<units>` the

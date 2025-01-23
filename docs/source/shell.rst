@@ -21,24 +21,24 @@ Syntax:
 
    shell cmd args
 
-- cmd = *cd* or *mkdir* or *mv* or *rm* or *rmdir* or *putenv* or arbitrary command 
+- cmd = *cd* or *mkdir* or *mv* or *rm* or *rmdir* or *putenv* or arbitrary command
 
 ::
 
-   *cd* arg = dir
-   dir = directory to change to
-   *mkdir* args = dir1 dir2 ...
-   dir1,dir2 = one or more directories to create
-   *mv* args = old new
-   old = old filename
-   new = new filename
-   *rm* args = file1 file2 ...
-   file1,file2 = one or more filenames to delete
-   *rmdir* args = dir1 dir2 ...
-   dir1,dir2 = one or more directories to delete
-   *putenv* args = var1=value1 var2=value2
-   var=value = one of more definitions of environment variables
-   anything else is passed as a command to the shell for direct execution
+     *cd* arg = dir
+       dir = directory to change to
+     *mkdir* args = dir1 dir2 ...
+       dir1,dir2 = one or more directories to create
+     *mv* args = old new
+       old = old filename
+       new = new filename
+     *rm* args = file1 file2 ...
+       file1,file2 = one or more filenames to delete
+     *rmdir* args = dir1 dir2 ...
+       dir1,dir2 = one or more directories to delete
+     *putenv* args = var1=value1 var2=value2
+       var=value = one of more definitions of environment variables
+     anything else is passed as a command to the shell for direct execution
 
 .. _shell-examples:
 

@@ -21,7 +21,7 @@ Syntax:
 
    mixture ID species1 species2 ... keyword args ...
 
-- ID = user-defined name of the mixture 
+- ID = user-defined name of the mixture
 
 - species1, species2, ... = zero or more species IDs to include in the mixture
 
@@ -31,25 +31,25 @@ Syntax:
 
 ::
 
-   *nrho* arg = density
-   density = number density of entire mixture (# per length^3 units)
-   *vstream* args = Vx Vy Vz
-   Vx,Vy,Vz = streaming velocity of entire mixture (velocity units)
-   *temp* arg = thermal
-   thermal = temperature of entire mixture (temperature units)
-   *trot* arg = Trot
-   Trot = rotational temperature of entire mixture (temperature units)
-   *tvib* arg = Tvib
-   Tvib = vibrational temperature of entire mixture (temperature units)
-   *frac* arg = fraction
-   fraction = number fraction for each listed species (0 to 1)
-   *group* arg = SELF or group-ID
-   SELF = put each listed species (or all species if none listed) in its own group
-   group-ID = put the listed species (or all species if none listed) in a group with this ID 
-   *copy* arg = new-ID
-   new-ID = ID of new mixture to create, as a copy of this one
-   *delete* args = sp1 sp2 ...
-   sp1,sp2,... = species to delete from the mixture
+     *nrho* arg = density
+       density = number density of entire mixture (# per length^3 units)
+     *vstream* args = Vx Vy Vz
+       Vx,Vy,Vz = streaming velocity of entire mixture (velocity units)
+     *temp* arg = thermal
+       thermal = temperature of entire mixture (temperature units)
+     *trot* arg = Trot
+       Trot = rotational temperature of entire mixture (temperature units)
+     *tvib* arg = Tvib
+       Tvib = vibrational temperature of entire mixture (temperature units)
+     *frac* arg = fraction
+       fraction = number fraction for each listed species (0 to 1)
+     *group* arg = SELF or group-ID
+       SELF = put each listed species (or all species if none listed) in its own group
+       group-ID = put the listed species (or all species if none listed) in a group with this ID 
+     *copy* arg = new-ID
+       new-ID = ID of new mixture to create, as a copy of this one
+     *delete* args = sp1 sp2 ...
+       sp1,sp2,... = species to delete from the mixture
 
 .. _mixture-examples:
 
@@ -198,7 +198,7 @@ that have no species assigned to them are deleted.  This includes the
 "default" group if it was implicitly created by a previous mixture
 command.
 
-- If no species are listed in the mixture command and the group ID is SELF, then every species already in the mixture is assigned to a group with its species ID as the group ID.  I.e. there will now be one species per group. 
+- If no species are listed in the mixture command and the group ID is SELF, then every species already in the mixture is assigned to a group with its species ID as the group ID.  I.e. there will now be one species per group.
 
 - If one or more species are listed and the group ID is SELF, then each listed species is assigned to a group with its species ID as the group ID.
 

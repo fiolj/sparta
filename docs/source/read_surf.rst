@@ -21,7 +21,7 @@ Syntax:
 
    read_surf filename keyword args ...
 
-- filename = name of surface file 
+- filename = name of surface file
 
 - zero or more keyword/args pairs may be appended
 
@@ -29,41 +29,40 @@ Syntax:
 
 ::
 
-.. note::
-
-  if the type or custom keywords are used, they must come first
+     *type* arg = none
+       If the type or custom keywords are used, they must come first
      *custom* args = name datatype Nc
-     name = name of custom per-surf vector or array
-     datatype = *int* or *float* = for integer or floating point values
-     Nc = 0 for a vector (single value), Nc >= 1 for an array (one or more values)
-     NOTE: if the type or custom keywords are used, they must come first
+       name = name of custom per-surf vector or array
+       datatype = *int* or *float* = for integer or floating point values
+       Nc = 0 for a vector (single value), Nc >= 1 for an array (one or more values)
+       If the type or custom keywords are used, they must come first
      *origin* args = Ox Oy Oz
-     Ox,Oy,Oz = set origin of surface to this point (distance units)
+       Ox,Oy,Oz = set origin of surface to this point (distance units)
      *trans* args = Dx Dy Dz
-     Dx,Dy,Dz = translate origin by this displacement (distance units)
+       Dx,Dy,Dz = translate origin by this displacement (distance units)
      *atrans* args = Ax Ay Az
-     Ax,Ax,Az = translate origin to this absolute point (distance units)
+       Ax,Ax,Az = translate origin to this absolute point (distance units)
      *ftrans* args = Fx Fy Fz
-     Fx,Fy,Fz = translate origin to this fractional point in simulation box
+       Fx,Fy,Fz = translate origin to this fractional point in simulation box
      *scale* args = Sx Sy Sz
-     Sx,Sy,Sz = scale surface by these factors around origin
+       Sx,Sy,Sz = scale surface by these factors around origin
      *rotate* args = theta Rx Ry Rz
-     theta = rotate surface by this angle in counter-clockwise direction (degrees)
-     Rx,Ry,Rz = rotate around vector starting at origin pointing in this direction
+       theta = rotate surface by this angle in counter-clockwise direction (degrees)
+       Rx,Ry,Rz = rotate around vector starting at origin pointing in this direction
      *transparent* args = none
      *invert* args = none
      *clip* args = none or fraction
-     fraction = push points close to the box boundary to the boundary (optional)
+       fraction = push points close to the box boundary to the boundary (optional)
      *group* arg = group-ID
-     group-ID = new or existing surface group to assign the surface elements to
+       group-ID = new or existing surface group to assign the surface elements to
      *typeadd* arg = Noffset
-     Noffset = add Noffset to the type value of each element
+       Noffset = add Noffset to the type value of each element
      *particle* args = *none* or *check* or *keep*
-     none = allow no particles in simulation when read surfs (default)
-     check = delete particles inside surfs or in cells intersected by surfs
-     keep = keep all particles
+       none = allow no particles in simulation when read surfs (default)
+       check = delete particles inside surfs or in cells intersected by surfs
+       keep = keep all particles
      *file* args = identical to those defined for the :ref:`write_surf<write-surf>` command
-     NOTE: if used, the file keyword must come last
+       If used, the file keyword must come last
 
 .. _read-surf-examples:
 
@@ -93,7 +92,7 @@ surface(s) of one or more physical objects which will be embedded in
 the global simulation box.  Surfaces can be explicit or implicit.
 This command reads explicit surfaces from a file containing a list of
 explicit surfaces.  See the :ref:`read_isurf<read-isurf>` command to
-read implicit surfaces from a different kind of file.  See the :ref:`Howto 6.13<howto-surface-elements:-explicit,-implicit,>` section of the manual for an
+read implicit surfaces from a different kind of file.  See the :ref:`Howto 6.13<howto-613-surface-elements:-explicit,>` section of the manual for an
 explantion of explicit versus implicit surfaces as well as distributed
 versus non-distributed storage.  You cannot mix explicit and implicit
 surfaces in the same simulation.
@@ -197,10 +196,10 @@ These are the recognized header keywords.  Header lines can come in
 any order.  The value(s) are read from the beginning of the line.
 Thus the keyword *points* should be in a line like "1000 points".
 
-*files* = # of files in set (only for base file, see below)
-*points* = # of points in surface (optional, see below)
-*lines* = # of line segments in surface (only allowed for 2d)
-*triangles* = # of triangles in surface (only allowed for 3d)
+   - *files* = # of files in set (only for base file, see below)
+   - *points* = # of points in surface (optional, see below)
+   - *lines* = # of line segments in surface (only allowed for 2d)
+   - *triangles* = # of triangles in surface (only allowed for 3d)
 
 The *files* keyword only appears in the "base" file for a set of
 multiple files indicated by the "%" character in the filename.  It
@@ -219,7 +218,7 @@ entire set.
 
 These are the recognized section keywords for the body of the file.
 
-*Points, Lines, Triangles*
+   - *Points, Lines, Triangles*
 
 The *Points* section consists of N consecutive entries, where N = # of
 points, each of this form:
@@ -469,7 +468,7 @@ transparent, meaning particles pass through them.  This is useful for
 tallying flow statistics.  The :ref:`surf_collide transparent<surf-collide>` command must also be used to assign a
 transparent collision model to those the surface elements.  The
 :ref:`compute surf<compute-surf>` command will tally fluxes differently
-for transparent surf elements.  The :ref:`Section 6.15<howto-transparen-surface-elements>` doc page provides an overview of
+for transparent surf elements.  The :ref:`Section 6.15<howto-615-transparen-surface-elements>` doc page provides an overview of
 transparent surfaces.  See those doc pages for details.
 
 The *invert* keyword does not change the origin or any vertex

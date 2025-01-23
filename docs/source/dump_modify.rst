@@ -21,7 +21,7 @@ Syntax:
 
    dump_modify dump-ID keyword values ...
 
-- dump-ID = ID of dump to modify 
+- dump-ID = ID of dump to modify
 
 - one or more keyword/value pairs may be appended
 
@@ -31,27 +31,27 @@ Syntax:
 
 ::
 
-   *append* arg = *yes* or *no*
-   *buffer* arg = *yes* or *no*
-   *every* arg = N
-   N = dump every this many timesteps
-   N can be a variable (see below)
-   *fileper* arg = Np
-   Np = write one file for every this many processors
-   *first* arg = *yes* or *no*
-   *flush* arg = *yes* or *no*
-   *format* args = *line* string, *int* string, *float* string, M string, or *none*
-   string = C-style format string
-   M = integer from 1 to N, where N = # of per-atom quantities being output
-   *nfile* arg = Nf
-   Nf = write this many files, one from each of Nf processors
-   *pad* arg = Nchar = # of characters to convert timestep to
-   *region* arg = region-ID or "none"
-   *thresh* args = attribute operation value
-   attribute = same attributes (x,fy,etotal,sxx,etc) used by dump custom style
-   operation = "<" or "<=" or ">" or ">=" or "==" or "!="
-   value = numeric value to compare to
-   these 3 args can be replaced by the word "none" to turn off thresholding
+     *append* arg = *yes* or *no*
+     *buffer* arg = *yes* or *no*
+     *every* arg = N
+       N = dump every this many timesteps
+       N can be a variable (see below)
+     *fileper* arg = Np
+       Np = write one file for every this many processors
+     *first* arg = *yes* or *no*
+     *flush* arg = *yes* or *no*
+     *format* args = *line* string, *int* string, *float* string, M string, or *none*
+       string = C-style format string
+       M = integer from 1 to N, where N = # of per-atom quantities being output
+     *nfile* arg = Nf
+       Nf = write this many files, one from each of Nf processors
+     *pad* arg = Nchar = # of characters to convert timestep to
+     *region* arg = region-ID or "none"
+     *thresh* args = attribute operation value
+       attribute = same attributes (x,fy,etotal,sxx,etc) used by dump custom style
+       operation = "<" or "<=" or ">" or ">=" or "==" or "!="
+       value = numeric value to compare to
+       these 3 args can be replaced by the word "none" to turn off thresholding
 
 - these keywords apply only to the (image} and *movie* :ref:`styles<dump-image>`
 
@@ -59,54 +59,54 @@ Syntax:
 
 ::
 
-   *backcolor* arg = color
-   color = name of color for background
-   *bitrate* arg = rate
-   rate = target bitrate for movie in kbps
-   *boxcolor* arg = color
-   color = name of color for box lines
-   *cmap* args = mode lo hi style delta N entry1 entry2 ... entryN
-   mode = *particle* or *grid* or *surf* or *gridx* or *gridy* or *gridz*
-   lo = number or *min* = lower bound of range of color map
-   hi = number or *max* = upper bound of range of color map
-   style = 2 letters = "c" or "d" or "s" plus "a" or "f"
-   "c" for continuous
-   "d" for discrete
-   "s" for sequential
-   "a" for absolute
-   "f" for fractional
-   delta = binsize (only used for style "s", otherwise ignored)
-   binsize = range is divided into bins of this width
-   N = # of subsequent entries
-   entry = value color (for continuous style)
-   value = number or *min* or *max* = single value within range
-   color = name of color used for that value
-   entry = lo hi color (for discrete style)
-   lo/hi = number or *min* or *max* = lower/upper bound of subset of range
-   color = name of color used for that subset of values
-   entry = color (for sequential style)
-   color = name of color used for a bin of values
-   *color* args = name R G B
-   name = name of color
-   R,G,B = red/green/blue numeric values from 0.0 to 1.0
-   *framerate* arg = fps
-   fps = frames per second for movie
-   *gcolor* args = proc color
-   proc = proc ID or range of IDs (see below)
-   color = name of color or color1/color2/...
-   *glinecolor* arg = color
-   color = name of color for grid cell outlines
-   *pcolor* args = type color
-   type = particle type or range of types or proc ID or range of IDs (see below)
-   color = name of color or color1/color2/...
-   *pdiam* args = type diam
-   type = particle type or range of types (see below)
-   diam = diameter of particles of that type (distance units)
-   *scolor* args = proc color
-   proc = proc ID or range of IDs (see below)
-   color = name of color for surf one option
-   *slinecolor* arg = color
-   color = name of color for surface element outlines
+     *backcolor* arg = color
+       color = name of color for background
+     *bitrate* arg = rate
+       rate = target bitrate for movie in kbps
+     *boxcolor* arg = color
+       color = name of color for box lines
+     *cmap* args = mode lo hi style delta N entry1 entry2 ... entryN
+       mode = *particle* or *grid* or *surf* or *gridx* or *gridy* or *gridz*
+       lo = number or *min* = lower bound of range of color map
+       hi = number or *max* = upper bound of range of color map
+       style = 2 letters = "c" or "d" or "s" plus "a" or "f"
+         "c" for continuous
+         "d" for discrete
+         "s" for sequential
+         "a" for absolute
+         "f" for fractional
+       delta = binsize (only used for style "s", otherwise ignored)
+         binsize = range is divided into bins of this width
+       N = # of subsequent entries
+       entry = value color (for continuous style)
+         value = number or *min* or *max* = single value within range
+         color = name of color used for that value
+       entry = lo hi color (for discrete style)
+         lo/hi = number or *min* or *max* = lower/upper bound of subset of range
+         color = name of color used for that subset of values
+       entry = color (for sequential style)
+         color = name of color used for a bin of values
+     *color* args = name R G B
+       name = name of color
+       R,G,B = red/green/blue numeric values from 0.0 to 1.0
+     *framerate* arg = fps
+       fps = frames per second for movie
+     *gcolor* args = proc color
+       proc = proc ID or range of IDs (see below)
+       color = name of color or color1/color2/...
+     *glinecolor* arg = color
+       color = name of color for grid cell outlines
+     *pcolor* args = type color
+       type = particle type or range of types or proc ID or range of IDs (see below)
+       color = name of color or color1/color2/...
+     *pdiam* args = type diam
+       type = particle type or range of types (see below)
+       diam = diameter of particles of that type (distance units)
+     *scolor* args = proc color
+       proc = proc ID or range of IDs (see below)
+       color = name of color for surf one option
+     *slinecolor* arg = color
+       color = name of color for surface element outlines
 
 .. _dump-modify-examples:
 
@@ -364,7 +364,7 @@ number 0.75 would be used since 5.0 is 3/4 of the way from -10.0 to
 The *delta* setting is only specified if the style is sequential.  It
 specifies the bin size to use within the range for assigning
 consecutive colors to.  For example, if the range is from -10.0 to
-and a *delta* of 1.0 is used, then 20 colors will be assigned to
+10.0 and a *delta* of 1.0 is used, then 20 colors will be assigned to
 the range.  The first will be from -10.0 <= color1 < -9.0, then 2nd
 from -9.0 <= color2 < -8.0, etc.
 
@@ -469,7 +469,7 @@ conjunction with the *type* argument to specify a range of particle
 types.  This takes the form "\*" or "\*n" or "n\*" or "m\*n".  If N = the
 number of particle types, then an asterisk with no numeric values
 means all types from 1 to N.  A leading asterisk means all types from
-to n (inclusive).  A trailing asterisk means all types from n to N
+1 to n (inclusive).  A trailing asterisk means all types from n to N
 (inclusive).  A middle asterisk means all types from m to n
 (inclusive).
 
@@ -552,27 +552,27 @@ Default:
 
 The option defaults are
 
-append = no
-buffer = yes for all dump styles except *image* and *movie*
-backcolor = black
-boxcolor = yellow
-cmap = mode min max cf 0.0 2 min blue max red, for all modes
-color = 140 color names are pre-defined as listed below
-every = whatever it was set to via the :ref:`dump<dump>` command
-fileper = # of processors
-first = no
-flush = yes
-format = %d and %g for each integer or floating point value
-gcolor = \* red/green/blue/yellow/aqua/cyan
-glinecolor = white
-nfile = 1
-pad = 0
-pcolor = \* red/green/blue/yellow/aqua/cyan
-pdiam = \* 1.0
-region = none
-scolor = \* gray
-slinecolor = white
-thresh = none
+   - append = no
+   - buffer = yes for all dump styles except *image* and *movie*
+   - backcolor = black
+   - boxcolor = yellow
+   - cmap = mode min max cf 0.0 2 min blue max red, for all modes
+   - color = 140 color names are pre-defined as listed below
+   - every = whatever it was set to via the :ref:`dump<dump>` command
+   - fileper = # of processors
+   - first = no
+   - flush = yes
+   - format = %d and %g for each integer or floating point value
+   - gcolor = \* red/green/blue/yellow/aqua/cyan
+   - glinecolor = white
+   - nfile = 1
+   - pad = 0
+   - pcolor = \* red/green/blue/yellow/aqua/cyan
+   - pdiam = \* 1.0
+   - region = none
+   - scolor = \* gray
+   - slinecolor = white
+   - thresh = none
 
 These are the 140 colors that SPARTA pre-defines for use with the
 :ref:`dump image<dump-image>` and dump_modify commands.  Additional

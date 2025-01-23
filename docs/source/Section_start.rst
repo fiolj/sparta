@@ -1,13 +1,22 @@
 
 
-.. _start-getting-started:
+.. _start-2-getting-started:
 
-###############
-Getting Started
-###############
+##################
+2. Getting Started
+##################
 
 This section describes how to build and run SPARTA, for both new and
 experienced users.
+
+2.1 :ref:`What's in the SPARTA distribution<start-what's-sparta-distributi>`
+2.2 :ref:`Making SPARTA<start-making-sparta>`
+2.3 :ref:`Making SPARTA with optional packages<start-making-sparta-optional-packages>`
+2.4 :ref:`Building SPARTA as a library<start-building-sparta-library>`
+2.5 :ref:`Testing SPARTA<start-25-testing-sparta>`
+2.6 :ref:`Running SPARTA<start-running-sparta>`
+2.7 :ref:`Command-line options<start-commandlin-options>`
+2.8 :ref:`Screen output<start-sparta-screen-output>`
 
 .. _start-what's-sparta-distributi:
 
@@ -166,16 +175,16 @@ then you should list them as part of the LIB variable.
 The SPA_INC variable is used to include options that turn on ifdefs
 within the SPARTA code.  The options that are currently recognized are:
 
--DSPARTA_GZIP
--DSPARTA_JPEG
--DSPARTA_PNG
--DSPARTA_FFMPEG
--DSPARTA_MAP
--DSPARTA_UNORDERED_MAP
--DSPARTA_SMALL
--DSPARTA_BIG
--DSPARTA_BIGBIG
--DSPARTA_LONGLONG_TO_LONG
+   - -DSPARTA_GZIP
+   - -DSPARTA_JPEG
+   - -DSPARTA_PNG
+   - -DSPARTA_FFMPEG
+   - -DSPARTA_MAP
+   - -DSPARTA_UNORDERED_MAP
+   - -DSPARTA_SMALL
+   - -DSPARTA_BIG
+   - -DSPARTA_BIGBIG
+   - -DSPARTA_LONGLONG_TO_LONG
 
 The read_data and dump commands will read/write gzipped files if you
 compile with -DSPARTA_GZIP.  It requires that your Linux support the
@@ -210,7 +219,7 @@ src/spatype.h.  The only reason to use the BIGBIG setting is if you
 have a regular grid with more than ~2 billion grid cells or a
 hierarchical grid with enough levels that grid cell IDs cannot fit in
 a 32-bit integer.  In either case, SPARTA will generate an error
-message for "Cell ID has too many bits".  See :ref:`Section 4.8<howto-details-grid-geometry-sparta>` of the manual for details on how cell
+message for "Cell ID has too many bits".  See :ref:`Section 4.8<howto-68-details-grid-geometry>` of the manual for details on how cell
 IDs are formatted.  The only reason to use the SMALL setting is if
 your machine does not support 64-bit integers.
 
@@ -228,7 +237,7 @@ will use that data type.
 Using one of the -DFFT_PACK_ARRAY, -DFFT_PACK_POINTER, and -DFFT_PACK_MEMCPY
 options can make for faster parallel FFTs on some platforms.  The
 -DFFT_PACK_ARRAY setting is the default.  See the :ref:`compute fft/grid<compute-fft-grid>` command for info about FFTs.  See Step
-below for info about building SPARTA with an FFT library.
+6 below for info about building SPARTA with an FFT library.
 
 **Step 5**
 
@@ -494,16 +503,16 @@ script and escaping newlines. For example:
 The SPARTA_DEFAULT_CXX_COMPILE_FLAGS option is typically used to include options
 that turn on ifdefs within the SPARTA code.  The options that are currently recogized are:
 
--DSPARTA_GZIP
--DSPARTA_JPEG
--DSPARTA_PNG
--DSPARTA_FFMPEG
--DSPARTA_MAP
--DSPARTA_UNORDERED_MAP
--DSPARTA_SMALL
--DSPARTA_BIG
--DSPARTA_BIGBIG
--DSPARTA_LONGLONG_TO_LONG
+   - -DSPARTA_GZIP
+   - -DSPARTA_JPEG
+   - -DSPARTA_PNG
+   - -DSPARTA_FFMPEG
+   - -DSPARTA_MAP
+   - -DSPARTA_UNORDERED_MAP
+   - -DSPARTA_SMALL
+   - -DSPARTA_BIG
+   - -DSPARTA_BIGBIG
+   - -DSPARTA_LONGLONG_TO_LONG
 
 The read_data and dump commands will read/write gzipped files if you
 compile with -DSPARTA_GZIP.  It requires that your Linux support the
@@ -538,7 +547,7 @@ src/spatype.h.  The only reason to use the BIGBIG setting is if you
 have a regular grid with more than ~2 billion grid cells or a
 hierarchical grid with enough levels that grid cell IDs cannot fit in
 a 32-bit integer.  In either case, SPARTA will generate an error
-message for "Cell ID has too many bits".  See :ref:`Section 4.8<howto-details-grid-geometry-sparta>` of the manual for details on how cell
+message for "Cell ID has too many bits".  See :ref:`Section 4.8<howto-68-details-grid-geometry>` of the manual for details on how cell
 IDs are formatted.  The only reason to use the SMALL setting is if
 your machine does not support 64-bit integers.
 
@@ -556,7 +565,7 @@ will use that data type.
 Using one of the -DPACK_ARRAY, -DPACK_POINTER, and -DPACK_MEMCPY
 options can make for faster parallel FFTs on some platforms.  The
 -DPACK_ARRAY setting is the default.  See the :ref:`compute fft/grid<compute-fft-grid>` command for info about FFTs.  See STEP
-below for info about building SPARTA with an FFT library.
+7 below for info about building SPARTA with an FFT library.
 
 **Step 5**
 
@@ -1045,7 +1054,7 @@ Building SPARTA as a library
 
 SPARTA can be built as either a static or shared library, which can
 then be called from another application or a scripting language.  See
-:ref:`Section 6.7<howto-coupling-sparta-other-codes>` for more info on coupling
+:ref:`Section 6.7<howto-67-coupling-sparta-other>` for more info on coupling
 SPARTA to other codes.  See :ref:`Section 11<python>` for more
 info on wrapping and running SPARTA from Python.
 
@@ -1189,21 +1198,21 @@ When used from a C or Fortran program or a scripting language like
 Python, the library has a simple function-style interface, provided in
 src/library.cpp and src/library.h.
 
-See :ref:`Section_howto 4.7<howto-coupling-sparta-other-codes>` of the manual for
+See :ref:`Section_howto 4.7<howto-67-coupling-sparta-other>` of the manual for
 ideas on how to couple SPARTA to other codes via its library
 interface.  See :ref:`Section_python<python>` of the manual for
 a description of the Python wrapper provided with SPARTA that operates
 through the SPARTA library interface.
 
 The files src/library.cpp and library.h define the C-style API for
-using SPARTA as a library.  See :ref:`Section_howto 4.6<howto-library-interface-sparta>` of the manual for a description of the
+using SPARTA as a library.  See :ref:`Section_howto 6<howto-66-library-interface-sparta>` of the manual for a description of the
 interface and how to extend it for your needs.
 
-.. _start-testing-sparta:
+.. _start-25-testing-sparta:
 
-**************
-Testing SPARTA
-**************
+******************
+2.5 Testing SPARTA
+******************
 
 SPARTA can be tested by using the CMake build system.
 
@@ -1341,11 +1350,13 @@ number of processors it was run on.
 Here is how you might run one of the benchmarks on a
 Linux box, using mpirun to launch a parallel job:
 
-cd src
-make g++
-cp spa_g++ ../bench
-cd ../bench
-mpirun -np 4 spa_g++ < in.free
+::
+
+   cd src
+   make g++
+   cp spa_g++ ../bench
+   cd ../bench
+   mpirun -np 4 spa_g++ < in.free
 
 or:
 
@@ -1355,7 +1366,7 @@ or:
    cmake -DCMAKE_CXX_COMPILER=g++ -DSPARTA_MACHINE=g++ /path/to/sparta/cmake
    cp src/spa_g++ /path/to/bench
    cd /path/to/bench
-   mpirun -np 4 spa_g++ < in.free
+   mpirun -np 4 spa_g++ < in.free :pre
 
 See `this page <https://sparta.github.io/bench.html>`__ for timings for this and the other benchmarks on
 various platforms.
@@ -1399,18 +1410,18 @@ At run time, SPARTA recognizes several optional command-line switches
 which may be used in any order.  Either the full word or a one-or-two
 letter abbreviation can be used:
 
--e or -echo
--i or -in
--h or -help
--k or -kokkos
--l or -log
--p or -partition
--pk or -package
--pl or -plog
--ps or -pscreen
--sc or -screen
--sf or -suffix
--v or -var
+   - -e or -echo
+   - -i or -in
+   - -h or -help
+   - -k or -kokkos
+   - -l or -log
+   - -p or -partition
+   - -pk or -package
+   - -pl or -plog
+   - -ps or -pscreen
+   - -sc or -screen
+   - -sf or -suffix
+   - -v or -var
 
 For example, spa_g++ might be launched as follows:
 
@@ -1475,10 +1486,10 @@ for testing or benchmarking purposes.
   default setting.  Example of when to use these options and what
   settings to use on different platforms is given in :ref:`Section   5.3<accelerate-kokkos-package>`.
 
-d or device
-g or gpus
-t or threads
-n or numa
+   - d or device
+   - g or gpus
+   - t or threads
+   - n or numa
 
 ::
 
@@ -1559,7 +1570,7 @@ Option -plog will override the name of the partition log files file.N.
   physical processors.
 
 To run multiple independent simulatoins from one input script, using
-multiple partitions, see :ref:`Section 6.3<howto-running-multiple-simulation-one>` of
+multiple partitions, see :ref:`Section 6.3<howto-63-running-multiple-simulation>` of
 the manual.  World- and universe-style variables are useful in this
 context.
 
@@ -1744,16 +1755,16 @@ Loop time of 0.639973 on 4 procs for 1000 steps with 45792 particles
    Gas-reactions/particle/step: 0.023
 
 Gas reaction tallies:
-style tce #-of-reactions 45
-reaction O2 + N --> O + O + N: 10
-reaction O2 + O --> O + O + O: 5
-reaction N2 + O --> N + N + O: 8
+  style tce #-of-reactions 45
+  reaction O2 + N --> O + O + N: 10
+  reaction O2 + O --> O + O + O: 5
+  reaction N2 + O --> N + N + O: 8
 
 Surface reaction tallies:
-id 1 style global #-of-reactions 2
-reaction all: 124025
-reaction delete: 53525
-reaction create: 70500
+  id 1 style global #-of-reactions 2
+    reaction all: 124025
+    reaction delete: 53525
+    reaction create: 70500
 
 ::
 
@@ -1774,7 +1785,7 @@ The first line gives the total CPU run time for the simulation, in
 seconds.
 
 The next section gives a breakdown of the CPU timing (in seconds) in
-categories.  The first four are timings for particles moves, which
+7 categories.  The first four are timings for particles moves, which
 includes interaction with surface elements, then particle collisions,
 then sorting of particles (required to perform collisions), and
 communication of particles between processors.  The Modify section is

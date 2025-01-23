@@ -21,7 +21,7 @@ Syntax:
 
    group ID which style args
 
-- ID = user-defined name of the grid or surface group 
+- ID = user-defined name of the grid or surface group
 
 - which = *grid* or *surf*
 
@@ -31,26 +31,26 @@ Syntax:
 
 ::
 
-   *type* or *id* args
-   args = list of one or more surface element types or IDs
-   any entry in list can be a range formatted as A:B
-   A = starting index, B = ending index
-   args = logical value
-   logical = "<" or "<=" or ">" or ">=" or "==" or "!="
-   value = a surface element type or ID
-   args = logical value1 value2
-   logical = "<>"
-   value1,value2 = surface element types or IDs
-   *region* args = region-ID rflag
-   region-ID = ID of region which grid cell or surface element must be in
-   rflag = *one* or *all* or *center*
-   *one* = one (or more) corner points of grid cell or surface element in region
-   *all* = all corner points of grid cell or surface element in region
-   *center* = center point of grid cell or surface element in region
-   *subtract* args = two or more group IDs
-   *union* args = one or more group IDs
-   *intersect* args = two or more group IDs
-   *clear* = no args
+     *type* or *id* args
+       args = list of one or more surface element types or IDs
+         any entry in list can be a range formatted as A:B
+         A = starting index, B = ending index
+       args = logical value
+         logical = "<" or "<=" or ">" or ">=" or "==" or "!="
+         value = a surface element type or ID
+       args = logical value1 value2
+         logical = "<>"
+         value1,value2 = surface element types or IDs
+     *region* args = region-ID rflag
+       region-ID = ID of region which grid cell or surface element must be in
+       rflag = *one* or *all* or *center*
+         *one* = one (or more) corner points of grid cell or surface element in region
+         *all* = all corner points of grid cell or surface element in region
+         *center* = center point of grid cell or surface element in region
+     *subtract* args = two or more group IDs
+     *union* args = one or more group IDs
+     *intersect* args = two or more group IDs
+     *clear* = no args
 
 .. _group-examples:
 
@@ -109,7 +109,7 @@ that you can check if the command operated as you expect.
 
   that this command assigns all flavors of child grid cells to
   groups, which includes unsplit, cut, split, and sub cells.  See
-  :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the manual gives details
+  :ref:`Section 6.8<howto-68-details-grid-geometry>` of the manual gives details
   of how SPARTA defines child, unsplit, split, and sub cells.
 
 The following styles can be used for grid groups.
@@ -148,11 +148,11 @@ increase monotonically each time new surface elements are added.
 
 The first format is a list of values (types or IDs).  For example, the
 first command in the examples above puts all surface elements of type
-and 3 into the group named sphere.  Each entry in the list can
+1 and 3 into the group named sphere.  Each entry in the list can
 optionally be a colon-separated range A:B, as in the second axample
 above.  A "range" is a series of values (types or IDs).  The second
 example with 100:150 adds all surface elements with IDs from 100 to
-(inclusive) to the group named sphere, along with element 50 since
+150 (inclusive) to the group named sphere, along with element 50 since
 it also appears in the list of values.
 
 The second format is a logical operator followed by one or two values
@@ -181,7 +181,7 @@ The following styles can be used for either grid or surface groups.
 
 The *subtract* style takes a list of two or more existing group names
 as arguments.  All grid cells or surface elements that belong to the
-1st group, but not to any of the other groups are added to the
+st group, but not to any of the other groups are added to the
 specified group.
 
 The *union* style takes a list of one or more existing group names as

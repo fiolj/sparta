@@ -21,7 +21,7 @@ Syntax:
 
    fix ID ave/time Nevery Nrepeat Nfreq value1 value2 ... keyword args ...
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - ave/time = style name of this fix command
 
@@ -37,11 +37,11 @@ Syntax:
 
 ::
 
-   c_ID = global scalar or vector or array calculated by a compute with ID
-   c_ID\[I\] = Ith component of global vector or Ith column of global array calculated by a compute with ID, I can include wildcard (see below)
-   f_ID = global scalar or vector or array calculated by a fix with ID
-   f_ID\[I\] = Ith component of global vector or Ith column of global array calculated by a fix with ID, I can include wildcard (see below)
-   v_name = global value calculated by an equal-style variable with name
+     c_ID = global scalar or vector or array calculated by a compute with ID
+     c_ID\[I\] = Ith component of global vector or Ith column of global array calculated by a compute with ID, I can include wildcard (see below)
+     f_ID = global scalar or vector or array calculated by a fix with ID
+     f_ID\[I\] = Ith component of global vector or Ith column of global array calculated by a fix with ID, I can include wildcard (see below)
+     v_name = global value calculated by an equal-style variable with name
 
 - zero or more keyword/arg pairs may be appended
 
@@ -49,25 +49,25 @@ Syntax:
 
 ::
 
-   *mode* arg = *scalar* or *vector*
-   scalar = all input values are global scalars
-   vector = all input values are global vectors or global arrays
-   *ave* args = *one* or *running* or *window M*
-   one = output a new average value every Nfreq steps
-   running = output cummulative average of all previous Nfreq steps
-   window M = output average of M most recent Nfreq steps
-   *start* args = Nstart
-   Nstart = start averaging on this timestep
-   *off* arg = M = do not average this value
-   M = value # from 1 to Nvalues
-   *file* arg = filename
-   filename = name of file to output time averages to
-   *title1* arg = string
-   string = text to print as 1st line of output file
-   *title2* arg = string
-   string = text to print as 2nd line of output file
-   *title3* arg = string
-   string = text to print as 3rd line of output file, only for vector mode
+     *mode* arg = *scalar* or *vector*
+       scalar = all input values are global scalars
+       vector = all input values are global vectors or global arrays
+     *ave* args = *one* or *running* or *window M*
+       one = output a new average value every Nfreq steps
+       running = output cummulative average of all previous Nfreq steps
+       window M = output average of M most recent Nfreq steps
+     *start* args = Nstart
+       Nstart = start averaging on this timestep
+     *off* arg = M = do not average this value
+       M = value # from 1 to Nvalues
+     *file* arg = filename
+       filename = name of file to output time averages to
+     *title1* arg = string
+       string = text to print as 1st line of output file
+     *title2* arg = string
+       string = text to print as 2nd line of output file
+     *title3* arg = string
+       string = text to print as 3rd line of output file, only for vector mode
 
 .. _fix-ave-time-examples:
 
@@ -79,7 +79,7 @@ Examples:
 
    fix 1 ave/time 100 5 1000 c_myTemp c_thermo_temp file temp.profile
    fix 1 ave/time 100 5 1000 c_myCount\[2\] c_myCount\[3\] ave window 20 &
-   title1 "My output values"
+                                 title1 "My output values"
    fix 1 ave/time 100 5 1000 c_myCount\[\*\] ave window 20
    fix 1 ave/time 1 100 1000 f_indent f_indent\[1\] file temp.indent off 1
 
@@ -138,7 +138,7 @@ the vector or number of rows in the array.
 
 Using a wildcard is the same as if the individual elements of the
 vector or columns of the array had been listed one by one.  E.g. these
-fix ave/time commands are equivalent, since the :ref:`compute count<compute-count>` command creates, in this case, a global
+2 fix ave/time commands are equivalent, since the :ref:`compute count<compute-count>` command creates, in this case, a global
 vector with 3 values.
 
 ::

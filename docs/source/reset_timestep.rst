@@ -21,7 +21,7 @@ Syntax:
 
    reset_timestep N
 
-N = timestep number
+   - N = timestep number
 
 .. _reset-timestep-examples:
 

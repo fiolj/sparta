@@ -21,9 +21,9 @@ Syntax:
 
    log file keyword
 
-file = name of new logfile
+   - file = name of new logfile
 
-keyword = *append* if output should be appended to logfile (optional)
+   - keyword = *append* if output should be appended to logfile (optional)
 
 .. _log-examples:
 

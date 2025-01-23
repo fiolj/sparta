@@ -21,61 +21,61 @@ Syntax:
 
    stats_style arg1 arg2 ...
 
-- arg1,arg2,... = list of keywords 
+- arg1,arg2,... = list of keywords
 
 ::
 
-   possible keywords = step, elapsed, elaplong, dt, time, cpu, tpcpu, spcpu,
-   wall, np, npave, ntouch, ntouchave, ncomm, ncommave,
-   nbound, nboundave, nexit, nexitave,
+     possible keywords = step, elapsed, elaplong, dt, time, cpu, tpcpu, spcpu,
+                         wall, np, npave, ntouch, ntouchave, ncomm, ncommave,
+                         nbound, nboundave, nexit, nexitave,
    		      nscoll, nscollave, nscheck, nscheckave,
-   ncoll, ncollave, nattempt, nattemptave,
-   nreact, nreactave, nsreact, nsreactave,
-   ngrid, nsplit, maxlevel,
+                         ncoll, ncollave, nattempt, nattemptave,
+                         nreact, nreactave, nsreact, nsreactave,
+                         ngrid, nsplit, maxlevel,
    		      vol, lx, ly, lz,
    		      xlo, xhi, ylo, yhi, zlo, zhi,
    		      c_ID, c_ID\[I\], c_ID\[I\]\[J\],
-   f_ID, f_ID\[I\], f_ID\[I\]\[J\],
+                         f_ID, f_ID\[I\], f_ID\[I\]\[J\],
    		      sc_ID\[I\], sr_ID\[I\],
-   v_name
+                         v_name
 
 ::
 
-   step = timestep
-   elapsed = timesteps since start of this run
-   elaplong = timesteps since start of initial run in a series of runs
-   dt = timestep size
-   time = simulation time
-   cpu = elapsed CPU time in seconds within a run
-   tpcpu = time per CPU second
-   spcpu = timesteps per CPU second
-   wall = wallclock time in seconds
-   np,npave = # of particles (this step, per-step)
-   ntouch,ntouchave = # of cell touches by particles (this step, per-step)
-   ncomm,ncommave = # of particles communicated (this step, per-step)
-   nbound,nboundave = # of boundary collisions (this step, per-step)
-   nexit,nexitave = # of boundary exits (this step, per-step)
-   nscoll,nscollave = # of surface collisions (this step, per-step)
-   nscheck,nscheckave = # of surface checks (this step, per-step)
-   ncoll,ncollave = # of particle/particle collisions (this step, per-step)
-   nattempt,nattemptave = # of attempted collisions (this step, per-step)
-   nreact,nreactave = # of chemical reactions (this step, per-step)
-   nsreact,nsreactave = # of chemical reactions on surfs and boundaries (this step, per-step)
-   ngrid = # of grid cells (including split cells)
-   nsplit = # of split cells
-   maxlevel = # of refinement levels in current grid
-   vol = volume of simulation box
-   lx,ly,lz = simulation box lengths
-   xlo,xhi,ylo,yhi,zlo,zhi = box boundaries
-   c_ID = global scalar value calculated by a compute with ID
-   c_ID\[I\] = Ith component of global vector calculated by a compute with ID, I can include wildcard (see below)
-   c_ID\[I\]\[J\] = I,J component of global array calculated by a compute with ID
-   f_ID = global scalar value calculated by a fix with ID
-   f_ID\[I\] = Ith component of global vector calculated by a fix with ID, I can include wildcard (see below)
-   f_ID\[I\]\[J\] = I,J component of global array calculated by a fix with ID
-   sc_ID\[I\] = Ith component of global vector calculated by a surface collision model with ID
-   sr_ID\[I\] = Ith component of global vector calculated by a surface reaction model with ID
-   v_name = scalar value calculated by an equal-style variable with name
+         step = timestep
+         elapsed = timesteps since start of this run
+         elaplong = timesteps since start of initial run in a series of runs
+         dt = timestep size
+         time = simulation time
+         cpu = elapsed CPU time in seconds within a run
+         tpcpu = time per CPU second
+         spcpu = timesteps per CPU second
+         wall = wallclock time in seconds
+         np,npave = # of particles (this step, per-step)
+         ntouch,ntouchave = # of cell touches by particles (this step, per-step)
+         ncomm,ncommave = # of particles communicated (this step, per-step)
+         nbound,nboundave = # of boundary collisions (this step, per-step)
+         nexit,nexitave = # of boundary exits (this step, per-step)
+         nscoll,nscollave = # of surface collisions (this step, per-step)
+         nscheck,nscheckave = # of surface checks (this step, per-step)
+         ncoll,ncollave = # of particle/particle collisions (this step, per-step)
+         nattempt,nattemptave = # of attempted collisions (this step, per-step)
+         nreact,nreactave = # of chemical reactions (this step, per-step)
+         nsreact,nsreactave = # of chemical reactions on surfs and boundaries (this step, per-step)
+         ngrid = # of grid cells (including split cells)
+         nsplit = # of split cells
+         maxlevel = # of refinement levels in current grid
+         vol = volume of simulation box
+         lx,ly,lz = simulation box lengths
+         xlo,xhi,ylo,yhi,zlo,zhi = box boundaries
+         c_ID = global scalar value calculated by a compute with ID
+         c_ID\[I\] = Ith component of global vector calculated by a compute with ID, I can include wildcard (see below)
+         c_ID\[I\]\[J\] = I,J component of global array calculated by a compute with ID
+         f_ID = global scalar value calculated by a fix with ID
+         f_ID\[I\] = Ith component of global vector calculated by a fix with ID, I can include wildcard (see below)
+         f_ID\[I\]\[J\] = I,J component of global array calculated by a fix with ID
+         sc_ID\[I\] = Ith component of global vector calculated by a surface collision model with ID
+         sr_ID\[I\] = Ith component of global vector calculated by a surface reaction model with ID
+         v_name = scalar value calculated by an equal-style variable with name
 
 .. _stats-style-examples:
 
@@ -186,7 +186,7 @@ command.
 
 The *ngrid* keyword is the number of grid cells which includes both
 unsplit and split cells.  The *nsplit* keyword is the number of split
-cells.  See :ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a
+cells.  See :ref:`Section howto 4.8<howto-68-details-grid-geometry>` for a
 description of the hierarchical grid used by SPARTA and a definition
 of these kinds of grid cells.
 
@@ -223,7 +223,7 @@ creates a global vector with 6 values.
    compute myCount reduce max x y z vx vy vz
    stats_style step np c_myCount\[\*\]
    stats_style step np c_myCount\[1\] c_myCount\[2\] c_myCount\[3\] &
-   c_myCount\[4\] c_myCount\[5\] c_myCount\[6\]
+                       c_myCount\[4\] c_myCount\[5\] c_myCount\[6\]
 
 For the following keywords, the ID in the keyword should be replaced
 by the actual ID of a surface collision model, surface reaction model,

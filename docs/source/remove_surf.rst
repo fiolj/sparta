@@ -21,7 +21,7 @@ Syntax:
 
    remove_surf surfID
 
-surfID = group ID for which surface elements to remove
+   - surfID = group ID for which surface elements to remove
 
 .. _remove-surf-examples:
 

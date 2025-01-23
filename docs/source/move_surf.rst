@@ -21,19 +21,19 @@ Syntax:
 
    move_surf groupID style args ... keyword value ...
 
-- group-ID = group ID for which surface elements to move 
+- group-ID = group ID for which surface elements to move
 
 - style = *file* or *trans* or *rotate*
 
 ::
 
-   *file* args = filename entry
-   *trans* args = Dx Dy Dz
-   Dx,Dy,Dz = displacement applied to all surface points (distance units)
-   *rotate* args = theta Rx Ry Rz Ox Oy Oz 
-   theta = rotate surface points by this angle in counter-clockwise direction (degrees)
-   Rx,Ry,Rz = rotate around vector starting at origin pointing in this direction
-   Ox,Oy,Oz = origin to rotate around (distance units)
+     *file* args = filename entry
+     *trans* args = Dx Dy Dz
+       Dx,Dy,Dz = displacement applied to all surface points (distance units)
+     *rotate* args = theta Rx Ry Rz Ox Oy Oz 
+       theta = rotate surface points by this angle in counter-clockwise direction (degrees)
+       Rx,Ry,Rz = rotate around vector starting at origin pointing in this direction
+       Ox,Oy,Oz = origin to rotate around (distance units)
 
 - zero  or more keyword/value pairs may be appended
 
@@ -41,7 +41,7 @@ Syntax:
 
 ::
 
-   connect arg = yes or no
+     connect arg = yes or no
 
 .. _move-surf-examples:
 
@@ -112,8 +112,8 @@ rotation can be represented by an appropriate choice of (Ox,Oy,Oz),
 After the surface has been moved, then all particles in grid cells
 that meet either of these criteria are deleted:
 
-the grid cell is now inside a surface
-the grid cell overlaps with a surface element that moved
+   - the grid cell is now inside a surface
+   - the grid cell overlaps with a surface element that moved
 
 This is to prevent particles from ending up inside surface objects.
 

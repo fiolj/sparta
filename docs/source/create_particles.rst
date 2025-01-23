@@ -27,18 +27,18 @@ Syntax:
 
    create_particles mix-ID style args keyword value ...
 
-- mix-ID = ID of mixture to use when creating particles 
+- mix-ID = ID of mixture to use when creating particles
 
 - style = *n* or *single*
 
 ::
 
-   *n* args = Np
-   Np = 0 or number of particles to create
-   *single* args = species-ID x y z vx vy vz
-   species-ID = ID of species of single particle
-   x,y,z = position of particle (distance units)
-   vx,vy,vz = velocity of particle (velocity units)
+     *n* args = Np
+       Np = 0 or number of particles to create
+     *single* args = species-ID x y z vx vy vz
+       species-ID = ID of species of single particle
+       x,y,z = position of particle (distance units)
+       vx,vy,vz = velocity of particle (velocity units)
 
 - zero or more keyword/value pairs may be appended
 
@@ -46,22 +46,22 @@ Syntax:
 
 ::
 
-   *cut* value = *yes* or *no*
-   *global* value = *yes* or *no*
-   *region* value = region-ID
-   *species* values = svar xvar yvar zvar
-   svar = name of equal-style variable for species
-   xvar,yvar,zvar = names of internal-style variables for x,y,z
-   *density* values = dvar xvar yvar zvar
-   svar = name of equal-style variable for density
-   xvar,yvar,zvar = names of internal-style variables for x,y,z
-   *temperature* values = tvar xvar yvar zvar
-   svar = name of equal-style variable for temperature
-   xvar,yvar,zvar = names of internal-style variables for x,y,z
-   *velocity* values = vxvar vyvar vzvar xvar yvar zvar
-   vxvar,vyvar,vzvar = names of equal-style variables for vx,vy,vz
-   xvar,yvar,zvar = names of internal-style variables for x,y,z
-   *twopass* values = none
+     *cut* value = *yes* or *no*
+     *global* value = *yes* or *no*
+     *region* value = region-ID
+     *species* values = svar xvar yvar zvar
+       svar = name of equal-style variable for species
+       xvar,yvar,zvar = names of internal-style variables for x,y,z
+     *density* values = dvar xvar yvar zvar
+       svar = name of equal-style variable for density
+       xvar,yvar,zvar = names of internal-style variables for x,y,z
+     *temperature* values = tvar xvar yvar zvar
+       svar = name of equal-style variable for temperature
+       xvar,yvar,zvar = names of internal-style variables for x,y,z
+     *velocity* values = vxvar vyvar vzvar xvar yvar zvar
+       vxvar,vyvar,vzvar = names of equal-style variables for vx,vy,vz
+       xvar,yvar,zvar = names of internal-style variables for x,y,z
+     *twopass* values = none
 
 .. _create-particles-examples:
 

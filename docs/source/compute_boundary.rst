@@ -25,7 +25,7 @@ Syntax:
 
    compute ID boundary/kk mix-ID value1 value2 ...
 
-- ID is documented in :ref:`compute<compute>` command 
+- ID is documented in :ref:`compute<compute>` command
 
 - boundary = style name of this compute command
 
@@ -37,16 +37,16 @@ Syntax:
 
 ::
 
-   n = count of particles hitting boundary
-   nwt = weighted count of particles hitting boundary
-   nflux = flux of particles on boundary
-   mflux = flux of mass on boundary
-   press = magnitude of normal pressure on boundary
-   shx,shy,shz = components of shear stress on boundary
-   ke = flux of particle kinetic energy on boundary 
-   erot = flux of particle rotational energy on boundary 
-   evib = flux of particle vibrational energy on boundary 
-   etot = flux of particle total energy on boundary
+     n = count of particles hitting boundary
+     nwt = weighted count of particles hitting boundary
+     nflux = flux of particles on boundary
+     mflux = flux of mass on boundary
+     press = magnitude of normal pressure on boundary
+     shx,shy,shz = components of shear stress on boundary
+     ke = flux of particle kinetic energy on boundary 
+     erot = flux of particle rotational energy on boundary 
+     evib = flux of particle vibrational energy on boundary 
+     etot = flux of particle total energy on boundary
 
 .. _compute-boundary-examples:
 
@@ -262,7 +262,7 @@ rows is 4 for a 2d simulation for the 4 faces (xlo, xhi, ylo, yhi),
 and it is 6 for a 3d simulation (xlo, xhi, ylo, yhi, zlo, zhi).
 
 The array can be accessed by any command that uses global array values
-from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
+from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
 for an overview of SPARTA output options.
 
 The array values will be in the :ref:`units<units>` appropriate to the

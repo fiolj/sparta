@@ -21,9 +21,9 @@ Syntax:
 
    partition style N command ...
 
-style = *yes* or *no*
-N = partition number (see asterisk form below)
-command = any SPARTA command
+   - style = *yes* or *no*
+   - N = partition number (see asterisk form below)
+   - command = any SPARTA command
 
 .. _partition-examples:
 

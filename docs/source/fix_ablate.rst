@@ -21,7 +21,7 @@ Syntax:
 
    fix ID ablate group-ID Nevery scale source maxrandom keyword value ...
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - ablate = style name of this fix command
 
@@ -35,11 +35,11 @@ Syntax:
 
 ::
 
-   computeID = c_ID or c_ID\[n\] for a compute that calculates per grid cell values
-   fixID = f_ID or f_ID\[n\] for a fix that calculates per grid cell values
-   v_name = per-grid vector calculated by a grid-style variable with name
-   uniform = perform a uniform decrement
-   random = perform a random decrement
+     computeID = c_ID or c_ID\[n\] for a compute that calculates per grid cell values
+     fixID = f_ID or f_ID\[n\] for a fix that calculates per grid cell values
+     v_name = per-grid vector calculated by a grid-style variable with name
+     uniform = perform a uniform decrement
+     random = perform a random decrement
 
 - maxrandom = maximum per grid cell decrement as an integer (only specified if source = random or uniform)
 
@@ -49,9 +49,9 @@ Syntax:
 
 ::
 
-   *mindist* value = fraction
-   fraction = minimum fractional distance along cell edge for triangle/line vertices (value > 0 and < 0.5)
-   *multiple* value = yes or no
+     *mindist* value = fraction
+       fraction = minimum fractional distance along cell edge for triangle/line vertices (value > 0 and < 0.5)
+     *multiple* value = yes or no
 
 .. _fix-ablate-examples:
 
@@ -253,7 +253,7 @@ cell edge length.  I.e. if the grid cell size is 2.0 and *fraction* is
 
 The specified *fraction* value must be a number >= 0.0 and < 0.5.  If
 the value is less than 1.0e-4, then it is treated as if the value were
-(the default), and the epsilon method described above is used.
+0.0 (the default), and the epsilon method described above is used.
 
 For values of fraction >= 1.0e-4, the "isosurface stuffing" method
 proposed by Labelle and Shewchuk :ref:`(Labelle07)<Labelle07>` is used.
@@ -317,7 +317,7 @@ This fix computes a global scalar and a global vector of length 2.
 The global scalar is the current sum of unique corner point values
 across the entire grid (not counting duplicate values).  This sum
 assumes that corner point values are 0.0 on the boundary of the 2d or
-3d array of grid cells containing implicit surface elements.
+d array of grid cells containing implicit surface elements.
 
 The 2 vector values are the (1) sum of decrement values for each grid
 cell in the most recent ablation operation, and (2) the # of particles
@@ -327,7 +327,7 @@ A non-zero value indicates a corner case in the marching cubes or
 marching squares algorithm the developers still need to address.
 
 These values can be accessed by any command that uses global values
-from a fix as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>` for
+from a fix as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>` for
 an overview of SPARTA output options.
 
 The scalar and vector values are unitless.

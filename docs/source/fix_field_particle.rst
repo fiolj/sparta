@@ -21,9 +21,9 @@ Syntax:
 
    fix ID field/particle axvar ayvar azvar
 
-ID is documented in :ref:`fix<fix>` command
-field/particle = style name of this fix command
-axvar,ayvar,azvar = names of particle-style variables for acceleration components
+   - ID is documented in :ref:`fix<fix>` command
+   - field/particle = style name of this fix command
+   - axvar,ayvar,azvar = names of particle-style variables for acceleration components
 
 .. _fix-field-particle-examples:
 

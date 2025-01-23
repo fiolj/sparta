@@ -1,29 +1,44 @@
 
 .. _howto:
 
-.. _howto-discussion:
+.. _howto-6-discussion:
 
-##################
-How-to discussions
-##################
+#####################
+6. How-to discussions
+#####################
 
 The following sections describe how to perform common tasks using
 SPARTA, as well as provide some techinical details about how
 SPARTA works.
 
-.. contents::
-   :depth: 1
-   :local:
+6.1 :ref:`2d simulations<howto-61-2d-simulation>`
+6.2 :ref:`Axisymmetric simulations<howto-62-axisymmetr-simulation>`
+6.3 :ref:`Running multiple simulations from one input script<howto-63-running-multiple-simulation>`
+6.4 :ref:`Output from SPARTA (stats, dumps, computes, fixes, variables)<howto-64-output-sparta-(stats,>`
+6.5 :ref:`Visualizing SPARTA snapshots<howto-65-visualizin-sparta-snapshots>`
+6.6 :ref:`Library interface to SPARTA<howto-66-library-interface-sparta>`
+6.7 :ref:`Coupling SPARTA to other codes<howto-67-coupling-sparta-other>` 
+6.8 :ref:`Details of grid geometry in SPARTA<howto-68-details-grid-geometry>`
+6.9 :ref:`Details of surfaces in SPARTA<howto-69-details-surfaces-sparta>`
+6.10 :ref:`Restarting a simulation<howto-610-restarting-simulation>`
+6.11 :ref:`Using the ambipolar approximation<howto-611-ambipolar-approximat>`
+6.12 :ref:`Using multiple vibrational energy levels<howto-612-multiple-vibrationa-energy>`
+6.13 :ref:`Surface elements: explicit, implicit, distributed<howto-613-surface-elements:-explicit,>`
+6.14 :ref:`Implicit surface ablation<howto-614-implicit-surface-ablation>`
+6.15 :ref:`Transparent surface elements<howto-615-transparen-surface-elements>`
+6.16 :ref:`Visualizing SPARTA output with ParaView<howto-616-visualizin-sparta-output>`
+6.17 :ref:`Custom per-particle, per-grid, per-surf attributes<howto-617-custom-perparticl-pergrid,>`
+6.18 :ref:`Variable timestep simulations<howto-618-variable-timestep-simulation>`
 
 The example input scripts included in the SPARTA distribution and
 highlighted in :ref:`Section 5<example>` of the manual also
 show how to setup and run various kinds of simulations.
 
-.. _howto-2d-simulation:
+.. _howto-61-2d-simulation:
 
-**************
-2d simulations
-**************
+******************
+6.1 2d simulations
+******************
 
 In SPARTA, as in other DSMC codes, a 2d simulation means that
 particles move only in the xy plane, but still have all 3 xyz
@@ -33,7 +48,7 @@ components are used to compute collision parameters, temperatures,
 etc.  Here are the steps to take in an input script to setup a 2d
 model.
 
-- Use the :ref:`dimension<dimension>` command to specify a 2d simulation. 
+- Use the :ref:`dimension<dimension>` command to specify a 2d simulation.
 
 - Make the simulation box periodic in z via the :ref:`boundary<boundary>` command.  This is the default.
 
@@ -44,21 +59,21 @@ model.
 Many of the example input scripts included in the SPARTA distribution
 are for 2d models.
 
-.. _howto-axisymmetr-simulation:
+.. _howto-62-axisymmetr-simulation:
 
-************************
-Axisymmetric simulations
-************************
+****************************
+6.2 Axisymmetric simulations
+****************************
 
 In SPARTA, an axi-symmetric model is a 2d model.  An example input
 script is provided in the examples/axisymm directory.
 
 An axi-symmetric problem can be setup using the following commands:
 
-Set dimension = 2 via the :ref:`dimension<dimension>` command.
-Set the y-dimension lower boundary to "a" via the :ref:`boundary<boundary>` command.
-The y-dimension upper boundary can be anything except "a" or "p" for periodic.
-Use the :ref:`create_box<create-box>` command to define a 2d simulation box with ylo = 0.0.
+   - Set dimension = 2 via the :ref:`dimension<dimension>` command.
+   - Set the y-dimension lower boundary to "a" via the :ref:`boundary<boundary>` command.
+   - The y-dimension upper boundary can be anything except "a" or "p" for periodic.
+   - Use the :ref:`create_box<create-box>` command to define a 2d simulation box with ylo = 0.0.
 
 If desired, grid cell weighting can be enabled via the :ref:`global weight<global>` command.  The *volume* or *radial* setting can be
 used for axi-symmetric models.
@@ -73,11 +88,11 @@ created when using the :ref:`create_particles<create-particles>` and
   axi-symmetric grid cell is the volume its 2d area sweeps out when
   rotated around the y=0 axis of symmetry.
 
-.. _howto-running-multiple-simulation-one:
+.. _howto-63-running-multiple-simulation:
 
-**************************************************
-Running multiple simulations from one input script
-**************************************************
+******************************************************
+6.3 Running multiple simulations from one input script
+******************************************************
 
 This can be done in several ways.  See the documentation for
 individual commands for more details on how these examples work.
@@ -170,15 +185,15 @@ Initially, 3 simulations would be started simultaneously, one on each
 partition.  When one finished, that partition would then start the 4th
 simulation, and so forth, until all 8 were completed.
 
-.. _howto-output-sparta-(stats,-dumps,:
+.. _howto-64-output-sparta-(stats,:
 
-*************************************************************
-Output from SPARTA (stats, dumps, computes, fixes, variables)
-*************************************************************
+*****************************************************************
+6.4 Output from SPARTA (stats, dumps, computes, fixes, variables)
+*****************************************************************
 
 There are four basic kinds of SPARTA output:
 
-- :ref:`Statistical output<stats-style>`, which is a list of quantities printed every few timesteps to the screen and logfile. 
+- :ref:`Statistical output<stats-style>`, which is a list of quantities printed every few timesteps to the screen and logfile.
 
 - :ref:`Dump files<dump>`, which contain snapshots of particle, grid cell, or surface element quantities and are written at a specified frequency.
 
@@ -201,16 +216,16 @@ can then be output with these commands.
 The following sub-sections discuss different SPARTA commands related
 to output and the kind of data they operate on and produce:
 
-:ref:`Global/per-particle/per-grid/per-surf data<howto-global-perparticl-pergrid-persurf>`
-:ref:`Scalar/vector/array data<howto-scalar-vector-array-data>`
-:ref:`Statistical output<howto-statistica-output>`
-:ref:`Dump file output<howto-dump-file-output>`
-:ref:`Fixes that write output files<howto-fixes-write-output-files>`
-:ref:`Computes that process output quantities<howto-computes-process-output-quantities>`
-:ref:`Computes that generate values to output<howto-computes-generate-values-output>`
-:ref:`Fixes that generate values to output<howto-fixes-generate-values-output>`
-:ref:`Variables that generate values to output<howto-variables-generate-values-output>`
-:ref:`Summary table of output options and data flow between commands<howto-summary-table-output-options>`
+   - :ref:`Global/per-particle/per-grid/per-surf data<howto-global-perparticl-pergrid-persurf>`
+   - :ref:`Scalar/vector/array data<howto-scalar-vector-array-data>`
+   - :ref:`Statistical output<howto-statistica-output>`
+   - :ref:`Dump file output<howto-dump-file-output>`
+   - :ref:`Fixes that write output files<howto-fixes-write-output-files>`
+   - :ref:`Computes that process output quantities<howto-computes-process-output-quantities>`
+   - :ref:`Computes that generate values to output<howto-computes-generate-values-output>`
+   - :ref:`Fixes that generate values to output<howto-fixes-generate-values-output>`
+   - :ref:`Variables that generate values to output<howto-variables-generate-values-output>`
+   - :ref:`Summary table of output options and data flow between commands<howto-summary-table-output-options>`
 
 .. _howto-global-perparticl-pergrid-persurf:
 
@@ -470,11 +485,11 @@ vector input could be a column of an array.
      -  per surf vector/array
      -
 
-.. _howto-visualizin-sparta-snapshots:
+.. _howto-65-visualizin-sparta-snapshots:
 
-****************************
-Visualizing SPARTA snapshots
-****************************
+********************************
+6.5 Visualizing SPARTA snapshots
+********************************
 
 The :ref:`dump image<dump-image>` command can be used to do on-the-fly
 visualization as a simulation proceeds.  It works by creating a series
@@ -504,15 +519,15 @@ snapshots.
 Additional Pizza.py tools may be added that allow visualization of
 surface and grid cell information as output by SPARTA.
 
-.. _howto-library-interface-sparta:
+.. _howto-66-library-interface-sparta:
 
-***************************
-Library interface to SPARTA
-***************************
+*******************************
+6.6 Library interface to SPARTA
+*******************************
 
 As described in :ref:`Section 2.4<start-building-sparta-library>`, SPARTA can
 be built as a library, so that it can be called by another code, used
-in a :ref:`coupled manner<howto-coupling-sparta-other-codes>` with other codes, or
+in a :ref:`coupled manner<howto-67-coupling-sparta-other>` with other codes, or
 driven through a :ref:`Python interface<python>`.
 
 .. note::
@@ -588,11 +603,11 @@ back into SPARTA.
   The examples/COUPLE dir has not been added to the
   distribution yet.
 
-.. _howto-coupling-sparta-other-codes:
+.. _howto-67-coupling-sparta-other:
 
-******************************
-Coupling SPARTA to other codes
-******************************
+**********************************
+6.7 Coupling SPARTA to other codes
+**********************************
 
 SPARTA is designed to allow it to be coupled to other codes.  For
 example, a continuum finite element (FE) simulation might use SPARTA
@@ -659,7 +674,7 @@ Python wrapper provided with SPARTA that operates through the SPARTA
 library interface.
 
 The files src/library.cpp and library.h contain the C-style interface
-to SPARTA.  See :ref:`Section 6.6<howto-library-interface-sparta>` of the manual for a description
+to SPARTA.  See :ref:`Section 6.6<howto-66-library-interface-sparta>` of the manual for a description
 of the interface and how to extend it for your needs.
 
 .. note::
@@ -675,11 +690,11 @@ of the interface and how to extend it for your needs.
   before syncing them up periodically.  Or it might instantiate multiple
   instances of SPARTA to perform different calculations.
 
-.. _howto-details-grid-geometry-sparta:
+.. _howto-68-details-grid-geometry:
 
-**********************************
-Details of grid geometry in SPARTA
-**********************************
+**************************************
+6.8 Details of grid geometry in SPARTA
+**************************************
 
 SPARTA overlays a grid over the simulation domain which is used to
 track particles and to co-locate particles in the same grid cell for
@@ -737,13 +752,13 @@ refer to the cells of the hierarchical grid.  The flow region is the
 portion of the simulation domain that is "outside" any surface objects
 and is typically filled with particles.
 
-root cell = the overall simulation box
-parent cell = a grid cell that is sub-divided (the root cell is a parent cell)
-child cell = a grid cell that is not sub-divided further
-unsplit cell = a child cell not intersected by any surface elements
-cut cell = a child cell intersected by one or more surface elements, resulting in a single flow region
-split cell = a child cell intersected by two or more surface elements, resulting in two or more disjoint flow regions
-sub cell = one disjoint flow region portion of a split cell
+   - root cell = the overall simulation box
+   - parent cell = a grid cell that is sub-divided (the root cell is a parent cell)
+   - child cell = a grid cell that is not sub-divided further
+   - unsplit cell = a child cell not intersected by any surface elements
+   - cut cell = a child cell intersected by one or more surface elements, resulting in a single flow region
+   - split cell = a child cell intersected by two or more surface elements, resulting in two or more disjoint flow regions
+   - sub cell = one disjoint flow region portion of a split cell
 
 .. note::
 
@@ -795,7 +810,7 @@ integer ID are encoded with 376.  This is because it requires 11 bits
 to represent 2000 cells (1 to 2000) at level 1.  The next 4 bits are
 encoded with 4, because it requires 4 bits to represent 8 cells (1 to
 8) at level 2.  Thus the level 2 cell ID in integer format is 4\*2048 +
-= 8568.  In string format it would be 376-4, with dashes
+376 = 8568.  In string format it would be 376-4, with dashes
 separating each of the levels.  Either of these formats (integer or
 string) can be specified as id or idstr for output of grid cell info
 with the :ref:`dump grid<dump-grid>` command; see its doc page for more
@@ -855,11 +870,11 @@ with the overhead of increased particle communication.  This is
 because randomly assigning grid cells to processors can balance the
 computational load in a statistical sense.
 
-.. _howto-details-surfaces-sparta:
+.. _howto-69-details-surfaces-sparta:
 
-*****************************
-Details of surfaces in SPARTA
-*****************************
+*********************************
+6.9 Details of surfaces in SPARTA
+*********************************
 
 A SPARTA simulation can define one or more surface objects, each of
 which are read in via the :ref:`read_surf<read-surf>`.  For 2d
@@ -875,7 +890,7 @@ shaped region which particles are inside of.
 See the :ref:`read_surf<read-surf>` doc page for a discussion of these
 topics:
 
-- Requirement that a surface object be "watertight", so that particles do not enter inside the surface or escape it if used as an outer boundary. 
+- Requirement that a surface object be "watertight", so that particles do not enter inside the surface or escape it if used as an outer boundary.
 
 - Surface objects (one per file) that contain more than one physical object, e.g. two or more spheres in a single file.
 
@@ -908,11 +923,11 @@ larger may cause particle moves to become expensive, since each time a
 particle moves within that grid cell, possible collisions with all its
 overlapping surface elements must be computed.
 
-.. _howto-restarting-simulation:
+.. _howto-610-restarting-simulation:
 
-***********************
-Restarting a simulation
-***********************
+****************************
+6.10 Restarting a simulation
+****************************
 
 There are two ways to continue a long SPARTA simulation.  Multiple
 :ref:`run<run>` commands can be used in the same input script.  Each
@@ -982,11 +997,11 @@ affects all the randomized operations in a simulation, so in general
 you should only expect a restarted run to be statistically similar to
 the original run.
 
-.. _howto-ambipolar-approximat:
+.. _howto-611-ambipolar-approximat:
 
-*********************************
-Using the ambipolar approximation
-*********************************
+**************************************
+6.11 Using the ambipolar approximation
+**************************************
 
 The ambipolar approximation is a computationally efficient way to
 model low-density plasmas which contain positively-charged ions and
@@ -1118,11 +1133,11 @@ of their associated ambipolar electrons.
 The :ref:`fix ambipolar<howto-fixes-generate-values-output>` ambiploar.html doc page explains how to
 restart ambipolar simulations where the fix is used.
 
-.. _howto-multiple-vibrationa-energy-levels:
+.. _howto-612-multiple-vibrationa-energy:
 
-****************************************
-Using multiple vibrational energy levels
-****************************************
+*********************************************
+6.12 Using multiple vibrational energy levels
+*********************************************
 
 DSMC models for collisions between one or more polyatomic species can
 include the effect of multiple discrete vibrational levels, where a
@@ -1133,10 +1148,10 @@ particle species.
 This kind of model can be enabled in SPARTA using the following
 commands:
 
-:ref:`species ... vibfile ...<species>`
-:ref:`collide_modify vibrate discrete<collide-modify>`
-:ref:`fix vibmode<fix-vibmode>`
-:ref:`dump particle p_vibmode<dump>`
+   - :ref:`species ... vibfile ...<species>`
+   - :ref:`collide_modify vibrate discrete<collide-modify>`
+   - :ref:`fix vibmode<fix-vibmode>`
+   - :ref:`dump particle p_vibmode<dump>`
 
 The :ref:`species<species>` command with its *vibfile* option allows a
 separate file with per-species vibrational information to be read.
@@ -1180,11 +1195,11 @@ The :ref:`read_restart<read-restart>` doc page explains how to restart
 simulations where a fix like :ref:`fix vibmode<fix-vibmode>` has been
 used to store extra per-particle properties.
 
-.. _howto-surface-elements:-explicit,-implicit,:
+.. _howto-613-surface-elements:-explicit,:
 
-*************************************************
-Surface elements: explicit, implicit, distributed
-*************************************************
+******************************************************
+6.13 Surface elements: explicit, implicit, distributed
+******************************************************
 
 SPARTA can work with two kinds of surface elements: explicit and
 implicit.  Explicit surfaces are lines (2d) or triangles (3d) defined
@@ -1223,45 +1238,45 @@ For large data sets, the read and write surf and isurf commands have
 options to use multiple files and/or operate in parallel which can
 reduce I/O times.
 
-:ref:`adapt_grid<adapt-grid>`
-:ref:`compute_isurf/grid<compute-isurf-grid>`    # for implicit surfs
-:ref:`compute_surf<compute-surf>`                # for explicit surfs
-:ref:`dump surf<dump>`
-:ref:`dump image<dump-image>`
-:ref:`fix adapt/grid<fix-adapt>`
-:ref:`fix emit/surf<fix-emit-surf>`
-:ref:`group surf<group>`
-:ref:`read_isurf<read-isurf>`                    # for implicit surfs
-:ref:`read_surf<read-surf>`                      # for explicit surfs
-:ref:`surf_modify<surf-modify>` 
-:ref:`write_isurf<write-surf>`                   # for implicit surfs
-:ref:`write_surf<write-surf>`
+   - :ref:`adapt_grid<adapt-grid>`
+   - :ref:`compute_isurf/grid<compute-isurf-grid>`    # for implicit surfs
+   - :ref:`compute_surf<compute-surf>`                # for explicit surfs
+   - :ref:`dump surf<dump>`
+   - :ref:`dump image<dump-image>`
+   - :ref:`fix adapt/grid<fix-adapt>`
+   - :ref:`fix emit/surf<fix-emit-surf>`
+   - :ref:`group surf<group>`
+   - :ref:`read_isurf<read-isurf>`                    # for implicit surfs
+   - :ref:`read_surf<read-surf>`                      # for explicit surfs
+   - :ref:`surf_modify<surf-modify>` 
+   - :ref:`write_isurf<write-surf>`                   # for implicit surfs
+   - :ref:`write_surf<write-surf>`
 
 These command do not yet support distributed surfaces:
 
-:ref:`move_surf<move-surf>`
-:ref:`fix move/surf<fix-move-surf>`
-:ref:`remove_surf<remove-surf>`
+   - :ref:`move_surf<move-surf>`
+   - :ref:`fix move/surf<fix-move-surf>`
+   - :ref:`remove_surf<remove-surf>`
 
-.. _howto-implicit-surface-ablation:
+.. _howto-614-implicit-surface-ablation:
 
-*************************
-Implicit surface ablation
-*************************
+******************************
+6.14 Implicit surface ablation
+******************************
 
 The implicit surfaces described in the previous section can be used to
 perform ablation simulations, where the set of implicit surface
 elements evolve over time to model a receding surface.  These are the
 relevant commands:
 
-:ref:`global surfs implicit<global>`
-:ref:`read isurf<read-isurf>`
-:ref:`fix ablate<fix-ablate>`
-:ref:`compute isurf/grid<compute-isurf-grid>`
-:ref:`compute react/isurf/grid<compute-react-isurf-grid>`
-:ref:`fix ave/grid<fix-ave-grid>`
-:ref:`write isurf<write-isurf>` 
-:ref:`write_surf<write-surf>`
+   - :ref:`global surfs implicit<global>`
+   - :ref:`read isurf<read-isurf>`
+   - :ref:`fix ablate<fix-ablate>`
+   - :ref:`compute isurf/grid<compute-isurf-grid>`
+   - :ref:`compute react/isurf/grid<compute-react-isurf-grid>`
+   - :ref:`fix ave/grid<fix-ave-grid>`
+   - :ref:`write isurf<write-isurf>` 
+   - :ref:`write_surf<write-surf>`
 
 The :ref:`read_isurf<read-isurf>` command takes a binary file as an
 argument which contains a pixelated (2d) or voxelated (3d)
@@ -1318,11 +1333,11 @@ Squares or Marching Cubes algorithm.
   as ParaView which can read SPARTA surface element files after suitable
   post-processing.  See the `Section tools   paraview <http://www.paraview.org>`__ doc page for more details.
 
-.. _howto-transparen-surface-elements:
+.. _howto-615-transparen-surface-elements:
 
-****************************
-Transparent surface elements
-****************************
+*********************************
+6.15 Transparent surface elements
+*********************************
 
 Transparent surfaces are useful for tallying flow statistics.
 Particles pass through them unaffected.  However the flux of particles
@@ -1353,9 +1368,9 @@ there may be some corner cases we haven't thought about or tested.
 
 These are the relevant commands.  See their doc pages for details:
 
-:ref:`read_surf transparent<read-surf>`
-:ref:`surf_collide transparent<surf-collide>`
-:ref:`compute surf<compute-surf>`
+   - :ref:`read_surf transparent<read-surf>`
+   - :ref:`surf_collide transparent<surf-collide>`
+   - :ref:`compute surf<compute-surf>`
 
 The :ref:`read_surf<read-surf>` command with its *transparent* keyword
 is used to flag all the read-in surface elements as transparent.  This
@@ -1371,7 +1386,7 @@ count, mass flux, and energy flux of particles that pass through
 transparent surface elements.  These quantities can then be time
 averaged via the :ref:`fix ave/surf<fix-ave-surf>` command or output
 via the :ref:`dump surf<dump>` command in the usual ways,
-as described in :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`.
+as described in :ref:`Section 6.4<howto-64-output-sparta-(stats,>`.
 
 The examples/circle/in.circle.transparent script shows how to use
 these commands when modeling flow around a 2d circle.  Two additional
@@ -1383,11 +1398,11 @@ files.  The resulting tallies are output with the
 with a :ref:`dump surf<dump>` command for more resolution if the 2
 lines were each defined as multiple line segments.
 
-.. _howto-visualizin-sparta-output-paraview:
+.. _howto-616-visualizin-sparta-output:
 
-***************************************
-Visualizing SPARTA output with ParaView
-***************************************
+********************************************
+6.16 Visualizing SPARTA output with ParaView
+********************************************
 
 The *sparta/tools/paraview* directory contains two Python programs
 that can be used to convert SPARTA surface and grid data to ParaView
@@ -1425,19 +1440,19 @@ Download and install ParaView at `Kitware ParaView <https://www.paraview.org>`__
 Binary installers are available for Linux, MacOS, and Windows.
 Locate the *pvpython* binary in your ParaView installation.
 
-On Linux:
+  On Linux:
 
 ::
 
    pvpython is in the bin/ directory of the extracted tar.gz file
 
-On MacOS:
+  On MacOS:
 
 ::
 
    pvpython is in /Applications/paraview.app/Contents/bin/
 
-On Windows:
+  On Windows:
 
 ::
 
@@ -1494,7 +1509,7 @@ of the path and can be given for multiple paths.
 
 ::
 
-   Filters->Alphabetical->Delaunay 2D
+     Filters->Alphabetical->Delaunay 2D
 
 This will triangulate the interior of the polygon and obscure interior
 grid cells from view.
@@ -1565,11 +1580,11 @@ following grid description:
 
 ::
 
-   dimension           3
-   create_box          -15.0 30.0 -20.0 15.0 -20.0 20.0
-   create_grid         100 100 100 level 2 \* \* \* 2 2 2
-   slice               1 0 0 0.0 0.0 0.0
-   slice               0 1 0 0.0 0.0 0.0
+     dimension           3
+     create_box          -15.0 30.0 -20.0 15.0 -20.0 20.0
+     create_grid         100 100 100 level 2 \* \* \* 2 2 2
+     slice               1 0 0 0.0 0.0 0.0
+     slice               0 1 0 0.0 0.0 0.0
 
 The second argument for the *grid2paraview* command gives the name of
 the resulting *.pvd* file.  The above command line will produce a file
@@ -1739,11 +1754,11 @@ rank. The programs are decoupled in this way to allow faster
 *grid2paraview_cells.py* runs once a set of sorted files has been
 generated by *sort_sparta_grid_file.py*.
 
-.. _howto-custom-perparticl-pergrid,-persurf:
+.. _howto-617-custom-perparticl-pergrid,:
 
-**************************************************
-Custom per-particle, per-grid, per-surf attributes
-**************************************************
+*******************************************************
+6.17 Custom per-particle, per-grid, per-surf attributes
+*******************************************************
 
 Particles, grid cells, and surface elements can have custom attributes
 which store either single or multiple values per particle, per grid
@@ -1764,41 +1779,41 @@ attributes in various ways:
 Per-particle custom attributes:
 ===============================
 
-:ref:`compute reduce<compute-reduce>` - reduce a per-particle attribute to a scalar value
-:ref:`custom<custom>` - set the values of a per-particle attribute and optionally create it
-:ref:`dump particle<dump>` - output per-particle attributes to a dump file
-:ref:`fix ambipolar<fix-ambipolar>` - use a per-particle vector and array for ambipolar quantities
-:ref:`variable<variable>` - use a per-particle attribute in a particle-style variable formula
+   - :ref:`compute reduce<compute-reduce>` - reduce a per-particle attribute to a scalar value
+   - :ref:`custom<custom>` - set the values of a per-particle attribute and optionally create it
+   - :ref:`dump particle<dump>` - output per-particle attributes to a dump file
+   - :ref:`fix ambipolar<fix-ambipolar>` - use a per-particle vector and array for ambipolar quantities
+   - :ref:`variable<variable>` - use a per-particle attribute in a particle-style variable formula
 
 .. _howto-pergrid-custom-attributes:
 
 Per-grid custom attributes:
 ===========================
 
-:ref:`compute reduce<compute-reduce>` - reduce a per-grid attribute to a scalar value
-:ref:`custom<custom>` - set the values of a per-grid attribute and optionally create it
-:ref:`dump grid<dump>` - output per-grid attributes to a dump file
-:ref:`fix ave/grid<fix-ave-grid>` - time-average a per-grid attribute
-:ref:`read_grid<read-grid>` - define and initialize per-grid attributes
-surf_react implicit - use per-grid vectors and an array to store chemical state (not yet released in public SPARTA)
-:ref:`variable<variable>` - use a per-grid attribute in a grid-style variable formula
-:ref:`write_grid<write-grid>` - write per-grid attributes to a grid data file
+   - :ref:`compute reduce<compute-reduce>` - reduce a per-grid attribute to a scalar value
+   - :ref:`custom<custom>` - set the values of a per-grid attribute and optionally create it
+   - :ref:`dump grid<dump>` - output per-grid attributes to a dump file
+   - :ref:`fix ave/grid<fix-ave-grid>` - time-average a per-grid attribute
+   - :ref:`read_grid<read-grid>` - define and initialize per-grid attributes
+   - surf_react implicit - use per-grid vectors and an array to store chemical state (not yet released in public SPARTA)
+   - :ref:`variable<variable>` - use a per-grid attribute in a grid-style variable formula
+   - :ref:`write_grid<write-grid>` - write per-grid attributes to a grid data file
 
 .. _howto-persurf-custom-attributes:
 
 Per-surf custom attributes:
 ===========================
 
-:ref:`compute reduce<compute-reduce>` - reduce a per-surf attribute to a scalar value
-:ref:`custom<custom>` - set the values of a per-surf attribute and optionally create it
-:ref:`dump surf<dump>` - output per-surf attributes to a dump file
-:ref:`fix ave/surf<fix-ave-surf>` - time-average a per-surf attribute
-:ref:`fix surf/temp<fix-surf-temp>` - use a per-surf vector for temperature
-:ref:`read_surf<read-surf>` - define and initialize per-surf attributes
-:ref:`surf_collide<surf-collide>` - use a per-surf attribute as temperature for particle/surf collisions
-:ref:`surf_react adsorb<surf-react-adsorb>` - use per-surf vectors and an array to store chemical state
-:ref:`variable<variable>` - use a per-surf attribute in a surf-style variable formula
-:ref:`write_surf<write-surf>` - write per-surf attributes to a surf data file
+   - :ref:`compute reduce<compute-reduce>` - reduce a per-surf attribute to a scalar value
+   - :ref:`custom<custom>` - set the values of a per-surf attribute and optionally create it
+   - :ref:`dump surf<dump>` - output per-surf attributes to a dump file
+   - :ref:`fix ave/surf<fix-ave-surf>` - time-average a per-surf attribute
+   - :ref:`fix surf/temp<fix-surf-temp>` - use a per-surf vector for temperature
+   - :ref:`read_surf<read-surf>` - define and initialize per-surf attributes
+   - :ref:`surf_collide<surf-collide>` - use a per-surf attribute as temperature for particle/surf collisions
+   - :ref:`surf_react adsorb<surf-react-adsorb>` - use per-surf vectors and an array to store chemical state
+   - :ref:`variable<variable>` - use a per-surf attribute in a surf-style variable formula
+   - :ref:`write_surf<write-surf>` - write per-surf attributes to a surf data file
 
 Per-surf custom attributes can be defined for explicit or
 explicit/distributed surface elements, as set by the :ref:`global surfs<global>` comand.  But they cannot be used for implicit
@@ -1834,11 +1849,11 @@ surface element in per-surf attributes.  These will vary over the
 course of a simulation, and their status can be monitored with the
 various output commands listed above.
 
-.. _howto-variable-timestep-simulation:
+.. _howto-618-variable-timestep-simulation:
 
-*****************************
-Variable timestep simulations
-*****************************
+**********************************
+6.18 Variable timestep simulations
+**********************************
 
 As an alternative to utilization of a user-provided constant timestep,
 the variable timestep option enables SPARTA to compute global

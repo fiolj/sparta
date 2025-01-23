@@ -21,7 +21,7 @@ Syntax:
 
    surf_react ID adsorb model infile(s) Nsync type temp n_sites adsp1 adsp2 ...
 
-- ID = user-assigned name for the surface reaction model 
+- ID = user-assigned name for the surface reaction model
 
 - style = *adsorb*
 
@@ -29,16 +29,16 @@ Syntax:
 
 ::
 
-   gs = gas-surface reactions
-   ps = pure-surface reactions
-   gs/ps = both gas-surface and pure-surface reactions
+     gs = gas-surface reactions
+     ps = pure-surface reactions
+     gs/ps = both gas-surface and pure-surface reactions
 
 - infile(s) = file(s) with list of surface chemistry reactions
 
 ::
 
-   one file for model *gs* or *ps*
-   two files for model }gs/ps}, gs file first, ps file second
+     one file for model *gs* or *ps*
+     two files for model }gs/ps}, gs file first, ps file second
 
 - Nsync = perform PS reactions and sync across processors every this many timesteps
 
@@ -46,8 +46,8 @@ Syntax:
 
 ::
 
-   face = domain boundary treated as a surface
-   surf = surface elements = triangles in 3d, lines in 2d
+     face = domain boundary treated as a surface
+     surf = surface elements = triangles in 3d, lines in 2d
 
 - temp = temperature of the surface n_sites = # of available adsorption sites per unit area (3D) or length (2D)
 
@@ -78,7 +78,7 @@ reactions that can occur on the surface itself.
 
 One or more models can be defined and assigned to different surfaces
 or simulation box boundaries via the :ref:`surf_modify<surf-modify>` or
-:ref:`bound_modify<bound-modify>` commands.  See :ref:`Section 6.9<howto-details-surfaces-sparta>` for more details of how SPARTA defines
+:ref:`bound_modify<bound-modify>` commands.  See :ref:`Section 6.9<howto-69-details-surfaces-sparta>` for more details of how SPARTA defines
 surfaces as collections of geometric elements, triangles in 3d and
 line segments in 2d.  Also see the :ref:`react<react>` command for
 specification of a gas-phase chemistry reaction model.
@@ -88,11 +88,11 @@ command can be output via the :ref:`dump surf<dump>` command, using the
 *s_name* syntax to output any of the 5 custom surface state variables
 created by this surface reaction model.  They are as follows:
 
-nstick_species = per-surf array with per-species counts
-nstick_total = per-surf vector with total count of all species
-area = per-surf area vector
-weight = per-surf weight vector
-tau = per-surf time-counter vector (see below)
+   - nstick_species = per-surf array with per-species counts
+   - nstick_total = per-surf vector with total count of all species
+   - area = per-surf area vector
+   - weight = per-surf weight vector
+   - tau = per-surf time-counter vector (see below)
 
 See the examples/surf_react_adsorb dir for scripts that use this
 surface reaction model.
@@ -173,7 +173,7 @@ command via the adsp1, adsp2, etc arguments.
   than are used in a particular simulation.
 
 As explained below each reaction has a specified probability between
-and 1.0.  That probability is used to choose which reaction (if
+0.0 and 1.0.  That probability is used to choose which reaction (if
 any) is performed.
 
 The format of either a GS or PS reaction file is as follows.  Comments
@@ -211,13 +211,13 @@ and PS reactions are described below.
 
 The allowed types for GS reactions is as follows:
 
-AA = Associative Adsorption
-DA = Dissociative Adsorption
-LH1 = Langmuir-Hinshelwood mechanism of type 1
-LH3 = Langmuir-Hinshelwood mechanism of type 3 
-CD = Condensation reaction
-ER = Eley-Rideal mechanism 
-CI = Collision-induced reaction
+   - AA = Associative Adsorption
+   - DA = Dissociative Adsorption
+   - LH1 = Langmuir-Hinshelwood mechanism of type 1
+   - LH3 = Langmuir-Hinshelwood mechanism of type 3 
+   - CD = Condensation reaction
+   - ER = Eley-Rideal mechanism 
+   - CI = Collision-induced reaction
 
 An associative adsorption (AA) reaction means that R1(g) adsorbs on the
 surface to form P1(s) when it collides with the surface/boundary.
@@ -259,10 +259,10 @@ examples for each type of GS reaction.
 
 The allowed types for  PS reactions is as follows:
 
-DS = Desorption reaction
-LH2 = Langmuir-Hinshelwood mechanism of type 2
-LH4 = Langmuir-Hinshelwood mechanism of type 4 
-SB = Sublimation reaction
+   - DS = Desorption reaction
+   - LH2 = Langmuir-Hinshelwood mechanism of type 2
+   - LH4 = Langmuir-Hinshelwood mechanism of type 4 
+   - SB = Sublimation reaction
 
 A desorption reaction (DR) means that R1(s) desorbs from the surface
 to form P1(g) whose final velocities are determined by the provided
@@ -291,8 +291,8 @@ examples for each type of PS reaction.
 The *style* of each reaction is a single character (upper or lower
 case) with the following meaning:
 
-S = Simple
-A = Arrhenius
+   - S = Simple
+   - A = Arrhenius
 
 .. important::
 
@@ -310,9 +310,9 @@ For A = Arrhenius style, there are three coefficients:
 
 ::
 
-   A = pre-expoential factor 
-   b = temperature exponent 
-   Ea = activation energy for the reaction
+     A = pre-expoential factor 
+     b = temperature exponent 
+     Ea = activation energy for the reaction
 
 The reaction rate constant is calculated in the following manner:
 
@@ -332,9 +332,9 @@ the reaction rate constant.  These are *kisliuk*: proposed by Kisliuk
 
 ::
 
-   *A_k* = pre-expoential factor
-   *B_k* = temperature exponent
-   *Ea_k* = activation energy for the adsorption
+     *A_k* = pre-expoential factor
+     *B_k* = temperature exponent
+     *Ea_k* = activation energy for the adsorption
 
 .. math::
 
@@ -345,8 +345,8 @@ the reaction rate constant.  These are *kisliuk*: proposed by Kisliuk
 
 ::
 
-   *m* = energy exponent
-   *n* = polar angle exponent
+     *m* = energy exponent
+     *n* = polar angle exponent
 
 .. math:: K_{reac} = K_{arrhenius} * \left(E_{i}\right)^{m} * cos^{n}\left(\theta\right)
 
@@ -381,7 +381,7 @@ All the surface reaction models calculate a global vector of values.
 The values can be used by the :ref:`stats_style<stats-style>` command
 and by :ref:`variables<variable>` that define formulas.  The latter
 means they can be used by any command that uses a variable as input,
-e.g. the :ref:`fix ave/time<fix-ave-time>` command.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>` for an overview of SPARTA output
+e.g. the :ref:`fix ave/time<fix-ave-time>` command.  See :ref:`Section 4<howto-64-output-sparta-(stats,>` for an overview of SPARTA output
 options.
 
 .. note::
@@ -406,10 +406,10 @@ Restrictions:
 
 If the following conditions are met:
 
-this reaction model is assigned to surface elements
-on-surface PS reactions are defined
-surface elements are distributed across processors
-the :ref:`fix balance<fix-balance>` or :ref:`fix adapt<fix-adapt>` command is used
+   - this reaction model is assigned to surface elements
+   - on-surface PS reactions are defined
+   - surface elements are distributed across processors
+   - the :ref:`fix balance<fix-balance>` or :ref:`fix adapt<fix-adapt>` command is used
 
 then the timesteps on which balancing or grid adaptation are performed
 must be multiples of *Nsync*.  This is because surfaces are

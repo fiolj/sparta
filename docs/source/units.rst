@@ -21,7 +21,7 @@ Syntax:
 
    units style
 
-style = *cgs* or *si*
+   - style = *cgs* or *si*
 
 .. _units-examples:
 
@@ -57,37 +57,37 @@ of an input script.
 
 For style *cgs*, these are the units:
 
-mass = grams
-distance = centimeters
-area = cm^2
-volume = cm^3
-time = seconds
-energy = ergs
-velocity = centimeters/second
-acceleration = centimeters/second^2
-pressure = barye (dyne/cm^2 = 0.1 pascals)
-magnetic moment = ??
-temperature = degrees K
+   - mass = grams
+   - distance = centimeters
+   - area = cm^2
+   - volume = cm^3
+   - time = seconds
+   - energy = ergs
+   - velocity = centimeters/second
+   - acceleration = centimeters/second^2
+   - pressure = barye (dyne/cm^2 = 0.1 pascals)
+   - magnetic moment = ??
+   - temperature = degrees K
 
 For style *si*, these are the units:
 
-mass = kilograms
-distance = meters
-area = m^2
-volume = m^3
-time = seconds
-energy = Joules
-velocity = meters/second
-acceleration = meters/second^2
-pressure = pascals (newton/meter^2)
-magnetic moment = ??
-temperature = degrees K
+   - mass = kilograms
+   - distance = meters
+   - area = m^2
+   - volume = m^3
+   - time = seconds
+   - energy = Joules
+   - velocity = meters/second
+   - acceleration = meters/second^2
+   - pressure = pascals (newton/meter^2)
+   - magnetic moment = ??
+   - temperature = degrees K
 
 The units command also sets a default timestep size; see the
 :ref:`timestep<timestep>` command to change this value.
 
-For style *cgs* this is dt = 1.0 sec.
-For style *si* this is dt = 1.0 sec.
+   - For style *cgs* this is dt = 1.0 sec.
+   - For style *si* this is dt = 1.0 sec.
 
 .. _units-restrictio:
 

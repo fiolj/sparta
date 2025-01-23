@@ -21,7 +21,7 @@ Syntax:
 
    fix ID emit/face/file mix-ID face filename boundary-ID keyword value ...
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - emit/face/file = style name of this fix command
 
@@ -39,10 +39,10 @@ Syntax:
 
 ::
 
-   *frac* value = fraction = 0.0 to 1.0 fraction of particles to insert
-   *nevery* value = Nstep = insert every this many timesteps
-   *perspecies* value = *yes* or *no*
-   *region* value = region-ID
+     *frac* value = fraction = 0.0 to 1.0 fraction of particles to insert
+     *nevery* value = Nstep = insert every this many timesteps
+     *perspecies* value = *yes* or *no*
+     *region* value = region-ID
 
 .. _fix-emit-face-file-examples:
 
@@ -93,9 +93,9 @@ equation 4.22 of :ref:`(Bird94)<Bird94>`.  The number of particles *M* to
 add on a particular grid cell face is based on this flux and
 additional global, flow, and cell face properties:
 
-global property: *fnum* ratio as specified by the "global"_global.html" command
-flow properties: number density, streaming velocity, and thermal temperature
-cell face properties: area of face and its orientation relative to the streaming velocity
+   - global property: *fnum* ratio as specified by the "global"_global.html" command
+   - flow properties: number density, streaming velocity, and thermal temperature
+   - cell face properties: area of face and its orientation relative to the streaming velocity
 
 The flow properties are defined for the specified mixture via the
 :ref:`mixture<mixture>` command.  Any or all them can be overridden by
@@ -200,16 +200,19 @@ below) is performed to determine the value for the grid face.
 
    # plume ABC info           (one or more comment or blank lines)
 
-PLUME_ABC                  (boundary-ID is first word on line)
-NIJ 4 10                   (mesh size: Ni by Nj points)
-NV 3                       (Nv = number of values per mesh point)
-VALUES nrho temp Ar        (list of Nv values per mesh point)
-IMESH 0.0 0.3 0.9 1.0      (mesh point coordinates in I direction)
-JMESH ...                  (mesh point coordinates in J direction)
-(blank)
-.. contents::
-   :depth: 1
-   :local:
+::
+
+   PLUME_ABC                  (boundary-ID is first word on line)
+   NIJ 4 10                   (mesh size: Ni by Nj points)
+   NV 3                       (Nv = number of values per mesh point)
+   VALUES nrho temp Ar        (list of Nv values per mesh point)
+   IMESH 0.0 0.3 0.9 1.0      (mesh point coordinates in I direction)
+   JMESH ...                  (mesh point coordinates in J direction)
+                              (blank)
+   1 1 1.0 300.0 0.5          (I, J, value1, value2, ...)
+   1 2 1.02 310.0 0.5           
+   ...
+   4 10 3.0 400.0 0.7
 
 This format is for a 3d simulation.  For a 2d simulation, there are 3
 changes:
@@ -231,13 +234,13 @@ The VALUES line lists Nv keywords.  The list of possible keywords is
 as follows, along with the meaning of the numeric value specified for
 the mesh point:
 
-nrho = number density
-vx,vy,vz = 3 components of streaming velocity
-temp = thermal temperature
-trot = rotational temperature
-tvib = vibrational temperature
-press = pressure for subsonic boundary condition
-species = number fraction of any species in the mixture
+   - nrho = number density
+   - vx,vy,vz = 3 components of streaming velocity
+   - temp = thermal temperature
+   - trot = rotational temperature
+   - tvib = vibrational temperature
+   - press = pressure for subsonic boundary condition
+   - species = number fraction of any species in the mixture
 
 The IMESH and JMESH lines must list values that are monotonically
 increasing.
@@ -313,7 +316,7 @@ calculate the value at the centroid point (i,j) in the grid cell face:
 ::
 
    f(i,j) = 1/area \* (f(i1,j1)\*(i2-i)\*(j2-j) + f(i2,j1)\*(i-i1)\*(j2-j) +
-   f(i2,j2)\*(i-i1)\*(j-j1) + f(i1,j2)\*(i2-i)\*(j-j1))
+                      f(i2,j2)\*(i-i1)\*(j-j1) + f(i1,j2)\*(i2-i)\*(j-j1))
 
 where the 4 surrounding mesh points are (i1,j1), (i2,j1), (i2,j2), and
 (i1,j2).  The 4 f() values on the right-hand side are the values
@@ -327,7 +330,7 @@ the value at the centroid point (i) in the grid cell line:
 ::
 
    f(i) = 1/length \* (f(i1)\*(i2-i) + f(i2)\*(i-i1)
-   = f(i1) + (i - i1)/(i2 - i1) \* (f(i2) - f(i1))
+        = f(i1) + (i - i1)/(i2 - i1) \* (f(i2) - f(i1))
 
 where the 2 surrounding mesh points are (i1) and (i2).  The 2 f()
 values on the right-hand side are the values defined at the mesh
@@ -373,7 +376,7 @@ exactly 5 particles of each species will be added on every timestep
 insertions take place.  If *perspecies* is set to *no*, then exactly
 particles will be added every time and on average there will be 5
 particles of each of the two species.  But on one timestep it might be
-of the first and 4 of the second.  On another timestep it might be 3
+6 of the first and 4 of the second.  On another timestep it might be 3
 of the first and 7 of the second.
 
 .. note::

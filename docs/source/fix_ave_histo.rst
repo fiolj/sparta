@@ -39,7 +39,7 @@ Syntax:
 
    fix ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2 ... keyword args ...
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - style = *ave/histo* or *ave/histo/weight* = style name of this fix command
 
@@ -59,12 +59,12 @@ Syntax:
 
 ::
 
-   x,y,z,vx,vy,vz = particle attribute (position, velocity component)
-   c_ID = scalar or vector calculated by a compute with ID
-   c_ID\[I\] = Ith component of vector or Ith column of array calculated by a compute with ID, I can include wildcard (see below)
-   f_ID = scalar or vector calculated by a fix with ID
-   f_ID\[I\] = Ith component of vector or Ith column of array calculated by a fix with ID, I can include wildcard (see below)
-   v_name = value(s) calculated by an equal-style or particle-style or grid-style variable with name
+     x,y,z,vx,vy,vz = particle attribute (position, velocity component)
+     c_ID = scalar or vector calculated by a compute with ID
+     c_ID\[I\] = Ith component of vector or Ith column of array calculated by a compute with ID, I can include wildcard (see below)
+     f_ID = scalar or vector calculated by a fix with ID
+     f_ID\[I\] = Ith component of vector or Ith column of array calculated by a fix with ID, I can include wildcard (see below)
+     v_name = value(s) calculated by an equal-style or particle-style or grid-style variable with name
 
 - zero or more keyword/arg pairs may be appended
 
@@ -72,31 +72,31 @@ Syntax:
 
 ::
 
-   *mode* arg = *scalar* or *vector*
-   scalar = all input values are scalars
-   vector = all input values are vectors
-   *file* arg = filename
-   filename = name of file to output histogram(s) to
-   *region* arg = region-ID for particle inclusion
-   *mix* arg = mixture-ID for particle inclusion
-   *group* arg = group-ID for grid cell inclusion
-   *ave* args = *one* or *running* or *window*
-   one = output a new average value every Nfreq steps
-   running = output cumulative average of all previous Nfreq steps
-   window M = output average of M most recent Nfreq steps
-   *start* args = Nstart
-   Nstart = start averaging on this timestep
-   *beyond* arg = *ignore* or *end* or *extra*
-   ignore = ignore values outside histogram lo/hi bounds
-   end = count values outside histogram lo/hi bounds in end bins
-   extra = create 2 extra bins for value outside histogram lo/hi bounds
-   *overwrite* arg = none = overwrite output file with only latest output
-   *title1* arg = string
-   string = text to print as 1st line of output file
-   *title2* arg = string
-   string = text to print as 2nd line of output file
-   *title3* arg = string
-   string = text to print as 3rd line of output file, only for vector mode
+     *mode* arg = *scalar* or *vector*
+       scalar = all input values are scalars
+       vector = all input values are vectors
+     *file* arg = filename
+       filename = name of file to output histogram(s) to
+     *region* arg = region-ID for particle inclusion
+     *mix* arg = mixture-ID for particle inclusion
+     *group* arg = group-ID for grid cell inclusion
+     *ave* args = *one* or *running* or *window*
+       one = output a new average value every Nfreq steps
+       running = output cumulative average of all previous Nfreq steps
+       window M = output average of M most recent Nfreq steps
+     *start* args = Nstart
+       Nstart = start averaging on this timestep
+     *beyond* arg = *ignore* or *end* or *extra*
+       ignore = ignore values outside histogram lo/hi bounds
+       end = count values outside histogram lo/hi bounds in end bins
+       extra = create 2 extra bins for value outside histogram lo/hi bounds
+     *overwrite* arg = none = overwrite output file with only latest output
+     *title1* arg = string
+       string = text to print as 1st line of output file
+     *title2* arg = string
+       string = text to print as 2nd line of output file
+     *title3* arg = string
+       string = text to print as 3rd line of output file, only for vector mode
 
 .. _fix-ave-histo-examples:
 
@@ -118,7 +118,7 @@ Description:
 
 Use one or more values as inputs every few timesteps to create a
 single histogram.  The histogram can then be averaged over longer
-timescales.  The resulting histogram can be used by other :ref:`output commands<howto-transparen-surface-elements>`, and can also be written to a
+timescales.  The resulting histogram can be used by other :ref:`output commands<howto-615-transparen-surface-elements>`, and can also be written to a
 file.  The fix ave/histo/weight command has identical syntax to fix
 ave/histo, except that exactly two values must be specified.  See
 details below.
@@ -170,7 +170,7 @@ is used.
 
 Using a wildcard is the same as if the individual elements of the
 vector or columns of the array had been listed one by one.  E.g. these
-fix ave/histo commands are equivalent, since the :ref:`compute grid<compute-grid>` command creates a per-grid array with 3
+2 fix ave/histo commands are equivalent, since the :ref:`compute grid<compute-grid>` command creates a per-grid array with 3
 columns:
 
 ::
@@ -322,7 +322,7 @@ If the *ave* setting is *window*, then the histograms produced on
 timesteps that are multiples of *Nfreq* are summed within a moving
 "window" of time, so that the last M histograms are used to produce
 the output.  E.g. if M = 3 and Nfreq = 1000, then the output on step
-will be the combined histogram of the individual histograms on
+10000 will be the combined histogram of the individual histograms on
 steps 8000,9000,10000.  Outputs on early steps will be sums over less
 than M histograms if they are not available.
 
@@ -380,10 +380,10 @@ accessed by various output commands.  The values can only be accessed
 on timesteps that are multiples of *Nfreq* since that is when a
 histogram is generated.  The global vector has 4 values:
 
-= total counts in the histogram
-= values that were not histogrammed (see *beyond* keyword)
-= min value of all input values, including ones not histogrammed
-= max value of all input values, including ones not histogrammed
+   - 1 = total counts in the histogram
+   - 2 = values that were not histogrammed (see *beyond* keyword)
+   - 3 = min value of all input values, including ones not histogrammed
+   - 4 = max value of all input values, including ones not histogrammed
 
 The global array has # of rows = Nbins and # of columns = 3.  The
 first column has the bin coordinate, the 2nd column has the count of

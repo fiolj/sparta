@@ -21,7 +21,7 @@ Syntax:
 
    seed Nvalue
 
-Nvalue = seed for a random number generator (positive integer)
+   - Nvalue = seed for a random number generator (positive integer)
 
 .. _seed-examples:
 

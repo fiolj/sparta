@@ -21,7 +21,7 @@ Syntax:
 
    fix ID emit/surf mix-ID group-ID keyword value ...
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - emit/surf = style name of this fix command
 
@@ -35,18 +35,18 @@ Syntax:
 
 ::
 
-   *n* value = Np = number of particles to create
-   Np can be a variable (see below)
-   *normal* value = yes or no = emit normal to surface elements or with streaming velocity
-   *nevery* value = Nstep = add particles every this many timesteps
-   *perspecies* value = *yes* or *no*
-   *region* value = region-ID
-   *subsonic* values = Psub Tsub
-   Psub = pressure setting at inflow boundary (pressure units)
-   Tsub = temperature setting at inflow boundary, can be NULL (temperature units)
-   *custom* values = attribute s_name
-   attribute = *nrho* or *vstream* or *speed* or *temp* or *fractions*
-   s_name = custom per-surf vector or array with name
+     *n* value = Np = number of particles to create
+                      Np can be a variable (see below)
+     *normal* value = yes or no = emit normal to surface elements or with streaming velocity
+     *nevery* value = Nstep = add particles every this many timesteps
+     *perspecies* value = *yes* or *no*
+     *region* value = region-ID
+     *subsonic* values = Psub Tsub
+       Psub = pressure setting at inflow boundary (pressure units)
+       Tsub = temperature setting at inflow boundary, can be NULL (temperature units)
+     *custom* values = attribute s_name
+       attribute = *nrho* or *vstream* or *speed* or *temp* or *fractions*
+       s_name = custom per-surf vector or array with name
 
 .. _fix-emit-surf-examples:
 
@@ -76,7 +76,7 @@ Emit particles from a group of surface elements, continuously during a
 simulation.  If invoked every timestep, this fix creates a continuous
 outflux of particles from the surface elements in the group.  This
 command can only be used with explicit surfaces, not implicit.  See
-:ref:`Section Howto 6.13<howto-surface-elements:-explicit,-implicit,>` for a discussion of
+:ref:`Section Howto 6.13<howto-613-surface-elements:-explicit,>` for a discussion of
 explicit and implicit surface elements.
 
 The properties of the added particles are determined by the mixture
@@ -99,9 +99,9 @@ given by equation 4.22 of :ref:`(Bird94)<Bird94>`.  The number of particles
 within a grid cell is based on this flux and additional global, flow,
 and surface element properties:
 
-global property: *fnum* ratio as specified by the "global"_global.html" command
-flow properties: number density, streaming velocity, and thermal temperature
-surface element properties: portion of surface element area that overlaps with the grid cell and its orientation relative to the streaming velocity
+   - global property: *fnum* ratio as specified by the "global"_global.html" command
+   - flow properties: number density, streaming velocity, and thermal temperature
+   - surface element properties: portion of surface element area that overlaps with the grid cell and its orientation relative to the streaming velocity
 
 The flow properties are defined for the specified mixture via the
 :ref:`mixture<mixture>` command.
@@ -276,7 +276,7 @@ per-surf vectors or arrays defined by other commands.  E.g. the
 included in the surface data file.  Or the custom command which allows
 for definition of custom per-surf vectors or arrays and their
 initialization by use of :ref:`surf-style variables<variable>`.  See
-:ref:`Section Howto 6.17<howto-custom-perparticl-pergrid,-persurf>` for a discussion of
+:ref:`Section Howto 6.17<howto-617-custom-perparticl-pergrid,>` for a discussion of
 custom per-surf attributes.
 
 .. important::
@@ -287,11 +287,11 @@ custom per-surf attributes.
 The *attribute* value of the *custom* keyword can be any of the
 following:
 
-nrho = number density (# per length^3 units) = per-surf vector
-vstream = 3-component streaming velocity (velocity units) = per-surf array with 3 columns
-speed = length of streaming velocity vector in normal direction (velocity units) = per-surf vector
-temp = temperature (temperature units) = per-surf vector
-fractions = species fractions (unitless) = per-surf array
+   - nrho = number density (# per length^3 units) = per-surf vector
+   - vstream = 3-component streaming velocity (velocity units) = per-surf array with 3 columns
+   - speed = length of streaming velocity vector in normal direction (velocity units) = per-surf vector
+   - temp = temperature (temperature units) = per-surf vector
+   - fractions = species fractions (unitless) = per-surf array
 
 The *s_name* value of the *custom* keyword is the name of the custom
 per-surf vector or array.  It must store floating-point values and be

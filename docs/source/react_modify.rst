@@ -21,18 +21,18 @@ Syntax:
 
    react_modify keyword values ...
 
-- one or more keyword/value pairs may be listed 
+- one or more keyword/value pairs may be listed
 
 - keywords = *recomb* or *rboost* or *compute_chem_rates* or *partial_energy*
 
 ::
 
-   *recomb* value = yes or no = enable or disable defined recombination reactions
-   *rboost* value = rfactor
-   rfactor = boost probability of recombination reactions by this factor
-   *compute_chem_rates* value = yes or no = enable or disable computation of Arrhenius rate for chemical
-   reaction without performing the reaction
-   *partial_energy* = yes or no = use partial energy or total energy for TCE chemistry
+     *recomb* value = yes or no = enable or disable defined recombination reactions
+     *rboost* value = rfactor
+       rfactor = boost probability of recombination reactions by this factor
+     *compute_chem_rates* value = yes or no = enable or disable computation of Arrhenius rate for chemical
+     reaction without performing the reaction
+     *partial_energy* = yes or no = use partial energy or total energy for TCE chemistry
 
 .. _react-modify-examples:
 
@@ -97,7 +97,7 @@ If the *partial_energy* keyword is set to *yes*, the rDOF model of
 Bird is used, and only the sum of the relative translational energy
 between the partcles and a fraction of the rotational energy is
 used. The participating internal degrees of freedom are either set to
-(dissociation reactions), or 0 (recombination, exchange, ionization
+1 (dissociation reactions), or 0 (recombination, exchange, ionization
 reactions).
 
 Conversely, if the *partial_energy* keyword is set to *no*, then the

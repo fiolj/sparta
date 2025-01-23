@@ -21,7 +21,7 @@ Syntax:
 
    read_isurf group-ID Nx Ny Nz filename thresh ablateID keyword args ...
 
-- group-ID = group ID for which grid cells to perform calculation on 
+- group-ID = group ID for which grid cells to perform calculation on
 
 - Nx,Ny,Nz = grid cell extent for adding implicit surfs
 
@@ -37,13 +37,13 @@ Syntax:
 
 ::
 
-   group arg = group-ID
-   group-ID = new or existing surface group to assign the surface elements to
-   type arg = tfile
-   tfile = binary file with per grid cell surface type values
-   push arg = yes or no = whether to push corner point values to 0/255
-   precision arg = int or double
-   read arg = serial or parallel
+     group arg = group-ID
+       group-ID = new or existing surface group to assign the surface elements to
+     type arg = tfile
+       tfile = binary file with per grid cell surface type values
+     push arg = yes or no = whether to push corner point values to 0/255
+     precision arg = int or double
+     read arg = serial or parallel
 
 .. _read-isurf-examples:
 
@@ -71,7 +71,7 @@ global simulation box.  Surfaces can be explicit or implicit.
 This command reads implicit surfaces from a file containing grid
 corner point values which implicitly define the surface elements.  See
 the :ref:`read_surf<read-surf>` command to read explicit surfaces from
-a different kind of file.  See the :ref:`Howto 6.13<howto-surface-elements:-explicit,-implicit,>` section of the manual for an
+a different kind of file.  See the :ref:`Howto 6.13<howto-613-surface-elements:-explicit,>` section of the manual for an
 explantion of explicit versus implicit surfaces as well as distributed
 versus non-distributed storage.  You cannot mix explicit and implicit
 surfaces in the same simulation.
@@ -136,10 +136,10 @@ cells in which implicit surfaces will be created.
 
 The specified *filename* is for a binary file in the following format:
 
-first 4 bytes = Nxfile (integer)
-next 4 bytes = Nyfile (integer)
-next 4 bytes = Nzfile (integer), only for 3d simulations
-final N bytes = Nxfile by Nyfile by Nzfile grid corner point values (integer)
+   - first 4 bytes = Nxfile (integer)
+   - next 4 bytes = Nyfile (integer)
+   - next 4 bytes = Nzfile (integer), only for 3d simulations
+   - final N bytes = Nxfile by Nyfile by Nzfile grid corner point values (integer)
 
 For 2d simulations, the first 8 bytes store 2 integers in binary
 format: Nxfile and Nyfile.  For 3d simulations, the first 12 bytes
@@ -196,8 +196,8 @@ triangles (line segments in 2d) which are created in the grid cell.
 A good description of the two algorithms is given on these Wikipedia
 webpages:
 
-https://en.wikipedia.org/wiki/Marching_cubes
-https://en.wikipedia.org/wiki/Marching_squares
+   - https://en.wikipedia.org/wiki/Marching_cubes
+   - https://en.wikipedia.org/wiki/Marching_squares
 
 The algorithms require a threshold value as input, which is the
 *thresh* value in the read_isurf command.  For corner point values
@@ -267,10 +267,10 @@ with the specified name *tfile*.
 
 The specified *filename* is for a binary file in the following format:
 
-first 4 bytes = Nxfile (integer)
-next 4 bytes = Nyfile (integer)
-next 4 bytes = Nzfile (integer), only for 3d simulations
-final N bytes = Nxfile by Nyfile by Nzfile grid corner point values (integer)
+   - first 4 bytes = Nxfile (integer)
+   - next 4 bytes = Nyfile (integer)
+   - next 4 bytes = Nzfile (integer), only for 3d simulations
+   - final N bytes = Nxfile by Nyfile by Nzfile grid corner point values (integer)
 
 For 2d simulations, the first 8 bytes store 2 integers in binary
 format: Nxfile and Nyfile.  For 3d simulations, the first 12 bytes

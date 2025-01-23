@@ -21,7 +21,7 @@ Syntax:
 
    compute ID react/isurf/grid group-ID reaction-ID value1 value2 ...
 
-- ID is documented in :ref:`compute<compute>` command 
+- ID is documented in :ref:`compute<compute>` command
 
 - react/isurf/grid = style name of this compute command
 
@@ -35,8 +35,8 @@ Syntax:
 
 ::
 
-   r: or p: = list of reactant species or product species
-   s1,s2,s3 = one or more species IDs, separated by "/" character
+     r: or p: = list of reactant species or product species
+     s1,s2,s3 = one or more species IDs, separated by "/" character
 
 .. _compute-react-isurf-grid-examples:
 
@@ -124,7 +124,7 @@ are not assigned to the specified *reaction-ID* will output zeroes for
 all their values.
 
 The array can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
+from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
 for an overview of SPARTA output options.
 
 The per-grid array values are counts of the number of reactions that

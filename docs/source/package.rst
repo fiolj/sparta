@@ -21,26 +21,26 @@ Syntax:
 
    package style args
 
-- style = *kokkos* 
+- style = *kokkos*
 
 - args = arguments specific to the style
 
 ::
 
-   *kokkos* args = keyword value ...
-   zero or more keyword/value pairs may be appended
-   keywords = *comm* or *react/extra* or *react/retry* or *gpu/aware*
-   *comm* value = *threaded* or *serial*
-   threaded = perform pack/unpack using KOKKOS (e.g. on GPU or using OpenMP) (default for GPUs)
-   serial = perform communication pack/unpack in non-KOKKOS mode (default for CPUs)
-   *react/extra* = *factor*
-   factor = increase memory used for collisions by this factor (default)
-   *react/retry* = *yes* or *no*
-   yes = retry collision algorithm until successful
-   no = do not retry collision algorithm (default)
-   *gpu/aware* = *yes* or *no*
-   yes = use GPU-aware MPI (default)
-   no = do not use GPU-aware MPI
+     *kokkos* args = keyword value ...
+       zero or more keyword/value pairs may be appended
+       keywords = *comm* or *react/extra* or *react/retry* or *gpu/aware*
+         *comm* value = *threaded* or *serial*
+           threaded = perform pack/unpack using KOKKOS (e.g. on GPU or using OpenMP) (default for GPUs)
+           serial = perform communication pack/unpack in non-KOKKOS mode (default for CPUs)
+         *react/extra* = *factor*
+           factor = increase memory used for collisions by this factor (default)
+         *react/retry* = *yes* or *no*
+           yes = retry collision algorithm until successful
+           no = do not retry collision algorithm (default)
+         *gpu/aware* = *yes* or *no*
+           yes = use GPU-aware MPI (default)
+           no = do not use GPU-aware MPI
 
 .. _package-examples:
 

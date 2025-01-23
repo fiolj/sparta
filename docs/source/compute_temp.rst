@@ -27,8 +27,8 @@ Syntax:
 
    compute ID temp
 
-ID is documented in :ref:`compute<compute>` command
-temp = style name of this compute command
+   - ID is documented in :ref:`compute<compute>` command
+   - temp = style name of this compute command
 
 .. _compute-temp-examples:
 
@@ -70,7 +70,7 @@ Output info:
 
 This compute calculates a global scalar (the temperature).  This value
 can be used by any command that uses global scalar values from a
-compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>` for an
+compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>` for an
 overview of SPARTA output options.
 
 The scalar value will be in temperature :ref:`units<units>`.

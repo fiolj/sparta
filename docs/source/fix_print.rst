@@ -21,7 +21,7 @@ Syntax:
 
    fix ID print N string keyword value ...
 
-- ID is documented in :ref:`fix<fix>` command 
+- ID is documented in :ref:`fix<fix>` command
 
 - print = style name of this fix command
 
@@ -35,11 +35,11 @@ Syntax:
 
 ::
 
-   *file* value = filename
-   *append* value = filename
-   *screen* value = *yes* or *no*
-   *title* value = string
-   string =  text to print as 1st line of output file
+     *file* value = filename
+     *append* value = filename
+     *screen* value = *yes* or *no*
+     *title* value = string
+       string =  text to print as 1st line of output file
 
 .. _fix-print-examples:
 

@@ -27,7 +27,7 @@ Syntax:
 
    dump ID style mix-ID N file color diameter keyword value ...
 
-- ID = user-assigned name for the dump 
+- ID = user-assigned name for the dump
 
 - style = *image* or *movie* = style of dump command (other styles *particle* or *grid* or *surf* are discussed on the :ref:`dump<dump>` doc page)
 
@@ -47,61 +47,61 @@ Syntax:
 
 ::
 
-   *particle* = yes/no = do or do not draw particles
-   *pdiam* value = number = numeric value for particle diameter (distance units)
-   *grid* values = color
-   color = *proc* or per-grid compute or fix
-   *gridx* values = xcoord color
-   xcoord = x value to draw yz plane of grid cells at
-   color = *proc* or per-grid compute or fix
-   *gridy* values = ycoord color
-   ycoord = y value to draw xz plane of grid cells at
-   color = *proc* or per-grid compute or fix
-   *gridz* values = zcoord color
-   zcoord = z value to draw xy plane of grid cells at
-   color = *proc* or per-grid compute or fix
-   *surf* values = color diam
-   color = *one* or *proc* or per-surf compute or fix
-   diam = diameter of 2d lines as fraction of shortest box length
-   *size* values = width height = size of images
-   width = width of image in # of pixels
-   height = height of image in # of pixels
-   *view* values = theta phi = view of simulation box
-   theta = view angle from +z axis (degrees)
-   phi = azimuthal view angle (degrees)
-   theta or phi can be a variable (see below)
-   *center* values = flag Cx Cy Cz = center point of image
-   flag = "s" for static, "d" for dynamic
-   Cx,Cy,Cz = center point of image as fraction of box dimension (0.5 = center of box)
-   Cx,Cy,Cz can be variables (see below)
-   *up* values = Ux Uy Uz = direction that is "up" in image
-   Ux,Uy,Uz = components of up vector
-   Ux,Uy,Uz can be variables (see below)
-   *zoom* value = zfactor = size that simulation box appears in image
-   zfactor = scale image size by factor > 1 to enlarge, factor < 1 to shrink
-   zfactor can be a variable (see below)
-   *persp* value = pfactor = amount of "perspective" in image
-   pfactor = amount of perspective (0 = none, < 1 = some, > 1 = highly skewed)
-   pfactor can be a variable (see below)
-   *box* values = yes/no diam = draw outline of simulation box
-   yes/no = do or do not draw simulation box lines
-   diam = diameter of box lines as fraction of shortest box length
-   *gline* values = yes/no diam = draw outline of each grid cell
-   yes/no = do or do not draw grid cell outlines
-   diam = diameter of grid outlines as fraction of shortest box length
-   *sline* values = yes/no diam = draw outline of each surface element
-   yes/no = do or do not draw surf element outlines
-   diam = diameter of surf element outlines as fraction of shortest box length
-   *axes* values = yes/no length diam = draw xyz axes
-   yes/no = do or do not draw xyz axes lines next to simulation box
-   length = length of axes lines as fraction of respective box lengths
-   diam = diameter of axes lines as fraction of shortest box length
-   *shiny* value = sfactor = shinyness of spheres and cylinders
-   sfactor = shinyness of spheres and cylinders from 0.0 to 1.0
-   *ssao* value = yes/no seed dfactor = SSAO depth shading
-   yes/no = turn depth shading on/off
-   seed = random # seed (positive integer)
-   dfactor = strength of shading from 0.0 to 1.0
+     *particle* = yes/no = do or do not draw particles
+     *pdiam* value = number = numeric value for particle diameter (distance units)
+     *grid* values = color
+       color = *proc* or per-grid compute or fix
+     *gridx* values = xcoord color
+       xcoord = x value to draw yz plane of grid cells at
+       color = *proc* or per-grid compute or fix
+     *gridy* values = ycoord color
+       ycoord = y value to draw xz plane of grid cells at
+       color = *proc* or per-grid compute or fix
+     *gridz* values = zcoord color
+       zcoord = z value to draw xy plane of grid cells at
+       color = *proc* or per-grid compute or fix
+     *surf* values = color diam
+       color = *one* or *proc* or per-surf compute or fix
+       diam = diameter of 2d lines as fraction of shortest box length
+     *size* values = width height = size of images
+       width = width of image in # of pixels
+       height = height of image in # of pixels
+     *view* values = theta phi = view of simulation box
+       theta = view angle from +z axis (degrees)
+       phi = azimuthal view angle (degrees)
+       theta or phi can be a variable (see below)
+     *center* values = flag Cx Cy Cz = center point of image
+       flag = "s" for static, "d" for dynamic
+       Cx,Cy,Cz = center point of image as fraction of box dimension (0.5 = center of box)
+       Cx,Cy,Cz can be variables (see below)
+     *up* values = Ux Uy Uz = direction that is "up" in image
+       Ux,Uy,Uz = components of up vector
+       Ux,Uy,Uz can be variables (see below)
+     *zoom* value = zfactor = size that simulation box appears in image
+       zfactor = scale image size by factor > 1 to enlarge, factor < 1 to shrink
+       zfactor can be a variable (see below)
+     *persp* value = pfactor = amount of "perspective" in image
+       pfactor = amount of perspective (0 = none, < 1 = some, > 1 = highly skewed)
+       pfactor can be a variable (see below)
+     *box* values = yes/no diam = draw outline of simulation box
+       yes/no = do or do not draw simulation box lines
+       diam = diameter of box lines as fraction of shortest box length
+     *gline* values = yes/no diam = draw outline of each grid cell
+       yes/no = do or do not draw grid cell outlines
+       diam = diameter of grid outlines as fraction of shortest box length
+     *sline* values = yes/no diam = draw outline of each surface element
+       yes/no = do or do not draw surf element outlines
+       diam = diameter of surf element outlines as fraction of shortest box length
+     *axes* values = yes/no length diam = draw xyz axes
+       yes/no = do or do not draw xyz axes lines next to simulation box
+       length = length of axes lines as fraction of respective box lengths
+       diam = diameter of axes lines as fraction of shortest box length
+     *shiny* value = sfactor = shinyness of spheres and cylinders
+       sfactor = shinyness of spheres and cylinders from 0.0 to 1.0
+     *ssao* value = yes/no seed dfactor = SSAO depth shading
+       yes/no = turn depth shading on/off
+       seed = random # seed (positive integer)
+       dfactor = strength of shading from 0.0 to 1.0
 
 .. _dump-image-examples:
 
@@ -140,10 +140,10 @@ included in the image and how it appears.
 
 Any or all of these entities can be included in the images:
 
-particles (all in mixture or limited to a :ref:`region<region>`)
-grid cells (all or limited to a :ref:`region<region>`)
-x,y,z planes cutting through the grid
-surface elements
+   - particles (all in mixture or limited to a :ref:`region<region>`)
+   - grid cells (all or limited to a :ref:`region<region>`)
+   - x,y,z planes cutting through the grid
+   - surface elements
 
 Particles can be colored by any attribute allowed by the :ref:`dump particle<dump>` command.  Grid cells and the x,y,z cutting planes
 can be colored by any per-grid attribute calculated by a
@@ -258,12 +258,12 @@ If *type* is specified for the *color* setting, then the color of each
 particle is determined by its type = species index.  By default the
 mapping of types to colors is as follows:
 
-type 1 = red
-type 2 = green
-type 3 = blue
-type 4 = yellow
-type 5 = aqua
-type 6 = purple
+   - type 1 = red
+   - type 2 = green
+   - type 3 = blue
+   - type 4 = yellow
+   - type 5 = aqua
+   - type 6 = purple
 
 and repeats itself for types > 6.  This mapping can be changed by the
 :ref:`dump_modify pcolor<dump-modify>` command.
@@ -327,12 +327,12 @@ for visualizing the result of a load balancing of the grid cells,
 e.g. by the :ref:`balance_grid<balance-grid>` or :ref:`fix balance<fix-balance>` commands.  By default the mapping of proc
 IDs to colors is as follows:
 
-proc ID 1 = red
-proc ID 2 = green
-proc ID 3 = blue
-proc ID 4 = yellow
-proc ID 5 = aqua
-proc ID 6 = purple
+   - proc ID 1 = red
+   - proc ID 2 = green
+   - proc ID 3 = blue
+   - proc ID 4 = yellow
+   - proc ID 5 = aqua
+   - proc ID 6 = purple
 
 .. note::
 
@@ -384,12 +384,12 @@ surface element is determined by its owning processor ID.  Surface
 elements are assigned to owning processors in a round-robin fashion.
 By default the mapping of proc IDs to colors is as follows:
 
-proc ID 1 = red
-proc ID 2 = green
-proc ID 3 = blue
-proc ID 4 = yellow
-proc ID 5 = aqua
-proc ID 6 = purple
+   - proc ID 1 = red
+   - proc ID 2 = green
+   - proc ID 3 = blue
+   - proc ID 4 = yellow
+   - proc ID 5 = aqua
+   - proc ID 6 = purple
 
 .. note::
 
@@ -440,7 +440,7 @@ doing a pan or fly-by view of your simulation.
 The *view* keyword determines the viewpoint from which the simulation
 box is viewed, looking towards the *center* point.  The *theta* value
 is the vertical angle from the +z axis, and must be an angle from 0 to
-degrees.  The *phi* value is an azimuthal angle around the z axis
+180 degrees.  The *phi* value is an azimuthal angle around the z axis
 and can be positive or negative.  A value of 0.0 is a view along the
 +x axis, towards the *center* point.  If *theta* or *phi* are
 specified via variables, then the variable values should be in
@@ -475,7 +475,7 @@ it cannot be parallel to the *view* vector, implied by the *theta* and
 The *zoom* keyword scales the size of the simulation box as it appears
 in the image.  The default *zfactor* value of 1 should display an
 image mostly filled by the particles in the simulation box.  A *zfactor* >
-will make the simulation box larger; a *zfactor* < 1 will make it
+1 will make the simulation box larger; a *zfactor* < 1 will make it
 smaller.  *Zfactor* must be a value > 0.0.
 
 The *persp* keyword determines how much depth perspective is present
@@ -552,7 +552,7 @@ step of writing (many) image snapshot file.
 To manually convert JPEG, PNG or PPM files into an animated GIF or
 MPEG or other movie file you can:
 
-- a) Use the ImageMagick convert program. 
+- a) Use the ImageMagick convert program.
 
 ::
 
@@ -589,7 +589,7 @@ information see the `FFmpeg homepage <http://www.ffmpeg.org/>`__
 
 You can play a movie file as follows:
 
-- a) Use your browser to view an animated GIF movie. 
+- a) Use your browser to view an animated GIF movie.
 
 Select "Open File" under the File menu
 Load the animated GIF file
@@ -607,7 +607,7 @@ Load the animated GIF file
 
    a = animate("foo\*.jpg")
 
-- d) QuickTime and other Windows- or MacOS-based media players can obviously play movie files directly. Similarly for corresponding tools bundled with Linux desktop environments.  However, due to licensing issues with some file formats, the formats may require installing additional libraries, purchasing a license, or may not be supported.  
+- d) QuickTime and other Windows- or MacOS-based media players can obviously play movie files directly. Similarly for corresponding tools bundled with Linux desktop environments.  However, due to licensing issues with some file formats, the formats may require installing additional libraries, purchasing a license, or may not be supported.
 
 .. _dump-image-restrictio:
 
@@ -669,25 +669,25 @@ Default:
 
 The defaults for the keywords are as follows:
 
-particle = yes
-pdiam = not specified (use diameter setting)
-grid = not specified (no drawing of grid cells)
-gridx = not specified (no drawing of x-plane of grid cells)
-gridy = not specified (no drawing of y-plane of grid cells)
-gridz = not specified (no drawing of z-plane of grid cells)
-surf = not specified (no drawing of surface elements)
-size = 512 512
-view = 60 30 (for 3d)
-view = 0 0 (for 2d)
-center = s 0.5 0.5 0.5
-up = 0 0 1 (for 3d)
-up = 0 1 0 (for 2d)
-zoom = 1.0
-persp = 0.0
-box = yes 0.02
-gline = no 0.0
-sline = no 0.0
-axes = no 0.0 0.0
-shiny = 1.0
-ssao = no
+   - particle = yes
+   - pdiam = not specified (use diameter setting)
+   - grid = not specified (no drawing of grid cells)
+   - gridx = not specified (no drawing of x-plane of grid cells)
+   - gridy = not specified (no drawing of y-plane of grid cells)
+   - gridz = not specified (no drawing of z-plane of grid cells)
+   - surf = not specified (no drawing of surface elements)
+   - size = 512 512
+   - view = 60 30 (for 3d)
+   - view = 0 0 (for 2d)
+   - center = s 0.5 0.5 0.5
+   - up = 0 0 1 (for 3d)
+   - up = 0 1 0 (for 2d)
+   - zoom = 1.0
+   - persp = 0.0
+   - box = yes 0.02
+   - gline = no 0.0
+   - sline = no 0.0
+   - axes = no 0.0 0.0
+   - shiny = 1.0
+   - ssao = no
 

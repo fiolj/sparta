@@ -21,31 +21,31 @@ Syntax:
 
    region ID style args keyword value ...
 
-- ID = user-assigned name for the region 
+- ID = user-assigned name for the region
 
 - style = *block* or *cylinder* or *plane* or *sphere* or *union* or *intersect*
 
 ::
 
-   *block* args = xlo xhi ylo yhi zlo zhi
-   xlo,xhi,ylo,yhi,zlo,zhi = bounds of block in all dimensions (distance units)
-   *cylinder* args = dim c1 c2 radius lo hi
-   dim = *x* or *y* or *z* = axis of cylinder
-   c1,c2 = coords of cylinder axis in other 2 dimensions (distance units)
-   radius = cylinder radius (distance units)
-   lo,hi = bounds of cylinder in dim (distance units)
-   *plane* args = px py pz nx ny nz
-   px,py,pz = point on the plane (distance units)
-   nx,ny,nz = direction normal to plane (distance units)
-   *sphere* args = x y z radius
-   x,y,z = center of sphere (distance units)
-   radius = radius of sphere (distance units)
-   *union* args = N reg-ID1 reg-ID2 ...
-   N = # of regions to follow, must be 2 or greater
-   reg-ID1,reg-ID2, ... = IDs of regions to join together
-   *intersect* args = N reg-ID1 reg-ID2 ...
-   N = # of regions to follow, must be 2 or greater
-   reg-ID1,reg-ID2, ... = IDs of regions to intersect
+     *block* args = xlo xhi ylo yhi zlo zhi
+       xlo,xhi,ylo,yhi,zlo,zhi = bounds of block in all dimensions (distance units)
+     *cylinder* args = dim c1 c2 radius lo hi
+       dim = *x* or *y* or *z* = axis of cylinder
+       c1,c2 = coords of cylinder axis in other 2 dimensions (distance units)
+       radius = cylinder radius (distance units)
+       lo,hi = bounds of cylinder in dim (distance units)
+     *plane* args = px py pz nx ny nz
+       px,py,pz = point on the plane (distance units)
+       nx,ny,nz = direction normal to plane (distance units)
+     *sphere* args = x y z radius
+       x,y,z = center of sphere (distance units)
+       radius = radius of sphere (distance units)
+     *union* args = N reg-ID1 reg-ID2 ...
+       N = # of regions to follow, must be 2 or greater
+       reg-ID1,reg-ID2, ... = IDs of regions to join together
+     *intersect* args = N reg-ID1 reg-ID2 ...
+       N = # of regions to follow, must be 2 or greater
+       reg-ID1,reg-ID2, ... = IDs of regions to intersect
 
 - zero or more keyword/value pairs may be appended
 
@@ -53,9 +53,9 @@ Syntax:
 
 ::
 
-   *side* value = *in* or *out*
-   *in* = the region is inside the specified geometry
-   *out* = the region is outside the specified geometry
+     *side* value = *in* or *out*
+       *in* = the region is inside the specified geometry
+       *out* = the region is outside the specified geometry
 
 .. _region-examples:
 
@@ -107,7 +107,7 @@ consisting of the volume that is common to all the listed regions.
 
   Regions in SPARTA are always 3d geometric objects,
   regardless of whether the :ref:`dimension<dimension>` of the simulation
-  2d or 3d.  Thus when using regions in a 2d simulation, for example,
+  d or 3d.  Thus when using regions in a 2d simulation, for example,
   you should be careful to define the region so that its intersection
   with the 2d x-y plane of the simulation has the 2d geometric extent
   you want.
