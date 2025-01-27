@@ -27,7 +27,7 @@ Syntax:
 
    fix ID balance Nfreq thresh bstyle args
 
-- ID is documented in :ref:`fix<fix>` command
+- ID is documented in :ref:`fix<fix>` command 
 
 - balance = style name of this fix command
 
@@ -99,7 +99,7 @@ dispersed assignments of child cells to each processor.
 
 .. important::
 
-  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
+  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.
 

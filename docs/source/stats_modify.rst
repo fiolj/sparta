@@ -21,7 +21,7 @@ Syntax:
 
    stats_modify keyword value ...
 
-- one or more keyword/value pairs may be listed
+- one or more keyword/value pairs may be listed 
 
 - keyword = *flush* or *format* or *every*
 

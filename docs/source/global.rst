@@ -21,7 +21,7 @@ Syntax:
 
    global keyword values ...
 
-- one or more keyword/value pairs
+- one or more keyword/value pairs 
 
 - keyword = *fnum* or *nrho* or *vstream* or *temp* or *field* or *surfs* or *surfgrid* or *surfmax* or *splitmax* or *surftally* or *gridcut* or *comm/sort* or *comm/style* or *weight* or *particle/reorder* or *mem/limit*
 
@@ -270,7 +270,7 @@ cells owned by other processors.
   later point when surfaces are read in or a simulation is performed, an
   error will result.  The solution is to use the
   :ref:`balance_grid<balance-grid>` command to change to a clumped grid
-  cell assignment.  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
+  cell assignment.  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.
 
@@ -344,7 +344,7 @@ direction.  This mode attempts to preserve a uniform number of
 particles in each cell, regardless of the cell area, for a uniform
 targeted density.  For the *radius/only* option, the weight is just the
 distance the cell midpoint is from the y=0 axis of symmetry. This mode attempts to preserve a uniform distribution of particles
-per unit area, for a uniform targeted density.  See :ref:`Section 6.2<howto-62-axisymmetr-simulation>` for more details on axi-symmetric
+per unit area, for a uniform targeted density.  See :ref:`Section 6.2<howto-axisymmetr-simulation>` for more details on axi-symmetric
 models.
 
 Second, when a particle moves from an initial cell to a final cell,

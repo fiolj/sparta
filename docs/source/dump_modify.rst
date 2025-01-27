@@ -21,7 +21,7 @@ Syntax:
 
    dump_modify dump-ID keyword values ...
 
-- dump-ID = ID of dump to modify
+- dump-ID = ID of dump to modify 
 
 - one or more keyword/value pairs may be appended
 

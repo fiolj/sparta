@@ -21,7 +21,7 @@ Syntax:
 
    species_modify ID property value ...
 
-- ID, property, value can be repeated one or more times
+- ID, property, value can be repeated one or more times 
 
 - ID = species ID
 

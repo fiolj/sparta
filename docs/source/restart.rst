@@ -23,7 +23,7 @@ Syntax:
    restart N root keyword value ...
    restart N file1 file2 keyword value ...
 
-- N = write a restart file every this many timesteps
+- N = write a restart file every this many timesteps 
 
 - N can be a variable (see below)
 

@@ -21,7 +21,7 @@ Syntax:
 
    fix ID ablate group-ID Nevery scale source maxrandom keyword value ...
 
-- ID is documented in :ref:`fix<fix>` command
+- ID is documented in :ref:`fix<fix>` command 
 
 - ablate = style name of this fix command
 
@@ -317,7 +317,7 @@ This fix computes a global scalar and a global vector of length 2.
 The global scalar is the current sum of unique corner point values
 across the entire grid (not counting duplicate values).  This sum
 assumes that corner point values are 0.0 on the boundary of the 2d or
-d array of grid cells containing implicit surface elements.
+3d array of grid cells containing implicit surface elements.
 
 The 2 vector values are the (1) sum of decrement values for each grid
 cell in the most recent ablation operation, and (2) the # of particles
@@ -327,7 +327,7 @@ A non-zero value indicates a corner case in the marching cubes or
 marching squares algorithm the developers still need to address.
 
 These values can be accessed by any command that uses global values
-from a fix as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>` for
+from a fix as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>` for
 an overview of SPARTA output options.
 
 The scalar and vector values are unitless.

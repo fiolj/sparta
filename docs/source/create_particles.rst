@@ -27,7 +27,7 @@ Syntax:
 
    create_particles mix-ID style args keyword value ...
 
-- mix-ID = ID of mixture to use when creating particles
+- mix-ID = ID of mixture to use when creating particles 
 
 - style = *n* or *single*
 

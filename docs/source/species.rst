@@ -21,7 +21,7 @@ Syntax:
 
    species file ID1 ID2 ... keyword value ...
 
-- file = filename with species info
+- file = filename with species info 
 
 - ID1, ID2, ... = one or more species names listed in file
 

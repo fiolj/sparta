@@ -21,7 +21,7 @@ Syntax:
 
    surf_collide ID style args keyword values ...
 
-- ID = user-assigned name for the surface collision model
+- ID = user-assigned name for the surface collision model 
 
 - style = *specular* or *diffuse* or *cll* or *adiabatic* or *impulsive* or *td* or *piston* or *transparent* or *vanish* or *specular/kk* or *diffuse/kk* or *piston/kk* or *vanish/kk*
 
@@ -133,7 +133,7 @@ Description:
 Define a model for particle-surface collisions.  One or more models
 can be defined and assigned to different surfaces or simulation box
 boundaries via the :ref:`surf_modify<surf-modify>` or
-:ref:`bound_modify<bound-modify>` commands.  See :ref:`Section 4.9<howto-69-details-surfaces-sparta>` for more details of how SPARTA defines
+:ref:`bound_modify<bound-modify>` commands.  See :ref:`Section 4.9<howto-details-surfaces-sparta>` for more details of how SPARTA defines
 surfaces as collections of geometric elements, triangles in 3d and
 line segments in 2d.  Chemical reactions can also be part of a
 particle-surface interaction model.  See the
@@ -190,7 +190,7 @@ with floating point values for the temperature for each surface
 element.  These could be static values initialized, for example, by
 the :ref:`read_surf<read-surf>` command.  Or they could be dynamic
 values recomputed periodically, for example, by the "fix surf/temp"
-command.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more
+command.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more
 discussion of custom attributes.
 
 .. note::
@@ -410,7 +410,7 @@ This is useful for tallying flow statistics.  The surface elements
 must have been flagged as transparent when they were read in, via the
 :ref:`read_surf<read-surf>` command and its transparent keyword.  The
 :ref:`compute surf<compute-surf>` command will tally fluxes differently
-for transparent surf elements.  The :ref:`Section 6.15<howto-615-transparen-surface-elements>` doc page provides an overview of
+for transparent surf elements.  The :ref:`Section 6.15<howto-transparen-surface-elements>` doc page provides an overview of
 transparent surfaces.  See those doc pages for details.
 
 The *vanish* style simply deletes any particle which hits the surface.
@@ -578,7 +578,7 @@ All the surface collide models calculate a global vector of length 2.
 The values can be used by the :ref:`stats_style<stats-style>` command
 and by :ref:`variables<variable>` that define formulas.  The latter
 means they can be used by any command that uses a variable as input,
-e.g. the :ref:`fix ave/time<fix-ave-time>` command.  See :ref:`Section 4.4<howto-64-output-sparta-(stats,>` for an overview of SPARTA output
+e.g. the :ref:`fix ave/time<fix-ave-time>` command.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>` for an overview of SPARTA output
 options.
 
 The first element of the vector is the count of particles that hit

@@ -21,7 +21,7 @@ Syntax:
 
    collide_modify keyword values ...
 
-- one or more keyword/value pairs may be listed
+- one or more keyword/value pairs may be listed 
 
 - keywords = *vremax* or *remain* or *ambipolar* or *nearcp* or *rotate* or *vibrate*
 

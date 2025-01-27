@@ -21,7 +21,7 @@ Syntax:
 
    react style args
 
-- style = *none* or *tce* or *qk* or *tce/qk*
+- style = *none* or *tce* or *qk* or *tce/qk* 
 
 - args = arguments for that style
 

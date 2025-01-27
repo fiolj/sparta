@@ -105,7 +105,7 @@ Refinement means splitting one child cell into multiple new child
 cells.  The original child cell disappears, conceptually it becomes a
 parent cell.  Coarsening means combining all the child cells of a
 parent cell, so that the child cells are deleted and the parent cell
-becomes a single new child cell.  See :ref:`Section howto 4.8<howto-68-details-grid-geometry>` for a description of the hierarchical
+becomes a single new child cell.  See :ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a description of the hierarchical
 grid used by SPARTA and definitions of child and parent cells.
 
 Grid adaptation can be useful for adjusting the grid cell sizes to the
@@ -185,7 +185,7 @@ dimensions is smaller than the specified *ssize*.
 
 The *value* style uses values calculated by a :ref:`compute<compute>`
 or :ref:`fix<fix>` to decide whether to adapt each cell.  The fix or
-compute must calculate per-grid values as described in :ref:`Section howto 4.4<howto-64-output-sparta-(stats,>`.  If the compute or fix calculates a
+compute must calculate per-grid values as described in :ref:`Section howto 4.4<howto-output-sparta-(stats,-dumps,>`.  If the compute or fix calculates a
 vector of such values, it is specified as c_ID or f_ID.  If it
 calculates an array of such values, it is specified as c_ID\[N\] or
 f_ID\[N\] when N is the column of values to use, from 1 to Ncolumns.
@@ -252,13 +252,13 @@ Various optional keywords can also be specified.
   per grid values for the current grid.
 
 The *maxlevel* keyword limits how far a grid cell can be refined.  See
-:ref:`Section howto 4.8<howto-68-details-grid-geometry>` for a definition of the
+:ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a definition of the
 level assigned to each parent and child cell.  Child cells with a
 level >= *Nmax* are not eligible for refinement.  The default setting
 of *Nmax* = 0 means there is no limit on refinement.
 
 The *minlevel* keyword limits how far a grid cell can be coarsened.
-See :ref:`Section howto 4.8<howto-68-details-grid-geometry>` for a definition of
+See :ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a definition of
 the level assigned to each parent and child cell.  Parent cells with a
 level < *Nmin* are not eligible for coarsening.  The default setting
 of *Nmin* = 1 means the only limit on coarsening is that the first
@@ -322,7 +322,7 @@ files, each time the grid iadapts.
 If the grid is partitioned across processors in a "clumped" manner
 before this command is invoked, it will still be clumped by processor
 after the adaptation.  Likewise if it is not clumped before, it will
-remain un-clumped after adaptation.  See :ref:`Section howto 8<howto-68-details-grid-geometry>` for a description clumped and
+remain un-clumped after adaptation.  See :ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a description clumped and
 unclumped grids.
 
 If you want the grid partitioning (and their particles) to be

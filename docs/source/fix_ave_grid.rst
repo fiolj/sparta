@@ -27,7 +27,7 @@ Syntax:
 
    fix ID ave/grid group-ID Nevery Nrepeat Nfreq value1 value2 ... keyword args ...
 
-- ID is documented in :ref:`fix<fix>` command
+- ID is documented in :ref:`fix<fix>` command 
 
 - ave/grid = style name of this fix command
 
@@ -184,7 +184,7 @@ values.
 
 If a value begins with "g\_", the name of a custom per-grid vector or
 array must follow.  Custom attributes can store either a single or
-multiple values per grid cell.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
+multiple values per grid cell.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
 attributes and command that define them.  For example, the
 :ref:`read_grid<read-grid>` and :ref:`surf_react implicit<surf-react-implicit>` commands can define per-grid
 attributes.  (The surf/react implicit command has not yet been
@@ -252,7 +252,7 @@ only be accessed on timesteps that are multiples of *Nfreq* since that
 is when averaging is performed.
 
 This fix performs averaging for all child grid cells in the
-simulation, which includes unsplit, split, and sub cells.  :ref:`Section How-to<howto-68-details-grid-geometry>` of the manual gives details of how
+simulation, which includes unsplit, split, and sub cells.  :ref:`Section How-to<howto-details-grid-geometry-sparta>` of the manual gives details of how
 SPARTA defines child, unsplit, split, and sub cells.
 
 Grid cells not in the specified *group-ID* will output zeroes for all

@@ -21,7 +21,7 @@ Syntax:
 
    write_grid filename keyword arg ...
 
-- filename = name of file to write grid info to
+- filename = name of file to write grid info to 
 
 - zero or more keyword/args pairs may be appended
 

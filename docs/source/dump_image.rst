@@ -27,7 +27,7 @@ Syntax:
 
    dump ID style mix-ID N file color diameter keyword value ...
 
-- ID = user-assigned name for the dump
+- ID = user-assigned name for the dump 
 
 - style = *image* or *movie* = style of dump command (other styles *particle* or *grid* or *surf* are discussed on the :ref:`dump<dump>` doc page)
 
@@ -552,7 +552,7 @@ step of writing (many) image snapshot file.
 To manually convert JPEG, PNG or PPM files into an animated GIF or
 MPEG or other movie file you can:
 
-- a) Use the ImageMagick convert program.
+- a) Use the ImageMagick convert program. 
 
 ::
 
@@ -589,7 +589,7 @@ information see the `FFmpeg homepage <http://www.ffmpeg.org/>`__
 
 You can play a movie file as follows:
 
-- a) Use your browser to view an animated GIF movie.
+- a) Use your browser to view an animated GIF movie. 
 
 Select "Open File" under the File menu
 Load the animated GIF file
@@ -607,7 +607,7 @@ Load the animated GIF file
 
    a = animate("foo\*.jpg")
 
-- d) QuickTime and other Windows- or MacOS-based media players can obviously play movie files directly. Similarly for corresponding tools bundled with Linux desktop environments.  However, due to licensing issues with some file formats, the formats may require installing additional libraries, purchasing a license, or may not be supported.
+- d) QuickTime and other Windows- or MacOS-based media players can obviously play movie files directly. Similarly for corresponding tools bundled with Linux desktop environments.  However, due to licensing issues with some file formats, the formats may require installing additional libraries, purchasing a license, or may not be supported.  
 
 .. _dump-image-restrictio:
 

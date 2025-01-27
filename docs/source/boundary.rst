@@ -21,7 +21,7 @@ Syntax:
 
    boundary x y z
 
-- x,y,z = *o* or *p* or *r* or *a* or *s*, one or two letters
+- x,y,z = *o* or *p* or *r* or *a* or *s*, one or two letters 
 
 ::
 

@@ -21,7 +21,7 @@ Syntax:
 
    read_grid filename keyword args ...
 
-- filename = name of grid file
+- filename = name of grid file 
 
 - zero or more keyword/args pairs may be appended
 
@@ -74,7 +74,7 @@ each processor.
 
 .. important::
 
-  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
+  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.  The
   :ref:`balance_grid<balance-grid>` command can be used after the grid is

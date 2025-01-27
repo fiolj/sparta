@@ -21,7 +21,7 @@ Syntax:
 
    read_restart file keyword args ...
 
-- file = name of binary restart file to read in
+- file = name of binary restart file to read in 
 
 - zero or one keyword/args pair may be listed
 
@@ -81,7 +81,7 @@ simulation.  If the processor count changes, then the assignment will
 necessarily be different.  In particular, even if the original
 assignment was "clumped", meaning each processor's cells were
 geometrically compact, the new assignment will not be clumped; it will
-be "dispersed".  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
+be "dispersed".  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
 manual for an explanation of clumped and dispersed grid cell
 assignments and their relative performance trade-offs.
 

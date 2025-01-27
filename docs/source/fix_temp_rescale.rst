@@ -27,7 +27,7 @@ Syntax:
 
    fix ID temp/rescale N Tstart Tstop keyword value ...
 
-- ID is documented in :ref:`fix<fix>` command
+- ID is documented in :ref:`fix<fix>` command 
 
 - temp/rescale = style name of this fix command
 

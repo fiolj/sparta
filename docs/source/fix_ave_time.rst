@@ -21,7 +21,7 @@ Syntax:
 
    fix ID ave/time Nevery Nrepeat Nfreq value1 value2 ... keyword args ...
 
-- ID is documented in :ref:`fix<fix>` command
+- ID is documented in :ref:`fix<fix>` command 
 
 - ave/time = style name of this fix command
 

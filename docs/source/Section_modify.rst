@@ -9,14 +9,14 @@
 
 This section describes how to extend SPARTA by modifying its source code.
 
-10.1 :ref:`Compute styles<modify-compute-styles>`
-10.2 :ref:`Fix styles<modify-fix-styles>`
-10.3 :ref:`Region styles<modify-region-styles>`
-10.4 :ref:`Collision styles<modify-collision-styles>`
-10.5 :ref:`Surface collision styles<modify-surface-collision-styles>`
-10.6 :ref:`Chemistry styles<modify-chemistry-styles>`
-10.7 :ref:`Dump styles<modify-dump-styles>`
-10.8 :ref:`Input script commands<modify-input-script-commands>`
+10.1 :ref:`Compute styles<modify-101-compute-styles>`
+10.2 :ref:`Fix styles<modify-102-fix-styles>`
+10.3 :ref:`Region styles<modify-103-region-styles>`
+10.4 :ref:`Collision styles<modify-104-collision-styles>`
+10.5 :ref:`Surface collision styles<modify-105-surface-collision-styles>`
+10.6 :ref:`Chemistry styles<modify-106-chemistry-styles>`
+10.7 :ref:`Dump styles<modify-107-dump-styles>`
+10.8 :ref:`Input script commands<modify-108-input-script-commands>`
 
 SPARTA is designed in a modular fashion so as to be easy to modify and
 extend with new functionality.
@@ -92,7 +92,7 @@ are functions that can be optionally defined.
 Here are additional guidelines for modifying SPARTA and adding new
 functionality:
 
-- Think about whether what you want to do would be better as a pre- or post-processing step. Many computations are more easily and more quickly done that way.
+- Think about whether what you want to do would be better as a pre- or post-processing step. Many computations are more easily and more quickly done that way. 
 
 - Don't do anything within the timestepping of a run that isn't parallel.  E.g. don't accumulate a large volume of data on a single processor and analyze it.  This runs the risk of seriously degrading the parallel efficiency.
 
@@ -100,13 +100,13 @@ If you have a question about how to compute something or about
 internal SPARTA data structures or algorithms, feel free to send an
 email to the `developers <https://sparta.github.io/authors.html>`__.
 
-- If you add something you think is generally useful, also send an email to the `developers <https://sparta.github.io/authors.html>`__ so we can consider adding it to the SPARTA distribution.
+- If you add something you think is generally useful, also send an email to the `developers <https://sparta.github.io/authors.html>`__ so we can consider adding it to the SPARTA distribution.  
 
-.. _modify-compute-styles:
+.. _modify-101-compute-styles:
 
-**************
-Compute styles
-**************
+*******************
+10.1 Compute styles
+*******************
 
 :ref:`Compute style commands<compute>` calculate instantaneous
 properties of the simulated system.  They can be global properties, or
@@ -149,11 +149,11 @@ class.  See compute.h for details.  All of these methods are optional.
 Flags may also need to be set by a compute to enable specific
 properties.  See the compute.h header file for one-line descriptions.
 
-.. _modify-fix-styles:
+.. _modify-102-fix-styles:
 
-**********
-Fix styles
-**********
+***************
+10.2 Fix styles
+***************
 
 :ref:`Fix style commands<fix>` perform operations during the
 timestepping loop of a simulation.  They can define methods which are
@@ -209,11 +209,11 @@ are used.  It define an integer vector called "ionambi" to flag
 particles as ambipolar ions, and a floatin-point array called
 "velambi" to store the velocity vector for the associated electron.
 
-.. _modify-region-styles:
+.. _modify-103-region-styles:
 
-*************
-Region styles
-*************
+******************
+10.3 Region styles
+******************
 
 :ref:`Region style commands<region>` define geometric regions
 within the simulation box.  Other commands use regions
@@ -224,11 +224,11 @@ class.  See region.h for details.  The inside() method is required.
 
 inside: determine whether a point is inside/outside the region
 
-.. _modify-collision-styles:
+.. _modify-104-collision-styles:
 
-****************
-Collision styles
-****************
+*********************
+10.4 Collision styles
+*********************
 
 :ref:`Collision style commands<collide>` define collision models that
 calculate interactions between particles in the same grid cell.
@@ -257,11 +257,11 @@ except init() and modify_params().
    * - perform_collision
      -  calculate the outcome of a 2-particle collision
 
-.. _modify-surface-collision-styles:
+.. _modify-105-surface-collision-styles:
 
-************************
-Surface collision styles
-************************
+*****************************
+10.5 Surface collision styles
+*****************************
 
 :ref:`Surface collision style commands<collide>` define collision
 models that calculate interactions between a particle and surface
@@ -281,11 +281,11 @@ required except dynamic().
    * - dynamic
      -  allow surface property to change during a simulation
 
-.. _modify-chemistry-styles:
+.. _modify-106-chemistry-styles:
 
-****************
-Chemistry styles
-****************
+*********************
+10.6 Chemistry styles
+*********************
 
 Particle/particle chemistry models in SPARTA are specified by
 :ref:`reaction style commands<react>` which define lists of possible
@@ -303,11 +303,11 @@ the attempt() method is required.
    * - attempt
      -  attempt a chemical reaction between two particles
 
-.. _modify-dump-styles:
+.. _modify-107-dump-styles:
 
-***********
-Dump styles
-***********
+****************
+10.7 Dump styles
+****************
 
 :ref:`Dump commands<dump>` output snapshots of simulation data to a
 file periodically during a simulation, in a particular file format.
@@ -336,11 +336,11 @@ memory_usage() methods are optional; all the others are required.
    * - memory_usage
      -  tally memory usage
 
-.. _modify-input-script-commands:
+.. _modify-108-input-script-commands:
 
-*********************
-Input script commands
-*********************
+**************************
+10.8 Input script commands
+**************************
 
 New commands can be added to SPARTA that will be recognized in input
 scripts.  For example, the :ref:`create_particles<create-particles>`,

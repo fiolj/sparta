@@ -21,7 +21,7 @@ Syntax:
 
    run N keyword values ...
 
-- value = # of integer timesteps N
+- value = # of integer timesteps N 
 
 - zero or more keyword/value pairs may be appended
 

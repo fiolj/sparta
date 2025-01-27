@@ -27,7 +27,7 @@ Syntax:
 
    fix ID grid/check N outflag keyword arg ...
 
-- ID is documented in :ref:`fix<fix>` command
+- ID is documented in :ref:`fix<fix>` command 
 
 - grid/check = style name of this fix command
 

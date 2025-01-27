@@ -21,7 +21,7 @@ Syntax:
 
    fix ID surf/temp surf-ID Nevery source Tinit emisurf custom-name
 
-- ID is documented in :ref:`fix<fix>` command
+- ID is documented in :ref:`fix<fix>` command 
 
 - surf/temp = style name of this fix command
 

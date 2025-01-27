@@ -1,21 +1,19 @@
 
 .. _intro:
 
-.. _intro-1-introducti:
+.. _intro-introducti:
 
-###############
-1. Introduction
-###############
+############
+Introduction
+############
 
 These sections provide an overview of what SPARTA can do, describe
 what it means for SPARTA to be an open-source code, and acknowledge
 the funding and people who have contributed to SPARTA.
 
-1.1 :ref:`What is SPARTA<intro-what-sparta>`
-1.2 :ref:`SPARTA features<intro-sparta-features>`
-1.3 :ref:`Grids and surfaces in SPARTA<intro-grids-surfaces-sparta>`
-1.4 :ref:`Open source distribution<intro-open-source-distributi>`
-1.5 :ref:`Acknowledgments and citations<intro-acknowledg-citations>`
+.. contents::
+   :depth: 1
+   :local:
 
 .. _intro-what-sparta:
 
@@ -93,9 +91,9 @@ General features
    -   runs from an :ref:`input script<commands>`
    -   syntax for defining and using :ref:`variables and formulas<variable>`
    -   syntax for :ref:`looping over runs<jump>` and breaking out of loops
-   -   run one or :ref:`multiple simulations simultaneously<howto-63-running-multiple-simulation>` (in parallel) from one script
-   -   :ref:`build as library<start-building-sparta-library>`, invoke SPARTA thru :ref:`library interface<howto-66-library-interface-sparta>` or provided :ref:`Python wrapper<python>`
-   -   :ref:`couple with other codes<howto-67-coupling-sparta-other>`: SPARTA calls other code, other code calls SPARTA, umbrella code calls both
+   -   run one or :ref:`multiple simulations simultaneously<howto-running-multiple-simulation-one>` (in parallel) from one script
+   -   :ref:`build as library<start-building-sparta-library>`, invoke SPARTA thru :ref:`library interface<howto-library-interface-sparta>` or provided :ref:`Python wrapper<python>`
+   -   :ref:`couple with other codes<howto-coupling-sparta-other-codes>`: SPARTA calls other code, other code calls SPARTA, umbrella code calls both
 
 .. _intro-models:
 
@@ -103,13 +101,13 @@ General features
 Models
 ******
 
-   -   :ref:`3d or 2d<dimension>` or :ref:`2d-axisymmetric<howto-62-axisymmetr-simulation>` domains
+   -   :ref:`3d or 2d<dimension>` or :ref:`2d-axisymmetric<howto-axisymmetr-simulation>` domains
    -   variety of :ref:`global boundary conditions<boundary>`
    -   :ref:`create particles<create-particles>` within flow volume
    -   emit particles from simulation box faces due to :ref:`flow properties<fix-emit-face>`
    -   emit particles from simulation box faces due to :ref:`profile defined in file<fix-emit-face-file>`
    -   emit particles from surface elements due to :ref:`normal and flow properties<fix-emit-surf>`
-   -   :ref:`ambipolar<howto-611-ambipolar-approximat>` approximation for ionized plasmas
+   -   :ref:`ambipolar<howto-ambipolar-approximat>` approximation for ionized plasmas
 
 .. _intro-geometry:
 
@@ -181,7 +179,7 @@ Output
 Pre- and post-processing
 ************************
 
-- Various pre- and post-processing serial tools are packaged with SPARTA; see :ref:`Section 9<tools>` of the manual.
+- Various pre- and post-processing serial tools are packaged with SPARTA; see :ref:`Section 9<tools>` of the manual. 
 
 - Our group has also written and released a separate toolkit called `Pizza.py <http://pizza.sandia.gov>`__ which provides tools for doing setup, analysis, plotting, and visualization for SPARTA simulations.  Pizza.py is written in :ref:`Python<python>` and is available for download from `the Pizza.py WWW site <http://pizza.sandia.gov>`__.
 
@@ -219,8 +217,8 @@ simulation box.  Click on the image for a larger picture.
 .. image:: JPG/shuttle_small.jpg
            :target: JPG/shuttle.jpg
 
-See Sections :ref:`howto-68-details-grid-geometry` and
-:ref:`howto-69-details-surfaces-sparta` for more details of both the grids and
+See Sections :ref:`howto-details-grid-geometry-sparta` and
+:ref:`howto-details-surfaces-sparta` for more details of both the grids and
 surface objects that SPARTA supports and how to define them.
 
 .. _intro-open-source-distributi:
@@ -260,7 +258,7 @@ contribute to making SPARTA better.  You can send email to the
 `developers <https://sparta.github.io/authors.html>`__ on any of these
 topics.
 
-- Point prospective users to the `SPARTA WWW Site <http://sparta.sandia.gov>`__.  Mention it in talks or link to it from your WWW site.
+- Point prospective users to the `SPARTA WWW Site <http://sparta.sandia.gov>`__.  Mention it in talks or link to it from your WWW site. 
 
 - If you find an error or omission in this manual or on the `SPARTA WWW Site <http://sparta.sandia.gov>`__, or have a suggestion for something to clarify or include, send an email to the `developers <https://sparta.github.io/authors.html>`__.
 
@@ -274,7 +272,7 @@ topics.
 
 - The Benchmark page of the `SPARTA WWW Site <http://sparta.sandia.gov>`__ lists SPARTA performance on various platforms.  The files needed to run the benchmarks are part of the SPARTA distribution.  If your machine is sufficiently different from those listed, your timing data can be added to the page.
 
-- Cash.  Small denominations, unmarked bills preferred.  Paper sack OK. Leave on desk.  VISA also accepted.  Chocolate chip cookies encouraged.
+- Cash.  Small denominations, unmarked bills preferred.  Paper sack OK. Leave on desk.  VISA also accepted.  Chocolate chip cookies encouraged.  
 
 .. _intro-acknowledg-citations:
 

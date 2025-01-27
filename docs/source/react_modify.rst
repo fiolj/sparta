@@ -21,7 +21,7 @@ Syntax:
 
    react_modify keyword values ...
 
-- one or more keyword/value pairs may be listed
+- one or more keyword/value pairs may be listed 
 
 - keywords = *recomb* or *rboost* or *compute_chem_rates* or *partial_energy*
 

@@ -1,10 +1,10 @@
 
 
-.. _python-11-interface-sparta:
+.. _python-interface-sparta:
 
-##############################
-11. Python interface to SPARTA
-##############################
+##########################
+Python interface to SPARTA
+##########################
 
 This section describes how to build and use SPARTA via a Python
 interface.
@@ -29,10 +29,10 @@ read what you type.
 `Python <http://www.python.org>`__ is a powerful scripting and programming
 language which can be used to wrap software like SPARTA and many other
 packages.  It can be used to glue multiple pieces of software
-together, e.g. to run a coupled or multiscale model.  See :ref:`Section 4.7<howto-67-coupling-sparta-other>` of the manual and the examples/COUPLE
+together, e.g. to run a coupled or multiscale model.  See :ref:`Section 4.7<howto-coupling-sparta-other-codes>` of the manual and the examples/COUPLE
 directory of the distribution for more ideas about coupling SPARTA to
 other codes.  See :ref:`Section 2.4<start-building-sparta-library>` about how
-to build SPARTA as a library, and :ref:`Section 4.6<howto-66-library-interface-sparta>` for a description of the library
+to build SPARTA as a library, and :ref:`Section 4.6<howto-library-interface-sparta>` for a description of the library
 interface provided in src/library.cpp and src/library.h and how to
 extend it for your needs.  As described below, that interface is what
 is exposed to Python.  It is designed to be easy to add functions to.
@@ -327,7 +327,7 @@ first importing from the sparta.py file:
    >>> from ctypes import CDLL
    >>> CDLL("libsparta.so")
 
-If an error occurs, carefully go thru the steps in :ref:`Section 4<start-building-sparta-library>` and above about building a shared
+If an error occurs, carefully go thru the steps in :ref:`Section 2.4<start-building-sparta-library>` and above about building a shared
 library and about insuring Python can find the necessary two files it
 needs.
 
@@ -566,7 +566,7 @@ What is returned depends on whether the compute calculates a scalar or
 vector or array.  For a scalar, a single double value is returned.  If
 the compute or fix calculates a vector or array, a pointer to the
 internal SPARTA data is returned, which you can use via normal Python
-subscripting.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>` of the
+subscripting.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>` of the
 manual for a discussion of global, per particle, per grid, and per
 surf data, and of scalar, vector, and array data types.  See the doc
 pages for individual :ref:`computes<compute>` for a description of what
@@ -584,7 +584,7 @@ the functions in the SPARTA library interface in src/library.cpp and
 library.h.  This means you can extend the Python wrapper via the
 following steps:
 
-- Add a new interface function to src/library.cpp and src/library.h.
+- Add a new interface function to src/library.cpp and src/library.h. 
 
 - Rebuild SPARTA as a shared library.
 

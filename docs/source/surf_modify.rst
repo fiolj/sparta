@@ -23,7 +23,7 @@ Syntax:
 
 - group-ID = ID of the surface group to operate on
 
-- one or more keyword/arg pairs may be listed
+- one or more keyword/arg pairs may be listed 
 
 - keyword = *collide* or (react)
 

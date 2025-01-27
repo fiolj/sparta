@@ -21,7 +21,7 @@ Syntax:
 
    shell cmd args
 
-- cmd = *cd* or *mkdir* or *mv* or *rm* or *rmdir* or *putenv* or arbitrary command
+- cmd = *cd* or *mkdir* or *mv* or *rm* or *rmdir* or *putenv* or arbitrary command 
 
 ::
 

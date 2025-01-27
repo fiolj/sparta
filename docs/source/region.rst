@@ -21,7 +21,7 @@ Syntax:
 
    region ID style args keyword value ...
 
-- ID = user-assigned name for the region
+- ID = user-assigned name for the region 
 
 - style = *block* or *cylinder* or *plane* or *sphere* or *union* or *intersect*
 
@@ -107,7 +107,7 @@ consisting of the volume that is common to all the listed regions.
 
   Regions in SPARTA are always 3d geometric objects,
   regardless of whether the :ref:`dimension<dimension>` of the simulation
-  d or 3d.  Thus when using regions in a 2d simulation, for example,
+  2d or 3d.  Thus when using regions in a 2d simulation, for example,
   you should be careful to define the region so that its intersection
   with the 2d x-y plane of the simulation has the 2d geometric extent
   you want.

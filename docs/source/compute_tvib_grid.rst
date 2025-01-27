@@ -21,7 +21,7 @@ Syntax:
 
    compute ID tvib/grid group-ID mix-ID keyword ...
 
-- ID is documented in :ref:`compute<compute>` command
+- ID is documented in :ref:`compute<compute>` command 
 
 - tvib/grid = style name of this compute command
 
@@ -191,7 +191,7 @@ Grid cells not in the specified *group-ID* will output zeroes for all
 their values.
 
 The array can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 4.4<howto-64-output-sparta-(stats,>`
+from a compute as input.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>`
 for an overview of SPARTA output options.
 
 The per-grid array values will be in temperature :ref:`units<units>`.

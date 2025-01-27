@@ -21,7 +21,7 @@ Syntax:
 
    fix ID halt N attribute operator avalue keyword value ...
 
-- ID is documented in :ref:`fix<fix>` command
+- ID is documented in :ref:`fix<fix>` command 
 
 - halt = style name of this fix command
 

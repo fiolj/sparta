@@ -21,7 +21,7 @@ Syntax:
 
    stats_style arg1 arg2 ...
 
-- arg1,arg2,... = list of keywords
+- arg1,arg2,... = list of keywords 
 
 ::
 
@@ -186,7 +186,7 @@ command.
 
 The *ngrid* keyword is the number of grid cells which includes both
 unsplit and split cells.  The *nsplit* keyword is the number of split
-cells.  See :ref:`Section howto 4.8<howto-68-details-grid-geometry>` for a
+cells.  See :ref:`Section howto 4.8<howto-details-grid-geometry-sparta>` for a
 description of the hierarchical grid used by SPARTA and a definition
 of these kinds of grid cells.
 

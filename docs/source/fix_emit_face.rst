@@ -27,7 +27,7 @@ Syntax:
 
    fix ID emit/face mix-ID face1 face2 ... keyword value(s) ...
 
-- ID is documented in :ref:`fix<fix>` command
+- ID is documented in :ref:`fix<fix>` command 
 
 - emit/face = style name of this fix command
 
@@ -277,7 +277,7 @@ Restrictions:
 
 Particles cannot be emitted from periodic faces of the simulation box.
 Particles cannot be emitted from *z* faces of the simluation box for a
-d simulation.
+2d simulation.
 
 A *n* setting of *Np* > 0 can only be used with a *perspecies* setting
 of *no*.

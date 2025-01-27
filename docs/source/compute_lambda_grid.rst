@@ -27,7 +27,7 @@ Syntax:
 
    compute ID lambda/grid nrho temp value1 value2 ...
 
-- ID is documented in :ref:`compute<compute>` command
+- ID is documented in :ref:`compute<compute>` command 
 
 - lambda/grid = style name of this compute command
 
@@ -225,7 +225,7 @@ in the order the output values were specified in the input.
   contain the particles that are geometrically inside the split cell.
 
 The vector or array can be accessed by any command that uses per-grid
-values from a compute as input.  See :ref:`Section 4.4<howto-64-output-sparta-(stats,>` for an overview of SPARTA output
+values from a compute as input.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>` for an overview of SPARTA output
 options.
 
 The per-grid values for the column of output corresponding to *lambda*

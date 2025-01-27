@@ -21,7 +21,7 @@ Syntax:
 
    move_surf groupID style args ... keyword value ...
 
-- group-ID = group ID for which surface elements to move
+- group-ID = group ID for which surface elements to move 
 
 - style = *file* or *trans* or *rotate*
 

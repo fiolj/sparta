@@ -21,7 +21,7 @@ Syntax:
 
    bound_modify wall1 wall2 ... keyword value ...
 
-- wall1,wall2,... = *xlo* or *xhi* or *ylo* or *yhi* or *zlo* or *zhi*
+- wall1,wall2,... = *xlo* or *xhi* or *ylo* or *yhi* or *zlo* or *zhi* 
 
 - one or more keyword/value pairs may be listed
 

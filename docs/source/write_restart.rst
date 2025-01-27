@@ -21,7 +21,7 @@ Syntax:
 
    write_restart file keyword value ...
 
-- file = name of file to write restart information to
+- file = name of file to write restart information to 
 
 - zero or more keyword/value pairs may be appended
 

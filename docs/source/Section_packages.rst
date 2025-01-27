@@ -1,11 +1,10 @@
 
+
 .. _packages:
 
-.. _packages-4:
-
-###########
-4. Packages
-###########
+########
+Packages
+########
 
 This section gives an overview of the optional packages that extend
 SPARTA functionality with instructions on how to build SPARTA with

@@ -21,7 +21,7 @@ Syntax:
 
    balance_grid style args ...
 
-- style = *none* or *stride* or *clump* or *block* or *random* or *proc* or *rcb*
+- style = *none* or *stride* or *clump* or *block* or *random* or *proc* or *rcb* 
 
 ::
 
@@ -106,7 +106,7 @@ child cells to each processor.
 
 .. important::
 
-  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the
+  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the
   manual for an explanation of clumped and dispersed grid cell
   assignments and their relative performance trade-offs.
 

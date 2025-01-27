@@ -21,7 +21,7 @@ Syntax:
 
    fix ID emit/face/file mix-ID face filename boundary-ID keyword value ...
 
-- ID is documented in :ref:`fix<fix>` command
+- ID is documented in :ref:`fix<fix>` command 
 
 - emit/face/file = style name of this fix command
 
@@ -374,7 +374,7 @@ number fraction of 0.5.  Assume a particular grid cell adds 10
 particles from that mixture.  If *perspecies* is set to *yes*, then
 exactly 5 particles of each species will be added on every timestep
 insertions take place.  If *perspecies* is set to *no*, then exactly
-particles will be added every time and on average there will be 5
+10 particles will be added every time and on average there will be 5
 particles of each of the two species.  But on one timestep it might be
 6 of the first and 4 of the second.  On another timestep it might be 3
 of the first and 7 of the second.

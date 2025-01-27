@@ -27,7 +27,7 @@ Syntax:
 
    compute ID eflux/grid group-ID mix-ID value1 value2 ...
 
-- ID is documented in :ref:`compute<compute>` command
+- ID is documented in :ref:`compute<compute>` command 
 
 - eflux/grid = style name of this compute command
 
@@ -173,7 +173,7 @@ Grid cells not in the specified *group-ID* will output zeroes for all
 their values.
 
 The array can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
+from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
 for an overview of SPARTA output options.
 
 The per-grid array values will be in the :ref:`units<units>` of

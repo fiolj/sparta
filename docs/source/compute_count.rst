@@ -27,7 +27,7 @@ Syntax:
 
    compute ID count id1 id2 ...
 
-- ID is documented in :ref:`compute<compute>` command
+- ID is documented in :ref:`compute<compute>` command 
 
 - count = style name of this compute command
 
@@ -93,7 +93,7 @@ If there is a single count accumulated, this compute calculates a
 global scalar.  If there are multiple counts accumulated, it
 calculates a global vector with a length = number of counts.  These
 results can be used by any command that uses global scalar or vector
-values from a compute as input.  See :ref:`Section 4.4<howto-64-output-sparta-(stats,>` for an overview of SPARTA output
+values from a compute as input.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>` for an overview of SPARTA output
 options.
 
 The values will all be unitless counts.

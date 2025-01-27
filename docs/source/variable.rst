@@ -21,7 +21,7 @@ Syntax:
 
    variable name style args ...
 
-- name = name of variable to define
+- name = name of variable to define 
 
 - style = *delete* or *index* or *loop* or *world* or *universe* or *uloop* or *string* or *format* or *getenv* or *file* or *internal* or *equal* or *particle* or *grid* or *surf*
 
@@ -324,12 +324,12 @@ each particle whenever it is evaluated.  For *grid* style variables
 the formula computes one quantity for each grid cell whenever it is
 evaluated.  A *grid* style variable computes quantites for all flavors
 of child grid cells in the simulation, which includes unsplit, cut,
-split, and sub cells.  See :ref:`Section 4.8<howto-68-details-grid-geometry>` of
+split, and sub cells.  See :ref:`Section 4.8<howto-details-grid-geometry-sparta>` of
 the manual gives details of how SPARTA defines child, unsplit, split,
 and sub cells.  For *surf* style variables the formula computes one
 quantity for each surface element (line or triangle) whenever it is
 evaluated.  They can only be defined for explicit surfaces, not
-implicit surfaces.  See :ref:`Section 4.9<howto-69-details-surfaces-sparta>` of
+implicit surfaces.  See :ref:`Section 4.9<howto-details-surfaces-sparta>` of
 the manual for a description of both kinds of surface elements.
 
 .. note::
@@ -824,7 +824,7 @@ cell, or per surface element.  They can be defined and initialized in
 data files, e.g. via the :ref:`read_surf<read-surf>` command.  Or they
 can be defined and used by specific commands, e.g. :ref:`fix ambipolar<fix-ambipolar>` or :ref:`fix surf/temp<fix-surf-temp>` or
 :ref:`surf_react adsorb<surf-react-adsorb>`.  The name of each
-attribute sis set by the user or defined by the command.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
+attribute sis set by the user or defined by the command.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
 attributes.
 
 Single-value attributes are referred to as per-particle, per-grid, or
@@ -973,7 +973,7 @@ if it contains variables preceeded by $ signs.  For example,
 
    variable nratio equal "$\{nfinal\}/$\{n0\}"
 
-This is because the quotes prevent variable substitution (see :ref:`Section 2<commands-parsing-rules>` of the manual on parsing input script
+This is because the quotes prevent variable substitution (see :ref:`Section 2.2<commands-parsing-rules>` of the manual on parsing input script
 commands), and thus an error will occur when the formula for "nratio"
 is evaluated later.
 

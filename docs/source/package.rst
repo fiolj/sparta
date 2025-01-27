@@ -21,7 +21,7 @@ Syntax:
 
    package style args
 
-- style = *kokkos*
+- style = *kokkos* 
 
 - args = arguments specific to the style
 
