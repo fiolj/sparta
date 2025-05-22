@@ -240,8 +240,10 @@ Rendering of particles
 
 Particles are drawn by default using the *color* and *diameter*
 settings.  The *particle* keyword allow you to turn off the drawing of
-all particles, if the specified value is *no*.  Only particles in a
-geometric region can be drawn using the :ref:`dump_modify region<dump-modify>` command.
+all particles, if the specified value is *no*.
+
+Only particles in the specified mixture ID (mix-ID) are drawn.  Only
+particles in a geometric region can be drawn using the :ref:`dump_modify region<dump-modify>` command.
 
 The *color* and *diameter* settings determine the color and size of
 particles rendered in the image.  They can be any particle attribute
@@ -311,8 +313,9 @@ rectangle that is infinitely thin in the z dimension, which allows you
 to still see the particles in the grid cell.  For 3d, the grid cell is
 drawn as a solid brick, which will obscure the particles inside it.
 
-Only grid cells in a geometric region can be drawn using the
-:ref:`dump_modify region<dump-modify>` command.
+Only grid cells in a grid group can be drawn using the :ref:`dump_modify gridgroup<dump-modify>` command.  Only grid cells in a geometric
+region can be drawn using the :ref:`dump_modify region<dump-modify>`
+command.
 
 The *gridx* and *gridy* and *gridz* keywords turn on the drawing of of
 a 2d plane of grid cells at the specified coordinate.  This is a way
@@ -373,8 +376,9 @@ setting is ignored.  The entire surface is rendered, which in 3d will
 hide any grid cells (or fractions of a grid cell) that are inside the
 surface.
 
-The :ref:`dump_modify region<dump-modify>` command does not apply to
-surface element drawing.
+Only surface elements in a surface group can be drawn using the
+:ref:`dump_modify surfgroup<dump-modify>` command.  The :ref:`dump_modify region<dump-modify>` command does not apply to surface element
+drawing.
 
 If *one* is specified for the *color* setting, then the color of every
 surface element is drawn with the color specified by the :ref:`dump_modify scolor<dump-modify>` keyword, which is gray by default.

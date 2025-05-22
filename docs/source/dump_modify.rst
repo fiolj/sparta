@@ -96,6 +96,8 @@ Syntax:
        color = name of color or color1/color2/...
      *glinecolor* arg = color
        color = name of color for grid cell outlines
+     *gridgroup* arg = group-ID
+       group-ID = name of a user-defined grid group, see the :ref:`group<group>` command
      *pcolor* args = type color
        type = particle type or range of types or proc ID or range of IDs (see below)
        color = name of color or color1/color2/...
@@ -107,6 +109,9 @@ Syntax:
        color = name of color for surf one option
      *slinecolor* arg = color
        color = name of color for surface element outlines
+
+  *surfgroup* arg = group-ID
+    group-ID = name of a user-defined surf group, see the :ref:`group<group>` command
 
 .. _dump-modify-examples:
 
@@ -458,6 +463,11 @@ image gline" command for how to specify that cell outlines be drawn.
 The color name can be any of the 140 pre-defined colors (see below) or
 a color name defined by the dump_modify color option.
 
+The *gridgroup* keyword can be used with the :ref:`dump image<dump-image>` command to only draw a subset of the grid cells
+in the simulation.  By default all the grid cells are rendered.  The
+group-ID argument can be any valid grid group name, as defined by the
+:ref:`group grid<group>` command.
+
 The *pcolor* keyword can be used one or more times with the :ref:`dump image<dump-image>` command, only when its particle color setting is
 *type* or *procs*, to set the color that particles will be drawn in
 the image.
@@ -528,6 +538,11 @@ outlines be drawn.  The color name can be any of the 140 pre-defined
 colors (see below) or a color name defined by the dump_modify color
 option.
 
+The *surfgroup* keyword can be used with the :ref:`dump image<dump-image>` command to only draw a subset of the surface
+elements in the simulation.  By default all the surface elements are
+rendered.  The group-ID argument can be any valid surf group name, as
+defined by the :ref:`group surf<group>` command.
+
 .. _dump-modify-restrictio:
 
 *************
@@ -565,6 +580,7 @@ The option defaults are
    - format = %d and %g for each integer or floating point value
    - gcolor = \* red/green/blue/yellow/aqua/cyan
    - glinecolor = white
+   - gridgroup = all
    - nfile = 1
    - pad = 0
    - pcolor = \* red/green/blue/yellow/aqua/cyan
@@ -572,6 +588,7 @@ The option defaults are
    - region = none
    - scolor = \* gray
    - slinecolor = white
+   - surfgroup = all
    - thresh = none
 
 These are the 140 colors that SPARTA pre-defines for use with the

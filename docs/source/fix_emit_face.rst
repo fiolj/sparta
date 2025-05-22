@@ -37,14 +37,16 @@ Syntax:
 
 - zero or more keyword/value(s) pairs may be appended
 
-- keyword = *n* or *nevery* or *perspecies* or *region* or *subsonic* or *twopass*
+- keyword = *n* or *nevery* or *perspecies* or *region* or *modulate* or *subsonic* or *twopass*
 
 ::
 
      *n* value = Np = number of particles to create
      *nevery* value = Nstep = add particles every this many timesteps
      *perspecies* value = *yes* or *no*
-     *region* value = region-ID 
+     *region* value = region-ID
+     *modulate* value = v_name
+       name = name of equal-style variable which modulates inflow of particles
      *subsonic* values = Psub Tsub
        Psub = pressure setting at inflow boundary (pressure units)
        Tsub = temperature setting at inflow boundary, can be NULL (temperature units)
@@ -62,6 +64,11 @@ Examples:
    fix in emit/face mymix xlo yhi n 1000 nevery 10 region circle
    fix in emit/face air xlo subsonic 0.1 300
    fix in emit/face air xhi subsonic 0.05 NULL twopass
+
+::
+
+   variable mod equal "1.0 + sin(step/10000\*2\*PI)"
+   fix in emit/face air all modulate v_mod
 
 .. _fix-emit-face-descriptio:
 
@@ -186,6 +193,12 @@ of the first and 7 of the second.
   for N, even if some or all of the particle insertions are rejected due
   to not being inside the region.
 
+.. note::
+
+  that the formula used for an equal-style variable can include the
+  current timestep, so this is a simple way to insert a time-varying
+  flow of particles.
+
 The *subsonic* keyword uses the method of Fang and Liou
 :ref:`(Fang02)<Fang02>` to determine the number of particles to insert in
 each grid cell on the emitting face(s).  They used the method of
@@ -279,8 +292,9 @@ Particles cannot be emitted from periodic faces of the simulation box.
 Particles cannot be emitted from *z* faces of the simluation box for a
 2d simulation.
 
-A *n* setting of *Np* > 0 can only be used with a *perspecies* setting
-of *no*.
+A *perspecies* setting of *yes* can only be used with an *n* setting
+of *Np* = 0.  Likewise, the *modulate* keyword can only be used with
+an *n* setting of *Np* = 0.
 
 A warning will be issued if a specified face has an inward normal in a
 direction opposing the streaming velocity.  Particles will still be
@@ -306,7 +320,7 @@ Default:
 ********
 
 The keyword defaults are n = 0, nevery = 1, perspecies = yes, region =
-none, no subsonic settings, no twopass setting.
+none, no modulate setting, no subsonic settings, no twopass setting.
 
 .. _Bird94:
 

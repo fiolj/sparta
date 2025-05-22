@@ -731,6 +731,12 @@ As described above, the CMake option Kokkos_ARCH_*TYPE*=ON or the makefile setti
    * -  ZEN3 
      -  HOST 
      -  AMD Zen3 architecture 
+   * -  ZEN4 
+     -  HOST 
+     -  AMD Zen4 architecture 
+   * -  ZEN5 
+     -  HOST 
+     -  AMD Zen5 architecture 
    * -  RISCV_SG2042 
      -  HOST 
      -  SG2042 (RISC-V) CPUs 
@@ -785,6 +791,12 @@ As described above, the CMake option Kokkos_ARCH_*TYPE*=ON or the makefile setti
    * -  HOPPER90 
      -  GPU 
      -  NVIDIA Hopper generation CC 9.0 
+   * -  BLACKWELL100 
+     -  GPU 
+     -  NVIDIA Blackwell generation CC 10.0 
+   * -  BLACKWELL120 
+     -  GPU 
+     -  NVIDIA Blackwell generation CC 12.0 
    * -  AMD_GFX906 
      -  GPU 
      -  AMD GPU MI50/60 
@@ -832,7 +844,10 @@ As described above, the CMake option Kokkos_ARCH_*TYPE*=ON or the makefile setti
      -  Intel GPU Xe-HP 
    * -  INTEL_PVC 
      -  GPU 
-     -  Intel GPU Ponte Vecchio
+     -  Intel GPU Ponte Vecchio 
+   * -  INTEL_DG2 
+     -  GPU 
+     -  Intel GPU DG2
 
 The CMake option Kokkos_ENABLE_CUDA_*OPTION* or the makefile setting KOKKOS_CUDA_OPTIONS=*OPTION* are 
 additional options for CUDA. For example, the CMake option Kokkos_ENABLE_CUDA_UVM=ON or the makefile setting KOKKOS_CUDA_OPTIONS="enable_lambda,force_uvm" enables the use of CUDA "Unified Virtual Memory" (UVM) in Kokkos. UVM allows to one to use the host CPU memory to supplement the memory used on the GPU (with some performance penalty) and thus enables running larger problems that would otherwise not fit into the RAM on the GPU. Please note, that the SPARTA KOKKOS package must always be compiled with the CMake option Kokkos_ENABLE_CUDA_LAMBDA=ON or the makefile setting KOKKOS_CUDA_OPTIONS=enable_lambda when using GPUs. The CMake configuration will thus always enable it.

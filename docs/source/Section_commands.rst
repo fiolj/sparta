@@ -431,13 +431,13 @@ This is indicated by additional letters in parenthesis: k = KOKKOS.
      -  :ref:`field/grid<fix-field-grid>`
      -  :ref:`field/particle<fix-field-particle>`
      -  :ref:`grid/check (k)<fix-grid-check>`
+     -  :ref:`halt<fix-halt>`
      -  :ref:`move/surf (k)<fix-move-surf>`
-     -  :ref:`print<fix-print>`
-   * -  :ref:`surf/temp<fix-surf-temp>`
+   * -  :ref:`print<fix-print>`
+     -  :ref:`surf/temp<fix-surf-temp>`
      -  :ref:`temp/global/rescale<fix-temp-global-rescale>`
      -  :ref:`temp/rescale (k)<fix-temp-rescale>`
      -  :ref:`vibmode (k)<fix-vibmode>`
-     - 
      -
 
 .. _commands-compute-styles:

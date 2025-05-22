@@ -100,6 +100,7 @@ styles available in SPARTA:
    - :ref:`field/grid<fix-field-grid>` - apply an external field on a per grid cell basis
    - :ref:`field/particle<fix-field-particle>` - apply an external field on a per particle basis
    - :ref:`grid/check<fix-grid-check>` - check if particles are in the correct grid cell
+   - :ref:`halt<fix-halt>` - stop the simulation early if a condition is met
    - :ref:`move/surf<fix-move-surf>` - move surfaces dynamically during a simulation
    - :ref:`print<fix-print>` - print text and variables during a simulation
    - :ref:`surf/temp<fix-surf-temp>` - compute per-surf temperatures dynamically

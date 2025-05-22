@@ -53,8 +53,8 @@ Examples:
 
 ::
 
-   fix 10 halt 10 tlimit > 3600.0
-   fix 10 halt 10 v_myCheck != 0 error soft
+   fix 1 halt 10 tlimit > 3600.0
+   fix 1 halt 10 v_myCheck != 0 error soft
 
 .. _fix-halt-descriptio:
 
@@ -92,12 +92,12 @@ stop the run after an hour of walltime:
 
 ::
 
-   fix 10 halt 10 tlimit > 3600.0
+   fix 1 halt 10 tlimit > 3600.0
 
 ::
 
    variable cpu equal cpu
-   fix 10 halt 10 v_cpu > 3600.0
+   fix 1 halt 10 v_cpu > 3600.0
 
 The commands above apply only to the time spent in the current run
 command. If multiple run commands are used in the same input script,
@@ -107,7 +107,7 @@ walltime:
 ::
 
    variable wall equal wall
-   fix 10 halt 10 v_wall > 3600.0
+   fix 1 halt 10 v_wall > 3600.0
 
 Similarly one can stop the run after a predetermined amount of
 simulation time, which is useful when using a :ref:`variable timestep<fix-dt-reset>`:
@@ -115,7 +115,15 @@ simulation time, which is useful when using a :ref:`variable timestep<fix-dt-res
 ::
 
    variable time equal time
-   fix 10 halt 10 v_time > 1.0e-3
+   fix 1 halt 10 v_time > 1.0e-3
+
+One can also stop the run if a file exists. The example below
+checks for a file named "EXIT" in the current directory:
+
+::
+
+   variable file equal is_file(EXIT)
+   fix 1 halt 10 v_file > 0
 
 The choice of operators listed above are the usual comparison
 operators. The XOR operation (exclusive or) is also included as "|^".
