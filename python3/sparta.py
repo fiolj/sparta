@@ -43,7 +43,7 @@ class sparta:
 
     try:
       if not name: self.lib = CDLL("libsparta.so", RTLD_GLOBAL)
-      else: self.lib = CDLL("libsparta_{}.so".format(name), RTLD_GLOBAL)
+      else: self.lib = CDLL(f"libsparta_{name}.so", RTLD_GLOBAL)
     except BaseException:
       type, value, tb = sys.exc_info()
       traceback.print_exception(type, value, tb)

@@ -1,4 +1,4 @@
-#!/usr/bin/env python -i
+#!/usr/bin/env python
 # preceeding line should have path for Python on your machine
 
 # trivial.py
@@ -12,7 +12,7 @@ import sys
 
 argv = sys.argv
 if len(argv) != 2:
-  print("Syntax: trivial.py in.sparta")
+  print("Syntax: trivial.py in.trivial")
   sys.exit()
 
 infile = sys.argv[1]

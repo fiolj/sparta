@@ -1,4 +1,4 @@
-#!/usr/bin/env python -i
+#!/usr/bin/env python
 # preceeding line should have path for Python on your machine
 
 # demo.py
