@@ -12,15 +12,15 @@ today = date.today().strftime("%d/%m/%Y")
 
 # -- Project information -----------------------------------------------------
 
-project = f'SPARTA  ({format(today)})'
-copyright = date.today().strftime("%Y")
+project = f"SPARTA ({today})"
 author = 'SPARTA'
 
 # The full version, including alpha/beta/rc tags
 # release = '26 Feb 2021'
 release = ''
+version = f"{release}(build: {today})"
 
-version = release + "  (build: {})".format(today)
+copyright = f"SPARTA - {date.today().strftime('%Y')}"
 
 # -- General configuration ---------------------------------------------------
 master_doc = 'index'
