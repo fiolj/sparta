@@ -9,11 +9,10 @@
 # -- Path setup --------------------------------------------------------------
 from datetime import date
 today = date.today().strftime("%d/%m/%Y")
-
+theyear = date.today().strftime("%Y")
 # -- Project information -----------------------------------------------------
 
 project = f'SPARTA  ({format(today)})'
-copyright = date.today().strftime("%Y")
 author = 'SPARTA'
 
 # The full version, including alpha/beta/rc tags
@@ -21,6 +20,8 @@ author = 'SPARTA'
 release = ''
 
 version = release + "  (build: {})".format(today)
+
+copyright = theyear
 
 # -- General configuration ---------------------------------------------------
 master_doc = 'index'
@@ -46,7 +47,6 @@ pygments_style = 'emacs'
 # pygments_style = 'manni'
 # pygments_style = 'paraiso-light'
 # pygments_style = 'rainbow_dash'
-
 
 highlight_language = "xorg.conf"
 # highlight_language = "sparta"
