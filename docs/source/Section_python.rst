@@ -1,13 +1,13 @@
 
 
-.. _python-interface-sparta:
+.. _python-11-interface-sparta:
 
-##########################
-Python interface to SPARTA
-##########################
+##############################
+11. Python interface to SPARTA
+##############################
 
-This section describes how to build and use SPARTA via a Python
-interface.
+This section describes various ways that SPARTA and Python can be used
+together.
 
    - 11.1 :ref:`Building SPARTA as a shared library<python-building-sparta-shared-library>`
    - 11.2 :ref:`Installing the Python wrapper into Python<python-installing-wrapper-into>`
@@ -15,60 +15,52 @@ interface.
    - 11.4 :ref:`Testing the Python-SPARTA interface<python-testing-pythonspar-interface>`
    - 11.5 :ref:`Using SPARTA from Python<python-sparta>`
    - 11.6 :ref:`Example Python scripts that use SPARTA<python-example-scripts-sparta>`
+   - 11.7 :ref:`Calling Python from SPARTA<python-calling-sparta>`
+
+If you are not familiar with `Python <https://www.python.org>`_, it is
+a powerful scripting and programming language which can do almost
+everything that compiled languages like C, C++, or Fortran can do in
+fewer lines of code. It also comes with a large collection of add-on
+modules for many purposes (either bundled or easily installed from
+Python code repositories).  The major drawback is slower execution
+speed of the script code compared to compiled programming languages.
+But when the script code is interfaced to optimized compiled code,
+performance can be on par with a standalone executable, so long as the
+scripting is restricted to high-level operations.  Thus Python is also
+convenient to use as a "glue" language to "drive" a program like
+SPARTA through its library interface, or to hook multiple pieces of
+software together, such as a simulation code and a visualization tool,
+or to run a coupled multi-scale or multi-physics model.
 
 The SPARTA distribution includes the file python/sparta.py which wraps
-the library interface to SPARTA.  This file makes it possible to
-run SPARTA, invoke SPARTA commands or give it an input script, extract
-SPARTA results, and modify internal SPARTA variables, either from a
-Python script or interactively from a Python prompt.  You can do the
-former in serial or parallel.  Running Python interactively in
-parallel does not generally work, unless you have a package installed
-that extends your Python to enable multiple instances of Python to
-read what you type.
+the library interface to SPARTA.  That interface is exposed to Python
+either when calling SPARTA from Python or when calling Python from a
+SPARTA input script and then calling back to SPARTA from Python code.
+It is a C-library interface which is designed to be easy to add
+functionality to, thus the Python interface to SPARTA is easy to
+extend as well.
 
-`Python <http://www.python.org>`__ is a powerful scripting and programming
-language which can be used to wrap software like SPARTA and many other
-packages.  It can be used to glue multiple pieces of software
-together, e.g. to run a coupled or multiscale model.  See :ref:`Section 4.7<howto-coupling-sparta-other-codes>` of the manual and the examples/COUPLE
-directory of the distribution for more ideas about coupling SPARTA to
-other codes.  See :ref:`Section 2.4<start-building-sparta-library>` about how
-to build SPARTA as a library, and :ref:`Section 4.6<howto-library-interface-sparta>` for a description of the library
-interface provided in src/library.cpp and src/library.h and how to
-extend it for your needs.  As described below, that interface is what
-is exposed to Python.  It is designed to be easy to add functions to.
-This can extend the Python inteface as well.  See details below.
+The Python wrapper for SPARTA uses the amazing "ctypes" package in
+Python, which auto-generates the interface code needed between Python
+and a set of C interface routines for a library.  Ctypes is part of
+standard Python for versions 2.5 and later.  You can check which
+version of Python you have installed, by simply typing "python" at a
+shell prompt.
 
-.. important::
-
-  The examples/COUPLE dir has not been added to the
-  distribution yet.
-
-By using the Python interface, SPARTA can also be coupled with a GUI
-or other visualization tools that display graphs or animations in real
-time as SPARTA runs.  Examples of such scripts are included in the
-python directory.
-
-Two advantages of using Python are how concise the language is, and
-that it can be run interactively, enabling rapid development and
-debugging of programs.  If you use it to mostly invoke costly
-operations within SPARTA, such as running a simulation for a
-reasonable number of timesteps, then the overhead cost of invoking
-SPARTA thru Python will be negligible.
+If you create interesting Python scripts that run SPARTA or
+interesting Python functions that can be called from a SPARTA input
+script, that you think would be generally useful, please post them as
+a pull request to our `GitHub site
+<https://github.com/sparta/sparta>`_, and they can be added to the
+SPARTA distribution or web page.
 
 Before using SPARTA from a Python script, you need to do two things.
 You need to build SPARTA as a dynamic shared library, so it can be
 loaded by Python.  And you need to tell Python how to find the library
 and the Python wrapper file python/sparta.py.  Both these steps are
-discussed below.  If you wish to run SPARTA in parallel from Python,
+discussed next.  If you wish to run SPARTA in parallel from Python,
 you also need to extend your Python with MPI.  This is also discussed
 below.
-
-The Python wrapper for SPARTA uses the amazing and magical (to me)
-"ctypes" package in Python, which auto-generates the interface code
-needed between Python and a set of C interface routines for a library.
-Ctypes is part of standard Python for versions 2.5 and later.  You can
-check which version of Python you have installed, by simply typing
-"python" at a shell prompt.
 
 .. _python-building-sparta-shared-library:
 
@@ -327,7 +319,7 @@ first importing from the sparta.py file:
    >>> from ctypes import CDLL
    >>> CDLL("libsparta.so")
 
-If an error occurs, carefully go thru the steps in :ref:`Section 2.4<start-building-sparta-library>` and above about building a shared
+If an error occurs, carefully go thru the steps in :ref:`Section 4<start-building-sparta-library>` and above about building a shared
 library and about insuring Python can find the necessary two files it
 needs.
 
@@ -566,7 +558,7 @@ What is returned depends on whether the compute calculates a scalar or
 vector or array.  For a scalar, a single double value is returned.  If
 the compute or fix calculates a vector or array, a pointer to the
 internal SPARTA data is returned, which you can use via normal Python
-subscripting.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>` of the
+subscripting.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>` of the
 manual for a discussion of global, per particle, per grid, and per
 surf data, and of scalar, vector, and array data types.  See the doc
 pages for individual :ref:`computes<compute>` for a description of what
@@ -603,4 +595,68 @@ directory of the SPARTA distribution, to illustrate what is possible
 when Python wraps SPARTA.
 
 See the python/README file for more details.
+
+SPARTA has several commands which can be used to invoke Python
+code directly from an input script:
+
+.. _python-calling-sparta:
+
+**************************
+Calling Python from SPARTA
+**************************
+
+There are SPARTA input script commands which can invoke Python code directly.
+
+   - :ref:`python<python>`
+   - :ref:`python-style variables<varaible>`
+   - :ref:`equal-style and grid-style variables with formulas containing Python function wrappers<variable>`
+
+The :ref:`python<python>` command can be used to define and execute a
+Python function that you write the code for.  The Python function can
+also be assigned to a SPARTA python-style variable via the
+:ref:`variable<variable>` command.  Each time the variable is
+evaluated, either in the SPARTA input script itself, or by another
+SPARTA command that uses the variable, this will trigger the Python
+function to be invoked.
+
+The Python function can also be referenced in the formula used to
+define an :ref:`equal-style or grid-style variable<variable>`, using
+the syntax for a :ref:`Python function wrapper<variable>`.  This make
+it easy to pass SPARTA-related arguments to the Python function, as
+well as to invoke it whenever the equal- or grid-style variable is
+evaluated.  For a grid-style variable it means the Python function can
+be invoked once per grid cell, using per-grid properties as arguments
+to the function.
+
+The Python code for the function can be included directly in the input
+script or in an auxiliary file.  The function can have arguments which
+are mapped to SPARTA variables (also defined in the input script) and
+it can return a value to a SPARTA variable.  This is thus a mechanism
+for your input script to pass information to a piece of Python code,
+ask Python to execute the code, and return information to your input
+script.
+
+.. note::
+
+  that a Python function can be arbitrarily complex.  It can import
+  other Python modules, instantiate Python classes, call other Python
+  functions, etc.  The Python code that you provide can contain more
+  code than the single function.  It can contain other functions or
+  Python classes, as well as global variables or other mechanisms for
+  storing state between calls from SPARTA to the function.
+
+The Python function you provide can consist of "pure" Python code that
+only performs operations provided by standard Python.  However, the
+Python function can also "call back" to SPARTA through its
+Python-wrapped library interface, in the manner described above.  This
+means it can issue SPARTA input script commands or query and set
+internal SPARTA state.  As an example, this can be useful in an input
+script to create a more complex loop with branching logic, than can be
+created using the simple looping and branching logic enabled by the
+:ref:`next<next>` and :ref:`if<if>` commands.
+
+See the :ref:`python<python>` and :ref:`variable<>` <variable>`
+command doc pages for more info on using Python from a SPARTA input
+script including examples of Python code you can write for both pure
+Python operations and callbacks to SPARTA.
 

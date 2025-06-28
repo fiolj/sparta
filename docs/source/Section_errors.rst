@@ -1,21 +1,23 @@
 
 
-######
-Errors
-######
+.. _errors-12:
+
+##########
+12. Errors
+##########
 
 This section describes the various kinds of errors you can encounter
 when using SPARTA.
 
-12.1 :ref:`Common problems<errors-common-problems>`
+1 :ref:`Common problems<errors-121-common-problems>`
 12.2 :ref:`Reporting bugs<errors-reporting-bugs>`
 12.3 :ref:`Error & warning messages<errors-error-warning-messages>`
 
-.. _errors-common-problems:
+.. _errors-121-common-problems:
 
-***************
-Common problems
-***************
+********************
+12.1 Common problems
+********************
 
 If two SPARTA runs do not produce the same answer on different
 machines or different numbers of processors, this is typically not a

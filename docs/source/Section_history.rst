@@ -1,24 +1,24 @@
 
 .. _history:
 
-.. _history-future:
+.. _history-13-future:
 
-##################
-Future and history
-##################
+######################
+13. Future and history
+######################
 
 This section lists features we are planning to add to SPARTA, features
 of previous versions of SPARTA, and features of other parallel
 molecular dynamics codes I've distributed.
 
-13.1 :ref:`Coming attractions<history-coming-attraction>`
+1 :ref:`Coming attractions<history-131-coming-attraction>`
 13.2 :ref:`Past versions<history-past-versions>`
 
-.. _history-coming-attraction:
+.. _history-131-coming-attraction:
 
-******************
-Coming attractions
-******************
+***********************
+13.1 Coming attractions
+***********************
 
 The `wish list link <https://sparta.github.io/future.html>`__ on the
 SPARTA web page gives a list of features we are planning to add to

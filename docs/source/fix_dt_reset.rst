@@ -61,7 +61,7 @@ cell timesteps calculated by a compute or fix.  The new global
 timestep can be output by the :ref:`stats_style<stats-style>` command.
 Or it can be used to overwrite the current global timestep for a
 variable time simulation.  See this
-:ref:`section<howto-custom-perparticl-pergrid,-persurf>` of the manual for more
+:ref:`section<howto-617-custom-perparticl-pergrid,>` of the manual for more
 information on variable timestep simulations.
 
 The *Nfreq* argument specifies how often the global timestep is calculated.
@@ -92,7 +92,7 @@ This is done by specifying the *step* argument like this:
   data used to calculate the timestep, such as mean collision time, temperature, or particle speed, may be zero.
   Also, some cells may not contain particles, either due to their type or to local flow conditions.
   For example, split cells (in which sub cells store the particles) and cells interior to surface
-  objects do not store particles.  See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the manual for
+  objects do not store particles.  See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the manual for
   details of how SPARTA defines child, unsplit, split, and sub cells.
 
 From the per-cell timesteps, 3 values are extracted by this fix.  They

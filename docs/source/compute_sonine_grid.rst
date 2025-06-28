@@ -192,7 +192,7 @@ Grid cells not in the specified *group-ID* will have zeroes for all
 their values.
 
 The array can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
+from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
 for an overview of SPARTA output options.
 
 The per-grid array values will be in the :ref:`units<units>`

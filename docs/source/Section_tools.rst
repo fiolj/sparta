@@ -1,11 +1,11 @@
 
 .. _tools:
 
-.. _tools-additional:
+.. _tools-9-additional:
 
-################
-Additional tools
-################
+###################
+9. Additional tools
+###################
 
 SPARTA is designed to be a computational kernel for performing DSMC
 computations.  Additional pre- and post-processing steps are often
@@ -198,7 +198,7 @@ SPARTA grid and surface data (input and output) to ParaView format.
 
 `ParaView <http://www.paraview.org>`__ is a popular, powerful, freely-available
 visualization package.  You must have ParaView installed to use the
-Python scripts.  See :ref:`Section 6.16<howto-visualizin-sparta-output-paraview>` for more details.
+Python scripts.  See :ref:`Section 6.16<howto-616-visualizin-sparta-output>` for more details.
 
 The scripts were developed by Tom Otahal (Sandia).
 
@@ -236,7 +236,7 @@ one or more simple objects whose surface is represented as triangules
 (3d) or line segments (2d).  Such files can be read by the
 :ref:`read_surf<read-surf>` command.  The 3d objects it supports are a
 sphere, box, and spikysphere (randomized radius at each point).  The
-2d objects it supports are a circle, rectangle, triangle, and
+d objects it supports are a circle, rectangle, triangle, and
 spikycircly (randomized radius at each point).
 
 See the header of the script for the syntax used to run it.

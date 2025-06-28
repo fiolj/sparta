@@ -109,7 +109,7 @@ that you can check if the command operated as you expect.
 
   that this command assigns all flavors of child grid cells to
   groups, which includes unsplit, cut, split, and sub cells.  See
-  :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the manual gives details
+  :ref:`Section 6.8<howto-68-details-grid-geometry>` of the manual gives details
   of how SPARTA defines child, unsplit, split, and sub cells.
 
 The following styles can be used for grid groups.
@@ -181,7 +181,7 @@ The following styles can be used for either grid or surface groups.
 
 The *subtract* style takes a list of two or more existing group names
 as arguments.  All grid cells or surface elements that belong to the
-1st group, but not to any of the other groups are added to the
+st group, but not to any of the other groups are added to the
 specified group.
 
 The *union* style takes a list of one or more existing group names as

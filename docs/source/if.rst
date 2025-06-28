@@ -189,7 +189,7 @@ they also return either a 1.0 or 0.0 depending on whether the
 relationship between A and B is TRUE or FALSE (or just A).  The
 logical AND operator will return 1.0 if both its arguments are
 non-zero, else it returns 0.0.  The logical OR operator will return
-1.0 if either of its arguments is non-zero, else it returns 0.0.  The
+if either of its arguments is non-zero, else it returns 0.0.  The
 logical NOT operator returns 1.0 if its argument is 0.0, else it
 returns 0.0.  The 3 logical operators can only be used to operate on
 numbers, not on strings.

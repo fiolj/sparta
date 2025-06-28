@@ -9,14 +9,14 @@
 
 This section describes how to extend SPARTA by modifying its source code.
 
-10.1 :ref:`Compute styles<modify-101-compute-styles>`
-10.2 :ref:`Fix styles<modify-102-fix-styles>`
-10.3 :ref:`Region styles<modify-103-region-styles>`
-10.4 :ref:`Collision styles<modify-104-collision-styles>`
-10.5 :ref:`Surface collision styles<modify-105-surface-collision-styles>`
-10.6 :ref:`Chemistry styles<modify-106-chemistry-styles>`
-10.7 :ref:`Dump styles<modify-107-dump-styles>`
-10.8 :ref:`Input script commands<modify-108-input-script-commands>`
+10.1 :ref:`Compute styles<modify-compute-styles>`
+10.2 :ref:`Fix styles<modify-fix-styles>`
+10.3 :ref:`Region styles<modify-region-styles>`
+10.4 :ref:`Collision styles<modify-collision-styles>`
+10.5 :ref:`Surface collision styles<modify-surface-collision-styles>`
+10.6 :ref:`Chemistry styles<modify-chemistry-styles>`
+10.7 :ref:`Dump styles<modify-dump-styles>`
+10.8 :ref:`Input script commands<modify-input-script-commands>`
 
 SPARTA is designed in a modular fashion so as to be easy to modify and
 extend with new functionality.
@@ -102,11 +102,11 @@ email to the `developers <https://sparta.github.io/authors.html>`__.
 
 - If you add something you think is generally useful, also send an email to the `developers <https://sparta.github.io/authors.html>`__ so we can consider adding it to the SPARTA distribution.  
 
-.. _modify-101-compute-styles:
+.. _modify-compute-styles:
 
-*******************
-10.1 Compute styles
-*******************
+**************
+Compute styles
+**************
 
 :ref:`Compute style commands<compute>` calculate instantaneous
 properties of the simulated system.  They can be global properties, or
@@ -149,11 +149,11 @@ class.  See compute.h for details.  All of these methods are optional.
 Flags may also need to be set by a compute to enable specific
 properties.  See the compute.h header file for one-line descriptions.
 
-.. _modify-102-fix-styles:
+.. _modify-fix-styles:
 
-***************
-10.2 Fix styles
-***************
+**********
+Fix styles
+**********
 
 :ref:`Fix style commands<fix>` perform operations during the
 timestepping loop of a simulation.  They can define methods which are
@@ -209,11 +209,11 @@ are used.  It define an integer vector called "ionambi" to flag
 particles as ambipolar ions, and a floatin-point array called
 "velambi" to store the velocity vector for the associated electron.
 
-.. _modify-103-region-styles:
+.. _modify-region-styles:
 
-******************
-10.3 Region styles
-******************
+*************
+Region styles
+*************
 
 :ref:`Region style commands<region>` define geometric regions
 within the simulation box.  Other commands use regions
@@ -224,11 +224,11 @@ class.  See region.h for details.  The inside() method is required.
 
 inside: determine whether a point is inside/outside the region
 
-.. _modify-104-collision-styles:
+.. _modify-collision-styles:
 
-*********************
-10.4 Collision styles
-*********************
+****************
+Collision styles
+****************
 
 :ref:`Collision style commands<collide>` define collision models that
 calculate interactions between particles in the same grid cell.
@@ -257,11 +257,11 @@ except init() and modify_params().
    * - perform_collision
      -  calculate the outcome of a 2-particle collision
 
-.. _modify-105-surface-collision-styles:
+.. _modify-surface-collision-styles:
 
-*****************************
-10.5 Surface collision styles
-*****************************
+************************
+Surface collision styles
+************************
 
 :ref:`Surface collision style commands<collide>` define collision
 models that calculate interactions between a particle and surface
@@ -281,11 +281,11 @@ required except dynamic().
    * - dynamic
      -  allow surface property to change during a simulation
 
-.. _modify-106-chemistry-styles:
+.. _modify-chemistry-styles:
 
-*********************
-10.6 Chemistry styles
-*********************
+****************
+Chemistry styles
+****************
 
 Particle/particle chemistry models in SPARTA are specified by
 :ref:`reaction style commands<react>` which define lists of possible
@@ -303,11 +303,11 @@ the attempt() method is required.
    * - attempt
      -  attempt a chemical reaction between two particles
 
-.. _modify-107-dump-styles:
+.. _modify-dump-styles:
 
-****************
-10.7 Dump styles
-****************
+***********
+Dump styles
+***********
 
 :ref:`Dump commands<dump>` output snapshots of simulation data to a
 file periodically during a simulation, in a particular file format.
@@ -336,11 +336,11 @@ memory_usage() methods are optional; all the others are required.
    * - memory_usage
      -  tally memory usage
 
-.. _modify-108-input-script-commands:
+.. _modify-input-script-commands:
 
-**************************
-10.8 Input script commands
-**************************
+*********************
+Input script commands
+*********************
 
 New commands can be added to SPARTA that will be recognized in input
 scripts.  For example, the :ref:`create_particles<create-particles>`,

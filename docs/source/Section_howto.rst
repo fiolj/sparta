@@ -1,29 +1,44 @@
 
 .. _howto:
 
-.. _howto-discussion:
+.. _howto-6-discussion:
 
-##################
-How-to discussions
-##################
+#####################
+6. How-to discussions
+#####################
 
 The following sections describe how to perform common tasks using
 SPARTA, as well as provide some techinical details about how
 SPARTA works.
 
-.. contents::
-   :depth: 1
-   :local:
+6.1 :ref:`2d simulations<howto-61-2d-simulation>`
+6.2 :ref:`Axisymmetric simulations<howto-62-axisymmetr-simulation>`
+6.3 :ref:`Running multiple simulations from one input script<howto-63-running-multiple-simulation>`
+6.4 :ref:`Output from SPARTA (stats, dumps, computes, fixes, variables)<howto-64-output-sparta-(stats,>`
+6.5 :ref:`Visualizing SPARTA snapshots<howto-65-visualizin-sparta-snapshots>`
+6.6 :ref:`Library interface to SPARTA<howto-66-library-interface-sparta>`
+6.7 :ref:`Coupling SPARTA to other codes<howto-67-coupling-sparta-other>` 
+6.8 :ref:`Details of grid geometry in SPARTA<howto-68-details-grid-geometry>`
+6.9 :ref:`Details of surfaces in SPARTA<howto-69-details-surfaces-sparta>`
+6.10 :ref:`Restarting a simulation<howto-610-restarting-simulation>`
+6.11 :ref:`Using the ambipolar approximation<howto-611-ambipolar-approximat>`
+6.12 :ref:`Using multiple vibrational energy levels<howto-612-multiple-vibrationa-energy>`
+6.13 :ref:`Surface elements: explicit, implicit, distributed<howto-613-surface-elements:-explicit,>`
+6.14 :ref:`Implicit surface ablation<howto-614-implicit-surface-ablation>`
+6.15 :ref:`Transparent surface elements<howto-615-transparen-surface-elements>`
+6.16 :ref:`Visualizing SPARTA output with ParaView<howto-616-visualizin-sparta-output>`
+6.17 :ref:`Custom per-particle, per-grid, per-surf attributes<howto-617-custom-perparticl-pergrid,>`
+6.18 :ref:`Variable timestep simulations<howto-618-variable-timestep-simulation>`
 
 The example input scripts included in the SPARTA distribution and
 highlighted in :ref:`Section 5<example>` of the manual also
 show how to setup and run various kinds of simulations.
 
-.. _howto-2d-simulation:
+.. _howto-61-2d-simulation:
 
-**************
-2d simulations
-**************
+******************
+6.1 2d simulations
+******************
 
 In SPARTA, as in other DSMC codes, a 2d simulation means that
 particles move only in the xy plane, but still have all 3 xyz
@@ -44,11 +59,11 @@ model.
 Many of the example input scripts included in the SPARTA distribution
 are for 2d models.
 
-.. _howto-axisymmetr-simulation:
+.. _howto-62-axisymmetr-simulation:
 
-************************
-Axisymmetric simulations
-************************
+****************************
+6.2 Axisymmetric simulations
+****************************
 
 In SPARTA, an axi-symmetric model is a 2d model.  An example input
 script is provided in the examples/axisymm directory.
@@ -73,11 +88,11 @@ created when using the :ref:`create_particles<create-particles>` and
   axi-symmetric grid cell is the volume its 2d area sweeps out when
   rotated around the y=0 axis of symmetry.
 
-.. _howto-running-multiple-simulation-one:
+.. _howto-63-running-multiple-simulation:
 
-**************************************************
-Running multiple simulations from one input script
-**************************************************
+******************************************************
+6.3 Running multiple simulations from one input script
+******************************************************
 
 This can be done in several ways.  See the documentation for
 individual commands for more details on how these examples work.
@@ -170,11 +185,11 @@ Initially, 3 simulations would be started simultaneously, one on each
 partition.  When one finished, that partition would then start the 4th
 simulation, and so forth, until all 8 were completed.
 
-.. _howto-output-sparta-(stats,-dumps,:
+.. _howto-64-output-sparta-(stats,:
 
-*************************************************************
-Output from SPARTA (stats, dumps, computes, fixes, variables)
-*************************************************************
+*****************************************************************
+6.4 Output from SPARTA (stats, dumps, computes, fixes, variables)
+*****************************************************************
 
 There are four basic kinds of SPARTA output:
 
@@ -470,11 +485,11 @@ vector input could be a column of an array.
      -  per surf vector/array
      -
 
-.. _howto-visualizin-sparta-snapshots:
+.. _howto-65-visualizin-sparta-snapshots:
 
-****************************
-Visualizing SPARTA snapshots
-****************************
+********************************
+6.5 Visualizing SPARTA snapshots
+********************************
 
 The :ref:`dump image<dump-image>` command can be used to do on-the-fly
 visualization as a simulation proceeds.  It works by creating a series
@@ -504,15 +519,15 @@ snapshots.
 Additional Pizza.py tools may be added that allow visualization of
 surface and grid cell information as output by SPARTA.
 
-.. _howto-library-interface-sparta:
+.. _howto-66-library-interface-sparta:
 
-***************************
-Library interface to SPARTA
-***************************
+*******************************
+6.6 Library interface to SPARTA
+*******************************
 
 As described in :ref:`Section 2.4<start-building-sparta-library>`, SPARTA can
 be built as a library, so that it can be called by another code, used
-in a :ref:`coupled manner<howto-coupling-sparta-other-codes>` with other codes, or
+in a :ref:`coupled manner<howto-67-coupling-sparta-other>` with other codes, or
 driven through a :ref:`Python interface<python>`.
 
 .. note::
@@ -588,11 +603,11 @@ back into SPARTA.
   The examples/COUPLE dir has not been added to the
   distribution yet.
 
-.. _howto-coupling-sparta-other-codes:
+.. _howto-67-coupling-sparta-other:
 
-******************************
-Coupling SPARTA to other codes
-******************************
+**********************************
+6.7 Coupling SPARTA to other codes
+**********************************
 
 SPARTA is designed to allow it to be coupled to other codes.  For
 example, a continuum finite element (FE) simulation might use SPARTA
@@ -659,7 +674,7 @@ Python wrapper provided with SPARTA that operates through the SPARTA
 library interface.
 
 The files src/library.cpp and library.h contain the C-style interface
-to SPARTA.  See :ref:`Section 6.6<howto-library-interface-sparta>` of the manual for a description
+to SPARTA.  See :ref:`Section 6.6<howto-66-library-interface-sparta>` of the manual for a description
 of the interface and how to extend it for your needs.
 
 .. note::
@@ -675,11 +690,11 @@ of the interface and how to extend it for your needs.
   before syncing them up periodically.  Or it might instantiate multiple
   instances of SPARTA to perform different calculations.
 
-.. _howto-details-grid-geometry-sparta:
+.. _howto-68-details-grid-geometry:
 
-**********************************
-Details of grid geometry in SPARTA
-**********************************
+**************************************
+6.8 Details of grid geometry in SPARTA
+**************************************
 
 SPARTA overlays a grid over the simulation domain which is used to
 track particles and to co-locate particles in the same grid cell for
@@ -855,11 +870,11 @@ with the overhead of increased particle communication.  This is
 because randomly assigning grid cells to processors can balance the
 computational load in a statistical sense.
 
-.. _howto-details-surfaces-sparta:
+.. _howto-69-details-surfaces-sparta:
 
-*****************************
-Details of surfaces in SPARTA
-*****************************
+*********************************
+6.9 Details of surfaces in SPARTA
+*********************************
 
 A SPARTA simulation can define one or more surface objects, each of
 which are read in via the :ref:`read_surf<read-surf>`.  For 2d
@@ -982,11 +997,11 @@ affects all the randomized operations in a simulation, so in general
 you should only expect a restarted run to be statistically similar to
 the original run.
 
-.. _howto-ambipolar-approximat:
+.. _howto-611-ambipolar-approximat:
 
-*********************************
-Using the ambipolar approximation
-*********************************
+**************************************
+6.11 Using the ambipolar approximation
+**************************************
 
 The ambipolar approximation is a computationally efficient way to
 model low-density plasmas which contain positively-charged ions and
@@ -1118,11 +1133,11 @@ of their associated ambipolar electrons.
 The :ref:`fix ambipolar<howto-fixes-generate-values-output>` ambiploar.html doc page explains how to
 restart ambipolar simulations where the fix is used.
 
-.. _howto-multiple-vibrationa-energy-levels:
+.. _howto-612-multiple-vibrationa-energy:
 
-****************************************
-Using multiple vibrational energy levels
-****************************************
+*********************************************
+6.12 Using multiple vibrational energy levels
+*********************************************
 
 DSMC models for collisions between one or more polyatomic species can
 include the effect of multiple discrete vibrational levels, where a
@@ -1180,11 +1195,11 @@ The :ref:`read_restart<read-restart>` doc page explains how to restart
 simulations where a fix like :ref:`fix vibmode<fix-vibmode>` has been
 used to store extra per-particle properties.
 
-.. _howto-surface-elements:-explicit,-implicit,:
+.. _howto-613-surface-elements:-explicit,:
 
-*************************************************
-Surface elements: explicit, implicit, distributed
-*************************************************
+******************************************************
+6.13 Surface elements: explicit, implicit, distributed
+******************************************************
 
 SPARTA can work with two kinds of surface elements: explicit and
 implicit.  Explicit surfaces are lines (2d) or triangles (3d) defined
@@ -1243,11 +1258,11 @@ These command do not yet support distributed surfaces:
    - :ref:`fix move/surf<fix-move-surf>`
    - :ref:`remove_surf<remove-surf>`
 
-.. _howto-implicit-surface-ablation:
+.. _howto-614-implicit-surface-ablation:
 
-*************************
-Implicit surface ablation
-*************************
+******************************
+6.14 Implicit surface ablation
+******************************
 
 The implicit surfaces described in the previous section can be used to
 perform ablation simulations, where the set of implicit surface
@@ -1318,11 +1333,11 @@ Squares or Marching Cubes algorithm.
   as ParaView which can read SPARTA surface element files after suitable
   post-processing.  See the `Section tools   paraview <http://www.paraview.org>`__ doc page for more details.
 
-.. _howto-transparen-surface-elements:
+.. _howto-615-transparen-surface-elements:
 
-****************************
-Transparent surface elements
-****************************
+*********************************
+6.15 Transparent surface elements
+*********************************
 
 Transparent surfaces are useful for tallying flow statistics.
 Particles pass through them unaffected.  However the flux of particles
@@ -1371,7 +1386,7 @@ count, mass flux, and energy flux of particles that pass through
 transparent surface elements.  These quantities can then be time
 averaged via the :ref:`fix ave/surf<fix-ave-surf>` command or output
 via the :ref:`dump surf<dump>` command in the usual ways,
-as described in :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`.
+as described in :ref:`Section 6.4<howto-64-output-sparta-(stats,>`.
 
 The examples/circle/in.circle.transparent script shows how to use
 these commands when modeling flow around a 2d circle.  Two additional
@@ -1383,11 +1398,11 @@ files.  The resulting tallies are output with the
 with a :ref:`dump surf<dump>` command for more resolution if the 2
 lines were each defined as multiple line segments.
 
-.. _howto-visualizin-sparta-output-paraview:
+.. _howto-616-visualizin-sparta-output:
 
-***************************************
-Visualizing SPARTA output with ParaView
-***************************************
+********************************************
+6.16 Visualizing SPARTA output with ParaView
+********************************************
 
 The *sparta/tools/paraview* directory contains two Python programs
 that can be used to convert SPARTA surface and grid data to ParaView
@@ -1739,11 +1754,11 @@ rank. The programs are decoupled in this way to allow faster
 *grid2paraview_cells.py* runs once a set of sorted files has been
 generated by *sort_sparta_grid_file.py*.
 
-.. _howto-custom-perparticl-pergrid,-persurf:
+.. _howto-617-custom-perparticl-pergrid,:
 
-**************************************************
-Custom per-particle, per-grid, per-surf attributes
-**************************************************
+*******************************************************
+6.17 Custom per-particle, per-grid, per-surf attributes
+*******************************************************
 
 Particles, grid cells, and surface elements can have custom attributes
 which store either single or multiple values per particle, per grid
@@ -1834,11 +1849,11 @@ surface element in per-surf attributes.  These will vary over the
 course of a simulation, and their status can be monitored with the
 various output commands listed above.
 
-.. _howto-variable-timestep-simulation:
+.. _howto-618-variable-timestep-simulation:
 
-*****************************
-Variable timestep simulations
-*****************************
+**********************************
+6.18 Variable timestep simulations
+**********************************
 
 As an alternative to utilization of a user-provided constant timestep,
 the variable timestep option enables SPARTA to compute global

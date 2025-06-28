@@ -71,7 +71,7 @@ global simulation box.  Surfaces can be explicit or implicit.
 This command reads implicit surfaces from a file containing grid
 corner point values which implicitly define the surface elements.  See
 the :ref:`read_surf<read-surf>` command to read explicit surfaces from
-a different kind of file.  See the :ref:`Howto 6.13<howto-surface-elements:-explicit,-implicit,>` section of the manual for an
+a different kind of file.  See the :ref:`Howto 6.13<howto-613-surface-elements:-explicit,>` section of the manual for an
 explantion of explicit versus implicit surfaces as well as distributed
 versus non-distributed storage.  You cannot mix explicit and implicit
 surfaces in the same simulation.

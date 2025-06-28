@@ -118,7 +118,7 @@ Description:
 
 Use one or more values as inputs every few timesteps to create a
 single histogram.  The histogram can then be averaged over longer
-timescales.  The resulting histogram can be used by other :ref:`output commands<howto-transparen-surface-elements>`, and can also be written to a
+timescales.  The resulting histogram can be used by other :ref:`output commands<howto-615-transparen-surface-elements>`, and can also be written to a
 file.  The fix ave/histo/weight command has identical syntax to fix
 ave/histo, except that exactly two values must be specified.  See
 details below.

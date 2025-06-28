@@ -1,11 +1,11 @@
 
 .. _perf:
 
-.. _perf-performanc-scalabilit:
+.. _perf-8-performanc-scalabilit:
 
-#########################
-Performance & scalability
-#########################
+############################
+8. Performance & scalability
+############################
 
 The SPARTA distribution includes a bench sub-directory with several
 sample problems.  The Benchmarks page of the `SPARTA WWW Site <http://sparta.sandia.gov>`__

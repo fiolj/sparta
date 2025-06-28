@@ -92,7 +92,7 @@ surface(s) of one or more physical objects which will be embedded in
 the global simulation box.  Surfaces can be explicit or implicit.
 This command reads explicit surfaces from a file containing a list of
 explicit surfaces.  See the :ref:`read_isurf<read-isurf>` command to
-read implicit surfaces from a different kind of file.  See the :ref:`Howto 6.13<howto-surface-elements:-explicit,-implicit,>` section of the manual for an
+read implicit surfaces from a different kind of file.  See the :ref:`Howto 6.13<howto-613-surface-elements:-explicit,>` section of the manual for an
 explantion of explicit versus implicit surfaces as well as distributed
 versus non-distributed storage.  You cannot mix explicit and implicit
 surfaces in the same simulation.
@@ -468,7 +468,7 @@ transparent, meaning particles pass through them.  This is useful for
 tallying flow statistics.  The :ref:`surf_collide transparent<surf-collide>` command must also be used to assign a
 transparent collision model to those the surface elements.  The
 :ref:`compute surf<compute-surf>` command will tally fluxes differently
-for transparent surf elements.  The :ref:`Section 6.15<howto-transparen-surface-elements>` doc page provides an overview of
+for transparent surf elements.  The :ref:`Section 6.15<howto-615-transparen-surface-elements>` doc page provides an overview of
 transparent surfaces.  See those doc pages for details.
 
 The *invert* keyword does not change the origin or any vertex

@@ -1,11 +1,11 @@
 
 .. _accelerate:
 
-.. _accelerate-accelerati-sparta-performanc:
+.. _accelerate-5-accelerati-sparta-performanc:
 
-###############################
-Accelerating SPARTA performance
-###############################
+##################################
+5. Accelerating SPARTA performance
+##################################
 
 This section describes various methods for improving SPARTA
 performance for different classes of problems running on different
@@ -16,9 +16,11 @@ packages provided with SPARTA that
 contains code optimized for certain kinds of hardware, including
 multi-core CPUs, GPUs, and Intel Xeon Phi coprocessors.
 
-.. contents::
-   :depth: 1
-   :local:
+- 5.1 :ref:`Measuring performance<accelerate-measuring-performanc>` 
+
+- 5.2 :ref:`Accelerator packages with optimized styles<accelerate-packages-optimized-styles>`
+
+- 5.3 :ref:`KOKKOS package<accelerate-kokkos-package>`
 
 The `Benchmark page <https://sparta.github.io/bench.html>`__ of the SPARTA
 web site gives performance results for the various accelerator

@@ -262,7 +262,7 @@ rows is 4 for a 2d simulation for the 4 faces (xlo, xhi, ylo, yhi),
 and it is 6 for a 3d simulation (xlo, xhi, ylo, yhi, zlo, zhi).
 
 The array can be accessed by any command that uses global array values
-from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
+from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
 for an overview of SPARTA output options.
 
 The array values will be in the :ref:`units<units>` appropriate to the

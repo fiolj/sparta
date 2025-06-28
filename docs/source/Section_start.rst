@@ -1,17 +1,22 @@
 
 
-.. _start-getting-started:
+.. _start-2-getting-started:
 
-###############
-Getting Started
-###############
+##################
+2. Getting Started
+##################
 
 This section describes how to build and run SPARTA, for both new and
 experienced users.
 
-.. contents::
-   :depth: 1
-   :local:
+2.1 :ref:`What's in the SPARTA distribution<start-what's-sparta-distributi>`
+2.2 :ref:`Making SPARTA<start-making-sparta>`
+2.3 :ref:`Making SPARTA with optional packages<start-making-sparta-optional-packages>`
+2.4 :ref:`Building SPARTA as a library<start-building-sparta-library>`
+2.5 :ref:`Testing SPARTA<start-25-testing-sparta>`
+2.6 :ref:`Running SPARTA<start-running-sparta>`
+2.7 :ref:`Command-line options<start-commandlin-options>`
+2.8 :ref:`Screen output<start-sparta-screen-output>`
 
 .. _start-what's-sparta-distributi:
 
@@ -214,7 +219,7 @@ src/spatype.h.  The only reason to use the BIGBIG setting is if you
 have a regular grid with more than ~2 billion grid cells or a
 hierarchical grid with enough levels that grid cell IDs cannot fit in
 a 32-bit integer.  In either case, SPARTA will generate an error
-message for "Cell ID has too many bits".  See :ref:`Section 4.8<howto-details-grid-geometry-sparta>` of the manual for details on how cell
+message for "Cell ID has too many bits".  See :ref:`Section 4.8<howto-68-details-grid-geometry>` of the manual for details on how cell
 IDs are formatted.  The only reason to use the SMALL setting is if
 your machine does not support 64-bit integers.
 
@@ -542,7 +547,7 @@ src/spatype.h.  The only reason to use the BIGBIG setting is if you
 have a regular grid with more than ~2 billion grid cells or a
 hierarchical grid with enough levels that grid cell IDs cannot fit in
 a 32-bit integer.  In either case, SPARTA will generate an error
-message for "Cell ID has too many bits".  See :ref:`Section 4.8<howto-details-grid-geometry-sparta>` of the manual for details on how cell
+message for "Cell ID has too many bits".  See :ref:`Section 4.8<howto-68-details-grid-geometry>` of the manual for details on how cell
 IDs are formatted.  The only reason to use the SMALL setting is if
 your machine does not support 64-bit integers.
 
@@ -1049,7 +1054,7 @@ Building SPARTA as a library
 
 SPARTA can be built as either a static or shared library, which can
 then be called from another application or a scripting language.  See
-:ref:`Section 6.7<howto-coupling-sparta-other-codes>` for more info on coupling
+:ref:`Section 6.7<howto-67-coupling-sparta-other>` for more info on coupling
 SPARTA to other codes.  See :ref:`Section 11<python>` for more
 info on wrapping and running SPARTA from Python.
 
@@ -1193,21 +1198,21 @@ When used from a C or Fortran program or a scripting language like
 Python, the library has a simple function-style interface, provided in
 src/library.cpp and src/library.h.
 
-See :ref:`Section_howto 4.7<howto-coupling-sparta-other-codes>` of the manual for
+See :ref:`Section_howto 4.7<howto-67-coupling-sparta-other>` of the manual for
 ideas on how to couple SPARTA to other codes via its library
 interface.  See :ref:`Section_python<python>` of the manual for
 a description of the Python wrapper provided with SPARTA that operates
 through the SPARTA library interface.
 
 The files src/library.cpp and library.h define the C-style API for
-using SPARTA as a library.  See :ref:`Section_howto 4.6<howto-library-interface-sparta>` of the manual for a description of the
+using SPARTA as a library.  See :ref:`Section_howto 6<howto-66-library-interface-sparta>` of the manual for a description of the
 interface and how to extend it for your needs.
 
-.. _start-testing-sparta:
+.. _start-25-testing-sparta:
 
-**************
-Testing SPARTA
-**************
+******************
+2.5 Testing SPARTA
+******************
 
 SPARTA can be tested by using the CMake build system.
 
@@ -1565,7 +1570,7 @@ Option -plog will override the name of the partition log files file.N.
   physical processors.
 
 To run multiple independent simulatoins from one input script, using
-multiple partitions, see :ref:`Section 6.3<howto-running-multiple-simulation-one>` of
+multiple partitions, see :ref:`Section 6.3<howto-63-running-multiple-simulation>` of
 the manual.  World- and universe-style variables are useful in this
 context.
 

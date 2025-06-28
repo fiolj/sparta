@@ -180,7 +180,7 @@ values.
 
 If a value begins with "s\_", the name of a custom per-surf vector or
 array must follow.  Custom attributes can store either a single or
-multiple values per surface element.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
+multiple values per surface element.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
 attributes and command that define them.  For example, the
 :ref:`read_surf<read-surf>`, :ref:`fix surf/temp<fix-surf-temp>`, and
 :ref:`surf_react adsorb<surf-react-adsorb>` commands can define

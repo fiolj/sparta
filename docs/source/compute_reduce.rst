@@ -199,7 +199,7 @@ per grid cell, or per surface element.  They can be defined and
 initialized in data files, e.g. via the :ref:`read_surf<read-surf>`
 command.  Or they can be defined and used by specific commands,
 e.g. :ref:`fix ambipolar<fix-ambipolar>` or :ref:`fix surf/temp<fix-surf-temp>` or :ref:`surf_react adsorb<surf-react-adsorb>`.  The name of each attribute is set by
-the user or defined by the command.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
+the user or defined by the command.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
 attributes.
 
 If no bracketed integer is appended, the custom attribute must be a
@@ -285,7 +285,7 @@ This compute calculates a global scalar if a single input value is
 specified or a global vector of length N where N is the number of
 inputs, and which can be accessed by indices 1 to N.  These values can
 be used by any command that uses global scalar or vector values from a
-compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>` for an
+compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>` for an
 overview of SPARTA output options.
 
 The scalar or vector values will be in whatever :ref:`units<units>` the
