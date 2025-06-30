@@ -11,8 +11,9 @@ This section lists features we are planning to add to SPARTA, features
 of previous versions of SPARTA, and features of other parallel
 molecular dynamics codes I've distributed.
 
-13.1 :ref:`Coming attractions<history-coming-attraction>`
-13.2 :ref:`Past versions<history-past-versions>`
+.. contents::
+   :depth: 1
+   :local:
 
 .. _history-coming-attraction:
 
