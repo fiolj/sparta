@@ -12,14 +12,15 @@ today = date.today().strftime("%d/%m/%Y")
 theyear = date.today().strftime("%Y")
 # -- Project information -----------------------------------------------------
 
-project = f'SPARTA  ({format(today)})'
+project = f"SPARTA ({today})"
 author = 'SPARTA'
 
 # The full version, including alpha/beta/rc tags
 # release = '26 Feb 2021'
 release = ''
+version = f"{release}(build: {today})"
 
-version = release + "  (build: {})".format(today)
+copyright = f"SPARTA - {date.today().strftime('%Y')}"
 
 copyright = theyear
 
