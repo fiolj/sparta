@@ -43,6 +43,7 @@ Thumbs.db
 
 
 doc/PDFgen.sh
-doc/Eqs/auto/
 docs/doctrees/
 docs/html/
+auto/
+
