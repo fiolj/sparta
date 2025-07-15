@@ -643,7 +643,7 @@ Restrictions:
 *************
 
 This command is part of the PYTHON package.  It is only enabled if
-SPARTA was built with that package.  See the :ref:`Section start 3<start-making-sparta-optional-packages>` doc page for more info.
+SPARTA was built with that package.  See the :ref:`Section start 2.3<start-making-sparta-optional-packages>` doc page for more info.
 
 Building SPARTA with the PYTHON package will link SPARTA with the Python
 library on your system.  Settings to enable this are in the

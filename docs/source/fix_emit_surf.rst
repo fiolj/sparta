@@ -76,7 +76,7 @@ Emit particles from a group of surface elements, continuously during a
 simulation.  If invoked every timestep, this fix creates a continuous
 outflux of particles from the surface elements in the group.  This
 command can only be used with explicit surfaces, not implicit.  See
-:ref:`Section Howto 6.13<howto-613-surface-elements:-explicit,>` for a discussion of
+:ref:`Section Howto 6.13<howto-surface-elements:-explicit,-implicit,>` for a discussion of
 explicit and implicit surface elements.
 
 The properties of the added particles are determined by the mixture
@@ -276,7 +276,7 @@ per-surf vectors or arrays defined by other commands.  E.g. the
 included in the surface data file.  Or the custom command which allows
 for definition of custom per-surf vectors or arrays and their
 initialization by use of :ref:`surf-style variables<variable>`.  See
-:ref:`Section Howto 6.17<howto-617-custom-perparticl-pergrid,>` for a discussion of
+:ref:`Section Howto 6.17<howto-custom-perparticl-pergrid,-persurf>` for a discussion of
 custom per-surf attributes.
 
 .. important::

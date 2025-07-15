@@ -164,7 +164,7 @@ field, as a function of wavelength or a component of the wavelength.
   distance from the origin in a periodic sense.  Thus for a grid that is
   NxMxP, the Kx values associated with the x-dimension and used in those
   formulas are not Kx = 0,1,2 ... N-2,N-1.  Rather they are Kx = 0,1,2,
-  N/2-1, N/2, N/2-1, ... 2,1.  Similary for Ky in the y-dimension
+  ... N/2-1, N/2, N/2-1, ... 2,1.  Similary for Ky in the y-dimension
   with a max index of M/2, and Kz in the z-dimension with a max index of
   P/2.
 
@@ -203,7 +203,7 @@ a per-grid vector as output.  Otherwise it produces a per-grid array.
   particles that are geometrically inside the split cell.
 
 The array can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
+from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
 for an overview of SPARTA output options.
 
 The per-grid vector or array values will be in the :ref:`units<units>`

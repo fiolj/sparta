@@ -78,7 +78,7 @@ chemical reactions that can occur on the surface itself.
 
 One or more models can be defined and assigned to different surfaces
 or simulation box boundaries via the :ref:`surf_modify<surf-modify>` or
-:ref:`bound_modify<bound-modify>` commands.  See :ref:`Section 6.9<howto-69-details-surfaces-sparta>` for more details of how SPARTA defines
+:ref:`bound_modify<bound-modify>` commands.  See :ref:`Section 6.9<howto-details-surfaces-sparta>` for more details of how SPARTA defines
 surfaces as collections of geometric elements, triangles in 3d and
 line segments in 2d.  Also see the :ref:`react<react>` command for
 specification of a gas-phase chemistry reaction model.
@@ -239,7 +239,7 @@ All the surface reaction models calculate a global vector of values.
 The values can be used by the :ref:`stats_style<stats-style>` command
 and by :ref:`variables<variable>` that define formulas.  The latter
 means they can be used by any command that uses a variable as input,
-e.g. "the :ref:`fix ave/time<fix-ave-time>` command.  See :ref:`Section 4.4<howto-64-output-sparta-(stats,>` for an overview of SPARTA output
+e.g. "the :ref:`fix ave/time<fix-ave-time>` command.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>` for an overview of SPARTA output
 options.
 
 The *global*, *prob*, and *adsorb* styles each compute a vector of

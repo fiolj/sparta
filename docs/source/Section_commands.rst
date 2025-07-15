@@ -1,26 +1,23 @@
 
+
 .. _commands:
 
-.. _commands-3:
-
-###########
-3. Commands
-###########
+########
+Commands
+########
 
 This section describes how a SPARTA input script is formatted and what
 commands are used to define a SPARTA simulation.
 
-1 :ref:`SPARTA input script<commands-31-sparta-input-script>`
-3.2 :ref:`Parsing rules<commands-parsing-rules>`
-3.3 :ref:`Input script structure<commands-input-script-structure>`
-3.4 :ref:`Commands listed by category<commands-listed-by-category>`
-3.5 :ref:`Commands listed alphabetically<commands-individual>`
+.. contents::
+   :depth: 1
+   :local:
 
-.. _commands-31-sparta-input-script:
+.. _commands-sparta-input-script:
 
-***********************
-3.1 SPARTA input script
-***********************
+*******************
+SPARTA input script
+*******************
 
 SPARTA executes by reading commands from a input script (text file),
 one line at a time.  When the input script ends, SPARTA exits.  Each

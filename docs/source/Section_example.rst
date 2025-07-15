@@ -1,11 +1,11 @@
 
 .. _example:
 
-.. _example-7-problems:
+.. _example-problems:
 
-###################
-7. Example problems
-###################
+################
+Example problems
+################
 
 The SPARTA distribution includes an examples sub-directory with
 several sample problems.  Each problem is in a sub-directory of its

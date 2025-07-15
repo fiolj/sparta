@@ -63,7 +63,7 @@ domain, as if they were a single particle, which is how they are
 stored within SPARTA.  This means a normal timestep can be used.
 
 An overview of how to run simulations with the ambipolar approximation
-is given in the :ref:`Section 6.11<howto-611-ambipolar-approximat>`.  This
+is given in the :ref:`Section 6.11<howto-ambipolar-approximat>`.  This
 includes gas-phase collisions and chemistry as well as surface
 chemistry when particles collide with surface elements or the global
 boundary of the simulation box.  The section also lists all the

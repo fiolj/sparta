@@ -55,7 +55,7 @@ Description:
 
 This command converts all currently defined explicit surface elements
 to implicit surface elements.  One motivation for this operation is
-that implicit surfaces can be ablated over time via the :ref:`fix ablate<fix-ablate>` command.  See the :ref:`How to 6.13<howto-613-surface-elements:-explicit,>` section of the manual for an
+that implicit surfaces can be ablated over time via the :ref:`fix ablate<fix-ablate>` command.  See the :ref:`How to 6.13<howto-surface-elements:-explicit,-implicit,>` section of the manual for an
 explantion of explicit versus implicit surfaces.
 
 Explicit surface elements are triangles in 3d or line segments in 2d.

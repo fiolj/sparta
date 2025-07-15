@@ -81,7 +81,7 @@ grid cells, or surface elements.  To create or reset an attribute a
 variable is specified and evaluated.  Custom attributes can be can be
 vectors (single value per entity) or arrays (mutiple values per
 entity).  They can also be integer or floating point values.  See
-:ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of
+:ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of
 custom attributes.
 
 The specified *style* setting is *particle* or *grid* or *surf*

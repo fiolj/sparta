@@ -1,21 +1,17 @@
 
 
-.. _python-11-interface-sparta:
+.. _python-interface-sparta:
 
-##############################
-11. Python interface to SPARTA
-##############################
+##########################
+Python interface to SPARTA
+##########################
 
 This section describes various ways that SPARTA and Python can be used
 together.
 
-   - 11.1 :ref:`Building SPARTA as a shared library<python-building-sparta-shared-library>`
-   - 11.2 :ref:`Installing the Python wrapper into Python<python-installing-wrapper-into>`
-   - 11.3 :ref:`Extending Python with MPI to run in parallel<python-extending-mpi-run-parallel>`
-   - 11.4 :ref:`Testing the Python-SPARTA interface<python-testing-pythonspar-interface>`
-   - 11.5 :ref:`Using SPARTA from Python<python-sparta>`
-   - 11.6 :ref:`Example Python scripts that use SPARTA<python-example-scripts-sparta>`
-   - 11.7 :ref:`Calling Python from SPARTA<python-calling-sparta>`
+.. contents::
+   :depth: 1
+   :local:
 
 If you are not familiar with `Python <https://www.python.org>`_, it is
 a powerful scripting and programming language which can do almost
@@ -319,7 +315,7 @@ first importing from the sparta.py file:
    >>> from ctypes import CDLL
    >>> CDLL("libsparta.so")
 
-If an error occurs, carefully go thru the steps in :ref:`Section 4<start-building-sparta-library>` and above about building a shared
+If an error occurs, carefully go thru the steps in :ref:`Section 2.4<start-building-sparta-library>` and above about building a shared
 library and about insuring Python can find the necessary two files it
 needs.
 
@@ -558,7 +554,7 @@ What is returned depends on whether the compute calculates a scalar or
 vector or array.  For a scalar, a single double value is returned.  If
 the compute or fix calculates a vector or array, a pointer to the
 internal SPARTA data is returned, which you can use via normal Python
-subscripting.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>` of the
+subscripting.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>` of the
 manual for a discussion of global, per particle, per grid, and per
 surf data, and of scalar, vector, and array data types.  See the doc
 pages for individual :ref:`computes<compute>` for a description of what

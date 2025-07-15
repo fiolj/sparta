@@ -66,7 +66,7 @@ Description:
 
 Define a computation that simply stores grid attributes for each grid
 cell in a grid cell group.  This is useful for values which can be
-used by other :ref:`output commands<howto-64-output-sparta-(stats,>` that take
+used by other :ref:`output commands<howto-output-sparta-(stats,-dumps,>` that take
 computes as inputs.  See for example, the :ref:`compute reduce<compute-reduce>`, :ref:`fix ave/grid<fix-ave-grid>`, :ref:`dump grid<dump>`, and :ref:`grid-style variable<variable>` commands.
 
 Only grid cells in the grid group specified by *group-ID* are included
@@ -94,7 +94,7 @@ attributes are the coordinates of the center point of the grid cell.
 The *zlo*, *zhi*, *zc* attributes cannot be used for a 2d simulation.
 
 The *vol* attribute is the flow volume of the grid cell (or area in
-d).  Flow volume is the portion of the grid cell that is accessible
+2d).  Flow volume is the portion of the grid cell that is accessible
 to particles, i.e. outside any closed surface that may intersect the
 cell.
 
@@ -112,7 +112,7 @@ inputs.
 
 This compute performs calculations for all flavors of child grid cells
 in the simulation, which includes unsplit, cut, split, and sub cells.
-See :ref:`Section 6.8<howto-68-details-grid-geometry>` of the manual gives
+See :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the manual gives
 details of how SPARTA defines child, unsplit, split, and sub cells.
 The *id* and *xlo,ylo,zlo* and *xhi,yhi,zhi* values for a split cell
 and its sub cells are all the same.  The *vol* of a cut cell is the
@@ -124,7 +124,7 @@ Grid cells not in the specified *group-ID* will output zeroes for all
 their values.
 
 The vector or array can be accessed by any command that uses per-atom
-values from a compute as input.  See :ref:`Section 4.4<howto-64-output-sparta-(stats,>` for an overview of SPARTA output
+values from a compute as input.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>` for an overview of SPARTA output
 options.
 
 The vector or array values will be in whatever :ref:`units<units>` the

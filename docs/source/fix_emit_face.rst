@@ -290,7 +290,7 @@ Restrictions:
 
 Particles cannot be emitted from periodic faces of the simulation box.
 Particles cannot be emitted from *z* faces of the simluation box for a
-d simulation.
+2d simulation.
 
 A *perspecies* setting of *yes* can only be used with an *n* setting
 of *Np* = 0.  Likewise, the *modulate* keyword can only be used with

@@ -1,22 +1,17 @@
 
 .. _modify:
 
-.. _modify-10-modifying-extending-sparta:
+.. _modify-modifying-extending-sparta:
 
-################################
-10. Modifying & extending SPARTA
-################################
+############################
+Modifying & extending SPARTA
+############################
 
 This section describes how to extend SPARTA by modifying its source code.
 
-10.1 :ref:`Compute styles<modify-compute-styles>`
-10.2 :ref:`Fix styles<modify-fix-styles>`
-10.3 :ref:`Region styles<modify-region-styles>`
-10.4 :ref:`Collision styles<modify-collision-styles>`
-10.5 :ref:`Surface collision styles<modify-surface-collision-styles>`
-10.6 :ref:`Chemistry styles<modify-chemistry-styles>`
-10.7 :ref:`Dump styles<modify-dump-styles>`
-10.8 :ref:`Input script commands<modify-input-script-commands>`
+.. contents::
+   :depth: 1
+   :local:
 
 SPARTA is designed in a modular fashion so as to be easy to modify and
 extend with new functionality.

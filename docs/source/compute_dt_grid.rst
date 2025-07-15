@@ -72,7 +72,7 @@ grid cell size.  The per-grid cell timesteps can be output in a
 per-grid dump file for post analyses.  Or they can be used as input to
 the :ref:`fix dt/reset<fix-dt-reset>` command to adjust the global
 timestep for a variable timestep simulation.  See this
-:ref:`section<howto-618-variable-timestep-simulation>` of the manual for more
+:ref:`section<howto-variable-timestep-simulation>` of the manual for more
 information on variable timestep simulations.
 
 Only grid cells in the grid group specified by *group-ID* are included
@@ -146,7 +146,7 @@ This compute calculates a per-grid vector.
   zero (including temperature, speed, and mean collision time).
 
 The vector can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 4.4<howto-64-output-sparta-(stats,>`
+from a compute as input.  See :ref:`Section 4.4<howto-output-sparta-(stats,-dumps,>`
 for an overview of SPARTA output options.
 
 Styles with a *kk* suffix are functionally the same as the

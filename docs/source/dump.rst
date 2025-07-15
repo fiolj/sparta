@@ -338,7 +338,7 @@ means of creating quantities to output to a dump file.
 
 The *p_name* and *p_name\[N\]* attributes allow custom per-particle
 vectors or arrays defined by some other command to be output.  The
-name should be replaced by the name of the attribute.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
+name should be replaced by the name of the attribute.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
 attributes and command that define them.  For example, the :ref:`fix ambipolar<fix-ambipolar>` command which defines the per-particle
 custom vector "ionambi" and custom array "velambi".
 
@@ -360,7 +360,7 @@ as part of the *grid* style.
 
   that dump grid will output one line (per snapshot) for 3 kinds of
   child cells: unsplit cells, cut cells, and sub cells of split cells.
-  :ref:`Section 6.8<howto-68-details-grid-geometry>` of the manual gives details
+  :ref:`Section 6.8<howto-details-grid-geometry-sparta>` of the manual gives details
   of how SPARTA defines child, unsplit, cut, split, and sub cells.  This
   is different than :ref:`compute<compute>` or :ref:`fix<fix>` commands
   which produce per grid information; they also include split cells in
@@ -446,7 +446,7 @@ quantities to output to a dump file.
 
 The *g_name* and *g_name\[N\]* attributes allow custom per-grid cell
 vectors or arrays defined by some other command to be output.  The
-name should be replaced by the name of the attribute.  See :ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of custom
+name should be replaced by the name of the attribute.  See :ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of custom
 attributes and command that define them.  For example, the
 :ref:`read_grid<read-grid>` and :ref:`surf_react implicit<surf-react>` commands can define per-grid
 attributes.  (The surf/react implicit command has not yet been
@@ -519,7 +519,7 @@ quantities to output to a dump file.
 The *s_name* and *s_name\[N\]* attributes allow custom per-surface
 element vectors or arrays defined by some other command to be output.
 The name should be replaced by the name of the attribute.  See
-:ref:`Section 6.17<howto-617-custom-perparticl-pergrid,>` for more discussion of
+:ref:`Section 6.17<howto-custom-perparticl-pergrid,-persurf>` for more discussion of
 custom attributes and command that define them.  For example, the
 :ref:`read_surf<read-surf>`, :ref:`fix surf/temp<fix-surf-temp>`, and
 :ref:`surf_react adsorb<surf-react-adsorb>` commands can define

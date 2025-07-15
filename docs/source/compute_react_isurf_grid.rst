@@ -124,7 +124,7 @@ are not assigned to the specified *reaction-ID* will output zeroes for
 all their values.
 
 The array can be accessed by any command that uses per-grid values
-from a compute as input.  See :ref:`Section 6.4<howto-64-output-sparta-(stats,>`
+from a compute as input.  See :ref:`Section 6.4<howto-output-sparta-(stats,-dumps,>`
 for an overview of SPARTA output options.
 
 The per-grid array values are counts of the number of reactions that

@@ -106,7 +106,7 @@ style; see equation 11.4 in :ref:`(Bird94)<Bird94>`.
 .. note::
 
   If you are using the ambipolar approximation with charged
-  species, as described in :ref:`Section 6.11<howto-611-ambipolar-approximat>`,
+  species, as described in :ref:`Section 6.11<howto-ambipolar-approximat>`,
   and you have used the :ref:`collide_modify ambipolar   yes<collide-modify>` command to enable ambipolar collisions (not
   required), and you are using a mixture ID with multiple groups, then
   the ambipolar electron species must be in a group by itself.
