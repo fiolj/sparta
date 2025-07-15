@@ -11,7 +11,7 @@ These sections provide an overview of what SPARTA can do, describe
 what it means for SPARTA to be an open-source code, and acknowledge
 the funding and people who have contributed to SPARTA.
 
-1.1 :ref:`What is SPARTA<intro-what-sparta>`
+1.1 :ref:`What is SPARTA<intro1-what-sparta>`
 1.2 :ref:`SPARTA features<intro-sparta-features>`
 1.3 :ref:`Grids and surfaces in SPARTA<intro-grids-surfaces-sparta>`
 1.4 :ref:`Open source distribution<intro-open-source-distributi>`
